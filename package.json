@@ -1,0 +1,22 @@
+{
+  "name": "hmda-platform-ui",
+  "version": "0.0.0",
+  "description": "Frontend code for the HMDA filing system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cfpb/hmda-platform-ui.git"
+  },
+  "keywords": [
+    "HMDA"
+  ],
+  "author": "Consumer Financial Protection Bureau",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/cfpb/hmda-platform-ui/issues"
+  },
+  "homepage": "https://github.com/cfpb/hmda-platform-ui#readme"
+}
