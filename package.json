@@ -4,7 +4,10 @@
   "description": "Frontend code for the HMDA filing system",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf ./dist && mkdir ./dist ./dist/js ./dist/css",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify ./src/js/index.js > ./dist/js/app.min.js",
+    "prebuild": "npm run clean"
   },
   "repository": {
     "type": "git",
@@ -18,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/cfpb/hmda-platform-ui/issues"
   },
-  "homepage": "https://github.com/cfpb/hmda-platform-ui#readme"
+  "homepage": "https://github.com/cfpb/hmda-platform-ui#readme",
+  "devDependencies": {
+    "browserify": "^13.0.0"
+  }
 }
