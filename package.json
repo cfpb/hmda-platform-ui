@@ -6,7 +6,10 @@
   "scripts": {
     "clean": "rm -rf ./dist && mkdir ./dist ./dist/js ./dist/css",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify ./src/js/index.js > ./dist/js/app.min.js",
+    "build:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
+    "build:css": "node-sass ./src/scss/ -o ./dist/css/",
+    "build": "npm run build:js && npm run build:css",
+    "build:watch": "watch 'npm run build' ./src",
     "prebuild": "npm run clean"
   },
   "repository": {
@@ -23,6 +26,8 @@
   },
   "homepage": "https://github.com/cfpb/hmda-platform-ui#readme",
   "devDependencies": {
-    "browserify": "^13.0.0"
+    "browserify": "^13.0.0",
+    "node-sass": "^3.4.2",
+    "watch": "^0.17.1"
   }
 }
