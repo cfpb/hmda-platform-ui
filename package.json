@@ -4,7 +4,7 @@
   "description": "Frontend code for the HMDA filing system",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -rf ./dist && mkdir ./dist ./dist/js ./dist/css",
+    "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
     "build:css": "node-sass ./src/scss/ -o ./dist/css/",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "browserify": "^13.0.0",
     "node-sass": "^3.4.2",
+    "rimraf": "^2.5.1",
     "watch": "^0.17.1"
   }
 }
