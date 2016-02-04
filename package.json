@@ -1,0 +1,38 @@
+{
+  "name": "hmda-platform-ui",
+  "version": "0.0.0",
+  "description": "Frontend code for the HMDA filing system",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
+    "build:css": "node-sass ./src/scss/ -o ./dist/css/",
+    "build": "npm run build:js && npm run build:css",
+    "build:watch": "watch 'npm run build' ./src",
+    "prebuild": "npm run clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cfpb/hmda-platform-ui.git"
+  },
+  "keywords": [
+    "HMDA"
+  ],
+  "author": "Consumer Financial Protection Bureau",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/cfpb/hmda-platform-ui/issues"
+  },
+  "homepage": "https://github.com/cfpb/hmda-platform-ui#readme",
+  "devDependencies": {
+    "babel-preset-react": "^6.3.13",
+    "babelify": "^7.2.0",
+    "browserify": "^13.0.0",
+    "node-sass": "^3.4.2",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "rimraf": "^2.5.1",
+    "watch": "^0.17.1"
+  }
+}
