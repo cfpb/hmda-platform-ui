@@ -6,11 +6,16 @@
   "scripts": {
     "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
-    "build:css": "node-sass ./src/scss/ -o ./dist/css/",
-    "build": "npm run build:js && npm run build:css",
-    "build:watch": "watch 'npm run build' ./src",
-    "prebuild": "npm run clean"
+    "predev": "npm run clean",
+    "dev:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
+    "dev:sass": "node-sass ./src/scss/ -o ./dist/css/",
+    "dev:html": "cp src/index.html dist/index.html",
+    "dev:build": "npm run dev:js && npm run dev:sass && npm run dev:html",
+    "watch:js": "nodemon -e js,jsx -w src/js -x 'npm run dev:js'",
+    "watch:sass": "nodemon -e scss -w src/scss -x 'npm run dev:sass'",
+    "watch:html": "nodemon -e html -w src -x 'npm run dev:html'",
+    "watch": "npm run watch:js & npm run watch:sass & npm run watch:html & npm run browser",
+    "browser": "browser-sync start --files \"./dist/css/*.css, ./dist/js/*.js, ./dist/*.html\" --server ./dist"
   },
   "repository": {
     "type": "git",
@@ -28,13 +33,22 @@
   "devDependencies": {
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
+    "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",
     "jest-cli": "^0.8.2",
+    "node-fs-extra": "^0.8.1",
     "node-sass": "^3.4.2",
+    "nodemon": "^1.8.1",
     "react": "^0.14.7",
     "react-addons-test-utils": "^0.14.7",
     "react-dom": "^0.14.7",
+    "reactify": "^1.1.1",
     "rimraf": "^2.5.1",
     "watch": "^0.17.1"
+  },
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
   }
 }
