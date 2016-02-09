@@ -43,8 +43,7 @@
     "react-addons-test-utils": "^0.14.7",
     "react-dom": "^0.14.7",
     "reactify": "^1.1.1",
-    "rimraf": "^2.5.1",
-    "watch": "^0.17.1"
+    "rimraf": "^2.5.1"
   },
   "browserify": {
     "transform": [
