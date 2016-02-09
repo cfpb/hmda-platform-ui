@@ -4,8 +4,9 @@
   "description": "Frontend code for the HMDA filing system",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css",
     "test": "echo 'Error: no test specified' && exit 1",
+    "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css",
+    "browser": "browser-sync start --files './dist' --server ./dist --no-open",
     "predev": "npm run clean",
     "dev:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
     "dev:sass": "node-sass ./src/scss/ -o ./dist/css/",
@@ -14,8 +15,7 @@
     "watch:js": "nodemon -e js,jsx -w src/js -x 'npm run dev:js'",
     "watch:sass": "nodemon -e scss -w src/scss -x 'npm run dev:sass'",
     "watch:html": "nodemon -e html -w src -x 'npm run dev:html'",
-    "watch": "npm run watch:js & npm run watch:sass & npm run watch:html & npm run browser",
-    "browser": "browser-sync start --files './dist' --server ./dist"
+    "watch": "npm run watch:js & npm run watch:sass & npm run watch:html & npm run browser"
   },
   "repository": {
     "type": "git",
