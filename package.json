@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo 'Error: no test specified' && exit 1",
     "predev": "npm run clean",
     "dev:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
     "dev:sass": "node-sass ./src/scss/ -o ./dist/css/",
@@ -15,7 +15,7 @@
     "watch:sass": "nodemon -e scss -w src/scss -x 'npm run dev:sass'",
     "watch:html": "nodemon -e html -w src -x 'npm run dev:html'",
     "watch": "npm run watch:js & npm run watch:sass & npm run watch:html & npm run browser",
-    "browser": "browser-sync start --files \"./dist/css/*.css, ./dist/js/*.js, ./dist/*.html\" --server ./dist"
+    "browser": "browser-sync start --files './dist' --server ./dist"
   },
   "repository": {
     "type": "git",
