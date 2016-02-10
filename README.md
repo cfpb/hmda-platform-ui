@@ -28,23 +28,32 @@ This repo contains the code for the entirety of the HMDA platform front-end, wor
 
 ## Dependencies
 
-TBD
+We use npm to manage front-end dependencies. You should have [npm installed](https://nodejs.org/en/).
+
+See the [package.json](https://github.com/cfpb/hmda-platform-ui/blob/master/package.json) file for application dependencies.
 
 ## Installation
 
-TBD
+``` shell
+$ git clone git@github.com:cfpb/hmda-platform-ui.git
+$ npm install
+```
 
-## Configuration
+## Building and viewing
 
-TBD
+There are several npm scripts available to run, see [package.json](https://github.com/cfpb/hmda-platform-ui/blob/master/package.json) `scripts` section. For local development the most useful is:
 
-## Usage
+``` shell
+npm run watch
+```
 
-TBD
+This script will build the application, make the site available to preview at `http://localhost:3000/`, and enable browser-sync for live reloading.
 
 ## How to test the software
 
-TBD
+``` shell
+$ npm test
+```
 
 ## Known issues
 
