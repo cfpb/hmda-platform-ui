@@ -4,7 +4,7 @@
   "description": "Frontend code for the HMDA filing system",
   "main": "index.js",
   "scripts": {
-    "test": "echo 'Error: no test specified' && exit 1",
+    "test": "jest",
     "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css",
     "browser": "browser-sync start --files './dist' --server ./dist --no-open",
     "predev": "npm run clean",
@@ -12,7 +12,7 @@
     "dev:sass": "node-sass ./src/scss/ -o ./dist/css/",
     "dev:html": "cp src/index.html dist/index.html",
     "dev:build": "npm run dev:js && npm run dev:sass && npm run dev:html",
-    "watch:js": "nodemon -e js,jsx -w src/js -x 'npm run dev:js'",
+    "watch:js": "nodemon -e js,jsx -w src/js -x 'npm run dev:js & npm test'",
     "watch:sass": "nodemon -e scss -w src/scss -x 'npm run dev:sass'",
     "watch:html": "nodemon -e html -w src -x 'npm run dev:html'",
     "watch": "npm run watch:js & npm run watch:sass & npm run watch:html & npm run browser"
@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/cfpb/hmda-platform-ui#readme",
   "devDependencies": {
+    "babel-jest": "^6.0.1",
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
     "browser-sync": "^2.11.1",
@@ -48,6 +49,15 @@
   "browserify": {
     "transform": [
       "reactify"
+    ]
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/react-dom",
+      "<rootDir>/node_modules/react-addons-test-utils",
+      "<rootDir>/node_modules/fbjs"
     ]
   }
 }
