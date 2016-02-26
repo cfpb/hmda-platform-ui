@@ -9,6 +9,7 @@ http.createServer(function (req, res) {
 
 function handlePost(req, res){
   console.log('handling post');
+  console.log(req.headers);
   req.on('data', function(chunk) {
       console.log("Body chunk: ");
       console.log(chunk.toString());

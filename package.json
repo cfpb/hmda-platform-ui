@@ -6,16 +6,17 @@
   "scripts": {
     "test": "jest",
     "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css",
-    "browser": "browser-sync start --files './dist' --server ./dist --no-open",
+    "browser": "./scripts/browser.js",
     "dev:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
     "dev:sass": "node-sass ./src/scss/ -o ./dist/css/",
     "dev:html": "cp src/index.html dist/index.html",
     "dev:build": "npm run dev:js && npm run dev:sass && npm run dev:html",
+    "mock": "nodemon api-mock/index.js",
     "postinstall": "npm run clean",
     "watch:js": "nodemon -e js,jsx -w src/js -x 'npm run dev:js & npm test'",
     "watch:sass": "nodemon -e scss -w src/scss -x 'npm run dev:sass'",
     "watch:html": "nodemon -e html -w src -x 'npm run dev:html'",
-    "watch": "npm run watch:js & npm run watch:sass & npm run watch:html & npm run browser"
+    "watch": "npm run watch:js & npm run watch:sass & npm run watch:html & npm run mock & npm run browser"
   },
   "repository": {
     "type": "git",
@@ -59,5 +60,9 @@
       "<rootDir>/node_modules/react-addons-test-utils",
       "<rootDir>/node_modules/fbjs"
     ]
+  },
+  "dependencies": {
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
   }
 }
