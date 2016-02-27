@@ -1,17 +1,16 @@
-
-jest.dontMock('../src/js/makeSubmitContainer.jsx');
-
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
+jest.autoMockOff();
+
 var makeSubmitContainer = require('../src/js/makeSubmitContainer.jsx');
 var SubmitContainer = makeSubmitContainer();
 
-describe('SubmitContainer', function() {
+describe('submitcontainer', function() {
   it('renders the form', function() {
     var form = TestUtils.renderIntoDocument(
-      <SubmitContainer/>
+      <SubmitContainer />
     );
     var formNode = ReactDOM.findDOMNode(form);
 
