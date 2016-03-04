@@ -2,17 +2,6 @@ var React = require('react');
 
 module.exports = function(url, cb){
 
-  var SubmitContainer = React.createClass({
-    render: function(){
-      return (
-        <div id="container">
-          <h4>Upload your HMDA data file to begin the submission process...</h4>
-          <SubmitForm/>
-        </div>
-      )
-    }
-  });
-
   url = url || '/';
   cb = cb || function(){};
 
@@ -27,7 +16,7 @@ module.exports = function(url, cb){
       if(!e.target.files) return;
       var file = e.target.files[0];
       console.log('setting file', file);
-      this.setState({file: file});
+      this.setState({file: file}, function(){console.log(this.state)})
     },
 
     getInitialState: function(){
@@ -81,5 +70,5 @@ module.exports = function(url, cb){
     }
   });
 
-  return SubmitContainer;
+  return SubmitForm;
 }
