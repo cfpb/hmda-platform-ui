@@ -16,7 +16,7 @@ module.exports = function(url, cb){
       if(!e.target.files) return;
       var file = e.target.files[0];
       console.log('setting file', file);
-      this.setState({file: file}, function(){console.log(this.state)})
+      this.setState({file: file});
     },
 
     getInitialState: function(){
