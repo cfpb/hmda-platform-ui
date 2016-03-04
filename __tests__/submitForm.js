@@ -1,13 +1,19 @@
-jest.autoMockOff();
+jest.dontMock('../src/js/makeSubmitForm.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
+var open, send, setRequestHeader, addEventListener, addUploadListener;
+createXHRmock();
+
 var makeSubmitForm = require('../src/js/makeSubmitForm.jsx');
-var SubmitForm = makeSubmitForm();
+var SubmitForm = makeSubmitForm('/submit', jest.genMockFn());
+
+
 
 describe('submitform', function(){
+
   var form = TestUtils.renderIntoDocument(
     <SubmitForm/>
   );
@@ -19,18 +25,54 @@ describe('submitform', function(){
 
   TestUtils.Simulate.change(
     TestUtils.scryRenderedDOMComponentsWithTag(form, 'input')[0],
-    {target: {files: [{size: 128, name: 'fakefile'}]}}
+    {target: {files: [new File(['thisisafakefile'], 'fakefile')]}}
   );
 
   it('sets the file and resets uploaded status', function(){
     expect(form.state.uploaded).toEqual(0);
     expect(form.state.file).toBeDefined();
-    expect(form.state.file.size).toEqual(128);
+    expect(form.state.file.size).toEqual(15);
     expect(form.state.file.name).toEqual('fakefile');
   });
 
-  /*TestUtils.Simulate.submit(
-    TestUtils.findRenderedDOMComponentsWithTag(form, 'form')
-  );*/
+  it('submits the form', function(){
+
+    TestUtils.Simulate.submit(
+      TestUtils.findRenderedDOMComponentWithTag(form, 'form')
+    );
+   
+    expect(open).toBeCalledWith('POST', '/submit');
+    
+    expect(setRequestHeader.mock.calls[0][0]).toEqual('Content-Type');
+    expect(setRequestHeader.mock.calls[0][1]).toEqual('text/data');
+    expect(setRequestHeader.mock.calls[1][0]).toEqual('Content-Disposition');
+    expect(setRequestHeader.mock.calls[1][1]).toEqual('inline; filename="' + form.state.file.name + '"');
+    
+    expect(send).toBeCalledWith(form.state.file);
+    
+  });
 
 });
+
+
+function createXHRmock() {
+  open = jest.genMockFn();
+  send = jest.genMockFn();
+  setRequestHeader = jest.genMockFn();
+  addEventListener = jest.genMockFn();
+  addUploadListener = jest.genMockFn();
+
+  var xhrMockClass = function () {
+      return {
+        open: open,
+        send: send,
+        addEventListener: addEventListener,
+        setRequestHeader: setRequestHeader,
+        upload: {
+          addEventListener: addUploadListener
+        }
+      };
+  };
+
+  window.XMLHttpRequest = jest.genMockFn().mockImpl(xhrMockClass);
+}

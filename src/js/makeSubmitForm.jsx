@@ -26,7 +26,6 @@ module.exports = function(url, cb){
     makeRequest: function(e){
       var xhr = new XMLHttpRequest();
       xhr.addEventListener('load', cb);
-
       xhr.upload.addEventListener('progress', function(e){
         console.log('progress', e, e.loaded, e.total);
         this.setState({uploaded: e.loaded});
