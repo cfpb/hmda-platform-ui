@@ -1,8 +1,12 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var FileSubmissionForm = require('./file-submission-form.jsx');
+var makeSubmitForm = require('./makeSubmitForm.jsx');
+
+var SubmitForm = makeSubmitForm('/submit', function(e){
+  console.log(e, 'file uploaded');
+});
 
 ReactDOM.render(
-  React.createElement(FileSubmissionForm, null),
+  React.createElement(SubmitForm, null),
   document.getElementById('app')
 );
