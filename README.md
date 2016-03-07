@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cfpb/hmda-platform-ui.svg?branch=master)](https://travis-ci.org/cfpb/hmda-platform-ui)
+
 # HMDA Platform UI
 
 ### This project is a work in progress.
