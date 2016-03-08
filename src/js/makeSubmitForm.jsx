@@ -37,7 +37,7 @@ module.exports = function(url, cb){
       xhr.send(this.state.file);
     },
 
-    render: function() {
+    render: function(){
       return (
         <div id="formWrapper">
           <form encType="multipart/form-data" onSubmit={this.handleSubmit}>

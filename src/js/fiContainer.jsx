@@ -29,3 +29,5 @@ var fiContainer = React.createClass({
     )
   }
 });
+
+module.exports = fiContainer;
