@@ -1,3 +1,27 @@
-.hidden{
+.hidden {
   display:none;
+}
+#fiContainer{
+  width: 50%;
+  margin-left:25%;
+}
+.fiStatusHeader {
+  margin-bottom:3px;
+}
+
+.fiStatusStartTime {
+  font: italic bold 0.7em sans-serif;
+  color: gray;
+}
+
+a {
+  text-decoration:underline;
+  color:blue;
+}
+a:hover {
+  cursor:pointer;
+}
+
+a:visited {
+  color:purple;
 }
