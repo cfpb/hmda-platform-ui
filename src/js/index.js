@@ -13,7 +13,7 @@ var SubmitForm = makeSubmitForm('/submit', function(e){
 api.getInstitutions(function(institutions){
   console.log(institutions);
   ReactDOM.render(
-    React.createElement(fiContainer, null, {institutions: institutions}),
+    React.createElement(fiContainer, {institutions: institutions}),
     document.getElementById('app')
   );
 });

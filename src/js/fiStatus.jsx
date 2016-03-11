@@ -1,8 +1,6 @@
-/*eslint-disable no-unused-vars*/
 var React = require('react');
 var api = require('./api');
-var cbLink = require('./cbLink');
-/*eslint-enable no-unused-vars*/
+var cbLink = require('./cbLink.jsx');
 
 function beginFiling(){
   console.log("Begin filing transition");
@@ -24,14 +22,12 @@ function sign(){
 var fiStatus = React.createClass({
 
   getInitialState: function(){
-    return {
-      name
-      status: 0,
-      editReports: []
-    }
+    return this.props.institution;
   },
 
-  getStartTime: function(startTime){
+  getStartTime: function(editReport){
+    if(!editReport) return;
+    var startTime = editReport.timestamp;
     var filingString = "Filing started ";
     var timeSince = Date.now() - startTime;
     var num;
@@ -54,14 +50,14 @@ var fiStatus = React.createClass({
   },
 
   resubmitComponent: function(){
-    return <span><cbLink text="Resubmit" callback={resubmit}/> - Resubmitting will allow you to correct any errors or invalid data encountered. Each error report will be saved so you can track your progress after resubmission.</span>
+    return <div>{React.createElement(cbLink, {text: 'Resubmit', callback: resubmit})} - Resubmitting will allow you to correct any errors or invalid data encountered. Each error report will be saved so you can track your progress after resubmission.</div>
   },
 
   editReportsComponent: function(){
     this.state.editReports.map(function(report, i){
       return (
         <div key={i} className="editReport">
-          <cbLink text="View edit report" callback={api.getErrors.bind(null, report)}/> - {new Date(report.timestamp).toString().split(' ').splice(1, 3).join(' ')}
+          {React.createElement(cbLink, {text: "View edit report", callback: api.getErrors.bind(null, report)})} - {new Date(report).toString().split(' ').splice(1, 3).join(' ')}
         </div>
       )
     });
@@ -70,13 +66,21 @@ var fiStatus = React.createClass({
   getStatusText: function(statusCode){
     switch(statusCode){
       case 0:
-        return <div className="statusWrapper"><span><cbLink text="Begin filing now" callback={beginFiling}/>.</span></div>
+        return (
+          <div className="statusWrapper">
+            <span>{React.createElement(cbLink, {text: "Begin filing now", callback: beginFiling})}.</span>
+          </div>
+        )
       case 1:
-        return <div className="statusWrapper"><span>Your file is being processed. You can <cbLink text="view progress" callback={api.getProgress.bind(null, this.props.institution)}/>.</span></div>
+        return (
+          <div className="statusWrapper">
+            <span>Your file is being processed. You can {React.createElement(cbLink, {text: "view progress", callback: api.getProgress.bind(null, this.props.institution)})}.</span>
+          </div>
+        )
       case 2:
         return (
           <div className="statusWrapper">
-            <span>All checks complete, but <cbLink text="with errors" callback={api.getErrors.bind(null, this.props.institution)}/>. These errors must be corrected before verifying data quality.</span>
+            <span>All checks complete, but {React.createElement(cbLink, {text: "with errors", callback: api.getErrors.bind(null, this.props.institution)})}. These errors must be corrected before verifying data quality.</span>
             {this.resubmitComponent()}
             {this.editReportsComponent()}
           </div>
@@ -84,7 +88,7 @@ var fiStatus = React.createClass({
       case 3:
         return (
           <div className="statusWrapper">
-            <span>All checks complete. <cbLink text="Verify quality and macro checks." callback={api.getErrors.bind(null, this.props.institution)}/>.</span>
+            <span>All checks complete. {React.createElement(cbLink, {text: "Verify quality and macro checks", callback: api.getErrors.bind(null, this.props.institution)})}.</span>
             {this.resubmitComponent()}
             {this.editReportsComponent()}
           </div>
@@ -92,7 +96,7 @@ var fiStatus = React.createClass({
       case 4:
         return (
           <div className="statusWrapper">
-            <span>All checks and verification complete. <cbLink text="View the summary report" callback={viewSummary()}/> or <cbLink text="View the summary report" callback={sign()}/>.</span>
+            <span>All checks and verification complete. {React.createElement(cbLink, {text: "View the summary report", callback: viewSummary()})} or {React.createElement(cbLink, {text: "View the summary report", callback: sign()})}.</span>
             {this.resubmitComponent()}
             {this.editReportsComponent()}
           </div>
@@ -100,7 +104,7 @@ var fiStatus = React.createClass({
     case 5:
         return (
           <div className="statusWrapper">
-            <span>All checks complete, verified, and signed. <cbLink text="View the summary report" callback={viewSummary()}/>.</span>
+            <span>All checks complete, verified, and signed. {React.createElement(cbLink, {text: "View the summary report", callback: viewSummary()})}.</span>
             {this.editReportsComponent()}
           </div>
         )
@@ -111,7 +115,7 @@ var fiStatus = React.createClass({
     return (
       <div className="fiStatus">
         <h3 className="fiStatusHeader">{this.props.institution.name}</h3>
-        <div className="fiStatusStartTime">{this.getStartTime(this.props.institution.timestamps[0])}</div>
+        <div className="fiStatusStartTime">{this.getStartTime(this.props.institution.editReports[0])}</div>
         {this.getStatusText(this.state.status)}
       </div>
     )

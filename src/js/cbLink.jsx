@@ -1,5 +1,4 @@
 var React = require('react');
-
 var cbLink = React.createClass({
   handleClick: function(e){
    e.preventDefault();

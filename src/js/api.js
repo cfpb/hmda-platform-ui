@@ -1,7 +1,7 @@
 module.exports = {
-  getInstitutions: function(){
-    return {
-      "institutions": [
+  getInstitutions: function(cb){
+    return cb(
+      [
         {
           "name": "Bank 0",
           "status": 0,
@@ -10,10 +10,12 @@ module.exports = {
         {
           "name": "Bank 1",
           "status": 1,
-          "editReports": []
+          "editReports": [
+          {"timestamp": 1457494448191}
+          ]
         },
         {
-          "name": "Bank 1",
+          "name": "Bank 2",
           "status": 2,
           "editReports": [
           {
@@ -91,6 +93,8 @@ module.exports = {
           ]
         }
       ]
-    }
-  }
+    );
+  },
+  getErrors: function(){console.log('getting errors')},
+  getProgress: function(){console.log('getting progress')}
 };
