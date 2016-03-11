@@ -96,7 +96,7 @@ var fiStatus = React.createClass({
       case 4:
         return (
           <div className="statusWrapper">
-            <span>All checks and verification complete. {React.createElement(cbLink, {text: "View the summary report", callback: viewSummary()})} or {React.createElement(cbLink, {text: "View the summary report", callback: sign()})}.</span>
+            <span>All checks and verification complete. {React.createElement(cbLink, {text: "View the summary report", callback: viewSummary})} or {React.createElement(cbLink, {text: "sign and submit", callback: sign})}.</span>
             {this.resubmitComponent()}
             {this.editReportsComponent()}
           </div>
@@ -104,7 +104,7 @@ var fiStatus = React.createClass({
     case 5:
         return (
           <div className="statusWrapper">
-            <span>All checks complete, verified, and signed. {React.createElement(cbLink, {text: "View the summary report", callback: viewSummary()})}.</span>
+            <span>All checks complete, verified, and signed. {React.createElement(cbLink, {text: "View the summary report", callback: viewSummary})}.</span>
             {this.editReportsComponent()}
           </div>
         )
