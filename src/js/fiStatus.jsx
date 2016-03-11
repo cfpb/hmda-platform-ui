@@ -25,6 +25,7 @@ var fiStatus = React.createClass({
 
   getInitialState: function(){
     return {
+      name
       status: 0,
       editReports: []
     }
@@ -60,7 +61,7 @@ var fiStatus = React.createClass({
     this.state.editReports.map(function(report, i){
       return (
         <div key={i} className="editReport">
-          <cbLink text="View edit report" callback={api.errors.bind(null, report)}/> - {new Date(report.timestamp).toString().split(' ').splice(1, 3).join(' ')}
+          <cbLink text="View edit report" callback={api.getErrors.bind(null, report)}/> - {new Date(report.timestamp).toString().split(' ').splice(1, 3).join(' ')}
         </div>
       )
     });
@@ -71,11 +72,11 @@ var fiStatus = React.createClass({
       case 0:
         return <div className="statusWrapper"><span><cbLink text="Begin filing now" callback={beginFiling}/>.</span></div>
       case 1:
-        return <div className="statusWrapper"><span>Your file is being processed. You can <cbLink text="view progress" callback={api.progress.bind(null, this.props.data)}/>.</span></div>
+        return <div className="statusWrapper"><span>Your file is being processed. You can <cbLink text="view progress" callback={api.getProgress.bind(null, this.props.institution)}/>.</span></div>
       case 2:
         return (
           <div className="statusWrapper">
-            <span>All checks complete, but <cbLink text="with errors" callback={api.errors.bind(null, this.props.data)}/>. These errors must be corrected before verifying data quality.</span>
+            <span>All checks complete, but <cbLink text="with errors" callback={api.getErrors.bind(null, this.props.institution)}/>. These errors must be corrected before verifying data quality.</span>
             {this.resubmitComponent()}
             {this.editReportsComponent()}
           </div>
@@ -83,7 +84,7 @@ var fiStatus = React.createClass({
       case 3:
         return (
           <div className="statusWrapper">
-            <span>All checks complete. <cbLink text="Verify quality and macro checks." callback={api.errors.bind(null, this.props.data)}/>.</span>
+            <span>All checks complete. <cbLink text="Verify quality and macro checks." callback={api.getErrors.bind(null, this.props.institution)}/>.</span>
             {this.resubmitComponent()}
             {this.editReportsComponent()}
           </div>
@@ -109,8 +110,8 @@ var fiStatus = React.createClass({
   render: function(){
     return (
       <div className="fiStatus">
-        <h3 className="fiStatusHeader">{this.props.name}</h3>
-        <div className="fiStatusStartTime">{this.getStartTime(this.props.startTime)}</div>
+        <h3 className="fiStatusHeader">{this.props.institution.name}</h3>
+        <div className="fiStatusStartTime">{this.getStartTime(this.props.institution.timestamps[0])}</div>
         {this.getStatusText(this.state.status)}
       </div>
     )
