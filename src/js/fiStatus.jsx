@@ -54,7 +54,9 @@ var fiStatus = React.createClass({
   },
 
   editReportsComponent: function(){
+    console.log(this.state, this.props);
     this.state.editReports.map(function(report, i){
+      console.log(report);
       return (
         <div key={i} className="editReport">
           {React.createElement(cbLink, {text: "View edit report", callback: api.getErrors.bind(null, report)})} - {new Date(report).toString().split(' ').splice(1, 3).join(' ')}
