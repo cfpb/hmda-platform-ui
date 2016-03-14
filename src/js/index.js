@@ -16,15 +16,16 @@ ReactDOM.render(
   document.getElementById('userSelectRoot')
 );
 
+var container = ReactDOM.render(
+                  React.createElement(fiContainer, {institutions: []}),
+                  document.getElementById('app')
+                );
+
 function selectCallback(e){
   var user = e.target.value;
-  console.log(user);
+  console.log('selecting user: ', user);
   api.getInstitutions(user, function(institutions){
-    console.log(institutions);
-    ReactDOM.render(
-      React.createElement(fiContainer, {institutions: institutions}),
-      document.getElementById('app')
-    );
+   container.updateInstitutions(institutions);
   });
 }
 
