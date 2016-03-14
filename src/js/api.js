@@ -42,7 +42,7 @@ var data = {
           }
         },
         {
-          "timestamp": 1457484448191,
+          "timestamp": 1457434448191,
           "edits": {
             "syntactical": 2,
             "validity": 1,
@@ -51,7 +51,7 @@ var data = {
           }
         },
           {
-            "timestamp": 1457464448191,
+            "timestamp": 1457394448191,
             "edits": {
               "syntactical": 4,
               "validity": 3,
@@ -66,7 +66,7 @@ var data = {
           "status": 4,
           "editReports": [
           {
-            "timestamp": 1457494448191,
+            "timestamp": 1457424448191,
             "edits": {
               "syntactical": 0,
               "validity": 0,
@@ -81,7 +81,7 @@ var data = {
           "status": 5,
           "editReports": [
           {
-            "timestamp": 1457494448191,
+            "timestamp": 1457394448191,
             "edits": {
               "syntactical": 0,
               "validity": 0,
