@@ -1,17 +1,43 @@
 .hidden {
   display:none;
 }
-#fiContainer{
+
+#fiContainer {
   width: 50%;
   margin-left:25%;
 }
-.fiStatusHeader {
-  margin-bottom:3px;
+
+.divisionWrapper {
+  margin-bottom: 27px;
+}
+
+.divisionHeader {
+  margin-bottom: -12px;
+}
+
+.fiStatusHeader{
+  margin:18px 0 3px 0;
 }
 
 .fiStatusStartTime {
-  font: italic bold 0.7em sans-serif;
+  font: italic bold 0.8em sans-serif;
   color: gray;
+  margin-bottom:3px;
+}
+
+.fiStatusText {
+  font: 1em sans-serif;
+  margin:8px 0 8px 0;
+}
+
+.editReportsWrapper {
+  margin:0; 
+  padding-left:1.7em;
+  margin-top:8px;
+}
+
+.editReport {
+  font:0.9em sans-serif;
 }
 
 a {
