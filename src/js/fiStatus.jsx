@@ -50,63 +50,65 @@ var fiStatus = React.createClass({
   },
 
   resubmitComponent: function(){
-    return <div>{React.createElement(cbLink, {text: 'Resubmit', callback: resubmit})} - Resubmitting will allow you to correct any errors or invalid data encountered. Each error report will be saved so you can track your progress after resubmission.</div>
+    return <div className="resubmitComponent">{React.createElement(cbLink, {text: 'Resubmit', callback: resubmit})} - Resubmitting will allow you to correct any errors or invalid data encountered. Each error report will be saved so you can track your progress after resubmission.</div>
   },
 
   editReportsComponent: function(){
-    console.log(this.state, this.props);
-    this.state.editReports.map(function(report, i){
-      console.log(report);
-      return (
-        <div key={i} className="editReport">
-          {React.createElement(cbLink, {text: "View edit report", callback: api.getErrors.bind(null, report)})} - {new Date(report).toString().split(' ').splice(1, 3).join(' ')}
-        </div>
-      )
-    });
+    return (
+      <ul className="editReportsWrapper">
+        {this.state.editReports.map(function(report, i){
+          return (
+            <li key={i} className="editReport">
+              {React.createElement(cbLink, {text: "View edit report", callback: api.getErrors.bind(null, report)})} - {new Date(report.timestamp).toString().split(' ').splice(1, 3).join(' ')}
+            </li>
+          )
+        })}
+      </ul>
+    )
   },
 
   getStatusText: function(statusCode){
     switch(statusCode){
       case 0:
         return (
-          <div className="statusWrapper">
-            <span>{React.createElement(cbLink, {text: "Begin filing now", callback: beginFiling})}.</span>
+          <div className="fiStatusWrapper">
+            <div className="fiStatusText">{React.createElement(cbLink, {text: "Begin filing now", callback: beginFiling})}.</div>
           </div>
         )
       case 1:
         return (
-          <div className="statusWrapper">
-            <span>Your file is being processed. You can {React.createElement(cbLink, {text: "view progress", callback: api.getProgress.bind(null, this.props.institution)})}.</span>
+          <div className="fiStatusWrapper">
+            <div className="fiStatusText">Your file is being processed. You can {React.createElement(cbLink, {text: "view progress", callback: api.getProgress.bind(null, this.props.institution)})}.</div>
           </div>
         )
       case 2:
         return (
-          <div className="statusWrapper">
-            <span>All checks complete, but {React.createElement(cbLink, {text: "with errors", callback: api.getErrors.bind(null, this.props.institution)})}. These errors must be corrected before verifying data quality.</span>
+          <div className="fiStatusWrapper">
+            <div className="fiStatusText">All checks complete, but {React.createElement(cbLink, {text: "with errors", callback: api.getErrors.bind(null, this.props.institution)})}. These errors must be corrected before verifying data quality.</div>
             {this.resubmitComponent()}
             {this.editReportsComponent()}
           </div>
         )
       case 3:
         return (
-          <div className="statusWrapper">
-            <span>All checks complete. {React.createElement(cbLink, {text: "Verify quality and macro checks", callback: api.getErrors.bind(null, this.props.institution)})}.</span>
+          <div className="fiStatusWrapper">
+            <div className="fiStatusText">All checks complete. {React.createElement(cbLink, {text: "Verify quality and macro checks", callback: api.getErrors.bind(null, this.props.institution)})}.</div>
             {this.resubmitComponent()}
             {this.editReportsComponent()}
           </div>
         )
       case 4:
         return (
-          <div className="statusWrapper">
-            <span>All checks and verification complete. {React.createElement(cbLink, {text: "View the summary report", callback: viewSummary})} or {React.createElement(cbLink, {text: "sign and submit", callback: sign})}.</span>
+          <div className="fiStatusWrapper">
+            <div className="fiStatusText">All checks and verification complete. {React.createElement(cbLink, {text: "View the summary report", callback: viewSummary})} or {React.createElement(cbLink, {text: "sign and submit", callback: sign})}.</div>
             {this.resubmitComponent()}
             {this.editReportsComponent()}
           </div>
         )
     case 5:
         return (
-          <div className="statusWrapper">
-            <span>All checks complete, verified, and signed. {React.createElement(cbLink, {text: "View the summary report", callback: viewSummary})}.</span>
+          <div className="fiStatusWrapper">
+            <div className="fiStatusText">All checks complete, verified, and signed. {React.createElement(cbLink, {text: "View the summary report", callback: viewSummary})}.</div>
             {this.editReportsComponent()}
           </div>
         )
