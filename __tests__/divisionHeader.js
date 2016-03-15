@@ -8,11 +8,11 @@ var TestUtils = require('react-addons-test-utils');
 var divisionHeader = require('../src/js/divisionHeader.jsx');
 
 
-
 describe('divisionHeader', function(){
 
-  var header = <divisionHeader text='testtext'/>;
-  var headerNode = TestUtils.renderIntoDocument(header);
+  var headerComponent = React.createElement(divisionHeader, {text: 'testtext'});
+  var header = TestUtils.renderIntoDocument(headerComponent);
+  var headerNode = ReactDOM.findDOMNode(header);
 
   it('renders the header', function(){
     expect(headerNode).toBeDefined();
