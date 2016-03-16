@@ -1,23 +1,7 @@
 var React = require('react');
-var api = require('./api');
+var router = require('./router.js');
 var cbLink = require('./cbLink.jsx');
 
-function beginFiling(){
-  console.log("Begin filing transition");
-}
-
-function resubmit(){
-  //clear state
-  console.log('resubmiting');
-}
-
-function viewSummary(){
-  console.log('view summary');
-}
-
-function sign(){
-  console.log('sign');
-}
 
 var fiStatus = React.createClass({
 
@@ -50,7 +34,7 @@ var fiStatus = React.createClass({
   },
 
   resubmitComponent: function(){
-    return <div className="resubmitComponent">{React.createElement(cbLink, {text: 'Resubmit', callback: resubmit})} - Resubmitting will allow you to correct any errors or invalid data encountered. Each error report will be saved so you can track your progress after resubmission.</div>
+    return <div className="resubmitComponent">{React.createElement(cbLink, {text: 'Resubmit', callback: router.resubmit})} - Resubmitting will allow you to correct any errors or invalid data encountered. Each error report will be saved so you can track your progress after resubmission.</div>
   },
 
   editReportsComponent: function(){
@@ -59,7 +43,7 @@ var fiStatus = React.createClass({
         {this.state.editReports.map(function(report, i){
           return (
             <li key={i} className="editReport">
-              {React.createElement(cbLink, {text: "View edit report", callback: api.getErrors.bind(null, report)})} - {new Date(report.timestamp).toString().split(' ').splice(1, 3).join(' ')}
+              {React.createElement(cbLink, {text: "View edit report", callback: router.showErrors.bind(null, report)})} - {new Date(report.timestamp).toString().split(' ').splice(1, 3).join(' ')}
             </li>
           )
         })}
@@ -72,19 +56,19 @@ var fiStatus = React.createClass({
       case 0:
         return (
           <div className="fiStatusWrapper">
-            <div className="fiStatusText">{React.createElement(cbLink, {text: "Begin filing now", callback: beginFiling})}.</div>
+            <div className="fiStatusText">{React.createElement(cbLink, {text: "Begin filing now", callback: router.beginFiling})}.</div>
           </div>
         )
       case 1:
         return (
           <div className="fiStatusWrapper">
-            <div className="fiStatusText">Your file is being processed. You can {React.createElement(cbLink, {text: "view progress", callback: api.getProgress.bind(null, this.props.institution)})}.</div>
+            <div className="fiStatusText">Your file is being processed. You can {React.createElement(cbLink, {text: "view progress", callback: router.showProgress.bind(null, this.props.institution)})}.</div>
           </div>
         )
       case 2:
         return (
           <div className="fiStatusWrapper">
-            <div className="fiStatusText">All checks complete, but {React.createElement(cbLink, {text: "with errors", callback: api.getErrors.bind(null, this.props.institution)})}. These errors must be corrected before verifying data quality.</div>
+            <div className="fiStatusText">All checks complete, but {React.createElement(cbLink, {text: "with errors", callback: router.showErrors.bind(null, this.props.institution)})}. These errors must be corrected before verifying data quality.</div>
             {this.resubmitComponent()}
             {this.editReportsComponent()}
           </div>
@@ -92,7 +76,7 @@ var fiStatus = React.createClass({
       case 3:
         return (
           <div className="fiStatusWrapper">
-            <div className="fiStatusText">All checks complete. {React.createElement(cbLink, {text: "Verify quality and macro checks", callback: api.getErrors.bind(null, this.props.institution)})}.</div>
+            <div className="fiStatusText">All checks complete. {React.createElement(cbLink, {text: "Verify quality and macro checks", callback: router.showErrors.bind(null, this.props.institution)})}.</div>
             {this.resubmitComponent()}
             {this.editReportsComponent()}
           </div>
@@ -100,7 +84,7 @@ var fiStatus = React.createClass({
       case 4:
         return (
           <div className="fiStatusWrapper">
-            <div className="fiStatusText">All checks and verification complete. {React.createElement(cbLink, {text: "View the summary report", callback: viewSummary})} or {React.createElement(cbLink, {text: "sign and submit", callback: sign})}.</div>
+            <div className="fiStatusText">All checks and verification complete. {React.createElement(cbLink, {text: "View the summary report", callback: router.showSummary})} or {React.createElement(cbLink, {text: "sign and submit", callback: router.showSignature})}.</div>
             {this.resubmitComponent()}
             {this.editReportsComponent()}
           </div>
@@ -108,7 +92,7 @@ var fiStatus = React.createClass({
     case 5:
         return (
           <div className="fiStatusWrapper">
-            <div className="fiStatusText">All checks complete, verified, and signed. {React.createElement(cbLink, {text: "View the summary report", callback: viewSummary})}.</div>
+            <div className="fiStatusText">All checks complete, verified, and signed. {React.createElement(cbLink, {text: "View the summary report", callback: router.showSummary})}.</div>
             {this.editReportsComponent()}
           </div>
         )
