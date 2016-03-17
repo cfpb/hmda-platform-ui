@@ -1,6 +1,4 @@
-var fs = require('fs');
-
-var data = JSON.parse(fs.readFileSync('../../__tests__/institutions.json'));
+var data = require('./institutions.js');
 
 module.exports = {
   getInstitutions: function(name, cb){
