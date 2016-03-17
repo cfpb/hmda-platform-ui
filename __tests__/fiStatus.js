@@ -12,7 +12,7 @@ var institution = {
   "status": 2,
   "editReports": [
     {
-      "timestamp": 1457484448191,
+      "timestamp": 1457464448191,
       "edits": {
         "syntactical": 2,
         "validity": 1,
