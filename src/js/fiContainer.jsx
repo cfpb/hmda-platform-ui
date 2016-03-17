@@ -4,8 +4,6 @@ var fiStatus = require('./fiStatus.jsx');
 
 var fiContainer = React.createClass({
 
-  //wrap this; updateDivisions(institutions)
-  //need to call that on update
   getInitialState: function(){
     return this.updateDivisions(this.props.institutions);
   },
