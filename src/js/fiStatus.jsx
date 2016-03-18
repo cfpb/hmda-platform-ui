@@ -52,51 +52,49 @@ var fiStatus = React.createClass({
   },
 
   getStatusText: function(statusCode){
+    var statusText = null;
+    var resubmit = null;
+    var editReports = null;
+
     switch(statusCode){
       case 0:
-        return (
-          <div className="fiStatusWrapper">
-            <div className="fiStatusText">{React.createElement(cbLink, {text: "Begin filing now", callback: router.beginFiling})}.</div>
-          </div>
-        )
+        statusText = <div className="fiStatusText">{React.createElement(cbLink, {text: "Begin filing now", callback: router.beginFiling})}.</div>
+        break;
       case 1:
-        return (
-          <div className="fiStatusWrapper">
-            <div className="fiStatusText">Your file is being processed. You can {React.createElement(cbLink, {text: "view progress", callback: router.showProgress.bind(null, this.props.institution)})}.</div>
-          </div>
-        )
+        statusText = <div className="fiStatusText">Your file is being processed. You can {React.createElement(cbLink, {text: "view progress", callback: router.showProgress.bind(null, this.props.institution)})}.</div>
+        break;
       case 2:
-        return (
-          <div className="fiStatusWrapper">
-            <div className="fiStatusText">All checks complete, but {React.createElement(cbLink, {text: "with errors", callback: router.showErrors.bind(null, this.props.institution)})}. These errors must be corrected before verifying data quality.</div>
-            {this.resubmitComponent()}
-            {this.editReportsComponent()}
-          </div>
-        )
+        statusText = <div className="fiStatusText">All checks complete, but {React.createElement(cbLink, {text: "with errors", callback: router.showErrors.bind(null, this.props.institution)})}. These errors must be corrected before verifying data quality.</div>
+        resubmit = this.resubmitComponent()
+        editReports = this.editReportsComponent()
+        break;
       case 3:
-        return (
-          <div className="fiStatusWrapper">
-            <div className="fiStatusText">All checks complete. {React.createElement(cbLink, {text: "Verify quality and macro checks", callback: router.showErrors.bind(null, this.props.institution)})}.</div>
-            {this.resubmitComponent()}
-            {this.editReportsComponent()}
-          </div>
-        )
+        statusText = <div className="fiStatusText">All checks complete. {React.createElement(cbLink, {text: "Verify quality and macro checks", callback: router.showErrors.bind(null, this.props.institution)})}.</div>
+        break;
       case 4:
-        return (
-          <div className="fiStatusWrapper">
-            <div className="fiStatusText">All checks and verification complete. {React.createElement(cbLink, {text: "View the summary report", callback: router.showSummary})} or {React.createElement(cbLink, {text: "sign and submit", callback: router.showSignature})}.</div>
-            {this.resubmitComponent()}
-            {this.editReportsComponent()}
-          </div>
-        )
-    case 5:
-        return (
-          <div className="fiStatusWrapper">
-            <div className="fiStatusText">All checks complete, verified, and signed. {React.createElement(cbLink, {text: "View the summary report", callback: router.showSummary})}.</div>
-            {this.editReportsComponent()}
-          </div>
-        )
+        statusText = <div className="fiStatusText">All checks and verification complete. {React.createElement(cbLink, {text: "View the summary report", callback: router.showSummary})} or {React.createElement(cbLink, {text: "sign and submit", callback: router.showSignature})}.</div>
+        break;
+      case 5:
+        statusText = <div className="fiStatusText">All checks complete, verified, and signed. {React.createElement(cbLink, {text: "View the summary report", callback: router.showSummary})}.</div>
+        break;
+      default:
+        throw new Error('Unexpected fi status');
     }
+
+    if(statusCode > 1){
+      editReports = this.editReportsComponent();
+      if(statusCode < 5){
+        resubmit = this.resubmitComponent();
+      }
+    }
+
+    return (
+      <div className="fiStatusWrapper">
+        {statusText}
+        {resubmit}
+        {editReports}
+      </div>
+    )
   },
 
   render: function(){
