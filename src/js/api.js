@@ -1,4 +1,4 @@
-var data = require('./institutions.js');
+var data = require('./data/institutions.js');
 
 module.exports = {
   getInstitutions: function(name, cb){

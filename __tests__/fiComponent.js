@@ -1,12 +1,12 @@
 jest.dontMock('../src/js/fiContainer.jsx');
-jest.dontMock('../src/js/institutions.js');
+jest.dontMock('../src/js/data/institutions.js');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
 var fiContainer = require('../src/js/fiContainer.jsx');
-var institutions = require('../src/js/institutions.js').user1;
+var institutions = require('../src/js/data/institutions.js').user1;
 
 describe('fiContainer', function(){
 

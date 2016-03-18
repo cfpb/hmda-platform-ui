@@ -3,13 +3,7 @@ var ReactDOM = require('react-dom');
 var api = require('./api');
 var userSelect = require('./userSelect.jsx');
 var fiContainer = require('./fiContainer.jsx');
-//var makeSubmitForm = require('./makeSubmitForm.jsx');
 
-/*
-var SubmitForm = makeSubmitForm('/submit', function(e){
-  console.log(e, 'file uploaded');
-});
-*/
 
 ReactDOM.render(
   React.createElement(userSelect, {callback: selectCallback}),
