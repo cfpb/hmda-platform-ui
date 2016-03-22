@@ -1,16 +1,16 @@
-jest.dontMock('../src/js/fiContainer.jsx');
+jest.dontMock('../src/js/FiContainer.jsx');
 jest.dontMock('../src/js/data/institutions.js');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
-var fiContainer = require('../src/js/fiContainer.jsx');
+var FiContainer = require('../src/js/FiContainer.jsx');
 var institutions = require('../src/js/data/institutions.js').user1;
 
-describe('fiContainer', function(){
+describe('FiContainer', function(){
 
-  var containerComponent = React.createElement(fiContainer, {institutions: []});
+  var containerComponent = <FiContainer institutions={[]}/>
 
   var container = TestUtils.renderIntoDocument(containerComponent);
   var containerNode = ReactDOM.findDOMNode(container);
@@ -32,16 +32,16 @@ describe('fiContainer', function(){
   });
 
   it('properly renders needed child components', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'divisionWrapper').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'DivisionWrapper').length).toEqual(3);
 
     container.updateInstitutions(institutions);
   });
 
 
   it('properly renders updated components', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'divisionWrapper').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'divisionHeader').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'fiStatus').length).toEqual(6);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'DivisionWrapper').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'DivisionHeader').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'FiStatus').length).toEqual(6);
 
 
   });

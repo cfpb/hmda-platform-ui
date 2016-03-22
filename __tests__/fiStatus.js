@@ -1,11 +1,11 @@
-jest.dontMock('../src/js/fiStatus.jsx');
+jest.dontMock('../src/js/FiStatus.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
 
-var fiStatus = require('../src/js/fiStatus.jsx');
+var FiStatus = require('../src/js/FiStatus.jsx');
 
 var institution = {
   "name": "Wacky data",
@@ -23,9 +23,9 @@ var institution = {
   ]
 }
 
-describe('fiStatus', function(){
+describe('FiStatus', function(){
 
-  var statusComponent = React.createElement(fiStatus, {institution: institution});
+  var statusComponent = <FiStatus institution={institution}/>
 
   var status = TestUtils.renderIntoDocument(statusComponent);
   var statusNode = ReactDOM.findDOMNode(status);
@@ -47,9 +47,9 @@ describe('fiStatus', function(){
   });
 
   it('properly renders needed child components', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(status, 'cbLink').length).toEqual(3);
-    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'resubmitComponent')).toBeDefined();
-    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'editReportsWrapper')).toBeDefined();
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(status, 'CbLink').length).toEqual(3);
+    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'ResubmitComponent')).toBeDefined();
+    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'EditReportsWrapper')).toBeDefined();
   });
 
 });

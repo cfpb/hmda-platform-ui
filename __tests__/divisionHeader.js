@@ -1,16 +1,16 @@
-jest.dontMock('../src/js/divisionHeader.jsx');
+jest.dontMock('../src/js/DivisionHeader.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
 
-var divisionHeader = require('../src/js/divisionHeader.jsx');
+var DivisionHeader = require('../src/js/DivisionHeader.jsx');
 
 
 describe('divisionHeader', function(){
 
-  var headerComponent = React.createElement(divisionHeader, {text: 'testtext'});
+  var headerComponent = <DivisionHeader text="testtext"/>;
   var header = TestUtils.renderIntoDocument(headerComponent);
   var headerNode = ReactDOM.findDOMNode(header);
 

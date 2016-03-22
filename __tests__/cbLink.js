@@ -1,17 +1,17 @@
-jest.dontMock('../src/js/cbLink.jsx');
+jest.dontMock('../src/js/CbLink.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
 
-var cbLink = require('../src/js/cbLink.jsx');
+var CbLink = require('../src/js/CbLink.jsx');
 
 var cb = jest.genMockFn();
 
-describe('cbLink', function(){
+describe('CbLink', function(){
 
-  var linkComponent = React.createElement(cbLink, {text: 'testtext', callback: cb});
+  var linkComponent = <CbLink text="testtext" callback={cb}/>
   var link = TestUtils.renderIntoDocument(linkComponent);
   var linkNode = ReactDOM.findDOMNode(link);
 
