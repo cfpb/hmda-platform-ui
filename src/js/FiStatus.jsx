@@ -34,7 +34,11 @@ var FiStatus = React.createClass({
   },
 
   ResubmitComponent: function(){
-    return <div className="ResubmitComponent"><CbLink text='Resubmit' callback={router.resubmit}/> - Resubmitting will allow you to correct any errors or invalid data encountered. Each error report will be saved so you can track your progress after resubmission.</div>
+    return (
+      <div className="ResubmitComponent">
+        <CbLink text='Resubmit' callback={router.resubmit}/> - Resubmitting will allow you to correct any errors or invalid data encountered. Each error report will be saved so you can track your progress after resubmission.
+      </div>
+    )
   },
 
   EditReportsComponent: function(){
