@@ -11,12 +11,8 @@ var makeSubmitForm = require('../src/js/makeSubmitForm.jsx');
 var SubmitForm = makeSubmitForm('/submit', jest.genMockFn());
 
 
-
 describe('submitform', function(){
-
-  var form = TestUtils.renderIntoDocument(
-    <SubmitForm/>
-  );
+  var form = TestUtils.renderIntoDocument(React.createElement(SubmitForm));
   var formNode = ReactDOM.findDOMNode(form);
 
   it('renders the form', function(){
@@ -56,7 +52,6 @@ describe('submitform', function(){
   });
 
 });
-
 
 function createXHRmock() {
   open = jest.genMockFn();

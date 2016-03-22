@@ -1,3 +1,53 @@
-.hidden{
+.hidden {
   display:none;
+}
+
+#FiContainer {
+  width: 50%;
+  margin-left:25%;
+}
+
+.DivisionWrapper {
+  margin-bottom: 27px;
+}
+
+.DivisionHeader {
+  margin-bottom: -12px;
+}
+
+.FiStatusHeader {
+  margin:18px 0 3px 0;
+}
+
+.FiStatusStartTime {
+  font: italic bold 0.8em sans-serif;
+  color: gray;
+  margin-bottom:3px;
+}
+
+.FiStatusText {
+  font: 1em sans-serif;
+  margin:8px 0 8px 0;
+}
+
+.EditReportsWrapper {
+  margin:0; 
+  padding-left:1.7em;
+  margin-top:8px;
+}
+
+.EditReport {
+  font:0.9em sans-serif;
+}
+
+a {
+  text-decoration:underline;
+  color:blue;
+}
+a:hover {
+  cursor:pointer;
+}
+
+a:visited {
+  color:purple;
 }

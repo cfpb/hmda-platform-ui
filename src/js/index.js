@@ -1,12 +1,25 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var makeSubmitForm = require('./makeSubmitForm.jsx');
+var api = require('./api');
+var UserSelect = require('./UserSelect.jsx');
+var FiContainer = require('./FiContainer.jsx');
 
-var SubmitForm = makeSubmitForm('/submit', function(e){
-  console.log(e, 'file uploaded');
-});
 
 ReactDOM.render(
-  React.createElement(SubmitForm, null),
-  document.getElementById('app')
+  React.createElement(UserSelect, {callback: selectCallback}),
+  document.getElementById('userSelectRoot')
 );
+
+var container = ReactDOM.render(
+                  React.createElement(FiContainer, {institutions: []}),
+                  document.getElementById('app')
+                );
+
+function selectCallback(e){
+  var user = e.target.value;
+  console.log('selecting user: ', user);
+  api.getInstitutions(user, function(institutions){
+   container.updateInstitutions(institutions);
+  });
+}
+
