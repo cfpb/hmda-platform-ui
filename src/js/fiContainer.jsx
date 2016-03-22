@@ -1,8 +1,8 @@
 var React = require('react');
-var divisionHeader = require('./divisionHeader.jsx');
-var fiStatus = require('./fiStatus.jsx');
+var DivisionHeader = require('./DivisionHeader.jsx');
+var FiStatus = require('./FiStatus.jsx');
 
-var fiContainer = React.createClass({
+var FiContainer = React.createClass({
 
   getInitialState: function(){
     return this.updateDivisions(this.props.institutions);
@@ -37,15 +37,15 @@ var fiContainer = React.createClass({
 
   render: function() {
     return (
-      <div id="fiContainer">
+      <div id="FiContainer">
         {this.state.divisions.map(function(division, i){
           var header = null;
-          if(division.institutions.length) header = React.createElement(divisionHeader, {text: division.text});
+          if(division.institutions.length) header = <DivisionHeader text={division.text}/>
           return (
-            <div key={i} className="divisionWrapper">
+            <div key={i} className="DivisionWrapper">
               {header}
               {division.institutions.map(function(institution, i){
-                return React.createElement(fiStatus, {key: i, institution: institution});
+                return <FiStatus key={i} institution={institution}/>
               })}
             </div>
           )
@@ -56,4 +56,4 @@ var fiContainer = React.createClass({
   }
 });
 
-module.exports = fiContainer;
+module.exports = FiContainer;

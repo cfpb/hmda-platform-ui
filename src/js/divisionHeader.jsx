@@ -1,8 +1,8 @@
 var React = require('react');
-var divisionHeader = React.createClass({
+var DivisionHeader = React.createClass({
   render: function(){
-    return <h2 className="divisionHeader">{this.props.text}</h2>
+    return <h2 className="DivisionHeader">{this.props.text}</h2>
   }
 });
 
-module.exports = divisionHeader;
+module.exports = DivisionHeader;

@@ -1,12 +1,12 @@
 var React = require('react');
-var cbLink = React.createClass({
+var CbLink = React.createClass({
   handleClick: function(e){
    e.preventDefault();
    this.props.callback();
   },
   render: function(){
-    return <a className="cbLink" onClick={this.handleClick}>{this.props.text}</a>
+    return <a className="CbLink" onClick={this.handleClick}>{this.props.text}</a>
   }
 });
 
-module.exports = cbLink;
+module.exports = CbLink;

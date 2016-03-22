@@ -1,17 +1,17 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var api = require('./api');
-var userSelect = require('./userSelect.jsx');
-var fiContainer = require('./fiContainer.jsx');
+var UserSelect = require('./UserSelect.jsx');
+var FiContainer = require('./FiContainer.jsx');
 
 
 ReactDOM.render(
-  React.createElement(userSelect, {callback: selectCallback}),
+  React.createElement(UserSelect, {callback: selectCallback}),
   document.getElementById('userSelectRoot')
 );
 
 var container = ReactDOM.render(
-                  React.createElement(fiContainer, {institutions: []}),
+                  React.createElement(FiContainer, {institutions: []}),
                   document.getElementById('app')
                 );
 

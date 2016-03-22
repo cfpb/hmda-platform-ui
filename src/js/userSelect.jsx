@@ -1,6 +1,6 @@
 var React = require('react');
 
-var userSelect = React.createClass({
+var UserSelect = React.createClass({
   render: function(){
     return (
       <select onChange={this.props.callback}>
@@ -12,4 +12,4 @@ var userSelect = React.createClass({
   }
 });
 
-module.exports = userSelect;
+module.exports = UserSelect;

@@ -1,9 +1,9 @@
 var React = require('react');
 var router = require('./router.js');
-var cbLink = require('./cbLink.jsx');
+var CbLink = require('./CbLink.jsx');
 
 
-var fiStatus = React.createClass({
+var FiStatus = React.createClass({
 
   getInitialState: function(){
     return this.props.institution;
@@ -33,17 +33,17 @@ var fiStatus = React.createClass({
     return filingString + num + unit + ' ago.'
   },
 
-  resubmitComponent: function(){
-    return <div className="resubmitComponent">{React.createElement(cbLink, {text: 'Resubmit', callback: router.resubmit})} - Resubmitting will allow you to correct any errors or invalid data encountered. Each error report will be saved so you can track your progress after resubmission.</div>
+  ResubmitComponent: function(){
+    return <div className="ResubmitComponent"><CbLink text='Resubmit' callback={router.resubmit}/> - Resubmitting will allow you to correct any errors or invalid data encountered. Each error report will be saved so you can track your progress after resubmission.</div>
   },
 
-  editReportsComponent: function(){
+  EditReportsComponent: function(){
     return (
-      <ul className="editReportsWrapper">
+      <ul className="EditReportsWrapper">
         {this.state.editReports.map(function(report, i){
           return (
-            <li key={i} className="editReport">
-              {React.createElement(cbLink, {text: "View edit report", callback: router.showErrors.bind(null, report)})} - {new Date(report.timestamp).toString().split(' ').splice(1, 3).join(' ')}
+            <li key={i} className="EditReport">
+              <CbLink text="View edit report" callback={router.showErrors.bind(null, report)}/> - {new Date(report.timestamp).toString().split(' ').splice(1, 3).join(' ')}
             </li>
           )
         })}
@@ -58,33 +58,33 @@ var fiStatus = React.createClass({
 
     switch(statusCode){
       case 0:
-        statusText = <div className="fiStatusText">{React.createElement(cbLink, {text: "Begin filing now", callback: router.beginFiling})}.</div>
+        statusText = <div className="fiStatusText"><CbLink text="Begin filing now" callback={router.beginFiling}/>.</div>
         break;
       case 1:
-        statusText = <div className="fiStatusText">Your file is being processed. You can {React.createElement(cbLink, {text: "view progress", callback: router.showProgress.bind(null, this.props.institution)})}.</div>
+        statusText = <div className="fiStatusText">Your file is being processed. You can <CbLink text="view progress" callback={router.showProgress.bind(null, this.props.institution)}/>.</div>
         break;
       case 2:
-        statusText = <div className="fiStatusText">All checks complete, but {React.createElement(cbLink, {text: "with errors", callback: router.showErrors.bind(null, this.props.institution)})}. These errors must be corrected before verifying data quality.</div>
-        resubmit = this.resubmitComponent()
-        editReports = this.editReportsComponent()
+        statusText = <div className="fiStatusText">All checks complete, but <CbLink text="with errors" callback={router.showErrors.bind(null, this.props.institution)}/>. These errors must be corrected before verifying data quality.</div>
+        resubmit = this.ResubmitComponent()
+        editReports = this.EditReportsComponent()
         break;
       case 3:
-        statusText = <div className="fiStatusText">All checks complete. {React.createElement(cbLink, {text: "Verify quality and macro checks", callback: router.showErrors.bind(null, this.props.institution)})}.</div>
+        statusText = <div className="fiStatusText">All checks complete. <CbLink text="Verify quality and macro checks" callback={router.showErrors.bind(null, this.props.institution)}/>.</div>
         break;
       case 4:
-        statusText = <div className="fiStatusText">All checks and verification complete. {React.createElement(cbLink, {text: "View the summary report", callback: router.showSummary})} or {React.createElement(cbLink, {text: "sign and submit", callback: router.showSignature})}.</div>
+        statusText = <div className="fiStatusText">All checks and verification complete. <CbLink text="View the summary report" callback={router.showSummary}/> or <CbLink text="sign and submit" callback={router.showSignature}/>.</div>
         break;
       case 5:
-        statusText = <div className="fiStatusText">All checks complete, verified, and signed. {React.createElement(cbLink, {text: "View the summary report", callback: router.showSummary})}.</div>
+        statusText = <div className="fiStatusText">All checks complete, verified, and signed. <CbLink text="View the summary report" callback={router.showSummary}/>.</div>
         break;
       default:
         throw new Error('Unexpected fi status');
     }
 
     if(statusCode > 1){
-      editReports = this.editReportsComponent();
+      editReports = this.EditReportsComponent();
       if(statusCode < 5){
-        resubmit = this.resubmitComponent();
+        resubmit = this.ResubmitComponent();
       }
     }
 
@@ -99,13 +99,13 @@ var fiStatus = React.createClass({
 
   render: function(){
     return (
-      <div className="fiStatus">
-        <h3 className="fiStatusHeader">{this.props.institution.name}</h3>
-        <div className="fiStatusStartTime">{this.getStartTime(this.props.institution.editReports[0])}</div>
+      <div className="FiStatus">
+        <h3 className="FiStatusHeader">{this.props.institution.name}</h3>
+        <div className="FiStatusStartTime">{this.getStartTime(this.props.institution.editReports[0])}</div>
         {this.getStatusText(this.state.status)}
       </div>
     )
   }
 });
 
-module.exports = fiStatus;
+module.exports = FiStatus;
