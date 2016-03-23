@@ -24,31 +24,66 @@ var institution = {
   ]
 }
 
-describe('FiStatus', function(){
+describe('UserFiHeading', function(){
+  describe('render without institution', function() {
 
-  var headingComponent = <UserFiHeading institution={{}} year='2017' user={user} />
+    var headingComponent = <UserFiHeading institution={{}} year='2017' user={user} />
 
-  var heading = TestUtils.renderIntoDocument(headingComponent);
-  var headingNode = ReactDOM.findDOMNode(heading);
+    var heading = TestUtils.renderIntoDocument(headingComponent);
+    var headingNode = ReactDOM.findDOMNode(heading);
 
-  it('renders the component', function(){
-    expect(headingNode).toBeDefined();
+    it('renders the component', function(){
+      expect(headingNode).toBeDefined();
+    });
+
+    it('passes through the institution appropriately as props', function(){
+      expect(heading.props.institution).toEqual({});
+    });
+
+    it('passes through the user appropriately as props', function(){
+      expect(heading.props.user).toEqual(user);
+    });
+
+    it('passes through the year appropriately as props', function(){
+      expect(heading.props.year).toEqual('2017');
+    });
+
+    it('renders correctly', function(){
+      expect(headingNode.textContent).toEqual('Welcome to 2017 HMDA filing, User1');
+    });
   });
 
-  it('passes through the institution appropriately as props', function(){
-    expect(heading.props.institution).toEqual({});
-  });
+  describe('render with institution', function() {
 
-  it('passes through the user appropriately as props', function(){
-    expect(heading.props.user).toEqual(user);
-  });
+    var headingComponent = <UserFiHeading institution={institution} year='2017' user={user} />
 
-  it('passes through the year appropriately as props', function(){
-    expect(heading.props.year).toEqual('2017');
-  });
+    var heading = TestUtils.renderIntoDocument(headingComponent);
+    var headingNode = ReactDOM.findDOMNode(heading);
 
-  it('renders correctly', function(){
-    expect(headingNode.textContent).toEqual('Welcome to 2017 HMDA filing, User1');
-  });
+    it('renders the component', function(){
+      expect(headingNode).toBeDefined();
+    });
 
+    it('passes through the institution appropriately as props', function(){
+      expect(heading.props.institution).toEqual({
+        "name": "Wacky data",
+        "status": 2,
+        "editReports": [
+          {
+            "timestamp": 1457464448191,
+            "edits": {
+              "syntactical": 2,
+              "validity": 1,
+              "quality": 2,
+              "macro": 1
+            }
+          }
+        ]
+      });
+    });
+
+    it('renders correctly', function(){
+      expect(headingNode.textContent).toEqual('User1 filing in 2017 on behalf of Wacky data');
+    });
+  });
 });
