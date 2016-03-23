@@ -8,14 +8,14 @@
     "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css",
     "browser": "./scripts/browser.js",
     "dev:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
-    "dev:sass": "node-sass ./src/scss/ -o ./dist/css/",
+    "dev:less": "lessc ./src/less/app.less ./dist/css/app.css",
     "dev:html": "cp src/index.html dist/index.html",
-    "dev:build": "npm run dev:js && npm run dev:sass && npm run dev:html",
+    "dev:build": "npm run dev:js && npm run dev:less && npm run dev:html",
     "postinstall": "npm run clean",
     "watch:js": "nodemon -e js,jsx -w src/js -w __tests__ -x 'npm run dev:js & npm test'",
-    "watch:sass": "nodemon -e scss -w src/scss -x 'npm run dev:sass'",
+    "watch:less": "nodemon -e scss -w src/less -x 'npm run dev:less'",
     "watch:html": "nodemon -e html -w src -x 'npm run dev:html'",
-    "watch": "npm run watch:js & npm run watch:sass & npm run watch:html & npm run browser"
+    "watch": "npm run watch:js & npm run watch:less & npm run watch:html & npm run browser"
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,9 @@
     "babelify": "^7.2.0",
     "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",
+    "cf-core": "^3.2.1",
     "jest-cli": "^0.8.2",
+    "less": "^2.6.1",
     "node-fs-extra": "^0.8.1",
     "node-sass": "^3.4.2",
     "nodemon": "^1.8.1",
