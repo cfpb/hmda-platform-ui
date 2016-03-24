@@ -5,7 +5,7 @@ var FiStatus = require('./FiStatus.jsx');
 var FiContainer = React.createClass({
 
   getInitialState: function(){
-    return this.updateDivisions(this.props.institutions);
+    return this.updateDivisions(this.props.institutions || []);
   },
 
   updateDivisions: function(institutions){
