@@ -42,7 +42,6 @@
     "jest-cli": "^0.8.2",
     "less": "^2.6.1",
     "node-fs-extra": "^0.8.1",
-    "node-sass": "^3.4.2",
     "nodemon": "^1.8.1",
     "react-addons-test-utils": "^0.14.7",
     "reactify": "^1.1.1",
