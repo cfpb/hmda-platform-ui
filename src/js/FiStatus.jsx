@@ -35,18 +35,18 @@ var FiStatus = React.createClass({
 
   ResubmitComponent: function(){
     return (
-      <div className="ResubmitComponent">
+      <p className="resubmit">
         <CbLink text='Resubmit' callback={router.resubmit}/> - Resubmitting will allow you to correct any errors or invalid data encountered. Each error report will be saved so you can track your progress after resubmission.
-      </div>
+      </p>
     )
   },
 
   EditReportsComponent: function(){
     return (
-      <ul className="EditReportsWrapper">
+      <ul className="reports">
         {this.state.editReports.map(function(report, i){
           return (
-            <li key={i} className="EditReport">
+            <li key={i}>
               <CbLink text="View edit report" callback={router.showErrors.bind(null, report)}/> - {new Date(report.timestamp).toString().split(' ').splice(1, 3).join(' ')}
             </li>
           )
@@ -62,24 +62,24 @@ var FiStatus = React.createClass({
 
     switch(statusCode){
       case 0:
-        statusText = <div className="fiStatusText"><CbLink text="Begin filing now" callback={router.beginFiling}/>.</div>
+        statusText = <p><CbLink text="Begin filing now" callback={router.beginFiling}/>.</p>
         break;
       case 1:
-        statusText = <div className="fiStatusText">Your file is being processed. You can <CbLink text="view progress" callback={router.showProgress.bind(null, this.props.institution)}/>.</div>
+        statusText = <p>Your file is being processed. You can <CbLink text="view progress" callback={router.showProgress.bind(null, this.props.institution)}/>.</p>
         break;
       case 2:
-        statusText = <div className="fiStatusText">All checks complete, but <CbLink text="with errors" callback={router.showErrors.bind(null, this.props.institution)}/>. These errors must be corrected before verifying data quality.</div>
+        statusText = <p>All checks complete, but <CbLink text="with errors" callback={router.showErrors.bind(null, this.props.institution)}/>. These errors must be corrected before verifying data quality.</p>
         resubmit = this.ResubmitComponent()
         editReports = this.EditReportsComponent()
         break;
       case 3:
-        statusText = <div className="fiStatusText">All checks complete. <CbLink text="Verify quality and macro checks" callback={router.showErrors.bind(null, this.props.institution)}/>.</div>
+        statusText = <p>All checks complete. <CbLink text="Verify quality and macro checks" callback={router.showErrors.bind(null, this.props.institution)}/>.</p>
         break;
       case 4:
-        statusText = <div className="fiStatusText">All checks and verification complete. <CbLink text="View the summary report" callback={router.showSummary}/> or <CbLink text="sign and submit" callback={router.showSignature}/>.</div>
+        statusText = <p>All checks and verification complete. <CbLink text="View the summary report" callback={router.showSummary}/> or <CbLink text="sign and submit" callback={router.showSignature}/>.</p>
         break;
       case 5:
-        statusText = <div className="fiStatusText">All checks complete, verified, and signed. <CbLink text="View the summary report" callback={router.showSummary}/>.</div>
+        statusText = <p>All checks complete, verified, and signed. <CbLink text="View the summary report" callback={router.showSummary}/>.</p>
         break;
       default:
         throw new Error('Unexpected fi status');
@@ -93,7 +93,7 @@ var FiStatus = React.createClass({
     }
 
     return (
-      <div className="fiStatusWrapper">
+      <div>
         {statusText}
         {resubmit}
         {editReports}
@@ -102,10 +102,14 @@ var FiStatus = React.createClass({
   },
 
   render: function(){
+    var classes = 'institution';
+    if (this.props.count !== 0) {
+      classes = classes + ' margin-top-3'
+    }
     return (
-      <div className="FiStatus">
-        <h3 className="FiStatusHeader">{this.props.institution.name}</h3>
-        <div className="FiStatusStartTime">{this.getStartTime(this.props.institution.editReports[0])}</div>
+      <div className={classes}>
+        <h3 className="margin-bottom-0">{this.props.institution.name}</h3>
+        <h5 className="margin-top-0">{this.getStartTime(this.props.institution.editReports[0])}</h5>
         {this.getStatusText(this.state.status)}
       </div>
     )

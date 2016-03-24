@@ -25,23 +25,23 @@ describe('FiContainer', function(){
 
   it('sets initial state correctly', function(){
     var divisions = container.state.divisions;
-        
+
     expect(divisions[0]).toEqual({text: 'Not Started', institutions: []});
     expect(divisions[1]).toEqual({text: 'In Progress', institutions: []});
     expect(divisions[2]).toEqual({text: 'Completed', institutions: []});
   });
 
   it('properly renders needed child components', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'DivisionWrapper').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'division').length).toEqual(3);
 
     container.updateInstitutions(institutions);
   });
 
 
   it('properly renders updated components', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'DivisionWrapper').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'DivisionHeader').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'FiStatus').length).toEqual(6);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'division').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(container, 'h2').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'institution').length).toEqual(6);
 
 
   });

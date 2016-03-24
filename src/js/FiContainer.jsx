@@ -37,15 +37,15 @@ var FiContainer = React.createClass({
 
   render: function() {
     return (
-      <div id="FiContainer">
+      <div>
         {this.state.divisions.map(function(division, i){
           var header = null;
           if(division.institutions.length) header = <DivisionHeader text={division.text}/>
           return (
-            <div key={i} className="DivisionWrapper">
+            <div key={i} className="division">
               {header}
               {division.institutions.map(function(institution, i){
-                return <FiStatus key={i} institution={institution}/>
+                return <FiStatus count={i} key={i} institution={institution}/>
               })}
             </div>
           )
