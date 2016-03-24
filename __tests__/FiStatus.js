@@ -4,7 +4,6 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
-
 var FiStatus = require('../src/js/FiStatus.jsx');
 
 var institution = {
@@ -47,9 +46,9 @@ describe('FiStatus', function(){
   });
 
   it('properly renders needed child components', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(status, 'CbLink').length).toEqual(3);
-    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'ResubmitComponent')).toBeDefined();
-    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'EditReportsWrapper')).toBeDefined();
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(status, 'a').length).toEqual(3);
+    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'resubmit')).toBeDefined();
+    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'reports')).toBeDefined();
   });
 
 });

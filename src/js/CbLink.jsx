@@ -5,7 +5,7 @@ var CbLink = React.createClass({
    this.props.callback();
   },
   render: function(){
-    return <a className="CbLink" onClick={this.handleClick}>{this.props.text}</a>
+    return <a onClick={this.handleClick}>{this.props.text}</a>
   }
 });
 
