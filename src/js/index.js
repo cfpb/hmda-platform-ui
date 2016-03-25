@@ -3,21 +3,20 @@ var ReactDOM = require('react-dom');
 var router = require('react-router');
 var api = require('./api');
 var UserSelect = require('./UserSelect.jsx');
-var UserFiHeading = require('./UserFiHeading.jsx');
+var AppContainer = require('./AppContainer.jsx');
 var FiContainer = require('./FiContainer.jsx');
 var makeSubmitForm = require('./makeSubmitForm.jsx');
 
 var Router = router.Router;
 var browserHistory = router.browserHistory;
 var Route = router.Route;
-var IndexRoute = router.IndexRouter;
+var IndexRoute = router.IndexRoute;
 
 ReactDOM.render(
   <UserSelect callback={selectCallback} />,
   document.getElementById('userSelectRoot')
 );
 
-var fiContainer = <FiContainer/>
 var submit = makeSubmitForm('/submit', function(){
   console.log('submited, -> transition');
 });
@@ -25,7 +24,7 @@ var submit = makeSubmitForm('/submit', function(){
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={AppContainer}>
-      <IndexRoute component={fiContainer}/>
+      <IndexRoute component={FiContainer}/>
       <Route path="/submit" component={submit}/>
     </Route>
   </Router>
@@ -36,11 +35,7 @@ function selectCallback(e){
   var user = e.target.value;
   console.log('selecting user: ', user);
   api.getInstitutions(user, function(institutions){
-    fiContainer.updateInstitutions(institutions);
+    console.log("SELECT");
+    //appContainer.setUser({name: user, institutions: institutions});
   });
-
-  ReactDOM.render(
-    <UserFiHeading institution={{}} year='2017' user={user} />,
-    document.getElementById('userFiHeading')
-  );
 }
