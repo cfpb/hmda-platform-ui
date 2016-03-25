@@ -32,7 +32,11 @@ var AppContainer = React.createClass({
       <div>
         <UserSelect callback={this.selectCallback}/>
         <UserFiHeading institution={{}} year="2017" user={this.state.user.name}/>
-        {this.props.children}
+        {React.cloneElement(
+          this.props.children,
+          {institutions: this.state.user.institutions}
+         )
+        }
       </div>
     )
   }
