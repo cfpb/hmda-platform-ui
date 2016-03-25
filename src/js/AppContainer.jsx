@@ -1,4 +1,6 @@
 var React = require('react');
+var api = require('./api');
+var UserSelect = require('./UserSelect.jsx');
 var UserFiHeading = require('./UserFiHeading.jsx');
 
 var AppContainer = React.createClass({
@@ -12,6 +14,15 @@ var AppContainer = React.createClass({
     }
   },
 
+  selectCallback: function(e){
+    var user = e.target.value;
+    var self = this;
+    console.log('selecting user: ', user);
+    api.getInstitutions(user, function(institutions){
+      self.setUser({name: user, institutions: institutions});
+    });
+  },
+
   setUser: function(user){
     this.setState({user: user});
   },
@@ -19,7 +30,8 @@ var AppContainer = React.createClass({
   render: function() {
     return (
       <div>
-        <UserFiHeading institution={{}} year="2017" user={this.state.user}/>
+        <UserSelect callback={this.selectCallback}/>
+        <UserFiHeading institution={{}} year="2017" user={this.state.user.name}/>
         {this.props.children}
       </div>
     )

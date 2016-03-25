@@ -1,6 +1,8 @@
 var React = require('react');
 var UserFiHeading = React.createClass({
   render: function(){
+    if(!this.props.user) return null;
+
     var headingText = 'Welcome to ' + this.props.year + ' HMDA filing, ' + this.props.user;
 
     if (this.props.institution.name) {
