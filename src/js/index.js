@@ -11,7 +11,7 @@ var Route = router.Route;
 var IndexRoute = router.IndexRoute;
 
 
-var submit = makeSubmitForm('/submit', function(){
+var Submit = makeSubmitForm('/submit', function(){
   console.log('submited, -> transition');
 });
 
@@ -19,7 +19,7 @@ ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={AppContainer}>
       <IndexRoute component={FiContainer}/>
-      <Route path="/submit" component={submit}/>
+      <Route path="/upload" component={Submit}/>
     </Route>
   </Router>
 ), document.getElementById('app')

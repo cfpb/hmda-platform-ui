@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router').Link;
 var router = require('./router.js');
 var CbLink = require('./CbLink.jsx');
 
@@ -62,7 +63,7 @@ var FiStatus = React.createClass({
 
     switch(statusCode){
       case 0:
-        statusText = <p><CbLink text="Begin filing now" callback={router.beginFiling}/>.</p>
+        statusText = <p><Link to="/upload">Begin filing now</Link>.</p>
         break;
       case 1:
         statusText = <p>Your file is being processed. You can <CbLink text="view progress" callback={router.showProgress.bind(null, this.props.institution)}/>.</p>
