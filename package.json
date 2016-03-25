@@ -36,6 +36,7 @@
     "babelify": "^7.2.0",
     "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",
+    "cf-buttons": "^3.0.4",
     "cf-core": "^3.2.1",
     "cf-forms": "^3.0.4",
     "cf-grid": "^3.1.2",
