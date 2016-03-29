@@ -41,7 +41,7 @@ var AppContainer = React.createClass({
       <div>
         {selectComponent}
         <UserHeading institution={{name: params.encodedInstitutionName}} year="2017" user={this.state.user.name}/>
-        /*clones any children added by the router in order to pass them props*/
+        {/*clones any children added by the router in order to pass them props*/}
         {React.cloneElement(
           this.props.children,
           {institutions: this.state.user.institutions}
