@@ -3,6 +3,8 @@ var api = require('./api');
 var UserSelect = require('./UserSelect.jsx');
 var UserFiHeading = require('./UserFiHeading.jsx');
 
+var url = require('url');
+
 var AppContainer = React.createClass({
 
   getInitialState: function(){
@@ -30,10 +32,14 @@ var AppContainer = React.createClass({
   render: function() {
     var params = this.props.params;
     if(!params) params = {};
+    var selectComponent = url.parse(window.location.href).pathname === '/'
+                        ? <UserSelect callback={this.selectCallback}/>
+                        : null
+                        ;
 
     return (
       <div>
-        <UserSelect callback={this.selectCallback}/>
+        {selectComponent}
         <UserFiHeading institution={{name: params.encodedInstitutionName}} year="2017" user={this.state.user.name}/>
         {React.cloneElement(
           this.props.children,
