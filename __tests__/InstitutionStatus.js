@@ -1,5 +1,6 @@
 jest.dontMock('../src/js/InstitutionStatus.jsx');
-jest.dontMock('../src/js/CbLink.jsx');
+jest.dontMock('../src/js/Resubmit.jsx');
+jest.dontMock('../src/js/EditReports.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');

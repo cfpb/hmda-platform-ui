@@ -1,5 +1,6 @@
 jest.dontMock('../src/js/InstitutionContainer.jsx');
-jest.dontMock('../src/js/CbLink.jsx');
+jest.dontMock('../src/js/Resubmit.jsx');
+jest.dontMock('../src/js/EditReports.jsx');
 jest.dontMock('../src/js/InstitutionStatus.jsx');
 jest.dontMock('../src/js/DivisionHeader.jsx');
 jest.dontMock('../src/js/data/institutions.js');

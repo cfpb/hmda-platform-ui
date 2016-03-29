@@ -11,10 +11,10 @@ var EditReports = React.createClass({
     var self = this;
     return (
       <ul className="reports">
-        {this.props.editReports.map(function(report, i){
+        {this.props.institution.editReports.map(function(report, i){
           return (
             <li key={i}>
-              <Link to={self.getReportURI(report)}>View edit report</Link> - {new Date(report.timestamp).toString().split(' ').splice(1, 3).join(' ')}
+              <Link to={self.getURI(report)}>View edit report</Link> - {new Date(report.timestamp).toString().split(' ').splice(1, 3).join(' ')}
             </li>
           )
         })}
