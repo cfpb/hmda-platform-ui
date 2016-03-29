@@ -28,10 +28,13 @@ var AppContainer = React.createClass({
   },
 
   render: function() {
+    var params = this.props.params;
+    if(!params) params = {};
+
     return (
       <div>
         <UserSelect callback={this.selectCallback}/>
-        <UserFiHeading institution={{}} year="2017" user={this.state.user.name}/>
+        <UserFiHeading institution={{name: params.encodedInstitutionName}} year="2017" user={this.state.user.name}/>
         {React.cloneElement(
           this.props.children,
           {institutions: this.state.user.institutions}

@@ -13,7 +13,7 @@ var FiStatus = React.createClass({
   getStartTime: function(editReport){
     if(!editReport) return;
     var startTime = editReport.timestamp;
-    var filingString = "Filing started ";
+    var filingString = 'Filing started ';
     var timeSince = Date.now() - startTime;
     var num;
     var unit = ' minutes';
@@ -63,7 +63,7 @@ var FiStatus = React.createClass({
 
     switch(statusCode){
       case 0:
-        statusText = <p><Link to="/upload">Begin filing now</Link>.</p>
+        statusText = <p><Link to={'/upload/' + encodeURIComponent(this.props.institution.name)}>Begin filing now</Link>.</p>
         break;
       case 1:
         statusText = <p>Your file is being processed. You can <CbLink text="view progress" callback={router.showProgress.bind(null, this.props.institution)}/>.</p>

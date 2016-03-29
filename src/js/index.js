@@ -19,7 +19,7 @@ ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={AppContainer}>
       <IndexRoute component={FiContainer}/>
-      <Route path="/upload" component={Submit}/>
+      <Route path="/upload/:encodedInstitutionName" component={Submit}/>
     </Route>
   </Router>
 ), document.getElementById('app')
