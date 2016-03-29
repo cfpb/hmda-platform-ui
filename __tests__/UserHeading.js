@@ -1,11 +1,11 @@
-jest.dontMock('../src/js/UserFiHeading.jsx');
+jest.dontMock('../src/js/UserHeading.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
 
-var UserFiHeading = require('../src/js/UserFiHeading.jsx');
+var UserHeading = require('../src/js/UserHeading.jsx');
 
 var user = 'User1';
 var institution = {
@@ -24,10 +24,10 @@ var institution = {
   ]
 }
 
-describe('UserFiHeading', function(){
+describe('UserHeading', function(){
   describe('render without institution', function() {
 
-    var headingComponent = <UserFiHeading institution={{}} year='2017' user={user} />
+    var headingComponent = <UserHeading institution={{}} year='2017' user={user} />
 
     var heading = TestUtils.renderIntoDocument(headingComponent);
     var headingNode = ReactDOM.findDOMNode(heading);
@@ -55,7 +55,7 @@ describe('UserFiHeading', function(){
 
   describe('render with institution', function() {
 
-    var headingComponent = <UserFiHeading institution={institution} year='2017' user={user} />
+    var headingComponent = <UserHeading institution={institution} year='2017' user={user} />
 
     var heading = TestUtils.renderIntoDocument(headingComponent);
     var headingNode = ReactDOM.findDOMNode(heading);

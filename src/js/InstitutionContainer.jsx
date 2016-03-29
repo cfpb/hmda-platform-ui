@@ -1,8 +1,8 @@
 var React = require('react');
 var DivisionHeader = require('./DivisionHeader.jsx');
-var FiStatus = require('./FiStatus.jsx');
+var InstitutionStatus = require('./InstitutionStatus.jsx');
 
-var FiContainer = React.createClass({
+var InstitutionContainer = React.createClass({
 
   getDivisions: function(institutions){
     var divisions = [
@@ -35,7 +35,7 @@ var FiContainer = React.createClass({
             <div key={i} className="division">
               {header}
               {division.institutions.map(function(institution, i){
-                return <FiStatus count={i} key={i} institution={institution}/>
+                return <InstitutionStatus count={i} key={i} institution={institution}/>
               })}
             </div>
           )
@@ -46,4 +46,4 @@ var FiContainer = React.createClass({
   }
 });
 
-module.exports = FiContainer;
+module.exports = InstitutionContainer;

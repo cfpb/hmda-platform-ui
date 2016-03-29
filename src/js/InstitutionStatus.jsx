@@ -4,7 +4,7 @@ var router = require('./router.js');
 var CbLink = require('./CbLink.jsx');
 
 
-var FiStatus = React.createClass({
+var InstitutionStatus = React.createClass({
 
   getInitialState: function(){
     return this.props.institution;
@@ -117,4 +117,4 @@ var FiStatus = React.createClass({
   }
 });
 
-module.exports = FiStatus;
+module.exports = InstitutionStatus;

@@ -1,5 +1,5 @@
 var React = require('react');
-var UserFiHeading = React.createClass({
+var UserHeading = React.createClass({
   render: function(){
     if(!this.props.user) return null;
 
@@ -13,4 +13,4 @@ var UserFiHeading = React.createClass({
   }
 });
 
-module.exports = UserFiHeading;
+module.exports = UserHeading;

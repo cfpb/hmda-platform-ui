@@ -1,6 +1,6 @@
-jest.dontMock('../src/js/FiContainer.jsx');
+jest.dontMock('../src/js/InstitutionContainer.jsx');
 jest.dontMock('../src/js/CbLink.jsx');
-jest.dontMock('../src/js/FiStatus.jsx');
+jest.dontMock('../src/js/InstitutionStatus.jsx');
 jest.dontMock('../src/js/DivisionHeader.jsx');
 jest.dontMock('../src/js/data/institutions.js');
 
@@ -8,12 +8,12 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
-var FiContainer = require('../src/js/FiContainer.jsx');
+var InstitutionContainer = require('../src/js/InstitutionContainer.jsx');
 var institutions = require('../src/js/data/institutions.js').user1;
 
-describe('FiContainer', function(){
+describe('InstitutionContainer', function(){
 
-  var containerComponent = <FiContainer institutions={[]}/>
+  var containerComponent = <InstitutionContainer institutions={[]}/>
   var container = TestUtils.renderIntoDocument(containerComponent);
   var containerNode = ReactDOM.findDOMNode(container);
 
@@ -31,7 +31,7 @@ describe('FiContainer', function(){
 
   });
 
-  var dataContainerComponent = <FiContainer institutions={institutions}/>
+  var dataContainerComponent = <InstitutionContainer institutions={institutions}/>
   var dataContainer = TestUtils.renderIntoDocument(dataContainerComponent);
   var dataContainerNode = ReactDOM.findDOMNode(dataContainer);
 

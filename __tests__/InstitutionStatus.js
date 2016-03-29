@@ -1,11 +1,11 @@
-jest.dontMock('../src/js/FiStatus.jsx');
+jest.dontMock('../src/js/InstitutionStatus.jsx');
 jest.dontMock('../src/js/CbLink.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
-var FiStatus = require('../src/js/FiStatus.jsx');
+var InstitutionStatus = require('../src/js/InstitutionStatus.jsx');
 
 var institution = {
   "name": "Wacky data",
@@ -23,9 +23,9 @@ var institution = {
   ]
 }
 
-describe('FiStatus', function(){
+describe('InstitutionStatus', function(){
 
-  var statusComponent = <FiStatus institution={institution}/>
+  var statusComponent = <InstitutionStatus institution={institution}/>
   var status = TestUtils.renderIntoDocument(statusComponent);
   var statusNode = ReactDOM.findDOMNode(status);
 
