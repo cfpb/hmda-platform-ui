@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 var router = require('react-router');
 var AppContainer = require('./AppContainer.jsx');
 var InstitutionContainer = require('./InstitutionContainer.jsx');
-var UploadForm = require('./UploadForm.jsx');
+var UploadForm = require('./makeUploadForm.jsx');
 
 var Router = router.Router;
 var browserHistory = router.browserHistory;

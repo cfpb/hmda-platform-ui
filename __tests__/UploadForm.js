@@ -1,4 +1,4 @@
-jest.dontMock('../src/js/UploadForm.jsx');
+jest.dontMock('../src/js/makeUploadForm.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -7,7 +7,7 @@ var TestUtils = require('react-addons-test-utils');
 var open, send, setRequestHeader, addEventListener, addUploadListener;
 createXHRmock();
 
-var makeUploadForm = require('../src/js/UploadForm.jsx');
+var makeUploadForm = require('../src/js/makeUploadForm.jsx');
 var UploadForm = makeUploadForm('/submit', jest.genMockFn());
 
 
