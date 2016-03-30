@@ -1,4 +1,4 @@
-jest.dontMock('../src/js/makeUploadForm.jsx');
+jest.dontMock('../src/js/UploadForm.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -7,7 +7,7 @@ var TestUtils = require('react-addons-test-utils');
 var open, send, setRequestHeader, addEventListener, addUploadListener;
 createXHRmock();
 
-var makeUploadForm = require('../src/js/makeUploadForm.jsx');
+var makeUploadForm = require('../src/js/UploadForm.jsx');
 var UploadForm = makeUploadForm('/submit', jest.genMockFn());
 
 
@@ -36,19 +36,19 @@ describe('submitform', function(){
     TestUtils.Simulate.submit(
       TestUtils.findRenderedDOMComponentWithTag(form, 'form')
     );
-   
+
     expect(open).toBeCalledWith('POST', '/submit');
-    
+
     expect(setRequestHeader.mock.calls[0][0]).toEqual('Content-Type');
     expect(setRequestHeader.mock.calls[0][1]).toEqual('text/data');
     expect(setRequestHeader.mock.calls[1][0]).toEqual('Content-Disposition');
     expect(setRequestHeader.mock.calls[1][1]).toEqual('inline; filename="' + form.state.file.name + '"');
-    
+
     expect(send).toBeCalledWith(form.state.file);
 
     addUploadListener.mock.calls[0][1]({loaded: 4, total: form.state.file.size});
     expect(form.state.uploaded).toEqual(4);
-    
+
   });
 
 });

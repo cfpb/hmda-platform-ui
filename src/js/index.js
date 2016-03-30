@@ -3,14 +3,14 @@ var ReactDOM = require('react-dom');
 var router = require('react-router');
 var AppContainer = require('./AppContainer.jsx');
 var InstitutionContainer = require('./InstitutionContainer.jsx');
-var makeUploadForm = require('./makeUploadForm.jsx');
+var UploadForm = require('./UploadForm.jsx');
 
 var Router = router.Router;
 var browserHistory = router.browserHistory;
 var Route = router.Route;
 var IndexRoute = router.IndexRoute;
 
-var Upload = makeUploadForm('/submit', function(){
+var Upload = UploadForm('/submit', function(){
   console.log('submited, -> transition');
 });
 
