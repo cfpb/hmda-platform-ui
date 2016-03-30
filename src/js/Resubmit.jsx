@@ -2,6 +2,10 @@ var React = require('react');
 var Link = require('react-router').Link;
 
 var Resubmit = React.createClass({
+  propTypes: {
+    institution: React.PropTypes.object.isRequired
+  },
+
   handleClick: function(){
     /*API call to cancel in-flight validation*/
   },

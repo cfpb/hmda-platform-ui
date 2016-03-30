@@ -2,6 +2,9 @@ var React = require('react');
 var Link = require('react-router').Link;
 
 var EditReports = React.createClass({
+  propTypes: {
+    institution: React.PropTypes.object.isRequired
+  },
 
   getURI: function(report){
     return '/reports/' + this.props.institution.name + '/' + report.timestamp
