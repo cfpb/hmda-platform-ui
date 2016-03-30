@@ -5,7 +5,7 @@ module.exports = function(url, cb){
   url = url || '/';
   cb = cb || function(){};
 
-  var SubmitForm = React.createClass({
+  var UploadForm = React.createClass({
     handleSubmit: function(e){
       e.preventDefault();
       this.makeRequest(e);
@@ -69,5 +69,5 @@ module.exports = function(url, cb){
     }
   });
 
-  return SubmitForm;
+  return UploadForm;
 }

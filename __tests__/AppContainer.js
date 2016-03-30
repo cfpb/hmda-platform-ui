@@ -1,6 +1,6 @@
 jest.dontMock('../src/js/AppContainer.jsx');
 jest.dontMock('../src/js/UserSelect.jsx');
-jest.dontMock('../src/js/UserFiHeading.jsx');
+jest.dontMock('../src/js/UserHeading.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
