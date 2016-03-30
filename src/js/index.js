@@ -10,7 +10,6 @@ var browserHistory = router.browserHistory;
 var Route = router.Route;
 var IndexRoute = router.IndexRoute;
 
-
 var Upload = makeUploadForm('/submit', function(){
   console.log('submited, -> transition');
 });
@@ -24,5 +23,3 @@ ReactDOM.render((
   </Router>
 ), document.getElementById('app')
 );
-
-
