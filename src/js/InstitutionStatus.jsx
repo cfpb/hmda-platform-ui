@@ -79,14 +79,10 @@ var InstitutionStatus = React.createClass({
   },
 
   render: function(){
-    var classes = 'institution';
-    if (this.props.count !== 0) {
-      classes = classes + ' margin-top-3'
-    }
     return (
-      <div className={classes}>
-        <h3 className="margin-bottom-0">{this.props.institution.name}</h3>
-        <h5 className="margin-top-0">{this.getStartTime(this.props.institution.editReports[0])}</h5>
+      <div className="institution">
+        <h3>{this.props.institution.name}</h3>
+        <h5>{this.getStartTime(this.props.institution.editReports[0])}</h5>
         {this.getStatusText(this.state.status)}
       </div>
     )

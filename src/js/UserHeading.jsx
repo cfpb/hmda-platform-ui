@@ -9,7 +9,7 @@ var UserHeading = React.createClass({
       headingText = this.props.user + ' filing in ' + this.props.year + ' on behalf of ' + this.props.institution.name;
     }
 
-    return <h1>{headingText}</h1>
+    return <h1 className="full">{headingText}</h1>
   }
 });
 

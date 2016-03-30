@@ -39,10 +39,10 @@ module.exports = function(url, cb){
 
     render: function(){
       return (
-        <div id="formWrapper">
+        <div className="full">
           <form encType="multipart/form-data" onSubmit={this.handleSubmit}>
             <input id="hmdaFile" name="hmdaFile" type="file" onChange={this.setFile}></input>
-            <input id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
+            <input className="btn" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
           </form>
           <UploadTracker uploaded={this.state.uploaded} file={this.state.file}/>
         </div>
