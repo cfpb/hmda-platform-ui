@@ -4,18 +4,12 @@ var FiStatus = require('./FiStatus.jsx');
 
 var FiContainer = React.createClass({
 
-  getInitialState: function(){
-    return this.updateDivisions(this.props.institutions);
-  },
-
-  updateDivisions: function(institutions){
-    var state = {
-      divisions: [
+  getDivisions: function(institutions){
+    var divisions = [
         {text: 'Not Started', institutions: []},
         {text: 'In Progress', institutions: []},
         {text: 'Completed', institutions: []}
-      ]
-    };
+      ];
 
     institutions.forEach(function(institution){
       var status = institution.status;
@@ -24,21 +18,17 @@ var FiContainer = React.createClass({
       if(status < 5) index = 1;
       if(status === 0) index = 0;
 
-      state.divisions[index].institutions.push(institution);
+      divisions[index].institutions.push(institution);
 
     });
 
-    return state;
-  },
-
-  updateInstitutions: function(institutions){
-    this.setState(this.updateDivisions(institutions));
+    return divisions;
   },
 
   render: function() {
     return (
       <div>
-        {this.state.divisions.map(function(division, i){
+        {this.getDivisions(this.props.institutions).map(function(division, i){
           var header = null;
           if(division.institutions.length) header = <DivisionHeader text={division.text}/>
           return (

@@ -1,4 +1,5 @@
 jest.dontMock('../src/js/FiStatus.jsx');
+jest.dontMock('../src/js/CbLink.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -25,7 +26,6 @@ var institution = {
 describe('FiStatus', function(){
 
   var statusComponent = <FiStatus institution={institution}/>
-
   var status = TestUtils.renderIntoDocument(statusComponent);
   var statusNode = ReactDOM.findDOMNode(status);
 
