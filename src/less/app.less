@@ -1,47 +1,23 @@
 @import (less) "node_modules/cf-core/src/cf-core.less";
-@import (less) "node_modules/cf-theme-cfpb/src/cf-theme-cfpb.less";
 @import (less) "node_modules/cf-grid/src/cf-grid.less";
 @import (less) "node_modules/cf-typography/src/cf-typography.less";
 @import (less) "node_modules/cf-typography/src/licensed-fonts.css";
 @import (less) "node_modules/cf-tables/src/cf-tables.less";
 @import (less) "node_modules/cf-forms/src/cf-forms.less";
+@import (less) "node_modules/cf-buttons/src/cf-buttons.less";
 
-h2 {
-  font-family: "AvenirNextLTW01-Demi";
-}
-h5 {
-  color: @gray;
-}
-.container {
-  .grid_wrapper();
-}
-.full {
-  .grid_column(1, 1);
-}
-.half {
-  .grid_column(1, 2);
-}
-.third {
-  .grid_column(1, 3);
-}
-.fourth {
-  .grid_column(1, 4);
-}
+@import (less) "node_modules/cf-theme-cfpb/src/cf-theme-cfpb.less";
 
-.margin-top-0 {
-  margin-top: 3px;
-}
-.margin-top-3 {
-  margin-top: 30px;
-}
-.margin-top-5 {
-  margin-top: 50px;
-}
+@import (less) "hmda/grid.less";
 
-.margin-bottom-0 {
-  margin-bottom: 0;
-}
+@import (less) "components/divisionHeader.less";
+@import (less) "components/institutionStatus.less";
+@import (less) "components/resubmit.less";
+@import (less) "components/uploadForm.less";
 
-a  {
+body {
+  font-family: "AvenirNextLTW01-Regular";
+}
+a {
  cursor: pointer;
 }
