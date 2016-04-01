@@ -7,9 +7,11 @@ var UploadForm = React.createClass({
     callback: React.PropTypes.func
   },
 
-  defaultProps: {
-    url: '/',
-    callback: function(){}
+  getDefaultProps: function(){
+    return {
+      url: '/',
+      callback: function(){}
+    }
   },
 
   handleSubmit: function(e){
@@ -21,7 +23,6 @@ var UploadForm = React.createClass({
     this.setState({uploaded: 0});
     if(!e.target.files) return;
     var file = e.target.files[0];
-    console.log('setting file', file);
     this.setState({file: file});
   },
 
@@ -33,7 +34,6 @@ var UploadForm = React.createClass({
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('load', this.props.callback);
     xhr.upload.addEventListener('progress', function(e){
-      console.log('progress', e, e.loaded, e.total);
       this.setState({uploaded: e.loaded});
     }.bind(this));
 

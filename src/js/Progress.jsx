@@ -9,9 +9,11 @@ var Progress = React.createClass({
     descriptor: React.PropTypes.string
   },
 
-  defaultProps: {
-    progress: 0,
-    descriptor: ''
+  getDefaultProps: function(){
+    return {
+      progress: 0,
+      descriptor: ''
+    }
   },
 
   getUnits: function(val){
@@ -31,7 +33,7 @@ var Progress = React.createClass({
     var props = this.props;
     return (
       <div className="Progress">
-        <span>{props.progress + ' ' + ' of ' + props.total + ' ' +
+        <span>{props.progress + ' of ' + props.total + ' ' +
           this.getUnits(props.total) + this.getDescriptor()}</span>
       </div>
     )
