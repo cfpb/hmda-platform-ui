@@ -1,4 +1,5 @@
 var React = require('react');
+var Progress = require('./Progress.jsx');
 
 module.exports = function(url, cb){
 
@@ -37,6 +38,21 @@ module.exports = function(url, cb){
       xhr.send(this.state.file);
     },
 
+    getProgress: function(){
+      var file = this.state.file;
+      var className = '';
+      var size = 0;
+
+      if(file) size = file.size;
+      else className = 'hidden';
+
+      return (
+        <div className={className}>
+          <Progress progress={this.state.uploaded} total={size} units="bytes" descriptor="uploaded"/>
+        </div>
+      )
+    },
+
     render: function(){
       return (
         <div className="full">
@@ -44,26 +60,7 @@ module.exports = function(url, cb){
             <input id="hmdaFile" name="hmdaFile" type="file" onChange={this.setFile}></input>
             <input className="btn" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
           </form>
-          <UploadTracker uploaded={this.state.uploaded} file={this.state.file}/>
-        </div>
-      )
-    }
-  });
-
-
-  var UploadTracker = React.createClass({
-    render: function(){
-      var className = '';
-      var file = this.props.file;
-      var size = 0;
-      if(!file){
-        className = 'hidden';
-      }else{
-        size = file.size;
-      }
-      return (
-        <div id="uploadTracker" className={className}>
-          <span>{this.props.uploaded} bytes of {size} uploaded</span>
+        {this.getProgress()}
         </div>
       )
     }
