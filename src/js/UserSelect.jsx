@@ -3,7 +3,7 @@ var React = require('react');
 var UserSelect = React.createClass({
   render: function(){
     return (
-      <select onChange={this.props.callback}>
+      <select style={{position:'absolute', top:'6px', left: '8px'}} className="UserSelect" onChange={this.props.callback}>
         <option value="Pick a user">Pick a user</option>
         <option value="user1">user1</option>
         <option value="user2">user2</option>
