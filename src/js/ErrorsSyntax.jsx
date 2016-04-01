@@ -1,6 +1,6 @@
 var React = require('react');
 
-var ErrorSyntaxValidity = React.createClass({
+var ErrorSyntax = React.createClass({
   propTypes: {
     errors: React.PropTypes.array
   },
@@ -13,12 +13,13 @@ var ErrorSyntaxValidity = React.createClass({
     )
   },
   render: function(){
+    console.log(this.props.errors);
     return (
-      <table>
+      <table width="100%">
         <thead>
           <tr>
-            <th>Loan Number</th>
-            <th>Errors</th>
+            <th width="50%">Loan Number</th>
+            <th width="50%">Errors</th>
           </tr>
         </thead>
         <tbody>
@@ -29,4 +30,4 @@ var ErrorSyntaxValidity = React.createClass({
   }
 });
 
-module.exports = ErrorSyntaxValidity;
+module.exports = ErrorSyntax;
