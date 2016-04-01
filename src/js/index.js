@@ -4,6 +4,7 @@ var router = require('react-router');
 var AppContainer = require('./AppContainer.jsx');
 var InstitutionContainer = require('./InstitutionContainer.jsx');
 var UploadForm = require('./UploadForm.jsx');
+var ErrorsContainer = require('./ErrorsContainer.jsx')
 
 var Router = router.Router;
 var browserHistory = router.browserHistory;
@@ -25,6 +26,7 @@ ReactDOM.render((
     <Route path="/" component={AppContainer}>
       <IndexRoute component={InstitutionContainer}/>
       <Route path="/upload/:encodedInstitutionName" component={WrappedUpload}/>
+      <Route path="/errors/:encodedInstitutionName/:editType" component={ErrorsContainer}/>
     </Route>
   </Router>
 ), document.getElementById('app')
