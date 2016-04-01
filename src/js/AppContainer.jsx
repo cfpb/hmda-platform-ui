@@ -2,6 +2,7 @@ var React = require('react');
 var api = require('./api');
 var UserSelect = require('./UserSelect.jsx');
 var UserHeading = require('./UserHeading.jsx');
+var HomeLink = require('./HomeLink.jsx');
 
 var url = require('url');
 
@@ -40,6 +41,7 @@ var AppContainer = React.createClass({
     return (
       <div className="container">
         {selectComponent}
+        <HomeLink/>
         <UserHeading institution={{name: params.encodedInstitutionName}} year="2017" user={this.state.user.name}/>
         {/*clones any children added by the router in order to pass them props*/}
         {React.cloneElement(
