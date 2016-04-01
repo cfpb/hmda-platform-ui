@@ -80,7 +80,7 @@ var InstitutionStatus = React.createClass({
 
   render: function(){
     return (
-      <div className="institution">
+      <div className="InstitutionStatus">
         <h3>{this.props.institution.name}</h3>
         <h5>{this.getStartTime(this.props.institution.editReports[0])}</h5>
         {this.getStatusText(this.state.status)}
