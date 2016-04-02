@@ -1,6 +1,10 @@
 var React = require('react');
 
 var UserSelect = React.createClass({
+  propTypes:{
+    callback: React.PropTypes.func.isRequired
+  },
+
   render: function(){
     return (
       <select style={{position:'absolute', top:'6px', left: '8px'}} className="UserSelect" onChange={this.props.callback}>

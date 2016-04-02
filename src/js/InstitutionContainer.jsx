@@ -4,6 +4,10 @@ var InstitutionStatus = require('./InstitutionStatus.jsx');
 
 var InstitutionContainer = React.createClass({
 
+  propTypes: {
+    institutions: React.PropTypes.array
+  },
+
   getDivisions: function(institutions){
     var divisions = [
         {text: 'Not Started', institutions: []},

@@ -6,6 +6,10 @@ var EditReports = require('./EditReports.jsx');
 
 var InstitutionStatus = React.createClass({
 
+  propTypes: {
+    institution: React.PropTypes.object.isRequired
+  },
+
   getInitialState: function(){
     return this.props.institution;
   },

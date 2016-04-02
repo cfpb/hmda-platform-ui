@@ -1,5 +1,12 @@
 var React = require('react');
 var UserHeading = React.createClass({
+
+  propTypes: {
+    user: React.PropTypes.string,
+    year: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+    institution: React.PropTypes.object
+  },
+
   render: function(){
     if(!this.props.user) return null;
 
