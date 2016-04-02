@@ -30,7 +30,7 @@ var InstitutionContainer = React.createClass({
       <div className="InstitutionContainer half">
         {this.getDivisions(this.props.institutions).map(function(division, i){
           var header = null;
-          if(division.institutions.length) header = <DivisionHeader text={division.text}/>
+          if(division.institutions.length) header = <DivisionHeader>{division.text}</DivisionHeader>
           return (
             <div key={i} className="division">
               {header}
