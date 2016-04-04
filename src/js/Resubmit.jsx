@@ -16,7 +16,7 @@ var Resubmit = React.createClass({
 
   render: function(){
     return (
-      <p className="resubmit">
+      <p className="Resubmit">
         <Link to={this.getURI()} onClick={this.handleClick}>Resubmit</Link> - Resubmitting will allow you to correct any errors or invalid data encountered. Each error report will be saved so you can track your progress after resubmission.
       </p>
     )

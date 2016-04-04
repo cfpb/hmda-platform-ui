@@ -4,6 +4,10 @@ var InstitutionStatus = require('./InstitutionStatus.jsx');
 
 var InstitutionContainer = React.createClass({
 
+  propTypes: {
+    institutions: React.PropTypes.array
+  },
+
   getDivisions: function(institutions){
     var divisions = [
         {text: 'Not Started', institutions: []},
@@ -27,10 +31,10 @@ var InstitutionContainer = React.createClass({
 
   render: function() {
     return (
-      <div className="half">
+      <div className="InstitutionContainer half">
         {this.getDivisions(this.props.institutions).map(function(division, i){
           var header = null;
-          if(division.institutions.length) header = <DivisionHeader text={division.text}/>
+          if(division.institutions.length) header = <DivisionHeader>{division.text}</DivisionHeader>
           return (
             <div key={i} className="division">
               {header}

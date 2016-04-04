@@ -45,8 +45,8 @@ describe('InstitutionContainer', function(){
   });
 
   it('properly renders updated components', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(dataContainer, 'division').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(dataContainer, 'DivisionHeader').length).toEqual(3);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(dataContainer, 'h2').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(dataContainer, 'institution').length).toEqual(6);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(dataContainer, 'InstitutionStatus').length).toEqual(6);
   });
 });

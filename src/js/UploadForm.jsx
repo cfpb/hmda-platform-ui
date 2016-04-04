@@ -60,7 +60,7 @@ var UploadForm = React.createClass({
 
   render: function(){
     return (
-      <div className="full">
+      <div className="UploadForm full">
         <form encType="multipart/form-data" onSubmit={this.handleSubmit}>
           <input id="hmdaFile" name="hmdaFile" type="file" onChange={this.setFile}></input>
           <input className="btn" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>

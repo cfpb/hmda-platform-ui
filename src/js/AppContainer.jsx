@@ -39,7 +39,7 @@ var AppContainer = React.createClass({
                         ;
 
     return (
-      <div className="container">
+      <div className="AppContainer">
         {selectComponent}
         <HomeLink/>
         <UserHeading institution={{name: params.encodedInstitutionName}} year="2017" user={this.state.user.name}/>

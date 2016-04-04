@@ -13,7 +13,7 @@ var EditReports = React.createClass({
   render: function(){
     var self = this;
     return (
-      <ul className="reports">
+      <ul className="EditReports">
         {this.props.institution.editReports.map(function(report, i){
           return (
             <li key={i}>

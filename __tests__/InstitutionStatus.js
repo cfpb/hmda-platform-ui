@@ -48,8 +48,8 @@ describe('InstitutionStatus', function(){
 
   it('properly renders needed child components', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithTag(status, 'a').length).toEqual(3);
-    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'resubmit')).toBeDefined();
-    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'reports')).toBeDefined();
+    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'Resubmit')).toBeDefined();
+    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'EditReports')).toBeDefined();
   });
 
 });
