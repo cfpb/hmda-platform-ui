@@ -15,8 +15,8 @@ var ErrorSyntax = React.createClass({
   createErrorDetailRow: function(error) {
     return (
       <tr key={error.id}>
-        <td colSpan="3">
-          <table width="100%">
+        <td>
+          <table>
             <thead>
               <tr>
                 <th>Edit ID</th>
@@ -42,24 +42,40 @@ var ErrorSyntax = React.createClass({
     console.log(this.props.errors);
     var _this = this;
     return (
-      <table width="100%">
-        <thead>
-          <tr>
-            <th width="50%">Loan Number</th>
-            <th width="50%">Errors</th>
-          </tr>
-        </thead>
-        <tbody>
+      <div className="ErrorsSyntax full">
+        <div className="tableHeader half">Loan Number</div>
+        <div className="tableHeader half">Errors</div>
         {this.props.errors.map(function(loan, i) {
-          var rows = [];
-          rows.push(_this.createErrorRow(loan));
-          loan.errors.map(function(error, i) {
-            rows.push(_this.createErrorDetailRow(error));
-          })
-          return rows
+          return (
+            <div>
+              <div className="half">{loan.loanNumber}</div>
+              <div className="half">{loan.errors.length}</div>
+              <table width="100%">
+                <thead>
+                  <tr>
+                    <th>Edit ID</th>
+                    <th>Description</th>
+                    <th>Field</th>
+                    <th>Submitted Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {loan.errors.map(function(error, i) {
+                    return (
+                      <tr key={error.id}>
+                        <td>{error.id}</td>
+                        <td>{error.desc}</td>
+                        <td>{error.field}</td>
+                        <td>{error.valueSubmitted}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )
         })}
-        </tbody>
-      </table>
+      </div>
     )
   }
 });
