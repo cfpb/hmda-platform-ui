@@ -32,6 +32,11 @@ var ErrorsContainer = React.createClass({
               		"desc": "Here is another desc",
               		"field": "Year",
               		"valueSubmitted": "1800"
+              	}, {
+              		"id": 3,
+              		"desc": "Here is another desc",
+              		"field": "Year",
+              		"valueSubmitted": "1800"
               	}
               ]
             },
@@ -53,7 +58,6 @@ var ErrorsContainer = React.createClass({
             }
           ]
         }
-
       }
     )
   },
