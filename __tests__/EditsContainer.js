@@ -1,5 +1,6 @@
 jest.dontMock('../src/js/EditsContainer.jsx');
 jest.dontMock('../src/js/EditsSyntacticalValidity.jsx');
+jest.dontMock('../src/js/EditsHeaderDescription.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -103,7 +104,7 @@ describe('EditsContainer', function(){
   });
 
   it('properly renders child elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(container, 'h2').length).toEqual(2);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'EditsHeaderDescription').length).toEqual(2);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(container, 'p').length).toEqual(3);
   });
 });
