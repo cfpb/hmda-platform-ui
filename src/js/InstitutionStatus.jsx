@@ -51,7 +51,7 @@ var InstitutionStatus = React.createClass({
         statusText = <p>Your file is being processed. You can <Link to={'/progress/' + this.props.institution.name}>view progress</Link>.</p>
         break;
       case 2:
-        statusText = <p>All checks complete, but with <Link to={'/errors/' + this.props.institution.name + '/syntactical'}>syntactical</Link> and <Link to={'/errors/' + this.props.institution.name + '/validity'}>validity</Link> errors. These errors must be corrected before verifying data quality.</p>
+        statusText = <p>All checks complete, but with <Link to={'/edits/' + this.props.institution.name + '#syntactical'}>syntactical</Link> and <Link to={'/edits/' + this.props.institution.name + '#validity'}>validity</Link> errors. These errors must be corrected before verifying data quality.</p>
         break;
       case 3:
         statusText = <p>All checks complete. <Link to={'/errors/' + this.props.institution.name}>Verify quality and macro checks</Link>.</p>

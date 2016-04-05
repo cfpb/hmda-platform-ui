@@ -26,7 +26,7 @@ ReactDOM.render((
     <Route path="/" component={AppContainer}>
       <IndexRoute component={InstitutionContainer}/>
       <Route path="/upload/:encodedInstitutionName" component={WrappedUpload}/>
-      <Route path="/errors/:encodedInstitutionName/:editType" component={EditsContainer}/>
+      <Route path="/edits/:encodedInstitutionName" component={EditsContainer}/>
     </Route>
   </Router>
 ), document.getElementById('app')

@@ -103,7 +103,7 @@ var EditsContainer = React.createClass({
 
   render: function() {
     return (
-      <div className="container">
+      <div className="EditsContainer container">
         <div className="third">
           <p>Filing progress will go here. It could be in progress or complete or ...</p>
         </div>
