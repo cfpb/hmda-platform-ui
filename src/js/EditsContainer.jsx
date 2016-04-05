@@ -1,15 +1,15 @@
 var React = require('react');
-var ErrorsSyntax = require('./ErrorsSyntax.jsx');
+var EditsSyntacticalValidity = require('./EditsSyntacticalValidity.jsx');
 
-var ErrorsContainer = React.createClass({
+var EditsContainer = React.createClass({
   getInitialState: function() {
     return {
-      errors: {
-        syntax: [],
-        validity: [],
-        quality: [],
-        macro: []
-      }
+    	"edits": {
+    		"syntactical": [],
+    		"validity": [],
+    		"quality": [],
+    		"macro": []
+    	}
     }
   },
 
@@ -17,11 +17,11 @@ var ErrorsContainer = React.createClass({
     var _this = this;
     _this.setState (
       {
-        errors: {
-          syntax: [
+        "edits": {
+          "syntactical": [
             {
               "loanNumber": "123455",
-            	"errors": [
+            	"edits": [
                 {
               		"id": 1,
               		"desc": "Here is a desc",
@@ -42,7 +42,7 @@ var ErrorsContainer = React.createClass({
             },
             {
               "loanNumber": "09876",
-            	"errors": [
+            	"edits": [
                 {
               		"id": 1,
               		"desc": "Here is a desc",
@@ -57,10 +57,10 @@ var ErrorsContainer = React.createClass({
               ]
             }
           ],
-          valid: [
+          "validity": [
             {
               "loanNumber": "123455",
-            	"errors": [
+            	"edits": [
                 {
               		"id": 1,
               		"desc": "Here is a desc",
@@ -81,7 +81,7 @@ var ErrorsContainer = React.createClass({
             },
             {
               "loanNumber": "09876",
-            	"errors": [
+            	"edits": [
                 {
               		"id": 1,
               		"desc": "Here is a desc",
@@ -108,13 +108,21 @@ var ErrorsContainer = React.createClass({
           <p>Filing progress will go here. It could be in progress or complete or ...</p>
         </div>
         <div className="two-third">
-          <h2>Syntactical Errors</h2>
-          <p>This is a description of the syntactical errors. It will provide information to filers about the errors they are about to see.</p>
-          <ErrorsSyntax errors={this.state.errors.syntax} />
+          <div>
+            <h2>Syntactical Edits</h2>
+            <p>This is a description of the syntactical edits. It will provide information to filers about the edits they are about to see.</p>
+            <EditsSyntacticalValidity id="syntactical" edits={this.state.edits.syntactical} />
+          </div>
+          <div>
+            <h2>Validity Edits</h2>
+            <p>This is a description of the validity edits. It will provide information to filers about the edits they are about to see.</p>
+            <EditsSyntacticalValidity id="validity" edits={this.state.edits.validity} />
+          </div>
+
         </div>
       </div>
     )
   }
 });
 
-module.exports = ErrorsContainer;
+module.exports = EditsContainer;

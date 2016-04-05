@@ -1,22 +1,21 @@
 var React = require('react');
 
-var ErrorSyntax = React.createClass({
+var EditsSyntacticalValidity = React.createClass({
   propTypes: {
-    errors: React.PropTypes.array
+    edits: React.PropTypes.array
   },
   render: function() {
-    console.log(this.props.errors);
     var _this = this;
     return (
-      <div className="ErrorsSyntax full">
+      <div className="EditsSyntacticalValidity full" id={this.props.id}>
         <div className="tableHeader half">Loan Number</div>
-        <div className="tableHeader half">Errors</div>
-        {this.props.errors.map(function(loan, i) {
+        <div className="tableHeader half">Edits</div>
+        {this.props.edits.map(function(loan, i) {
           return (
-            <div className="ErrorsSummary">
+            <div className="EditsSummary" key={i}>
               <div className="half summary">{loan.loanNumber}</div>
-              <div className="half summary">{loan.errors.length}</div>
-              <div className="ErrorsDetails">
+              <div className="half summary">{loan.edits.length}</div>
+              <div className="EditsDetails">
                 <table width="100%">
                   <thead>
                     <tr>
@@ -27,13 +26,13 @@ var ErrorSyntax = React.createClass({
                     </tr>
                   </thead>
                   <tbody>
-                    {loan.errors.map(function(error, i) {
+                    {loan.edits.map(function(edit, i) {
                       return (
-                        <tr key={error.id}>
-                          <td>{error.id}</td>
-                          <td>{error.desc}</td>
-                          <td>{error.field}</td>
-                          <td>{error.valueSubmitted}</td>
+                        <tr key={edit.id}>
+                          <td>{edit.id}</td>
+                          <td>{edit.desc}</td>
+                          <td>{edit.field}</td>
+                          <td>{edit.valueSubmitted}</td>
                         </tr>
                       )
                     })}
@@ -48,4 +47,4 @@ var ErrorSyntax = React.createClass({
   }
 });
 
-module.exports = ErrorSyntax;
+module.exports = EditsSyntacticalValidity;
