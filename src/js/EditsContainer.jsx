@@ -13,7 +13,7 @@ var EditsContainer = React.createClass({
     }
   },
 
-  componentDidMount: function() {
+  componentWillMount: function() {
     var _this = this;
     _this.setState (
       {
