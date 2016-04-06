@@ -1,6 +1,9 @@
 var React = require('react');
 
 var EditsHeaderDescription = React.createClass({
+  propTypes: {
+    children: React.PropTypes.string.isRequired
+  },
   getDescription: function(editType) {
     var desc = null;
     switch (editType) {
