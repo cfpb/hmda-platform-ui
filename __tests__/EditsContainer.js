@@ -1,17 +1,19 @@
 jest.dontMock('../src/js/EditsContainer.jsx');
 jest.dontMock('../src/js/EditsSyntacticalValidity.jsx');
 jest.dontMock('../src/js/EditsHeaderDescription.jsx');
+jest.dontMock('superagent');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
-
 var EditsContainer = require('../src/js/EditsContainer.jsx');
+
+var edits = null;
 
 var edits = {
   "syntactical": [
     {
-      "loanNumber": "123455",
+      "loanNumber": "12345",
       "edits": [
         {
           "id": 1,
@@ -50,7 +52,7 @@ var edits = {
   ],
   "validity": [
     {
-      "loanNumber": "123455",
+      "loanNumber": "45678",
       "edits": [
         {
           "id": 1,
@@ -71,7 +73,7 @@ var edits = {
       ]
     },
     {
-      "loanNumber": "09876",
+      "loanNumber": "87654",
       "edits": [
         {
           "id": 1,
@@ -100,7 +102,7 @@ describe('EditsContainer', function(){
   });
 
   it('has the correct state for edits', function(){
-    expect(container.state.edits).toEqual(edits);
+    expect(container.state.syntactical).toEqual([]);
   });
 
   it('properly renders child elements', function(){

@@ -1,0 +1,82 @@
+{
+  "edits": {
+    "syntactical": [
+      {
+        "loanNumber": "12345",
+        "edits": [
+          {
+            "id": 1,
+            "desc": "Here is a desc",
+            "field": "Year",
+            "valueSubmitted": "1967"
+          }, {
+            "id": 2,
+            "desc": "Here is another desc",
+            "field": "Year",
+            "valueSubmitted": "1800"
+          }, {
+            "id": 3,
+            "desc": "Here is another desc",
+            "field": "Year",
+            "valueSubmitted": "1800"
+          }
+        ]
+      },
+      {
+        "loanNumber": "09876",
+        "edits": [
+          {
+            "id": 1,
+            "desc": "Here is a desc",
+            "field": "Year",
+            "valueSubmitted": "1967"
+          }, {
+            "id": 2,
+            "desc": "Here is another desc",
+            "field": "Year",
+            "valueSubmitted": "1800"
+          }
+        ]
+      }
+    ],
+    "validity": [
+      {
+        "loanNumber": "45678",
+        "edits": [
+          {
+            "id": 1,
+            "desc": "Here is a desc",
+            "field": "Year",
+            "valueSubmitted": "1967"
+          }, {
+            "id": 2,
+            "desc": "Here is another desc",
+            "field": "Year",
+            "valueSubmitted": "1800"
+          }, {
+            "id": 3,
+            "desc": "Here is another desc",
+            "field": "Year",
+            "valueSubmitted": "1800"
+          }
+        ]
+      },
+      {
+        "loanNumber": "87654",
+        "edits": [
+          {
+            "id": 1,
+            "desc": "Here is a desc",
+            "field": "Year",
+            "valueSubmitted": "1967"
+          }, {
+            "id": 2,
+            "desc": "Here is another desc",
+            "field": "Year",
+            "valueSubmitted": "1800"
+          }
+        ]
+      }
+    ]
+  }
+}
