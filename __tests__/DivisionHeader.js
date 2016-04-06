@@ -10,7 +10,7 @@ var DivisionHeader = require('../src/js/DivisionHeader.jsx');
 
 describe('divisionHeader', function(){
 
-  var headerComponent = <DivisionHeader text="testtext"/>;
+  var headerComponent = <DivisionHeader>testtext</DivisionHeader>;
   var header = TestUtils.renderIntoDocument(headerComponent);
   var headerNode = ReactDOM.findDOMNode(header);
 
@@ -19,7 +19,7 @@ describe('divisionHeader', function(){
   });
 
   it('sets the text prop appropriately', function(){
-    expect(header.props.text).toEqual('testtext');
+    expect(header.props.children).toEqual('testtext');
   });
 
 });
