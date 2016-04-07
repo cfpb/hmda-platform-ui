@@ -5,7 +5,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
-var EditsSyntacticalValidity = require('../src/js/Macro.jsx');
+var EditsMacro = require('../src/js/EditsMacro.jsx');
 
 var edits = {
  "macro": {
@@ -27,7 +27,6 @@ var edits = {
 
 describe('EditsMacro', function(){
 
- 
   var macro = TestUtils.renderIntoDocument(<EditsMacro id="macro" edits={edits.macro} />);
   var macroNode = ReactDOM.findDOMNode(macro);
 
@@ -44,8 +43,8 @@ describe('EditsMacro', function(){
   });
 
   it('properly renders needed child components', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(macro, 'EditsSummary').length).toEqual(2);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(macro, 'EditsDetail').length).toEqual(2);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(macro, 'EditsMacro').length).toEqual(1);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(macro, 'EditsDetail').length).toEqual(1);
   });
 
 });

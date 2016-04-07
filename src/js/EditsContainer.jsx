@@ -8,13 +8,16 @@ var EditsHeaderDescription = require('./EditsHeaderDescription.jsx');
 var EditsContainer = React.createClass({
   getInitialState: function() {
     return {
-      'syntactical': [],
-      'validity': []
+      edits: {
+        syntactical: [],
+        validity: [],
+        macro: {}
+      }
     }
   },
 
   parseResponse: function(err, res) {
-    if (err) throw err
+    if (err) throw err;
     var response = JSON.parse(res.text);
     this.setState({
       'edits': response.edits

@@ -1,5 +1,7 @@
 jest.dontMock('../src/js/EditsContainer.jsx');
 jest.dontMock('../src/js/EditsSyntacticalValidity.jsx');
+jest.dontMock('../src/js/EditsDetail.jsx');
+jest.dontMock('../src/js/EditsMacro.jsx');
 jest.dontMock('../src/js/EditsHeaderDescription.jsx');
 
 var React = require('react');
@@ -32,7 +34,7 @@ describe('EditsContainer', function() {
   });
 
   it('has the correct state for edits', function(){
-    expect(container.state.syntactical).toEqual([]);
+    expect(container.state.edits.syntactical).toEqual([]);
   });
 
   it('properly renders child elements', function(){
@@ -43,8 +45,8 @@ describe('EditsContainer', function() {
   it('calls superagent.get', function() {
     jest.runAllTicks();
     var parsedEdits = JSON.parse(edits);
-    expect(container.state.syntactical).toEqual(parsedEdits.edits.syntactical);
-    expect(container.state.syntactical[0].loanNumber).not.toEqual('543234');
-    expect(container.state.validity).toEqual(parsedEdits.edits.validity);
+    expect(container.state.edits.syntactical).toEqual(parsedEdits.edits.syntactical);
+    expect(container.state.edits.syntactical[0].loanNumber).not.toEqual('543234');
+    expect(container.state.edits.validity).toEqual(parsedEdits.edits.validity);
   });
 });
