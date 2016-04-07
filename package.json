@@ -5,17 +5,20 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css",
+    "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css ./dist/json",
     "browser": "./scripts/browser.js",
     "dev:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
     "dev:less": "lessc ./src/less/app.less ./dist/css/app.css",
     "dev:html": "cp src/index.html dist/index.html",
+    "dev:json": "cp src/js/data/*.json dist/json/",
     "dev:build": "npm run dev:js && npm run dev:less && npm run dev:html",
     "postinstall": "npm run clean",
-    "watch:js": "nodemon -e js,jsx -w src/js -w __tests__ -x 'npm run dev:js & npm test'",
+    "watch:js": "nodemon -e js,jsx -w src/js -x 'npm run dev:js & npm test'",
+    "watch:tests": "nodemon -e js -w __tests__ -x 'npm test'",
     "watch:less": "nodemon -e less -w src/less -x 'npm run dev:less'",
     "watch:html": "nodemon -e html -w src -x 'npm run dev:html'",
-    "watch": "npm run watch:js & npm run watch:less & npm run watch:html & npm run browser"
+    "watch:json": "nodemon -e json -w src -x 'npm run dev:json'",
+    "watch": "npm run watch:js & npm run watch:tests & npm run watch:less & npm run watch:html & npm run watch:json & npm run browser"
   },
   "repository": {
     "type": "git",
@@ -69,6 +72,7 @@
   "dependencies": {
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-router": "^2.0.1"
+    "react-router": "^2.0.1",
+    "superagent": "^1.8.3"
   }
 }
