@@ -5,107 +5,24 @@ jest.dontMock('../src/js/EditsHeaderDescription.jsx');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
-
 var EditsContainer = require('../src/js/EditsContainer.jsx');
+var request = require('superagent');
+var fs = require('fs');
 
-var edits = {
-  "syntactical": [
-    {
-      "loanNumber": "123455",
-      "edits": [
-        {
-          "id": 1,
-          "desc": "Here is a desc",
-          "field": "Year",
-          "valueSubmitted": "1967"
-        }, {
-          "id": 2,
-          "desc": "Here is another desc",
-          "field": "Year",
-          "valueSubmitted": "1800"
-        }, {
-          "id": 3,
-          "desc": "Here is another desc",
-          "field": "Year",
-          "valueSubmitted": "1800"
-        }
-      ]
-    },
-    {
-      "loanNumber": "09876",
-      "edits": [
-        {
-          "id": 1,
-          "desc": "Here is a desc",
-          "field": "Year",
-          "valueSubmitted": "1967"
-        }, {
-          "id": 2,
-          "desc": "Here is another desc",
-          "field": "Year",
-          "valueSubmitted": "1800"
-        }
-      ]
-    }
-  ],
-  "validity": [
-    {
-      "loanNumber": "123455",
-      "edits": [
-        {
-          "id": 1,
-          "desc": "Here is a desc",
-          "field": "Year",
-          "valueSubmitted": "1967"
-        }, {
-          "id": 2,
-          "desc": "Here is another desc",
-          "field": "Year",
-          "valueSubmitted": "1800"
-        }, {
-          "id": 3,
-          "desc": "Here is another desc",
-          "field": "Year",
-          "valueSubmitted": "1800"
-        }
-      ]
-    },
-    {
-      "loanNumber": "09876",
-      "edits": [
-        {
-          "id": 1,
-          "desc": "Here is a desc",
-          "field": "Year",
-          "valueSubmitted": "1967"
-        }, {
-          "id": 2,
-          "desc": "Here is another desc",
-          "field": "Year",
-          "valueSubmitted": "1800"
-        }
-      ]
-    }
-  ],
-  "macro": {
-    "edits": [
-      {
-        "id": 1,
-        "desc": "Here is a desc",
-        "justification":"",
-        "verified":false
-      }, {
-        "id": 2,
-        "desc": "Here is another desc",
-        "justification": "Why not",
-        "verified": true
-      }
-    ]
-  }
-}
+var edits = fs.readFileSync('./src/js/data/edits.json');
 
-describe('EditsContainer', function(){
+request.get = jest.fn(function(){
+  process.nextTick(function() {
+    request.triggerEnd(null, {'text': edits});
+  })
+  return this;
+});
 
+request.end = jest.fn(function(callback) {
+  request.triggerEnd = callback;
+});
+
+describe('EditsContainer', function() {
   var containerComponent = <EditsContainer />
   var container = TestUtils.renderIntoDocument(containerComponent);
   var containerNode = ReactDOM.findDOMNode(container);
@@ -115,11 +32,19 @@ describe('EditsContainer', function(){
   });
 
   it('has the correct state for edits', function(){
-    expect(container.state.edits).toEqual(edits);
+    expect(container.state.syntactical).toEqual([]);
   });
 
   it('properly renders child elements', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'EditsHeaderDescription').length).toEqual(3);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(container, 'p').length).toEqual(4);
+  });
+
+  it('calls superagent.get', function() {
+    jest.runAllTicks();
+    var parsedEdits = JSON.parse(edits);
+    expect(container.state.syntactical).toEqual(parsedEdits.edits.syntactical);
+    expect(container.state.syntactical[0].loanNumber).not.toEqual('543234');
+    expect(container.state.validity).toEqual(parsedEdits.edits.validity);
   });
 });
