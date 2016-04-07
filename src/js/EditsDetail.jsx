@@ -15,9 +15,8 @@ var EditsDetail = React.createClass({
   },
 
   makeTdContent: function(edit, field){
-    console.log(edit, field);
-    if(field === 'justification' && !edit.verified) return <textarea>{edit.justification}</textarea>
-    if(field === 'verified') return <checkbox checked={edit.verified}/>
+    if(field === 'justification' && !edit.verified) return <textarea value={edit.justification}/>
+    if(field === 'verified') return <input type="checkbox" checked={edit.verified}/>
     return edit[field];
   },
 
@@ -26,7 +25,7 @@ var EditsDetail = React.createClass({
     if(!this.props.edits) return null;
     var headers = Object.keys(this.props.edits[0]);
     if(!headers) return null;
-console.log(this.props.edits);
+
     return (
       <div className="EditsDetail">
         <table width="100%">
