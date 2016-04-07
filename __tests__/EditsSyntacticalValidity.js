@@ -77,7 +77,7 @@ describe('EditsSyntacticalValidity', function(){
 
   it('properly renders needed child components', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical, 'EditsSummary').length).toEqual(2);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical, 'EditsSyntacticalValidityDetail').length).toEqual(2);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical, 'EditsDetail').length).toEqual(2);
   });
 
 });

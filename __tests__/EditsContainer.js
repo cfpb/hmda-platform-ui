@@ -86,7 +86,22 @@ var edits = {
         }
       ]
     }
-  ]
+  ],
+  "macro": {
+    "edits": [
+      {
+        "id": 1,
+        "desc": "Here is a desc",
+        "justification":"",
+        "verified":false
+      }, {
+        "id": 2,
+        "desc": "Here is another desc",
+        "justification": "Why not",
+        "verified": true
+      }
+    ]
+  }
 }
 
 describe('EditsContainer', function(){
@@ -104,7 +119,7 @@ describe('EditsContainer', function(){
   });
 
   it('properly renders child elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'EditsHeaderDescription').length).toEqual(2);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(container, 'p').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'EditsHeaderDescription').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(container, 'p').length).toEqual(4);
   });
 });

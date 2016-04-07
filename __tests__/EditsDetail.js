@@ -1,4 +1,3 @@
-/*
 jest.dontMock('../src/js/EditsDetail.jsx');
 
 var React = require('react');
@@ -39,22 +38,20 @@ var edits = {
 
 describe('EditsSyntacticalValidity', function(){
 
-  var detailComponent = <EditsSyntacticalValidityDetail edits={edits} />
-  var detail = TestUtils.renderIntoDocument(detailComponent);
-  var detailNode = ReactDOM.findDOMNode(detail);
+  var syntaxDetail = TestUtils.renderIntoDocument(<EditsDetail edits={edits.syntax}/>);
+  var syntaxNode = ReactDOM.findDOMNode(syntaxDetail);
 
   it('renders the component', function(){
-    expect(detailNode).toBeDefined();
+    expect(syntaxNode).toBeDefined();
   });
 
   it('passes through the edits appropriately as props', function(){
-    expect(detail.props.edits).toEqual(edits);
+    expect(syntaxDetail.props.edits).toEqual(edits.syntax);
   });
 
   it('properly renders needed elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(detail, 'table').length).toEqual(1);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(detail, 'tr').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(detail, 'td').length).toEqual(8);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(syntaxDetail, 'table').length).toEqual(1);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(syntaxDetail, 'tr').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(syntaxDetail, 'td').length).toEqual(8);
   });
 });
-*/
