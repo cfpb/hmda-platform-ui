@@ -1,5 +1,6 @@
 var React = require('react');
 var EditsSyntacticalValidity = require('./EditsSyntacticalValidity.jsx');
+var EditsMacro = require('./EditsMacro.jsx');
 var EditsHeaderDescription = require('./EditsHeaderDescription.jsx');
 
 var EditsContainer = React.createClass({
@@ -16,6 +17,7 @@ var EditsContainer = React.createClass({
 
   componentWillMount: function() {
     var _this = this;
+    console.log('setting state');
     _this.setState (
       {
         "edits": {
@@ -96,8 +98,23 @@ var EditsContainer = React.createClass({
               	}
               ]
             }
-          ]
-        }
+          ],
+          "macro": {
+            	"edits": [
+                {
+              		"id": 1,
+              		"desc": "Here is a desc",
+                  "justification":"",
+                  "verified":false
+              	}, {
+              		"id": 2,
+              		"desc": "Here is another desc",
+                  "justification": "Why not",
+                  "verified": true
+              	}
+              ]
+            }
+          }
       }
     )
   },
@@ -114,6 +131,9 @@ var EditsContainer = React.createClass({
 
           <EditsHeaderDescription>Validity</EditsHeaderDescription>
           <EditsSyntacticalValidity id="validity" edits={this.state.edits.validity} />
+
+          <EditsHeaderDescription>Macro</EditsHeaderDescription>
+          <EditsMacro id="macro" edits={this.state.edits.macro} />
         </div>
       </div>
     )

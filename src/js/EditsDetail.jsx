@@ -14,11 +14,19 @@ var EditsDetail = React.createClass({
     verified: 'Verified'
   },
 
+  makeTdContent: function(edit, field){
+    console.log(edit, field);
+    if(field === 'justification' && !edit.verified) return <textarea>{edit.justification}</textarea>
+    if(field === 'verified') return <checkbox checked={edit.verified}/>
+    return edit[field];
+  },
+
   render: function() {
     var _this = this;
+    if(!this.props.edits) return null;
     var headers = Object.keys(this.props.edits[0]);
-    if(!headers) return;
-
+    if(!headers) return null;
+console.log(this.props.edits);
     return (
       <div className="EditsDetail">
         <table width="100%">
@@ -34,7 +42,7 @@ var EditsDetail = React.createClass({
               return (
                 <tr key={i}>
                   {Object.keys(edit).map(function(field, i){
-                    return <td key={i}>{edit[field]}</td>
+                    return <td key={i}>{_this.makeTdContent(edit, field)}</td>
                   })}
                 </tr>
               )

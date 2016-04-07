@@ -1,5 +1,5 @@
 jest.dontMock('../src/js/EditsSyntacticalValidity.jsx');
-jest.dontMock('../src/js/EditsSyntacticalValidityDetail.jsx');
+jest.dontMock('../src/js/EditsDetail.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
