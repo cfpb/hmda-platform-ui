@@ -12,16 +12,19 @@ var EditsContainer = React.createClass({
     }
   },
 
+  parseResponse: function(err, res) {
+    if (err) throw err
+    var response = JSON.parse(res.text);
+    this.setState({
+      "syntactical": response.edits.syntactical,
+      "validity": response.edits.validity
+    });
+  },
+
   componentWillMount: function() {
     var _this = this;
-    request.get('/json/edits.json', function(err, res) {
-      if (err) throw err;
-      var response = JSON.parse(res.text);
-      _this.setState({
-        "syntactical": response.edits.syntactical,
-        "validity": response.edits.validity
-      });
-    });
+    request.get('/json/edits.json')
+      .end(_this.parseResponse);
   },
 
   render: function() {
