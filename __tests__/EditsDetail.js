@@ -1,4 +1,5 @@
 jest.dontMock('../src/js/EditsDetail.jsx');
+jest.dontMock('../src/js/EditsDetailRow.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -36,7 +37,7 @@ var edits = {
   ]
 }
 
-describe('EditsSyntacticalValidity', function(){
+describe('EditsDetail', function(){
 
   var syntaxDetail = TestUtils.renderIntoDocument(<EditsDetail edits={edits.syntax}/>);
   var syntaxNode = ReactDOM.findDOMNode(syntaxDetail);
@@ -53,5 +54,23 @@ describe('EditsSyntacticalValidity', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithTag(syntaxDetail, 'table').length).toEqual(1);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(syntaxDetail, 'tr').length).toEqual(3);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(syntaxDetail, 'td').length).toEqual(8);
+  });
+
+  var macroDetail = TestUtils.renderIntoDocument(<EditsDetail edits={edits.macro}/>);
+  var macroNode = ReactDOM.findDOMNode(macroDetail);
+
+  it('renders the component', function(){
+    expect(macroNode).toBeDefined();
+  });
+
+  it('passes through the edits appropriately as props', function(){
+    expect(macroDetail.props.edits).toEqual(edits.macro);
+  });
+
+  it('properly renders needed elements', function(){
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'table').length).toEqual(1);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'tr').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'td').length).toEqual(8);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'textarea').length).toEqual(1);
   });
 });

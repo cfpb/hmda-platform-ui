@@ -15,9 +15,6 @@ var EditsDetail = React.createClass({
     verified: 'Verified'
   },
 
-  makeTdContent: function(edit, field){
-  },
-
   render: function() {
     var _this = this;
     if(!this.props.edits) return null;

@@ -1,6 +1,11 @@
 var React = require('react');
 
 var EditsDetailRow = React.createClass({
+
+  propTypes: {
+    edit: React.PropTypes.object.isRequired
+  },
+
   getInitialState: function(){
     return {verified: false, justification: ''}
   },
