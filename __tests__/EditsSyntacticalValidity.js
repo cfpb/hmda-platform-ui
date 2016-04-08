@@ -1,5 +1,5 @@
 jest.dontMock('../src/js/EditsSyntacticalValidity.jsx');
-jest.dontMock('../src/js/EditsSyntacticalValidityDetail.jsx');
+jest.dontMock('../src/js/EditsDetail.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -77,7 +77,7 @@ describe('EditsSyntacticalValidity', function(){
 
   it('properly renders needed child components', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical, 'EditsSummary').length).toEqual(2);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical, 'EditsSyntacticalValidityDetail').length).toEqual(2);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical, 'EditsDetail').length).toEqual(2);
   });
 
 });

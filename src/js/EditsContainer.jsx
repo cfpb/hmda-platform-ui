@@ -2,29 +2,31 @@ var React = require('react');
 var request = require('superagent');
 
 var EditsSyntacticalValidity = require('./EditsSyntacticalValidity.jsx');
+var EditsMacro = require('./EditsMacro.jsx');
 var EditsHeaderDescription = require('./EditsHeaderDescription.jsx');
 
 var EditsContainer = React.createClass({
   getInitialState: function() {
     return {
-    	"syntactical": [],
-      "validity": []
+      edits: {
+        syntactical: [],
+        validity: [],
+        macro: {}
+      }
     }
   },
 
   parseResponse: function(err, res) {
-    if (err) throw err
+    if (err) throw err;
     var response = JSON.parse(res.text);
     this.setState({
-      "syntactical": response.edits.syntactical,
-      "validity": response.edits.validity
+      'edits': response.edits
     });
   },
 
   componentWillMount: function() {
-    var _this = this;
     request.get('/json/edits.json')
-      .end(_this.parseResponse);
+      .end(this.parseResponse);
   },
 
   render: function() {
@@ -35,10 +37,13 @@ var EditsContainer = React.createClass({
         </div>
         <div className="two-third">
           <EditsHeaderDescription>Syntactical</EditsHeaderDescription>
-          <EditsSyntacticalValidity id="syntactical" edits={this.state.syntactical} />
+          <EditsSyntacticalValidity id="syntactical" edits={this.state.edits.syntactical} />
 
           <EditsHeaderDescription>Validity</EditsHeaderDescription>
-          <EditsSyntacticalValidity id="validity" edits={this.state.validity} />
+          <EditsSyntacticalValidity id="validity" edits={this.state.edits.validity} />
+
+          <EditsHeaderDescription>Macro</EditsHeaderDescription>
+          <EditsMacro id="macro" edits={this.state.edits.macro} />
         </div>
       </div>
     )

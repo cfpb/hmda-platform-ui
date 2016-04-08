@@ -77,6 +77,21 @@
           }
         ]
       }
-    ]
+    ],
+    "macro": {
+      "edits": [
+        {
+          "id": 1,
+          "desc": "Here is a desc",
+          "justification":"",
+          "verified":false
+        }, {
+          "id": 2,
+          "desc": "Here is another desc",
+          "justification": "Why not",
+          "verified": true
+        }
+      ]
+    }
   }
 }
