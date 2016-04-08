@@ -1,5 +1,7 @@
 jest.dontMock('../src/js/EditsGrouped.jsx');
 jest.dontMock('../src/js/EditsDetail.jsx');
+jest.dontMock('cf-expandables');
+jest.dontMock('jquery');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
