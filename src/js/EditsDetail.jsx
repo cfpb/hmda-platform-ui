@@ -1,4 +1,5 @@
 var React = require('react');
+var EditsDetailRow = require('./EditsDetailRow.jsx');
 
 var EditsDetail = React.createClass({
   propTypes: {
@@ -15,9 +16,6 @@ var EditsDetail = React.createClass({
   },
 
   makeTdContent: function(edit, field){
-    if(field === 'justification' && !edit.verified) return <textarea value={edit.justification}/>
-    if(field === 'verified') return <input type="checkbox" checked={edit.verified}/>
-    return edit[field];
   },
 
   render: function() {
@@ -38,13 +36,7 @@ var EditsDetail = React.createClass({
           </thead>
           <tbody>
             {this.props.edits.map(function(edit, i){
-              return (
-                <tr key={i}>
-                  {Object.keys(edit).map(function(field, i){
-                    return <td key={i}>{_this.makeTdContent(edit, field)}</td>
-                  })}
-                </tr>
-              )
+              return <EditsDetailRow key={i} edit={edit}/>
             })}
           </tbody>
         </table>
