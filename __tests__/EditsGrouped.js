@@ -1,11 +1,11 @@
-jest.dontMock('../src/js/EditsSyntacticalValidity.jsx');
+jest.dontMock('../src/js/EditsGrouped.jsx');
 jest.dontMock('../src/js/EditsDetail.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
-var EditsSyntacticalValidity = require('../src/js/EditsSyntacticalValidity.jsx');
+var EditsGrouped = require('../src/js/EditsGrouped.jsx');
 
 var edits = {
   "syntactical": [
@@ -57,9 +57,9 @@ var edits = {
   ]
 }
 
-describe('EditsSyntacticalValidity', function(){
+describe('EditsGrouped', function(){
 
-  var syntacticalComponent = <EditsSyntacticalValidity id="syntactical" edits={edits.syntactical} />
+  var syntacticalComponent = <EditsGrouped id="syntactical" edits={edits.syntactical} />
   var syntactical = TestUtils.renderIntoDocument(syntacticalComponent);
   var syntacticalNode = ReactDOM.findDOMNode(syntactical);
 

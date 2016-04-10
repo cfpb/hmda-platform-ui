@@ -1,5 +1,5 @@
 jest.dontMock('../src/js/EditsContainer.jsx');
-jest.dontMock('../src/js/EditsSyntacticalValidity.jsx');
+jest.dontMock('../src/js/EditsGrouped.jsx');
 jest.dontMock('../src/js/EditsDetail.jsx');
 jest.dontMock('../src/js/EditsMacro.jsx');
 jest.dontMock('../src/js/EditsHeaderDescription.jsx');

@@ -1,13 +1,13 @@
 var React = require('react');
 var EditsDetail = require('./EditsDetail.jsx');
 
-var EditsSyntacticalValidity = React.createClass({
+var EditsGrouped = React.createClass({
   propTypes: {
     edits: React.PropTypes.array
   },
   render: function() {
     return (
-      <div className="EditsSyntacticalValidity full edits" id={this.props.id}>
+      <div className="EditsGrouped full edits" id={this.props.id}>
         <div className="table-header half">Loan Number</div>
         <div className="table-header half">Edits</div>
         {this.props.edits.map(function(loan, i) {
@@ -24,4 +24,4 @@ var EditsSyntacticalValidity = React.createClass({
   }
 });
 
-module.exports = EditsSyntacticalValidity;
+module.exports = EditsGrouped;
