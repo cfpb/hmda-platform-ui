@@ -11,6 +11,7 @@ var EditsContainer = React.createClass({
       edits: {
         syntactical: [],
         validity: [],
+        quality: [],
         macro: {}
       }
     }
@@ -41,6 +42,9 @@ var EditsContainer = React.createClass({
 
           <EditsHeaderDescription>Validity</EditsHeaderDescription>
           <EditsGrouped id="validity" edits={this.state.edits.validity} />
+
+          <EditsHeaderDescription>Quality</EditsHeaderDescription>
+          <EditsGrouped id="quality" edits={this.state.edits.quality} />
 
           <EditsHeaderDescription>Macro</EditsHeaderDescription>
           <EditsMacro id="macro" edits={this.state.edits.macro} />
