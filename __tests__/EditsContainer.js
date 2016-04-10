@@ -38,8 +38,8 @@ describe('EditsContainer', function() {
   });
 
   it('properly renders child elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'EditsHeaderDescription').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(container, 'p').length).toEqual(4);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'EditsHeaderDescription').length).toEqual(4);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(container, 'p').length).toEqual(5);
   });
 
   it('calls superagent.get', function() {
