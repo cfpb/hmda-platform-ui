@@ -78,6 +78,35 @@
         ]
       }
     ],
+    "quality": [
+      {
+        "loanNumber": "1337",
+        "edits": [
+          {
+            "id": 1,
+            "desc": "Here is a quality desc",
+            "field": "Argle",
+            "valueSubmitted": "Bargle",
+            "justification": "",
+            "verified": false
+          }, {
+            "id": 2,
+            "desc": "Another quality desc",
+            "field": "Year",
+            "valueSubmitted": "1800",
+            "justification": "A good year",
+            "verified": true
+          }, {
+            "id": 3,
+            "desc": "Third quality desc",
+            "field": "Year",
+            "valueSubmitted": "1609",
+            "justification": "",
+            "verified": false
+          }
+        ]
+      }
+    ],
     "macro": {
       "edits": [
         {

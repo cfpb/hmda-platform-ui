@@ -1,5 +1,5 @@
 jest.dontMock('../src/js/EditsContainer.jsx');
-jest.dontMock('../src/js/EditsSyntacticalValidity.jsx');
+jest.dontMock('../src/js/EditsGrouped.jsx');
 jest.dontMock('../src/js/EditsDetail.jsx');
 jest.dontMock('../src/js/EditsMacro.jsx');
 jest.dontMock('../src/js/EditsHeaderDescription.jsx');
@@ -38,8 +38,8 @@ describe('EditsContainer', function() {
   });
 
   it('properly renders child elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'EditsHeaderDescription').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(container, 'p').length).toEqual(4);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'EditsHeaderDescription').length).toEqual(4);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(container, 'p').length).toEqual(5);
   });
 
   it('calls superagent.get', function() {
