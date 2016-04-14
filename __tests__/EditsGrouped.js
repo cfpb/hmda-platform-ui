@@ -1,7 +1,6 @@
 jest.dontMock('../src/js/EditsGrouped.jsx');
 jest.dontMock('../src/js/EditsDetail.jsx');
 jest.dontMock('cf-expandables');
-jest.dontMock('jquery');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -80,6 +79,7 @@ describe('EditsGrouped', function(){
   it('properly renders needed child components', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical, 'EditsSummary').length).toEqual(2);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical, 'EditsDetail').length).toEqual(2);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical, 'expandable').length).toEqual(2);
   });
 
 });
