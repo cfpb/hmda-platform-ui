@@ -4,7 +4,7 @@
   "description": "Frontend code for the HMDA filing system",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "snyk test && jest",
     "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css ./dist/json",
     "browser": "./scripts/browser.js",
     "dev:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
@@ -73,6 +73,7 @@
     "react": "15.0.1",
     "react-dom": "15.0.1",
     "react-router": "2.2.1",
+    "snyk": "1.13.3",
     "superagent": "1.8.3"
   }
 }
