@@ -41,7 +41,6 @@
     "browserify": "13.0.0",
     "jest-cli": "11.0.0",
     "less": "2.6.1",
-    "node-fs-extra": "0.8.1",
     "nodemon": "1.9.1",
     "react-addons-test-utils": "15.0.1",
     "reactify": "1.1.1",
