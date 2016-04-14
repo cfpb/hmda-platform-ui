@@ -214,6 +214,11 @@
       "from": "babel-helpers@>=6.6.0 <7.0.0",
       "resolved": "https://registry.npmjs.org/babel-helpers/-/babel-helpers-6.6.0.tgz"
     },
+    "babel-jest": {
+      "version": "11.0.0",
+      "from": "babel-jest@11.0.0",
+      "resolved": "https://registry.npmjs.org/babel-jest/-/babel-jest-11.0.0.tgz"
+    },
     "babel-messages": {
       "version": "6.7.2",
       "from": "babel-messages@>=6.7.2 <7.0.0",
@@ -259,6 +264,11 @@
       "from": "babel-preset-jest@>=11.0.0 <12.0.0",
       "resolved": "https://registry.npmjs.org/babel-preset-jest/-/babel-preset-jest-11.0.0.tgz"
     },
+    "babel-preset-react": {
+      "version": "6.5.0",
+      "from": "babel-preset-react@6.5.0",
+      "resolved": "https://registry.npmjs.org/babel-preset-react/-/babel-preset-react-6.5.0.tgz"
+    },
     "babel-register": {
       "version": "6.7.2",
       "from": "babel-register@>=6.7.2 <7.0.0",
@@ -290,6 +300,11 @@
       "version": "6.7.2",
       "from": "babel-types@>=6.7.2 <7.0.0",
       "resolved": "https://registry.npmjs.org/babel-types/-/babel-types-6.7.2.tgz"
+    },
+    "babelify": {
+      "version": "7.2.0",
+      "from": "babelify@7.2.0",
+      "resolved": "https://registry.npmjs.org/babelify/-/babelify-7.2.0.tgz"
     },
     "babylon": {
       "version": "6.7.0",
@@ -437,6 +452,23 @@
       "from": "browser-resolve@>=1.11.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/browser-resolve/-/browser-resolve-1.11.1.tgz"
     },
+    "browser-sync": {
+      "version": "2.12.3",
+      "from": "browser-sync@2.12.3",
+      "resolved": "https://registry.npmjs.org/browser-sync/-/browser-sync-2.12.3.tgz",
+      "dependencies": {
+        "lodash": {
+          "version": "4.10.0",
+          "from": "lodash@4.10.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.10.0.tgz"
+        },
+        "qs": {
+          "version": "6.1.0",
+          "from": "qs@6.1.0",
+          "resolved": "https://registry.npmjs.org/qs/-/qs-6.1.0.tgz"
+        }
+      }
+    },
     "browser-sync-client": {
       "version": "2.4.2",
       "from": "browser-sync-client@>=2.3.3 <3.0.0",
@@ -446,6 +478,46 @@
       "version": "0.5.19",
       "from": "browser-sync-ui@0.5.19",
       "resolved": "https://registry.npmjs.org/browser-sync-ui/-/browser-sync-ui-0.5.19.tgz"
+    },
+    "browserify": {
+      "version": "13.0.0",
+      "from": "browserify@13.0.0",
+      "resolved": "https://registry.npmjs.org/browserify/-/browserify-13.0.0.tgz",
+      "dependencies": {
+        "glob": {
+          "version": "5.0.15",
+          "from": "glob@>=5.0.15 <6.0.0",
+          "resolved": "https://registry.npmjs.org/glob/-/glob-5.0.15.tgz"
+        },
+        "readable-stream": {
+          "version": "2.1.0",
+          "from": "readable-stream@>=2.0.2 <3.0.0",
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.1.0.tgz",
+          "dependencies": {
+            "isarray": {
+              "version": "1.0.0",
+              "from": "isarray@>=1.0.0 <1.1.0",
+              "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
+            }
+          }
+        },
+        "through2": {
+          "version": "2.0.1",
+          "from": "through2@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/through2/-/through2-2.0.1.tgz",
+          "dependencies": {
+            "isarray": {
+              "version": "1.0.0",
+              "from": "isarray@>=1.0.0 <1.1.0"
+            },
+            "readable-stream": {
+              "version": "2.0.6",
+              "from": "readable-stream@>=2.0.0 <2.1.0",
+              "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.0.6.tgz"
+            }
+          }
+        }
+      }
     },
     "browserify-aes": {
       "version": "1.0.6",
@@ -2429,6 +2501,18 @@
         }
       }
     },
+    "jest-cli": {
+      "version": "11.0.0",
+      "from": "jest-cli@11.0.0",
+      "resolved": "https://registry.npmjs.org/jest-cli/-/jest-cli-11.0.0.tgz",
+      "dependencies": {
+        "json-stable-stringify": {
+          "version": "1.0.1",
+          "from": "json-stable-stringify@>=1.0.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/json-stable-stringify/-/json-stable-stringify-1.0.1.tgz"
+        }
+      }
+    },
     "jest-environment-jsdom": {
       "version": "11.0.0",
       "from": "jest-environment-jsdom@>=11.0.0 <12.0.0",
@@ -2582,6 +2666,11 @@
       "version": "1.0.0",
       "from": "lcid@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/lcid/-/lcid-1.0.0.tgz"
+    },
+    "less": {
+      "version": "2.6.1",
+      "from": "less@2.6.1",
+      "resolved": "https://registry.npmjs.org/less/-/less-2.6.1.tgz"
     },
     "levn": {
       "version": "0.3.0",
@@ -2979,6 +3068,18 @@
       "from": "node-uuid@>=1.4.3 <1.5.0",
       "resolved": "https://registry.npmjs.org/node-uuid/-/node-uuid-1.4.7.tgz"
     },
+    "nodemon": {
+      "version": "1.9.1",
+      "from": "nodemon@1.9.1",
+      "resolved": "https://registry.npmjs.org/nodemon/-/nodemon-1.9.1.tgz",
+      "dependencies": {
+        "minimatch": {
+          "version": "3.0.0",
+          "from": "minimatch@>=3.0.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.0.0.tgz"
+        }
+      }
+    },
     "nopt": {
       "version": "3.0.6",
       "from": "nopt@>=3.0.0 <3.1.0",
@@ -3373,6 +3474,11 @@
       "from": "react@15.0.1",
       "resolved": "https://registry.npmjs.org/react/-/react-15.0.1.tgz"
     },
+    "react-addons-test-utils": {
+      "version": "15.0.1",
+      "from": "react-addons-test-utils@15.0.1",
+      "resolved": "https://registry.npmjs.org/react-addons-test-utils/-/react-addons-test-utils-15.0.1.tgz"
+    },
     "react-dom": {
       "version": "15.0.1",
       "from": "react-dom@15.0.1",
@@ -3387,6 +3493,11 @@
       "version": "0.13.3",
       "from": "react-tools@>=0.13.0 <0.14.0",
       "resolved": "https://registry.npmjs.org/react-tools/-/react-tools-0.13.3.tgz"
+    },
+    "reactify": {
+      "version": "1.1.1",
+      "from": "reactify@1.1.1",
+      "resolved": "https://registry.npmjs.org/reactify/-/reactify-1.1.1.tgz"
     },
     "read-all-stream": {
       "version": "3.1.0",
