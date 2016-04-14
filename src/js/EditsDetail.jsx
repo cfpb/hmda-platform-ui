@@ -36,7 +36,7 @@ var EditsDetail = React.createClass({
           </thead>
           <tbody>
             {this.props.edits.map(function(edit, i){
-              return <EditsDetailRow key={i} edit={edit}/>
+              return <EditsDetailRow id={i} key={i} edit={edit}/>
             })}
           </tbody>
         </table>

@@ -3,7 +3,8 @@ var React = require('react');
 var EditsDetailRow = React.createClass({
 
   propTypes: {
-    edit: React.PropTypes.object.isRequired
+    edit: React.PropTypes.object.isRequired,
+    id: React.PropTypes.number
   },
 
   getInitialState: function(){
@@ -39,7 +40,7 @@ var EditsDetailRow = React.createClass({
   render: function(){
     var _this = this;
     var edit = this.props.edit;
-    return <tr key={this.props.key}>
+    return <tr key={this.props.id}>
       {Object.keys(edit).map(function(field, i){
         return <td key={i}>{_this.makeTdContent(edit, field)}</td>
       })}
