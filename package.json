@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "snyk test && jest",
-    "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css ./dist/json",
+    "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css ./dist/json ./dist/fonts",
     "browser": "./scripts/browser.js",
     "dev:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
-    "dev:less": "lessc ./src/less/app.less ./dist/css/app.css",
+    "dev:less": "lessc ./src/less/app.less ./dist/css/app.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
     "dev:html": "cp src/index.html dist/index.html",
     "dev:json": "cp src/js/data/*.json dist/json/",
     "dev:build": "npm run dev:js && npm run dev:less && npm run dev:html",
