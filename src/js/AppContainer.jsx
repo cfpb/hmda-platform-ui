@@ -40,15 +40,20 @@ var AppContainer = React.createClass({
 
     return (
       <div className="AppContainer">
+      NEED STATE HERE
+      institution status is needed to show the necessary components
         {selectComponent}
         <HomeLink/>
         <UserHeading institution={{name: params.encodedInstitutionName}} year="2017" user={this.state.user.name}/>
         {/*clones any children added by the router in order to pass them props*/}
-        {React.cloneElement(
-          this.props.children,
-          {institutions: this.state.user.institutions}
-         )
+        {this.props.upload
+          ? React.cloneElement(
+              this.props.upload,
+              {institutions: this.state.user.institutions}
+            )
+          : null
         }
+        {this.props.edits}
       </div>
     )
   }

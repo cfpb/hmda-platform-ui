@@ -25,8 +25,7 @@ ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={AppContainer}>
       <IndexRoute component={InstitutionContainer}/>
-      <Route path="/upload/:encodedInstitutionName" component={WrappedUpload}/>
-      <Route path="/edits/:encodedInstitutionName" component={EditsContainer}/>
+      <Route path="/upload" components={{upload: WrappedUpload, edits: EditsContainer}}/>
     </Route>
   </Router>
 ), document.getElementById('app')

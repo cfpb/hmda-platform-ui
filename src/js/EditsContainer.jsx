@@ -7,6 +7,7 @@ var EditsHeaderDescription = require('./EditsHeaderDescription.jsx');
 
 var EditsContainer = React.createClass({
   getInitialState: function() {
+   console.log('Edits Container');
     return {
       edits: {
         syntactical: [],
