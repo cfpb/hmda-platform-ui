@@ -1,11 +1,12 @@
 var React = require('react');
 var EditsDetailRow = require('./EditsDetailRow.jsx');
+require('cf-expandables');
 
 var EditsDetail = React.createClass({
   propTypes: {
-    edits: React.PropTypes.array
+    edits: React.PropTypes.array,
+    expandID: React.PropTypes.string
   },
-
   headerMap: {
     id: 'Edit ID',
     desc: 'Description',
@@ -14,7 +15,9 @@ var EditsDetail = React.createClass({
     justification: 'Justification',
     verified: 'Verified'
   },
-
+  componentDidMount: function() {
+    jQuery('#' + this.props.expandID).expandable();
+  },
   render: function() {
     var _this = this;
     if(!this.props.edits) return null;
@@ -22,7 +25,7 @@ var EditsDetail = React.createClass({
     if(!headers) return null;
 
     return (
-      <div className="EditsDetail">
+      <div className="EditsDetail expandable_content">
         <table width="100%">
           <thead>
             <tr>

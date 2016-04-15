@@ -1,5 +1,6 @@
 jest.dontMock('../src/js/EditsDetail.jsx');
 jest.dontMock('../src/js/EditsDetailRow.jsx');
+jest.dontMock('cf-expandables');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -54,6 +55,7 @@ describe('EditsDetail', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithTag(syntaxDetail, 'table').length).toEqual(1);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(syntaxDetail, 'tr').length).toEqual(3);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(syntaxDetail, 'td').length).toEqual(8);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(macroDetail, 'expandable_content').length).toEqual(1);
   });
 
   var macroDetail = TestUtils.renderIntoDocument(<EditsDetail edits={edits.macro}/>);
@@ -72,5 +74,6 @@ describe('EditsDetail', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'tr').length).toEqual(3);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'td').length).toEqual(8);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'textarea').length).toEqual(1);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(macroDetail, 'expandable_content').length).toEqual(1);
   });
 });
