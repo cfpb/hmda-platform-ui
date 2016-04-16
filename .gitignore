@@ -27,3 +27,5 @@ coverage.xml
 #############
 node_modules/
 dist/
+
+.snyk
