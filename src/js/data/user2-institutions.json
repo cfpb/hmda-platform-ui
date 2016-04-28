@@ -1,0 +1,48 @@
+{
+  "institutions": [
+    {
+      "name": "Another procrastinator",
+      "submissions": []
+    },
+    {
+      "name": "Getting coffee",
+      "submissions": [
+        {
+          "id": 1,
+          "status": {
+            "code": 1,
+            "message": ""
+          },
+          "timestamp": 1457494448191
+        }
+      ]
+    },
+    {
+      "name": "Wacky data",
+      "submissions": [
+        {
+          "id": 1,
+          "status": {
+            "code": 2,
+            "message": ""
+          },
+          "timestamp": 1457484448191
+        }
+      ]
+    },
+    {
+      "name": "Responsible fi",
+      "status": 5,
+      "submissions": [
+        {
+          "id": 1,
+          "status": {
+            "code": 5,
+            "message":""
+          },
+          "timestamp": 1457494448191
+        }
+      ]
+    }
+  ]
+}
