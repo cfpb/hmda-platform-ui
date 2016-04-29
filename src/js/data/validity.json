@@ -1,0 +1,35 @@
+{
+  "type": "validity",
+  "ids": [
+    {
+      "id": "valedit1",
+      "lars": [
+        {
+          "id": "v1",
+          "message": "Here is a v1 message"
+        },
+        {
+          "id": "v2",
+          "message": "Here is a v2 message"
+        },
+        {
+          "id": "v3",
+          "message": "v3 message"
+        }
+      ]
+    },
+    {
+      "id": "valedit2",
+      "lars": [
+        {
+          "id": "vv",
+          "message": "vv message"
+        },
+        {
+          "id": "vw",
+          "message": "Here is another message with an id of vw"
+        }
+      ]
+    }
+  ]
+}

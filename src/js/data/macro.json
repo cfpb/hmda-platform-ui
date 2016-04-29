@@ -1,0 +1,14 @@
+{
+  "type": "macro",
+  "ids": [
+    {
+      "id": "m1",
+      "message": "Here is a macro message",
+      "verification": ""
+    }, {
+      "id": "m2",
+      "message": "Here is another macro message",
+      "verification": "Why not"
+    }
+  ]
+}

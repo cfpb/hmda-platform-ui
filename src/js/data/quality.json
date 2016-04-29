@@ -1,0 +1,25 @@
+{
+  "type":"quality",
+  "ids": [
+    {
+      "id": "quality1337",
+      "lars": [
+        {
+          "id": "q1",
+          "message": "Here is a quality message",
+          "verification": ""
+        },
+        {
+          "id": "q2",
+          "message": "Another quality message",
+          "verification": "A good year"
+        },
+        {
+          "id": "q3",
+          "message": "Third quality message",
+          "verification": ""
+        }
+      ]
+    }
+  ]
+}
