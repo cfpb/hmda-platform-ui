@@ -3,12 +3,14 @@
 var historyApiFallback = require('connect-history-api-fallback');
 var http = require('http');
 var mock = require('../api-mock/index.js')
-var connect = require('connect');
-var serveStatic = require('serve-static')
+var express = require('express');
+var app = express();
 
-var app = connect();
+app.use(express.static('dist'));
 
-app.use(serveStatic('dist'));
+app.post('/', function (req, res) {
+  res.send('POST request to the homepage');
+});
 
 app.use(function (req, res, next) {
   var url = req.url;

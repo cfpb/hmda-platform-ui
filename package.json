@@ -6,7 +6,7 @@
   "scripts": {
     "test": "snyk test && jest",
     "clean": "rimraf ./dist && mkdir ./dist ./dist/js ./dist/css ./dist/json ./dist/fonts",
-    "browser": "./scripts/browser.js",
+    "server": "./scripts/server.js",
     "dev:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
     "dev:less": "lessc ./src/less/app.less ./dist/css/app.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
     "dev:html": "cp src/index.html dist/index.html",
@@ -18,7 +18,7 @@
     "watch:less": "nodemon -e less -w src/less -x 'npm run dev:less'",
     "watch:html": "nodemon -e html -w src -x 'npm run dev:html'",
     "watch:json": "nodemon -e json -w src -x 'npm run dev:json'",
-    "watch": "npm run watch:js & npm run watch:tests & npm run watch:less & npm run watch:html & npm run watch:json & npm run browser"
+    "watch": "npm run watch:js & npm run watch:tests & npm run watch:less & npm run watch:html & npm run watch:json & npm run server"
   },
   "repository": {
     "type": "git",
@@ -38,15 +38,14 @@
     "babel-preset-react": "6.5.0",
     "babelify": "7.2.0",
     "browserify": "13.0.0",
-    "connect": "3.4.1",
     "connect-history-api-fallback": "1.2.0",
+    "express": "4.13.4",
     "jest-cli": "11.0.0",
     "less": "2.6.1",
     "nodemon": "1.9.1",
     "react-addons-test-utils": "15.0.1",
     "reactify": "1.1.1",
     "rimraf": "2.5.2",
-    "serve-static": "1.10.2",
     "snyk": "1.13.3"
   },
   "browserify": {
