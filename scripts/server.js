@@ -1,28 +1,25 @@
 #!/usr/bin/env node
 
-var historyApiFallback = require('connect-history-api-fallback');
-var http = require('http');
-var mock = require('../api-mock/index.js')
+var util = require('util');
 var express = require('express');
-var app = express();
+var historyApiFallback = require('connect-history-api-fallback');
+var apiRouter = require('./routes/api');
 
+var app = express();
+//serve the app
 app.use(express.static('dist'));
 
-app.post('/', function (req, res) {
-  res.send('POST request to the homepage');
+//serve the api, routes are nested in various modules
+app.use('/api', apiRouter);
+
+app.post('/api/institutions/:institution/years/:year', function (req, res) {
+  res.status(202).send({
+    id: 1,
+    progress: util.format('/api/institutions/%s/years/%s/submissions/1', req.params.institution, req.params.year)
+  });
 });
 
-app.use(function (req, res, next) {
-  var url = req.url;
-  console.log(url);
-  if(req.url === '/submit'){
-    return mock.handlePost(req, res);
-  }else if(url.slice(0, 4) === '/api'){
-    return mock.api(req, res);
-  }
-  next();
-});
-
+//serve the app even when a user refreshes from a client-side route defined by the history api
 app.use(historyApiFallback());
 
-http.createServer(app).listen(3000);
+app.listen(3000);
