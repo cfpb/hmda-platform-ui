@@ -6,7 +6,7 @@ router.get('/', function(req, res){
 })
 
 router.get('/:year', function(req, res){
-  res.sendFile('year.json', {root: './json'});
+  res.sendFile('year.json', {root: './scripts/json'});
 });
 
 router.post('/:year', function (req, res) {
