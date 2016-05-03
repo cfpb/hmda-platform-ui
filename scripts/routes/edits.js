@@ -1,10 +1,10 @@
 var fs = require('fs');
 var router = require('express').Router();
 
-var syntactical = JSON.parse(fs.readSyncFile('./json/syntactical.json'));
-var validity = JSON.parse(fs.readSyncFile('./json/validity.json'));
-var quality = JSON.parse(fs.readSyncFile('./json/quality.json'));
-var macro = JSON.parse(fs.readSyncFile('./json/macro.json'));
+var syntactical = JSON.parse(fs.readFileSync('./json/syntactical.json'));
+var validity = JSON.parse(fs.readFileSync('./json/validity.json'));
+var quality = JSON.parse(fs.readFileSync('./json/quality.json'));
+var macro = JSON.parse(fs.readFileSync('./json/macro.json'));
 
 var edits = {
     syntactical: syntactical,

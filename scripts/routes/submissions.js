@@ -4,7 +4,7 @@ var progressRoute = require('./progress');
 var editRoute = require('./edits');
 var signRoute = require('./sign');
 
-var submissionsObj = JSON.parse(fs.readSyncFile('./json/submissions.json'));
+var submissionsObj = JSON.parse(fs.readFileSync('./json/submissions.json'));
 
 router.get('/', function(req, res){
   res.send(submissionsObj)

@@ -2,7 +2,7 @@ var fs = require('fs');
 var router = require('express').Router();
 var yearRouter = require('./years');
 
-var institutionsObj = JSON.parse(fs.readSyncFile('./json/user1-institutions.json'));
+var institutionsObj = JSON.parse(fs.readFileSync('./json/user1-institutions.json'));
 
 router.get('/', function(req, res){
   res.send(institutionsObj);
