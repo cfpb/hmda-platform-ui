@@ -2,94 +2,27 @@
   "institutions": [
     {
       "name": "Bank 0",
-      "id": "bank0id",
-      "submissions": []
+      "id": "bank0id"
     },
     {
       "name": "Bank 1",
-      "id": "bank1id",
-      "submissions": [
-        {
-          "id": 1,
-          "status": {
-            "code": 1,
-            "message":""
-          },
-          "timestamp": 1457494448191
-        }
-      ]
+      "id": "bank1id"
     },
     {
       "name": "Bank 2",
-      "id": "bank2id",
-      "submissions": [
-        {
-          "id": 1,
-          "status": {
-            "code": 2,
-            "message":""
-          },
-          "timestamp": 1457484448191
-        }
-      ]
+      "id": "bank2id"
     },
     {
       "name": "Bank 3",
-      "id": "bank0id",
-      "submissions": [
-        {
-          "id": 3,
-          "status": {
-            "code": 2,
-            "message":""
-          },
-          "timestamp": 1457494448191
-        },
-        {
-          "id": 2,
-          "status": {
-            "code": null,
-            "message":"cancelled"
-          },
-          "timestamp": 1457434448191
-        },
-        {
-          "id": 1,
-          "status": {
-            "code": null,
-            "message": "Parse error"
-          },
-          "timestamp": 1457394448191
-        }
-      ]
+      "id": "bank0id"
     },
     {
       "name": "Bank 4",
-      "id": "bank4id",
-      "submissions": [
-        {
-          "id": 1,
-          "status": {
-            "code": 4,
-            "message":""
-          },
-          "timestamp": 1457424448191
-        }
-      ]
+      "id": "bank4id"
     },
     {
       "name": "Bank 5",
-      "id": "bank5id",
-      "submissions": [
-        {
-          "id": 1,
-          "status": {
-            "code": 5,
-            "message": ""
-          },
-          "timestamp": 1457394448191
-        }
-      ]
+      "id": "bank5id"
     }
   ]
 }

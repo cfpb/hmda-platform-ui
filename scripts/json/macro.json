@@ -1,13 +1,11 @@
 {
   "type": "macro",
-  "ids": [
+  "edits": [
     {
-      "id": "m1",
-      "message": "Here is a macro message",
+      "edit": "m1",
       "verification": ""
     }, {
-      "id": "m2",
-      "message": "Here is another macro message",
+      "edit": "m2",
       "verification": "Why not"
     }
   ]

@@ -2,47 +2,19 @@
   "institutions": [
     {
       "name": "Another procrastinator",
-      "submissions": []
+      "id": 123
     },
     {
       "name": "Getting coffee",
-      "submissions": [
-        {
-          "id": 1,
-          "status": {
-            "code": 1,
-            "message": ""
-          },
-          "timestamp": 1457494448191
-        }
-      ]
+      "id": 124 
     },
     {
       "name": "Wacky data",
-      "submissions": [
-        {
-          "id": 1,
-          "status": {
-            "code": 2,
-            "message": ""
-          },
-          "timestamp": 1457484448191
-        }
-      ]
+      "id": 125 
     },
     {
       "name": "Responsible fi",
-      "status": 5,
-      "submissions": [
-        {
-          "id": 1,
-          "status": {
-            "code": 5,
-            "message":""
-          },
-          "timestamp": 1457494448191
-        }
-      ]
+      "id": 126  
     }
   ]
 }

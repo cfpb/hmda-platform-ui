@@ -1,22 +1,19 @@
-{
+  {
   "type":"quality",
-  "ids": [
+  "edits": [
     {
-      "id": "quality1337",
+      "edit": "quality1337",
       "lars": [
         {
-          "id": "q1",
-          "message": "Here is a quality message",
+          "lar": {"loanId": "q1"},
           "verification": ""
         },
         {
-          "id": "q2",
-          "message": "Another quality message",
+          "lar": {"loanId": "q2"},
           "verification": "A good year"
         },
         {
-          "id": "q3",
-          "message": "Third quality message",
+          "lar": {"loanId": "q3"},
           "verification": ""
         }
       ]

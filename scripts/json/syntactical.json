@@ -1,31 +1,28 @@
 {
   "type": "syntactical",
-   "ids": [
+   "edits": [
       {
-        "id": "synedit1",
+        "edit": "synedit1",
         "lars": [
           {
-            "id": "l1",
-            "message": "Here is a message"
+            "lar": {"loanId": "s1"}
           },
           {
-            "id": "l2",
-            "message": "Here is another message"
-          }, {
-            "id": "l3",
-            "message": "Here is yet another message"
+            "lar": {"loanId": "s2"}
+          },
+          {
+            "lar": {"loanId": "s3"}
           }
         ]
       },
       {
-        "loanNumber": "synedit2",
+        "edit": "synedit2",
         "lars": [
           {
-            "id": "l14",
-            "message": "Here is a message from s2"
-          }, {
-            "id": "l23",
-            "message": "Here is another message from s2"
+            "lar": {"loanId": "s4"}
+          },
+          {
+            "lar": {"loanId": "s5"}
           }
         ]
       }

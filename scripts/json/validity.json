@@ -1,20 +1,17 @@
 {
   "type": "validity",
-  "ids": [
+  "edits": [
     {
-      "id": "valedit1",
+      "edit": "valedit1",
       "lars": [
         {
-          "id": "v1",
-          "message": "Here is a v1 message"
+          "lar": {"loanId": "v1"}
         },
         {
-          "id": "v2",
-          "message": "Here is a v2 message"
+          "lar": {"loanId": "v2"}
         },
         {
-          "id": "v3",
-          "message": "v3 message"
+          "lar": {"loanId": "v3"}
         }
       ]
     },
@@ -22,12 +19,10 @@
       "id": "valedit2",
       "lars": [
         {
-          "id": "vv",
-          "message": "vv message"
+          "lar": {"loanId": "v4"}
         },
         {
-          "id": "vw",
-          "message": "Here is another message with an id of vw"
+          "lar": {"loanId": "v5"}
         }
       ]
     }
