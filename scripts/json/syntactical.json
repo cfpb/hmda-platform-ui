@@ -1,29 +1,30 @@
 {
   "type": "syntactical",
-   "edits": [
-      {
-        "edit": "synedit1",
-        "lars": [
-          {
-            "lar": {"loanId": "s1"}
-          },
-          {
-            "lar": {"loanId": "s2"}
-          },
-          {
-            "lar": {"loanId": "s3"}
-          }
-        ]
-      },
-      {
-        "edit": "synedit2",
-        "lars": [
-          {
-            "lar": {"loanId": "s4"}
-          },
-          {
-            "lar": {"loanId": "s5"}
-          }
-        ]
-      }
-    ]
+  "edits": [
+    {
+      "edit": "synedit1",
+      "lars": [
+        {
+          "lar": {"loanId": "s1"}
+        },
+        {
+          "lar": {"loanId": "s2"}
+        },
+        {
+          "lar": {"loanId": "s3"}
+        }
+      ]
+    },
+    {
+      "edit": "synedit2",
+      "lars": [
+        {
+          "lar": {"loanId": "s4"}
+        },
+        {
+          "lar": {"loanId": "s5"}
+        }
+      ]
+    }
+  ]
+}

@@ -2,19 +2,19 @@
   "institutions": [
     {
       "name": "Another procrastinator",
-      "id": 123
+      "id": "123"
     },
     {
       "name": "Getting coffee",
-      "id": 124 
+      "id": "124" 
     },
     {
       "name": "Wacky data",
-      "id": 125 
+      "id": "125" 
     },
     {
       "name": "Responsible fi",
-      "id": 126  
+      "id": "126"  
     }
   ]
 }
