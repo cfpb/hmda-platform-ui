@@ -4,22 +4,22 @@
       "id": "1",
       "status": {
         "code": 1,
-        "message":""
+        "message": ""
       },
       "timestamp": 1457494448191
     },
     {
       "id": "2",
       "status": {
-        "code": 2,
-        "message":""
+        "code": null,
+        "message": "Error uploading file"
       },
       "timestamp": 1457584448191
     },
     {
       "id": "3",
       "status": {
-        "code": 5,
+        "code": 11,
         "message": ""
       },
       "timestamp": 1457794448191
