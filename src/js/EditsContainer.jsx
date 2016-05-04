@@ -1,5 +1,5 @@
 var React = require('react');
-var request = require('superagent');
+var superagent = require('superagent');
 
 var EditsGrouped = require('./EditsGrouped.jsx');
 var EditsMacro = require('./EditsMacro.jsx');
@@ -7,13 +7,12 @@ var EditsHeaderDescription = require('./EditsHeaderDescription.jsx');
 
 var EditsContainer = React.createClass({
   getInitialState: function() {
-   console.log('Edits Container');
     return {
       edits: {
-        syntactical: [],
-        validity: [],
-        quality: [],
-        macro: {}
+        syntactical: {edits: []},
+        validity: {edits: []},
+        quality: {edits: []},
+        macro: {edits: []}
       }
     }
   },
@@ -21,13 +20,14 @@ var EditsContainer = React.createClass({
   parseResponse: function(err, res) {
     if (err) throw err;
     var response = JSON.parse(res.text);
+    console.log(response);
     this.setState({
-      'edits': response.edits
+      'edits': response
     });
   },
 
   componentWillMount: function() {
-    request.get('/json/edits.json')
+    superagent.get('/api/institutions/placeholder/years/placeholder/submissions/placeholder/edits')
       .end(this.parseResponse);
   },
 
@@ -39,13 +39,13 @@ var EditsContainer = React.createClass({
         </div>
         <div className="two-third">
           <EditsHeaderDescription>Syntactical</EditsHeaderDescription>
-          <EditsGrouped id="syntactical" edits={this.state.edits.syntactical} />
+          <EditsGrouped id="syntactical" edits={this.state.edits.syntactical.edits} />
 
           <EditsHeaderDescription>Validity</EditsHeaderDescription>
-          <EditsGrouped id="validity" edits={this.state.edits.validity} />
+          <EditsGrouped id="validity" edits={this.state.edits.validity.edits} />
 
           <EditsHeaderDescription>Quality</EditsHeaderDescription>
-          <EditsGrouped id="quality" edits={this.state.edits.quality} />
+          <EditsGrouped id="quality" edits={this.state.edits.quality.edits} />
 
           <EditsHeaderDescription>Macro</EditsHeaderDescription>
           <EditsMacro id="macro" edits={this.state.edits.macro} />
