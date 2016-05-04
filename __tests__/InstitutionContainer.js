@@ -11,7 +11,7 @@ var superagent = require('superagent');
 var fs = require('fs');
 
 var InstitutionContainer = require('../src/js/InstitutionContainer.jsx');
-var institutionString = fs.readFileSync('./scripts/json/user1-institutions.json');
+var institutionString = fs.readFileSync('./server/json/user1-institutions.json');
 
 superagent.get = jest.genMockFn().mockReturnThis();
 superagent.end = jest.genMockFn().mockImpl(function(fn){

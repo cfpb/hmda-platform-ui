@@ -12,7 +12,7 @@ var EditsContainer = require('../src/js/EditsContainer.jsx');
 var request = require('superagent');
 var fs = require('fs');
 
-var edits = fs.readFileSync('./scripts/json/syntactical.json');
+var edits = fs.readFileSync('./server/json/syntactical.json');
 
 request.get = jest.fn(function(){
   process.nextTick(function() {
