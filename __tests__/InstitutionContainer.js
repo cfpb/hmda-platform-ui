@@ -3,14 +3,20 @@ jest.dontMock('../src/js/Resubmit.jsx');
 jest.dontMock('../src/js/EditReports.jsx');
 jest.dontMock('../src/js/InstitutionStatus.jsx');
 jest.dontMock('../src/js/DivisionHeader.jsx');
-jest.dontMock('../src/js/data/institutions.js');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
+var superagent = require('superagent');
+var fs = require('fs');
 
 var InstitutionContainer = require('../src/js/InstitutionContainer.jsx');
-var institutions = require('../src/js/data/institutions.js').user1;
+var institutionString = fs.readFileSync('./scripts/json/user1-institutions.json');
+
+superagent.get = jest.genMockFn().mockReturnThis();
+superagent.end = jest.genMockFn().mockImpl(function(fn){
+  return fn(null, {text: institutionString});
+});
 
 describe('InstitutionContainer', function(){
 
@@ -22,31 +28,10 @@ describe('InstitutionContainer', function(){
     expect(containerNode).toBeDefined();
   });
 
-  it('passes through the institutions appropriately as props', function(){
-    expect(container.props.institutions).toEqual([]);
-  });
-
-
   it('properly renders needed child components', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'division').length).toEqual(3);
-
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'DivisionHeader').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'InstitutionStatus').length).toEqual(6);
   });
 
-  var dataContainerComponent = <InstitutionContainer institutions={institutions}/>
-  var dataContainer = TestUtils.renderIntoDocument(dataContainerComponent);
-  var dataContainerNode = ReactDOM.findDOMNode(dataContainer);
-
-  it('renders the dataComponent', function(){
-    expect(dataContainerNode).toBeDefined();
-  });
-
-  it('passes through the institutions appropriately as props', function(){
-    expect(dataContainer.props.institutions).toEqual(institutions);
-  });
-
-  it('properly renders updated components', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(dataContainer, 'DivisionHeader').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(dataContainer, 'h2').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(dataContainer, 'InstitutionStatus').length).toEqual(6);
-  });
 });
