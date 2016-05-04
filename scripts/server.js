@@ -5,12 +5,14 @@ var historyApiFallback = require('express-history-api-fallback');
 var apiRouter = require('./routes/api');
 
 var app = express();
-//serve the app
+
+//Log paths
 app.use(function(req, res, next){
   console.log(req.url);
   next();
 })
 
+//serve the app
 app.use(express.static('dist'));
 
 //serve the api, routes are nested in various modules
