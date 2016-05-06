@@ -1,10 +1,10 @@
 var fs = require('fs');
 var router = require('express').Router();
 
-var syntactical = JSON.parse(fs.readFileSync('./scripts/json/syntactical.json'));
-var validity = JSON.parse(fs.readFileSync('./scripts/json/validity.json'));
-var quality = JSON.parse(fs.readFileSync('./scripts/json/quality.json'));
-var macro = JSON.parse(fs.readFileSync('./scripts/json/macro.json'));
+var syntactical = JSON.parse(fs.readFileSync('./server/json/syntactical.json'));
+var validity = JSON.parse(fs.readFileSync('./server/json/validity.json'));
+var quality = JSON.parse(fs.readFileSync('./server/json/quality.json'));
+var macro = JSON.parse(fs.readFileSync('./server/json/macro.json'));
 
 var edits = {
     syntactical: syntactical,
@@ -18,7 +18,7 @@ router.get('/', function(req, res){
 });
 
 router.get('/:type', function(req, res){
-  if(req.params.type === 'lars') return res.sendFile('lars.json', {root: './scripts/json'});
+  if(req.params.type === 'lars') return res.sendFile('lars.json', {root: './server/json'});
   res.send(edits[req.params.type]);
 });
 
