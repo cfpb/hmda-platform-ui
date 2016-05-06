@@ -1,0 +1,30 @@
+{
+  "type": "validity",
+  "edits": [
+    {
+      "edit": "valedit1",
+      "lars": [
+        {
+          "lar": {"loanId": "v1"}
+        },
+        {
+          "lar": {"loanId": "v2"}
+        },
+        {
+          "lar": {"loanId": "v3"}
+        }
+      ]
+    },
+    {
+      "id": "valedit2",
+      "lars": [
+        {
+          "lar": {"loanId": "v4"}
+        },
+        {
+          "lar": {"loanId": "v5"}
+        }
+      ]
+    }
+  ]
+}

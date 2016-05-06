@@ -10,34 +10,6 @@ var InstitutionStatus = React.createClass({
     institution: React.PropTypes.object.isRequired
   },
 
-  getInitialState: function(){
-    return this.props.institution;
-  },
-
-  getStartTime: function(editReport){
-    if(!editReport) return;
-    var startTime = editReport.timestamp;
-    var filingString = 'Filing started ';
-    var timeSince = Date.now() - startTime;
-    var num;
-    var unit = ' minutes';
-
-    if(timeSince < 60000) return filingString + 'just now.';
-
-    if(timeSince >= 86000000) return filingString + 'on ' + new Date(startTime).toString().split(' ').splice(1, 3).join(' ') + '.';
-
-    if(timeSince >= 3600000){
-      unit = ' hours';
-      num = timeSince/3600000 >> 0
-    }else{
-      num = timeSince/60000 >> 0
-    }
-
-    if(num === 1) unit = unit.slice(0, -1);
-
-    return filingString + num + unit + ' ago.'
-  },
-
   getStatusText: function(statusCode){
     var statusText = null;
     var resubmit = null;
@@ -86,8 +58,6 @@ var InstitutionStatus = React.createClass({
     return (
       <div className="InstitutionStatus">
         <h3>{this.props.institution.name}</h3>
-        <h5>{this.getStartTime(this.props.institution.editReports[0])}</h5>
-        {this.getStatusText(this.state.status)}
       </div>
     )
   }

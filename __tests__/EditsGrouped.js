@@ -1,7 +1,7 @@
 jest.dontMock('../src/js/EditsGrouped.jsx');
 jest.dontMock('../src/js/EditsDetail.jsx');
 jest.dontMock('cf-expandables');
-
+/*
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
@@ -83,3 +83,4 @@ describe('EditsGrouped', function(){
   });
 
 });
+*/

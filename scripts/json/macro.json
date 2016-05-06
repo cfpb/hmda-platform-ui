@@ -1,0 +1,12 @@
+{
+  "type": "macro",
+  "edits": [
+    {
+      "edit": "m1",
+      "verification": ""
+    }, {
+      "edit": "m2",
+      "verification": "Why not"
+    }
+  ]
+}

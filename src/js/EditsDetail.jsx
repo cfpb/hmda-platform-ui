@@ -4,9 +4,9 @@ require('cf-expandables');
 
 var EditsDetail = React.createClass({
   propTypes: {
-    edits: React.PropTypes.array,
-    expandID: React.PropTypes.string
+    edits: React.PropTypes.array
   },
+
   headerMap: {
     id: 'Edit ID',
     desc: 'Description',
@@ -15,12 +15,11 @@ var EditsDetail = React.createClass({
     justification: 'Justification',
     verified: 'Verified'
   },
-  componentDidMount: function() {
-    jQuery('#' + this.props.expandID).expandable();
-  },
+
   render: function() {
     var _this = this;
-    if(!this.props.edits) return null;
+    if(!this.props.edits || !this.props.edits[0]) return null;
+
     var headers = Object.keys(this.props.edits[0]);
     if(!headers) return null;
 

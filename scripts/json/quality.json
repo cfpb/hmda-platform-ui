@@ -1,0 +1,22 @@
+  {
+  "type":"quality",
+  "edits": [
+    {
+      "edit": "quality1337",
+      "lars": [
+        {
+          "lar": {"loanId": "q1"},
+          "verification": ""
+        },
+        {
+          "lar": {"loanId": "q2"},
+          "verification": "A good year"
+        },
+        {
+          "lar": {"loanId": "q3"},
+          "verification": ""
+        }
+      ]
+    }
+  ]
+}

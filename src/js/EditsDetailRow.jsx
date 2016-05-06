@@ -8,23 +8,28 @@ var EditsDetailRow = React.createClass({
   },
 
   getInitialState: function(){
-    return {verified: false, justification: ''}
+    return {verification: null};
   },
 
   componentWillMount: function(){
     this.setState({
-      verified: this.props.edit.verified,
-      justification: this.props.edit.justification
+      verification: this.props.edit.verification
     });
   },
 
   makeTdContent: function(edit, field){
-    if(field === 'justification'){
-      if(this.state.verified) return this.state.justification;
-      else return <textarea onChange={this.updateText}value={this.state.justification}/>
+    if(field === 'verification'){
+      if(this.state.verification) return this.state.verification;
+      else return <textarea onChange={this.updateText}value={this.state.verification}/>
     }
-    if(field === 'verified') return <input type="checkbox" onChange={this.toggleText} checked={this.state.verified}/>
+    if(field === 'lar') return JSON.stringify(edit[field]);
     return edit[field];
+  },
+
+  makeCheck: function(){
+    if(this.state.verification !== null){
+      return <td><input type="checkbox" onChange={this.toggleText} checked={!!this.state.verification}/></td>
+    }
   },
 
   toggleText: function(e){
@@ -33,7 +38,7 @@ var EditsDetailRow = React.createClass({
   },
 
   updateText: function(e){
-    this.setState({justification: e.target.value});
+    this.setState({verification: e.target.value});
   },
 
 
@@ -43,7 +48,9 @@ var EditsDetailRow = React.createClass({
     return <tr key={this.props.id}>
       {Object.keys(edit).map(function(field, i){
         return <td key={i}>{_this.makeTdContent(edit, field)}</td>
-      })}
+      }
+      )}
+      {_this.makeCheck()}
     </tr>
   }
 });
