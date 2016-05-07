@@ -20,7 +20,6 @@ app.get('/', function(req, res){
   res.redirect(301, '2017');
 });
 
-console.log(year);
 app.use(express.static(path.join('dist', year)));
 
 //serve the api, routes are nested in various modules
