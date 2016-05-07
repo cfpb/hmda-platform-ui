@@ -40,7 +40,8 @@ var InstitutionContainer = React.createClass({
     return divisions;
   },
 
-  render: function() {
+  render: function(){
+    var self = this;
     return (
       <div className="InstitutionContainer half">
         {this.getDivisions(this.state.institutions).map(function(division, i){
@@ -50,7 +51,7 @@ var InstitutionContainer = React.createClass({
             <div key={i} className="division">
               {header}
               {division.institutions.map(function(institution, i){
-                return <InstitutionStatus key={i} institution={institution}/>
+                return <InstitutionStatus key={i} institution={institution} year={self.props.params.year}/>
               })}
             </div>
           )

@@ -17,7 +17,7 @@ var AppContainer = React.createClass({
     return (
       <div className="AppContainer">
         <HomeLink/>
-        <UserHeading institution={{name: params.encodedInstitutionName}} year="2017" user={this.state.name}/>
+        <UserHeading year="2017" user={this.state.name}/>
         {this.props.children}
       </div>
     )
