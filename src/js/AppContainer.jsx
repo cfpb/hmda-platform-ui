@@ -6,7 +6,9 @@ var AppContainer = React.createClass({
 
   getInitialState: function(){
     return {
-      name: 'someUser'
+      name: 'someUser',
+      institutions: [],
+      institution: null
     }
   },
 
@@ -16,9 +18,9 @@ var AppContainer = React.createClass({
 
     return (
       <div className="AppContainer">
-        <HomeLink/>
-        <UserHeading year="2017" user={this.state.name}/>
-        {this.props.children}
+        <HomeLink year={this.props.params.year}/>
+        <UserHeading year={this.props.params.year} user={this.state.name}/>
+        {React.cloneElement(this.props.children, {institution:this.state.institution})}
       </div>
     )
   }
