@@ -1,4 +1,5 @@
 var React = require('react');
+var api = require('./api');
 var UploadForm = require('./UploadForm.jsx');
 var EditsContainer = require('./EditsContainer.jsx')
 
@@ -11,12 +12,22 @@ var SubmissionContainer = React.createClass({
   // check state and render Uploadform, edits, summary, sign based on state
 
   getDefaultProps: function(){
-    return {institution: {status: void 0}};
+    return {institution: {}};
   },
 
   getInitialState: function(){
     return {
       status: this.props.institution.status
+    }
+  },
+
+  componentWillMount: function(){
+    //long-poll on progress, eventually.
+    if(this.state.status === undefined){
+      var self = this;
+      api.getInstitution(function(institutionObj){
+        self.setState({status: institutionObj.status});
+      });
     }
   },
 
@@ -28,12 +39,15 @@ var SubmissionContainer = React.createClass({
     var summary = null;
     var sign = null;
 
-    var code = this.state.status.code;
+    var status = this.state.status;
+    if(!status) return null;
+
+    var code = status.code;
 
     if(code === null){
       return (
         <div className="SubmissionContainer">
-          <p>{this.state.status.message}</p>
+          <p>{status.message}</p>
         </div>
       )
     }

@@ -1,5 +1,5 @@
 var React = require('react');
-var superagent = require('superagent');
+var api = require('./api');
 var DivisionHeader = require('./DivisionHeader.jsx');
 var InstitutionStatus = require('./InstitutionStatus.jsx');
 
@@ -13,8 +13,7 @@ var InstitutionContainer = React.createClass({
 
   componentWillMount: function(){
     var self = this;
-    superagent.get('api/institutions').end(function(err, res){
-      var instObj = JSON.parse(res.text) || {};
+    api.getInstitutions(function(instObj){
       self.setState({institutions: instObj.institutions});
     });
   },
