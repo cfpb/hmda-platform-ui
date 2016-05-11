@@ -10,7 +10,10 @@ var InstitutionStatus = require('../src/js/InstitutionStatus.jsx');
 
 var institution = {
   "name": "Wacky data",
-  "status": 2,
+  "status": {
+    "code": 4,
+    "message": ""
+  },
   "editReports": [
     {
       "timestamp": 1457464448191,
