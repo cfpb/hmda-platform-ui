@@ -1,5 +1,5 @@
 var React = require('react');
-var superagent = require('superagent');
+var api = require('./api');
 var DivisionHeader = require('./DivisionHeader.jsx');
 var InstitutionStatus = require('./InstitutionStatus.jsx');
 
@@ -13,8 +13,7 @@ var InstitutionContainer = React.createClass({
 
   componentWillMount: function(){
     var self = this;
-    superagent.get('api/institutions').end(function(err, res){
-      var instObj = JSON.parse(res.text) || {};
+    api.getInstitutions(function(instObj){
       self.setState({institutions: instObj.institutions});
     });
   },
@@ -40,7 +39,9 @@ var InstitutionContainer = React.createClass({
     return divisions;
   },
 
-  render: function() {
+  render: function(){
+    var params = this.props.params || {};
+
     return (
       <div className="InstitutionContainer half">
         {this.getDivisions(this.state.institutions).map(function(division, i){
@@ -50,7 +51,7 @@ var InstitutionContainer = React.createClass({
             <div key={i} className="division">
               {header}
               {division.institutions.map(function(institution, i){
-                return <InstitutionStatus key={i} institution={institution}/>
+                return <InstitutionStatus key={i} institution={institution} year={params.year}/>
               })}
             </div>
           )

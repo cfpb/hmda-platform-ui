@@ -12,7 +12,7 @@ var UploadForm = require('../src/js/UploadForm.jsx');
 
 describe('submitform', function(){
   var mockedCb = jest.genMockFn();
-  var form = TestUtils.renderIntoDocument(<UploadForm url="/submit" callback={mockedCb}/>);
+  var form = TestUtils.renderIntoDocument(<UploadForm callback={mockedCb}/>);
   var formNode = ReactDOM.findDOMNode(form);
 
   it('renders the form', function(){
@@ -33,11 +33,12 @@ describe('submitform', function(){
 
   it('submits the form', function(){
 
+
     TestUtils.Simulate.submit(
       TestUtils.findRenderedDOMComponentWithTag(form, 'form')
     );
 
-    expect(open).toBeCalledWith('POST', '/submit');
+    expect(open).toBeCalled();
 
     expect(setRequestHeader.mock.calls[0][0]).toEqual('Content-Type');
     expect(setRequestHeader.mock.calls[0][1]).toEqual('text/data');

@@ -6,19 +6,20 @@ var AppContainer = React.createClass({
 
   getInitialState: function(){
     return {
-      name: 'someUser'
+      name: '',
+      institutions: [],
+      institution: null
     }
   },
 
-  render: function() {
-    var params = this.props.params;
-    if(!params) params = {};
+  render: function(){
+    var params = this.props.params || {};
 
     return (
       <div className="AppContainer">
-        <HomeLink/>
-        <UserHeading institution={{name: params.encodedInstitutionName}} year="2017" user={this.state.name}/>
-        {this.props.children}
+        <HomeLink year={params.year}/>
+        <UserHeading year={params.year} user={this.state.name}/>
+        {React.cloneElement(this.props.children, this.state.institution?{institution:this.state.institution}:null)}
       </div>
     )
   }

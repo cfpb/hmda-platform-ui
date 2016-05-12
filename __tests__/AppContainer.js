@@ -11,7 +11,7 @@ var AppContainer = require('../src/js/AppContainer.jsx');
 
 describe('AppContainer', function(){
 
-  var containerComponent = <AppContainer></AppContainer>
+  var containerComponent = <AppContainer props={{params:{year: 2017}}}><span>A child></span></AppContainer>
   var container = TestUtils.renderIntoDocument(containerComponent);
   var containerNode = ReactDOM.findDOMNode(container);
 

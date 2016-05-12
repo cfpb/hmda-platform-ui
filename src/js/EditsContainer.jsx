@@ -1,6 +1,5 @@
 var React = require('react');
-var superagent = require('superagent');
-
+var api = require('./api');
 var EditsGrouped = require('./EditsGrouped.jsx');
 var EditsMacro = require('./EditsMacro.jsx');
 var EditsHeaderDescription = require('./EditsHeaderDescription.jsx');
@@ -17,18 +16,13 @@ var EditsContainer = React.createClass({
     }
   },
 
-  parseResponse: function(err, res) {
-    if (err) throw err;
-    var response = JSON.parse(res.text);
-    console.log(response);
-    this.setState({
-      'edits': response
-    });
-  },
-
   componentWillMount: function() {
-    superagent.get('/api/institutions/placeholder/years/placeholder/submissions/placeholder/edits')
-      .end(this.parseResponse);
+    var self = this;
+    api.getEdits(function(editObj){
+      self.setState({
+        edits: editObj
+      });
+    });
   },
 
   render: function() {

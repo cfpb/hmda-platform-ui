@@ -1,8 +1,8 @@
 var fs = require('fs');
 var router = require('express').Router();
-var yearRouter = require('./years');
+var submissionRouter = require('./submissions');
 
-var institutionsObj = JSON.parse(fs.readFileSync('./scripts/json/user1-institutions.json'));
+var institutionsObj = JSON.parse(fs.readFileSync('./server/json/user1-institutions.json'));
 
 router.get('/', function(req, res){
   res.send(institutionsObj);
@@ -20,7 +20,14 @@ router.get('/:institution', function(req, res){
   res.status(404).end();
 });
 
-router.use('/:institution/years', yearRouter);
+router.post('/:institution', function (req, res) {
+  res.status(202).send({
+    id: 1,
+    progress: req.url + '/submissions/1/progress'
+  });
+});
+
+router.use('/:institution/submissions', submissionRouter);
 
 
-module.exports = router;
+  module.exports = router;
