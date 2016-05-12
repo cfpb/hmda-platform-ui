@@ -10,6 +10,11 @@ router.get('/', function(req, res){
   res.send(submissionsObj)
 });
 
+router.post('/', function(req, res){
+  //increment currentSubmission, 1 here, assuming starting at zero
+  res.status(201).send({currentSubmission: 1})
+});
+
 router.get('/:submission', function(req, res){
   var submissions = submissionsObj.submissions;
 
