@@ -11,7 +11,9 @@ var InstitutionStatus = React.createClass({
 
   checkSubmission: function(){
     if(this.props.institution.currentSubmission === 0){
-      api.postSubmissions(function(subObj){console.log(subObj)});
+      var year = this.props.year;
+      var id = this.props.institution.id;
+      api.postSubmissions('/api/years/' + year + '/institutions/' + id + '/submissions', function(subObj){console.log(subObj)});
     }
   },
 
