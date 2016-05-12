@@ -25,7 +25,7 @@ var InstitutionStatus = React.createClass({
     var appLink = '/' + year + '/' + id + '/' + submissionRoute;
     var statusLink = <Link to={appLink}>View filing status</Link>
     var statusText = null;
-    var resubmit = <Resubmit institution={this.props.institution}/>;
+    var resubmit = <Resubmit year={year} id={id} submission={+submission + 1}/>;
 
     switch(statusCode){
       case 0:

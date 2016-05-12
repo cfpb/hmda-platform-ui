@@ -11,7 +11,7 @@ function makeResponder(cb){
 function getHandler(url, cb, suffix){
   if(typeof url === 'function'){
     cb = url;
-    url = makeUrl(suffix);
+    url = makeUrl(parseLocation(), suffix);
   }
 
   superagent.get(url).end(makeResponder(cb));
@@ -20,25 +20,24 @@ function getHandler(url, cb, suffix){
 function postHandler(url, cb, suffix){
   if(typeof url === 'function'){
     cb = url;
-    url = makeUrl(suffix);
+    url = makeUrl(parseLocation, suffix);
   }
 
   superagent.post(url).end(makeResponder(cb));
 }
 
-function makeUrl(suffix){
-  var locationObj = parseLocation();
+function makeUrl(obj, suffix){
   var url = '/api'
-  if(locationObj.year) url+= '/years/' + locationObj.year;
-  if(locationObj.institution) url+= '/institutions/' + locationObj.institution;
-  if(locationObj.submission) url+= '/submissions/' + locationObj.submission;
+  if(obj.year) url+= '/years/' + obj.year;
+  if(obj.id) url+= '/institutions/' + obj.id;
+  if(obj.submission) url+= '/submissions/' + obj.submission;
   if(suffix) url += suffix;
   return url;
 }
 
 function parseLocation(){
   var pathParts = location.pathname.split('/');
-  return {year: pathParts[1], institution:  pathParts[2], submission: pathParts[3]}
+  return {year: pathParts[1], id:  pathParts[2], submission: pathParts[3]}
  }
 
 module.exports = {
@@ -57,5 +56,7 @@ module.exports = {
 
  getEdits: function(url, cb){
    return getHandler(url, cb, '/edits');
- }
+ },
+
+ makeUrl: makeUrl
 }
