@@ -18,6 +18,11 @@ module.exports = {
    superagent.get('/api/years/' + locationObj.year + '/institutions/' + locationObj.institution).end(makeResponder(cb));
  },
 
+ postSubmissions: function(cb){
+   var locationObj = this.parseLocation();
+   superagent.post( '/api/years/' + locationObj.year + '/institutions/' + locationObj.institution + '/submissions').end(makeResponder(cb));
+ },
+
  getEdits: function(cb){
    var locationObj = this.parseLocation();
    superagent.get('/api/years/' + locationObj.year + '/institutions/' + locationObj.institution + '/submissions/' + locationObj.submission + '/edits').end(makeResponder(cb));

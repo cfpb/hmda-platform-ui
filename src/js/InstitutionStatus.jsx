@@ -1,5 +1,6 @@
 var React = require('react');
 var Link = require('react-router').Link;
+var api = require('./api')
 var Resubmit = require('./Resubmit.jsx');
 
 var InstitutionStatus = React.createClass({
@@ -8,17 +9,25 @@ var InstitutionStatus = React.createClass({
     institution: React.PropTypes.object.isRequired
   },
 
+  checkSubmission: function(){
+    if(this.props.institution.currentSubmission === 0){
+      api.postSubmissions(function(subObj){console.log(subObj)});
+    }
+  },
+
   getStatusText: function(statusCode){
     var year = this.props.year;
     var id = this.props.institution.id;
-    var appLink = '/' + year + '/' + id;
+    var submission = this.props.institution.currentSubmission;
+    var submissionRoute = submission === 0 ? 1 : submission;
+    var appLink = '/' + year + '/' + id + '/' + submissionRoute;
     var statusLink = <Link to={appLink}>View filing status</Link>
     var statusText = null;
     var resubmit = <Resubmit institution={this.props.institution}/>;
 
     switch(statusCode){
       case 0:
-        statusLink = <Link to={appLink}>Begin filing</Link>
+        statusLink = <Link to={appLink} onClick={this.checkSubmission}>Begin filing</Link>
         resubmit = null;
         break;
       case 2:
