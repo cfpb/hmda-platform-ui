@@ -6,7 +6,8 @@ var Resubmit = require('./Resubmit.jsx');
 var InstitutionStatus = React.createClass({
 
   propTypes: {
-    institution: React.PropTypes.object.isRequired
+    institution: React.PropTypes.object.isRequired,
+    year: React.PropTypes.string.isRequired
   },
 
   checkSubmission: function(){

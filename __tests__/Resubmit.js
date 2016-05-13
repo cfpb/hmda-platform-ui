@@ -10,7 +10,11 @@ var Resubmit = require('../src/js/Resubmit.jsx');
 
 describe('resubmit', function(){
 
-  var resubmit = TestUtils.renderIntoDocument(<Resubmit institution={{name:'test'}}/>)
+  var year = '2017';
+  var submission = 2;
+  var id = 'bankid';
+
+  var resubmit = TestUtils.renderIntoDocument(<Resubmit year={year} submission={submission} id={id}/>)
   var resubmitNode = ReactDOM.findDOMNode(resubmit);
 
   it('renders the resubmit component', function(){
@@ -18,6 +22,8 @@ describe('resubmit', function(){
   });
 
   it('passes through props appropriately', function(){
-    expect(resubmit.props.institution.name).toEqual('test');
+    expect(resubmit.props.year).toEqual(year);
+    expect(resubmit.props.submission).toEqual(submission);
+    expect(resubmit.props.id).toEqual(id);
   });
 });

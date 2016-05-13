@@ -10,26 +10,19 @@ var InstitutionStatus = require('../src/js/InstitutionStatus.jsx');
 
 var institution = {
   "name": "Wacky data",
+  "id": "bankid",
   "status": {
     "code": 4,
     "message": ""
   },
-  "editReports": [
-    {
-      "timestamp": 1457464448191,
-      "edits": {
-        "syntactical": 2,
-        "validity": 1,
-        "quality": 2,
-        "macro": 1
-      }
-    }
-  ]
+  "currentSubmission": 2
 }
+
+var year = '2017';
 
 describe('InstitutionStatus', function(){
 
-  var statusComponent = <InstitutionStatus institution={institution}/>
+  var statusComponent = <InstitutionStatus year={year} institution={institution}/>
   var status = TestUtils.renderIntoDocument(statusComponent);
   var statusNode = ReactDOM.findDOMNode(status);
 
