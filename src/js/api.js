@@ -8,23 +8,55 @@ function makeResponder(cb){
   }
 }
 
-module.exports = {
- getInstitutions: function(cb){
-   superagent.get('api/institutions').end(makeResponder(cb));
- },
+function getHandler(url, cb, suffix){
+  if(typeof url === 'function'){
+    cb = url;
+    url = makeUrl(parseLocation(), suffix);
+  }
 
- getInstitution: function(cb){
-   var locationObj = this.parseLocation();
-   superagent.get('/api/years/' + locationObj.year + '/institutions/' + locationObj.institution).end(makeResponder(cb));
- },
+  superagent.get(url).end(makeResponder(cb));
+}
 
- getEdits: function(cb){
-   var locationObj = this.parseLocation();
-   superagent.get('/api/years/' + locationObj.year + '/institutions/' + locationObj.institution + '/submissions/' + locationObj.submission + '/edits').end(makeResponder(cb));
- },
+function postHandler(url, cb, suffix){
+  if(typeof url === 'function'){
+    cb = url;
+    url = makeUrl(parseLocation, suffix);
+  }
 
- parseLocation: function(){
-   var pathParts = location.pathname.split('/');
-   return {year: pathParts[1], institution:  pathParts[2], submission: pathParts[3]}
+  superagent.post(url).end(makeResponder(cb));
+}
+
+function makeUrl(obj, suffix){
+  var url = '/api'
+  if(obj.year) url+= '/years/' + obj.year;
+  if(obj.id) url+= '/institutions/' + obj.id;
+  if(obj.submission) url+= '/submissions/' + obj.submission;
+  if(suffix) url += suffix;
+  return url;
+}
+
+function parseLocation(){
+  var pathParts = location.pathname.split('/');
+  return {year: pathParts[1], id:  pathParts[2], submission: pathParts[3]}
  }
+
+module.exports = {
+
+ getInstitutions: function(cb){
+   return getHandler('api/institutions', cb);
+ },
+
+ getInstitution: function(url, cb){
+   return getHandler(url, cb);
+ },
+
+ postSubmissions: function(url, cb){
+   return postHandler(url, cb, '/submissions');
+ },
+
+ getEdits: function(url, cb){
+   return getHandler(url, cb, '/edits');
+ },
+
+ makeUrl: makeUrl
 }

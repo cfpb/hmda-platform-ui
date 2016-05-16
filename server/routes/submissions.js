@@ -1,5 +1,5 @@
 var fs = require('fs');
-var router = require('express').Router();
+var router = require('express').Router({mergeParams: true});
 var progressRoute = require('./progress');
 var editRoute = require('./edits');
 var signRoute = require('./sign');
@@ -7,11 +7,18 @@ var signRoute = require('./sign');
 var submissionsObj = JSON.parse(fs.readFileSync('./server/json/submissions.json'));
 
 router.get('/', function(req, res){
-  res.send(submissionsObj)
+  var submissions = submissionsObj[req.params.institution];
+  if(!submissions) res.status(404).end();
+  res.send(submissions)
+});
+
+router.post('/', function(req, res){
+  //increment currentSubmission, 1 here, assuming starting at zero
+  res.status(201).send({currentSubmission: 1})
 });
 
 router.get('/:submission', function(req, res){
-  var submissions = submissionsObj.submissions;
+  var submissions = submissionsObj[req.params.institution].submissions;
 
   for(var i=0; i<submissions.length; i++){
     if(submissions[i].id === req.params.submission){

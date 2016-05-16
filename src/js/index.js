@@ -16,7 +16,7 @@ ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/:year" component={AppContainer}>
       <IndexRoute component={InstitutionContainer}/>
-      <Route path="/:year/:institution" component={SubmissionContainer}/>
+      <Route path="/:year/:institution/:submission" component={SubmissionContainer}/>
     </Route>
   </Router>
 ), document.getElementById('app')

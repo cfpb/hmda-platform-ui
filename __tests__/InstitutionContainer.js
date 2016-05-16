@@ -21,7 +21,7 @@ superagent.end = jest.genMockFn().mockImpl(function(fn){
 
 describe('InstitutionContainer', function(){
 
-  var containerComponent = <InstitutionContainer institutions={[]}/>
+  var containerComponent = <InstitutionContainer params={{year: '2017'}}/>
   var container = TestUtils.renderIntoDocument(containerComponent);
   var containerNode = ReactDOM.findDOMNode(container);
 
