@@ -20,14 +20,6 @@ router.get('/:institution', function(req, res){
   res.status(404).end();
 });
 
-router.post('/:institution', function (req, res) {
-  res.status(202).send({
-    id: 1,
-    progress: req.url + '/submissions/1/progress'
-  });
-});
-
 router.use('/:institution/submissions', submissionRouter);
 
-
-  module.exports = router;
+module.exports = router;
