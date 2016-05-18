@@ -16,6 +16,13 @@ app.use(function(req, res, next){
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(function(req, res, next) {
+  if(req.url.substr(-1) == '/' && req.url.length > 1){
+    res.redirect(301, req.url.slice(0, -1));
+  }else{
+    next();
+  }
+});
 
 //serve the app
 app.use(express.static('dist'));
