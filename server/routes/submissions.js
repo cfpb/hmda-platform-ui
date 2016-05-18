@@ -29,6 +29,12 @@ router.get('/:submission', function(req, res){
   res.status(404).end();
 });
 
+router.post('/:submission', function (req, res) {
+  res.status(202).send({
+    progress: req.url + '/progress'
+  });
+});
+
 router.use('/:submission/progress', progressRoute);
 router.use('/:submission/edits', editRoute);
 router.use('/:submission/sign', signRoute);

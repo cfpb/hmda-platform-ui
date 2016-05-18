@@ -58,5 +58,7 @@ module.exports = {
    return getHandler(url, cb, '/edits');
  },
 
- makeUrl: makeUrl
+ makeUrl: makeUrl,
+ 
+ parseLocation: parseLocation
 }
