@@ -1,11 +1,11 @@
 FROM centos:7
-MAINTAINER Andrew Wolfe <wolfe76@gmail.com>
+MAINTAINER Andrew Wolfe <awolfe76@gmail.com>
 
 RUN yum -y install epel-release
 RUN yum -y install nginx
 
 # Install npm
-RUN curl --silent --location https://rpm.nodesource.com/setup | bash -
+RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
 RUN yum -y install nodejs
 
 RUN mkdir -p /usr/src/app
