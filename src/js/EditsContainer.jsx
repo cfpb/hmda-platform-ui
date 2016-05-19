@@ -27,23 +27,18 @@ var EditsContainer = React.createClass({
 
   render: function() {
     return (
-      <div className="EditsContainer container">
-        <div className="third">
-          <p>Filing progress will go here. It could be in progress or complete or ...</p>
-        </div>
-        <div className="two-third">
-          <EditsHeaderDescription>Syntactical</EditsHeaderDescription>
-          <EditsGrouped id="syntactical" edits={this.state.edits.syntactical.edits} />
+      <div className="EditsContainer two-third">
+        <EditsHeaderDescription>Syntactical</EditsHeaderDescription>
+        <EditsGrouped id="syntactical" edits={this.state.edits.syntactical.edits} />
 
-          <EditsHeaderDescription>Validity</EditsHeaderDescription>
-          <EditsGrouped id="validity" edits={this.state.edits.validity.edits} />
+        <EditsHeaderDescription>Validity</EditsHeaderDescription>
+        <EditsGrouped id="validity" edits={this.state.edits.validity.edits} />
 
-          <EditsHeaderDescription>Quality</EditsHeaderDescription>
-          <EditsGrouped id="quality" edits={this.state.edits.quality.edits} />
+        <EditsHeaderDescription>Quality</EditsHeaderDescription>
+        <EditsGrouped id="quality" edits={this.state.edits.quality.edits} />
 
-          <EditsHeaderDescription>Macro</EditsHeaderDescription>
-          <EditsMacro id="macro" edits={this.state.edits.macro} />
-        </div>
+        <EditsHeaderDescription>Macro</EditsHeaderDescription>
+        <EditsMacro id="macro" edits={this.state.edits.macro} />
       </div>
     )
   }

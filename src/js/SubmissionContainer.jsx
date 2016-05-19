@@ -2,6 +2,7 @@ var React = require('react');
 var api = require('./api');
 var UploadForm = require('./UploadForm.jsx');
 var EditsContainer = require('./EditsContainer.jsx')
+var Signature = require('./Signature.jsx');
 
 function uploadCb(){
   console.log('submited, -> transition');
@@ -52,22 +53,26 @@ var SubmissionContainer = React.createClass({
       )
     }
 
-    if(code > 3) progress = <p>Progress component goes here</p>
+    if(code > 3) progress = <p className="third">Progress component goes here</p>
 
-    if(code > 6) editsContainer = <EditsContainer/>
+    if(code > 5) editsContainer = <EditsContainer/>
 
     if(code > 8){
       summary = <p>Summary component here</p>
-      sign = <p>Signature component here</p>
+      sign = <Signature/>
+      uploadForm = null;
+      editsContainer = null;
     }
 
     return (
-      <div className="SubmissionContainer">
+      <div className="SubmissionContainer container">
         {uploadForm}
         {progress}
         {editsContainer}
-        {summary}
-        {sign}
+        <div className="two-third">
+          {summary}
+          {sign}
+        </div>
       </div>
     )
   },
