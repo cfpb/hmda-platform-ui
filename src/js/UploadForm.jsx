@@ -1,5 +1,6 @@
 var React = require('react');
 var Progress = require('./Progress.jsx');
+var api = require('./api');
 
 var UploadForm = React.createClass({
   propTypes: {
@@ -35,9 +36,7 @@ var UploadForm = React.createClass({
       this.setState({uploaded: e.loaded});
     }.bind(this));
 
-    var pathParts = location.pathname.split('/');
-
-    xhr.open('POST', location.origin + '/api/years/' + pathParts[1] + '/institutions/' + pathParts[2]);
+    xhr.open('POST', location.origin + api.makeUrl(api.parseLocation()));
     xhr.setRequestHeader('Content-Type', 'text/data');
     xhr.setRequestHeader('Content-Disposition', 'inline; filename="' + this.state.file.name + '"');
     xhr.send(this.state.file);

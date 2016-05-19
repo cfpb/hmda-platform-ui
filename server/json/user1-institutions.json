@@ -13,10 +13,10 @@
       "name": "Bank 1",
       "id": "bank1id",
       "status": {
-        "code": 0,
-        "message": ""
+        "code": -1,
+        "message": "Submission cancelled by user"
       },
-      "currentSubmission": 0
+      "currentSubmission": 1
     },
     {
       "name": "Bank 2",
