@@ -1,6 +1,6 @@
 var fs = require('fs');
 var router = require('express').Router();
-var submissionRouter = require('./submissions');
+var periodRouter = require('./period');
 
 var institutionsObj = JSON.parse(fs.readFileSync('./server/json/user1-institutions.json'));
 
@@ -20,6 +20,7 @@ router.get('/:institution', function(req, res){
   res.status(404).end();
 });
 
-router.use('/:institution/submissions', submissionRouter);
+router.use('/:institution/period', periodRouter);
+
 
 module.exports = router;
