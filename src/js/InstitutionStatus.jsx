@@ -52,6 +52,7 @@ var InstitutionStatus = React.createClass({
         break;
       case 9:
       case 10:
+        statusLink = <Link to={appLink}>Sign your filing</Link>
         statusText = <p>All checks and verification complete. Review the summary report and sign the submission.</p>
         break;
       case 11:

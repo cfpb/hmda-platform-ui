@@ -10,14 +10,13 @@ var browserHistory = router.browserHistory;
 var Route = router.Route;
 var IndexRoute = router.IndexRoute;
 
-
-
-ReactDOM.render((
-  <Router history={browserHistory}>
-    <Route path="/:year" component={AppContainer}>
-      <IndexRoute component={InstitutionContainer}/>
-      <Route path="/:year/:institution/:submission" component={SubmissionContainer}/>
-    </Route>
-  </Router>
-), document.getElementById('app')
+ReactDOM.render(
+  (
+    <Router history={browserHistory}>
+      <Route path="/:year" component={AppContainer}>
+        <IndexRoute component={InstitutionContainer}/>
+        <Route path="/:year/:institution/:submission" component={SubmissionContainer}/>
+      </Route>
+    </Router>
+  ), document.getElementById('app')
 );
