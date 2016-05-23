@@ -1,3 +1,4 @@
+var fs = require('fs');
 var router = require('express').Router({mergeParams: true});
 var submissionRouter = require('./submissions');
 

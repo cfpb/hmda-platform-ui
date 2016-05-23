@@ -20,7 +20,7 @@ router.get('/:institution', function(req, res){
   res.status(404).end();
 });
 
-router.use('/:institution/period', periodRouter);
+router.use('/:institution/periods', periodRouter);
 
 
 module.exports = router;

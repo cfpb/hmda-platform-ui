@@ -7,14 +7,14 @@ var InstitutionContainer = React.createClass({
 
   getInitialState: function(){
     return {
-      institutions: []
+      institutionsByPeriod: {}
     }
   },
 
   componentWillMount: function(){
     var self = this;
     api.getInstitutions(function(instObj){
-      self.setState({institutionsByPeriod: this.groupByPeriod(instObj)});
+      self.setState({institutionsByPeriod: self.groupByPeriod(instObj)});
     });
   },
 
@@ -51,15 +51,15 @@ var InstitutionContainer = React.createClass({
   },
 
   render: function(){
-
+    var self = this;
     return (
       <div className="InstitutionContainer half">
-        {Object.keys(this.state.institutionsByPeriod).sort().reverse().map(function(period, i){
+        {Object.keys(self.state.institutionsByPeriod).sort().reverse().map(function(period, i){
+          var institutions = self.state.institutionsByPeriod[period];
           return (
             <div key={i} className="periodWrapper">
               <h1 className="periodHeader">{period}</h1>
-              {var institutions = this.state.institutionsByPeriod[period];
-               this.getDivisions(institutions).map(function(division, i){
+              {self.getDivisions(institutions).map(function(division, i){
                var header = null;
                if(division.institutions.length) header = <DivisionHeader>{division.text}</DivisionHeader>
                return (
