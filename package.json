@@ -42,7 +42,7 @@
     "express": "4.13.4",
     "express-history-api-fallback": "2.0.0",
     "jest-cli": "12.1.1",
-    "less": "2.6.1",
+    "less": "2.7.1",
     "nodemon": "1.9.1",
     "react-addons-test-utils": "15.0.1",
     "reactify": "1.1.1",
