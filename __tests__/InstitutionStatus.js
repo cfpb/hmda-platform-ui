@@ -18,11 +18,11 @@ var institution = {
   "currentSubmission": 2
 }
 
-var year = '2017';
+var period = '2017';
 
 describe('InstitutionStatus', function(){
 
-  var statusComponent = <InstitutionStatus year={year} institution={institution}/>
+  var statusComponent = <InstitutionStatus period={period} institution={institution}/>
   var status = TestUtils.renderIntoDocument(statusComponent);
   var statusNode = ReactDOM.findDOMNode(status);
 

@@ -10,8 +10,7 @@ var HomeLink = require('../src/js/HomeLink.jsx');
 
 describe('home link', function(){
 
-  var year = '2017';
-  var homeLink = TestUtils.renderIntoDocument(<HomeLink year={year}/>)
+  var homeLink = TestUtils.renderIntoDocument(<HomeLink/>)
   var linkNode = ReactDOM.findDOMNode(homeLink);
 
   it('renders the link into the document', function(){

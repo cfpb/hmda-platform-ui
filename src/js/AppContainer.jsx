@@ -13,7 +13,6 @@ var AppContainer = React.createClass({
   },
 
   render: function(){
-    var params = this.props.params || {};
 
     return (
       <div className="AppContainer">
