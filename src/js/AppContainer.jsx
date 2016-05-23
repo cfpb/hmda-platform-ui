@@ -17,8 +17,8 @@ var AppContainer = React.createClass({
 
     return (
       <div className="AppContainer">
-        <HomeLink year={params.year}/>
-        <UserHeading year={params.year} user={this.state.name}/>
+        <HomeLink/>
+        <UserHeading user={this.state.name}/>
         {React.cloneElement(this.props.children, this.state.institution?{institution:this.state.institution}:null)}
       </div>
     )

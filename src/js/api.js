@@ -28,8 +28,8 @@ function postHandler(url, cb, suffix){
 
 function makeUrl(obj, suffix){
   var url = '/api'
-  if(obj.year) url+= '/years/' + obj.year;
   if(obj.id) url+= '/institutions/' + obj.id;
+  if(obj.period) url+= '/periods/' + obj.period;
   if(obj.submission) url+= '/submissions/' + obj.submission;
   if(suffix) url += suffix;
   return url;
@@ -37,7 +37,7 @@ function makeUrl(obj, suffix){
 
 function parseLocation(){
   var pathParts = location.pathname.split('/');
-  return {year: pathParts[1], id:  pathParts[2], submission: pathParts[3]}
+  return {id: pathParts[1], period: pathParts[2], submission: pathParts[3]}
  }
 
 module.exports = {

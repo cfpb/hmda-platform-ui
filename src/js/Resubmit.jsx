@@ -4,7 +4,7 @@ var api = require('./api');
 
 var Resubmit = React.createClass({
   propTypes: {
-    year: React.PropTypes.string.isRequired,
+    period: React.PropTypes.string.isRequired,
     id: React.PropTypes.string.isRequired,
     submission: React.PropTypes.number.isRequired
   },
@@ -13,7 +13,7 @@ var Resubmit = React.createClass({
     /*API call to cancel in-flight validation*/
     api.postSubmissions(
       api.makeUrl({
-        year: this.props.year,
+        period: this.props.period,
         id: this.props.id
       },'/submissions'),
       function(subObj){console.log(subObj)}
@@ -21,7 +21,7 @@ var Resubmit = React.createClass({
   },
 
   getRoute: function(){
-    return '/' + this.props.year + '/' + this.props.id + '/' + this.props.submission;
+    return '/' + this.props.id + '/' + this.props.period + '/' + this.props.submission;
   },
 
   render: function(){
