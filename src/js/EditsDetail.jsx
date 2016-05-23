@@ -1,6 +1,5 @@
 var React = require('react');
 var EditsDetailRow = require('./EditsDetailRow.jsx');
-require('cf-expandables');
 
 var EditsDetail = React.createClass({
   propTypes: {

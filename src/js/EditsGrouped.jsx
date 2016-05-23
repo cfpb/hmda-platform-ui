@@ -1,5 +1,7 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var EditsDetail = require('./EditsDetail.jsx');
+require('cf-expandables');
 
 var EditsGrouped = React.createClass({
   propTypes: {
@@ -7,8 +9,8 @@ var EditsGrouped = React.createClass({
   },
 
   componentDidMount: function() {
-    jQuery('.expandable').each(function(i, v){
-      v.expandable();
+    jQuery(ReactDOM.findDOMNode(this)).children('.expandable').each(function(i, v){
+      jQuery(v).expandable();
     });
   },
 
