@@ -10,14 +10,15 @@ router.get('/', function(req, res){
 
 router.get('/:institution', function(req, res){
   var institutions = institutionsObj.institutions;
+  var institutionsByPeriod = [];
 
   for(var i=0; i<institutions.length; i++){
     if(institutions[i].id === req.params.institution){
-      return res.send(institutions[i]);
+      return institutionsByPeriod.push(institutions[i]);
     }
   }
 
-  res.status(404).end();
+  return res.send({institutions:institutionsByPeriod})
 });
 
 router.use('/:institution/periods', periodRouter);
