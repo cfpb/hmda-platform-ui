@@ -8,7 +8,7 @@ var EditsGrouped = React.createClass({
     edits: React.PropTypes.array
   },
 
-  componentDidMount: function() {
+  componentDidUpdate: function() {
     jQuery(ReactDOM.findDOMNode(this)).children('.expandable').each(function(i, v){
       jQuery(v).expandable();
     });
