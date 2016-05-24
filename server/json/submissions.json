@@ -92,7 +92,7 @@
       {
         "id": "2",
         "status": {
-          "code": 9,
+          "code": 10,
           "message": ""
         },
         "timestamp": 1457494448191
@@ -128,7 +128,7 @@
       {
         "id": "3",
         "status": {
-          "code": 11,
+          "code": 13,
           "message": ""
         },
         "timestamp": 1457494448191
@@ -140,6 +140,26 @@
           "message": ""
         },
         "timestamp": 1457584448191
+      }
+    ]
+  },
+  "bank6id": {
+    "submissions": [
+      {
+        "id": "1",
+        "status": {
+          "code": -1,
+          "message": "Cancelled"
+        },
+        "timestamp": 1457494448191
+      },
+      {
+        "id": "2",
+        "status": {
+          "code": 11,
+          "message": ""
+        },
+        "timestamp": 1457494448191
       }
     ]
   }

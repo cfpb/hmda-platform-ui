@@ -32,7 +32,7 @@ var Progress = React.createClass({
   render: function(){
     var props = this.props;
     return (
-      <div className="Progress third">
+      <div className="Progress">
         <span>{props.progress + ' of ' + props.total + ' ' +
           this.getUnits(props.total) + this.getDescriptor()}</span>
       </div>

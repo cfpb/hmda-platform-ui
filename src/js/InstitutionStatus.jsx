@@ -52,10 +52,15 @@ var InstitutionStatus = React.createClass({
         break;
       case 9:
       case 10:
+        statusLink = <Link to={appLink}>Review and verify your IRS Report</Link>
+        statusText = <p>All checks complete. You must review and verify your IRS report before continuing.</p>
+        break;
+      case 11:
         statusLink = <Link to={appLink}>Sign your filing</Link>
         statusText = <p>All checks and verification complete. Review the summary report and sign the submission.</p>
         break;
-      case 11:
+      case 12:
+      case 13:
         statusText = <p>All checks complete, verified, and signed.</p>
         statusLink = <Link to={appLink}>View completed filing</Link>
         break;

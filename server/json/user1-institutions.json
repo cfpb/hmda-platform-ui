@@ -45,7 +45,7 @@
       "id": "bank4id",
       "period": "2017",
       "status": {
-        "code": 9,
+        "code": 10,
         "message": ""
       },
       "currentSubmission": 2
@@ -55,10 +55,20 @@
       "id": "bank5id",
       "period": "2017",
       "status": {
-        "code": 11,
+        "code": 13,
         "message": ""
       },
       "currentSubmission": 3
+    },
+    {
+      "name": "Bank 6",
+      "id": "bank6id",
+      "period": "2017",
+      "status": {
+        "code": 11,
+        "message": ""
+      },
+      "currentSubmission": 2
     }
   ]
 }
