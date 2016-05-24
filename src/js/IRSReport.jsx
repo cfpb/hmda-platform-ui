@@ -11,7 +11,6 @@ var IRS = React.createClass({
   componentWillMount: function() {
     var self = this;
     api.getIRS(function(irsObj){
-      console.log(irsObj);
       self.setState({
         irs: irsObj
       });
@@ -20,14 +19,11 @@ var IRS = React.createClass({
 
   render: function() {
     var self = this;
+    console.log(self.state.irs);
     return (
       <div className="IRS">
-        {self.irs.map(function(msa, i){
-          return (
-            <div key={i}>
-              {msa.name}
-            </div>
-          )
+        {Object.keys(self.state.irs).map(function(field, i){
+          return <div key={i}>test</div>
         })}
         This is the IRS report.
       </div>
