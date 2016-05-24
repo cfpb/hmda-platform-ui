@@ -57,7 +57,7 @@ var SubmissionContainer = React.createClass({
 
     if(code > 5) editsContainer = <EditsContainer/>
 
-    if(code > 8){
+    if(code > 11){
       summary = <p>Summary component here</p>
       sign = <Signature/>
       uploadForm = null;

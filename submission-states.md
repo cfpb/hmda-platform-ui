@@ -21,8 +21,10 @@ The status codes are as follows:
 - `7`: Validation complete, with syntax/validity errors (requires restart)
 - `8`: Validation complete, no syntax/validity errors, but with unverified quality/macro errors
 - `9`: Validation complete, no syntax/validity errors, no unverified quality/macro errors
-- `10`: Signature submitted
-- `11`: Signature recorded; submission complete
+- `10`: IRS report generated
+- `11`: IRS report verified
+- `12`: Signature submitted
+- `13`: Signature recorded; submission complete
 
 - `-1`: Error or cancelled. Either an unexpected error has occurred on the backend or the user has cancelled the submission. `<message>` is populated with error-text.
 
