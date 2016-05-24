@@ -40,7 +40,7 @@ var InstitutionContainer = React.createClass({
       var status = institution.status.code;
       var index = 2;
 
-      if(status < 11) index = 1;
+      if(status < 13) index = 1;
       if(status === 0) index = 0;
 
       divisions[index].institutions.push(institution);
