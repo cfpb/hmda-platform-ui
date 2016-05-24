@@ -27,7 +27,7 @@ var EditsContainer = React.createClass({
 
   render: function() {
     return (
-      <div className="EditsContainer two-third">
+      <div className="EditsContainer">
         <EditsHeaderDescription>Syntactical</EditsHeaderDescription>
         <EditsGrouped id="syntactical" edits={this.state.edits.syntactical.edits} />
 

@@ -56,30 +56,27 @@ var SubmissionContainer = React.createClass({
       )
     }
 
-    if(code > 3) progress = <p className="third">Progress component goes here</p>
+    if(code > 3) progress = <p>Progress component goes here</p>
 
     if(code > 5) editsContainer = <EditsContainer/>
 
     if(code > 9){
       irs = <IRS/>;
-      uploadForm = null;
-      editsContainer = null;
     }
 
     if(code > 10){
       summary = <p>Summary component here</p>
       sign = <Signature/>
-      uploadForm = null;
-      editsContainer = null;
-      irs = null;
     }
 
     return (
       <div className="SubmissionContainer container">
         {uploadForm}
-        {progress}
-        {editsContainer}
+        <div className="third">
+          {progress}
+        </div>
         <div className="two-third">
+          {editsContainer}
           {irs}
           {summary}
           {sign}
