@@ -1,0 +1,44 @@
+{
+  "123": {
+    "name": "MSA 123",
+    "totalLARS": 4,
+    "totalAmount": 123,
+    "loanTypes": {
+      "conv": 4,
+      "FHA": 0,
+      "VA": 0,
+      "FSA": 0
+    },
+    "propertyTypes": {
+      "1to4Family": 4,
+      "MFD": 0,
+      "multiFamily": 0
+    },
+    "loanPurposes": {
+      "homePurchase": 0,
+      "homeImprovement": 0,
+      "refinance": 4
+    }
+  },
+  "456": {
+    "name": "MSA 456",
+    "totalLARS": 5,
+    "totalAmount": 456,
+    "loanTypes": {
+      "conv": 5,
+      "FHA": 0,
+      "VA": 0,
+      "FSA": 0
+    },
+    "propertyTypes": {
+      "1to4Family": 5,
+      "MFD": 0,
+      "multiFamily": 0
+    },
+    "loanPurposes": {
+      "homePurchase": 0,
+      "homeImprovement": 0,
+      "refinance": 5
+    }
+  }
+}

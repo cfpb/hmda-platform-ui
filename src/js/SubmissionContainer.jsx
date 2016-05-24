@@ -11,7 +11,7 @@ function uploadCb(){
 
 var SubmissionContainer = React.createClass({
 
-  // check state and render Uploadform, edits, summary, sign based on state
+  // check state and render Uploadform, edits, summary, irs, sign based on state
 
   getDefaultProps: function(){
     return {institution: {}};
