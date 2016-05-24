@@ -46,8 +46,6 @@ var SubmissionContainer = React.createClass({
 
     var code = status.code;
 
-    console.log(code);
-
     if(code === null){
       return (
         <div className="SubmissionContainer">
@@ -60,9 +58,7 @@ var SubmissionContainer = React.createClass({
 
     if(code > 5) editsContainer = <EditsContainer/>
 
-    if(code > 9){
-      irs = <IRS/>;
-    }
+    if(code > 9) irs = <IRS/>
 
     if(code > 10){
       summary = <p>Summary component here</p>
