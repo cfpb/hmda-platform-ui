@@ -1,7 +1,8 @@
 var React = require('react');
 var api = require('./api');
 var UploadForm = require('./UploadForm.jsx');
-var EditsContainer = require('./EditsContainer.jsx')
+var EditsContainer = require('./EditsContainer.jsx');
+var IRS = require('./IRSReport.jsx');
 var Signature = require('./Signature.jsx');
 
 function uploadCb(){
@@ -33,17 +34,19 @@ var SubmissionContainer = React.createClass({
   },
 
   statusFilter: function(){
-
     var uploadForm = <UploadForm callback={uploadCb}/>;
     var progress = null;
     var editsContainer = null;
     var summary = null;
+    var irs = null;
     var sign = null;
 
     var status = this.state.status;
     if(!status) return null;
 
     var code = status.code;
+
+    console.log(code);
 
     if(code === null){
       return (
@@ -57,11 +60,18 @@ var SubmissionContainer = React.createClass({
 
     if(code > 5) editsContainer = <EditsContainer/>
 
-    if(code > 11){
+    if(code > 9){
+      irs = <IRS/>;
+      uploadForm = null;
+      editsContainer = null;
+    }
+
+    if(code > 10){
       summary = <p>Summary component here</p>
       sign = <Signature/>
       uploadForm = null;
       editsContainer = null;
+      irs = null;
     }
 
     return (
@@ -70,6 +80,7 @@ var SubmissionContainer = React.createClass({
         {progress}
         {editsContainer}
         <div className="two-third">
+          {irs}
           {summary}
           {sign}
         </div>
