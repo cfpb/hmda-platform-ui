@@ -7,15 +7,26 @@ var InstitutionContainer = React.createClass({
 
   getInitialState: function(){
     return {
-      institutions: []
+      institutionsByPeriod: {}
     }
   },
 
   componentWillMount: function(){
     var self = this;
     api.getInstitutions(function(instObj){
-      self.setState({institutions: instObj.institutions});
+      self.setState({institutionsByPeriod: self.groupByPeriod(instObj)});
     });
+  },
+
+  groupByPeriod: function(instObj){
+    var grouped = {};
+    
+    instObj.institutions.forEach(function(institution){
+      if(!grouped[institution.period]) grouped[institution.period] = [];
+      grouped[institution.period].push(institution);
+    });
+
+    return grouped;
   },
 
   getDivisions: function(institutions){
@@ -40,22 +51,30 @@ var InstitutionContainer = React.createClass({
   },
 
   render: function(){
-    var params = this.props.params || {};
-
+    var self = this;
     return (
       <div className="InstitutionContainer half">
-        {this.getDivisions(this.state.institutions).map(function(division, i){
-          var header = null;
-          if(division.institutions.length) header = <DivisionHeader>{division.text}</DivisionHeader>
+        {Object.keys(self.state.institutionsByPeriod).sort().reverse().map(function(period, i){
+          var institutions = self.state.institutionsByPeriod[period];
           return (
-            <div key={i} className="division">
-              {header}
-              {division.institutions.map(function(institution, i){
-                return <InstitutionStatus key={i} institution={institution} year={params.year}/>
-              })}
-            </div>
+            <div key={i} className="periodWrapper">
+              <h1 className="periodHeader">{period}</h1>
+              {self.getDivisions(institutions).map(function(division, i){
+               var header = null;
+               if(division.institutions.length) header = <DivisionHeader>{division.text}</DivisionHeader>
+               return (
+                 <div key={i} className="divisionWrapper">
+                   {header}
+                   {division.institutions.map(function(institution, i){
+                     return <InstitutionStatus key={i} institution={institution} period={period}/>
+                   })}
+                 </div>
+               )
+              })
+              }
+           </div>
           )
-         })
+        })
         }
       </div>
     )

@@ -1,25 +1,23 @@
 var fs = require('fs');
-var router = require('express').Router();
+var router = require('express').Router({mergeParams: true});
 var submissionRouter = require('./submissions');
 
 var institutionsObj = JSON.parse(fs.readFileSync('./server/json/user1-institutions.json'));
 
 router.get('/', function(req, res){
-  res.send(institutionsObj);
-});
+  res.send({periods: ['2017']});
+})
 
-router.get('/:institution', function(req, res){
+router.get('/:period', function(req, res){
   var institutions = institutionsObj.institutions;
 
   for(var i=0; i<institutions.length; i++){
-    if(institutions[i].id === req.params.institution){
+    if(institutions[i].id === req.params.institution && institutions[i].period === req.params.period){
       return res.send(institutions[i]);
     }
   }
-
-  res.status(404).end();
 });
 
-router.use('/:institution/submissions', submissionRouter);
+router.use('/:period/submissions', submissionRouter);
 
 module.exports = router;

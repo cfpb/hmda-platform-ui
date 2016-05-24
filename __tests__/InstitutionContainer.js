@@ -21,7 +21,7 @@ superagent.end = jest.genMockFn().mockImpl(function(fn){
 
 describe('InstitutionContainer', function(){
 
-  var containerComponent = <InstitutionContainer params={{year: '2017'}}/>
+  var containerComponent = <InstitutionContainer/>
   var container = TestUtils.renderIntoDocument(containerComponent);
   var containerNode = ReactDOM.findDOMNode(container);
 
@@ -30,7 +30,7 @@ describe('InstitutionContainer', function(){
   });
 
   it('properly renders needed child components', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'division').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'divisionWrapper').length).toEqual(3);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'DivisionHeader').length).toEqual(3);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'InstitutionStatus').length).toEqual(6);
   });

@@ -13,9 +13,9 @@ var IndexRoute = router.IndexRoute;
 ReactDOM.render(
   (
     <Router history={browserHistory}>
-      <Route path="/:year" component={AppContainer}>
+      <Route path="/" component={AppContainer}>
         <IndexRoute component={InstitutionContainer}/>
-        <Route path="/:year/:institution/:submission" component={SubmissionContainer}/>
+        <Route path="/:institution/:period/:submission" component={SubmissionContainer}/>
       </Route>
     </Router>
   ), document.getElementById('app')
