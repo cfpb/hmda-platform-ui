@@ -2,24 +2,6 @@ var React = require('react');
 var api = require('./api');
 
 var IRS = React.createClass({
-  // main table headings
-  headerMap: {
-    id: 'MSA/MD',
-    name: 'MSA/MD Name',
-    totalNumber: 'Total LARs',
-    totalAmt: 'Total Amt.',
-    conv: 'CONV',
-    fha: 'FHA',
-    va: 'VA',
-    fsa: 'FSA/RHS',
-    family: '1-4 Family',
-    mfd: 'MFD',
-    multiFamily: 'Multi-Family',
-    purchase: 'Home Purchase',
-    improve: 'Home Improvement',
-    refi: 'Refinance'
-  },
-
   getInitialState: function() {
     return {
       irs: {
@@ -39,7 +21,6 @@ var IRS = React.createClass({
 
   render: function() {
     var self = this;
-    console.log(self.state.irs);
     return (
       <div className="IRSReport EditsHeaderDescription">
         <h2>Institution Register Summary</h2>
