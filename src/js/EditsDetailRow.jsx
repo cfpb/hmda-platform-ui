@@ -43,14 +43,14 @@ var EditsDetailRow = React.createClass({
 
 
   render: function(){
-    var _this = this;
+    var self = this;
     var edit = this.props.edit;
     return <tr key={this.props.id}>
       {Object.keys(edit).map(function(field, i){
-        return <td key={i}>{_this.makeTdContent(edit, field)}</td>
+        return <td key={i}>{self.makeTdContent(edit, field)}</td>
       }
       )}
-      {_this.makeCheck()}
+      {self.makeCheck()}
     </tr>
   }
 });

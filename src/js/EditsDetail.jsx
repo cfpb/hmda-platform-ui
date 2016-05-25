@@ -17,7 +17,7 @@ var EditsDetail = React.createClass({
   },
 
   render: function() {
-    var _this = this;
+    var self = this;
     if(!this.props.edits || !this.props.edits[0]) return null;
 
     var headers = Object.keys(this.props.edits[0]);
@@ -29,7 +29,7 @@ var EditsDetail = React.createClass({
           <thead>
             <tr>
               {headers.map(function(header, i){
-                return <th key={i}>{_this.headerMap[header]}</th>
+                return <th key={i}>{self.headerMap[header]}</th>
               })}
             </tr>
           </thead>
