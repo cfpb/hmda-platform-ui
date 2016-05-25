@@ -50,6 +50,10 @@ module.exports = {
    return getHandler(url, cb);
  },
 
+ getIRS: function(url, cb){
+  return getHandler(url, cb, '/irs');
+ },
+
  postSubmissions: function(url, cb){
    return postHandler(url, cb, '/submissions');
  },
