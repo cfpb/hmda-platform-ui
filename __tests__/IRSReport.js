@@ -7,8 +7,11 @@ var TestUtils = require('react-addons-test-utils');
 var IRSReport = require('../src/js/IRSReport.jsx');
 
 describe('irs report', function(){
+  var changeHandler = function(e){
+    console.log(e.currentTarget.checked);
+  };
 
-  var irsReport = TestUtils.renderIntoDocument(<IRSReport/>)
+  var irsReport = TestUtils.renderIntoDocument(<IRSReport clicked={changeHandler}/>);
   var irsReportNode = ReactDOM.findDOMNode(irsReport);
 
   it('renders the irs report component', function(){

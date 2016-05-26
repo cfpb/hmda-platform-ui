@@ -2,6 +2,11 @@ var React = require('react');
 var api = require('./api');
 
 var IRS = React.createClass({
+  propTypes: {
+    checked: React.PropTypes.string,
+    clicked: React.PropTypes.func.isRequired
+  },
+
   getInitialState: function() {
     return {
       irs: {
@@ -24,7 +29,8 @@ var IRS = React.createClass({
     return (
       <div className="IRSReport EditsHeaderDescription">
         <h2>Institution Register Summary</h2>
-        <p>This is the description of this report.</p>
+        <p>All MSA/MDs where my institution has a home or branch office (and took loan/applications in that office) are listed on the IRS. Each MSA/MD listed is an MSA/MD in which we have a home or branch office. No depository institutions, including mortgage subsidiaries, are considered to have a branch office in any MSA/MD where they have acted.</p>
+        <p>Please review each of the <strong>{self.state.irs.msas.length}</strong> MSA/MDs listed below. If you disagree please correct and re-upload the updated file.</p>
         <table width="100%">
           <thead>
             <tr>
@@ -60,6 +66,7 @@ var IRS = React.createClass({
             })}
           </tbody>
         </table>
+        <p><input type="checkbox" value="IRS verification" onChange={self.props.clicked} checked={self.props.checked}/> I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.</p>
       </div>
     )
   }
