@@ -3,23 +3,21 @@ var EditsDetailRow = require('./EditsDetailRow.jsx');
 
 var EditsDetail = React.createClass({
   propTypes: {
-    edits: React.PropTypes.array
+    details: React.PropTypes.array
   },
 
   headerMap: {
-    id: 'Edit ID',
-    desc: 'Description',
-    field: 'Field',
-    valueSubmitted: 'Value Submitted',
-    justification: 'Justification',
-    verified: 'Verified'
+    edit: 'Edit ID',
+    lar: 'LAR',
+    type: 'Edit Type',
+    verification: 'Verification'
   },
 
   render: function() {
     var self = this;
-    if(!this.props.edits || !this.props.edits[0]) return null;
+    if(!this.props.details || !this.props.details[0]) return null;
 
-    var headers = Object.keys(this.props.edits[0]);
+    var headers = Object.keys(this.props.details[0]);
     if(!headers) return null;
 
     return (
@@ -33,8 +31,8 @@ var EditsDetail = React.createClass({
             </tr>
           </thead>
           <tbody>
-            {this.props.edits.map(function(edit, i){
-              return <EditsDetailRow id={i} key={i} edit={edit}/>
+            {this.props.details.map(function(detail, i){
+              return <EditsDetailRow id={i} key={i} detail={detail}/>
             })}
           </tbody>
         </table>

@@ -58,7 +58,7 @@ var EditsGrouped = React.createClass({
                   </span>
                 </span>
               </button>
-              <EditsDetail detail={this.getSecondary(groupObj)}/>
+              <EditsDetail details={this.getSecondary(groupObj)}/>
             </div>
           )
         })}
