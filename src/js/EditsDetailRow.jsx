@@ -1,9 +1,8 @@
 var React = require('react');
-
 var EditsDetailRow = React.createClass({
 
   propTypes: {
-    edit: React.PropTypes.object.isRequired,
+    detail: React.PropTypes.object.isRequired,
     id: React.PropTypes.number
   },
 
@@ -13,17 +12,17 @@ var EditsDetailRow = React.createClass({
 
   componentWillMount: function(){
     this.setState({
-      verification: this.props.edit.verification
+      verification: this.props.detail.verification
     });
   },
 
-  makeTdContent: function(edit, field){
+  makeTdContent: function(detail, field){
     if(field === 'verification'){
       if(this.state.verification) return this.state.verification;
       else return <textarea onChange={this.updateText}value={this.state.verification}/>
     }
-    if(field === 'lar') return JSON.stringify(edit[field]);
-    return edit[field];
+    if(field === 'lar') return JSON.stringify(detail[field]);
+    return detail[field];
   },
 
   makeCheck: function(){
@@ -41,13 +40,12 @@ var EditsDetailRow = React.createClass({
     this.setState({verification: e.target.value});
   },
 
-
   render: function(){
     var self = this;
-    var edit = this.props.edit;
+    var detail = this.props.detail;
     return <tr key={this.props.id}>
-      {Object.keys(edit).map(function(field, i){
-        return <td key={i}>{self.makeTdContent(edit, field)}</td>
+      {Object.keys(detail).map(function(field, i){
+        return <td key={i}>{self.makeTdContent(detail, field)}</td>
       }
       )}
       {self.makeCheck()}
@@ -56,4 +54,3 @@ var EditsDetailRow = React.createClass({
 });
 
 module.exports = EditsDetailRow;
-
