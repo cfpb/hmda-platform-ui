@@ -2,7 +2,7 @@ var React = require('react');
 var api = require('./api');
 var UploadForm = require('./UploadForm.jsx');
 var EditsContainer = require('./EditsContainer.jsx');
-var IRS = require('./IRSReport.jsx');
+var IRSReport = require('./IRSReport.jsx');
 var Signature = require('./Signature.jsx');
 
 function uploadCb(){
@@ -33,6 +33,26 @@ var SubmissionContainer = React.createClass({
     }
   },
 
+  toggleIRSCheck: function(e){
+    // should make an API call here to POST verification
+    // and if everything is ok it would return the new status
+    if (e.target.checked) {
+      this.setState({
+        status: {
+          code: 11,
+          message: ""
+        }
+      });
+    } else {
+      this.setState({
+        status: {
+          code: 10,
+          message: ""
+        }
+      });
+    }
+  },
+
   statusFilter: function(){
     var uploadForm = <UploadForm callback={uploadCb}/>;
     var progress = null;
@@ -58,9 +78,10 @@ var SubmissionContainer = React.createClass({
 
     if(code > 5) editsContainer = <EditsContainer/>
 
-    if(code > 9) irs = <IRS/>
+    if(code > 9) irs = <IRSReport clicked={this.toggleIRSCheck}/>
 
     if(code > 10){
+      irs = <IRSReport clicked={this.toggleIRSCheck} checked='checked'/>
       summary = <p>Summary component here</p>
       sign = <Signature/>
     }
