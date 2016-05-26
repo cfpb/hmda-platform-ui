@@ -12,7 +12,7 @@ var EditsContainer = React.createClass({
       validity: {edits: []},
       quality: {edits: []},
       macro: {edits: []},
-      lars: []
+      lars: [],
       groupByRow: false
     }
   },
@@ -95,11 +95,29 @@ var EditsContainer = React.createClass({
   },
 
   renderByType: function(){
-  
+    <div className="EditsContainerBody">
+      <EditsHeaderDescription>Syntactical Edits</EditsHeaderDescription>
+      <EditsGrouped edits={this.state.syntactical.edits} />
+
+      <EditsHeaderDescription>Validity Edits</EditsHeaderDescription>
+      <EditsGrouped edits={this.state.validity.edits} />
+
+      <EditsHeaderDescription>Quality Edits</EditsHeaderDescription>
+      <EditsGrouped edits={this.state.quality.edits} />
+
+      <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
+      <EditsMacro edits={this.state.macro.edits} />
+    </div>
   },
 
   renderByRow: function(){
-    
+    <div className="EditsContainerBody">
+      <EditsHeaderDescription>Loan Application Records</EditsHeaderDescription>
+      <EditsGrouped edits={this.state.quality.edits} />
+
+      <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
+      <EditsMacro edits={this.state.macro.edits} />
+    </div>
   },
 
   render: function(){
