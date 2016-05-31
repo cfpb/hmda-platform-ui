@@ -13,7 +13,7 @@ var EditsGrouped = React.createClass({
   },
 
   render: function() {
-    console.log(this.props.edits);
+    //console.log(this.props.edits);
     return (
       <div className="EditsGrouped full edits expandable-group">
         <div className="">
