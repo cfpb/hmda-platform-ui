@@ -34,35 +34,12 @@ var SubmissionContainer = React.createClass({
   },
 
   toggleIRSCheck: function(e){
-    // should make an API call here to POST verification
-    // and if everything is ok it would return the new status
     var self = this;
     var checked = e.target.checked;
-    console.log(api.makeUrl(api.parseLocation()));
-    api.postIRS(api.makeUrl(api.parseLocation()), function(checked){
-      self.setState({
-        status: {
-          code: 10,
-          message: ""
-        }
+    api.postIRS(api.makeUrl(api.parseLocation()) + '/irs/' + self.state.status.code,
+      function(checked){
+        self.setState(checked);
       });
-    }, 'irs');
-    
-    /*if (e.target.checked) {
-      this.setState({
-        status: {
-          code: 11,
-          message: ""
-        }
-      });
-    } else {
-      this.setState({
-        status: {
-          code: 10,
-          message: ""
-        }
-      });
-    }*/
   },
 
   statusFilter: function(){

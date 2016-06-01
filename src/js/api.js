@@ -55,7 +55,6 @@ module.exports = {
  },
 
  postIRS: function(url, cb){
-  console.log('post IRS');
   return postHandler(url, cb);
  },
 
