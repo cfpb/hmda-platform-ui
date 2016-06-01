@@ -4,6 +4,7 @@ var path = require('path');
 var express = require('express');
 var historyApiFallback = require('express-history-api-fallback');
 var apiRouter = require('./routes/api');
+var bodyParser = require('body-parser');
 
 var app = express();
 
@@ -11,7 +12,10 @@ var app = express();
 app.use(function(req, res, next){
   console.log(req.url);
   next();
-})
+});
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //serve the app
 app.use(express.static('dist'));

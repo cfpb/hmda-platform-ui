@@ -6,16 +6,12 @@ router.get('/', function (req, res) {
   res.send(irsObj);
 });
 
-router.post('/:status', function (req, res){
-  var newStatus;
-  if (req.params.status === '10'){
-    newStatus = '11';
-  } else {
-    newStatus = '10';
-  }
+router.post('/', function (req, res){
+  var state = req.body.verified ? 11 : 10;
+  
   res.status(202).send({
     status: {
-      code: newStatus,
+      code: state,
       message: ""
     }
   });
