@@ -7,7 +7,7 @@
     "test": "jest",
     "snyk": "snyk test",
     "clean": "rimraf ./dist && mkdir -p ./dist ./dist/js ./dist/css ./dist/fonts",
-    "start": "./server/server.js",
+    "start": "nodemon ./server/server.js",
     "dev:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
     "dev:less": "lessc ./src/less/app.less ./dist/css/app.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
     "dev:html": "cp src/index.html dist/index.html",
@@ -17,6 +17,7 @@
     "watch:tests": "nodemon -e js -w __tests__ -x 'npm test'",
     "watch:less": "nodemon -e less -w src/less -x 'npm run dev:less'",
     "watch:html": "nodemon -e html -w src -x 'npm run dev:html'",
+    "watch:server": "nodemon -e js,json -w server -x 'npm run start'",
     "watch": "npm run watch:js & npm run watch:tests & npm run watch:less & npm run watch:html & npm start"
   },
   "repository": {
