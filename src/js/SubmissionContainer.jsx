@@ -35,7 +35,6 @@ var SubmissionContainer = React.createClass({
 
   toggleIRSCheck: function(e){
     var self = this;
-    var checked = e.target.checked;
     api.postIRS(api.makeUrl(api.parseLocation()) + '/irs/',
       function(checked){
         self.setState(checked);
