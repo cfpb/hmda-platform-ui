@@ -34,9 +34,7 @@ var EditsContainer = React.createClass({
     var self = this;
     var fn = self.state.groupByRow ? api.getEditsByRow : api.getEditsByType;
     fn(function(editObj){
-      console.log(editObj);
       self.setState(editObj);
-      console.log(self.state);
     });
   },
 
@@ -99,7 +97,7 @@ var EditsContainer = React.createClass({
 
     Object.keys(editObj).forEach(function(type){
       Object.keys(editObj[type].edits).forEach(function(edit){
-        edits[type].edits.push(edit);
+        edits[type].edits.push(editObj[type].edits[edit]);
       });
     });
 
@@ -107,7 +105,6 @@ var EditsContainer = React.createClass({
   },
 
   renderByType: function(){
-    console.log('rendering by type');
     return (
       <div className="EditsContainerBody">
         <EditsHeaderDescription>Syntactical Edits</EditsHeaderDescription>
@@ -126,7 +123,6 @@ var EditsContainer = React.createClass({
   },
 
   renderByRow: function(){
-    console.log('rendering by row');
     return (
       <div className="EditsContainerBody">
         <EditsHeaderDescription>Loan Application Records</EditsHeaderDescription>

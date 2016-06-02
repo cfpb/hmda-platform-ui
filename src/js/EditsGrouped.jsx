@@ -13,12 +13,10 @@ var EditsGrouped = React.createClass({
   },
 
   getPrimary: function(groupObj){
-    console.log('primary groupObj', groupObj);
     return this.props.groupByRow ? groupObj.lar.loanId : groupObj.edit;
   },
 
   getSecondary: function(groupObj){
-    console.log('secondary groupObj',groupObj);
     return this.props.groupByRow ? groupObj.edits: groupObj.lars;
   },
 
