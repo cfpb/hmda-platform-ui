@@ -7,11 +7,15 @@ var TestUtils = require('react-addons-test-utils');
 var IRSReport = require('../src/js/IRSReport.jsx');
 
 describe('irs report', function(){
-  var changeHandler = function(e){
-    console.log(e.currentTarget.checked);
+  var changeHandlerTrue = function(e){
+    expect(e.target.checked).toBeTruthy();
   };
 
-  var irsReport = TestUtils.renderIntoDocument(<IRSReport clicked={changeHandler}/>);
+  var changeHandlerFalse = function(e){
+    expect(e.target.checked).toBeFalsy();
+  };
+
+  var irsReport = TestUtils.renderIntoDocument(<IRSReport clicked={changeHandlerTrue}/>);
   var irsReportNode = ReactDOM.findDOMNode(irsReport);
 
   it('renders the irs report component', function(){
@@ -20,5 +24,31 @@ describe('irs report', function(){
 
   it('creates the correct number of rows', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'tr').length).toEqual(2);
+  });
+
+  it('contains the checkbox input', function(){
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'input').length).toEqual(1);
+  });
+
+  it('the checkbox is NOT checked and toggles to true', function(){
+    var checkbox = TestUtils.findRenderedDOMComponentWithTag(irsReport, 'input');
+    expect(checkbox.checked).toBeFalsy();
+
+    TestUtils.Simulate.change(
+      checkbox,
+      {"target": {"checked": true}}
+    );
+  });
+
+  it('the checkbox IS checked and toggles to false', function(){
+    var irsReportChecked = TestUtils.renderIntoDocument(<IRSReport clicked={changeHandlerFalse} checked='checked'/>);
+    var irsReportCheckedNode = ReactDOM.findDOMNode(irsReport);
+    var checkbox = TestUtils.findRenderedDOMComponentWithTag(irsReportChecked, 'input');
+    expect(checkbox.checked).toBeTruthy();
+
+    TestUtils.Simulate.change(
+      checkbox,
+      {"target": {"checked": false}}
+    );
   });
 });
