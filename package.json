@@ -17,7 +17,8 @@
     "watch:tests": "nodemon -e js -w __tests__ -x 'npm test'",
     "watch:less": "nodemon -e less -w src/less -x 'npm run dev:less'",
     "watch:html": "nodemon -e html -w src -x 'npm run dev:html'",
-    "watch": "npm run watch:js & npm run watch:tests & npm run watch:less & npm run watch:html & npm start"
+    "watch:server": "nodemon -e js,json -w server -x 'npm start'",
+    "watch": "npm run watch:server & npm run watch:js & npm run watch:tests & npm run watch:less & npm run watch:html"
   },
   "repository": {
     "type": "git",
