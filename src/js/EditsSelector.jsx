@@ -18,8 +18,8 @@ var EditsSelector = React.createClass({
 
   render: function(){
     return (
-      <div onClick={this.toggleGrouping} className="EditsSelector">
-        {'Group by ' + this.state.groupByRow ? 'row' : 'edit type'}
+      <div onClick={this.toggleGrouping} className="EditsSelector btn">
+        {'Group by ' + (this.state.groupByRow ? 'edit type' : 'row')}
       </div>
     )
   }
