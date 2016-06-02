@@ -17,13 +17,15 @@ function getHandler(url, cb, suffix){
   superagent.get(url).end(makeResponder(cb));
 }
 
-function postHandler(url, cb, suffix){
+function postHandler(url, cb, suffix, postData){
   if(typeof url === 'function'){
     cb = url;
     url = makeUrl(parseLocation, suffix);
   }
 
-  superagent.post(url).end(makeResponder(cb));
+  var post = superagent.post(url);
+  if(postData) post.send(postData);
+  post.end(makeResponder(cb));
 }
 
 function makeUrl(obj, suffix){
@@ -52,6 +54,10 @@ module.exports = {
 
  getIRS: function(url, cb){
   return getHandler(url, cb, '/irs');
+ },
+
+ postIRS: function(url, cb, verified){
+  return postHandler(url, cb, '', verified);
  },
 
  postSubmissions: function(url, cb){
