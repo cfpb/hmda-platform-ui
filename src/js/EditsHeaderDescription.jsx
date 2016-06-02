@@ -7,16 +7,19 @@ var EditsHeaderDescription = React.createClass({
   getDescription: function(editType) {
     var desc = null;
     switch (editType) {
-      case 'Syntactical':
+      case 'Loan Application Records':
+        desc = 'This is the LAR description'
+        break;
+      case 'Syntactical Edits':
         desc = 'This is the syntactical description.'
         break;
-      case 'Validity':
+      case 'Validity Edits':
         desc = 'This is the validity description.'
         break;
-      case 'Quality':
+      case 'Quality Edits':
         desc = 'This is the quality description.'
         break;
-      case 'Macro':
+      case 'Macro Edits':
         desc = 'This is the macro description.'
         break;
       default:
@@ -28,7 +31,7 @@ var EditsHeaderDescription = React.createClass({
   render: function() {
     return (
       <div className="EditsHeaderDescription">
-        <h2>{this.props.children} Edits</h2>
+        <h2>{this.props.children}</h2>
         <p>{this.getDescription(this.props.children)}</p>
       </div>
     )

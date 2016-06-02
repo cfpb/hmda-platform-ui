@@ -1,5 +1,6 @@
 var React = require('react');
 var api = require('./api');
+var expandables = require('./react-expandables');
 var EditsSelector = require('./EditsSelector.jsx');
 var EditsGrouped = require('./EditsGrouped.jsx');
 var EditsMacro = require('./EditsMacro.jsx');
@@ -21,15 +22,26 @@ var EditsContainer = React.createClass({
     this.getEditsByGrouping();
   },
 
+  componentDidMount: function(){
+    expandables.init();
+  },
+
+  componentDidUpdate: function(){
+    expandables.update();
+  },
+
   getEditsByGrouping: function(){
     var self = this;
     var fn = self.state.groupByRow ? api.getEditsByRow : api.getEditsByType;
     fn(function(editObj){
+      console.log(editObj);
       self.setState(editObj);
+      console.log(self.state);
     });
   },
 
   updateGrouping: function(groupByRow){
+    if(this.state.groupByRow === groupByRow) return;
     this.setState({groupByRow: groupByRow});
     if(groupByRow) this.populateLars();
     else this.populateEditTypes();
@@ -38,9 +50,10 @@ var EditsContainer = React.createClass({
   populateLars: function(){
     var larsObj = {};
     var lars = [];
+    var self = this;
 
     ['syntactical', 'validity', 'quality'].forEach(function(type){
-      var edits = this.state[type].edits;
+      var edits = self.state[type].edits;
 
       edits.forEach(function(editWrapper){
         editWrapper.lars.forEach(function(larWrapper){
@@ -57,7 +70,7 @@ var EditsContainer = React.createClass({
       lars.push(larsObj[lar]);
     });
 
-    this.setState({lars: lars});
+    self.setState({lars: lars});
   },
 
   populateEditTypes: function(){
@@ -76,12 +89,11 @@ var EditsContainer = React.createClass({
     this.state.lars.forEach(function(larWrapper){
       larWrapper.edits.forEach(function(editWrapper){
         var editList = editObj[editWrapper.type].edits;
-        var currEdit = editList[editWrapper.edit];
         var larObj = {lar: larWrapper.lar}
         if(editWrapper.type === 'quality') larObj.verification = editWrapper.verification;
 
-        editList[editWrapper.edit] = currEdit || {edit: editWrapper.edit, lars: []};
-        currEdit.lars.push(larObj);
+        editList[editWrapper.edit] = editList[editWrapper.edit] || {edit: editWrapper.edit, lars: []};
+        editList[editWrapper.edit].lars.push(larObj);
       });
     });
 
@@ -95,36 +107,42 @@ var EditsContainer = React.createClass({
   },
 
   renderByType: function(){
-    <div className="EditsContainerBody">
-      <EditsHeaderDescription>Syntactical Edits</EditsHeaderDescription>
-      <EditsGrouped edits={this.state.syntactical.edits} />
+    console.log('rendering by type');
+    return (
+      <div className="EditsContainerBody">
+        <EditsHeaderDescription>Syntactical Edits</EditsHeaderDescription>
+        <EditsGrouped group={this.state.syntactical.edits} groupByRow={this.state.groupByRow}/>
 
-      <EditsHeaderDescription>Validity Edits</EditsHeaderDescription>
-      <EditsGrouped edits={this.state.validity.edits} />
+        <EditsHeaderDescription>Validity Edits</EditsHeaderDescription>
+        <EditsGrouped group={this.state.validity.edits} groupByRow={this.state.groupByRow}/>
 
-      <EditsHeaderDescription>Quality Edits</EditsHeaderDescription>
-      <EditsGrouped edits={this.state.quality.edits} />
+        <EditsHeaderDescription>Quality Edits</EditsHeaderDescription>
+        <EditsGrouped group={this.state.quality.edits} groupByRow={this.state.groupByRow}/>
 
-      <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
-      <EditsMacro edits={this.state.macro.edits} />
-    </div>
+        <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
+        <EditsMacro group={this.state.macro.edits} groupByRow={this.state.groupByRow}/>
+      </div>
+    )
   },
 
   renderByRow: function(){
-    <div className="EditsContainerBody">
-      <EditsHeaderDescription>Loan Application Records</EditsHeaderDescription>
-      <EditsGrouped edits={this.state.quality.edits} />
+    console.log('rendering by row');
+    return (
+      <div className="EditsContainerBody">
+        <EditsHeaderDescription>Loan Application Records</EditsHeaderDescription>
+        <EditsGrouped group={this.state.lars} groupByRow={this.state.groupByRow}/>
 
-      <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
-      <EditsMacro edits={this.state.macro.edits} />
-    </div>
+        <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
+        <EditsMacro group={this.state.macro.edits} groupByRow={this.state.groupByRow}/>
+      </div>
+    )
   },
 
   render: function(){
     return (
       <div className="EditsContainer two-third">
         <EditsSelector callback={this.updateGrouping}/>
-        {this.renderEditsBody()}
+        {this.state.groupByRow ? this.renderByRow() : this.renderByType()}
       </div>
     )
   }

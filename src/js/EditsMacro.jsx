@@ -7,8 +7,8 @@ var EditsMacro = React.createClass({
   },
   render: function() {
     return (
-      <div className="EditsMacro full edits" id={this.props.id}>
-        <EditsDetail edits={this.props.edits.edits} />
+      <div className="EditsMacro full edits">
+        <EditsDetail details={this.props.edits} />
       </div>
     )
   }

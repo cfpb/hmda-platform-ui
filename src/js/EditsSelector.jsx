@@ -3,22 +3,23 @@ var React = require('react');
 var EditsSelector = React.createClass({
 
   getInitialState: function(){
-    return {groupByRow: false};
+    return {groupByRow: true};
   },
 
   componentWillMount: function(){
-    this.selectGrouping(false);
+    this.toggleGrouping();
   },
 
-  selectGrouping: function(newGrouping){
-    this.setState({groupByRow: newGrouping}); 
-    if(this.props.callback) callback(newGrouping);
+  toggleGrouping: function(){
+    var newGrouping = !this.state.groupByRow
+    this.setState({groupByRow: newGrouping});
+    if(this.props.callback) this.props.callback(newGrouping);
   },
 
   render: function(){
     return (
-      <div onClick={this.selectGrouping(!this.state,groupByRow)} className="EditSelector">
-        {'Group by ' + this.state.groupByRow?'row':'edit type'}
+      <div onClick={this.toggleGrouping} className="EditsSelector">
+        {'Group by ' + this.state.groupByRow ? 'row' : 'edit type'}
       </div>
     )
   }

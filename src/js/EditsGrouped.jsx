@@ -1,9 +1,6 @@
-/*global jQuery*/
-
 var React = require('react');
-var ReactDOM = require('react-dom');
 var EditsDetail = require('./EditsDetail.jsx');
-require('cf-expandables');
+var expandables = require('./react-expandables');
 
 var EditsGrouped = React.createClass({
   propTypes: {
@@ -12,16 +9,16 @@ var EditsGrouped = React.createClass({
   },
 
   componentDidUpdate: function(){
-    jQuery(ReactDOM.findDOMNode(this)).children('.expandable').each(function(i, v){
-      jQuery(v).expandable();
-    });
+    expandables.clearCache();
   },
 
   getPrimary: function(groupObj){
+    console.log('primary groupObj', groupObj);
     return this.props.groupByRow ? groupObj.lar.loanId : groupObj.edit;
   },
 
   getSecondary: function(groupObj){
+    console.log('secondary groupObj',groupObj);
     return this.props.groupByRow ? groupObj.edits: groupObj.lars;
   },
 
@@ -37,6 +34,7 @@ var EditsGrouped = React.createClass({
   },
 
   render: function(){
+    var self = this;
     return (
       <div className="EditsGrouped full edits expandable-group">
         {this.renderHeader()}
@@ -45,20 +43,20 @@ var EditsGrouped = React.createClass({
             <div className="EditsSummary expandable" key={i}>
               <button className="expandable_header expandable_target" title="Expand content">
                 <span className="half summary expandable_label">
-                  {this.getPrimary(groupObj)}
+                  {self.getPrimary(groupObj)}
                 </span>
                 <span className="half summary expandable_link">
                   <span className="expandable_cue-open">
-                      {this.getSecondary(groupObj).length}
+                      {self.getSecondary(groupObj).length}
                       <span className="cf-icon cf-icon-plus-round"></span>
                   </span>
                   <span className="expandable_cue-close">
-                      {this.getSecondary(groupObj).length}
+                      {self.getSecondary(groupObj).length}
                       <span className="cf-icon cf-icon-minus-round"></span>
                   </span>
                 </span>
               </button>
-              <EditsDetail details={this.getSecondary(groupObj)}/>
+              <EditsDetail details={self.getSecondary(groupObj)}/>
             </div>
           )
         })}
