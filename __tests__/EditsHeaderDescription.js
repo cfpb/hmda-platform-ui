@@ -8,7 +8,7 @@ var EditsHeaderDescription = require('../src/js/EditsHeaderDescription.jsx');
 
 describe('EditsHeaderDescription', function(){
 
-  var headerComponent = <EditsHeaderDescription>Syntactical</EditsHeaderDescription>;
+  var headerComponent = <EditsHeaderDescription>Syntactical Edits</EditsHeaderDescription>;
   var header = TestUtils.renderIntoDocument(headerComponent);
   var headerNode = ReactDOM.findDOMNode(header);
 
@@ -17,11 +17,11 @@ describe('EditsHeaderDescription', function(){
   });
 
   it('sets the prop appropriately', function(){
-    expect(header.props.children).toEqual('Syntactical');
+    expect(header.props.children).toEqual('Syntactical Edits');
   });
 
   it('correctly sets the desc', function(){
-    expect(header.getDescription('Syntactical')).toEqual('This is the syntactical description.')
+    expect(header.getDescription('Syntactical Edits')).toEqual('This is the syntactical description.')
   });
 
 });

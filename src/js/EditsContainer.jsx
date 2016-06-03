@@ -117,7 +117,7 @@ var EditsContainer = React.createClass({
         <EditsGrouped group={this.state.quality.edits} groupByRow={this.state.groupByRow}/>
 
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
-        <EditsMacro group={this.state.macro.edits} groupByRow={this.state.groupByRow}/>
+        <EditsMacro group={this.state.macro.edits}/>
       </div>
     )
   },
@@ -129,7 +129,7 @@ var EditsContainer = React.createClass({
         <EditsGrouped group={this.state.lars} groupByRow={this.state.groupByRow}/>
 
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
-        <EditsMacro group={this.state.macro.edits} groupByRow={this.state.groupByRow}/>
+        <EditsMacro group={this.state.macro.edits}/>
       </div>
     )
   },
