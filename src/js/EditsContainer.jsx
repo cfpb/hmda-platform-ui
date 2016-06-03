@@ -67,7 +67,7 @@ var EditsContainer = React.createClass({
     Object.keys(larsObj).forEach(function(lar){
       lars.push(larsObj[lar]);
     });
-
+console.log(lars);
     self.setState({lars: lars});
   },
 
