@@ -1,10 +1,20 @@
 jest.dontMock('../src/js/IRSReport.jsx');
+jest.dontMock('../src/js/api.js');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
+var superagent = require('superagent');
+var fs = require('fs');
+
 var IRSReport = require('../src/js/IRSReport.jsx');
+var irsJSON = fs.readFileSync('./server/json/irs.json');
+
+superagent.get = jest.genMockFn().mockReturnThis();
+superagent.end = jest.genMockFn().mockImpl(function(fn){
+  return fn(null, {text: irsJSON});
+});
 
 describe('irs report', function(){
   var changeHandlerTrue = function(e){
@@ -23,7 +33,7 @@ describe('irs report', function(){
   });
 
   it('creates the correct number of rows', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'tr').length).toEqual(2);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'tr').length).toEqual(4);
   });
 
   it('contains the checkbox input', function(){
