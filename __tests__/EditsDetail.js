@@ -1,64 +1,38 @@
 jest.dontMock('../src/js/EditsDetail.jsx');
 jest.dontMock('../src/js/EditsDetailRow.jsx');
-jest.dontMock('cf-expandables');
-/*
+jest.dontMock('../src/js/react-expandables');
+
+var fs = require('fs');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
 var EditsDetail = require('../src/js/EditsDetail.jsx');
 
-var edits = {
-  syntax:[
-    {
-      'id': 1,
-      'desc': 'Here is a desc',
-      'field': 'Year',
-      'valueSubmitted': '1967'
-    }, {
-      'id': 2,
-      'desc': 'Here is another desc',
-      'field': 'Year',
-      'valueSubmitted': '1800'
-    }
-  ],
-  macro:[
-    {
-      'id': 3,
-      'desc': 'macro desc',
-      'justification': '',
-      'verified': false
-    },
-    {
-      'id': 4,
-      'desc': 'macro desc verified',
-      'justification': 'Who cares',
-      'verified': true
-    }
-  ]
-}
+var syntacticalObj = JSON.parse(fs.readFileSync('./server/json/syntactical.json'));
+var macroObj = JSON.parse(fs.readFileSync('./server/json/macro.json'));
 
 describe('EditsDetail', function(){
 
-  var syntaxDetail = TestUtils.renderIntoDocument(<EditsDetail edits={edits.syntax}/>);
-  var syntaxNode = ReactDOM.findDOMNode(syntaxDetail);
+  var syntacticalDetail = TestUtils.renderIntoDocument(<EditsDetail details={syntacticalObj.edits[0].lars}/>);
+  var syntacticalNode = ReactDOM.findDOMNode(syntacticalDetail);
 
   it('renders the component', function(){
-    expect(syntaxNode).toBeDefined();
+    expect(syntacticalNode).toBeDefined();
   });
 
   it('passes through the edits appropriately as props', function(){
-    expect(syntaxDetail.props.edits).toEqual(edits.syntax);
+    expect(syntacticalDetail.props.details).toEqual(syntacticalObj.edits[0].lars);
   });
 
   it('properly renders needed elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(syntaxDetail, 'table').length).toEqual(1);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(syntaxDetail, 'tr').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(syntaxDetail, 'td').length).toEqual(8);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(macroDetail, 'expandable_content').length).toEqual(1);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(syntacticalDetail, 'table').length).toEqual(1);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(syntacticalDetail, 'tr').length).toEqual(4);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(syntacticalDetail, 'td').length).toEqual(6);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(syntacticalDetail, 'expandable_content').length).toEqual(1);
   });
 
-  var macroDetail = TestUtils.renderIntoDocument(<EditsDetail edits={edits.macro}/>);
+  var macroDetail = TestUtils.renderIntoDocument(<EditsDetail details={macroObj.edits}/>);
   var macroNode = ReactDOM.findDOMNode(macroDetail);
 
   it('renders the component', function(){
@@ -66,15 +40,14 @@ describe('EditsDetail', function(){
   });
 
   it('passes through the edits appropriately as props', function(){
-    expect(macroDetail.props.edits).toEqual(edits.macro);
+    expect(macroDetail.props.details).toEqual(macroObj.edits);
   });
 
-  it('properly renders needed elements', function(){
+  it('properly renders macro elements', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'table').length).toEqual(1);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'tr').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'td').length).toEqual(8);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'td').length).toEqual(6);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'textarea').length).toEqual(1);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(macroDetail, 'expandable_content').length).toEqual(1);
   });
 });
-*/
