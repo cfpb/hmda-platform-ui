@@ -6,32 +6,33 @@ var EditsDetailRow = React.createClass({
     id: React.PropTypes.number
   },
 
-  getInitialState: function(){
-    return {verification: null};
-  },
-
   componentWillMount: function(){
     this.setState({
-      verification: this.props.detail.verification
+      verification: this.props.detail.verification,
+      verified: !!this.props.detail.verification
     });
   },
 
   makeTdContent: function(detail, field){
     if(field === 'verification'){
-      if(this.state.verification) return this.state.verification;
-      else return <textarea onChange={this.updateText}value={this.state.verification}/>
+      if(this.state.verified) return this.state.verification;
+      else return <textarea onChange={this.updateText} value={this.state.verification}/>
     }
     if(field === 'lar') return JSON.stringify(detail[field]);
     return detail[field];
   },
 
   makeCheck: function(){
-    if(this.state.verification !== null){
-      return <td><input type="checkbox" onChange={this.toggleText} checked={!!this.state.verification}/></td>
+    if(this.state.verification !== undefined){
+      return <td><input type="checkbox" onChange={this.toggleText} checked={this.state.verified}/></td>
     }
   },
 
   toggleText: function(e){
+    if(!this.state.verification){
+      return e.preventDefault();
+    }
+    //api call to backend
     var checked = e.target.checked;
     this.setState({verified: checked})
   },

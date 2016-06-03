@@ -10,7 +10,8 @@ var EditsDetail = React.createClass({
     edit: 'Edit ID',
     lar: 'LAR',
     type: 'Edit Type',
-    verification: 'Verification'
+    verification: 'Verification',
+    verified: 'Verified'
   },
 
   render: function() {
@@ -19,6 +20,7 @@ var EditsDetail = React.createClass({
 
     var headers = Object.keys(this.props.details[0]);
     if(!headers) return null;
+    if(headers.indexOf('verification') !== -1) headers.push('verified');
 
     return (
       <div className="EditsDetail expandable_content">

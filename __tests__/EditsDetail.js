@@ -28,7 +28,7 @@ describe('EditsDetail', function(){
   it('properly renders needed elements', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithTag(syntacticalDetail, 'table').length).toEqual(1);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(syntacticalDetail, 'tr').length).toEqual(4);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(syntacticalDetail, 'td').length).toEqual(6);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(syntacticalDetail, 'td').length).toEqual(3);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(syntacticalDetail, 'expandable_content').length).toEqual(1);
   });
 
