@@ -1,6 +1,6 @@
 jest.dontMock('../src/js/EditsMacro.jsx');
 jest.dontMock('../src/js/EditsDetail.jsx');
-jest.dontMock('cf-expandables');
+jest.dontMock('../src/js/react-expandables');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
