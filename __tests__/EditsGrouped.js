@@ -29,6 +29,7 @@ describe('EditsGrouped', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical, 'EditsSummary').length).toEqual(2);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical, 'EditsDetail').length).toEqual(2);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical, 'expandable').length).toEqual(2);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical, 'table-header').length).toEqual(2);
   });
 
   it('returns appropriate primary and secondary keys', function(){
