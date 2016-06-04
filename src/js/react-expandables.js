@@ -64,51 +64,56 @@ class ClickHandler {
 }
 
 
-var handlerCache = [];
-
-function resolveHandler(el){
-  for(var i=0; i<handlerCache.length; i++){
-    if(handlerCache[i].el === el) return handlerCache[i].instance;
+class Expandable {
+  constructor(){
+    this.handlerCache = [];
   }
-  return makeHandler(el);
-}
 
-function makeHandler(el){
-  var instance = new ClickHandler(el);
-  handlerCache.push({el: el, instance: instance});
-  return instance;
-}
-
-function handleClick( ev ) {
-  var expandableTarget = $(ev.target).closest('.expandable_target');
-  if(expandableTarget.length){
-    ev.preventDefault();
-    ev.stopPropagation();
-    resolveHandler(expandableTarget[0].parentNode).toggle();
-  }
-}
-
-function init(){
-  update();
-
-  $('body').on( 'click', handleClick);
-}
-
-function update(){
-  $('.expandable').each(function(i, v) {
-    if($(v).hasClass('.expandable__expanded')){
-      makeHandler(v).expand(0);
-    }else{
-      makeHandler(v).collapse(0);
-    }
-  });
-}
-
-
-module.exports = {
   clearCache(){
-    handlerCache.length = 0;
-  },
-  init,
-  update
-};
+    this.handlerCache.length = 0;
+  }
+
+  init(){
+    this.update();
+    $('body').on( 'click', this.handleClick.bind(this));
+  }
+
+  update(){
+    var self = this;
+
+    self.clearCache();
+
+    $('.expandable').each(function(i, v) {
+      if($(v).hasClass('.expandable__expanded')){
+        self.makeHandler(v).expand(0);
+      }else{
+        self.makeHandler(v).collapse(0);
+      }
+    })
+  }
+
+  resolveHandler(el){
+    for(var i=0; i<this.handlerCache.length; i++){
+      if(this.handlerCache[i].el === el) return this.handlerCache[i].instance;
+    }
+    return this.makeHandler(el);
+  }
+
+  makeHandler(el){
+    var instance = new ClickHandler(el);
+    this.handlerCache.push({el: el, instance: instance});
+    return instance;
+  }
+
+  handleClick(ev) {
+    var expandableTarget = $(ev.target).closest('.expandable_target');
+    if(expandableTarget.length){
+      ev.preventDefault();
+      ev.stopPropagation();
+      this.resolveHandler(expandableTarget[0].parentNode).toggle();
+    }
+  }
+}
+
+//Poor man's singleton
+module.exports = new Expandable();

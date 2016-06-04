@@ -1,15 +1,10 @@
 var React = require('react');
 var EditsDetail = require('./EditsDetail.jsx');
-var expandables = require('./react-expandables');
 
 var EditsGrouped = React.createClass({
   propTypes: {
     group: React.PropTypes.array,
     groupByRow: React.PropTypes.bool
-  },
-
-  componentDidUpdate: function(){
-    expandables.clearCache();
   },
 
   getPrimary: function(groupObj){

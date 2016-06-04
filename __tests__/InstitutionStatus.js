@@ -34,12 +34,4 @@ describe('InstitutionStatus', function(){
     expect(status.props.institution).toEqual(institution);
   });
 
-  /*
-  it('properly renders needed child components', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(status, 'a').length).toEqual(4);
-    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'Resubmit')).toBeDefined();
-    expect(TestUtils.findRenderedDOMComponentWithClass(status, 'EditReports')).toBeDefined();
-  });
-  */
-
 });

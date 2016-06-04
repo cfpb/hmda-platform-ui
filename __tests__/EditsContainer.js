@@ -20,11 +20,7 @@ var quality = JSON.parse(fs.readFileSync('./server/json/quality.json'));
 var macro = JSON.parse(fs.readFileSync('./server/json/macro.json'));
 var lars = JSON.parse(fs.readFileSync('./server/json/lars.json'));
 
-var calledTypeApi = 0;
-var calledRowApi = 0;
-
 api.getEditsByType = jest.fn(function(cb){
-  calledTypeApi++;
   cb({
     syntactical: syntactical,
     validity: validity,
@@ -34,7 +30,6 @@ api.getEditsByType = jest.fn(function(cb){
 });
 
 api.getEditsByRow = jest.fn(function(cb){
-  calledRowApi++;
   cb(lars);
 });
 
@@ -48,7 +43,7 @@ describe('EditsContainer', function() {
   });
 
   it('calls the appropriate type grouped api method', function(){
-    expect(calledTypeApi).toEqual(1);
+    expect(api.getEditsByType.mock.calls[0]).toBeDefined();
   });
 
   it('has the correct state for edits', function(){
@@ -84,7 +79,7 @@ describe('EditsContainer', function() {
      */
 
     it('calls the row grouped api method', function(){
-      expect(calledRowApi).toEqual(1);
+      expect(api.getEditsByRow.mock.calls[0]).toBeDefined();
     });
 
     it('updates state based on grouping change', function(){
