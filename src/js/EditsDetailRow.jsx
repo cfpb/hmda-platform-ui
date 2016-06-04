@@ -32,7 +32,7 @@ var EditsDetailRow = React.createClass({
     if(!this.state.verification){
       return e.preventDefault();
     }
-    //api call to backend
+    //TODO api call to backend, update parent state
     var checked = e.target.checked;
     this.setState({verified: checked})
   },
