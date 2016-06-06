@@ -8,7 +8,7 @@ var EditsDetail = React.createClass({
 
   headerMap: {
     edit: 'Edit ID',
-    lar: 'LAR',
+    lar: 'Loan ID',
     type: 'Edit Type',
     verification: 'Verification',
     verified: 'Verified'

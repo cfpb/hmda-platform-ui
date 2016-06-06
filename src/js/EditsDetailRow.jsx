@@ -18,7 +18,7 @@ var EditsDetailRow = React.createClass({
       if(this.state.verified) return this.state.verification;
       else return <textarea onChange={this.updateText} value={this.state.verification}/>
     }
-    if(field === 'lar') return JSON.stringify(detail[field]);
+    if(field === 'lar') return detail[field].loanId;
     return detail[field];
   },
 
