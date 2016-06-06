@@ -64,8 +64,12 @@ module.exports = {
    return postHandler(url, cb, '/submissions');
  },
 
- getEdits: function(url, cb){
+ getEditsByType: function(url, cb){
    return getHandler(url, cb, '/edits');
+ },
+
+ getEditsByRow: function(url, cb){
+   return getHandler(url, cb, '/edits/lars');
  },
 
  makeUrl: makeUrl,

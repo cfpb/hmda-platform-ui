@@ -1,38 +1,38 @@
 var React = require('react');
-
 var EditsDetailRow = React.createClass({
 
   propTypes: {
-    edit: React.PropTypes.object.isRequired,
+    detail: React.PropTypes.object.isRequired,
     id: React.PropTypes.number
-  },
-
-  getInitialState: function(){
-    return {verification: null};
   },
 
   componentWillMount: function(){
     this.setState({
-      verification: this.props.edit.verification
+      verification: this.props.detail.verification,
+      verified: !!this.props.detail.verification
     });
   },
 
-  makeTdContent: function(edit, field){
+  makeTdContent: function(detail, field){
     if(field === 'verification'){
-      if(this.state.verification) return this.state.verification;
-      else return <textarea onChange={this.updateText}value={this.state.verification}/>
+      if(this.state.verified) return this.state.verification;
+      else return <textarea onChange={this.updateText} value={this.state.verification}/>
     }
-    if(field === 'lar') return JSON.stringify(edit[field]);
-    return edit[field];
+    if(field === 'lar') return detail[field].loanId;
+    return detail[field];
   },
 
   makeCheck: function(){
-    if(this.state.verification !== null){
-      return <td><input type="checkbox" onChange={this.toggleText} checked={!!this.state.verification}/></td>
+    if(this.state.verification !== undefined){
+      return <td><input type="checkbox" onChange={this.toggleText} checked={this.state.verified}/></td>
     }
   },
 
   toggleText: function(e){
+    if(!this.state.verification){
+      return e.preventDefault();
+    }
+    //TODO api call to backend, update parent state
     var checked = e.target.checked;
     this.setState({verified: checked})
   },
@@ -41,13 +41,12 @@ var EditsDetailRow = React.createClass({
     this.setState({verification: e.target.value});
   },
 
-
   render: function(){
     var self = this;
-    var edit = this.props.edit;
+    var detail = this.props.detail;
     return <tr key={this.props.id}>
-      {Object.keys(edit).map(function(field, i){
-        return <td key={i}>{self.makeTdContent(edit, field)}</td>
+      {Object.keys(detail).map(function(field, i){
+        return <td key={i}>{self.makeTdContent(detail, field)}</td>
       }
       )}
       {self.makeCheck()}
@@ -56,4 +55,3 @@ var EditsDetailRow = React.createClass({
 });
 
 module.exports = EditsDetailRow;
-

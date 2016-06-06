@@ -5,21 +5,20 @@ var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
 var EditsDetailRow = require('../src/js/EditsDetailRow.jsx');
-/*
-var syntaxEdit = {
-  'id': 1,
-  'desc': 'Here is a desc',
-  'field': 'Year',
-  'valueSubmitted': '1967'
+
+var larDetail = {
+  lar: {loanId: 's1'}
 };
 
-var macroEdit = {
-  'id': 3,
-  'desc': 'macro desc',
-  'justification': '',
-  'verified': false
-}
+var macroDetail= {
+  edit: 'm1',
+  verification: ''
+};
 
+var macroDetailVerified = {
+  edit: 'm1',
+  verification: 'Verified'
+};
 var WrapperTable = React.createClass({
   render: function() {
     return (<table><tbody>{this.props.children}</tbody></table>);
@@ -28,21 +27,21 @@ var WrapperTable = React.createClass({
 
 describe('EditsDetailRow', function(){
 
-  var syntaxRow = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow edit={syntaxEdit}/></WrapperTable>);
-  var syntaxNode = ReactDOM.findDOMNode(syntaxRow);
+  var larRow = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow detail={larDetail}/></WrapperTable>);
+  var larNode = ReactDOM.findDOMNode(larRow);
 
   it('renders the component', function(){
-    expect(syntaxNode).toBeDefined();
+    expect(larNode).toBeDefined();
   });
 
   it('properly renders needed elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(syntaxRow, 'td').length).toEqual(5);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(larRow, 'td').length).toEqual(1);
   });
 
 
-  var macroRow = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow edit={macroEdit}/></WrapperTable>);
-  var mr2 = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow edit={macroEdit}/></WrapperTable>);
-  var mr3 = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow edit={macroEdit}/></WrapperTable>);
+  var macroRow = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow detail={macroDetail}/></WrapperTable>);
+  var mr2 = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow detail={macroDetail}/></WrapperTable>);
+  var mr3 = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow detail={macroDetailVerified}/></WrapperTable>);
   var macroNode = ReactDOM.findDOMNode(macroRow);
 
 
@@ -51,7 +50,7 @@ describe('EditsDetailRow', function(){
   });
 
   it('renders macro elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroRow, 'td').length).toEqual(4);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroRow, 'td').length).toEqual(3);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroRow, 'textarea').length).toEqual(1);
   });
 
@@ -61,8 +60,8 @@ describe('EditsDetailRow', function(){
     {target: {value: 'updated'}}
   )
 
-  it('updates when the checkbox is clicked', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(mr2, 'td').length).toEqual(4);
+  it('updates when the textarea is updated', function(){
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(mr2, 'td').length).toEqual(3);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(mr2, 'textarea')[0].value).toEqual('updated');
   });
 
@@ -72,8 +71,8 @@ describe('EditsDetailRow', function(){
   )
 
   it('updates when the checkbox is clicked', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(mr3, 'td').length).toEqual(4);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(mr3, 'td').length).toEqual(3);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(mr3, 'textarea').length).toEqual(0);
   });
 });
-*/
+

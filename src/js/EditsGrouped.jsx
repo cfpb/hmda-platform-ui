@@ -3,42 +3,53 @@ var EditsDetail = require('./EditsDetail.jsx');
 
 var EditsGrouped = React.createClass({
   propTypes: {
-    edits: React.PropTypes.array
+    group: React.PropTypes.array,
+    groupByRow: React.PropTypes.bool
   },
 
-  componentDidMount: function() {
-    jQuery('.expandable').each(function(i, v){
-      v.expandable();
-    });
+  getPrimary: function(groupObj){
+    return this.props.groupByRow ? groupObj.lar.loanId : groupObj.edit;
   },
 
-  render: function() {
-    //console.log(this.props.edits);
+  getSecondary: function(groupObj){
+    return this.props.groupByRow ? groupObj.edits: groupObj.lars;
+  },
+
+  renderHeader: function(){
+    var firstCol = this.props.groupByRow ? 'Loan ID' : 'Edit';
+    var secondCol = this.props.groupByRow ? 'Edits': 'Affected LARs';
+    return (
+      <div className="EditsGroupedHeader">
+        <div className="table-header half">{firstCol}</div>
+        <div className="table-header half">{secondCol}</div>
+      </div>
+    )
+  },
+
+  render: function(){
+    var self = this;
     return (
       <div className="EditsGrouped full edits expandable-group">
-        <div className="">
-          <div className="table-header half">Edit</div>
-          <div className="table-header half">Affected LARs</div>
-        </div>
-        {this.props.edits.map(function(edit, i) {
+        {this.renderHeader()}
+        {this.props.group.map(function(groupObj, i) {
           return (
             <div className="EditsSummary expandable" key={i}>
               <button className="expandable_header expandable_target" title="Expand content">
                 <span className="half summary expandable_label">
-                  {edit.edit}
+                  {self.getPrimary(groupObj)}
                 </span>
                 <span className="half summary expandable_link">
                   <span className="expandable_cue-open">
-                      {edit.lars.length}
+                      {self.getSecondary(groupObj).length}
                       <span className="cf-icon cf-icon-plus-round"></span>
                   </span>
                   <span className="expandable_cue-close">
-                      {edit.lars.length}
+                      {self.getSecondary(groupObj).length}
                       <span className="cf-icon cf-icon-minus-round"></span>
                   </span>
                 </span>
               </button>
-              <EditsDetail edits={edit.lars}/>
+              <EditsDetail details={self.getSecondary(groupObj)}/>
             </div>
           )
         })}

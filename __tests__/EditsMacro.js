@@ -1,6 +1,6 @@
 jest.dontMock('../src/js/EditsMacro.jsx');
 jest.dontMock('../src/js/EditsDetail.jsx');
-jest.dontMock('cf-expandables');
+jest.dontMock('../src/js/react-expandables');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -10,17 +10,14 @@ var EditsMacro = require('../src/js/EditsMacro.jsx');
 
 var edits = {
  "macro": {
+    "type": "macro",
     "edits": [
       {
-        "id": 1,
-        "desc": "Here is a desc",
-        "justification":"",
-        "verified":false
+        "edit": 'm1',
+        "verification": ""
       }, {
         "id": 2,
-        "desc": "Here is another desc",
-        "justification": "Why not",
-        "verified": true
+        "verification": "Why not" 
       }
     ]
   }
@@ -28,19 +25,15 @@ var edits = {
 
 describe('EditsMacro', function(){
 
-  var macro = TestUtils.renderIntoDocument(<EditsMacro id="macro" edits={edits.macro} />);
+  var macro = TestUtils.renderIntoDocument(<EditsMacro id="macro" group={edits.macro.edits} />);
   var macroNode = ReactDOM.findDOMNode(macro);
 
   it('renders the component', function(){
     expect(macroNode).toBeDefined();
   });
 
-  it('renders the component with the correct id', function(){
-    expect(macroNode.getAttribute('id')).toEqual('macro');
-  });
-
-  it('passes through the edits appropriately as props', function(){
-    expect(macro.props.edits).toEqual(edits.macro);
+  it('passes through props', function(){
+    expect(macro.props.group).toEqual(edits.macro.edits);
   });
 
   it('properly renders needed child components', function(){
