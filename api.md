@@ -51,5 +51,10 @@
 * `/api/institutions/<institution>/periods/<period>/submissions/<submission>/lars`
     * `GET` - Edits for a given submission, grouped by loanID of a lar (and as such doesn't include macro edits). Structure: [lars](https://github.com/cfpb/hmda-platform-ui/blob/c7590b1e6bd3243a8cd7909463ab8e2dc8c046a5/server/json/lars.json)
 
+* `/api/institutions/<institution>/periods/<period>/submissions/<submission>/irs`
+    * `POST` - Endpoint to mark a submission as having the IRS report signed.
+    Post data structure: `{"verified": [bool]}`
+    Response structure: `{"status": {"code": [new state], "message": ""}}`
+
 * `/api/institutions/<institution>/periods/<period>/submissions/<submission>/sign`
     * `POST` - Endpoint to mark a submission as officially complete. Structure: `{"timestamp": 14134423212, receipt: "somehash"}`
