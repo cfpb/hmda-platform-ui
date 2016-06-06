@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Frontend code for the HMDA filing system",
   "main": "index.js",
+  "engines": {
+    "node" : ">=6.x"
+  },
   "scripts": {
     "test": "jest",
     "snyk": "snyk test",
