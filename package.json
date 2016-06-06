@@ -16,11 +16,11 @@
     "dev:html": "cp src/index.html dist/index.html",
     "dev:build": "npm run dev:js && npm run dev:less && npm run dev:html",
     "postinstall": "npm run clean",
-    "watch:js": "nodemon -e js,jsx -w src/js -x 'npm run dev:js'",
-    "watch:tests": "nodemon -e js -w __tests__ -x 'npm test'",
-    "watch:less": "nodemon -e less -w src/less -x 'npm run dev:less'",
-    "watch:html": "nodemon -e html -w src -x 'npm run dev:html'",
-    "watch:server": "nodemon -e js,json -w server -x 'npm start'",
+    "watch:js": "nodemon --exitcrash -e js,jsx -w src/js -x 'npm run dev:js'",
+    "watch:tests": "nodemon --exitcrash -e js -w __tests__ -x 'npm test'",
+    "watch:less": "nodemon --exitcrash -e less -w src/less -x 'npm run dev:less'",
+    "watch:html": "nodemon --exitcrash -e html -w src -x 'npm run dev:html'",
+    "watch:server": "nodemon --exitcrash -e js,json -w server -x 'npm start'",
     "watch": "npm run watch:server & npm run watch:js & npm run watch:tests & npm run watch:less & npm run watch:html"
   },
   "repository": {
