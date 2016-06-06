@@ -136,7 +136,7 @@ var EditsContainer = React.createClass({
 
   render: function(){
     return (
-      <div className="EditsContainer two-third">
+      <div className="EditsContainer">
         <EditsSelector callback={this.updateGrouping}/>
         {this.state.groupByRow ? this.renderByRow() : this.renderByType()}
       </div>
