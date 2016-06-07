@@ -60,6 +60,10 @@ module.exports = {
   return postHandler(url, cb, '', verified);
  },
 
+ postSignature: function(url, cb, signed){
+  return postHandler(url, cb, '', signed);
+ },
+
  postSubmissions: function(url, cb){
    return postHandler(url, cb, '/submissions');
  },

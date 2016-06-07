@@ -19,7 +19,9 @@ var SubmissionContainer = React.createClass({
 
   getInitialState: function(){
     return {
-      status: this.props.institution.status
+      status: this.props.institution.status,
+      timestamp: this.props.institution.timestamp,
+      receipt: this.props.institution.receipt
     }
   },
 
@@ -28,19 +30,34 @@ var SubmissionContainer = React.createClass({
     if(this.state.status === undefined){
       var self = this;
       api.getInstitution(function(institutionObj){
-        self.setState({status: institutionObj.status});
+        self.setState({
+          status: institutionObj.status,
+          timestamp: institutionObj.timestamp,
+          receipt: institutionObj.receipt
+        });
       });
     }
   },
 
   toggleIRSCheck: function(e){
     var self = this;
-    api.postIRS(api.makeUrl(api.parseLocation()) + '/irs/',
+    api.postIRS(api.makeUrl(api.parseLocation()) + '/irs',
       function(checked){
         self.setState(checked);
       },
       {
         verified: e.target.checked
+      });
+  },
+
+  toggleSignature: function(e){
+    var self = this;
+    api.postSignature(api.makeUrl(api.parseLocation()) + '/sign',
+      function(checked){
+        self.setState(checked);
+      },
+      {
+        signed: e.target.checked
       });
   },
 
@@ -74,7 +91,11 @@ var SubmissionContainer = React.createClass({
     if(code > 10){
       irs = <IRSReport clicked={this.toggleIRSCheck} checked='checked'/>
       summary = <p>Summary component here</p>
-      sign = <Signature/>
+      sign = <Signature clicked={this.toggleSignature}/>
+    }
+
+    if(code > 12){
+      sign = <Signature clicked={this.toggleSignature} checked='checked' receipt={this.state.receipt} timestamp={this.state.timestamp}/>
     }
 
     return (
