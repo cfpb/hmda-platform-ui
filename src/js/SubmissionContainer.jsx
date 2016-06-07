@@ -37,10 +37,26 @@ var SubmissionContainer = React.createClass({
     var self = this;
     api.postIRS(api.makeUrl(api.parseLocation()) + '/irs/',
       function(checked){
+        console.log('toggleIRSCheck');
+        console.log(checked);
         self.setState(checked);
       },
       {
         verified: e.target.checked
+      });
+  },
+
+  toggleSignature: function(e){
+    var self = this;
+    console.log(e.target.checked);
+    api.postSignature(api.makeUrl(api.parseLocation()) + '/sign/',
+      function(checked){
+        console.log('toggleSignature');
+        console.log(checked);
+        self.setState(checked);
+      },
+      {
+        signed: e.target.checked
       });
   },
 
@@ -56,6 +72,7 @@ var SubmissionContainer = React.createClass({
     if(!status) return null;
 
     var code = status.code;
+    console.log('code = ' + code);
 
     if(code === null){
       return (
@@ -74,7 +91,11 @@ var SubmissionContainer = React.createClass({
     if(code > 10){
       irs = <IRSReport clicked={this.toggleIRSCheck} checked='checked'/>
       summary = <p>Summary component here</p>
-      sign = <Signature/>
+      sign = <Signature clicked={this.toggleSignature}/>
+    }
+
+    if(code > 12){
+      sign = <Signature clicked={this.toggleSignature} checked='checked'/>
     }
 
     return (

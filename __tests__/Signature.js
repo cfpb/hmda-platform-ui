@@ -7,11 +7,18 @@ var TestUtils = require('react-addons-test-utils');
 var Signature = require('../src/js/Signature.jsx');
 
 describe('irs report', function(){
+  var changeHandlerTrue = function(e){
+    expect(e.target.checked).toBeTruthy();
+  };
 
-  var signature = TestUtils.renderIntoDocument(<Signature/>)
+  var changeHandlerFalse = function(e){
+    expect(e.target.checked).toBeFalsy();
+  };
+
+  var signature = TestUtils.renderIntoDocument(<Signature clicked={changeHandlerTrue}/>)
   var signatureNode = ReactDOM.findDOMNode(signature);
 
-  it('renders the irs report component', function(){
+  it('renders the signature component', function(){
     expect(signatureNode).toBeDefined();
   });
 });
