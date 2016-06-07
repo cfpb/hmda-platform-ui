@@ -6,19 +6,13 @@ var TestUtils = require('react-addons-test-utils');
 
 var IRSReport = require('../src/js/IRSReport.jsx');
 var fs = require('fs');
-var irsJSON = fs.readFileSync('./server/json/irs.json');
 var api = require('../src/js/api');
 
-api.getIRS = jest.fn(function(cb){
-  cb({
-    irsJSON
-  })
-});
+var irsJSON = JSON.parse(fs.readFileSync('./server/json/irs.json'));
 
-/*superagent.get = jest.genMockFn().mockReturnThis();
-superagent.end = jest.genMockFn().mockImpl(function(fn){
-  return fn(null, {text: irsJSON});
-});*/
+api.getIRS = jest.fn(function(cb){
+  cb(irsJSON);
+});
 
 describe('irs report', function(){
   var changeHandlerTrue = function(e){
@@ -28,6 +22,7 @@ describe('irs report', function(){
   var changeHandlerFalse = function(e){
     expect(e.target.checked).toBeFalsy();
   };
+
 
   var irsReport = TestUtils.renderIntoDocument(<IRSReport clicked={changeHandlerTrue}/>);
   var irsReportNode = ReactDOM.findDOMNode(irsReport);
