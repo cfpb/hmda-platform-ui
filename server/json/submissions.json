@@ -131,7 +131,8 @@
           "code": 13,
           "message": ""
         },
-        "timestamp": 1457494448191
+        "timestamp": 1457494448191,
+        "receipt": "somehash"
       },
       {
         "id": "4",
