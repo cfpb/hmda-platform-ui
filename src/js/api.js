@@ -18,11 +18,6 @@ function getHandler(url, cb, suffix){
 }
 
 function postHandler(url, cb, suffix, postData){
-  console.log('postHandler');
-  console.log(url);
-  console.log(cb);
-  console.log(suffix);
-  console.log(postData);
   if(typeof url === 'function'){
     cb = url;
     url = makeUrl(parseLocation, suffix);
@@ -62,14 +57,10 @@ module.exports = {
  },
 
  postIRS: function(url, cb, verified){
-  console.log('postIRS');
-  console.log(verified);
   return postHandler(url, cb, '', verified);
  },
 
  postSignature: function(url, cb, signed){
-  console.log('postSignature');
-  console.log(signed);
   return postHandler(url, cb, '', signed);
  },
 
