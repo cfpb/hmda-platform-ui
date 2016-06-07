@@ -1,20 +1,24 @@
 jest.dontMock('../src/js/IRSReport.jsx');
-jest.dontMock('../src/js/api.js');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
-var superagent = require('superagent');
-var fs = require('fs');
-
 var IRSReport = require('../src/js/IRSReport.jsx');
+var fs = require('fs');
 var irsJSON = fs.readFileSync('./server/json/irs.json');
+var api = require('../src/js/api');
 
-superagent.get = jest.genMockFn().mockReturnThis();
+api.getIRS = jest.fn(function(cb){
+  cb({
+    irsJSON
+  })
+});
+
+/*superagent.get = jest.genMockFn().mockReturnThis();
 superagent.end = jest.genMockFn().mockImpl(function(fn){
   return fn(null, {text: irsJSON});
-});
+});*/
 
 describe('irs report', function(){
   var changeHandlerTrue = function(e){
