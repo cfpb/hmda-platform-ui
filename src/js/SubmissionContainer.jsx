@@ -19,7 +19,9 @@ var SubmissionContainer = React.createClass({
 
   getInitialState: function(){
     return {
-      status: this.props.institution.status
+      status: this.props.institution.status,
+      timestamp: this.props.institution.timestamp,
+      receipt: this.props.institution.receipt
     }
   },
 
@@ -28,17 +30,19 @@ var SubmissionContainer = React.createClass({
     if(this.state.status === undefined){
       var self = this;
       api.getInstitution(function(institutionObj){
-        self.setState({status: institutionObj.status});
+        self.setState({
+          status: institutionObj.status,
+          timestamp: institutionObj.timestamp,
+          receipt: institutionObj.receipt
+        });
       });
     }
   },
 
   toggleIRSCheck: function(e){
     var self = this;
-    api.postIRS(api.makeUrl(api.parseLocation()) + '/irs/',
+    api.postIRS(api.makeUrl(api.parseLocation()) + '/irs',
       function(checked){
-        console.log('toggleIRSCheck');
-        console.log(checked);
         self.setState(checked);
       },
       {
@@ -48,11 +52,8 @@ var SubmissionContainer = React.createClass({
 
   toggleSignature: function(e){
     var self = this;
-    console.log(e.target.checked);
-    api.postSignature(api.makeUrl(api.parseLocation()) + '/sign/',
+    api.postSignature(api.makeUrl(api.parseLocation()) + '/sign',
       function(checked){
-        console.log('toggleSignature');
-        console.log(checked);
         self.setState(checked);
       },
       {
@@ -72,7 +73,6 @@ var SubmissionContainer = React.createClass({
     if(!status) return null;
 
     var code = status.code;
-    console.log('code = ' + code);
 
     if(code === null){
       return (
@@ -95,7 +95,7 @@ var SubmissionContainer = React.createClass({
     }
 
     if(code > 12){
-      sign = <Signature clicked={this.toggleSignature} checked='checked'/>
+      sign = <Signature clicked={this.toggleSignature} checked='checked' receipt={this.state.receipt} timestamp={this.state.timestamp}/>
     }
 
     return (
