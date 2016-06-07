@@ -12,8 +12,8 @@ var Signature = React.createClass({
     if(receipt){
       return (
         <div>
-          <p>Receipt #: {receipt}</p>
-          <p>Timestamp: {timestamp}</p>
+          <p className="receipt">Receipt #: {receipt}</p>
+          <p className="timestamp">Timestamp: {timestamp}</p>
         </div>
       )
     }
