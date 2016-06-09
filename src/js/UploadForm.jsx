@@ -18,6 +18,11 @@ var UploadForm = React.createClass({
     this.makeRequest(e);
   },
 
+  handleLoad: function(e){
+    if(e.target.status !== 202) return this.props.callback({status: {code: -1, message: 'Error uploading file'}});
+    this.props.callback({status: {code: 3, message: ''}});
+  },
+
   setFile: function(e){
     this.setState({uploaded: 0});
     if(!e.target.files) return;
@@ -31,7 +36,7 @@ var UploadForm = React.createClass({
 
   makeRequest: function(){
     var xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', this.props.callback);
+    xhr.addEventListener('load', this.handleLoad);
     xhr.upload.addEventListener('progress', function(e){
       this.setState({uploaded: e.loaded});
     }.bind(this));

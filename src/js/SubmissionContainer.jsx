@@ -1,13 +1,12 @@
 var React = require('react');
 var api = require('./api');
 var UploadForm = require('./UploadForm.jsx');
+var ValidationProgress = require('./ValidationProgress.jsx');
 var EditsContainer = require('./EditsContainer.jsx');
 var IRSReport = require('./IRSReport.jsx');
 var Signature = require('./Signature.jsx');
 
-function uploadCb(){
-  console.log('submited, -> transition');
-}
+
 
 var SubmissionContainer = React.createClass({
 
@@ -25,8 +24,12 @@ var SubmissionContainer = React.createClass({
     }
   },
 
+  updateStatus: function(status){
+    console.log('got status', status);
+    this.setState({status: status})
+  },
+
   componentWillMount: function(){
-    //long-poll on progress, eventually.
     if(this.state.status === undefined){
       var self = this;
       api.getInstitution(function(institutionObj){
@@ -62,7 +65,7 @@ var SubmissionContainer = React.createClass({
   },
 
   statusFilter: function(){
-    var uploadForm = <UploadForm callback={uploadCb}/>;
+    var uploadForm = <UploadForm callback={this.updateStatus}/>;
     var progress = null;
     var editsContainer = null;
     var summary = null;
@@ -74,7 +77,7 @@ var SubmissionContainer = React.createClass({
 
     var code = status.code;
 
-    if(code === null){
+    if(code === -1){
       return (
         <div className="SubmissionContainer">
           <p>{status.message}</p>
@@ -82,9 +85,9 @@ var SubmissionContainer = React.createClass({
       )
     }
 
-    if(code > 3) progress = <p>Progress component goes here</p>
+    if(code > 2) progress = <ValidationProgress callback={this.updateStatus}/>
 
-    if(code > 5) editsContainer = <EditsContainer/>
+    if(code > 6) editsContainer = <EditsContainer/>
 
     if(code > 9) irs = <IRSReport clicked={this.toggleIRSCheck}/>
 
