@@ -1,0 +1,29 @@
+{
+  "type": "q029",
+  "lars": [
+    {
+      "lar": {"loanId": "00001"},
+      "stateCode": "36",
+      "countyCode": "021",
+      "censusTract": "0004.02",
+      "recommendedMSA": "00",
+      "verification": ""
+    },
+    {
+      "lar": {"loanId": "00002"},
+      "stateCode": "36",
+      "countyCode": "021",
+      "censusTract": "0004.02",
+      "recommendedMSA": "00",
+      "verification": "yes"
+    },
+    {
+      "lar": {"loanId": "00003"},
+      "stateCode": "36",
+      "countyCode": "021",
+      "censusTract": "0004.02",
+      "recommendedMSA": "00",
+      "verification": "no"
+    }
+  ]
+}

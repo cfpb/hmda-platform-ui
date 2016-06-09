@@ -1,0 +1,23 @@
+{
+  "type": "q595",
+  "msas": [
+    {
+      "msaID": "15804",
+      "msaName": "Camden, NJ",
+      "larCount": 1,
+      "verification": ""
+    },
+    {
+      "msaID": "20940",
+      "msaName": "El Centro, CA",
+      "larCount": 6,
+      "verification": "yes"
+    },
+    {
+      "msaID": "11111",
+      "msaName": "Somewhere, PA",
+      "larCount": 3,
+      "verification": "no"
+    }
+  ]
+}
