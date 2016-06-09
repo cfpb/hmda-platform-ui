@@ -5,16 +5,17 @@ class ValidationProgress extends React.Component {
 
   constructor(props){
     super(props);
+    this.state = {statusCode: props.initialCode};
     this.pollForProgress = this.pollForProgress.bind(this);
-    this.wrappedPoll = function(){api.poll(this.pollForProgress)}.bind(this);
-    api.poll(this.pollForProgress);
+    this.wrappedPoll = function(){api.getProgress(this.pollForProgress)}.bind(this);
+    api.getProgress(this.pollForProgress);
   }
 
-  pollForProgress(status){
-    console.log(status);
-    this.setState({statusCode: status.code});
-    if(status.code < 7 && status.code > 2) setTimeout(this.wrappedPoll, 5000);
-    this.props.callback(status);
+  pollForProgress(statusObj){
+    var code = statusObj.status.code;
+    this.setState({statusCode: code});
+    if(code < 7 && code > 2) setTimeout(this.wrappedPoll, 500);
+    this.props.callback(statusObj);
   }
 
   render(){
@@ -23,7 +24,8 @@ class ValidationProgress extends React.Component {
     var parsingComplete = null;
     var validationStarted = null;
     var validationComplete = null;
-    var code = this.statusCode;
+    var code = this.state.statusCode;
+    console.log(code, 'rendering');
 
     if(code > 2) uploadComplete = <p>Upload complete</p>;
     if(code > 3) parsingStarted = <p>Parsing started...</p>;
@@ -44,5 +46,6 @@ class ValidationProgress extends React.Component {
 }
 
 ValidationProgress.propTypes = {statusCode: React.PropTypes.number};
-ValidationProgress.defaultProps = {statusCode: 3};
+ValidationProgress.defaultProps = {initialCode: 3, callback: function(){}};
+
 module.exports = ValidationProgress;

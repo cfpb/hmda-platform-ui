@@ -25,8 +25,7 @@ var SubmissionContainer = React.createClass({
   },
 
   updateStatus: function(status){
-    console.log('got status', status);
-    this.setState({status: status})
+    this.setState(status)
   },
 
   componentWillMount: function(){
@@ -85,7 +84,7 @@ var SubmissionContainer = React.createClass({
       )
     }
 
-    if(code > 2) progress = <ValidationProgress callback={this.updateStatus}/>
+    if(code > 2) progress = <ValidationProgress initialCode={code} callback={this.updateStatus}/>
 
     if(code > 6) editsContainer = <EditsContainer/>
 
