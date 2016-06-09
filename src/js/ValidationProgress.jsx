@@ -25,7 +25,6 @@ class ValidationProgress extends React.Component {
     var validationStarted = null;
     var validationComplete = null;
     var code = this.state.statusCode;
-    console.log(code, 'rendering');
 
     if(code > 2) uploadComplete = <p>Upload complete</p>;
     if(code > 3) parsingStarted = <p>Parsing started...</p>;
