@@ -51,8 +51,8 @@ describe('EditsContainer', function() {
   });
 
   it('properly renders child elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'EditsHeaderDescription').length).toEqual(4);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(container, 'p').length).toEqual(4);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(container, 'EditsHeaderDescription').length).toEqual(6);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(container, 'p').length).toEqual(6);
     postRender();
   });
 
