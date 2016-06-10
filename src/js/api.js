@@ -52,6 +52,10 @@ module.exports = {
    return getHandler(url, cb);
  },
 
+ getProgress: function(url, cb){
+   return getHandler(url, cb, '/progress');
+ },
+
  getIRS: function(url, cb){
   return getHandler(url, cb, '/irs');
  },
@@ -77,6 +81,6 @@ module.exports = {
  },
 
  makeUrl: makeUrl,
- 
+
  parseLocation: parseLocation
 }
