@@ -49,7 +49,7 @@ There are several npm scripts available to run, see [package.json](https://githu
 npm run watch
 ```
 
-This script will build the application, make the site available to preview at `http://localhost:3000/`, and enable browser-sync for live reloading.
+This script will build the application and make the site available to preview at `http://localhost:3000/`.
 
 ## How to test the software
 
