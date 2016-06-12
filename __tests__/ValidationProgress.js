@@ -10,7 +10,7 @@ var cb = jest.fn();
 
 describe('ValidationProgress', function(){
 
-  var progress = TestUtils.renderIntoDocument(<ValidationProgress initialCode={4} callback={cb}/>);
+  var progress = TestUtils.renderIntoDocument(<ValidationProgress initialCode={4} setAppStatus={cb}/>);
   var progressNode = ReactDOM.findDOMNode(progress);
 
   it('renders the component', function(){
@@ -28,13 +28,13 @@ describe('ValidationProgress', function(){
 
   var wrappedCb;
   api.getProgress = jest.fn(function(cb){
-    wrappedCb = jest.fn(function(){cb({status: {code: 7, message: ''}})});
+    wrappedCb = jest.fn(function(){cb({code: 7, message: ''})});
     setTimeout(wrappedCb, 0);
   });
 
   it('renders the component and its children after polling', function(){
 
-    var progress2 = TestUtils.renderIntoDocument(<ValidationProgress initialCode={3} callback={cb}/>);
+    var progress2 = TestUtils.renderIntoDocument(<ValidationProgress initialCode={3} setAppStatus={cb}/>);
     var progressNode2 = ReactDOM.findDOMNode(progress);
 
     expect(progressNode2).toBeDefined();
@@ -52,6 +52,6 @@ describe('ValidationProgress', function(){
     expect(wrappedCb).toBeCalled();
 
     expect(TestUtils.scryRenderedDOMComponentsWithTag(progress2, 'p').length).toEqual(5);
-    expect(cb.mock.calls[cb.mock.calls.length - 1][0]).toEqual({status: {code: 7, message: ''}});
+    expect(cb.mock.calls[cb.mock.calls.length - 1][0]).toEqual({code: 7, message: ''});
   });
 });

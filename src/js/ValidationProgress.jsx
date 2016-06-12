@@ -11,14 +11,15 @@ class ValidationProgress extends React.Component {
   }
 
   componentWillMount(){
-    this.pollForProgress({status:{code: this.props.initialCode, message: this.props.initialMessage || ''}});
+    this.pollForProgress({code: this.props.initialCode, message: this.props.initialMessage || ''});
   }
 
-  pollForProgress(statusObj){
-    var code = statusObj.status.code;
+  pollForProgress(status){
+    if(status.status) status = status.status;
+    var code = status.code;
     this.setState({statusCode: code});
     if(code < 7 && code > 2) setTimeout(this.wrappedPoll, 500);
-    this.props.callback(statusObj);
+    this.props.setAppStatus(status);
   }
 
   render(){
@@ -48,6 +49,6 @@ class ValidationProgress extends React.Component {
 }
 
 ValidationProgress.propTypes = {initialCode: React.PropTypes.number};
-ValidationProgress.defaultProps = {initialCode: 3, callback: function(){}};
+ValidationProgress.defaultProps = {initialCode: 3, setAppStatus: function(){}};
 
 module.exports = ValidationProgress;

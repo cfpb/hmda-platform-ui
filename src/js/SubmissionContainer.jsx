@@ -24,8 +24,8 @@ var SubmissionContainer = React.createClass({
     }
   },
 
-  updateStatus: function(status){
-    this.setState(status)
+  setAppStatus: function(status){
+    this.setState({status: status})
   },
 
   componentWillMount: function(){
@@ -64,7 +64,7 @@ var SubmissionContainer = React.createClass({
   },
 
   statusFilter: function(){
-    var uploadForm = <UploadForm callback={this.updateStatus}/>;
+    var uploadForm = <UploadForm setAppStatus={this.setAppStatus}/>;
     var progress = null;
     var editsContainer = null;
     var summary = null;
@@ -84,7 +84,7 @@ var SubmissionContainer = React.createClass({
       )
     }
 
-    if(code > 2) progress = <ValidationProgress initialCode={code} callback={this.updateStatus}/>
+    if(code > 2) progress = <ValidationProgress initialCode={code} setAppStatus={this.setAppStatus}/>
 
     if(code > 6) editsContainer = <EditsContainer/>
 
