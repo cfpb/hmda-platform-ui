@@ -10,14 +10,6 @@ var fs = require('fs');
 var edits = JSON.parse(fs.readFileSync('./server/json/q029.json'));
 
 describe('Q029 edits', function(){
-  var changeHandlerTrue = function(e){
-    expect(e.target.checked).toBeTruthy();
-  };
-
-  var changeHandlerFalse = function(e){
-    expect(e.target.checked).toBeFalsy();
-  };
-
   var editsQ029 = TestUtils.renderIntoDocument(<EditsQ029 group={edits.edits}/>)
   var editsQ029Node = ReactDOM.findDOMNode(editsQ029);
 
