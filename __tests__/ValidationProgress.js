@@ -32,33 +32,26 @@ describe('ValidationProgress', function(){
     setTimeout(wrappedCb, 0);
   });
 
-  var progress2 = TestUtils.renderIntoDocument(<ValidationProgress initialCode={3} callback={cb}/>);
-  var progressNode2 = ReactDOM.findDOMNode(progress);
+  it('renders the component and its children after polling', function(){
 
-  jest.runAllTimers();
+    var progress2 = TestUtils.renderIntoDocument(<ValidationProgress initialCode={3} callback={cb}/>);
+    var progressNode2 = ReactDOM.findDOMNode(progress);
 
-  it('renders the component', function(){
     expect(progressNode2).toBeDefined();
-  });
 
-  it('sets props and initial state appropriately', function(){
     expect(progress2.props.initialCode).toEqual(3);
-    expect(progress2.state.statusCode).toEqual(7);
-  });
+    expect(progress2.state.statusCode).toEqual(3);
 
-  it('renders the correct amount of children', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(progress2, 'p').length).toEqual(5);
-  });
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(progress2, 'p').length).toEqual(1);
 
-  it('calls the api', function(){
-    expect(api.getProgress.mock.calls[0][0]).toBeDefined();
-  });
+    expect(setTimeout).toBeCalled();
 
-  it('calls the api callback', function(){
+    //do polling; calls mocked api.getProgress
+    jest.runAllTimers();
+
     expect(wrappedCb).toBeCalled();
-  });
 
-  it('calls the provided callback with a status object', function(){
-    expect(cb.mock.calls[0][0]).toEqual({status: {code: 7, message: ''}});
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(progress2, 'p').length).toEqual(5);
+    expect(cb.mock.calls[cb.mock.calls.length - 1][0]).toEqual({status: {code: 7, message: ''}});
   });
 });
