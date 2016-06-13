@@ -5,8 +5,18 @@ var EditsQ029 = React.createClass({
   propTypes: {
     group: React.PropTypes.array
   },
+
+  makeSelect: function() {
+    return (
+      <select>
+        <option value="Select">Select ...</option>
+        <option value="Yes">Yes, the listed MSA/MD should be updated.</option>
+        <option value="No">No, the listed MSA/mD should not be updated.</option>
+      </select>
+    )
+  },
+
   render: function() {
-    console.log(this.props.group);
     var self = this;
     return (
       <div className="EditsQ029 full edits">
@@ -18,7 +28,7 @@ var EditsQ029 = React.createClass({
               <th>County Code</th>
               <th>Census Tract</th>
               <th>Recommended</th>
-              <th>select</th>
+              <th>{self.makeSelect()}</th>
             </tr>
           </thead>
           <tbody>
@@ -29,7 +39,7 @@ var EditsQ029 = React.createClass({
                 <td>{detail.countyCode}</td>
                 <td>{detail.censusTract}</td>
                 <td>{detail.recommendedMSA}</td>
-                <td>select</td>
+                <td>{self.makeSelect()}</td>
               </tr>
             })}
           </tbody>
