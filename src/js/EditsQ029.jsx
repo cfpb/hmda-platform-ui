@@ -11,7 +11,7 @@ var EditsQ029 = React.createClass({
       <select>
         <option value="Select">Select ...</option>
         <option value="Yes">Yes, the listed MSA/MD should be updated.</option>
-        <option value="No">No, the listed MSA/mD should not be updated.</option>
+        <option value="No">No, the listed MSA/MD should not be updated.</option>
       </select>
     )
   },
