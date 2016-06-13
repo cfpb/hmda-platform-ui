@@ -3,7 +3,8 @@ var EditsDetailRow = require('./EditsDetailRow.jsx');
 
 var EditsDetail = React.createClass({
   propTypes: {
-    details: React.PropTypes.array
+    details: React.PropTypes.array,
+    setAppStatus: React.PropTypes.func
   },
 
   headerMap: {
@@ -34,7 +35,7 @@ var EditsDetail = React.createClass({
           </thead>
           <tbody>
             {this.props.details.map(function(detail, i){
-              return <EditsDetailRow id={i} key={i} detail={detail}/>
+              return <EditsDetailRow id={i} key={i} detail={detail} setAppStatus={self.props.setAppStatus}/>
             })}
           </tbody>
         </table>

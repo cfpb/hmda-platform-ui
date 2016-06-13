@@ -86,7 +86,7 @@ var SubmissionContainer = React.createClass({
 
     if(code > 2) progress = <ValidationProgress initialCode={code} setAppStatus={this.setAppStatus}/>
 
-    if(code > 6) editsContainer = <EditsContainer/>
+    if(code > 6) editsContainer = <EditsContainer setAppStatus={this.setAppStatus}/>
 
     if(code > 9) irs = <IRSReport clicked={this.toggleIRSCheck}/>
 

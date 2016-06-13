@@ -4,7 +4,8 @@ var EditsDetail = require('./EditsDetail.jsx');
 var EditsGrouped = React.createClass({
   propTypes: {
     group: React.PropTypes.array,
-    groupByRow: React.PropTypes.bool
+    groupByRow: React.PropTypes.bool,
+    setAppStatus: React.PropTypes.func
   },
 
   getPrimary: function(groupObj){
@@ -49,7 +50,7 @@ var EditsGrouped = React.createClass({
                   </span>
                 </span>
               </button>
-              <EditsDetail details={self.getSecondary(groupObj)}/>
+              <EditsDetail details={self.getSecondary(groupObj)} setAppStatus={self.props.setAppStatus}/>
             </div>
           )
         })}

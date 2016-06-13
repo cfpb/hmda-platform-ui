@@ -3,7 +3,8 @@ var EditsDetailRow = React.createClass({
 
   propTypes: {
     detail: React.PropTypes.object.isRequired,
-    id: React.PropTypes.number
+    id: React.PropTypes.number,
+    setAppStatus: React.PropTypes.func
   },
 
   componentWillMount: function(){
@@ -32,9 +33,15 @@ var EditsDetailRow = React.createClass({
     if(!this.state.verification){
       return e.preventDefault();
     }
-    //TODO api call to backend, update parent state
+
     var checked = e.target.checked;
     this.setState({verified: checked})
+
+    api.putEdit(this.setStatusFromEditUpdate)
+  },
+
+  setStatusFromEditUpdate: function(response){
+    this.props.setAppStatus(response.status);
   },
 
   updateText: function(e){

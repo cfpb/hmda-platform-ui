@@ -18,6 +18,10 @@ var EditsContainer = React.createClass({
     }
   },
 
+  propTypes: function(){
+    setAppStatus: React.PropTypes.func
+  },
+
   componentWillMount: function(){
     this.getEditsByGrouping();
   },
@@ -108,16 +112,16 @@ var EditsContainer = React.createClass({
     return (
       <div className="EditsContainerBody">
         <EditsHeaderDescription>Syntactical Edits</EditsHeaderDescription>
-        <EditsGrouped group={this.state.syntactical.edits} groupByRow={this.state.groupByRow}/>
+        <EditsGrouped group={this.state.syntactical.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
 
         <EditsHeaderDescription>Validity Edits</EditsHeaderDescription>
-        <EditsGrouped group={this.state.validity.edits} groupByRow={this.state.groupByRow}/>
+        <EditsGrouped group={this.state.validity.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
 
         <EditsHeaderDescription>Quality Edits</EditsHeaderDescription>
-        <EditsGrouped group={this.state.quality.edits} groupByRow={this.state.groupByRow}/>
+        <EditsGrouped group={this.state.quality.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
 
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
-        <EditsMacro group={this.state.macro.edits}/>
+        <EditsMacro group={this.state.macro.edits} setAppStatus={this.props.setAppStatus}/>
       </div>
     )
   },
@@ -126,10 +130,10 @@ var EditsContainer = React.createClass({
     return (
       <div className="EditsContainerBody">
         <EditsHeaderDescription>Loan Application Records</EditsHeaderDescription>
-        <EditsGrouped group={this.state.lars} groupByRow={this.state.groupByRow}/>
+        <EditsGrouped group={this.state.lars} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
 
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
-        <EditsMacro group={this.state.macro.edits}/>
+        <EditsMacro group={this.state.macro.edits} setAppStatus={this.props.setAppStatus}/>
       </div>
     )
   },
