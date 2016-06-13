@@ -34,7 +34,7 @@ var EditsQ595 = React.createClass({
                 <td>{detail.msaID}</td>
                 <td>{detail.msaName}</td>
                 <td>{detail.larCount}</td>
-                <td>select</td>
+                <td>{self.makeSelect()}</td>
               </tr>
             })}
           </tbody>
