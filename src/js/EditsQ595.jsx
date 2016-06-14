@@ -5,13 +5,12 @@ var EditsQ595 = React.createClass({
     group: React.PropTypes.array
   },
 
-  makeSelect: function() {
+  makeRadio: function(count) {
     return (
-      <select>
-        <option value="Select">Select ...</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
+      <div>
+        <input type="radio" name={"msaNotPanel-" + count} value="yes" /> Yes &nbsp;
+        <input type="radio" name={"msaNotPanel-" + count} value="no" /> No
+      </div>
     )
   },
 
@@ -34,7 +33,7 @@ var EditsQ595 = React.createClass({
                 <td>{detail.msaID}</td>
                 <td>{detail.msaName}</td>
                 <td>{detail.larCount}</td>
-                <td>{self.makeSelect()}</td>
+                <td>{self.makeRadio(i)}</td>
               </tr>
             })}
           </tbody>

@@ -7,7 +7,7 @@
       "countyCode": "021",
       "censusTract": "0004.02",
       "recommendedMSA": "00",
-      "verification": ""
+      "verified": null
     },
     {
       "lar": {"loanId": "00002"},
@@ -15,7 +15,7 @@
       "countyCode": "021",
       "censusTract": "0004.02",
       "recommendedMSA": "00",
-      "verification": "yes"
+      "verified": true
     },
     {
       "lar": {"loanId": "00003"},
@@ -23,7 +23,7 @@
       "countyCode": "021",
       "censusTract": "0004.02",
       "recommendedMSA": "00",
-      "verification": "no"
+      "verified": false
     }
   ]
 }

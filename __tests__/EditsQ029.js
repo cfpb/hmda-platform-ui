@@ -21,7 +21,7 @@ describe('Q029 edits', function(){
     expect(editsQ029.props.group).toEqual(edits.edits);
   });
 
-  it('renders the select elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(editsQ029, 'select').length).toEqual(4);
+  it('renders the radio button elements', function(){
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(editsQ029, 'input').length).toEqual(8);
   });
 });

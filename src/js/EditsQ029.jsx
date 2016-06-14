@@ -6,13 +6,15 @@ var EditsQ029 = React.createClass({
     group: React.PropTypes.array
   },
 
-  makeSelect: function() {
+  makeRadio: function(count, renderHeading) {
+    var heading = null;
+    if (renderHeading) heading = "The Listed MSA/MD should be updated.";
     return (
-      <select>
-        <option value="Select">Select ...</option>
-        <option value="Yes">Yes, the listed MSA/MD should be updated.</option>
-        <option value="No">No, the listed MSA/MD should not be updated.</option>
-      </select>
+      <div>
+        <div>{heading}</div>
+        <input type="radio" name={"msaNA-" + count} value="yes" /> Yes &nbsp;
+        <input type="radio" name={"msaNA-" + count} value="no" /> No
+      </div>
     )
   },
 
@@ -28,7 +30,7 @@ var EditsQ029 = React.createClass({
               <th>County Code</th>
               <th>Census Tract</th>
               <th>Recommended</th>
-              <th>{self.makeSelect()}</th>
+              <th>{self.makeRadio(self.props.group.length+1, true)}</th>
             </tr>
           </thead>
           <tbody>
@@ -39,7 +41,7 @@ var EditsQ029 = React.createClass({
                 <td>{detail.countyCode}</td>
                 <td>{detail.censusTract}</td>
                 <td>{detail.recommendedMSA}</td>
-                <td>{self.makeSelect()}</td>
+                <td>{self.makeRadio(i, false)}</td>
               </tr>
             })}
           </tbody>

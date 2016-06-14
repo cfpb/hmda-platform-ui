@@ -21,7 +21,7 @@ describe('Q595 edits', function(){
     expect(editsQ595.props.group).toEqual(edits.edits);
   });
 
-  it('renders the select elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(editsQ595, 'select').length).toEqual(3);
+  it('renders the radio button elements', function(){
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(editsQ595, 'input').length).toEqual(6);
   });
 });

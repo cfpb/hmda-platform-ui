@@ -5,19 +5,19 @@
       "msaID": "15804",
       "msaName": "Camden, NJ",
       "larCount": 1,
-      "verification": ""
+      "verified": null
     },
     {
       "msaID": "20940",
       "msaName": "El Centro, CA",
       "larCount": 6,
-      "verification": "yes"
+      "verified": true
     },
     {
       "msaID": "11111",
       "msaName": "Somewhere, PA",
       "larCount": 3,
-      "verification": "no"
+      "verified": false
     }
   ]
 }
