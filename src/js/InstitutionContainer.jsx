@@ -54,7 +54,7 @@ var InstitutionContainer = React.createClass({
   render: function(){
     var self = this;
     return (
-      <div className="InstitutionContainer half">
+      <div className="InstitutionContainer">
         {Object.keys(self.state.institutionsByPeriod).sort().reverse().map(function(period, i){
           var institutions = self.state.institutionsByPeriod[period];
           return (

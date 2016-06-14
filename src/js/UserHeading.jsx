@@ -7,6 +7,7 @@ var UserHeading = React.createClass({
   },
 
   render: function(){
+    console.log('test');
     if(!this.props.user) return null;
 
     var headingText = 'Welcome to HMDA filing, ' + this.props.user;
