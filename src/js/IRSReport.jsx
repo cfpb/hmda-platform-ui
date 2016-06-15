@@ -26,14 +26,12 @@ var IRS = React.createClass({
   },
 
   toggleCheck: function(e){
-    console.log(e.target.checked);
     api.postIRS(this.props.setAppStatus, {verified: e.target.checked});
   },
 
 
   render: function() {
     var self = this;
-    console.log(self.props);
     return (
       <div className="IRSReport EditsHeaderDescription">
         <h2>Institution Register Summary</h2>

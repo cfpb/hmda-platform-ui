@@ -65,8 +65,8 @@ module.exports = {
   return postHandler(url, cb, '/irs', data);
  },
 
- postSignature: function(url, cb, signed){
-  return postHandler(url, cb, '', signed);
+ postSignature: function(url, cb, data){
+   return postHandler(url, cb, '/sign', data);
  },
 
  postSubmissions: function(url, cb){

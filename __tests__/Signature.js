@@ -5,34 +5,34 @@ var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
 var Signature = require('../src/js/Signature.jsx');
-var fs = require('fs');
 var api = require('../src/js/api');
 
+var code = 13;
 api.postSignature = jest.fn(function(cb){
   cb(null, {
     status: {
-      code: state,
-      message: ""
+      code: code,
+      message: ''
     },
     timestamp: Date.now(),
-    receipt: 'somehash'
+    receipt: 'dc9e5827abb678f54103e7b89435abf9b36648797ebb6516a52ab33ab4e46cee'
   });
+  code = code === 13 ? 12 : 13;
 });
 
 describe('irs report', function(){
-  var changeHandlerTrue = function(e){
-    expect(e.target.checked).toBeTruthy();
+  var changeHandlerTrue = function(err, status){
+    expect(status.code).toBe(13);
   };
 
-  var changeHandlerFalse = function(e){
-    expect(e.target.checked).toBeFalsy();
+  var changeHandlerFalse = function(err, status){
+    expect(status.code).toBe(12);
   };
 
-  var signature = TestUtils.renderIntoDocument(<Signature clicked={changeHandlerTrue}/>)
+  var signature = TestUtils.renderIntoDocument(<Signature setAppStatus={changeHandlerTrue} checked={false}/>)
   var signatureNode = ReactDOM.findDOMNode(signature);
 
-  var signatureChecked = TestUtils.renderIntoDocument(<Signature clicked={changeHandlerFalse} checked='checked' receipt="somehash" timestamp={1457494448191}/>);
-  var signatureCheckedNode = ReactDOM.findDOMNode(signatureChecked);
+  var signatureChecked = TestUtils.renderIntoDocument(<Signature setAppStatus={changeHandlerFalse} checked={true}/>);
 
   it('renders the signature component', function(){
     expect(signatureNode).toBeDefined();
@@ -42,33 +42,42 @@ describe('irs report', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithTag(signature, 'input').length).toEqual(1);
   });
 
-  it('the checkbox is NOT checked and toggles to true', function(){
+  it('does NOT render the receipt and hash', function(){
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(signature, 'receipt').length).toEqual(0);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(signature, 'timestamp').length).toEqual(0);
+  });
+
+  it('toggles the unchecked checkbox to true', function(){
     var checkbox = TestUtils.findRenderedDOMComponentWithTag(signature, 'input');
     expect(checkbox.checked).toBeFalsy();
 
     TestUtils.Simulate.change(
       checkbox,
-      {"target": {"checked": true}}
+      {target: {checked: true}}
     );
-  });
 
-  it('does NOT render the receipt and hash', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(signature, 'receipt').length).toEqual(0);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(signature, 'timestamp').length).toEqual(0);
+    expect(TestUtils.findRenderedDOMComponentWithClass(signature, 'receipt')).toBeDefined();
+    expect(TestUtils.findRenderedDOMComponentWithClass(signature, 'timestamp')).toBeDefined();
   });
 
   it('the checkbox IS checked and toggles to false', function(){
     var checkbox = TestUtils.findRenderedDOMComponentWithTag(signatureChecked, 'input');
     expect(checkbox.checked).toBeTruthy();
 
+    it('renders the receipt', function(){
+      expect(TestUtils.findRenderedDOMComponentWithClass(signatureChecked, 'receipt')).toBeDefined();
+      expect(TestUtils.findRenderedDOMComponentWithClass(signatureChecked, 'timestamp')).toBeDefined();
+    });
+
     TestUtils.Simulate.change(
       checkbox,
-      {"target": {"checked": false}}
+      {target: {checked: false}}
     );
+
+    it('does not render the receipt after toggle', function(){
+      expect(TestUtils.scryRenderedDOMComponentsWithClass(signatureChecked, 'receipt').length).toEqual(0);
+      expect(TestUtils.scryRenderedDOMComponentsWithClass(signatureChecked, 'timestamp').length).toEqual(0);
+    });
   });
 
-  it('renders the receipt', function(){
-    expect(TestUtils.findRenderedDOMComponentWithClass(signatureChecked, 'receipt')).toBeDefined();
-    expect(TestUtils.findRenderedDOMComponentWithClass(signatureChecked, 'timestamp')).toBeDefined();
-  });
 });

@@ -1,30 +1,52 @@
 var React = require('react');
+var api = require('./api');
 
 var Signature = React.createClass({
   propTypes: {
-    checked: React.PropTypes.string,
-    clicked: React.PropTypes.func.isRequired,
-    receipt: React.PropTypes.string,
-    timestamp: React.PropTypes.number
+    setAppStatus: React.PropTypes.func.isRequired,
+    checked: React.PropTypes.bool
   },
 
-  showReceipt: function(receipt, timestamp) {
-    if(receipt){
-      return (
-        <div>
-          <p className="receipt">Receipt #: {receipt}</p>
-          <p className="timestamp">Timestamp: {timestamp}</p>
-        </div>
-      )
+  getInitialState: function(){
+    return {
+      receipt: null,
+      timestamp: null
     }
   },
 
-  render: function() {
+  toggleSignature: function(e){
     var self = this;
+    api.postSignature(
+      function(err, receiptObj){
+        if(err) return this.props.setAppStatus({code: -1, message: err})
+        self.setState({
+          receipt: receiptObj.receipt,
+          timestamp: receiptObj.timestamp
+        });
+        self.props.setAppStatus(null, receiptObj.status);
+      },
+      {
+        signed: e.target.checked
+      }
+    );
+  },
+
+  showReceipt: function() {
+    if(!this.state.receipt) return null;
+
+    return (
+      <div>
+        <p className="receipt">Receipt #: {this.state.receipt}</p>
+        <p className="timestamp">Timestamp: {this.state.timestamp}</p>
+      </div>
+    )
+  },
+
+  render: function() {
     return (
       <div className="Signature">
-        <p><input type="checkbox" value="IRS verification" onChange={self.props.clicked} checked={self.props.checked}/> I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</p>
-        {self.showReceipt(self.props.receipt, self.props.timestamp)}
+        <p><input type="checkbox" value="Signature" onChange={this.toggleSignature} checked={this.props.checked}/> I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</p>
+        {this.showReceipt()}
       </div>
     )
   }

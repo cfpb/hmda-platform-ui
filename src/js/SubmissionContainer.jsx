@@ -7,7 +7,6 @@ var IRSReport = require('./IRSReport.jsx');
 var Signature = require('./Signature.jsx');
 
 
-
 var SubmissionContainer = React.createClass({
 
   // check state and render Uploadform, edits, summary, irs, sign based on state
@@ -18,15 +17,13 @@ var SubmissionContainer = React.createClass({
 
   getInitialState: function(){
     return {
-      status: this.props.institution.status,
-      timestamp: this.props.institution.timestamp,
-      receipt: this.props.institution.receipt
+      status: this.props.institution.status
     }
   },
 
   setAppStatus: function(err, status){
     if(err) return console.log(err);
-    console.log(status);
+    //allow richer objects to be directly passed without trimming in the caller
     if(status.status) status = status.status;
     this.setState({status: status})
   },
@@ -37,23 +34,10 @@ var SubmissionContainer = React.createClass({
       api.getInstitution(function(err, institutionObj){
         if(err) return console.log(err);
         self.setState({
-          status: institutionObj.status,
-          timestamp: institutionObj.timestamp,
-          receipt: institutionObj.receipt
+          status: institutionObj.status
         });
       });
     }
-  },
-
-  toggleSignature: function(e){
-    var self = this;
-    api.postSignature(api.makeUrl(api.parseLocation()) + '/sign',
-      function(checked){
-        self.setState(checked);
-      },
-      {
-        signed: e.target.checked
-      });
   },
 
   statusFilter: function(){
@@ -86,11 +70,11 @@ var SubmissionContainer = React.createClass({
     if(code > 10){
       irs = <IRSReport checked={true} setAppStatus={this.setAppStatus}/>
       summary = <p>Summary component here</p>
-      sign = <Signature clicked={this.toggleSignature}/>
+      sign = <Signature checked={false} setAppStatus={this.setAppStatus}/>
     }
 
     if(code > 12){
-      sign = <Signature clicked={this.toggleSignature} checked='checked' receipt={this.state.receipt} timestamp={this.state.timestamp}/>
+      sign = <Signature checked={true} setAppStatus={this.setAppStatus}/>
     }
 
     return (
