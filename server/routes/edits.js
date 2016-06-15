@@ -16,8 +16,8 @@ var edits = {
 var count = 0;
 
 function handlePut(req, res){
-  req.body ? count++ : count--;
-  var code = count === 5 ? 10 : 9;
+  req.body.verification ? count++ : count--;
+  var code = count === 5 ? 10 : 7;
   res.send({status:{code: code, message: ''}});
 }
 

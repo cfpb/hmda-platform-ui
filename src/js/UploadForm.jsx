@@ -20,7 +20,7 @@ var UploadForm = React.createClass({
 
   handleLoad: function(e){
     if(e.target.status !== 202) return this.props.setAppStatus({code: -1, message: 'Error uploading file'});
-    this.props.setAppStatus({code: 3, message: ''});
+    this.props.setAppStatus(null, {code: 3, message: ''});
   },
 
   setFile: function(e){

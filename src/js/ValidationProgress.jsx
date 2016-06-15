@@ -20,7 +20,7 @@ class ValidationProgress extends React.Component {
     var code = status.code;
     this.setState({statusCode: code});
     if(code < 7 && code > 2) setTimeout(this.wrappedPoll, 500);
-    this.props.setAppStatus(status);
+    this.props.setAppStatus(null, status);
   }
 
   render(){

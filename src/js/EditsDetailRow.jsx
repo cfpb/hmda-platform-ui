@@ -42,7 +42,7 @@ var EditsDetailRow = React.createClass({
 
     var loanId = this.props.detail.loanId || this.props.primary;
     var edit = this.props.detail.edit || this.props.primary;
-    var data = this.state.verification;
+    var data = {verification: this.state.verified ? '' : this.state.verification};
 
     api.putEdit(edit, loanId, data, this.props.setAppStatus)
   },
