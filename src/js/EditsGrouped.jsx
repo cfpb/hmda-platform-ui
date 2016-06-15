@@ -33,11 +33,12 @@ var EditsGrouped = React.createClass({
       <div className="EditsGrouped full edits expandable-group">
         {this.renderHeader()}
         {this.props.group.map(function(groupObj, i) {
+          var primary = self.getPrimary(groupObj);
           return (
             <div className="EditsSummary expandable" key={i}>
               <button className="expandable_header expandable_target" title="Expand content">
                 <span className="half summary expandable_label">
-                  {self.getPrimary(groupObj)}
+                  {primary}
                 </span>
                 <span className="half summary expandable_link">
                   <span className="expandable_cue-open">
@@ -50,7 +51,7 @@ var EditsGrouped = React.createClass({
                   </span>
                 </span>
               </button>
-              <EditsDetail details={self.getSecondary(groupObj)} setAppStatus={self.props.setAppStatus}/>
+              <EditsDetail primary={primary} details={self.getSecondary(groupObj)} setAppStatus={self.props.setAppStatus}/>
             </div>
           )
         })}

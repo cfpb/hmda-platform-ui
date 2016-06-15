@@ -4,6 +4,7 @@ var EditsDetailRow = require('./EditsDetailRow.jsx');
 var EditsDetail = React.createClass({
   propTypes: {
     details: React.PropTypes.array,
+    primary: React.PropTypes.string,
     setAppStatus: React.PropTypes.func
   },
 
@@ -23,6 +24,9 @@ var EditsDetail = React.createClass({
     if(!headers) return null;
     if(headers.indexOf('verification') !== -1) headers.push('verified');
 
+    var primary = self.props.primary;
+    var setAppStatus = self.props.setAppStatus;
+
     return (
       <div className="EditsDetail expandable_content">
         <table width="100%">
@@ -35,7 +39,7 @@ var EditsDetail = React.createClass({
           </thead>
           <tbody>
             {this.props.details.map(function(detail, i){
-              return <EditsDetailRow id={i} key={i} detail={detail} setAppStatus={self.props.setAppStatus}/>
+              return <EditsDetailRow id={i} key={i} primary={primary} detail={detail} setAppStatus={setAppStatus}/>
             })}
           </tbody>
         </table>

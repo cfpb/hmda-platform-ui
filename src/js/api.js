@@ -4,7 +4,7 @@ function makeResponder(cb){
   return function(err, res){
     if(err) return cb(err);
     var obj = JSON.parse(res.text) || {};
-    return cb(obj);
+    return cb(null, obj);
   }
 }
 
@@ -19,8 +19,9 @@ function getHandler(url, cb, suffix){
 
 function postHandler(url, cb, suffix, postData){
   if(typeof url === 'function'){
+    postData = cb
     cb = url;
-    url = makeUrl(parseLocation, suffix);
+    url = makeUrl(parseLocation(), suffix);
   }
 
   var post = superagent.post(url);
@@ -60,8 +61,8 @@ module.exports = {
   return getHandler(url, cb, '/irs');
  },
 
- postIRS: function(url, cb, verified){
-  return postHandler(url, cb, '', verified);
+ postIRS: function(url, cb, data){
+  return postHandler(url, cb, '/irs', data);
  },
 
  postSignature: function(url, cb, signed){
@@ -78,6 +79,16 @@ module.exports = {
 
  getEditsByRow: function(url, cb){
    return getHandler(url, cb, '/edits/lars');
+ },
+
+ putEdit: function(edit, loanId, data, cb){
+    var suffix = 'edits/' + edit;
+    if(loanId) suffix += '/lars/' + loanId;
+    var url = makeUrl(parseLocation(), suffix);
+
+    var put = superagent.put(url);
+    put.send(data);
+    put.end(makeResponder(cb));
  },
 
  makeUrl: makeUrl,

@@ -37,7 +37,8 @@ var EditsContainer = React.createClass({
   getEditsByGrouping: function(){
     var self = this;
     var fn = self.state.groupByRow ? api.getEditsByRow : api.getEditsByType;
-    fn(function(editObj){
+    fn(function(err, editObj){
+      if(err) return console.log(err);
       self.setState(editObj);
     });
   },

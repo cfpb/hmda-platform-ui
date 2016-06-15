@@ -13,14 +13,15 @@ var InstitutionContainer = React.createClass({
 
   componentWillMount: function(){
     var self = this;
-    api.getInstitutions(function(instObj){
+    api.getInstitutions(function(err, instObj){
+      if(err) return console.log(err);
       self.setState({institutionsByPeriod: self.groupByPeriod(instObj)});
     });
   },
 
   groupByPeriod: function(instObj){
     var grouped = {};
-    
+
     instObj.institutions.forEach(function(institution){
       if(!grouped[institution.period]) grouped[institution.period] = [];
       grouped[institution.period].push(institution);

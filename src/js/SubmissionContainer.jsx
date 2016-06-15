@@ -24,14 +24,18 @@ var SubmissionContainer = React.createClass({
     }
   },
 
-  setAppStatus: function(status){
+  setAppStatus: function(err, status){
+    if(err) return console.log(err);
+    console.log(status);
+    if(status.status) status = status.status;
     this.setState({status: status})
   },
 
   componentWillMount: function(){
     if(this.state.status === undefined){
       var self = this;
-      api.getInstitution(function(institutionObj){
+      api.getInstitution(function(err, institutionObj){
+        if(err) return console.log(err);
         self.setState({
           status: institutionObj.status,
           timestamp: institutionObj.timestamp,
@@ -39,17 +43,6 @@ var SubmissionContainer = React.createClass({
         });
       });
     }
-  },
-
-  toggleIRSCheck: function(e){
-    var self = this;
-    api.postIRS(api.makeUrl(api.parseLocation()) + '/irs',
-      function(checked){
-        self.setState(checked);
-      },
-      {
-        verified: e.target.checked
-      });
   },
 
   toggleSignature: function(e){
@@ -88,10 +81,10 @@ var SubmissionContainer = React.createClass({
 
     if(code > 6) editsContainer = <EditsContainer setAppStatus={this.setAppStatus}/>
 
-    if(code > 9) irs = <IRSReport clicked={this.toggleIRSCheck}/>
+    if(code > 9) irs = <IRSReport checked={false} setAppStatus={this.setAppStatus}/>
 
     if(code > 10){
-      irs = <IRSReport clicked={this.toggleIRSCheck} checked='checked'/>
+      irs = <IRSReport checked={true} setAppStatus={this.setAppStatus}/>
       summary = <p>Summary component here</p>
       sign = <Signature clicked={this.toggleSignature}/>
     }

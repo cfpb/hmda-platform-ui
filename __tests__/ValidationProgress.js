@@ -28,7 +28,7 @@ describe('ValidationProgress', function(){
 
   var wrappedCb;
   api.getProgress = jest.fn(function(cb){
-    wrappedCb = jest.fn(function(){cb({code: 7, message: ''})});
+    wrappedCb = jest.fn(function(){cb(null, {code: 7, message: ''})});
     setTimeout(wrappedCb, 0);
   });
 

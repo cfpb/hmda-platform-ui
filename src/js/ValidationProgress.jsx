@@ -11,10 +11,11 @@ class ValidationProgress extends React.Component {
   }
 
   componentWillMount(){
-    this.pollForProgress({code: this.props.initialCode, message: this.props.initialMessage || ''});
+    this.pollForProgress(null, {code: this.props.initialCode, message: this.props.initialMessage || ''});
   }
 
-  pollForProgress(status){
+  pollForProgress(err, status){
+    if(err) return console.log(err);
     if(status.status) status = status.status;
     var code = status.code;
     this.setState({statusCode: code});

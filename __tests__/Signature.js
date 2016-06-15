@@ -9,7 +9,7 @@ var fs = require('fs');
 var api = require('../src/js/api');
 
 api.postSignature = jest.fn(function(cb){
-  cb({
+  cb(null, {
     status: {
       code: state,
       message: ""

@@ -17,6 +17,11 @@ router.get('/', function(req, res){
   res.send(edits)
 });
 
+router.put('/:edit', function(req, res){
+  //how to track state
+  console.log('just edit');
+  res.send({status:"????"})
+});
 router.get('/:type', function(req, res){
   if(req.params.type === 'lars') return res.sendFile('lars.json', {root: './server/json'});
   res.send(edits[req.params.type]);

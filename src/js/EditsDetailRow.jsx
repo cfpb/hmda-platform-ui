@@ -1,8 +1,11 @@
 var React = require('react');
+var api = require('./api');
+
 var EditsDetailRow = React.createClass({
 
   propTypes: {
     detail: React.PropTypes.object.isRequired,
+    primary: React.PropTypes.string,
     id: React.PropTypes.number,
     setAppStatus: React.PropTypes.func
   },
@@ -37,11 +40,11 @@ var EditsDetailRow = React.createClass({
     var checked = e.target.checked;
     this.setState({verified: checked})
 
-    api.putEdit(this.setStatusFromEditUpdate)
-  },
+    var loanId = this.props.detail.loanId || this.props.primary;
+    var edit = this.props.detail.edit || this.props.primary;
+    var data = this.state.verification;
 
-  setStatusFromEditUpdate: function(response){
-    this.props.setAppStatus(response.status);
+    api.putEdit(edit, loanId, data, this.props.setAppStatus)
   },
 
   updateText: function(e){

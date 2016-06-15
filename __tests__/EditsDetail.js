@@ -47,7 +47,7 @@ describe('EditsDetail', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'table').length).toEqual(1);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'tr').length).toEqual(3);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'td').length).toEqual(6);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'textarea').length).toEqual(1);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'textarea').length).toEqual(2);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(macroDetail, 'expandable_content').length).toEqual(1);
   });
 });
