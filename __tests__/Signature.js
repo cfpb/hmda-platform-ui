@@ -21,18 +21,13 @@ api.postSignature = jest.fn(function(cb){
 });
 
 describe('irs report', function(){
-  var changeHandlerTrue = function(err, status){
+
+  function uncheckedToggle(err, status){
     expect(status.code).toBe(13);
-  };
+  }
 
-  var changeHandlerFalse = function(err, status){
-    expect(status.code).toBe(12);
-  };
-
-  var signature = TestUtils.renderIntoDocument(<Signature setAppStatus={changeHandlerTrue} checked={false}/>)
+  var signature = TestUtils.renderIntoDocument(<Signature setAppStatus={uncheckedToggle} checked={false}/>)
   var signatureNode = ReactDOM.findDOMNode(signature);
-
-  var signatureChecked = TestUtils.renderIntoDocument(<Signature setAppStatus={changeHandlerFalse} checked={true}/>);
 
   it('renders the signature component', function(){
     expect(signatureNode).toBeDefined();
@@ -61,6 +56,12 @@ describe('irs report', function(){
   });
 
   it('the checkbox IS checked and toggles to false', function(){
+
+    function checkedToggle(err, status){
+      expect(status.code).toBe(12);
+    }
+
+    var signatureChecked = TestUtils.renderIntoDocument(<Signature setAppStatus={checkedToggle} checked={true}/>);
     var checkbox = TestUtils.findRenderedDOMComponentWithTag(signatureChecked, 'input');
     expect(checkbox.checked).toBeTruthy();
 
