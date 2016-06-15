@@ -13,15 +13,22 @@ var edits = {
     macro: macro
   }
 
+var count = 0;
+
+function handlePut(req, res){
+  req.body ? count++ : count--;
+  var code = count === 5 ? 10 : 9;
+  res.send({status:{code: code, message: ''}});
+}
+
 router.get('/', function(req, res){
   res.send(edits)
 });
 
-router.put('/:edit', function(req, res){
-  //how to track state
-  console.log('just edit');
-  res.send({status:"????"})
-});
+router.put('/:edit', handlePut);
+
+router.put('/:edit/lars/:lar', handlePut);
+
 router.get('/:type', function(req, res){
   if(req.params.type === 'lars') return res.sendFile('lars.json', {root: './server/json'});
   res.send(edits[req.params.type]);

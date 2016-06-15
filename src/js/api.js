@@ -82,7 +82,7 @@ module.exports = {
  },
 
  putEdit: function(edit, loanId, data, cb){
-    var suffix = 'edits/' + edit;
+    var suffix = '/edits/' + edit;
     if(loanId) suffix += '/lars/' + loanId;
     var url = makeUrl(parseLocation(), suffix);
 
