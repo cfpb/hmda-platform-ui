@@ -23,10 +23,9 @@ var SubmissionContainer = React.createClass({
 
   setAppStatus: function(err, status){
     if(err) return console.log(err);
-    console.log(status);
     //allow richer objects to be directly passed without trimming in the caller
     if(status.status) status = status.status;
-    this.setState({status: status})
+    if(status.code !== this.state.status.code) this.setState({status: status})
   },
 
   componentWillMount: function(){

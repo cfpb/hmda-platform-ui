@@ -22,6 +22,7 @@ function handlePut(req, res){
 }
 
 router.get('/', function(req, res){
+  count = 0;
   res.send(edits)
 });
 
