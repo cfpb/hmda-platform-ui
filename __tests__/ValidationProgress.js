@@ -52,6 +52,6 @@ describe('ValidationProgress', function(){
     expect(wrappedCb).toBeCalled();
 
     expect(TestUtils.scryRenderedDOMComponentsWithTag(progress2, 'p').length).toEqual(5);
-    expect(cb.mock.calls[cb.mock.calls.length - 1][0]).toEqual({code: 7, message: ''});
+    expect(cb.mock.calls[cb.mock.calls.length - 1][1]).toEqual({code: 7, message: ''});
   });
 });
