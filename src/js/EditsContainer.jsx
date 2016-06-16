@@ -4,6 +4,8 @@ var expandables = require('./react-expandables');
 var EditsSelector = require('./EditsSelector.jsx');
 var EditsGrouped = require('./EditsGrouped.jsx');
 var EditsMacro = require('./EditsMacro.jsx');
+var EditsQ029 = require('./EditsQ029.jsx');
+var EditsQ595 = require('./EditsQ595.jsx');
 var EditsHeaderDescription = require('./EditsHeaderDescription.jsx');
 
 var EditsContainer = React.createClass({
@@ -13,6 +15,8 @@ var EditsContainer = React.createClass({
       validity: {edits: []},
       quality: {edits: []},
       macro: {edits: []},
+      q029: {edits: []},
+      q595: {edits: []},
       lars: [],
       groupByRow: false
     }
@@ -123,6 +127,12 @@ var EditsContainer = React.createClass({
 
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
         <EditsMacro group={this.state.macro.edits} setAppStatus={this.props.setAppStatus}/>
+
+        <EditsHeaderDescription>Q029 Edits</EditsHeaderDescription>
+        <EditsQ029 group={this.state.q029.edits}/>
+
+        <EditsHeaderDescription>Q595 Edits</EditsHeaderDescription>
+        <EditsQ595 group={this.state.q595.edits}/>
       </div>
     )
   },
@@ -135,6 +145,12 @@ var EditsContainer = React.createClass({
 
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
         <EditsMacro group={this.state.macro.edits} setAppStatus={this.props.setAppStatus}/>
+
+        <EditsHeaderDescription>Q029 Edits</EditsHeaderDescription>
+        <EditsQ029 group={this.state.q029.edits}/>
+
+        <EditsHeaderDescription>Q595 Edits</EditsHeaderDescription>
+        <EditsQ595 group={this.state.q595.edits}/>
       </div>
     )
   },

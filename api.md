@@ -39,10 +39,10 @@
     ```
 
 * `/api/institutions/<institution>/periods/<period>/submissions/<submission>/edits`
-    * `GET` - List of all edits for a given submission, grouped by edit type. Structure: `{"syntactical": {...}, "validity": {..}, "quality": {...}, "macro": {...}}`
+    * `GET` - List of all edits for a given submission, grouped by edit type. Structure: `{"syntactical": {...}, "validity": {..}, "quality": {...}, "macro": {...}, "q029": {...}, "q595": {...}}`
     * `PUT` - Bulk update of edits, used for verification - TODO
 
-* `/api/institutions/<institution>/periods/<period>/submissions/<submission>/edits/syntactial|validity|quality|macro`
+* `/api/institutions/<institution>/periods/<period>/submissions/<submission>/edits/syntactial|validity|quality|macro|q029|q595`
     * `GET` - Edits for a given submission, of a single type. Structure: [syntactical](https://github.com/cfpb/hmda-platform-ui/blob/c7590b1e6bd3243a8cd7909463ab8e2dc8c046a5/server/json/syntactical.json) [validity](https://github.com/cfpb/hmda-platform-ui/blob/c7590b1e6bd3243a8cd7909463ab8e2dc8c046a5/server/json/validity.json) [quality](https://github.com/cfpb/hmda-platform-ui/blob/c7590b1e6bd3243a8cd7909463ab8e2dc8c046a5/server/json/validity.json) [macro](https://github.com/cfpb/hmda-platform-ui/blob/c7590b1e6bd3243a8cd7909463ab8e2dc8c046a5/server/json/macro.json)
 
 * `/api/institutions/<institution>/periods/<period>/submissions/<submission>/edits/lars`
