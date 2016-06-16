@@ -14,6 +14,10 @@ var Signature = React.createClass({
     }
   },
 
+  componentWillMount: function(){
+    if(this.props.checked) this.toggleSignature({target:{checked: true}});
+  },
+
   toggleSignature: function(e){
     var self = this;
     api.postSignature(
