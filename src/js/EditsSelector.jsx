@@ -13,7 +13,7 @@ var EditsSelector = React.createClass({
   toggleGrouping: function(){
     var newGrouping = !this.state.groupByRow
     this.setState({groupByRow: newGrouping});
-    if(this.props.callback) this.props.callback(newGrouping);
+    if(this.props.updateGrouping) this.props.updateGrouping(newGrouping);
   },
 
   render: function(){

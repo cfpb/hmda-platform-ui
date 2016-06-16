@@ -22,7 +22,7 @@ var macro = JSON.parse(fs.readFileSync('./server/json/macro.json'));
 var lars = JSON.parse(fs.readFileSync('./server/json/lars.json'));
 
 api.getEditsByType = jest.fn(function(cb){
-  cb({
+  cb(null, {
     syntactical: syntactical,
     validity: validity,
     quality: quality,
@@ -31,7 +31,7 @@ api.getEditsByType = jest.fn(function(cb){
 });
 
 api.getEditsByRow = jest.fn(function(cb){
-  cb(lars);
+  cb(null, lars);
 });
 
 var oldInit = expandables.init;

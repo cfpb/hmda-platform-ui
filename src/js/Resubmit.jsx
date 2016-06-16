@@ -16,7 +16,7 @@ var Resubmit = React.createClass({
         period: this.props.period,
         id: this.props.id
       },'/submissions'),
-      function(subObj){console.log(subObj)}
+      function(err, subObj){console.log(err||subObj)}
     );
   },
 

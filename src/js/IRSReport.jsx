@@ -3,8 +3,8 @@ var api = require('./api');
 
 var IRS = React.createClass({
   propTypes: {
-    checked: React.PropTypes.string,
-    clicked: React.PropTypes.func.isRequired
+    setAppStatus: React.PropTypes.func.isRequired,
+    checked: React.PropTypes.bool
   },
 
   getInitialState: function() {
@@ -17,12 +17,18 @@ var IRS = React.createClass({
 
   componentWillMount: function() {
     var self = this;
-    api.getIRS(function(irsObj){
+    api.getIRS(function(err, irsObj){
+      if(err) return console.log(err);
       self.setState({
         irs: irsObj
       });
     });
   },
+
+  toggleCheck: function(e){
+    api.postIRS(this.props.setAppStatus, {verified: e.target.checked});
+  },
+
 
   render: function() {
     var self = this;
@@ -66,7 +72,7 @@ var IRS = React.createClass({
             })}
           </tbody>
         </table>
-        <p><input type="checkbox" value="IRS verification" onChange={self.props.clicked} checked={self.props.checked}/> I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.</p>
+        <p><input type="checkbox" value="IRS verification" checked={self.props.checked} onChange={self.toggleCheck}/> I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.</p>
       </div>
     )
   }

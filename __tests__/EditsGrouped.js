@@ -32,11 +32,11 @@ describe('EditsGrouped', function(){
   });
 
   it('returns appropriate primary and secondary keys', function(){
-    expect(syntactical.getPrimary({lar: {loanId:1}, edit: 'q1', lars: []})).toEqual('q1');
-    expect(syntactical.getSecondary({lar: {loanId:1}, edit: 'q1', lars: []})).toEqual([]);
+    expect(syntactical.getPrimary({lar: {loanId: '1'}, edit: 'q1', lars: []})).toEqual('q1');
+    expect(syntactical.getSecondary({lar: {loanId: '1'}, edit: 'q1', lars: []})).toEqual([]);
   });
 
-  var syntacticalComponent2 = <EditsGrouped group={[{lar:{loanId:1}, edits:[{edit:'e1', type:'syntactical'}]},{lar:{loanId:2}, edits:[{edit:'e2', type:'syntactical'}]},{lar:{loanId:3}, edits:[{edit:'e3', type:'syntactical'}]}]} groupByRow={true}/>
+  var syntacticalComponent2 = <EditsGrouped group={[{lar:{loanId: '1'}, edits:[{edit:'e1', type:'syntactical'}]},{lar:{loanId: '2'}, edits:[{edit:'e2', type:'syntactical'}]},{lar:{loanId: '3'}, edits:[{edit:'e3', type:'syntactical'}]}]} groupByRow={true}/>
   var syntactical2 = TestUtils.renderIntoDocument(syntacticalComponent2);
   var syntacticalNode2 = ReactDOM.findDOMNode(syntactical2);
 
@@ -46,7 +46,7 @@ describe('EditsGrouped', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithClass(syntactical2, 'expandable').length).toEqual(3);
   });
   it('returns appropriate primary and secondary keys when grouping by row', function(){
-    expect(syntactical2.getPrimary({lar: {loanId:1}, edits: []})).toEqual(1);
-    expect(syntactical2.getSecondary({lar: {loanId:1}, edits: []})).toEqual([]);
+    expect(syntactical2.getPrimary({lar: {loanId: '1'}, edits: []})).toEqual('1');
+    expect(syntactical2.getSecondary({lar: {loanId: '1'}, edits: []})).toEqual([]);
   });
 });

@@ -17,9 +17,22 @@ var edits = {
     q595: q595
   }
 
+var count = 0;
+
+function handlePut(req, res){
+  req.body.verification ? count++ : count--;
+  var code = count === 5 ? 10 : 7;
+  res.send({status:{code: code, message: ''}});
+}
+
 router.get('/', function(req, res){
+  count = 0;
   res.send(edits)
 });
+
+router.put('/:edit', handlePut);
+
+router.put('/:edit/lars/:lar', handlePut);
 
 router.get('/:type', function(req, res){
   if(req.params.type === 'lars') return res.sendFile('lars.json', {root: './server/json'});

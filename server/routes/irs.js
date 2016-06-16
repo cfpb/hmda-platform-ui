@@ -8,7 +8,7 @@ router.get('/', function (req, res) {
 
 router.post('/', function (req, res){
   var state = req.body.verified ? 11 : 10;
-  
+
   res.status(202).send({
     status: {
       code: state,

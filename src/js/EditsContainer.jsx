@@ -22,6 +22,10 @@ var EditsContainer = React.createClass({
     }
   },
 
+  propTypes: function(){
+    setAppStatus: React.PropTypes.func
+  },
+
   componentWillMount: function(){
     this.getEditsByGrouping();
   },
@@ -37,7 +41,8 @@ var EditsContainer = React.createClass({
   getEditsByGrouping: function(){
     var self = this;
     var fn = self.state.groupByRow ? api.getEditsByRow : api.getEditsByType;
-    fn(function(editObj){
+    fn(function(err, editObj){
+      if(err) return console.log(err);
       self.setState(editObj);
     });
   },
@@ -112,16 +117,16 @@ var EditsContainer = React.createClass({
     return (
       <div className="EditsContainerBody">
         <EditsHeaderDescription>Syntactical Edits</EditsHeaderDescription>
-        <EditsGrouped group={this.state.syntactical.edits} groupByRow={this.state.groupByRow}/>
+        <EditsGrouped group={this.state.syntactical.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
 
         <EditsHeaderDescription>Validity Edits</EditsHeaderDescription>
-        <EditsGrouped group={this.state.validity.edits} groupByRow={this.state.groupByRow}/>
+        <EditsGrouped group={this.state.validity.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
 
         <EditsHeaderDescription>Quality Edits</EditsHeaderDescription>
-        <EditsGrouped group={this.state.quality.edits} groupByRow={this.state.groupByRow}/>
+        <EditsGrouped group={this.state.quality.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
 
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
-        <EditsMacro group={this.state.macro.edits}/>
+        <EditsMacro group={this.state.macro.edits} setAppStatus={this.props.setAppStatus}/>
 
         <EditsHeaderDescription>Q029 Edits</EditsHeaderDescription>
         <EditsQ029 group={this.state.q029.edits}/>
@@ -136,10 +141,10 @@ var EditsContainer = React.createClass({
     return (
       <div className="EditsContainerBody">
         <EditsHeaderDescription>Loan Application Records</EditsHeaderDescription>
-        <EditsGrouped group={this.state.lars} groupByRow={this.state.groupByRow}/>
+        <EditsGrouped group={this.state.lars} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
 
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
-        <EditsMacro group={this.state.macro.edits}/>
+        <EditsMacro group={this.state.macro.edits} setAppStatus={this.props.setAppStatus}/>
 
         <EditsHeaderDescription>Q029 Edits</EditsHeaderDescription>
         <EditsQ029 group={this.state.q029.edits}/>
@@ -153,7 +158,7 @@ var EditsContainer = React.createClass({
   render: function(){
     return (
       <div className="EditsContainer">
-        <EditsSelector callback={this.updateGrouping}/>
+        <EditsSelector updateGrouping={this.updateGrouping}/>
         {this.state.groupByRow ? this.renderByRow() : this.renderByType()}
       </div>
     )

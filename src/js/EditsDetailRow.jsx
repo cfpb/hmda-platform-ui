@@ -1,9 +1,13 @@
 var React = require('react');
+var api = require('./api');
+
 var EditsDetailRow = React.createClass({
 
   propTypes: {
     detail: React.PropTypes.object.isRequired,
-    id: React.PropTypes.number
+    primary: React.PropTypes.string,
+    id: React.PropTypes.number,
+    setAppStatus: React.PropTypes.func
   },
 
   componentWillMount: function(){
@@ -32,9 +36,15 @@ var EditsDetailRow = React.createClass({
     if(!this.state.verification){
       return e.preventDefault();
     }
-    //TODO api call to backend, update parent state
+
     var checked = e.target.checked;
     this.setState({verified: checked})
+
+    var loanId = this.props.detail.loanId || this.props.primary;
+    var edit = this.props.detail.edit || this.props.primary;
+    var data = {verification: this.state.verified ? '' : this.state.verification};
+
+    api.putEdit(edit, loanId, data, this.props.setAppStatus)
   },
 
   updateText: function(e){

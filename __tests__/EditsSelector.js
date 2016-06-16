@@ -10,7 +10,7 @@ var EditsSelector = require('../src/js/EditsSelector.jsx');
 
 describe('Edits Selector', function(){
   var cb = jest.fn();
-  var selector = TestUtils.renderIntoDocument(<EditsSelector callback={cb}/>)
+  var selector = TestUtils.renderIntoDocument(<EditsSelector updateGrouping={cb}/>)
   var selectorNode = ReactDOM.findDOMNode(selector);
 
   it('renders the selector button', function(){
