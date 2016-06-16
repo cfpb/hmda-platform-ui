@@ -1,6 +1,10 @@
+var fs = require('fs');
 var router = require('express').Router();
 var crypto = require('crypto');
 
+router.get('/', function(req, res){
+  res.send(JSON.parse(fs.readFileSync('./server/json/receipt.json')));
+});
 router.post('/', function (req, res) {
   var state = req.body.signed ? 13 : 12;
   var timestamp = state === 13 ? Date.now() : null;

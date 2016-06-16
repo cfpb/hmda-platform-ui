@@ -15,7 +15,13 @@ var Signature = React.createClass({
   },
 
   componentWillMount: function(){
-    if(this.props.checked) this.toggleSignature({target:{checked: true}});
+    var self = this;
+    if(this.props.checked){
+      api.getSignature(function(err, receiptObj){
+        if(err) return console.log(err);
+        self.setState(receiptObj);
+      });
+    }
   },
 
   toggleSignature: function(e){
