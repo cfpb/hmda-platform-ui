@@ -1,5 +1,6 @@
 var React = require('react');
 var api = require('./api');
+var UserHeading = require('./UserHeading.jsx');
 var DivisionHeader = require('./DivisionHeader.jsx');
 var InstitutionStatus = require('./InstitutionStatus.jsx');
 
@@ -59,7 +60,7 @@ var InstitutionContainer = React.createClass({
           var institutions = self.state.institutionsByPeriod[period];
           return (
             <div key={i} className="periodWrapper">
-              <h1 className="periodHeader">{period}</h1>
+              <UserHeading userName={self.props.userName} period={period} />
               {self.getDivisions(institutions).map(function(division, i){
                var header = null;
                if(division.institutions.length) header = <DivisionHeader>{division.text}</DivisionHeader>
