@@ -5,7 +5,7 @@ var EditsGrouped = React.createClass({
   propTypes: {
     group: React.PropTypes.array,
     groupByRow: React.PropTypes.bool,
-    setAppStatus: React.PropTypes.func
+    appStatus: React.PropTypes.object
   },
 
   getPrimary: function(groupObj){
@@ -51,7 +51,7 @@ var EditsGrouped = React.createClass({
                   </span>
                 </span>
               </button>
-              <EditsDetail primary={primary} details={self.getSecondary(groupObj)} setAppStatus={self.props.setAppStatus}/>
+              <EditsDetail primary={primary} details={self.getSecondary(groupObj)} appStatus={self.props.appStatus}/>
             </div>
           )
         })}

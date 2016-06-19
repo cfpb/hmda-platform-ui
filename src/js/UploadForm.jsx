@@ -4,12 +4,15 @@ var api = require('./api');
 
 var UploadForm = React.createClass({
   propTypes: {
-    setAppStatus: React.PropTypes.func
+    appStatus: React.PropTypes.object
   },
 
   getDefaultProps: function(){
     return {
-      setAppStatus: function(){}
+      appStatus: {
+        get: function(){},
+        set: function(){}
+      }
     }
   },
 
@@ -19,8 +22,8 @@ var UploadForm = React.createClass({
   },
 
   handleLoad: function(e){
-    if(e.target.status !== 202) return this.props.setAppStatus({code: -1, message: 'Error uploading file'});
-    this.props.setAppStatus(null, {code: 3, message: ''});
+    if(e.target.status !== 202) return this.props.appStatus.set({code: -1, message: 'Error uploading file'});
+    this.props.appStatus.set(null, {code: 3, message: ''});
   },
 
   setFile: function(e){

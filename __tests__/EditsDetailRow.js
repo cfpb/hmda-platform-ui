@@ -6,6 +6,11 @@ var TestUtils = require('react-addons-test-utils');
 
 var EditsDetailRow = require('../src/js/EditsDetailRow.jsx');
 
+var appStatus = {
+  get: jest.fn(),
+  set: jest.fn()
+};
+
 var larDetail = {
   lar: {loanId: 's1'}
 };
@@ -27,7 +32,7 @@ var WrapperTable = React.createClass({
 
 describe('EditsDetailRow', function(){
 
-  var larRow = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow detail={larDetail}/></WrapperTable>);
+  var larRow = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow appStatus={appStatus} detail={larDetail}/></WrapperTable>);
   var larNode = ReactDOM.findDOMNode(larRow);
 
   it('renders the component', function(){
@@ -38,10 +43,9 @@ describe('EditsDetailRow', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithTag(larRow, 'td').length).toEqual(1);
   });
 
-
-  var macroRow = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow detail={macroDetail}/></WrapperTable>);
-  var mr2 = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow detail={macroDetail}/></WrapperTable>);
-  var mr3 = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow detail={macroDetailVerified}/></WrapperTable>);
+  var macroRow = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow appStatus={appStatus} detail={macroDetail}/></WrapperTable>);
+  var mr2 = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow appStatus={appStatus} detail={macroDetail}/></WrapperTable>);
+  var mr3 = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow appStatus={appStatus} detail={macroDetailVerified}/></WrapperTable>);
   var macroNode = ReactDOM.findDOMNode(macroRow);
 
 

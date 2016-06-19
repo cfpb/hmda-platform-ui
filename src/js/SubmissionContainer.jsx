@@ -3,6 +3,7 @@ var api = require('./api');
 var UserHeading = require('./UserHeading.jsx');
 var UploadForm = require('./UploadForm.jsx');
 var ValidationProgress = require('./ValidationProgress.jsx');
+var RefileWarning = require('./RefileWarning.jsx');
 var EditsContainer = require('./EditsContainer.jsx');
 var IRSReport = require('./IRSReport.jsx');
 var Summary = require('./Summary.jsx');
@@ -17,9 +18,18 @@ var SubmissionContainer = React.createClass({
   },
 
   getInitialState: function(){
+    this.appStatus = {
+      get: this.getAppStatus,
+      set: this.setAppStatus
+    };
+
     return {
       status: this.props.institution.status
     }
+  },
+
+  getAppStatus: function(){
+    return this.state.status;
   },
 
   setAppStatus: function(err, status){
@@ -42,8 +52,9 @@ var SubmissionContainer = React.createClass({
   },
 
   statusFilter: function(){
-    var uploadForm = <UploadForm setAppStatus={this.setAppStatus}/>;
+    var uploadForm = <UploadForm appStatus={this.appStatus}/>;
     var progress = null;
+    var refileWarning = null;
     var editsContainer = null;
     var summary = null;
     var irs = null;
@@ -63,20 +74,23 @@ var SubmissionContainer = React.createClass({
       )
     }
 
-    if(code > 2) progress = <ValidationProgress initialCode={code} setAppStatus={this.setAppStatus}/>
+    if(code > 2) progress = <ValidationProgress initialCode={code} appStatus={this.appStatus}/>
 
-    if(code > 6) editsContainer = <EditsContainer setAppStatus={this.setAppStatus}/>
+    if(code > 6){
+      refileWarning = <RefileWarning code={code}/>
+      editsContainer = <EditsContainer appStatus={this.appStatus}/>
+    }
 
-    if(code > 9) irs = <IRSReport checked={false} setAppStatus={this.setAppStatus}/>
+    if(code > 9) irs = <IRSReport checked={false} appStatus={this.appStatus}/>
 
     if(code > 10){
-      irs = <IRSReport clicked={this.toggleIRSCheck} checked='checked'/>
       summary = <Summary/> // TODO: will have a prop added
-      sign = <Signature clicked={this.toggleSignature}/>
+      irs = <IRSReport checked={true} appStatus={this.appStatus}/>
+      sign = <Signature checked={false} appStatus={this.appStatus}/>
     }
 
     if(code > 12){
-      sign = <Signature checked={true} setAppStatus={this.setAppStatus}/>
+      sign = <Signature checked={true} appStatus={this.appStatus}/>
     }
     return (
       <div className="SubmissionContainer container">
@@ -86,6 +100,7 @@ var SubmissionContainer = React.createClass({
           {progress}
         </div>
         <div className="two-third">
+          {refileWarning}
           {editsContainer}
           {irs}
           {summary}

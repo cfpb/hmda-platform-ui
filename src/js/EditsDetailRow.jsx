@@ -7,7 +7,11 @@ var EditsDetailRow = React.createClass({
     detail: React.PropTypes.object.isRequired,
     primary: React.PropTypes.string,
     id: React.PropTypes.number,
-    setAppStatus: React.PropTypes.func
+    appStatus: React.PropTypes.object
+  },
+
+  defaultProps: {
+    appStatus: {get: function(){}, set: function(){}}
   },
 
   componentWillMount: function(){
@@ -44,7 +48,7 @@ var EditsDetailRow = React.createClass({
     var edit = this.props.detail.edit || this.props.primary;
     var data = {verification: this.state.verified ? '' : this.state.verification};
 
-    api.putEdit(edit, loanId, data, this.props.setAppStatus)
+    api.putEdit(edit, loanId, data, this.props.appStatus.set)
   },
 
   updateText: function(e){

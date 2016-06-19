@@ -3,7 +3,7 @@ var api = require('./api');
 
 var Signature = React.createClass({
   propTypes: {
-    setAppStatus: React.PropTypes.func.isRequired,
+    appStatus: React.PropTypes.object.isRequired,
     checked: React.PropTypes.bool
   },
 
@@ -28,12 +28,12 @@ var Signature = React.createClass({
     var self = this;
     api.postSignature(
       function(err, receiptObj){
-        if(err) return this.props.setAppStatus({code: -1, message: err})
+        if(err) return this.props.appStatus.set({code: -1, message: err})
         self.setState({
           receipt: receiptObj.receipt,
           timestamp: receiptObj.timestamp
         });
-        self.props.setAppStatus(null, receiptObj.status);
+        self.props.appStatus.set(null, receiptObj.status);
       },
       {
         signed: e.target.checked
