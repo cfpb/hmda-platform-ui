@@ -33,7 +33,8 @@ var EditsDetailRow = React.createClass({
   },
 
   makeCheck: function(){
-    return <input type="checkbox" onChange={this.verify} checked={this.state.verified}/>
+    var verified = this.state.verified;
+    return <input type="checkbox" onChange={this.verify} checked={verified}/>
   },
 
   verify: function(e){
@@ -42,16 +43,16 @@ var EditsDetailRow = React.createClass({
     if(verification !== undefined && !verification) return e.preventDefault();
 
     var checked = e.target.checked;
-    this.setState({verified: checked})
 
     var loanId = this.props.detail.loanId || this.props.primary;
     var edit = this.props.detail.edit || this.props.primary;
     var data = {};
 
-    if(this.props.detail.verified !== undefined) data.verified = this.state.verified;
+    if(this.props.detail.verified !== undefined) data.verified = checked;
     else data.verification = this.state.verified ? '' : this.state.verification
 
     api.putEdit(edit, loanId, data, this.props.appStatus.set)
+    this.setState({verified: checked});
   },
 
   updateText: function(e){

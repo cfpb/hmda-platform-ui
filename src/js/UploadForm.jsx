@@ -76,7 +76,6 @@ var UploadForm = React.createClass({
   },
 
   render: function(){
-    console.log('rendering', this.state);
     var self = this;
     return (
       <div className="UploadForm full">

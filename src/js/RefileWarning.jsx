@@ -2,8 +2,8 @@ var React = require('react');
 var Link = require('react-router').Link;
 var api = require('./api');
 
-var refileText = 'Syntactical and validity errors require file resubmission.'
-var validateText = 'Quality and macro errors must be validated before continuing.'
+var refileText = 'Syntactical and validity edits require file resubmission.'
+var validateText = 'Quality and macro edits must be validated before continuing.'
 
 var RefileWarning = React.createClass({
 

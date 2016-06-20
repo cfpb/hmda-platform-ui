@@ -40,15 +40,14 @@ var noMacro= {
 var count = 0;
 
 function handlePut(req, res){
-  req.body.verification || req.body.verified !== undefined ? count++ : count--;
-  console.log(req.body, count);
-  var code = count === 5 ? 10 : 7;
+  req.body.verification || req.body.verified ? count++ : count--;
+  var code = count === 5 ? 10 : 8;
   res.send({status:{code: code, message: ''}});
 }
 
 router.get('/', function(req, res){
   var sub = +req.params.submission;
-console.log(sub);
+
   if(sub > 1){
     edits.syntactical = noSyntactical;
     edits.validity = noValidity;

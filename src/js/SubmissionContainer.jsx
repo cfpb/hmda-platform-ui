@@ -46,7 +46,6 @@ var SubmissionContainer = React.createClass({
   },
 
   componentWillReceiveProps: function(newProps){
-    console.log('receiving');
     if(this.props.params.submission !== newProps.params.submission) this.updateInstitution();
   },
 
