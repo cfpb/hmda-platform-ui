@@ -29,7 +29,11 @@ var EditsGrouped = React.createClass({
 
   render: function(){
     var self = this;
-    if(!this.props.group.length) return <p>No edits found</p>
+    if(!this.props.group.length) return (
+        <div className="EditsGrouped">
+          <h4 className="EditsGrouped"><span className="cf-icon cf-icon-approved"></span>No edits found</h4>
+        </div>
+      )
     return (
       <div className="EditsGrouped full edits expandable-group">
         {this.renderHeader()}
