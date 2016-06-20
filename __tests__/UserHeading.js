@@ -8,10 +8,7 @@ var TestUtils = require('react-addons-test-utils');
 var UserHeading = require('../src/js/UserHeading.jsx');
 
 var user = 'User1';
-var institution = {
-  "name": "Wacky data",
-  "status": 2
-}
+var institution = "Wacky data";
 var period = '2017';
 
 describe('UserHeading', function(){
@@ -47,10 +44,7 @@ describe('UserHeading', function(){
     });
 
     it('passes through the institution appropriately as props', function(){
-      expect(heading.props.institution).toEqual({
-        "name": "Wacky data",
-        "status": 2
-      });
+      expect(heading.props.institution).toEqual("Wacky data");
     });
 
     it('renders correctly', function(){

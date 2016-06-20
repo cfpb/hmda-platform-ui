@@ -4,7 +4,7 @@ var UserHeading = React.createClass({
   propTypes: {
     userName: React.PropTypes.string.isRequired,
     period: React.PropTypes.string.isRequired,
-    institution: React.PropTypes.object
+    institution: React.PropTypes.string
   },
 
   render: function(){
@@ -12,8 +12,8 @@ var UserHeading = React.createClass({
 
     var headingText = 'Welcome to the ' + this.props.period + ' HMDA filing, ' + this.props.userName;
 
-    if(this.props.institution && this.props.institution.name) {
-      headingText = this.props.userName + ' filing on behalf of ' + this.props.institution.name;
+    if(this.props.institution) {
+      headingText = this.props.userName + ' filing on behalf of ' + this.props.institution;
     }
 
     return <h1 className="UserHeading full">{headingText}</h1>

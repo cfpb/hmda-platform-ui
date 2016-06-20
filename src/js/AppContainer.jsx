@@ -5,7 +5,9 @@ var AppContainer = React.createClass({
 
   getInitialState: function(){
     return {
-      userName: 'Jane Doe'
+      userName: 'Jane Doe',
+      institutions: [],
+      institution: null
     }
   },
 

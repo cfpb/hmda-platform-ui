@@ -1,11 +1,11 @@
 var React = require('react');
 var api = require('./api');
+var UserHeading = require('./UserHeading.jsx');
 var UploadForm = require('./UploadForm.jsx');
 var ValidationProgress = require('./ValidationProgress.jsx');
 var EditsContainer = require('./EditsContainer.jsx');
 var IRSReport = require('./IRSReport.jsx');
 var Signature = require('./Signature.jsx');
-
 
 var SubmissionContainer = React.createClass({
 
@@ -76,9 +76,9 @@ var SubmissionContainer = React.createClass({
     if(code > 12){
       sign = <Signature checked={true} setAppStatus={this.setAppStatus}/>
     }
-
     return (
       <div className="SubmissionContainer container">
+        <UserHeading userName={this.props.userName} period={this.props.params.period} institution={this.props.params.institution}/>
         {uploadForm}
         <div className="third">
           {progress}
