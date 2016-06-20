@@ -15,9 +15,10 @@ var EditsDetailRow = React.createClass({
   },
 
   componentWillMount: function(){
+    var verified = this.props.detail.verified
     this.setState({
       verification: this.props.detail.verification,
-      verified: !!this.props.detail.verification
+      verified: verified !== undefined ? verified : !!this.props.detail.verification
     });
   },
 
@@ -27,26 +28,28 @@ var EditsDetailRow = React.createClass({
       else return <textarea onChange={this.updateText} value={this.state.verification}/>
     }
     if(field === 'lar') return detail[field].loanId;
+    if(field === 'verified') return this.makeCheck();
     return detail[field];
   },
 
   makeCheck: function(){
-    if(this.state.verification !== undefined){
-      return <td><input type="checkbox" onChange={this.toggleText} checked={this.state.verified}/></td>
-    }
+    return <input type="checkbox" onChange={this.verify} checked={this.state.verified}/>
   },
 
-  toggleText: function(e){
-    if(!this.state.verification){
-      return e.preventDefault();
-    }
+  verify: function(e){
+    var verification = this.state.verification;
+
+    if(verification !== undefined && !verification) return e.preventDefault();
 
     var checked = e.target.checked;
     this.setState({verified: checked})
 
     var loanId = this.props.detail.loanId || this.props.primary;
     var edit = this.props.detail.edit || this.props.primary;
-    var data = {verification: this.state.verified ? '' : this.state.verification};
+    var data = {};
+
+    if(this.props.detail.verified !== undefined) data.verified = this.state.verified;
+    else data.verification = this.state.verified ? '' : this.state.verification
 
     api.putEdit(edit, loanId, data, this.props.appStatus.set)
   },
@@ -63,7 +66,7 @@ var EditsDetailRow = React.createClass({
         return <td key={i}>{self.makeTdContent(detail, field)}</td>
       }
       )}
-      {self.makeCheck()}
+      {this.state.verification !== undefined ? <td>{self.makeCheck()}</td> : null}
     </tr>
   }
 });

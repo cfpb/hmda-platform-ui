@@ -41,18 +41,27 @@ var SubmissionContainer = React.createClass({
 
   componentWillMount: function(){
     if(this.state.status === undefined){
-      var self = this;
+      this.updateInstitution();
+    }
+  },
+
+  componentWillReceiveProps: function(newProps){
+    console.log('receiving');
+    if(this.props.params.submission !== newProps.params.submission) this.updateInstitution();
+  },
+
+  updateInstitution: function(){
+    var self = this;
       api.getInstitution(function(err, institutionObj){
         if(err) return console.log(err);
         self.setState({
           status: institutionObj.status
         });
       });
-    }
   },
 
   statusFilter: function(){
-    var uploadForm = <UploadForm appStatus={this.appStatus}/>;
+    var uploadForm = <UploadForm submission={this.props.params.submission} appStatus={this.appStatus}/>;
     var progress = null;
     var refileWarning = null;
     var editsContainer = null;
@@ -92,6 +101,7 @@ var SubmissionContainer = React.createClass({
     if(code > 12){
       sign = <Signature checked={true} appStatus={this.appStatus}/>
     }
+
     return (
       <div className="SubmissionContainer container">
         <UserHeading userName={this.props.userName} period={this.props.params.period} institution={this.props.params.institution}/>

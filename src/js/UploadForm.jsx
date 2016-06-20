@@ -4,7 +4,8 @@ var api = require('./api');
 
 var UploadForm = React.createClass({
   propTypes: {
-    appStatus: React.PropTypes.object
+    appStatus: React.PropTypes.object,
+    submission: React.PropTypes.string
   },
 
   getDefaultProps: function(){
@@ -12,12 +13,14 @@ var UploadForm = React.createClass({
       appStatus: {
         get: function(){},
         set: function(){}
-      }
+      },
+      submission: '1'
     }
   },
 
   handleSubmit: function(e){
     e.preventDefault();
+    if(!this.state.file) return;
     this.makeRequest(e);
   },
 
@@ -35,6 +38,13 @@ var UploadForm = React.createClass({
 
   getInitialState: function(){
     return {uploaded: 0, file: void 0};
+  },
+
+  componentWillReceiveProps: function(newProps){
+    if(this.props.submission !== newProps.submission){
+      this.setState({uploaded: 0, file: void 0});
+      this.form.reset();
+    }
   },
 
   makeRequest: function(){
@@ -66,9 +76,11 @@ var UploadForm = React.createClass({
   },
 
   render: function(){
+    console.log('rendering', this.state);
+    var self = this;
     return (
       <div className="UploadForm full">
-        <form encType="multipart/form-data" onSubmit={this.handleSubmit}>
+        <form encType="multipart/form-data" onSubmit={this.handleSubmit} ref={function(form){self.form = form}}>
           <input id="hmdaFile" name="hmdaFile" type="file" onChange={this.setFile}></input>
           <input className="btn" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
         </form>

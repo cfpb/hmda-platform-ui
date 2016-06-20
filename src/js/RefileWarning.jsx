@@ -1,36 +1,36 @@
 var React = require('react');
-var Resubmit = require('./Resubmit.jsx');
+var Link = require('react-router').Link;
+var api = require('./api');
 
 var refileText = 'Syntactical and validity errors require file resubmission.'
 var validateText = 'Quality and macro errors must be validated before continuing.'
+
 var RefileWarning = React.createClass({
- //mock link for now
- //get the divs in place for the warning and for no errors
- //hook submission stuff up later
- //and data stuff 
+
   getText: function(){
     var textToRender = null;
-    if(this.props.code === 6){
+
+    if(this.props.code === 7){
       textToRender = refileText;
-    }else if(this.props.code === 7){
+    }else if(this.props.code === 8){
       textToRender = validateText;
     }
 
-    return <h3><span className="cf-icon cf-icon-error cf-icon__3x"></span><span className="refile-text">{textToRender}</span></h3>
+    return <h3><span className="cf-icon cf-icon-error cf-icon__3x"></span><span className="refile-text">{textToRender}{this.getRefileLink()}</span></h3>
   },
 
-  refileLink: function(){
-    return <a>Refile here</a>
+  getRefileLink: function(){
+    var location = api.parseLocation();
+    var href = '/' + location.id + '/' + location.period + '/' + (+location.submission + 1);
+    if(this.props.code === 7) return <Link to={href}> Refile here.</Link>
   },
 
   render: function(){
-    if(this.props.code > 7) return null;
+    if(this.props.code > 8) return null;
 
     return <div className="RefileWarning">
       <div>
-        
         {this.getText()}
-        {this.props.code === 6 ? this.refileLink() : null}
       </div>
     </div>
   }
