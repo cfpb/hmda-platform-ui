@@ -66,7 +66,7 @@ module.exports = {
  },
 
  getSignature: function(url, cb){
-   return getHandler(url, cb, '/sign');
+  return getHandler(url, cb, '/sign');
  },
 
  postSignature: function(url, cb, data){
