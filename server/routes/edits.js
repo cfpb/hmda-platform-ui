@@ -47,18 +47,18 @@ function handlePut(req, res){
 
 router.get('/', function(req, res){
   var sub = +req.params.submission;
-
+  var currEdits = JSON.parse(JSON.stringify(edits));
   if(sub > 1){
-    edits.syntactical = noSyntactical;
-    edits.validity = noValidity;
+    currEdits.syntactical = noSyntactical;
+    currEdits.validity = noValidity;
   }
   if(sub > 2){
-    edits.quality = noQuality;
-    edits.macro = noMacro;
+    currEdits.quality = noQuality;
+    currEdits.macro = noMacro;
   }
 
   count = 0;
-  res.send(edits)
+  res.send(currEdits)
 });
 
 router.put('/:edit', handlePut);
