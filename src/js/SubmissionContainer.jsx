@@ -5,7 +5,7 @@ var ValidationProgress = require('./ValidationProgress.jsx');
 var EditsContainer = require('./EditsContainer.jsx');
 var IRSReport = require('./IRSReport.jsx');
 var Signature = require('./Signature.jsx');
-
+var Summary = require('./Summary.jsx');
 
 var SubmissionContainer = React.createClass({
 
@@ -47,6 +47,7 @@ var SubmissionContainer = React.createClass({
     var summary = null;
     var irs = null;
     var sign = null;
+    var summary = null;
 
     var status = this.state.status;
     if(!status) return null;
@@ -68,9 +69,9 @@ var SubmissionContainer = React.createClass({
     if(code > 9) irs = <IRSReport checked={false} setAppStatus={this.setAppStatus}/>
 
     if(code > 10){
-      irs = <IRSReport checked={true} setAppStatus={this.setAppStatus}/>
-      summary = <p>Summary component here</p>
-      sign = <Signature checked={false} setAppStatus={this.setAppStatus}/>
+      irs = <IRSReport clicked={this.toggleIRSCheck} checked='checked'/>
+      summary = <Summary/> // TODO: will have a prop added
+      sign = <Signature clicked={this.toggleSignature}/>
     }
 
     if(code > 12){
