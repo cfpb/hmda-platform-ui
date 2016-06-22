@@ -22,7 +22,6 @@ var EditsDetail = React.createClass({
 
     var headers = Object.keys(this.props.details[0]);
     if(!headers) return null;
-    if(headers.indexOf('verification') !== -1) headers.push('verified');
 
     var primary = self.props.primary;
     var setAppStatus = self.props.setAppStatus;
