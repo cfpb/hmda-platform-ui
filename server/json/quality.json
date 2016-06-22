@@ -6,15 +6,15 @@
       "lars": [
         {
           "lar": {"loanId": "q1"},
-          "verification": ""
+          "verified": true
         },
         {
           "lar": {"loanId": "q2"},
-          "verification": ""
+          "verified": false
         },
         {
           "lar": {"loanId": "q3"},
-          "verification": ""
+          "verified": false
         }
       ]
     }
