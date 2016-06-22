@@ -12,12 +12,14 @@ var larDetail = {
 
 var macroDetail= {
   edit: 'm1',
-  verification: ''
+  verification: '',
+  verified: false
 };
 
 var macroDetailVerified = {
   edit: 'm1',
-  verification: 'Verified'
+  verification: 'Verified',
+  verified: true
 };
 var WrapperTable = React.createClass({
   render: function() {
@@ -75,4 +77,3 @@ describe('EditsDetailRow', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithTag(mr3, 'textarea').length).toEqual(0);
   });
 });
-

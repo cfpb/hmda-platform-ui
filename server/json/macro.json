@@ -3,10 +3,12 @@
   "edits": [
     {
       "edit": "m1",
-      "verification": ""
+      "verification": "asdf",
+      "verified": true
     }, {
       "edit": "m2",
-      "verification": ""
+      "verification": "",
+      "verified": false
     }
   ]
 }

@@ -13,27 +13,35 @@ var EditsDetailRow = React.createClass({
   componentWillMount: function(){
     this.setState({
       verification: this.props.detail.verification,
-      verified: !!this.props.detail.verification
+      verified: this.props.detail.verified
     });
   },
 
   makeTdContent: function(detail, field){
     if(field === 'verification'){
-      if(this.state.verified) return this.state.verification;
-      else return <textarea onChange={this.updateText} value={this.state.verification}/>
+      if(this.state.verified) {
+        return this.state.verification;
+      }
+      else {
+        return <textarea onChange={this.updateText} value={this.state.verification}/>
+      }
     }
+
     if(field === 'lar') return detail[field].loanId;
+
+    if(field === 'verified') return this.makeCheck()
+
     return detail[field];
   },
 
   makeCheck: function(){
-    if(this.state.verification !== undefined){
-      return <td><input type="checkbox" onChange={this.toggleText} checked={this.state.verified}/></td>
+    if(this.state.verified !== undefined){
+      return <input type="checkbox" onChange={this.toggleText} checked={this.state.verified}/>
     }
   },
 
   toggleText: function(e){
-    if(!this.state.verification){
+    if(this.state.verification === ''){
       return e.preventDefault();
     }
 
@@ -59,7 +67,6 @@ var EditsDetailRow = React.createClass({
         return <td key={i}>{self.makeTdContent(detail, field)}</td>
       }
       )}
-      {self.makeCheck()}
     </tr>
   }
 });
