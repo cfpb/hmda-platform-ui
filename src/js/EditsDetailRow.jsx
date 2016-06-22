@@ -19,10 +19,16 @@ var EditsDetailRow = React.createClass({
 
   makeTdContent: function(detail, field){
     if(field === 'verification'){
-      if(this.state.verified) return this.state.verification;
-      else return <textarea onChange={this.updateText} value={this.state.verification}/>
+      if(this.state.verified) {
+        return this.state.verification;
+      }
+      else {
+        return <textarea onChange={this.updateText} value={this.state.verification}/>
+      }
     }
+
     if(field === 'lar') return detail[field].loanId;
+    
     return detail[field];
   },
 
