@@ -68,6 +68,6 @@ describe('EditsDetail', function(){
   });
 
   it('renders all the checkboxes, including check all', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(qualityDetail, 'input').length).toEqual(4);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(qualityDetail, 'input').length).toEqual(1);
   });
 });

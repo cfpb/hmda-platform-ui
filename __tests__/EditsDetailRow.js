@@ -52,7 +52,7 @@ describe('EditsDetailRow', function(){
   });
 
   it('renders macro elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroRow, 'td').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroRow, 'td').length).toEqual(4);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroRow, 'textarea').length).toEqual(1);
   });
 
@@ -63,7 +63,7 @@ describe('EditsDetailRow', function(){
   )
 
   it('updates when the textarea is updated', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(mr2, 'td').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(mr2, 'td').length).toEqual(4);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(mr2, 'textarea')[0].value).toEqual('updated');
   });
 
@@ -73,7 +73,7 @@ describe('EditsDetailRow', function(){
   )
 
   it('updates when the checkbox is clicked', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(mr3, 'td').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(mr3, 'td').length).toEqual(4);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(mr3, 'textarea').length).toEqual(0);
   });
 });
