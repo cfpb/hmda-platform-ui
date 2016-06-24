@@ -117,13 +117,13 @@ var EditsContainer = React.createClass({
     return (
       <div className="EditsContainerBody">
         <EditsHeaderDescription>Syntactical Edits</EditsHeaderDescription>
-        <EditsGrouped group={this.state.syntactical.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
+        <EditsGrouped group={this.state.syntactical.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus} type="syntactical"/>
 
         <EditsHeaderDescription>Validity Edits</EditsHeaderDescription>
-        <EditsGrouped group={this.state.validity.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
+        <EditsGrouped group={this.state.validity.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus} type="validity"/>
 
         <EditsHeaderDescription>Quality Edits</EditsHeaderDescription>
-        <EditsGrouped group={this.state.quality.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
+        <EditsGrouped group={this.state.quality.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus} type="quality"/>
 
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
         <EditsMacro group={this.state.macro.edits} setAppStatus={this.props.setAppStatus}/>

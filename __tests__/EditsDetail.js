@@ -11,6 +11,7 @@ var EditsDetail = require('../src/js/EditsDetail.jsx');
 
 var syntacticalObj = JSON.parse(fs.readFileSync('./server/json/syntactical.json'));
 var macroObj = JSON.parse(fs.readFileSync('./server/json/macro.json'));
+var qualityObj = JSON.parse(fs.readFileSync('./server/json/quality.json'));
 
 describe('EditsDetail', function(){
 
@@ -47,7 +48,26 @@ describe('EditsDetail', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'table').length).toEqual(1);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'tr').length).toEqual(3);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'td').length).toEqual(6);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'textarea').length).toEqual(2);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroDetail, 'textarea').length).toEqual(1);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(macroDetail, 'expandable_content').length).toEqual(1);
+  });
+
+  var qualityDetail = TestUtils.renderIntoDocument(<EditsDetail details={qualityObj.edits[0].lars} type="quality"/>);
+  var qualityNode = ReactDOM.findDOMNode(qualityDetail);
+
+  it('renders the component', function(){
+    expect(qualityNode).toBeDefined();
+  });
+
+  it('passes through the edits appropriately as props', function(){
+    expect(qualityDetail.props.details).toEqual(qualityObj.edits[0].lars);
+  });
+
+  it('passes through the type', function(){
+    expect(qualityDetail.props.type).toEqual('quality');
+  });
+
+  it('renders all the checkboxes, including check all', function(){
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(qualityDetail, 'input').length).toEqual(1);
   });
 });

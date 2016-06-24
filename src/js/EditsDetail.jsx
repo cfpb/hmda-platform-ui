@@ -5,7 +5,8 @@ var EditsDetail = React.createClass({
   propTypes: {
     details: React.PropTypes.array,
     primary: React.PropTypes.string,
-    setAppStatus: React.PropTypes.func
+    setAppStatus: React.PropTypes.func,
+    type: React.PropTypes.string
   },
 
   headerMap: {
@@ -14,6 +15,18 @@ var EditsDetail = React.createClass({
     type: 'Edit Type',
     verification: 'Verification',
     verified: 'Verified'
+  },
+
+  renderCheckAll: function() {
+    if(this.props.type === 'quality') {
+      return (
+        <tr>
+          <td>
+            <input type="checkbox" value="Verify all {this.props.primary} quality" /> I certify to the accuracy of all data fields referenced by the {this.props.primary} quality edits.
+          </td>
+        </tr>
+      )
+    }
   },
 
   render: function() {
@@ -41,8 +54,10 @@ var EditsDetail = React.createClass({
             {this.props.details.map(function(detail, i){
               return <EditsDetailRow id={i} key={i} primary={primary} detail={detail} setAppStatus={setAppStatus}/>
             })}
+            {self.renderCheckAll()}
           </tbody>
         </table>
+
       </div>
     )
   }

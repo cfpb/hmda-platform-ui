@@ -13,16 +13,22 @@ var EditsDetailRow = React.createClass({
   componentWillMount: function(){
     this.setState({
       verification: this.props.detail.verification,
-      verified: !!this.props.detail.verification
+      verified: this.props.detail.verified || !!this.props.detail.verification
     });
   },
 
   makeTdContent: function(detail, field){
     if(field === 'verification'){
-      if(this.state.verified) return this.state.verification;
-      else return <textarea onChange={this.updateText} value={this.state.verification}/>
+      if(this.state.verified) {
+        return this.state.verification;
+      }
+      else {
+        return <textarea onChange={this.updateText} value={this.state.verification}/>
+      }
     }
+
     if(field === 'lar') return detail[field].loanId;
+
     return detail[field];
   },
 
