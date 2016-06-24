@@ -21,7 +21,7 @@ var EditsDetail = React.createClass({
     if(this.props.type === 'quality') {
       return (
         <tr>
-          <td colSpan="2">
+          <td>
             <input type="checkbox" value="Verify all {this.props.primary} quality" /> I certify to the accuracy of all data fields referenced by the {this.props.primary} quality edits.
           </td>
         </tr>
@@ -35,6 +35,7 @@ var EditsDetail = React.createClass({
 
     var headers = Object.keys(this.props.details[0]);
     if(!headers) return null;
+    if(headers.indexOf('verification') !== -1) headers.push('verified');
 
     var primary = self.props.primary;
     var setAppStatus = self.props.setAppStatus;
