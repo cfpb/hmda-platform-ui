@@ -3,18 +3,28 @@
   "edits": [
     {
       "edit": "quality1337",
+      "verified": true,
       "lars": [
         {
-          "lar": {"loanId": "q1"},
-          "verified": true
+          "lar": {"loanId": "q1"}
         },
         {
-          "lar": {"loanId": "q2"},
-          "verified": false
+          "lar": {"loanId": "q2"}
         },
         {
-          "lar": {"loanId": "q3"},
-          "verified": false
+          "lar": {"loanId": "q3"}
+        }
+      ]
+    },
+    {
+      "edit": "quality1338",
+      "verified": false,
+      "lars": [
+        {
+          "lar": {"loanId": "q4"}
+        },
+        {
+          "lar": {"loanId": "q5"}
         }
       ]
     }
