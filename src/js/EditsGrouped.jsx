@@ -8,12 +8,12 @@ var EditsGrouped = React.createClass({
     appStatus: React.PropTypes.object
   },
 
-  getPrimary: function(groupObj){
-    return this.props.groupByRow ? groupObj.lar.loanId : groupObj.edit;
+  getLabel: function(details){
+    return this.props.groupByRow ? details.lar.loanId : details.edit;
   },
 
-  getSecondary: function(groupObj){
-    return this.props.groupByRow ? groupObj.edits: groupObj.lars;
+  getSubGroup: function(details){
+    return this.props.groupByRow ? details.edits: details.lars;
   },
 
   renderHeader: function(){
@@ -37,26 +37,26 @@ var EditsGrouped = React.createClass({
     return (
       <div className="EditsGrouped full edits expandable-group">
         {this.renderHeader()}
-        {this.props.group.map(function(groupObj, i) {
-          var primary = self.getPrimary(groupObj);
+        {this.props.group.map(function(details, i) {
+          var label = self.getLabel(details);
           return (
             <div className="EditsSummary expandable" key={i}>
               <button className="expandable_header expandable_target" title="Expand content">
                 <span className="half summary expandable_label">
-                  {primary}
+                  {label}
                 </span>
                 <span className="half summary expandable_link">
                   <span className="expandable_cue-open">
-                      {self.getSecondary(groupObj).length}
+                      {self.getSubGroup(details).length}
                       <span className="cf-icon cf-icon-plus-round"></span>
                   </span>
                   <span className="expandable_cue-close">
-                      {self.getSecondary(groupObj).length}
+                      {self.getSubGroup(details).length}
                       <span className="cf-icon cf-icon-minus-round"></span>
                   </span>
                 </span>
               </button>
-              <EditsDetail primary={primary} details={self.getSecondary(groupObj)} appStatus={self.props.appStatus}/>
+              <EditsDetail label={label} details={details} appStatus={self.props.appStatus}/>
             </div>
           )
         })}

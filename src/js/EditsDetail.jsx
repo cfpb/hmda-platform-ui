@@ -1,11 +1,20 @@
 var React = require('react');
+var api = require('./api');
 var EditsDetailRow = require('./EditsDetailRow.jsx');
 
 var EditsDetail = React.createClass({
   propTypes: {
-    details: React.PropTypes.array,
-    primary: React.PropTypes.string,
+    details: React.PropTypes.object,
+    label: React.PropTypes.string,
     appStatus: React.PropTypes.object
+  },
+
+  componentWillMount: function(){
+    if(!this.props.details) return;
+
+    this.setState({
+      verified: this.props.details.verified
+    })
   },
 
   headerMap: {
@@ -16,15 +25,37 @@ var EditsDetail = React.createClass({
     verified: 'Verified'
   },
 
+  verify: function(e){
+    var checked = e.target.checked;
+
+    var edit = this.props.label;
+    var data = {verified: checked};
+
+    api.putEdit(edit, data, this.props.appStatus.set)
+    this.setState({verified: checked});
+  },
+
+  renderCheckAll: function() {
+    var id = this.props.label + 'CheckAll';
+    return (
+      <tr>
+        <td>
+          <input type="checkbox" id={id} onChange={this.verify} checked={this.state.verified}/><label htmlFor={id}> I certify the accuracy of all data fields referenced by the {this.props.label} edits.</label>
+        </td>
+      </tr>
+    )
+  },
+
   render: function() {
     var self = this;
-    if(!this.props.details || !this.props.details[0]) return null;
+    var subGroup = this.props.details.edit ? this.props.details.lars : this.props.details.edits;
+    if(!subGroup || !subGroup[0]) return null;
 
-    var headers = Object.keys(this.props.details[0]);
+    var headers = Object.keys(subGroup[0]);
     if(!headers) return null;
     if(headers.indexOf('verification') !== -1) headers.push('verified');
 
-    var primary = self.props.primary;
+    var label = self.props.label;
     var appStatus = self.props.appStatus;
 
     return (
@@ -38,9 +69,10 @@ var EditsDetail = React.createClass({
             </tr>
           </thead>
           <tbody>
-            {this.props.details.map(function(detail, i){
-              return <EditsDetailRow id={i} key={i} primary={primary} detail={detail} appStatus={appStatus}/>
+            {subGroup.map(function(detail, i){
+              return <EditsDetailRow id={i} key={i} label={label} detail={detail} appStatus={appStatus}/>
             })}
+            {this.props.details.verified !== undefined && this.props.details.edit ? this.renderCheckAll() : null}
           </tbody>
         </table>
       </div>

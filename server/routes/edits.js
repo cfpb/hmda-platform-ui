@@ -41,7 +41,7 @@ var count = 0;
 
 function handlePut(req, res){
   req.body.verification || req.body.verified ? count++ : count--;
-  var code = count === 5 ? 10 : 8;
+  var code = count === 3 ? 10 : 8;
   res.send({status:{code: code, message: ''}});
 }
 
