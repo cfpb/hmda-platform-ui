@@ -7,6 +7,9 @@ var validateText = 'Quality and macro edits must be validated before continuing.
 
 var RefileWarning = React.createClass({
 
+  propTypes: {
+    code: React.PropTypes.number
+  },
   getText: function(){
     var textToRender = null;
 

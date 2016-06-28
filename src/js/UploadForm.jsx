@@ -10,10 +10,6 @@ var UploadForm = React.createClass({
 
   getDefaultProps: function(){
     return {
-      appStatus: {
-        get: function(){},
-        set: function(){}
-      },
       submission: '1'
     }
   },

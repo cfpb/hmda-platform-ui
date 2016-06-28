@@ -50,6 +50,6 @@ class ValidationProgress extends React.Component {
 }
 
 ValidationProgress.propTypes = {initialCode: React.PropTypes.number, appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired};
-ValidationProgress.defaultProps = {initialCode: 3, appStatus: {get: function(){}, set: function(){}}};
+ValidationProgress.defaultProps = {initialCode: 3};
 
 module.exports = ValidationProgress;

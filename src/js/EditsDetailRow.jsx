@@ -10,10 +10,6 @@ var EditsDetailRow = React.createClass({
     appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired
   },
 
-  defaultProps: {
-    appStatus: {get: function(){}, set: function(){}}
-  },
-
   componentWillMount: function(){
     var verified = this.props.detail.verified
     this.setState({
