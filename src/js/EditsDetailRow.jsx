@@ -7,11 +7,7 @@ var EditsDetailRow = React.createClass({
     detail: React.PropTypes.object.isRequired,
     label: React.PropTypes.string,
     id: React.PropTypes.number,
-    appStatus: React.PropTypes.object
-  },
-
-  defaultProps: {
-    appStatus: {get: function(){}, set: function(){}}
+    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired
   },
 
   componentWillMount: function(){

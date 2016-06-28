@@ -6,7 +6,7 @@ var EditsDetail = React.createClass({
   propTypes: {
     details: React.PropTypes.object,
     label: React.PropTypes.string,
-    appStatus: React.PropTypes.object
+    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired
   },
 
   componentWillMount: function(){

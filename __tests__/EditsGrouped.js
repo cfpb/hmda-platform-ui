@@ -10,9 +10,11 @@ var EditsGrouped = require('../src/js/EditsGrouped.jsx');
 
 var syntacticalObj = JSON.parse(fs.readFileSync('./server/json/syntactical.json'));
 
+var appStatus = {get: jest.fn(), set: jest.fn()};
+
 describe('EditsGrouped', function(){
 
-  var syntacticalComponent = <EditsGrouped group={syntacticalObj.edits} groupByRow={false}/>
+  var syntacticalComponent = <EditsGrouped appStatus={appStatus} group={syntacticalObj.edits} groupByRow={false}/>
   var syntactical = TestUtils.renderIntoDocument(syntacticalComponent);
   var syntacticalNode = ReactDOM.findDOMNode(syntactical);
 
@@ -36,7 +38,7 @@ describe('EditsGrouped', function(){
     expect(syntactical.getSecondary({lar: {loanId: '1'}, edit: 'q1', lars: []})).toEqual([]);
   });
 
-  var syntacticalComponent2 = <EditsGrouped group={[{lar:{loanId: '1'}, edits:[{edit:'e1', type:'syntactical'}]},{lar:{loanId: '2'}, edits:[{edit:'e2', type:'syntactical'}]},{lar:{loanId: '3'}, edits:[{edit:'e3', type:'syntactical'}]}]} groupByRow={true}/>
+  var syntacticalComponent2 = <EditsGrouped appStatus={appStatus} group={[{lar:{loanId: '1'}, edits:[{edit:'e1', type:'syntactical'}]},{lar:{loanId: '2'}, edits:[{edit:'e2', type:'syntactical'}]},{lar:{loanId: '3'}, edits:[{edit:'e3', type:'syntactical'}]}]} groupByRow={true}/>
   var syntactical2 = TestUtils.renderIntoDocument(syntacticalComponent2);
   var syntacticalNode2 = ReactDOM.findDOMNode(syntactical2);
 
