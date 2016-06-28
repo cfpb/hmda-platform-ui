@@ -12,9 +12,11 @@ var EditsDetail = require('../src/js/EditsDetail.jsx');
 var syntacticalObj = JSON.parse(fs.readFileSync('./server/json/syntactical.json'));
 var macroObj = JSON.parse(fs.readFileSync('./server/json/macro.json'));
 
+var appStatus = {get: jest.fn(), set: jest.fn()};
+
 describe('EditsDetail', function(){
 
-  var syntacticalDetail = TestUtils.renderIntoDocument(<EditsDetail details={syntacticalObj.edits[0].lars}/>);
+  var syntacticalDetail = TestUtils.renderIntoDocument(<EditsDetail appStatus={appStatus} details={syntacticalObj.edits[0].lars}/>);
   var syntacticalNode = ReactDOM.findDOMNode(syntacticalDetail);
 
   it('renders the component', function(){
@@ -32,7 +34,7 @@ describe('EditsDetail', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithClass(syntacticalDetail, 'expandable_content').length).toEqual(1);
   });
 
-  var macroDetail = TestUtils.renderIntoDocument(<EditsDetail details={macroObj.edits}/>);
+  var macroDetail = TestUtils.renderIntoDocument(<EditsDetail appStatus={appStatus} details={macroObj.edits}/>);
   var macroNode = ReactDOM.findDOMNode(macroDetail);
 
   it('renders the component', function(){

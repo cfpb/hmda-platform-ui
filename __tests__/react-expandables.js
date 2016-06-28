@@ -21,6 +21,8 @@ var quality = JSON.parse(fs.readFileSync('./server/json/quality.json'));
 var macro = JSON.parse(fs.readFileSync('./server/json/macro.json'));
 var lars = JSON.parse(fs.readFileSync('./server/json/lars.json'));
 
+var appStatus = {get: jest.fn(), set: jest.fn()};
+
 api.getEditsByType = jest.fn(function(cb){
   cb(null, {
     syntactical: syntactical,
@@ -45,8 +47,7 @@ expandables.update = jest.fn(function(){
   oldUpdate.bind(expandables)();
 });
 
-var containerComponent = <EditsContainer/>
-var container = TestUtils.renderIntoDocument(containerComponent);
+var container = TestUtils.renderIntoDocument(<EditsContainer appStatus={appStatus}/>);
 var containerNode = ReactDOM.findDOMNode(container);
 
 describe('expandables', function(){
