@@ -28,7 +28,7 @@ var InstitutionStatus = React.createClass({
     var submission = this.props.institution.currentSubmission;
     var submissionRoute = submission === 0 ? 1 : submission;
     var appLink = '/' + id + '/' + period + '/' + submissionRoute;
-    var statusLink = <Link to={appLink}>View filing status</Link>
+    var statusLink = <Link className="statusLink" to={appLink}>View filing status</Link>
     var statusText = null;
     var resubmit = <Resubmit period={period} id={id} submission={+submission + 1}/>;
 
@@ -38,7 +38,7 @@ var InstitutionStatus = React.createClass({
         statusLink = null;
         break;
       case 0:
-        statusLink = <Link to={appLink} onClick={this.checkSubmission}>Begin filing</Link>
+        statusLink = <Link className="statusLink" to={appLink} onClick={this.checkSubmission}>Begin filing</Link>
         resubmit = null;
         break;
       case 2:
@@ -56,17 +56,17 @@ var InstitutionStatus = React.createClass({
         break;
       case 9:
       case 10:
-        statusLink = <Link to={appLink}>Review and verify your IRS Report</Link>
+        statusLink = <Link className="statusLink" to={appLink}>Review and verify your IRS Report</Link>
         statusText = <p>All checks complete. You must review and verify your IRS report before continuing.</p>
         break;
       case 11:
-        statusLink = <Link to={appLink}>Sign your filing</Link>
+        statusLink = <Link className="statusLink" to={appLink}>Sign your filing</Link>
         statusText = <p>All checks and verification complete. Review the summary report and sign the submission.</p>
         break;
       case 12:
       case 13:
         statusText = <p>All checks complete, verified, and signed.</p>
-        statusLink = <Link to={appLink}>View completed filing</Link>
+        statusLink = <Link className="statusLink" to={appLink}>View completed filing</Link>
         break;
       default:
         throw new Error('Unexpected institution status');

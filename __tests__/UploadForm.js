@@ -12,7 +12,7 @@ var UploadForm = require('../src/js/UploadForm.jsx');
 
 describe('submitform', function(){
   var mockedCb = jest.genMockFn();
-  var form = TestUtils.renderIntoDocument(<UploadForm setAppStatus={mockedCb}/>);
+  var form = TestUtils.renderIntoDocument(<UploadForm appStatus={{set:mockedCb}}/>);
   var formNode = ReactDOM.findDOMNode(form);
 
   it('renders the form', function(){

@@ -26,7 +26,7 @@ describe('irs report', function(){
     expect(status.code).toBe(13);
   }
 
-  var signature = TestUtils.renderIntoDocument(<Signature setAppStatus={uncheckedToggle} checked={false}/>)
+  var signature = TestUtils.renderIntoDocument(<Signature appStatus={{set:uncheckedToggle}} checked={false}/>)
   var signatureNode = ReactDOM.findDOMNode(signature);
 
   it('renders the signature component', function(){
@@ -61,7 +61,7 @@ describe('irs report', function(){
       expect(status.code).toBe(12);
     }
 
-    var signatureChecked = TestUtils.renderIntoDocument(<Signature setAppStatus={checkedToggle} checked={true}/>);
+    var signatureChecked = TestUtils.renderIntoDocument(<Signature appStatus={{set:checkedToggle}} checked={true}/>);
     var checkbox = TestUtils.findRenderedDOMComponentWithTag(signatureChecked, 'input');
     expect(checkbox.checked).toBeTruthy();
 

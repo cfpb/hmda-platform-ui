@@ -5,7 +5,7 @@ var EditsGrouped = React.createClass({
   propTypes: {
     group: React.PropTypes.array,
     groupByRow: React.PropTypes.bool,
-    setAppStatus: React.PropTypes.func
+    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired
   },
 
   getPrimary: function(groupObj){
@@ -29,6 +29,11 @@ var EditsGrouped = React.createClass({
 
   render: function(){
     var self = this;
+    if(!this.props.group.length) return (
+        <div className="EditsGrouped">
+          <h4 className="EditsGrouped"><span className="cf-icon cf-icon-approved"></span>No edits found</h4>
+        </div>
+      )
     return (
       <div className="EditsGrouped full edits expandable-group">
         {this.renderHeader()}
@@ -51,7 +56,7 @@ var EditsGrouped = React.createClass({
                   </span>
                 </span>
               </button>
-              <EditsDetail primary={primary} details={self.getSecondary(groupObj)} setAppStatus={self.props.setAppStatus}/>
+              <EditsDetail primary={primary} details={self.getSecondary(groupObj)} appStatus={self.props.appStatus}/>
             </div>
           )
         })}

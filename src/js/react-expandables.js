@@ -10,6 +10,8 @@ class ClickHandler {
     this.$content = $el.find('.expandable_content').not( $el.find('.expandable .expandable_content'));
 
     $el.attr('aria-controls', this.$content.attr('id'));
+
+    this.initRun = false;
   }
 
   calculateExpandDuration(height){
@@ -74,6 +76,8 @@ class Expandable {
   }
 
   init(){
+    if(this.initRun) return;
+    this.initRun = true;
     this.update();
     $('body').on( 'click', this.handleClick.bind(this));
   }

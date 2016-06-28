@@ -3,7 +3,7 @@ var api = require('./api');
 
 var IRS = React.createClass({
   propTypes: {
-    setAppStatus: React.PropTypes.func.isRequired,
+    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
     checked: React.PropTypes.bool
   },
 
@@ -26,7 +26,7 @@ var IRS = React.createClass({
   },
 
   toggleCheck: function(e){
-    api.postIRS(this.props.setAppStatus, {verified: e.target.checked});
+    api.postIRS(this.props.appStatus.set, {verified: e.target.checked});
   },
 
 

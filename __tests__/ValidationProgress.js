@@ -10,7 +10,7 @@ var cb = jest.fn();
 
 describe('ValidationProgress', function(){
 
-  var progress = TestUtils.renderIntoDocument(<ValidationProgress initialCode={4} setAppStatus={cb}/>);
+  var progress = TestUtils.renderIntoDocument(<ValidationProgress initialCode={4} appStatus={{set: cb}}/>);
   var progressNode = ReactDOM.findDOMNode(progress);
 
   it('renders the component', function(){
@@ -34,7 +34,7 @@ describe('ValidationProgress', function(){
 
   it('renders the component and its children after polling', function(){
 
-    var progress2 = TestUtils.renderIntoDocument(<ValidationProgress initialCode={3} setAppStatus={cb}/>);
+    var progress2 = TestUtils.renderIntoDocument(<ValidationProgress initialCode={3} appStatus={{set: cb}}/>);
     var progressNode2 = ReactDOM.findDOMNode(progress);
 
     expect(progressNode2).toBeDefined();

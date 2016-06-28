@@ -5,7 +5,7 @@ var EditsDetail = React.createClass({
   propTypes: {
     details: React.PropTypes.array,
     primary: React.PropTypes.string,
-    setAppStatus: React.PropTypes.func
+    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired
   },
 
   headerMap: {
@@ -25,7 +25,7 @@ var EditsDetail = React.createClass({
     if(headers.indexOf('verification') !== -1) headers.push('verified');
 
     var primary = self.props.primary;
-    var setAppStatus = self.props.setAppStatus;
+    var appStatus = self.props.appStatus;
 
     return (
       <div className="EditsDetail expandable_content">
@@ -39,7 +39,7 @@ var EditsDetail = React.createClass({
           </thead>
           <tbody>
             {this.props.details.map(function(detail, i){
-              return <EditsDetailRow id={i} key={i} primary={primary} detail={detail} setAppStatus={setAppStatus}/>
+              return <EditsDetailRow id={i} key={i} primary={primary} detail={detail} appStatus={appStatus}/>
             })}
           </tbody>
         </table>

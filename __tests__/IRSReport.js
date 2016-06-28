@@ -25,7 +25,7 @@ describe('irs report', function(){
     expect(status.status.code).toBe(11);
   }
 
-  var irsReport = TestUtils.renderIntoDocument(<IRSReport checked={false} setAppStatus={uncheckedToggle}/>);
+  var irsReport = TestUtils.renderIntoDocument(<IRSReport checked={false} appStatus={{set:uncheckedToggle}}/>);
   var irsReportNode = ReactDOM.findDOMNode(irsReport);
 
   it('renders the irs report component', function(){
@@ -57,7 +57,7 @@ describe('irs report', function(){
       expect(status.status.code).toBe(10);
     }
 
-    var irsReportChecked = TestUtils.renderIntoDocument(<IRSReport checked={true} setAppStatus={checkedToggle}/>);
+    var irsReportChecked = TestUtils.renderIntoDocument(<IRSReport checked={true} appStatus={{set: checkedToggle}}/>);
     var checkbox = TestUtils.findRenderedDOMComponentWithTag(irsReportChecked, 'input');
     expect(checkbox.checked).toBeTruthy();
 

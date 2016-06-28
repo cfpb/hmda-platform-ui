@@ -4,23 +4,25 @@ var api = require('./api');
 
 var UploadForm = React.createClass({
   propTypes: {
-    setAppStatus: React.PropTypes.func
+    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
+    submission: React.PropTypes.string
   },
 
   getDefaultProps: function(){
     return {
-      setAppStatus: function(){}
+      submission: '1'
     }
   },
 
   handleSubmit: function(e){
     e.preventDefault();
+    if(!this.state.file) return;
     this.makeRequest(e);
   },
 
   handleLoad: function(e){
-    if(e.target.status !== 202) return this.props.setAppStatus({code: -1, message: 'Error uploading file'});
-    this.props.setAppStatus(null, {code: 3, message: ''});
+    if(e.target.status !== 202) return this.props.appStatus.set({code: -1, message: 'Error uploading file'});
+    this.props.appStatus.set(null, {code: 3, message: ''});
   },
 
   setFile: function(e){
@@ -32,6 +34,13 @@ var UploadForm = React.createClass({
 
   getInitialState: function(){
     return {uploaded: 0, file: void 0};
+  },
+
+  componentWillReceiveProps: function(newProps){
+    if(this.props.submission !== newProps.submission){
+      this.setState({uploaded: 0, file: void 0});
+      this.form.reset();
+    }
   },
 
   makeRequest: function(){
@@ -63,9 +72,10 @@ var UploadForm = React.createClass({
   },
 
   render: function(){
+    var self = this;
     return (
       <div className="UploadForm full">
-        <form encType="multipart/form-data" onSubmit={this.handleSubmit}>
+        <form encType="multipart/form-data" onSubmit={this.handleSubmit} ref={function(form){self.form = form}}>
           <input id="hmdaFile" name="hmdaFile" type="file" onChange={this.setFile}></input>
           <input className="btn" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
         </form>

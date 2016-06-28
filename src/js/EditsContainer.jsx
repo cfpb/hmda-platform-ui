@@ -23,7 +23,7 @@ var EditsContainer = React.createClass({
   },
 
   propTypes: function(){
-    setAppStatus: React.PropTypes.func
+    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired
   },
 
   componentWillMount: function(){
@@ -117,16 +117,16 @@ var EditsContainer = React.createClass({
     return (
       <div className="EditsContainerBody">
         <EditsHeaderDescription>Syntactical Edits</EditsHeaderDescription>
-        <EditsGrouped group={this.state.syntactical.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
+        <EditsGrouped group={this.state.syntactical.edits} groupByRow={this.state.groupByRow} appStatus={this.props.appStatus}/>
 
         <EditsHeaderDescription>Validity Edits</EditsHeaderDescription>
-        <EditsGrouped group={this.state.validity.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
+        <EditsGrouped group={this.state.validity.edits} groupByRow={this.state.groupByRow} appStatus={this.props.appStatus}/>
 
         <EditsHeaderDescription>Quality Edits</EditsHeaderDescription>
-        <EditsGrouped group={this.state.quality.edits} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
+        <EditsGrouped group={this.state.quality.edits} groupByRow={this.state.groupByRow} appStatus={this.props.appStatus}/>
 
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
-        <EditsMacro group={this.state.macro.edits} setAppStatus={this.props.setAppStatus}/>
+        <EditsMacro group={this.state.macro.edits} appStatus={this.props.appStatus}/>
 
         <EditsHeaderDescription>Q029 Edits</EditsHeaderDescription>
         <EditsQ029 group={this.state.q029.edits}/>
@@ -141,10 +141,10 @@ var EditsContainer = React.createClass({
     return (
       <div className="EditsContainerBody">
         <EditsHeaderDescription>Loan Application Records</EditsHeaderDescription>
-        <EditsGrouped group={this.state.lars} groupByRow={this.state.groupByRow} setAppStatus={this.props.setAppStatus}/>
+        <EditsGrouped group={this.state.lars} groupByRow={this.state.groupByRow} appStatus={this.props.appStatus}/>
 
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
-        <EditsMacro group={this.state.macro.edits} setAppStatus={this.props.setAppStatus}/>
+        <EditsMacro group={this.state.macro.edits} appStatus={this.props.appStatus}/>
 
         <EditsHeaderDescription>Q029 Edits</EditsHeaderDescription>
         <EditsQ029 group={this.state.q029.edits}/>
