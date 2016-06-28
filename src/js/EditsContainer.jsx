@@ -22,7 +22,7 @@ var EditsContainer = React.createClass({
     }
   },
 
-  propTypes: function(){
+  propTypes: {
     appStatus: React.PropTypes.object
   },
 
@@ -65,7 +65,6 @@ var EditsContainer = React.createClass({
       edits.forEach(function(editWrapper){
         editWrapper.lars.forEach(function(larWrapper){
           var editObj = {edit: editWrapper.edit, type: type};
-          if(type === 'quality') editObj.verification = larWrapper.verification;
           var id = larWrapper.lar.loanId
           larsObj[id] = larsObj[id] || {lar: larWrapper.lar, edits: []};
           larsObj[id].edits.push(editObj);
@@ -93,11 +92,12 @@ var EditsContainer = React.createClass({
       quality: {edits: {}}
     };
 
+    var self = this;
+
     this.state.lars.forEach(function(larWrapper){
       larWrapper.edits.forEach(function(editWrapper){
         var editList = editObj[editWrapper.type].edits;
         var larObj = {lar: larWrapper.lar}
-        if(editWrapper.type === 'quality') larObj.verification = editWrapper.verification;
 
         editList[editWrapper.edit] = editList[editWrapper.edit] || {edit: editWrapper.edit, lars: []};
         editList[editWrapper.edit].lars.push(larObj);
@@ -106,11 +106,22 @@ var EditsContainer = React.createClass({
 
     Object.keys(editObj).forEach(function(type){
       Object.keys(editObj[type].edits).forEach(function(edit){
+        if(type === 'quality') self.reverify(editObj[type].edits[edit]);
         edits[type].edits.push(editObj[type].edits[edit]);
       });
     });
 
     this.setState(edits);
+  },
+
+  reverify: function(editObj){
+    var label = editObj.edit;
+    var edits = this.state.quality.edits;
+
+    for(var i=0; i<edits.length; i++){
+      var edit = edits[i];
+      if(edit.edit === label) return editObj.verified = edit.verified;
+    }
   },
 
   renderByType: function(){
