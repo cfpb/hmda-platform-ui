@@ -4,7 +4,7 @@ var EditsDetail = require('./EditsDetail.jsx');
 var EditsMacro = React.createClass({
   propTypes: {
     group: React.PropTypes.array,
-    appStatus: React.PropTypes.object
+    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired
   },
   render: function() {
     return (

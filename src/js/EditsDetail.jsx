@@ -5,7 +5,7 @@ var EditsDetail = React.createClass({
   propTypes: {
     details: React.PropTypes.array,
     primary: React.PropTypes.string,
-    appStatus: React.PropTypes.object
+    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired
   },
 
   headerMap: {

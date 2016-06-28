@@ -3,7 +3,7 @@ var api = require('./api');
 
 var IRS = React.createClass({
   propTypes: {
-    appStatus: React.PropTypes.object.isRequired,
+    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
     checked: React.PropTypes.bool
   },
 

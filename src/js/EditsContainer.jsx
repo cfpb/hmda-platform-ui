@@ -23,7 +23,7 @@ var EditsContainer = React.createClass({
   },
 
   propTypes: function(){
-    appStatus: React.PropTypes.object
+    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired
   },
 
   componentWillMount: function(){

@@ -5,7 +5,7 @@ var EditsGrouped = React.createClass({
   propTypes: {
     group: React.PropTypes.array,
     groupByRow: React.PropTypes.bool,
-    appStatus: React.PropTypes.object
+    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired
   },
 
   getPrimary: function(groupObj){

@@ -4,7 +4,7 @@ var api = require('./api');
 
 var UploadForm = React.createClass({
   propTypes: {
-    appStatus: React.PropTypes.object,
+    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
     submission: React.PropTypes.string
   },
 
