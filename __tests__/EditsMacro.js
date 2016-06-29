@@ -27,7 +27,7 @@ var edits = {
 
 describe('EditsMacro', function(){
 
-  var macro = TestUtils.renderIntoDocument(<EditsMacro appStatus={appStatus} group={edits.macro.edits} />);
+  var macro = TestUtils.renderIntoDocument(<EditsMacro appStatus={appStatus} edits={edits.macro}/>);
   var macroNode = ReactDOM.findDOMNode(macro);
 
   it('renders the component', function(){
@@ -35,7 +35,7 @@ describe('EditsMacro', function(){
   });
 
   it('passes through props', function(){
-    expect(macro.props.group).toEqual(edits.macro.edits);
+    expect(macro.props.edits).toEqual(edits.macro);
   });
 
   it('properly renders needed child components', function(){

@@ -5,7 +5,7 @@ var EditsDetailRow = React.createClass({
 
   propTypes: {
     detail: React.PropTypes.object.isRequired,
-    primary: React.PropTypes.string,
+    label: React.PropTypes.string,
     id: React.PropTypes.number,
     appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired
   },
@@ -40,14 +40,13 @@ var EditsDetailRow = React.createClass({
 
     var checked = e.target.checked;
 
-    var loanId = this.props.detail.loanId || this.props.primary;
-    var edit = this.props.detail.edit || this.props.primary;
+    var edit = this.props.detail.edit || this.props.label;
     var data = {};
 
     if(this.props.detail.verified !== undefined) data.verified = checked;
     else data.verification = this.state.verified ? '' : this.state.verification
 
-    api.putEdit(edit, loanId, data, this.props.appStatus.set)
+    api.putEdit(edit, data, this.props.appStatus.set)
     this.setState({verified: checked});
   },
 

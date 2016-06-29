@@ -3,13 +3,13 @@ var EditsDetail = require('./EditsDetail.jsx');
 
 var EditsMacro = React.createClass({
   propTypes: {
-    group: React.PropTypes.array,
+    edits: React.PropTypes.object,
     appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired
   },
   render: function() {
     return (
       <div className="EditsMacro full edits">
-        <EditsDetail details={this.props.group} appStatus={this.props.appStatus}/>
+        <EditsDetail details={this.props.edits} appStatus={this.props.appStatus}/>
       </div>
     )
   }

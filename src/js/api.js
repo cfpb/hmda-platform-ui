@@ -85,9 +85,8 @@ module.exports = {
    return getHandler(url, cb, '/edits/lars');
  },
 
- putEdit: function(edit, loanId, data, cb){
+ putEdit: function(edit, data, cb){
     var suffix = '/edits/' + edit;
-    if(loanId) suffix += '/lars/' + loanId;
     var url = makeUrl(parseLocation(), suffix);
 
     var put = superagent.put(url);
