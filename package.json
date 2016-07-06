@@ -4,14 +4,14 @@
   "description": "Frontend code for the HMDA filing system",
   "main": "index.js",
   "engines": {
-    "node" : ">=6.x"
+    "node": ">=6.x"
   },
   "scripts": {
     "test": "jest",
     "snyk": "snyk test",
     "clean": "rimraf ./dist && mkdir -p ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
     "start": "./server/server.js",
-    "dev:js": "browserify ./src/js/index.js > ./dist/js/app.min.js",
+    "dev:js": "browserify -t envify ./src/js/index.js > ./dist/js/app.min.js",
     "dev:less": "lessc ./src/less/app.less ./dist/css/app.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
     "dev:html": "cp src/index.html dist/index.html",
     "dev:img": "cp src/img/ffiec-logo.png dist/img/ffiec-logo.png",
@@ -45,6 +45,7 @@
     "babelify": "7.2.0",
     "body-parser": "1.15.1",
     "browserify": "13.0.0",
+    "envify": "3.4.1",
     "express": "4.13.4",
     "express-history-api-fallback": "2.0.0",
     "jest-cli": "12.1.1",

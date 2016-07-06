@@ -30,7 +30,15 @@ function postHandler(url, cb, suffix, postData){
 }
 
 function makeUrl(obj, suffix){
-  var url = '/api'
+  var envHost = process.env.HMDA_API_HOST;
+  var envPort = process.env.HMDA_API_PORT;
+  var apiHost = envHost || location.hostname;
+  var apiPort = envHost ? (envPort || '') : (envPort || location.port);
+
+  apiHost = '//' + apiHost
+  if(apiPort) apiPort = ':' + apiPort
+
+  var url = location.protocol + apiHost + apiPort + '/api'
   if(obj.id) url+= '/institutions/' + obj.id;
   if(obj.period) url+= '/periods/' + obj.period;
   if(obj.submission) url+= '/submissions/' + obj.submission;
@@ -45,8 +53,8 @@ function parseLocation(){
 
 module.exports = {
 
- getInstitutions: function(cb){
-   return getHandler('api/institutions', cb);
+ getInstitutions: function(url, cb){
+   return getHandler(url, cb, '/institutions');
  },
 
  getInstitution: function(url, cb){
