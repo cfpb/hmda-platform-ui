@@ -55,7 +55,6 @@ var EditsDetail = React.createClass({
     if(!headers) return null;
     if(headers.indexOf('justification') !== -1) headers.push('verified');
 
-    var label = self.props.label;
     var appStatus = self.props.appStatus;
 
     return (
@@ -70,7 +69,7 @@ var EditsDetail = React.createClass({
           </thead>
           <tbody>
             {subGroup.map(function(detail, i){
-              return <EditsDetailRow id={i} key={i} label={label} detail={detail} appStatus={appStatus}/>
+              return <EditsDetailRow id={i} key={i} detail={detail} appStatus={appStatus}/>
             })}
             {this.props.details.verified !== undefined && this.props.details.edit ? this.renderCheckAll() : null}
           </tbody>
