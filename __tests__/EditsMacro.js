@@ -16,10 +16,10 @@ var edits = {
     "edits": [
       {
         "edit": 'm1',
-        "verification": ""
+        "justification": ""
       }, {
         "id": 2,
-        "verification": "Why not" 
+        "justification": "Why not" 
       }
     ]
   }

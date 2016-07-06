@@ -17,12 +17,12 @@ var larDetail = {
 
 var macroDetail= {
   edit: 'm1',
-  verification: ''
+  justification: ''
 };
 
 var macroDetailVerified = {
   edit: 'm1',
-  verification: 'Verified'
+  justification: 'Verified'
 };
 var WrapperTable = React.createClass({
   render: function() {

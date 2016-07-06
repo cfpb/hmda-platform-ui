@@ -13,15 +13,15 @@ var EditsDetailRow = React.createClass({
   componentWillMount: function(){
     var verified = this.props.detail.verified
     this.setState({
-      verification: this.props.detail.verification,
-      verified: verified !== undefined ? verified : !!this.props.detail.verification
+      justification: this.props.detail.justification,
+      verified: verified !== undefined ? verified : !!this.props.detail.justification
     });
   },
 
   makeTdContent: function(detail, field){
-    if(field === 'verification'){
-      if(this.state.verified) return this.state.verification;
-      else return <textarea onChange={this.updateText} value={this.state.verification}/>
+    if(field === 'justification'){
+      if(this.state.verified) return this.state.justification;
+      else return <textarea onChange={this.updateText} value={this.state.justification}/>
     }
     if(field === 'lar') return detail[field].loanId;
     if(field === 'verified') return this.makeCheck();
@@ -34,9 +34,9 @@ var EditsDetailRow = React.createClass({
   },
 
   verify: function(e){
-    var verification = this.state.verification;
+    var justification = this.state.justification;
 
-    if(verification !== undefined && !verification) return e.preventDefault();
+    if(justification !== undefined && !justification) return e.preventDefault();
 
     var checked = e.target.checked;
 
@@ -44,14 +44,14 @@ var EditsDetailRow = React.createClass({
     var data = {};
 
     if(this.props.detail.verified !== undefined) data.verified = checked;
-    else data.verification = this.state.verified ? '' : this.state.verification
+    else data.justification = this.state.verified ? '' : this.state.justification
 
     api.putEdit(edit, data, this.props.appStatus.set)
     this.setState({verified: checked});
   },
 
   updateText: function(e){
-    this.setState({verification: e.target.value});
+    this.setState({justification: e.target.value});
   },
 
   render: function(){
@@ -62,7 +62,7 @@ var EditsDetailRow = React.createClass({
         return <td key={i}>{self.makeTdContent(detail, field)}</td>
       }
       )}
-      {this.state.verification !== undefined ? <td>{self.makeCheck()}</td> : null}
+      {this.state.justification !== undefined ? <td>{self.makeCheck()}</td> : null}
     </tr>
   }
 });

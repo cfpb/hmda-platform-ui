@@ -3,10 +3,10 @@
   "edits": [
     {
       "edit": "m1",
-      "verification": "Preverified"
+      "justification": "Prejustified"
     }, {
       "edit": "m2",
-      "verification": ""
+      "justification": ""
     }
   ]
 }

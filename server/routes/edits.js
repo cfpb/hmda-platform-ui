@@ -40,7 +40,7 @@ var noMacro= {
 var count = 0;
 
 function handlePut(req, res){
-  req.body.verification || req.body.verified ? count++ : count--;
+  req.body.justification || req.body.verified ? count++ : count--;
   var code = count === 2 ? 10 : 8;
   res.send({status:{code: code, message: ''}});
 }

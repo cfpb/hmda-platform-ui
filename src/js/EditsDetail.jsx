@@ -21,7 +21,7 @@ var EditsDetail = React.createClass({
     edit: 'Edit ID',
     lar: 'Loan ID',
     type: 'Edit Type',
-    verification: 'Verification',
+    justification: 'Justification',
     verified: 'Verified'
   },
 
@@ -53,7 +53,7 @@ var EditsDetail = React.createClass({
 
     var headers = Object.keys(subGroup[0]);
     if(!headers) return null;
-    if(headers.indexOf('verification') !== -1) headers.push('verified');
+    if(headers.indexOf('justification') !== -1) headers.push('verified');
 
     var label = self.props.label;
     var appStatus = self.props.appStatus;
