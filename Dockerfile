@@ -1,23 +1,15 @@
-FROM centos:7
+FROM node:6
 MAINTAINER Andrew Wolfe <awolfe76@gmail.com>
 
-RUN yum -y install epel-release
-RUN yum -y install nginx
-
-# Install npm
-RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
-RUN yum -y install nodejs
-
 RUN mkdir -p /usr/src/app
-
 WORKDIR /usr/src/app
 COPY . /usr/src/app
 
-RUN npm cache clean; npm install
-RUN npm run build
+RUN npm cache clean
+RUN npm install
+RUN npm run clean
+RUN npm run dev:build
 
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
+EXPOSE 3000
 
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "start"]
