@@ -50,7 +50,7 @@ var UploadForm = React.createClass({
       this.setState({uploaded: e.loaded});
     }.bind(this));
 
-    xhr.open('POST', location.origin + api.makeUrl(api.parseLocation()));
+    xhr.open('POST', api.makeUrl(api.parseLocation()));
     xhr.setRequestHeader('Content-Type', 'text/data');
     xhr.setRequestHeader('Content-Disposition', 'inline; filename="' + this.state.file.name + '"');
     xhr.send(this.state.file);
