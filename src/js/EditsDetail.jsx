@@ -21,7 +21,7 @@ var EditsDetail = React.createClass({
     edit: 'Edit ID',
     lar: 'Loan ID',
     type: 'Edit Type',
-    justification: 'Justification',
+    justifications: 'Justifications',
     verified: 'Verified'
   },
 
@@ -40,7 +40,7 @@ var EditsDetail = React.createClass({
     return (
       <tr>
         <td>
-          <input type="checkbox" id={id} onChange={this.verify} checked={this.state.verified}/><label htmlFor={id}> I certify the accuracy of all data fields referenced by the {this.props.label} edits.</label>
+          <input type="checkbox" id={id} onChange={this.verify} checked={this.state.verified}/><label htmlFor={id}>I certify the accuracy of all data fields referenced by the {this.props.label} edits.</label>
         </td>
       </tr>
     )
@@ -53,7 +53,6 @@ var EditsDetail = React.createClass({
 
     var headers = Object.keys(subGroup[0]);
     if(!headers) return null;
-    if(headers.indexOf('justification') !== -1) headers.push('verified');
 
     var appStatus = self.props.appStatus;
 

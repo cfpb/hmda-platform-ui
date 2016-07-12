@@ -10,7 +10,7 @@ var EditsDetailRow = React.createClass({
   },
 
   makeTdContent: function(detail, field){
-    if(field === 'justification') return <Multicheck justification={detail[field]} appStatus={this.props.appStatus}/>
+    if(field === 'justifications') return <Multicheck detail={detail} appStatus={this.props.appStatus}/>
     if(field === 'lar') return detail[field].loanId;
     return detail[field];
   },

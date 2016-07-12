@@ -3,10 +3,33 @@
   "edits": [
     {
       "edit": "m1",
-      "justification": "Prejustified"
-    }, {
+      "justifications": [
+        {
+          "text":"A", 
+          "selected": false
+        },
+        {
+          "text":"B", 
+          "selected": true 
+        },
+        {
+          "text":"C", 
+          "selected": false
+        }
+      ]
+    },
+    {
       "edit": "m2",
-      "justification": ""
+      "justifications": [
+        {
+          "text": "don't worry",
+          "selected": false
+        },
+        {
+          "text": "be happy",
+          "selected": false
+        }
+      ]
     }
   ]
 }
