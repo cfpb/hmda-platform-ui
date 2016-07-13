@@ -5,16 +5,21 @@
       "edit": "m1",
       "justifications": [
         {
-          "text":"A", 
+          "label":"A", 
           "selected": false
         },
         {
-          "text":"B", 
+          "label":"B", 
           "selected": true 
         },
         {
-          "text":"C", 
+          "label":"C", 
           "selected": false
+        },
+        {
+          "label":"Other",
+          "selected": false,
+          "text": ""
         }
       ]
     },
@@ -22,11 +27,11 @@
       "edit": "m2",
       "justifications": [
         {
-          "text": "don't worry",
+          "label": "don't worry",
           "selected": false
         },
         {
-          "text": "be happy",
+          "label": "be happy",
           "selected": false
         }
       ]

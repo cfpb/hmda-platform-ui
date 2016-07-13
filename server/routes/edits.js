@@ -58,7 +58,7 @@ function getCode(){
 }
 
 function checkMacro(){
-  return 5 === Object.keys(macroEdits).reduce(function(prevCount, edit){
+  return 6 === Object.keys(macroEdits).reduce(function(prevCount, edit){
     return prevCount + macroEdits[edit].justifications.reduce(function(prevCount, justification){
       return prevCount + justification.selected
     }, 0)
