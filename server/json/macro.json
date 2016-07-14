@@ -3,10 +3,38 @@
   "edits": [
     {
       "edit": "m1",
-      "verification": "Preverified"
-    }, {
+      "justifications": [
+        {
+          "label":"A", 
+          "selected": false
+        },
+        {
+          "label":"B", 
+          "selected": true 
+        },
+        {
+          "label":"C", 
+          "selected": false
+        },
+        {
+          "label":"Other",
+          "selected": false,
+          "text": ""
+        }
+      ]
+    },
+    {
       "edit": "m2",
-      "verification": ""
+      "justifications": [
+        {
+          "label": "don't worry",
+          "selected": false
+        },
+        {
+          "label": "be happy",
+          "selected": false
+        }
+      ]
     }
   ]
 }

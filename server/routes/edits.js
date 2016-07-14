@@ -37,17 +37,38 @@ var noMacro= {
   edits : []
 }
 
-var count = 0;
+var qualityCount = 1;
+var qualityTotal = 2;
+
+var macroEdits = {};
 
 function handlePut(req, res){
-  req.body.verification || req.body.verified ? count++ : count--;
-  var code = count === 2 ? 10 : 8;
+  if(req.body.verified !== undefined) req.body.verified ? qualityCount++ : qualityCount--;
+  if(req.body.justifications) macroEdits[req.body.edit] = req.body;
+
+  var code = getCode();
   res.send({status:{code: code, message: ''}});
+}
+
+function getCode(){
+  var qualityComplete = qualityCount === qualityTotal;
+  var macroComplete = checkMacro();
+
+  return qualityComplete && macroComplete ? 10 : 8;
+}
+
+function checkMacro(){
+  return 6 === Object.keys(macroEdits).reduce(function(prevCount, edit){
+    return prevCount + macroEdits[edit].justifications.reduce(function(prevCount, justification){
+      return prevCount + justification.selected
+    }, 0)
+  }, 0)
 }
 
 router.get('/', function(req, res){
   var sub = +req.params.submission;
   var currEdits = JSON.parse(JSON.stringify(edits));
+
   if(sub > 1){
     currEdits.syntactical = noSyntactical;
     currEdits.validity = noValidity;
@@ -57,7 +78,8 @@ router.get('/', function(req, res){
     currEdits.macro = noMacro;
   }
 
-  count = 0;
+  qualityCount = 1;
+  macroEdits = {};
   res.send(currEdits)
 });
 

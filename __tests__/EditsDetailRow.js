@@ -1,4 +1,5 @@
 jest.dontMock('../src/js/EditsDetailRow.jsx');
+jest.dontMock('../src/js/Multicheck.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -17,13 +18,13 @@ var larDetail = {
 
 var macroDetail= {
   edit: 'm1',
-  verification: ''
+  justifications: [{
+    text: 'oi',
+    selected: false
+  }]
 };
 
-var macroDetailVerified = {
-  edit: 'm1',
-  verification: 'Verified'
-};
+
 var WrapperTable = React.createClass({
   render: function() {
     return (<table><tbody>{this.props.children}</tbody></table>);
@@ -44,8 +45,6 @@ describe('EditsDetailRow', function(){
   });
 
   var macroRow = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow appStatus={appStatus} detail={macroDetail}/></WrapperTable>);
-  var mr2 = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow appStatus={appStatus} detail={macroDetail}/></WrapperTable>);
-  var mr3 = TestUtils.renderIntoDocument(<WrapperTable><EditsDetailRow appStatus={appStatus} detail={macroDetailVerified}/></WrapperTable>);
   var macroNode = ReactDOM.findDOMNode(macroRow);
 
 
@@ -54,29 +53,9 @@ describe('EditsDetailRow', function(){
   });
 
   it('renders macro elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroRow, 'td').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroRow, 'textarea').length).toEqual(1);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroRow, 'td').length).toEqual(2);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(macroRow, 'input').length).toEqual(1);
   });
 
-
-  TestUtils.Simulate.change(
-    TestUtils.scryRenderedDOMComponentsWithTag(mr2, 'textarea')[0],
-    {target: {value: 'updated'}}
-  )
-
-  it('updates when the textarea is updated', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(mr2, 'td').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(mr2, 'textarea')[0].value).toEqual('updated');
-  });
-
-  TestUtils.Simulate.change(
-    TestUtils.scryRenderedDOMComponentsWithTag(mr3, 'input')[0],
-    {target: {checked: true}}
-  )
-
-  it('updates when the checkbox is clicked', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(mr3, 'td').length).toEqual(3);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(mr3, 'textarea').length).toEqual(0);
-  });
 });
 
