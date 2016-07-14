@@ -1,15 +1,24 @@
-FROM node:6
-MAINTAINER Andrew Wolfe <awolfe76@gmail.com>
+FROM nginx:1.10
+MAINTAINER Wyatt Pearsall<Wyatt.Pearsall@cfpb.gov>
+
+RUN apt-get update && \
+    apt-get install -y curl && \
+    apt-get install -y make && \
+    apt-get install -y g++ && \
+    curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
+    apt-get install -y nodejs
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY . /usr/src/app
 
-RUN npm cache clean
-RUN npm install
-RUN npm run clean
-RUN npm run dev:build
+RUN npm cache clean & \
+    npm install && \
+    npm run clean && \
+    npm run dev:build
 
-EXPOSE 3000
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
-CMD ["npm", "start"]
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
