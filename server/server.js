@@ -33,4 +33,4 @@ app.use('/api', apiRouter);
 //serve the app even when a user refreshes from a client-side route defined by the history api
 app.use(historyApiFallback(path.join('dist', 'index.html'), {root: '.'}));
 
-app.listen(8080);
+app.listen(3000);
