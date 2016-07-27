@@ -1,24 +1,11 @@
-var React = require('react');
-var HomeLink = require('./HomeLink.jsx');
+import React from 'react'
+import HomeLink from './HomeLink.jsx'
 
-var AppContainer = React.createClass({
+const AppContainer = () => (
+  <div className="AppContainer">
+    <HomeLink/>
+    {this.props.children}
+  </div>
+)
 
-  getInitialState: function(){
-    return {
-      userName: 'Jane Doe',
-      institutions: [],
-      institution: null
-    }
-  },
-
-  render: function(){
-    return (
-      <div className="AppContainer">
-        <HomeLink/>
-        {React.cloneElement(this.props.children, {userName:this.state.userName})}
-      </div>
-    )
-  }
-});
-
-module.exports = AppContainer;
+export default AppContainer
