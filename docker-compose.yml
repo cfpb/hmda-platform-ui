@@ -1,11 +1,11 @@
 # dev setup assumes a mock-api image is built from api-dockerfile
 version: '2'
 services:
-  hmda-api:
+  api:
     image: mock-api
   ui:
     build: .
     ports:
       - "80:80"
     depends_on:
-      - hmda-api 
+      - api 
