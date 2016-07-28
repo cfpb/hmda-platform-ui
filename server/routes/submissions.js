@@ -31,8 +31,10 @@ router.get('/:submission', function(req, res){
 });
 
 router.post('/:submission', function (req, res) {
-  res.status(202).send({
-    progress: req.url + '/progress'
+  req.on('end', function(){
+    res.status(202).send({
+      progress: req.url + '/progress'
+    });
   });
 });
 
