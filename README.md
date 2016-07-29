@@ -55,7 +55,7 @@ We use docker, docker-machine, and docker-compose to run a local dev setup. We u
 $ brew install docker docker-compose docker-machine
 ```
 
-After starting your local docker-machine, `docker-machine create`, you'll need to:
+After starting your local docker-machine, [`docker-machine create`](https://docs.docker.com/machine/reference/create/), you'll need to:
 
 - Build the image: `docker build -t mock-api -f api-dockerfile .`
   - the `-t` flag is necessary because the docker-compose setup depends on that image name;
@@ -73,8 +73,7 @@ Using that IP you can view the application in your browser.
 
 ### Using the back-end API
 
-To view the full application with the backe-end API please follow the instructions found under the "Building and Running" heading of the [HMDA platform README](https://github.com/cfpb/hmda-platform).
-
+To view the full application with the back-end API please follow the instructions found under the "Building and Running" heading of the [HMDA platform README](https://github.com/cfpb/hmda-platform).
 
 ## How to test the software
 
