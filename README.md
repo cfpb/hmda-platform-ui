@@ -16,9 +16,6 @@ This repo contains the code for the entirety of the HMDA platform front-end, wor
 
 - filing interface
   - from authentication -> data submission -> validation -> signed submission
-- publication interface(s)
-  - reports
-  - charts/graphs
 
 ## Dependencies
 
