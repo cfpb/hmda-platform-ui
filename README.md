@@ -33,13 +33,48 @@ $ npm install
 
 ## Building and viewing
 
+### Using the mocked version of the API
+
+#### npm
+
 There are several npm scripts available to run, see [package.json](https://github.com/cfpb/hmda-platform-ui/blob/master/package.json) `scripts` section. For local development the most useful is:
 
 ``` shell
 npm run watch
 ```
 
-This script will build the application and make the site available to preview at `http://localhost:3000/`.
+This script will build the application and make the site available to preview at `http://localhost:3000/`. This script also uses a mocked version of the API.
+
+#### docker-compose
+
+ _This is an alternative to the npm build mentioned above. This build may only exist temporarily until a better integration with the HMDA platform back-end takes place._
+
+We use docker, docker-machine, and docker-compose to run a local dev setup. We use homebrew to install the necessary packages:
+
+``` shell
+$ brew install docker docker-compose docker-machine
+```
+
+After starting your local docker-machine, `docker-machine create`, you'll need to:
+
+- Build the image: `docker build -t mock-api -f api-dockerfile .`
+  - the `-t` flag is necessary because the docker-compose setup depends on that image name;
+  - the `-f` flag is necessary because the api-dockerfile is what is used for developing using the mocked version of the api.
+
+Once the image is built, you can simply run:
+
+`docker-compose up -d`
+
+To view the site, again using the mocked version of the API, you'll need to run:
+
+`docker-machine ip`
+
+Using that IP you can view the application in your browser.
+
+### Using the back-end API
+
+To view the full application with the backe-end API please follow the instructions found under the "Building and Running" heading of the [HMDA platform README](https://github.com/cfpb/hmda-platform).
+
 
 ## How to test the software
 
