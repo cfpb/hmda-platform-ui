@@ -27,6 +27,7 @@ See the [package.json](https://github.com/cfpb/hmda-platform-ui/blob/master/pack
 
 ``` shell
 $ git clone git@github.com:cfpb/hmda-platform-ui.git
+$ cd hmda-platform-ui
 $ npm install
 ```
 
