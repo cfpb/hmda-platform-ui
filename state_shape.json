@@ -1,58 +1,59 @@
 {
-  "entities":{
-
-    "edits":
-      "S04": {
-        "lars": ["s1", "s2"]
-      },
-      "Q05": {
-        "verified": false,
-        "lars": ["s2"]
-      }
+  "edits": {
+    "S04": {
+      "lars": ["s1", "s2"]
     },
-
-    "lars": {
-      "s1": {
-        "loanId": "s1",
-        "stateCode": "06"
-      }, 
-      "s1": {
-        "loanId": "s1",
-        "stateCode": "06"
-      }
-    },
-
-    "institutions": {
-      "b0": {
-        "name": "Bank 0",
-        "id": "b0",
-        "period": "2017",
-        "status": 0
-      }
+    "Q05": {
+      "verified": false,
+      "lars": ["s2"]
     }
   },
 
-  "editsByType": {
-    "syntactical": {
-      "edits": ["S04", "S05"] 
+  "lars": {
+    "s1": {
+      "loanId": "s1",
+      "stateCode": "06"
     }, 
-    "validity": {
-      "edits": ["V06"] 
-    }, 
-    "quality": {
-      "edits": ["Q14", "Q16"] 
-    }, 
-    "macro": {
-      "edits": ["Q23"] 
-    } 
+    "s1": {
+      "loanId": "s1",
+      "stateCode": "06"
+    }
   },
 
   "institutions": {
-    "institutionIds": ["b0", "b1"]
+    "isFetching": false,
+    "institutions": [
+      {
+        "name": "Bank 0",
+        "id": "b0",
+        "period": "2017",
+        "submissions": [1,2],
+        "currentSubmission": 2
+      }
+    ] 
   },
-  
-  "submission": {
-    "currentSubmission": 2,
-    "status": 3
+
+  "submissions": {
+    1: {
+      "status": 5
+    },
+    2: {
+      "status": 9
+    }  
   }
+},
+
+"editsByType": {
+  "syntactical": {
+    "edits": ["S04", "S05"] 
+  }, 
+  "validity": {
+    "edits": ["V06"] 
+  }, 
+  "quality": {
+    "edits": ["Q14", "Q16"] 
+  }, 
+  "macro": {
+    "edits": ["Q23"] 
+  } 
 }

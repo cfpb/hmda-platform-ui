@@ -1,32 +1,21 @@
-var superagent = require('superagent');
+import fetch from 'isomorphic-fetch'
 
-function makeResponder(cb){
-  return function(err, res){
-    if(err) return cb(err);
-    var obj = JSON.parse(res.text) || {};
-    return cb(null, obj);
-  }
-}
-
-function getHandler(url, cb, suffix){
-  if(typeof url === 'function'){
-    cb = url;
+function getHandler(url, suffix){
+  if(!url){
     url = makeUrl(parseLocation(), suffix);
   }
 
-  superagent.get(url).end(makeResponder(cb));
+  return fetch(url)
+    .then(response => response.json())
 }
 
-function postHandler(url, cb, suffix, postData){
-  if(typeof url === 'function'){
-    postData = cb
-    cb = url;
+function postHandler(url, suffix, postData){
+  if(!url){
     url = makeUrl(parseLocation(), suffix);
   }
 
-  var post = superagent.post(url);
-  if(postData) post.send(postData);
-  post.end(makeResponder(cb));
+  return fetch(url, {method: 'POST', body: postData})
+    .then(response => response.json())
 }
 
 function makeUrl(obj, suffix){
@@ -51,58 +40,49 @@ function parseLocation(){
   return {id: pathParts[1], period: pathParts[2], submission: pathParts[3]}
  }
 
-module.exports = {
+ export function getInstitutions(url){
+   return getHandler(url, '/institutions');
+ }
 
- getInstitutions: function(url, cb){
-   return getHandler(url, cb, '/institutions');
- },
-
- getInstitution: function(url, cb){
+ export function getInstitution(url, cb){
    return getHandler(url, cb);
- },
+ }
 
- getProgress: function(url, cb){
+ export function getProgress(url, cb){
    return getHandler(url, cb, '/progress');
- },
+ }
 
- getIRS: function(url, cb){
+ export function getIRS(url, cb){
   return getHandler(url, cb, '/irs');
- },
+ }
 
- postIRS: function(url, cb, data){
+ export function postIRS(url, cb, data){
   return postHandler(url, cb, '/irs', data);
- },
+ }
 
- getSignature: function(url, cb){
+ export function getSignature(url, cb){
   return getHandler(url, cb, '/sign');
- },
+ }
 
- postSignature: function(url, cb, data){
+ export function postSignature(url, cb, data){
    return postHandler(url, cb, '/sign', data);
- },
+ }
 
- postSubmissions: function(url, cb){
+ export function postSubmissions(url, cb){
    return postHandler(url, cb, '/submissions');
- },
+ }
 
- getEditsByType: function(url, cb){
+ export function getEditsByType(url, cb){
    return getHandler(url, cb, '/edits');
- },
+ }
 
- getEditsByRow: function(url, cb){
+ export function getEditsByRow(url, cb){
    return getHandler(url, cb, '/edits/lars');
- },
+ }
 
- putEdit: function(edit, data, cb){
+ export function putEdit(edit, data){
     var suffix = '/edits/' + edit;
     var url = makeUrl(parseLocation(), suffix);
 
-    var put = superagent.put(url);
-    put.send(data);
-    put.end(makeResponder(cb));
- },
-
- makeUrl: makeUrl,
-
- parseLocation: parseLocation
-}
+    return fetch(url, {method: 'PUT', body: data});
+ }
