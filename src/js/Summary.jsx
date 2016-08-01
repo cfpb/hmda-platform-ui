@@ -7,7 +7,7 @@ var Summary = React.createClass({
 
   render: function(){
     return (
-      <div class="Summary">
+      <div className="Summary">
         <h2>Validation Summary</h2>
         <p>You have succesfully validate your file. Please review the respondent and file information below.</p>
         <h3>Respondent Information</h3>
