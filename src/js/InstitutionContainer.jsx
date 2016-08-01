@@ -7,6 +7,7 @@ var InstitutionStatus = require('./InstitutionStatus.jsx');
 var InstitutionContainer = React.createClass({
 
   getInitialState: function(){
+    console.log('getting initial');
     return {
       institutionsByPeriod: {}
     }
@@ -83,4 +84,4 @@ var InstitutionContainer = React.createClass({
   }
 });
 
-module.exports = InstitutionContainer;
+export default InstitutionContainer

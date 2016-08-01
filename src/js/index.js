@@ -7,9 +7,9 @@ import thunkMiddleware from 'redux-thunk'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
-import AppContainer from 'AppContainer.jsx'
-import InstitutionContainer from 'InstitutionContainer.jsx'
-import SubmissionContainer from 'SubmissionContainer.jsx'
+import AppContainer from './AppContainer.jsx'
+import InstitutionContainer from './InstitutionContainer.jsx'
+import SubmissionContainer from './SubmissionContainer.jsx'
 
 import appReducer from './reducers'
 

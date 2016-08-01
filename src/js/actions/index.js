@@ -1,4 +1,4 @@
-import api from './api'
+import api from '../api'
 
 export const REQUEST_NEW_SUBMISSION = 'REQUEST_NEW_SUBMISSION'
 export const RECEIVE_NEW_SUBMISSION = 'RECEIVE_NEW_SUBMISSION'
