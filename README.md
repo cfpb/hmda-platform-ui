@@ -8,15 +8,7 @@ Information and code contained in this repository should be considered provision
 
 ## Introduction to HMDA
 
-The Home Mortgage Disclosure Act (HMDA) requires many financial institutions to maintain, report, and publicly disclose information about mortgages. HMDA was originally enacted by Congress in 1975 and is implemented by Regulation C. The Dodd-Frank Act transferred HMDA rulemaking authority from the Federal Reserve Board to the Consumer Financial Protection Bureau (CFPB) on July 21, 2011.
-
-This regulation provides the public loan data that can be used to assist:
-
-- in determining whether financial institutions are serving the housing needs of their communities;
-- public officials in distributing public-sector investments so as to attract private investment to areas where it is needed;
-- and in identifying possible discriminatory lending patterns.
-
-This regulation applies to certain financial institutions, including banks, savings associations, credit unions, and other mortgage lending institutions.
+For more information on HMDA, checkout the [About HMDA page](http://www.consumerfinance.gov/data-research/hmda/learn-more) on the CFPB website.
 
 ## The Platform UI
 
@@ -24,9 +16,6 @@ This repo contains the code for the entirety of the HMDA platform front-end, wor
 
 - filing interface
   - from authentication -> data submission -> validation -> signed submission
-- publication interface(s)
-  - reports
-  - charts/graphs
 
 ## Dependencies
 
@@ -38,10 +27,15 @@ See the [package.json](https://github.com/cfpb/hmda-platform-ui/blob/master/pack
 
 ``` shell
 $ git clone git@github.com:cfpb/hmda-platform-ui.git
+$ cd hmda-platform-ui
 $ npm install
 ```
 
 ## Building and viewing
+
+### Using the mocked version of the API
+
+#### npm
 
 There are several npm scripts available to run, see [package.json](https://github.com/cfpb/hmda-platform-ui/blob/master/package.json) `scripts` section. For local development the most useful is:
 
@@ -49,7 +43,37 @@ There are several npm scripts available to run, see [package.json](https://githu
 npm run watch
 ```
 
-This script will build the application and make the site available to preview at `http://localhost:3000/`.
+This script will build the application and make the site available to preview at `http://localhost:3000/`. This script also uses a mocked version of the API.
+
+#### docker-compose
+
+ _This is an alternative to the npm build mentioned above. This build may only exist temporarily until a better integration with the HMDA platform back-end takes place._
+
+We use docker, docker-machine, and docker-compose to run a local dev setup. We use homebrew to install the necessary packages:
+
+``` shell
+$ brew install docker docker-compose docker-machine
+```
+
+After starting your local docker-machine, [`docker-machine create`](https://docs.docker.com/machine/reference/create/), you'll need to:
+
+- Build the image: `docker build -t mock-api -f api-dockerfile .`
+  - the `-t` flag is necessary because the docker-compose setup depends on that image name;
+  - the `-f` flag is necessary because the api-dockerfile is what is used for developing using the mocked version of the api.
+
+Once the image is built, you can simply run:
+
+`docker-compose up -d`
+
+To view the site, again using the mocked version of the API, you'll need to run:
+
+`docker-machine ip`
+
+Using that IP you can view the application in your browser.
+
+### Using the back-end API
+
+To view the full application with the back-end API please follow the instructions found under the "Building and Running" heading of the [HMDA platform README](https://github.com/cfpb/hmda-platform).
 
 ## How to test the software
 
