@@ -11,7 +11,7 @@
     "snyk": "snyk test",
     "clean": "rimraf ./dist && mkdir -p ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
     "start": "./server/server.js",
-    "dev:js": "browserify -t envify ./src/js/index.js > ./dist/js/app.min.js",
+    "dev:js": "browserify -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ./src/js/index.js > ./dist/js/app.min.js",
     "dev:less": "lessc ./src/less/app.less ./dist/css/app.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
     "dev:html": "cp src/index.html dist/index.html",
     "dev:img": "cp src/img/ffiec-logo.png dist/img/ffiec-logo.png",
@@ -45,20 +45,18 @@
     "babelify": "7.2.0",
     "body-parser": "1.15.1",
     "browserify": "13.0.0",
-    "envify": "3.4.1",
     "express": "4.13.4",
     "express-history-api-fallback": "2.0.0",
     "jest-cli": "12.1.1",
     "less": "2.7.1",
     "nodemon": "1.9.1",
-    "react-addons-test-utils": "15.0.1",
-    "reactify": "1.1.1",
+    "react-addons-test-utils": "15.3.0",
     "rimraf": "2.5.2",
     "snyk": "1.13.3"
   },
   "browserify": {
     "transform": [
-      "reactify"
+      "babelify"
     ]
   },
   "jest": {
@@ -71,6 +69,8 @@
     ]
   },
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "6.8.0",
+    "babelify": "7.2.0",
     "cf-buttons": "3.0.4",
     "cf-core": "3.2.2",
     "cf-expandables": "3.0.4",
@@ -81,8 +81,8 @@
     "cf-typography": "3.0.5",
     "jquery": "2.2.4",
     "jquery.easing": "1.3.2",
-    "react": "15.0.1",
-    "react-dom": "15.0.1",
+    "react": "15.3.0",
+    "react-dom": "15.3.0",
     "react-redux": "4.4.5",
     "react-router": "2.2.1",
     "react-router-redux": "4.0.5",

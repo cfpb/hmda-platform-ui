@@ -19,15 +19,7 @@ function postHandler(url, suffix, postData){
 }
 
 function makeUrl(obj, suffix){
-  var envHost = process.env.HMDA_API_HOST;
-  var envPort = process.env.HMDA_API_PORT;
-  var apiHost = envHost || location.hostname;
-  var apiPort = envHost ? (envPort || '') : (envPort || location.port);
-
-  apiHost = '//' + apiHost
-  if(apiPort) apiPort = ':' + apiPort
-
-  var url = location.protocol + apiHost + apiPort + '/api'
+  var url = location.protocol + '//' + location.host + '/api'
   if(obj.id) url+= '/institutions/' + obj.id;
   if(obj.period) url+= '/periods/' + obj.period;
   if(obj.submission) url+= '/submissions/' + obj.submission;
