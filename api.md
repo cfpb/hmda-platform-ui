@@ -9,7 +9,7 @@
 
 * `/api/institutions/<institution>/periods`
     * `GET` - List of all periods that a given institution filed/will file for. Structure: `{"periods": ["2017"]}`
-  
+
 * `/api/institutions/<institution>/periods/<period>`
     * `GET` - Data for a single institution for a given period. Structure: [institutions](https://github.com/cfpb/hmda-platform-ui/blob/c7590b1e6bd3243a8cd7909463ab8e2dc8c046a5/server/json/user1-institutions.json#L48-L56)
 
@@ -49,6 +49,7 @@
     * `GET` - Edits for a given submission, grouped by loanID of a lar (and as such doesn't include macro edits). Structure: [lars](https://github.com/cfpb/hmda-platform-ui/blob/c7590b1e6bd3243a8cd7909463ab8e2dc8c046a5/server/json/lars.json)
 
 * `/api/institutions/<institution>/periods/<period>/submissions/<submission>/irs`
+    * `GET` - List of data for the institution register summary for a given submission. Structure: [IRS data](https://github.com/cfpb/hmda-platform-ui/blob/master/server/json/irs.json)
     * `POST` - Endpoint to mark a submission as having the IRS report signed.
     Post data structure: `{"verified": [bool]}`
     Response structure: `{"status": {"code": [new state], "message": ""}}`
