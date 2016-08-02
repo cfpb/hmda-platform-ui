@@ -8,6 +8,6 @@ COPY . /usr/src/app
 RUN npm cache clean
 RUN npm install
 RUN npm run clean
-RUN npm run dev:build
+RUN npm run build
 
 CMD ["npm", "start"]
