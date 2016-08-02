@@ -15,7 +15,7 @@ COPY . /usr/src/app
 RUN npm cache clean && \
     npm install && \
     npm run clean && \
-    npm run dev:build
+    npm run build
 
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
