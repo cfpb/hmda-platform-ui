@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
 import 'babel-polyfill'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
@@ -8,7 +8,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 import AppContainer from './AppContainer.jsx'
-import InstitutionContainer from './InstitutionContainer.jsx'
+import InstitutionContainer from './containers/institutions.js'
 import SubmissionContainer from './SubmissionContainer.jsx'
 
 import appReducer from './reducers'
@@ -16,16 +16,16 @@ import appReducer from './reducers'
 const store = createStore(
   combineReducers(
     {
-      appReducer,
+      app: appReducer,
       routing: routerReducer
-    },
-    applyMiddleware(thunkMiddleware)
-  )
+    }
+  ),
+  applyMiddleware(thunkMiddleware)
 )
 
 const history = syncHistoryWithStore(browserHistory, store)
 
-ReactDOM.render(
+render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={AppContainer}>

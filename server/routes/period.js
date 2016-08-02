@@ -2,7 +2,7 @@ var fs = require('fs');
 var router = require('express').Router({mergeParams: true});
 var submissionRouter = require('./submissions');
 
-var institutionsObj = JSON.parse(fs.readFileSync('./server/json/user1-institutions.json'));
+var institutionsObj = JSON.parse(fs.readFileSync('./server/json/institutions.json'));
 
 router.get('/', function(req, res){
   res.send({periods: ['2017']});

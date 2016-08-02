@@ -1,18 +1,14 @@
 import fetch from 'isomorphic-fetch'
 
-function getHandler(url, suffix){
-  if(!url){
-    url = makeUrl(parseLocation(), suffix);
-  }
+function getHandler(suffix){
+  var url = makeUrl(parseLocation(), suffix);
 
   return fetch(url)
     .then(response => response.json())
 }
 
-function postHandler(url, suffix, postData){
-  if(!url){
-    url = makeUrl(parseLocation(), suffix);
-  }
+function postHandler(suffix, postData){
+  var url = makeUrl(parseLocation(), suffix);
 
   return fetch(url, {method: 'POST', body: postData})
     .then(response => response.json())
@@ -32,12 +28,12 @@ function parseLocation(){
   return {id: pathParts[1], period: pathParts[2], submission: pathParts[3]}
  }
 
- export function getInstitutions(url){
-   return getHandler(url, '/institutions');
+ export function getInstitutions(){
+   return getHandler('/institutions');
  }
 
- export function getInstitution(url, cb){
-   return getHandler(url, cb);
+ export function getInstitution(id){
+   return getHandler('/institutions/' + id);
  }
 
  export function getProgress(url, cb){

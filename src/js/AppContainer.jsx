@@ -1,10 +1,10 @@
 import React from 'react'
 import HomeLink from './HomeLink.jsx'
 
-const AppContainer = () => (
+const AppContainer = (props) => (
   <div className="AppContainer">
     <HomeLink/>
-    {this.props.children}
+    {props.children}
   </div>
 )
 

@@ -1,4 +1,6 @@
-import { REQUEST_INSTITUTIONS, RECEIVE_INSTITUTIONS} from '../actions'
+import { combineReducers } from 'redux'
+import { REQUEST_INSTITUTIONS, RECEIVE_INSTITUTIONS,
+  RECEIVE_INSTITUTION, CLEAR_FILINGS } from '../actions'
 
 const institutions = (state = {}, action) => {
   switch (action.type) {
@@ -17,4 +19,21 @@ const institutions = (state = {}, action) => {
   }
 }
 
-export default institutions
+const filings = (state = [], action) => {
+  switch (action.type) {
+  case RECEIVE_INSTITUTION:
+    return [
+      ...state,
+      action.institution
+    ]
+  case CLEAR_FILINGS:
+    return []
+  default:
+    return state;
+  }
+}
+
+export default combineReducers({
+  institutions,
+  filings
+})
