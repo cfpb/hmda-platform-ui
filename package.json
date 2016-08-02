@@ -11,7 +11,7 @@
     "snyk": "snyk test",
     "clean": "rimraf ./dist && mkdir -p ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
     "start": "./server/server.js",
-    "js": "browserify -t envify ./src/js/index.js > ./dist/js/app.min.js",
+    "js": "browserify ./src/js/index.js | uglifyjs > ./dist/js/app.min.js",
     "less": "lessc ./src/less/app.less ./dist/css/app.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
     "minify:css": "cleancss -o ./dist/css/app.css ./dist/css/app.css",
     "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html",
@@ -58,11 +58,14 @@
     "react-addons-test-utils": "15.2.1",
     "reactify": "1.1.1",
     "rimraf": "2.5.4",
-    "snyk": "1.17.4"
+    "snyk": "1.17.4",
+    "uglify-js": "2.7.0"
   },
   "browserify": {
     "transform": [
-      "reactify"
+      "envify",
+      "reactify",
+      "babelify"
     ]
   },
   "jest": {
