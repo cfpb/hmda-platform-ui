@@ -12,9 +12,9 @@
     "clean": "rimraf ./dist && mkdir -p ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
     "start": "./server/server.js",
     "js": "browserify ./src/js/index.js -o ./dist/js/app.min.js",
-    "js:prod": "browserify ./src/js/index.js | uglifyjs > ./dist/js/app.min.js",
+    "prod:js": "browserify ./src/js/index.js | uglifyjs > ./dist/js/app.min.js",
     "less": "lessc ./src/less/app.less ./dist/css/app.min.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
-    "less:prod": "lessc --clean-css ./src/less/app.less ./dist/css/app.min.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
+    "prod:less": "lessc --clean-css ./src/less/app.less ./dist/css/app.min.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
     "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html",
     "img": "imagemin ./src/img/* -o ./dist/img",
     "postinstall": "npm run clean",
@@ -24,7 +24,7 @@
     "watch:html": "nodemon --exitcrash -e html -w src -x 'npm run html'",
     "watch:server": "nodemon --exitcrash -e js,json -w server -x 'npm start'",
     "watch": "npm run watch:server & npm run watch:js & npm run watch:tests & npm run watch:less & npm run watch:html",
-    "build": "npm run js:prod && npm run less:prod && npm run html && npm run img"
+    "build": "npm run prod:js && npm run prod:less && npm run html && npm run img"
   },
   "repository": {
     "type": "git",
