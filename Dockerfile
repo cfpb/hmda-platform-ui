@@ -1,6 +1,8 @@
 FROM nginx:1.10
 MAINTAINER Wyatt Pearsall<Wyatt.Pearsall@cfpb.gov>
 
+ARG dev=build
+
 RUN apt-get update && \
     apt-get install -y curl && \
     apt-get install -y make && \
@@ -15,7 +17,9 @@ COPY . /usr/src/app
 RUN npm cache clean && \
     npm install && \
     npm run clean && \
-    npm run build
+    # if the docker arg is set in compose `npm run build-docker` will be used (development)
+    # otherwise `npm run build` will be used (production)
+    npm run ${dev}
 
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
