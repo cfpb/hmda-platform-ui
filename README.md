@@ -61,15 +61,22 @@ After starting your local docker-machine, [`docker-machine create`](https://docs
   - the `-t` flag is used to name the image;
   - the `-f` flag is necessary because the api-dockerfile is what is used for developing using the mocked version of the api.
 
-Once the image is built, you can simply run:
+Once the image is built, you can run:
 
-`docker run -d -p 80:8080 mock-api`
+`npm run watch`
+
+to build the app and start watching for changes. This will allow you do local development, modify the files in `/src`, and refresh the browser to see the changes. Then run:
+
+`docker run -d -p 80:8080 -v /dist:/user/src/app mock-api`
+
+This starts the container and mounts the local `/dist` folder, the location where the files are built, to the container. (See the docker documentation on [mounting a volume](https://docs.docker.com/engine/tutorials/dockervolumes/#/mount-a-host-directory-as-a-data-volume) for more details.)
 
 To view the site, again using the mocked version of the API, you'll need to run:
 
 `docker-machine ip`
 
 Using that IP you can view the application in your browser.
+
 
 ### Using the back-end API
 
