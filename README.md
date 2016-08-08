@@ -45,7 +45,7 @@ npm run watch
 
 This script will build the application and make the site available to preview at `http://localhost:3000/`. This script also uses a mocked version of the API.
 
-#### docker-compose
+#### docker
 
  _This is an alternative to the npm build mentioned above. This build may only exist temporarily until a better integration with the HMDA platform back-end takes place._
 
@@ -58,18 +58,25 @@ $ brew install docker docker-compose docker-machine
 After starting your local docker-machine, [`docker-machine create`](https://docs.docker.com/machine/reference/create/), you'll need to:
 
 - Build the image: `docker build -t mock-api -f api-dockerfile .`
-  - the `-t` flag is necessary because the docker-compose setup depends on that image name;
+  - the `-t` flag is used to name the image;
   - the `-f` flag is necessary because the api-dockerfile is what is used for developing using the mocked version of the api.
 
-Once the image is built, you can simply run:
+Once the image is built, you can run:
 
-`docker-compose up -d`
+`npm run watch`
+
+to build the app and start watching for changes. This will allow you do local development, modify the files in `/src`, and refresh the browser to see the changes. Then run:
+
+`docker run -d -p 80:8080 -v /dist:/user/src/app mock-api`
+
+This starts the container and mounts the local `/dist` folder, the location where the files are built, to the container. (See the docker documentation on [mounting a volume](https://docs.docker.com/engine/tutorials/dockervolumes/#/mount-a-host-directory-as-a-data-volume) for more details.)
 
 To view the site, again using the mocked version of the API, you'll need to run:
 
 `docker-machine ip`
 
 Using that IP you can view the application in your browser.
+
 
 ### Using the back-end API
 
