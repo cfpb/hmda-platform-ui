@@ -14,7 +14,7 @@ function postHandler(suffix, postData){
     .then(response => response.json())
 }
 
-function makeUrl(obj, suffix){
+export function makeUrl(obj, suffix){
   var url = location.protocol + '//' + location.host + '/api'
   if(obj.id) url+= '/institutions/' + obj.id;
   if(obj.period) url+= '/periods/' + obj.period;
@@ -23,7 +23,7 @@ function makeUrl(obj, suffix){
   return url;
 }
 
-function parseLocation(){
+export function parseLocation(){
   var pathParts = location.pathname.split('/');
   return {id: pathParts[1], period: pathParts[2], submission: pathParts[3]}
  }

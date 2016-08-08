@@ -24,7 +24,7 @@ const filings = (state = [], action) => {
   case RECEIVE_INSTITUTION:
     return [
       ...state,
-      action.institution
+      ...action.institution.filings
     ]
   case CLEAR_FILINGS:
     return []
