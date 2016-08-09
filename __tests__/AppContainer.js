@@ -6,11 +6,11 @@ import TestUtils from 'react-addons-test-utils'
 import Wrapper from './Wrapper.js'
 import AppContainer from '../src/js/AppContainer.jsx'
 
-describe('AppContainer', function(){
-  const wrappedContainer = TestUtils.renderIntoDocument(<Wrapper><AppContainer><p>hey</p></AppContainer></Wrapper>);
+describe('AppContainer', () => {
+  const wrappedContainer = TestUtils.renderIntoDocument(<Wrapper><AppContainer><p>hey</p></AppContainer></Wrapper>)
   const containerNode = ReactDOM.findDOMNode(wrappedContainer).firstChild
 
-  it('renders the component', function(){
-    expect(containerNode).toBeDefined();
+  it('renders the component', () => {
+    expect(containerNode).toBeDefined()
   })
 })
