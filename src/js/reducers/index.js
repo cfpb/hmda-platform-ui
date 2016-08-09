@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { REQUEST_INSTITUTIONS, RECEIVE_INSTITUTIONS,
-  RECEIVE_INSTITUTION, CLEAR_FILINGS } from '../actions'
+  RECEIVE_INSTITUTION, CLEAR_FILINGS } from '../constants'
 
 const institutions = (state = {}, action) => {
   switch (action.type) {
