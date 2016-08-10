@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { REQUEST_INSTITUTIONS, RECEIVE_INSTITUTIONS,
   RECEIVE_INSTITUTION, CLEAR_FILINGS } from '../constants'
 
-const institutions = (state = {}, action) => {
+export const institutions = (state = {}, action) => {
   switch (action.type) {
   case REQUEST_INSTITUTIONS:
     return {
@@ -19,7 +19,7 @@ const institutions = (state = {}, action) => {
   }
 }
 
-const filings = (state = [], action) => {
+export const filings = (state = [], action) => {
   switch (action.type) {
   case RECEIVE_INSTITUTION:
     return [
