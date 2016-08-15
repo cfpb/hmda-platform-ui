@@ -9,6 +9,7 @@ var submissionsObj = JSON.parse(fs.readFileSync('./server/json/submissions.json'
 
 router.get('/', function(req, res){
   var submissions = submissionsObj[req.params.institution];
+  console.log(submissions)
   if(!submissions) res.status(404).end();
   res.send(submissions)
 });
@@ -20,6 +21,14 @@ router.post('/', function(req, res){
 
 router.get('/:submission', function(req, res){
   var submissions = submissionsObj[req.params.institution].submissions;
+
+  if(req.params.submission === 'latest'){
+    return res.send(
+      submissions.sort(function(a, b){
+        return +a.id - +b.id;
+      }).pop()
+    )
+  }
 
   for(var i=0; i<submissions.length; i++){
     if(submissions[i].id === req.params.submission){

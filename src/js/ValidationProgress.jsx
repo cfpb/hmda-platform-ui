@@ -5,7 +5,6 @@ class ValidationProgress extends React.Component {
 
   constructor(props){
     super(props);
-    this.state = {statusCode: props.initialCode};
     this.pollForProgress = this.pollForProgress.bind(this);
     this.wrappedPoll = function(){api.getProgress(this.pollForProgress)}.bind(this);
   }

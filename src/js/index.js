@@ -9,7 +9,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 import AppContainer from './AppContainer.jsx'
 import InstitutionContainer from './containers/Institutions.jsx'
-import SubmissionContainer from './SubmissionContainer.jsx'
+import SubmissionContainer from './containers/Submission.jsx'
 
 import appReducer from './reducers'
 
