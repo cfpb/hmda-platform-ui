@@ -11,18 +11,21 @@
     "snyk": "snyk test",
     "clean": "rimraf ./dist && mkdir -p ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
     "start": "./server/server.js",
-    "dev:js": "browserify -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] ./src/js/index.js > ./dist/js/app.min.js",
-    "dev:less": "lessc ./src/less/app.less ./dist/css/app.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
-    "dev:html": "cp src/index.html dist/index.html",
-    "dev:img": "cp src/img/* dist/img/",
-    "dev:build": "npm run dev:js && npm run dev:less && npm run dev:html && npm run dev:img",
+    "js": "browserify -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] ./src/js/index.js -d | exorcist ./dist/js/app.min.js.map > ./dist/js/app.min.js",
+    "prod:js": "browserify -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] ./src/js/index.js | uglifyjs > ./dist/js/app.min.js",
+    "less": "lessc --source-map-map-inline ./src/less/app.less ./dist/css/app.min.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
+    "prod:less": "lessc --clean-css ./src/less/app.less ./dist/css/app.min.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
+    "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html",
+    "img": "imagemin ./src/img/* -o ./dist/img",
     "postinstall": "npm run clean",
-    "watch:js": "nodemon --exitcrash -e js,jsx -w src/js -x 'npm run dev:js'",
+    "watch:js": "nodemon --exitcrash -e js,jsx -w src/js -x 'npm run js'",
     "watch:tests": "nodemon --exitcrash -e js -w __tests__ -x 'npm test'",
-    "watch:less": "nodemon --exitcrash -e less -w src/less -x 'npm run dev:less'",
-    "watch:html": "nodemon --exitcrash -e html -w src -x 'npm run dev:html'",
+    "watch:less": "nodemon --exitcrash -e less -w src/less -x 'npm run less'",
+    "watch:html": "nodemon --exitcrash -e html -w src -x 'npm run html'",
     "watch:server": "nodemon --exitcrash -e js,json -w server -x 'npm start'",
-    "watch": "npm run watch:server & npm run watch:js & npm run watch:tests & npm run watch:less & npm run watch:html"
+    "watch": "npm run watch:server & npm run watch:js & npm run watch:tests & npm run watch:less & npm run watch:html",
+    "build": "npm run prod:js && npm run prod:less && npm run html && npm run img",
+    "build:docker": "npm run js && npm run less && npm run html && npm run img"
   },
   "repository": {
     "type": "git",
@@ -46,16 +49,29 @@
     "body-parser": "1.15.2",
     "browserify": "13.1.0",
     "envify": "3.4.1",
+    "exorcist": "0.4.0",
     "express": "4.14.0",
     "express-history-api-fallback": "2.0.0",
+    "html-minifier": "3.0.2",
+    "imagemin": "5.2.2",
+    "imagemin-cli": "3.0.0",
     "jest-cli": "14.0.0",
     "less": "2.7.1",
+    "less-plugin-clean-css": "1.5.1",
     "nodemon": "1.10.0",
     "react-addons-test-utils": "15.3.0",
     "reactify": "1.1.1",
     "redux-mock-store": "1.1.2",
     "rimraf": "2.5.4",
-    "snyk": "1.17.4"
+    "snyk": "1.17.4",
+    "uglify-js": "2.7.0"
+  },
+  "browserify": {
+    "transform": [
+      "envify",
+      "reactify",
+      "babelify"
+    ]
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
