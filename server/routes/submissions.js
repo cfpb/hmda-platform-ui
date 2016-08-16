@@ -1,15 +1,22 @@
 var fs = require('fs');
 var router = require('express').Router({mergeParams: true});
-var progressRoute = require('./progress');
 var editRoute = require('./edits');
 var irsRoute = require('./irs');
 var signRoute = require('./sign');
 
 var submissionsObj = JSON.parse(fs.readFileSync('./server/json/submissions.json'));
 
+var requestCount = 0;
+var statusCodes = [3, 4, 6, 7];
+
+function patchCode(submission){
+  submission = JSON.parse(JSON.stringify(submission));
+  submission.status.code = statusCodes[++requestCount%4];
+  return submission;
+}
+
 router.get('/', function(req, res){
   var submissions = submissionsObj[req.params.institution];
-  console.log(submissions)
   if(!submissions) res.status(404).end();
   res.send(submissions)
 });
@@ -26,13 +33,13 @@ router.get('/:submission', function(req, res){
     return res.send(
       submissions.sort(function(a, b){
         return +a.id - +b.id;
-      }).pop()
+      })[submissions.length - 1]
     )
   }
 
   for(var i=0; i<submissions.length; i++){
     if(submissions[i].id === req.params.submission){
-      return res.send(submissions[i]);
+      return res.send(patchCode(submissions[i]));
     }
   }
 
@@ -42,13 +49,10 @@ router.get('/:submission', function(req, res){
 router.post('/:submission', function (req, res) {
   req.on('data', function(d){console.log(d.length)});
   req.on('end', function(){
-    res.status(202).send({
-      progress: req.url + '/progress'
-    });
+    res.status(202).end();
   });
 });
 
-router.use('/:submission/progress', progressRoute);
 router.use('/:submission/edits', editRoute);
 router.use('/:submission/irs', irsRoute);
 router.use('/:submission/sign', signRoute);

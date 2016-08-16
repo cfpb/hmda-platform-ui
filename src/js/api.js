@@ -44,6 +44,10 @@ export function getProgress(url, cb){
   return getHandler(url, cb, '/progress');
 }
 
+export function getSubmission(id){
+  return getHandler('/submissions/' + id)
+}
+
 export function getLatestSubmission(){
   return getHandler('/submissions/latest')
 }

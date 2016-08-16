@@ -4,7 +4,6 @@ var expandables = require('./react-expandables');
 var EditsSelector = require('./EditsSelector.jsx');
 var EditsGrouped = require('./EditsGrouped.jsx');
 var EditsMacro = require('./EditsMacro.jsx');
-var EditsQ029 = require('./EditsQ029.jsx');
 var EditsQ595 = require('./EditsQ595.jsx');
 var EditsHeaderDescription = require('./EditsHeaderDescription.jsx');
 
@@ -139,9 +138,6 @@ var EditsContainer = React.createClass({
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
         <EditsMacro edits={this.state.macro} appStatus={this.props.appStatus}/>
 
-        <EditsHeaderDescription>Q029 Edits</EditsHeaderDescription>
-        <EditsQ029 group={this.state.q029.edits}/>
-
         <EditsHeaderDescription>Q595 Edits</EditsHeaderDescription>
         <EditsQ595 group={this.state.q595.edits}/>
       </div>
@@ -156,9 +152,6 @@ var EditsContainer = React.createClass({
 
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
         <EditsMacro edits={this.state.macro} appStatus={this.props.appStatus}/>
-
-        <EditsHeaderDescription>Q029 Edits</EditsHeaderDescription>
-        <EditsQ029 group={this.state.q029.edits}/>
 
         <EditsHeaderDescription>Q595 Edits</EditsHeaderDescription>
         <EditsQ595 group={this.state.q595.edits}/>

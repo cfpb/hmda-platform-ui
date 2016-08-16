@@ -2,11 +2,12 @@ import {
   getInstitution,
   getInstitutions,
   getLatestSubmission,
+  getSubmission,
   getUploadUrl
 } from '../api'
 import * as types from '../constants'
 
-
+let latestSubmissionId
 
 export function requestInstitutions() {
   return {
@@ -41,6 +42,7 @@ export function requestSubmission() {
 }
 
 export function receiveSubmission(data) {
+  latestSubmissionId = data.id
   return {
     type: types.RECEIVE_SUBMISSION,
     submission: data
@@ -91,13 +93,12 @@ export function requestUpload(file) {
     var xhr = new XMLHttpRequest()
 
     xhr.addEventListener('load', e => {
-      console.log('load');
       if(e.target.status !== 202) return dispatch(uploadError())
       dispatch(uploadComplete(e))
+      dispatch(pollForProgress())
     })
 
     xhr.upload.addEventListener('progress', e => {
-      console.log('progress');
       dispatch(uploadProgress(e))
     })
 
@@ -107,13 +108,36 @@ export function requestUpload(file) {
     xhr.send(file);
 
     dispatch(uploadStart())
+    return Promise.resolve()
   }
 }
 
 export function fetchSubmission() {
   return dispatch => {
     dispatch(requestSubmission())
-    getLatestSubmission()
+    return getLatestSubmission()
+      .then(json => dispatch(receiveSubmission(json)))
+      .catch(err => console.log(err))
+  }
+}
+
+export function pollForProgress() {
+  const poller = dispatch => {
+    return getSubmission(latestSubmissionId)
+      .then(json => dispatch(receiveSubmission(json)))
+      .then(json => {
+        if(json.submission.status.code < 7){
+          setTimeout(() => poller(dispatch), 500)
+        }
+      })
+      .catch(err => console.log(err))
+  }
+  return poller
+}
+
+export function fetchProgress(id) {
+  return dispatch => {
+    return getSubmission(id)
       .then(json => dispatch(receiveSubmission(json)))
       .catch(err => console.log(err))
   }
