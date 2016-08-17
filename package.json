@@ -11,8 +11,8 @@
     "snyk": "snyk test",
     "clean": "rimraf ./dist && mkdir -p ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
     "start": "./server/server.js",
-    "js": "browserify ./src/js/index.js -d | exorcist ./dist/js/app.min.js.map > ./dist/js/app.min.js",
-    "prod:js": "browserify ./src/js/index.js | uglifyjs > ./dist/js/app.min.js",
+    "js": "browserify -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] ./src/js/index.js -d | exorcist ./dist/js/app.min.js.map > ./dist/js/app.min.js",
+    "prod:js": "browserify -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] ./src/js/index.js | uglifyjs > ./dist/js/app.min.js",
     "less": "lessc --source-map-map-inline ./src/less/app.less ./dist/css/app.min.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
     "prod:less": "lessc --clean-css ./src/less/app.less ./dist/css/app.min.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
     "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html",
@@ -42,6 +42,7 @@
   "homepage": "https://github.com/cfpb/hmda-platform-ui#readme",
   "devDependencies": {
     "babel-jest": "14.0.0",
+    "babel-plugin-transform-object-rest-spread": "6.8.0",
     "babel-preset-es2015": "6.9.0",
     "babel-preset-react": "6.11.1",
     "babelify": "7.3.0",
@@ -58,8 +59,9 @@
     "less": "2.7.1",
     "less-plugin-clean-css": "1.5.1",
     "nodemon": "1.10.0",
-    "react-addons-test-utils": "15.2.1",
+    "react-addons-test-utils": "15.3.0",
     "reactify": "1.1.1",
+    "redux-mock-store": "1.1.2",
     "rimraf": "2.5.4",
     "snyk": "1.17.4",
     "uglify-js": "2.7.0"
@@ -73,14 +75,22 @@
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "testPathIgnorePatterns": [
+      "<rootDir>/__tests__/Wrapper.js"
+    ],
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/react-dom",
       "<rootDir>/node_modules/react-addons-test-utils",
-      "<rootDir>/node_modules/fbjs"
+      "<rootDir>/node_modules/redux-mock-store",
+      "<rootDir>/node_modules/redux-thunk",
+      "<rootDir>/node_modules/fbjs",
+      "<rootDir>/__tests__/Wrapper.js"
     ]
   },
   "dependencies": {
+    "babel-polyfill": "6.9.1",
+    "babelify": "7.2.0",
     "cf-buttons": "3.1.0",
     "cf-core": "3.4.0",
     "cf-expandables": "3.1.0",
@@ -91,9 +101,13 @@
     "cf-typography": "3.0.7",
     "jquery": "3.1.0",
     "jquery.easing": "1.4.1",
-    "react": "15.2.1",
-    "react-dom": "15.2.1",
+    "react": "15.3.0",
+    "react-dom": "15.3.0",
+    "react-redux": "4.4.5",
     "react-router": "2.6.0",
+    "react-router-redux": "4.0.5",
+    "redux": "3.5.2",
+    "redux-thunk": "2.1.0",
     "superagent": "2.1.0"
   }
 }

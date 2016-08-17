@@ -1,0 +1,68 @@
+{
+  "bank0id": {
+    "institution": {
+      "name": "Bank 0",
+      "id": "bank0id",
+      "status": "active"
+    },
+    "filings": [
+      {
+        "id": "2017",
+        "fid": "bank0id",
+        "status": "not-started"
+      },
+      {
+        "id": "2016",
+        "fid": "bank0id",
+        "status": "completed"
+      }
+    ]
+  },
+  "bank1id": {
+    "institution": {
+      "name": "Bank 1",
+      "id": "bank1id",
+      "status": "active"
+    },
+    "filings": [
+      {
+        "id": "2017",
+        "fid": "bank1id",
+        "status": "completed"
+      }
+    ]
+  },
+  "bank2id": {
+    "institution": {
+      "name": "Bank 2",
+      "id": "bank2id",
+      "status": "inactive"
+    },
+    "filings": [
+      {
+        "id": "2016",
+        "fid": "bank2id",
+        "status": "completed"
+      }
+    ]
+  },
+  "bank3id": {
+    "institution": {
+      "name": "Bank 3",
+      "id": "bank3id",
+      "status": "active"
+    },
+    "filings": [
+      {
+        "id": "2017",
+        "fid": "bank3id",
+        "status": "not-started"
+      },
+      {
+        "id": "2016",
+        "fid": "bank3id",
+        "status": "completed"
+      }
+    ]
+  }
+}

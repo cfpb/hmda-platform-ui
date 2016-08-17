@@ -1,0 +1,24 @@
+{
+  "institutions": [
+    {
+      "name": "Bank 0",
+      "id": "bank0id",
+      "status": "active"
+    },
+    {
+      "name": "Bank 1",
+      "id": "bank1id",
+      "status": "active"
+    },
+    {
+      "name": "Bank 2",
+      "id": "bank2id",
+      "status": "inactive"
+    },
+    {
+      "name": "Bank 3",
+      "id": "bank3id",
+      "status": "active"
+    }
+  ]
+}

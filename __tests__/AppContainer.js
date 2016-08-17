@@ -1,20 +1,16 @@
-jest.dontMock('../src/js/AppContainer.jsx');
-jest.dontMock('../src/js/UserHeading.jsx');
+jest.unmock('../src/js/AppContainer.jsx')
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+import React from 'react'
+import ReactDOM from 'react-dom'
+import TestUtils from 'react-addons-test-utils'
+import Wrapper from './Wrapper.js'
+import AppContainer from '../src/js/AppContainer.jsx'
 
-var AppContainer = require('../src/js/AppContainer.jsx');
+describe('AppContainer', () => {
+  const wrappedContainer = TestUtils.renderIntoDocument(<Wrapper><AppContainer><p>hey</p></AppContainer></Wrapper>)
+  const containerNode = ReactDOM.findDOMNode(wrappedContainer).firstChild
 
-
-describe('AppContainer', function(){
-
-  var containerComponent = <AppContainer><span>A child></span></AppContainer>
-  var container = TestUtils.renderIntoDocument(containerComponent);
-  var containerNode = ReactDOM.findDOMNode(container);
-
-  it('renders the component', function(){
-    expect(containerNode).toBeDefined();
-  });
-});
+  it('renders the component', () => {
+    expect(containerNode).toBeDefined()
+  })
+})

@@ -124,4 +124,4 @@ var SubmissionContainer = React.createClass({
   }
 });
 
-module.exports = SubmissionContainer;
+export default SubmissionContainer

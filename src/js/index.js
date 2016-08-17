@@ -1,22 +1,38 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var router = require('react-router');
-var AppContainer = require('./AppContainer.jsx');
-var InstitutionContainer = require('./InstitutionContainer.jsx');
-var SubmissionContainer = require('./SubmissionContainer.jsx');
+import React from 'react'
+import { render } from 'react-dom'
+import 'babel-polyfill'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunkMiddleware from 'redux-thunk'
+import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
-var Router = router.Router;
-var browserHistory = router.browserHistory;
-var Route = router.Route;
-var IndexRoute = router.IndexRoute;
+import AppContainer from './AppContainer.jsx'
+import InstitutionContainer from './containers/Institutions.jsx'
+import SubmissionContainer from './SubmissionContainer.jsx'
 
-ReactDOM.render(
-  (
-    <Router history={browserHistory}>
+import appReducer from './reducers'
+
+const store = createStore(
+  combineReducers(
+    {
+      app: appReducer,
+      routing: routerReducer
+    }
+  ),
+  applyMiddleware(thunkMiddleware)
+)
+
+const history = syncHistoryWithStore(browserHistory, store)
+
+render(
+  <Provider store={store}>
+    <Router history={history}>
       <Route path="/" component={AppContainer}>
         <IndexRoute component={InstitutionContainer}/>
-        <Route path="/:institution/:period/:submission" component={SubmissionContainer}/>
+        <Route path="/:institution/:filing" component={SubmissionContainer}/>
       </Route>
     </Router>
-  ), document.getElementById('app')
+  </Provider>,
+  document.getElementById('app')
 );
