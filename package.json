@@ -7,7 +7,7 @@
     "node": ">=6.x"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "snyk": "snyk test",
     "clean": "rimraf ./dist && mkdir -p ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
     "start": "./server/server.js",
@@ -19,7 +19,7 @@
     "img": "imagemin ./src/img/* -o ./dist/img",
     "postinstall": "npm run clean",
     "watch:js": "nodemon --exitcrash -e js,jsx -w src/js -x 'npm run js'",
-    "watch:tests": "nodemon --exitcrash -e js -w __tests__ -x 'npm test'",
+    "watch:tests": "nodemon --exitcrash -e js -w __tests__ -x 'jest --coverage -o'",
     "watch:less": "nodemon --exitcrash -e less -w src/less -x 'npm run less'",
     "watch:html": "nodemon --exitcrash -e html -w src -x 'npm run html'",
     "watch:server": "nodemon --exitcrash -e js,json -w server -x 'npm start'",
