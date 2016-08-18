@@ -148,7 +148,7 @@ export function fetchInstitutions() {
     dispatch(requestInstitutions())
     return getInstitutions()
       .then(json => dispatch(receiveInstitutions(json)))
-      .then(receiveAction => fetchEachInstitution(receiveAction.institutions)(dispatch))
+      .then(receiveAction => dispatch(fetchEachInstitution(receiveAction.institutions)))
       .catch(err => console.log(err))
   }
 }
@@ -158,7 +158,7 @@ export function fetchEachInstitution(institutions) {
     dispatch(clearFilings())
     return Promise.all(
       institutions.map( institution => {
-        fetchInstitution(institution)(dispatch)
+        dispatch(fetchInstitution(institution))
       })
     )
   }
