@@ -8,12 +8,12 @@
     "filings": [
       {
         "id": "2017",
-        "fid": "bank0id",
+        "institutionId": "bank0id",
         "status": "not-started"
       },
       {
         "id": "2016",
-        "fid": "bank0id",
+        "institutionId": "bank0id",
         "status": "completed"
       }
     ]
@@ -27,7 +27,7 @@
     "filings": [
       {
         "id": "2017",
-        "fid": "bank1id",
+        "institutionId": "bank1id",
         "status": "completed"
       }
     ]
@@ -41,7 +41,7 @@
     "filings": [
       {
         "id": "2016",
-        "fid": "bank2id",
+        "institutionId": "bank2id",
         "status": "completed"
       }
     ]
@@ -55,12 +55,12 @@
     "filings": [
       {
         "id": "2017",
-        "fid": "bank3id",
+        "institutionId": "bank3id",
         "status": "not-started"
       },
       {
         "id": "2016",
-        "fid": "bank3id",
+        "institutionId": "bank3id",
         "status": "completed"
       }
     ]

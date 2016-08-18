@@ -12,14 +12,14 @@ export default class Institution extends Component {
         <div key={i}>
           <h3>{institution.name}</h3>
           {self.props.filings.filter(
-            filing => filing.fid === institution.id
+            filing => filing.institutionId === institution.id
           ).map((filing, i) => {
             return (
             <div key={i}>
               <p>id: {filing.id}</p>
-              <p>fid: {filing.fid}</p>
+              <p>institutionId: {filing.institutionId}</p>
               <p>status: {filing.status}</p>
-              <p><Link to={`/${filing.fid}/${filing.id}`}>View filing</Link></p>
+              <p><Link to={`/${filing.institutionId}/${filing.id}`}>View filing</Link></p>
             </div>
             )
           })}
