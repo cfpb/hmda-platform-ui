@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchInstitutions } from '../actions'
 import Institutions from '../components/Institutions.jsx'
@@ -35,11 +35,6 @@ function mapStateToProps(state) {
     institutions,
     filings
   }
-}
-
-InstitutionContainer.propTypes = {
-  params: PropTypes.object,
-  dispatch: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps)(InstitutionContainer)

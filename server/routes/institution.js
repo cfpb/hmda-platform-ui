@@ -1,6 +1,6 @@
 var fs = require('fs');
 var router = require('express').Router();
-var periodRouter = require('./period');
+var filingRouter = require('./filing');
 
 var institutionsObj = JSON.parse(fs.readFileSync('./server/json/institutions.json'));
 var filingsObj = JSON.parse(fs.readFileSync('./server/json/filings.json'));
@@ -13,7 +13,7 @@ router.get('/:institution', function(req, res){
   return res.send(filingsObj[req.params.institution])
 });
 
-router.use('/:institution/periods', periodRouter);
+router.use('/:institution/filings', filingRouter);
 
 
 module.exports = router;

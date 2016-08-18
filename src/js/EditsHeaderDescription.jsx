@@ -22,9 +22,6 @@ var EditsHeaderDescription = React.createClass({
       case 'Macro Edits':
         desc = 'This is the macro description.'
         break;
-      case 'Q029 Edits':
-        desc = 'MSA/MD = NA and state/county (when county is small and tract equals NA), or state/county/tract is a valid combination and is located completely in a MSA/MD.'
-        break;
       case 'Q595 Edits':
         desc = 'MSA/MD not on respondent panel.'
         break;

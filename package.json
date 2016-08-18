@@ -11,7 +11,7 @@
     "snyk": "snyk test",
     "clean": "rimraf ./dist && mkdir -p ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
     "start": "./server/server.js",
-    "js": "browserify -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] ./src/js/index.js -d | exorcist ./dist/js/app.min.js.map > ./dist/js/app.min.js",
+    "js": "browserify -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] ./src/js/index.js -d | ./node_modules/exorcist/bin/exorcist.js ./dist/js/app.min.js.map > ./dist/js/app.min.js",
     "prod:js": "browserify -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] ./src/js/index.js | uglifyjs > ./dist/js/app.min.js",
     "less": "lessc --source-map-map-inline ./src/less/app.less ./dist/css/app.min.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
     "prod:less": "lessc --clean-css ./src/less/app.less ./dist/css/app.min.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",

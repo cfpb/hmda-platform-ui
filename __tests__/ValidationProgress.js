@@ -1,57 +1,22 @@
-jest.dontMock('../src/js/ValidationProgress.jsx');
+jest.unmock('../src/js/components/ValidationProgress.jsx');
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
-
-var ValidationProgress = require('../src/js/ValidationProgress.jsx');
-var api = require('../src/js/api');
-var cb = jest.fn();
+import React from 'react'
+import ReactDOM from 'react-dom'
+import TestUtils from 'react-addons-test-utils'
+import Wrapper from './Wrapper.js'
+import ValidationProgress from '../src/js/components/ValidationProgress.jsx'
 
 describe('ValidationProgress', function(){
 
-  var progress = TestUtils.renderIntoDocument(<ValidationProgress initialCode={4} appStatus={{set: cb}}/>);
-  var progressNode = ReactDOM.findDOMNode(progress);
+  const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress status={{code:4}}/></Wrapper>);
+  const progressNode = ReactDOM.findDOMNode(progress);
 
   it('renders the component', function(){
     expect(progressNode).toBeDefined();
-  });
-
-  it('sets props and initial state appropriately', function(){
-    expect(progress.props.initialCode).toEqual(4);
-    expect(progress.state.statusCode).toEqual(4);
   });
 
   it('renders the correct amount of children', function(){
     expect(TestUtils.scryRenderedDOMComponentsWithTag(progress, 'p').length).toEqual(2);
   });
 
-  var wrappedCb;
-  api.getProgress = jest.fn(function(cb){
-    wrappedCb = jest.fn(function(){cb(null, {code: 7, message: ''})});
-    setTimeout(wrappedCb, 0);
-  });
-
-  it('renders the component and its children after polling', function(){
-
-    var progress2 = TestUtils.renderIntoDocument(<ValidationProgress initialCode={3} appStatus={{set: cb}}/>);
-    var progressNode2 = ReactDOM.findDOMNode(progress);
-
-    expect(progressNode2).toBeDefined();
-
-    expect(progress2.props.initialCode).toEqual(3);
-    expect(progress2.state.statusCode).toEqual(3);
-
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(progress2, 'p').length).toEqual(1);
-
-    expect(setTimeout).toBeCalled();
-
-    //do polling; calls mocked api.getProgress
-    jest.runAllTimers();
-
-    expect(wrappedCb).toBeCalled();
-
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(progress2, 'p').length).toEqual(5);
-    expect(cb.mock.calls[cb.mock.calls.length - 1][1]).toEqual({code: 7, message: ''});
-  });
 });
