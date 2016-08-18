@@ -5,7 +5,7 @@ function mapStateToProps(state) {
   const {
     submission
   } = state.app.submission || {
-    subimission: {
+    submission: {
       id: 1,
       status: {
         code: 3,
