@@ -31,6 +31,11 @@ const submissionWrapper = {
   submission: defaultSubmission
 }
 
+/*
+ * Set isFetching to true when institutions are being requested
+ * Set isFetching to false and populate the institutions key
+ *   when data is received
+ */
 export const institutions = (state = {}, action) => {
   switch (action.type) {
   case REQUEST_INSTITUTIONS:
@@ -48,6 +53,11 @@ export const institutions = (state = {}, action) => {
   }
 }
 
+/*
+ * Populate a list with data on every filing period for each institution
+ * When an filing data for an institution is received, it is added to the list
+ * When clear filings is dispatched, empty the list
+ */
 export const filings = (state = [], action) => {
   switch (action.type) {
   case RECEIVE_INSTITUTION:
@@ -62,6 +72,11 @@ export const filings = (state = [], action) => {
   }
 }
 
+/*
+ * Maintain data on the current upload
+ * When a file is selected, reset bytesUploaded and set the file
+ * When upload progress is dispatched, update bytesLoaded
+ */
 export const upload = (state = defaultUpload, action) => {
   switch (action.type) {
   case SELECT_FILE:
@@ -80,6 +95,12 @@ export const upload = (state = defaultUpload, action) => {
   }
 }
 
+/*
+ * Maintain the status of the current submission
+ * Set isFetching to true when a request is made
+ * Set isFetching to false and update the submission when new data is received
+ * Update the submission status code and message when the upload completes or fails
+ */
 export const submission = (state = submissionWrapper, action) => {
   switch (action.type) {
   case REQUEST_SUBMISSION:
@@ -107,6 +128,9 @@ export const submission = (state = submissionWrapper, action) => {
   }
 }
 
+/*
+ * Child of submission which handles updating the nested status code and message
+ */
 const submissionStatus = (state = defaultSubmission, action) => {
   switch (action.type) {
   case UPLOAD_COMPLETE:
