@@ -88,6 +88,9 @@ export function uploadError() {
   }
 }
 
+/*
+ * Wire upload together with xhr so progress can be tracked
+ */
 export function requestUpload(file) {
   return dispatch => {
     var xhr = new XMLHttpRequest()
@@ -112,6 +115,9 @@ export function requestUpload(file) {
   }
 }
 
+/*
+ * Get the latest submission via the api and dispatch an action with the results
+ */
 export function fetchSubmission() {
   return dispatch => {
     dispatch(requestSubmission())
@@ -135,6 +141,10 @@ export function pollForProgress() {
   return poller
 }
 
+/*
+ * Get progress by fetching submission data at /institution/<id>/filings/<id>/submissions/<id>
+ * This may be replaced by a call for just the status and not all of the submission data
+ */
 export function fetchProgress(id) {
   return dispatch => {
     return getSubmission(id)
@@ -143,6 +153,10 @@ export function fetchProgress(id) {
   }
 }
 
+/*
+ * Get high level institution data at /institutions
+ * Then get filing data for each institution at /institutions/<id>
+ */
 export function fetchInstitutions() {
   return dispatch => {
     dispatch(requestInstitutions())
@@ -153,6 +167,9 @@ export function fetchInstitutions() {
   }
 }
 
+/*
+ * Given a list of institutions, dispatch fetch instructions for each of them
+ */
 export function fetchEachInstitution(institutions) {
   return dispatch => {
     dispatch(clearFilings())
@@ -164,6 +181,9 @@ export function fetchEachInstitution(institutions) {
   }
 }
 
+/*
+ * Fetch an institution via the api and dispatch an action with the results
+ */
 export function fetchInstitution(institution) {
   return dispatch => {
     dispatch(requestInstitution())
