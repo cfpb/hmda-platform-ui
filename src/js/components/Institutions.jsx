@@ -16,10 +16,10 @@ export default class Institution extends Component {
           ).map((filing, i) => {
             return (
             <div key={i}>
-              <p>id: {filing.id}</p>
+              <p>id: {filing.period}</p>
               <p>institutionId: {filing.institutionId}</p>
               <p>status: {filing.status}</p>
-              <p><Link to={`/${filing.institutionId}/${filing.id}`}>View filing</Link></p>
+              <p><Link to={`/${filing.institutionId}/${filing.period}`}>View filing</Link></p>
             </div>
             )
           })}
