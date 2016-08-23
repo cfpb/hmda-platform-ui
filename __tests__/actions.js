@@ -170,7 +170,10 @@ describe('actions', () => {
         ])
         done()
       })
-      .catch(err => expect(err).toBeNull())
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
   })
 
   it('creates a thunk that will kick off a file upload', done => {
@@ -184,13 +187,16 @@ describe('actions', () => {
         ])
 
         expect(xhrMock.open.mock.calls.length).toBe(1)
-        expect(xhrMock.setRequestHeader.mock.calls.length).toBe(2)
+        expect(xhrMock.setRequestHeader.mock.calls.length).toBe(4)
         expect(xhrMock.send.mock.calls.length).toBe(1)
         expect(xhrMock.addEventListener.mock.calls.length).toBe(1)
         expect(xhrMock.upload.addEventListener.mock.calls.length).toBe(1)
         done()
       })
-      .catch(err => expect(err).toBeNull())
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
   })
 
   it('creates a thunk that will send an http request for the latest submission', done => {
@@ -206,7 +212,10 @@ describe('actions', () => {
         ])
         done()
       })
-      .catch(err => expect(err).toBeNull())
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
   })
 
   it('creates a thunk that will poll for updated status codes in the latest submission', done => {
@@ -222,7 +231,10 @@ describe('actions', () => {
 
         done()
       })
-      .catch(err => expect(err).toBeNull())
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
   })
 
   it('creates a thunk that will clear current filings and fetch each institution', done => {
@@ -233,7 +245,10 @@ describe('actions', () => {
         expect(store.getActions()).toEqual(getEachInstitutionAction)
         done()
       })
-      .catch(err => expect(err).toBeNull())
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
   })
 
   it('creates a thunk that will fetch all institutions, looping over institution data to individually request filing info', done => {
@@ -251,7 +266,9 @@ describe('actions', () => {
         ])
         done()
       })
-      .catch(err => expect(err).toBeNull())
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
   })
-
 })
