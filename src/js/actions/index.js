@@ -108,6 +108,8 @@ export function requestUpload(file) {
     xhr.open('POST', getUploadUrl());
     xhr.setRequestHeader('Content-Type', 'text/data');
     xhr.setRequestHeader('Content-Disposition', 'inline; filename="' + file.name + '"');
+    xhr.setRequestHeader('CFPB-HMDA-Institutions', 'fakeinstitution');
+    xhr.setRequestHeader('CFPB-HMDA-Username', 'fakeuser');
     xhr.send(file);
 
     dispatch(uploadStart())
@@ -192,4 +194,3 @@ export function fetchInstitution(institution) {
       .catch(err => console.log(err))
   }
 }
-
