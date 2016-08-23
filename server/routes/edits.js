@@ -38,6 +38,8 @@ var noMacro= {
 var qualityCount = 1;
 var qualityTotal = 2;
 
+var requestCount = -1;
+
 var macroEdits = {};
 
 function handlePut(req, res){
@@ -64,14 +66,14 @@ function checkMacro(){
 }
 
 router.get('/', function(req, res){
-  var sub = +req.params.submission;
   var currEdits = JSON.parse(JSON.stringify(edits));
+  var currRequest = ++requestCount % 3;
 
-  if(sub > 1){
+  if(currRequest >= 1){
     currEdits.syntactical = noSyntactical;
     currEdits.validity = noValidity;
   }
-  if(sub > 2){
+  if(currRequest === 2){
     currEdits.quality = noQuality;
     currEdits.macro = noMacro;
   }

@@ -52,6 +52,14 @@ export function getLatestSubmission(){
   return getHandler('/submissions/latest')
 }
 
+export function getEditsByType(submission){
+  return getHandler(`/submissions/${submission}/edits`);
+}
+
+export function getEditsByRow(submission){
+  return getHandler(`/submissions/${submission}/edits/lars`);
+}
+
 export function getIRS(url, cb){
   return getHandler(url, cb, '/irs');
 }
@@ -70,14 +78,6 @@ export function postSignature(url, cb, data){
 
 export function postSubmissions(url, cb){
   return postHandler(url, cb, '/submissions');
-}
-
-export function getEditsByType(url, cb){
-  return getHandler(url, cb, '/edits');
-}
-
-export function getEditsByRow(url, cb){
-  return getHandler(url, cb, '/edits/lars');
 }
 
 export function putEdit(edit, data){

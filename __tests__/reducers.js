@@ -22,7 +22,7 @@ const defaultSubmission = {
 }
 
 const submissionWrapper = {
-  isFetching: true,
+  isFetching: false,
   submission: defaultSubmission
 }
 

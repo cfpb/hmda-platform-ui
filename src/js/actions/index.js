@@ -3,7 +3,9 @@ import {
   getInstitutions,
   getLatestSubmission,
   getSubmission,
-  getUploadUrl
+  getUploadUrl,
+  getEditsByType,
+  getEditsByRow
 } from '../api'
 import * as types from '../constants'
 
@@ -46,6 +48,32 @@ export function receiveSubmission(data) {
   return {
     type: types.RECEIVE_SUBMISSION,
     submission: data
+  }
+}
+
+export function requestEditsByType() {
+    return {
+      type: types.REQUEST_EDITS_BY_TYPE
+    }
+}
+
+export function requestEditsByRow() {
+    return {
+      type: types.REQUEST_EDITS_BY_ROW
+    }
+}
+
+export function receiveEditsByType(data) {
+  return {
+    type: types.RECEIVE_EDITS_BY_TYPE,
+    edits: data
+  }
+}
+
+export function receiveEditsByRow(data) {
+  return {
+    type: types.RECEIVE_EDITS_BY_ROW,
+    edits: data
   }
 }
 
@@ -193,3 +221,20 @@ export function fetchInstitution(institution) {
   }
 }
 
+export function fetchEditsByType() {
+  return dispatch => {
+    dispatch(requestEditsByType())
+    return getEditsByType(latestSubmissionId)
+      .then(json => dispatch(receiveEditsByType(json)))
+      .catch(err => console.log(err))
+  }
+}
+
+export function fetchEditsByRow() {
+  return dispatch => {
+    dispatch(requestEditsByRow())
+    return getEditsByRow(latestSubmissionId)
+      .then(json => dispatch(receiveEditsByRow(json)))
+      .catch(err => console.log(err))
+  }
+}

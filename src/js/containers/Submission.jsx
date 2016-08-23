@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { fetchSubmission } from '../actions'
 import UploadForm from './UploadForm.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
+import Edits from './Edits.jsx'
 /*import RefileWarning from './RefileWarning.jsx'
 import EditsContainer from './EditsContainer.jsx'
 import IRSReport from './IRSReport.jsx'
@@ -39,12 +40,11 @@ class SubmissionContainer extends Component {
     }
 
     if (code > 2) progress = <ValidationProgress/>
-/*
-    if(code > 6){
-      refileWarning = <RefileWarning code={code}/>
-      editsContainer = <EditsContainer/>
-    }
 
+    if(code > 6){
+      editsContainer = <Edits/>
+    }
+/*
     if(code > 9) irs = <IRSReport checked={false}/>
 
     if(code > 10){
