@@ -1,16 +1,17 @@
 import fetch from 'isomorphic-fetch'
 
-function getHandler(suffix){
+function sendFetch(suffix, postData){
   var url = makeUrl(parseLocation(), suffix);
+  var options = {
+    method: postData ? 'POST' : 'GET',
+    body: postData,
+    headers: {
+      'CFPB-HMDA-Institutions': 'fakeinstitution',
+      'CFPB-HMDA-Username': 'fakeuser'
+    }
+  }
 
-  return fetch(url)
-    .then(response => response.json())
-}
-
-function postHandler(suffix, postData){
-  var url = makeUrl(parseLocation(), suffix);
-
-  return fetch(url, {method: 'POST', body: postData})
+  return fetch(url, options)
     .then(response => response.json())
 }
 
@@ -29,11 +30,11 @@ export function parseLocation(){
  }
 
 export function getInstitutions(){
-  return getHandler('/institutions');
+  return sendFetch('/institutions');
 }
 
 export function getInstitution(id){
-  return getHandler('/institutions/' + id);
+  return sendFetch('/institutions/' + id);
 }
 
 export function getUploadUrl(){
@@ -41,15 +42,15 @@ export function getUploadUrl(){
 }
 
 export function getProgress(url, cb){
-  return getHandler(url, cb, '/progress');
+  return sendFetch(url, cb, '/progress');
 }
 
 export function getSubmission(id){
-  return getHandler('/submissions/' + id)
+  return sendFetch('/submissions/' + id)
 }
 
 export function getLatestSubmission(){
-  return getHandler('/submissions/latest')
+  return sendFetch('/submissions/latest')
 }
 
 export function getEditsByType(submission){
@@ -61,23 +62,23 @@ export function getEditsByRow(submission){
 }
 
 export function getIRS(url, cb){
-  return getHandler(url, cb, '/irs');
+  return sendFetch(url, cb, '/irs');
 }
 
 export function postIRS(url, cb, data){
-  return postHandler(url, cb, '/irs', data);
+  return sendFetch(url, cb, '/irs', data);
 }
 
 export function getSignature(url, cb){
-  return getHandler(url, cb, '/sign');
+  return sendFetch(url, cb, '/sign');
 }
 
 export function postSignature(url, cb, data){
-  return postHandler(url, cb, '/sign', data);
+  return sendFetch(url, cb, '/sign', data);
 }
 
 export function postSubmissions(url, cb){
-  return postHandler(url, cb, '/submissions');
+  return sendFetch(url, cb, '/submissions');
 }
 
 export function putEdit(edit, data){
