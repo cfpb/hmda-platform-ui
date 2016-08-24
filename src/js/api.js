@@ -54,11 +54,11 @@ export function getLatestSubmission(){
 }
 
 export function getEditsByType(submission){
-  return getHandler(`/submissions/${submission}/edits`);
+  return sendFetch(`/submissions/${submission}/edits`)
 }
 
 export function getEditsByRow(submission){
-  return getHandler(`/submissions/${submission}/edits/lars`);
+  return sendFetch(`/submissions/${submission}/edits/lars`)
 }
 
 export function getIRS(url, cb){
