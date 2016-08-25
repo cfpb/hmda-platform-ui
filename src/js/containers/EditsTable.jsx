@@ -1,6 +1,13 @@
 import React from 'react'
 
-const renderHeader = (row) => {
+const perEditTypes = ['synactical', 'validity', 'quality']
+
+const isPerEdit = (val) => perEditTypes.indexOf(val) !== -1
+
+const renderHeader = (props) => {
+  let row = props.data[0]
+  if (isPerEdit(props)) row = row.lar
+
   return (
     <tr>
       {
@@ -12,10 +19,24 @@ const renderHeader = (row) => {
   )
 }
 
-const EditsTable = (props) => {
-  if(!props.rows) return null
+const renderBody = (props) => {
+  return props.data.map((row, i) => {
+    if(row.lar) row = row.lar
 
-  if(!props.rows.length){
+    return (
+      <tr key={i}>
+        {
+          Object.keys(row).map((field, i) => {
+            return <td key={i}>{typeof row[field] === 'object' ? 'placeholder' : '' + row[field]}</td>
+          })
+        }
+      </tr>
+    )
+  })
+}
+
+const EditsTable = (props) => {
+  if(!props.data || !props.data.length){
     return (
       <div className="EditsGrouped">
         <h4><span className="cf-icon cf-icon-approved"></span>No edits found</h4>
@@ -25,25 +46,13 @@ const EditsTable = (props) => {
 
   return (
     <div className="EditsTable">
-      {props.label}
+      {props.label ? props.label : null}
       <table width="100%">
         <thead>
-          {renderHeader(props.rows[0])}
+          {renderHeader(props)}
         </thead>
         <tbody>
-          {
-            props.rows.map((row, i) => {
-              return (
-                <tr key={i}>
-                  {
-                    Object.keys(row.lar).map((field, i) => {
-                      return <td key={i}>{row.lar[field]}</td>
-                    })
-                  }
-                </tr>
-              )
-            })
-          }
+          {renderBody(props)}
         </tbody>
       </table>
     </div>

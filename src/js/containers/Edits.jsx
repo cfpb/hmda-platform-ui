@@ -9,7 +9,6 @@ var EditsSelector = require('./EditsSelector.jsx');
 var EditsGrouped = require('./EditsGrouped.jsx');
 var EditsMacro = require('./EditsMacro.jsx');
 var EditsQ595 = require('./EditsQ595.jsx');
-var EditsHeaderDescription = require('./EditsHeaderDescription.jsx');
 */
 
 class EditsContainer extends Component {
