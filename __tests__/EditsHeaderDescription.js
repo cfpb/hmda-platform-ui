@@ -1,27 +1,27 @@
-jest.dontMock('../src/js/EditsHeaderDescription.jsx');
+jest.unmock('../src/js/components/EditsHeaderDescription.jsx')
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
-
-var EditsHeaderDescription = require('../src/js/EditsHeaderDescription.jsx');
+import React from 'react'
+import ReactDOM from 'react-dom'
+import TestUtils from 'react-addons-test-utils'
+import Wrapper from './Wrapper.js'
+import EditsHeaderDescription from '../src/js/components/EditsHeaderDescription.jsx'
 
 describe('EditsHeaderDescription', function(){
-
-  var headerComponent = <EditsHeaderDescription>Syntactical Edits</EditsHeaderDescription>;
-  var header = TestUtils.renderIntoDocument(headerComponent);
-  var headerNode = ReactDOM.findDOMNode(header);
+  const header = TestUtils.renderIntoDocument(
+    <Wrapper><EditsHeaderDescription>syntactical</EditsHeaderDescription></Wrapper>
+  )
+  const headerNode = ReactDOM.findDOMNode(header)
 
   it('renders the header', function(){
-    expect(headerNode).toBeDefined();
-  });
+    expect(headerNode).toBeDefined()
+  })
 
   it('sets the prop appropriately', function(){
-    expect(header.props.children).toEqual('Syntactical Edits');
-  });
+    expect(header.props.children.props.children).toEqual('syntactical')
+  })
 
   it('correctly sets the desc', function(){
-    expect(header.getDescription('Syntactical Edits')).toEqual('This is the syntactical description.')
-  });
+    expect(headerNode.textContent).toEqual('Syntactical EditsThis is the syntactical description.')
+  })
 
-});
+})

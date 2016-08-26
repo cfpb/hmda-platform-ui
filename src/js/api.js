@@ -53,6 +53,14 @@ export function getLatestSubmission(){
   return sendFetch('/submissions/latest')
 }
 
+export function getEditsByType(submission){
+  return sendFetch(`/submissions/${submission}/edits`)
+}
+
+export function getEditsByRow(submission){
+  return sendFetch(`/submissions/${submission}/edits/lars`)
+}
+
 export function getIRS(url, cb){
   return sendFetch(url, cb, '/irs');
 }
@@ -71,14 +79,6 @@ export function postSignature(url, cb, data){
 
 export function postSubmissions(url, cb){
   return sendFetch(url, cb, '/submissions');
-}
-
-export function getEditsByType(url, cb){
-  return sendFetch(url, cb, '/edits');
-}
-
-export function getEditsByRow(url, cb){
-  return sendFetch(url, cb, '/edits/lars');
 }
 
 export function putEdit(edit, data){

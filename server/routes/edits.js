@@ -5,7 +5,6 @@ var syntactical = JSON.parse(fs.readFileSync('./server/json/syntactical.json'));
 var validity = JSON.parse(fs.readFileSync('./server/json/validity.json'));
 var quality = JSON.parse(fs.readFileSync('./server/json/quality.json'));
 var macro = JSON.parse(fs.readFileSync('./server/json/macro.json'));
-var q029 = JSON.parse(fs.readFileSync('./server/json/q029.json'));
 var q595 = JSON.parse(fs.readFileSync('./server/json/q595.json'));
 
 var edits = {
@@ -13,7 +12,6 @@ var edits = {
     validity: validity,
     quality: quality,
     macro: macro,
-    q029: q029,
     q595: q595
   }
 
@@ -39,6 +37,8 @@ var noMacro= {
 
 var qualityCount = 1;
 var qualityTotal = 2;
+
+var requestCount = -1;
 
 var macroEdits = {};
 
@@ -66,14 +66,14 @@ function checkMacro(){
 }
 
 router.get('/', function(req, res){
-  var sub = +req.params.submission;
   var currEdits = JSON.parse(JSON.stringify(edits));
+  var currRequest = ++requestCount % 3;
 
-  if(sub > 1){
+  if(currRequest >= 1){
     currEdits.syntactical = noSyntactical;
     currEdits.validity = noValidity;
   }
-  if(sub > 2){
+  if(currRequest === 2){
     currEdits.quality = noQuality;
     currEdits.macro = noMacro;
   }

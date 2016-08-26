@@ -9,7 +9,11 @@ import {
   SELECT_FILE,
   UPLOAD_PROGRESS,
   UPLOAD_COMPLETE,
-  UPLOAD_ERROR
+  UPLOAD_ERROR,
+  REQUEST_EDITS_BY_TYPE,
+  REQUEST_EDITS_BY_ROW,
+  RECEIVE_EDITS_BY_TYPE,
+  RECEIVE_EDITS_BY_ROW
 } from '../constants'
 
 const defaultUpload = {
@@ -27,8 +31,15 @@ const defaultSubmission = {
 }
 
 const submissionWrapper = {
-  isFetching: true,
+  isFetching: false,
   submission: defaultSubmission
+}
+
+const defaultEdits = {
+  isFetching: false,
+  types: {},
+  rows: [],
+  groupByRow: false
 }
 
 /*
@@ -154,9 +165,38 @@ const submissionStatus = (state = defaultSubmission, action) => {
   }
 }
 
+const edits = (state = defaultEdits, action) => {
+  switch (action.type) {
+  case REQUEST_EDITS_BY_TYPE:
+    return {
+      ...state,
+      isFetching: true
+    }
+  case REQUEST_EDITS_BY_ROW:
+    return {
+      ...state,
+      isFetching: true
+    }
+  case RECEIVE_EDITS_BY_TYPE:
+    console.log(action.edits)
+    return {
+      ...state,
+      types: action.edits
+    }
+  case RECEIVE_EDITS_BY_ROW:
+    return {
+      ...state,
+      rows: action.edits
+    }
+  default:
+    return state
+  }
+}
+
 export default combineReducers({
   institutions,
   filings,
   submission,
-  upload
+  upload,
+  edits
 })
