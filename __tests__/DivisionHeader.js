@@ -1,12 +1,10 @@
-jest.dontMock('../src/js/DivisionHeader.jsx');
+jest.dontMock('../src/js/components/DivisionHeader.jsx');
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
-
-
-var DivisionHeader = require('../src/js/DivisionHeader.jsx');
-
+import DivisionHeader from '../src/js/components/DivisionHeader.jsx'
+import Wrapper from './Wrapper.js'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import TestUtils from 'react-addons-test-utils'
 
 describe('divisionHeader', function(){
 
