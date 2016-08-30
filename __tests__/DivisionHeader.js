@@ -1,7 +1,6 @@
 jest.dontMock('../src/js/components/DivisionHeader.jsx');
 
 import DivisionHeader from '../src/js/components/DivisionHeader.jsx'
-import Wrapper from './Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
