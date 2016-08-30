@@ -23,7 +23,7 @@ describe('UserHeading', function() {
     })
 
     it('passes through the user appropriately as props', function(){
-      expect(heading.props.children.props.userName).toEqual(user);
+      expect(heading.props.userName).toEqual(user);
     })
 
     it('renders correctly', function(){

@@ -19,4 +19,8 @@ describe('divisionHeader', function(){
     expect(header.props.children).toEqual('testtext');
   });
 
+  it('renders correctly', function(){
+    expect(headerNode.textContent).toEqual('testtext');
+  })
+
 });
