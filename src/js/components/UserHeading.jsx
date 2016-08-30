@@ -34,7 +34,7 @@ const UserHeading = (props) => {
   }
 
   return (
-    <div><h1 className="UserHeading full">{headingText}</h1></div>
+    <h1 className="UserHeading full">{headingText}</h1>
   )
 }
 
