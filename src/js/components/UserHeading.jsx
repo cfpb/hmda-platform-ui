@@ -2,12 +2,12 @@ import React, { Component, PropTypes } from 'react'
 
 export default class UserHeading extends Component {
   render() {
-    if(!this.props.userName) return null
+    //if(!this.props.userName) return null
 
-    let headingText = 'Welcome to the ' + props.period + ' HMDA filing, ' + props.userName
+    let headingText = 'Welcome to the ' + this.props.period + ' HMDA filing, ' + this.props.userName
 
-    if (props.institution) {
-      headingText = props.userName + ' filing on behalf of ' + props.institution;
+    if (this.props.institution) {
+      headingText = this.props.userName + ' filing on behalf of ' + this.props.institution;
     }
 
     return (

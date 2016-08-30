@@ -1,25 +1,26 @@
-jest.dontMock('../src/js/components/DivisionHeader.jsx');
+jest.unmock('../src/js/components/DivisionHeader.jsx');
 
 import DivisionHeader from '../src/js/components/DivisionHeader.jsx'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
-describe('divisionHeader', function(){
+describe('divisionHeader', () => {
 
-  var headerComponent = <DivisionHeader>testtext</DivisionHeader>;
-  var header = TestUtils.renderIntoDocument(headerComponent);
-  var headerNode = ReactDOM.findDOMNode(header);
+  const header = TestUtils.renderIntoDocument(
+    <DivisionHeader>testtext</DivisionHeader>
+  );
+  const headerNode = ReactDOM.findDOMNode(header);
 
-  it('renders the header', function(){
+  it('renders the header', () => {
     expect(headerNode).toBeDefined();
   });
 
-  it('sets the text prop appropriately', function(){
+  it('sets the text prop appropriately', () => {
     expect(header.props.children).toEqual('testtext');
   });
 
-  it('renders correctly', function(){
+  it('renders correctly', () => {
     expect(headerNode.textContent).toEqual('testtext');
   })
 
