@@ -1,5 +1,5 @@
 import React from 'react'
-import HomeLink from './HomeLink.jsx'
+import HomeLink from './components/HomeLink.jsx'
 
 const AppContainer = (props) => {
   return (

@@ -9,25 +9,28 @@ const user = 'User1'
 const institution = "Wacky data";
 const period = '2017';
 
-describe('UserHeading', function() {
-  describe('render without institution', function() {
+describe('UserHeading', () => {
+  describe('render without institution', () => {
 
-    //var headingComponent = <Wrapper><UserHeading userName={user} period={period}/></Wrapper>
     const heading = TestUtils.renderIntoDocument(
       <UserHeading userName={user} period={period}/>
     )
+    console.log('heading');
+    console.log(heading);
     const headingNode = ReactDOM.findDOMNode(heading)
+    console.log(headingNode);
 
-    it('renders the component', function(){
-      expect(headingNode).toBeDefined();
+    it('renders the component', () => {
+      console.log(headingNode)
+      expect(headingNode).toBeDefined()
     })
 
-    it('passes through the user appropriately as props', function(){
-      expect(heading.props.userName).toEqual(user);
+    it('passes through the user appropriately as props', () => {
+      expect(heading.props.userName).toEqual(user)
     })
 
-    it('renders correctly', function(){
-      expect(headingNode.textContent).toEqual('Welcome to the 2017 HMDA filing, User1');
+    it('renders correctly', () => {
+      expect(headingNode.textContent).toEqual('Welcome to the 2017 HMDA filing, User1')
     })
   })
 
@@ -50,4 +53,4 @@ describe('UserHeading', function() {
       expect(headingNode.textContent).toEqual('User1 filing on behalf of Wacky data');
     });
   });*/
-});
+})
