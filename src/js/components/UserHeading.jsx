@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 export default class UserHeading extends Component {
   render() {
-    //if(!this.props.userName) return null
+    if(!this.props.userName) return null
 
     let headingText = 'Welcome to the ' + this.props.period + ' HMDA filing, ' + this.props.userName
 
