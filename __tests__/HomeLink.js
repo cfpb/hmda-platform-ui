@@ -1,19 +1,20 @@
-jest.dontMock('../src/js/HomeLink.jsx');
+jest.unmock('../src/js/HomeLink.jsx');
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+import HomeLink from '../src/js/HomeLink.jsx'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import TestUtils from 'react-addons-test-utils'
 
+describe('homelink', () => {
 
-var HomeLink = require('../src/js/HomeLink.jsx');
+  const homeLink = TestUtils.renderIntoDocument(<HomeLink/>)
+  const linkNode = ReactDOM.findDOMNode(homeLink)
 
+  it('renders the link into the document', () => {
+    expect(linkNode).toBeDefined()
+  })
 
-describe('home link', function(){
-
-  var homeLink = TestUtils.renderIntoDocument(<HomeLink/>)
-  var linkNode = ReactDOM.findDOMNode(homeLink);
-
-  it('renders the link into the document', function(){
-    expect(linkNode).toBeDefined();
-  });
-});
+  it('renders the link into the document', () => {
+    expect(linkNode.textContent).toEqual('Home')
+  })
+})
