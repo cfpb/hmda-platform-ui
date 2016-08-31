@@ -1,7 +1,9 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 
 const DivisionHeader = (props) => {
-  return <h2 className="DivisionHeader">{props.children}</h2>
+  return (
+    <h2 className="DivisionHeader">{props.children}</h2>
+  )
 }
 
 DivisionHeader.propTypes = {
