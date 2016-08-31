@@ -4,7 +4,8 @@ import HomeLink from './components/HomeLink.jsx'
 const AppContainer = (props) => {
   return (
     <div className="AppContainer">
-      <HomeLink/>
+      <HomeLink/><br />
+      <img src="/img/ffiec-logo.png" width="150px"/>
       {props.children}
     </div>
   )
