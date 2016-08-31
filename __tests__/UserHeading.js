@@ -1,6 +1,7 @@
 jest.unmock('../src/js/components/UserHeading.jsx')
 
 import UserHeading from '../src/js/components/UserHeading.jsx'
+import Wrapper from './Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
@@ -16,7 +17,7 @@ describe('UserHeading', () => {
 
   describe('does NOT render without user', () => {
     const heading = TestUtils.renderIntoDocument(
-      <UserHeading  period={data.period}/>
+      <Wrapper><UserHeading period={data.period}/></Wrapper>
     )
     const headingNode = ReactDOM.findDOMNode(heading)
 
@@ -27,7 +28,7 @@ describe('UserHeading', () => {
 
   describe('render without institution', () => {
     const heading = TestUtils.renderIntoDocument(
-      <UserHeading userName={data.user} period={data.period}/>
+      <Wrapper><UserHeading userName={data.user} period={data.period}/></Wrapper>
     )
     const headingNode = ReactDOM.findDOMNode(heading)
 
@@ -36,7 +37,7 @@ describe('UserHeading', () => {
     })
 
     it('passes through the user appropriately as props', () => {
-      expect(heading.props.userName).toEqual(data.user)
+      expect(heading.props.children.props.userName).toEqual(data.user)
     })
 
     it('renders correctly', () => {
@@ -46,7 +47,7 @@ describe('UserHeading', () => {
 
   describe('render with institution', () => {
     const heading = TestUtils.renderIntoDocument(
-      <UserHeading institution={data.institution} userName={data.user} period={data.period} />
+      <Wrapper><UserHeading institution={data.institution} userName={data.user} period={data.period} /></Wrapper>
     )
     const headingNode = ReactDOM.findDOMNode(heading)
 
@@ -55,7 +56,7 @@ describe('UserHeading', () => {
     })
 
     it('passes through the institution appropriately as props', () => {
-      expect(heading.props.institution).toEqual("Wacky data")
+      expect(heading.props.children.props.institution).toEqual("Wacky data")
     })
 
     it('renders correctly', () => {
