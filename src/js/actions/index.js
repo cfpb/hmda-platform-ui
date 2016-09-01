@@ -116,6 +116,18 @@ export function uploadError() {
   }
 }
 
+export function requestIRS() {
+  return {
+    type: types.REQUEST_IRS
+  }
+}
+
+export function receiveIRS() {
+  return {
+    type: types.RECEIVE_IRS
+  }
+}
+
 /*
  * Wire upload together with xhr so progress can be tracked
  */
