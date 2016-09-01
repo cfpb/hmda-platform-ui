@@ -5,7 +5,9 @@ import {
   getSubmission,
   getUploadUrl,
   getEditsByType,
-  getEditsByRow
+  getEditsByRow,
+  getIRS,
+  postIRS
 } from '../api'
 import * as types from '../constants'
 
@@ -122,9 +124,10 @@ export function requestIRS() {
   }
 }
 
-export function receiveIRS() {
+export function receiveIRS(data) {
   return {
-    type: types.RECEIVE_IRS
+    type: types.RECEIVE_IRS,
+    irs: data
   }
 }
 
