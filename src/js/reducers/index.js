@@ -13,7 +13,9 @@ import {
   REQUEST_EDITS_BY_TYPE,
   REQUEST_EDITS_BY_ROW,
   RECEIVE_EDITS_BY_TYPE,
-  RECEIVE_EDITS_BY_ROW
+  RECEIVE_EDITS_BY_ROW,
+  REQUEST_IRS,
+  RECEIVE_IRS
 } from '../constants'
 
 const defaultUpload = {
@@ -40,6 +42,11 @@ const defaultEdits = {
   types: {},
   rows: [],
   groupByRow: false
+}
+
+const defaultIRS = {
+  isFetching: false,
+  irs: {}
 }
 
 /*
@@ -167,29 +174,47 @@ const submissionStatus = (state = defaultSubmission, action) => {
 
 const edits = (state = defaultEdits, action) => {
   switch (action.type) {
-  case REQUEST_EDITS_BY_TYPE:
-    return {
-      ...state,
-      isFetching: true
+    case REQUEST_EDITS_BY_TYPE:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case REQUEST_EDITS_BY_ROW:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case RECEIVE_EDITS_BY_TYPE:
+      console.log(action.edits)
+      return {
+        ...state,
+        types: action.edits
+      }
+    case RECEIVE_EDITS_BY_ROW:
+      return {
+        ...state,
+        rows: action.edits
+      }
+    default:
+      return state
+  }
+}
+
+const irs = (state = defaultIRS, action) => {
+  switch (action.type) {
+    case REQUEST_IRS:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case RECEIVE_IRS: {
+      return {
+        ...state,
+        irs: action.irs
+      }
     }
-  case REQUEST_EDITS_BY_ROW:
-    return {
-      ...state,
-      isFetching: true
-    }
-  case RECEIVE_EDITS_BY_TYPE:
-    console.log(action.edits)
-    return {
-      ...state,
-      types: action.edits
-    }
-  case RECEIVE_EDITS_BY_ROW:
-    return {
-      ...state,
-      rows: action.edits
-    }
-  default:
-    return state
+    default:
+      return state
   }
 }
 
@@ -198,5 +223,6 @@ export default combineReducers({
   filings,
   submission,
   upload,
-  edits
+  edits,
+  irs
 })
