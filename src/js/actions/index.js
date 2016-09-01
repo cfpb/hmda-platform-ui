@@ -6,8 +6,7 @@ import {
   getUploadUrl,
   getEditsByType,
   getEditsByRow,
-  getIRS,
-  postIRS
+  getIRS
 } from '../api'
 import * as types from '../constants'
 
@@ -252,6 +251,15 @@ export function fetchEditsByRow() {
     dispatch(requestEditsByRow())
     return getEditsByRow(latestSubmissionId)
       .then(json => dispatch(receiveEditsByRow(json)))
+      .catch(err => console.log(err))
+  }
+}
+
+export function fetchIRS() {
+  return dispatch => {
+    dispatch(requestIRS())
+    return getIRS()
+      .then(json => dispatch(receiveIRS(json)))
       .catch(err => console.log(err))
   }
 }
