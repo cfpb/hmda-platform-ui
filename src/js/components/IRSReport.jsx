@@ -1,28 +1,16 @@
 import React, { Component, PropTypes } from 'react'
 
-export default class IRS extends Component {
-  getInitialState() {
-    return {
-      irs: {
-        msas: []
-      }
-    }
+class IRS extends Component {
+  constructor(props) {
+    super(props)
   }
 
-  componentWillMount() {
-    var self = this
-    api.getIRS(function(err, irsObj) {
-      if(err) return console.log(err)
-      self.setState(
-        {
-          irs: irsObj
-        }
-      )
-    })
+  componentDidMount() {
+    this.props.dispatch(fetchIRS())
   }
 
   toggleCheck(e) {
-    api.postIRS(this.props.appStatus.set, {verified: e.target.checked})
+    // TODO - this.props.dispatch(postIRS)
   }
 
   render() {
@@ -58,9 +46,9 @@ export default class IRS extends Component {
             </tr>
           </thead>
           <tbody>
-            {self.state.irs.msas.map(function(msa, i){
+            {self.state.irs.msas.map((msa, i) => {
               return <tr key={i}>
-                {Object.keys(msa).map(function(data, i){
+                {Object.keys(msa).map((data, i) => {
                   return <td key={i}>{msa[data]}</td>
                 })}
               </tr>
@@ -77,3 +65,5 @@ IRS.propTypes = {
   appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
   checked: React.PropTypes.bool
 }
+
+export default connect(mapStateToProps)(IRS)
