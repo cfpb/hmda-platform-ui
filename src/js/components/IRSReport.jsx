@@ -66,4 +66,19 @@ IRS.propTypes = {
   checked: React.PropTypes.bool
 }
 
+function mapStateToProps(state) {
+  const {
+    isFetching,
+    irs
+  } = state.app.irs || {
+    isFetching: true,
+    irs: {}
+  }
+
+  return {
+    isFetching,
+    irs
+  }
+}
+
 export default connect(mapStateToProps)(IRS)
