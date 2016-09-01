@@ -1,37 +1,32 @@
-var React = require('react');
-var api = require('./api');
+import React, { Component, PropTypes } from 'react'
 
-var IRS = React.createClass({
-  propTypes: {
-    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
-    checked: React.PropTypes.bool
-  },
-
-  getInitialState: function() {
+export default class IRS extends Component {
+  getInitialState() {
     return {
       irs: {
         msas: []
       }
     }
-  },
+  }
 
-  componentWillMount: function() {
-    var self = this;
-    api.getIRS(function(err, irsObj){
-      if(err) return console.log(err);
-      self.setState({
-        irs: irsObj
-      });
-    });
-  },
+  componentWillMount() {
+    var self = this
+    api.getIRS(function(err, irsObj) {
+      if(err) return console.log(err)
+      self.setState(
+        {
+          irs: irsObj
+        }
+      )
+    })
+  }
 
-  toggleCheck: function(e){
-    api.postIRS(this.props.appStatus.set, {verified: e.target.checked});
-  },
+  toggleCheck(e) {
+    api.postIRS(this.props.appStatus.set, {verified: e.target.checked})
+  }
 
-
-  render: function() {
-    var self = this;
+  render() {
+    var self = this
     return (
       <div className="IRSReport EditsHeaderDescription">
         <h2>Institution Register Summary</h2>
@@ -76,6 +71,9 @@ var IRS = React.createClass({
       </div>
     )
   }
-});
+}
 
-module.exports = IRS;
+IRS.propTypes = {
+  appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
+  checked: React.PropTypes.bool
+}
