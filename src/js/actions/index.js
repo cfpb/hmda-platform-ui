@@ -278,3 +278,12 @@ export function fetchIRS() {
       .catch(err => console.log(err))
   }
 }
+
+export function fetchSignature() {
+  return dispatch => {
+    dispatch(requestSignature())
+    return getSignature()
+      .then(json => dispatch(receiveSignature(json)))
+      .catch(err => console.log(err))
+  }
+}
