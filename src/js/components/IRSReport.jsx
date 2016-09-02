@@ -17,11 +17,12 @@ class IRS extends Component {
 
   render() {
     var self = this
+    console.log(self.props)
     return (
       <div className="IRSReport EditsHeaderDescription">
         <h2>Institution Register Summary</h2>
         <p>All MSA/MDs where my institution has a home or branch office (and took loan/applications in that office) are listed on the IRS. Each MSA/MD listed is an MSA/MD in which we have a home or branch office. No depository institutions, including mortgage subsidiaries, are considered to have a branch office in any MSA/MD where they have acted.</p>
-        <p>Please review each of the <strong>{self.state.irs.msas.length}</strong> MSA/MDs listed below. If you disagree please correct and re-upload the updated file.</p>
+        <p>Please review each of the <strong>{self.props.irs.msas.length}</strong> MSA/MDs listed below. If you disagree please correct and re-upload the updated file.</p>
         <table width="100%">
           <thead>
             <tr>
@@ -48,7 +49,7 @@ class IRS extends Component {
             </tr>
           </thead>
           <tbody>
-            {self.state.irs.msas.map((msa, i) => {
+            {self.props.irs.msas.map((msa, i) => {
               return <tr key={i}>
                 {Object.keys(msa).map((data, i) => {
                   return <td key={i}>{msa[data]}</td>
@@ -64,7 +65,7 @@ class IRS extends Component {
 }
 
 IRS.propTypes = {
-  appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
+  //appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
   checked: React.PropTypes.bool
 }
 
