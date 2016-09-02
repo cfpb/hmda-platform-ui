@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchIRS } from '../actions'
 
-class IRS extends Component {
+export default class IRS extends Component {
   constructor(props) {
     super(props)
   }
@@ -17,6 +17,7 @@ class IRS extends Component {
 
   render() {
     var self = this
+    console.log('IRS');
     console.log(self.props)
     return (
       <div className="IRSReport EditsHeaderDescription">
@@ -68,20 +69,3 @@ IRS.propTypes = {
   //appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
   checked: React.PropTypes.bool
 }
-
-function mapStateToProps(state) {
-  const {
-    isFetching,
-    irs
-  } = state.app.irs || {
-    isFetching: true,
-    irs: {}
-  }
-
-  return {
-    isFetching,
-    irs
-  }
-}
-
-export default connect(mapStateToProps)(IRS)

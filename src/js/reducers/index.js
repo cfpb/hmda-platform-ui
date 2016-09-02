@@ -51,6 +51,12 @@ const defaultIRS = {
   irs: {}
 }
 
+const defaultSignature = {
+  isFetching: false,
+  timestamp: null,
+  receipt: null
+}
+
 /*
  * Set isFetching to true when institutions are being requested
  * Set isFetching to false and populate the institutions key
@@ -202,7 +208,7 @@ const edits = (state = defaultEdits, action) => {
   }
 }
 
-const irs = (state = defaultIRS, action) => {
+const irs = (state = {}, action) => {
   switch (action.type) {
     case REQUEST_IRS:
       return {
@@ -212,14 +218,14 @@ const irs = (state = defaultIRS, action) => {
     case RECEIVE_IRS:
       return {
         ...state,
-        irs: action.irs
+        irs: action.msas
       }
     default:
       return state
   }
 }
 
-const signature = (state = defaultSubmission, action) => {
+const signature = (state = {}, action) => {
   switch (action.type) {
     case REQUEST_SIGNATURE:
       return {

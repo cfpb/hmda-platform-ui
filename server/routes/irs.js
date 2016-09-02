@@ -3,6 +3,8 @@ var router = require('express').Router();
 var irsObj = JSON.parse(fs.readFileSync('./server/json/irs.json'));
 
 router.get('/', function (req, res) {
+  console.log('get IRS');
+  console.log(irsObj)
   res.send(irsObj);
 });
 

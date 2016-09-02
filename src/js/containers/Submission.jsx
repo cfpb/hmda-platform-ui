@@ -4,15 +4,17 @@ import { fetchSubmission } from '../actions'
 import UploadForm from './UploadForm.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Edits from './Edits.jsx'
+import Signature from '../components/Signature.jsx'
+import IRSReport from '../components/IRSReport.jsx'
 /*import RefileWarning from './RefileWarning.jsx'
 import EditsContainer from './EditsContainer.jsx'
 import IRSReport from './IRSReport.jsx'
 import Summary from './Summary.jsx'
-import Signature from './Signature.jsx'
+
 */
 class SubmissionContainer extends Component {
   constructor(props) {
-      super(props)
+    super(props)
   }
 
   componentDidMount() {
@@ -43,6 +45,8 @@ class SubmissionContainer extends Component {
 
     if(code > 6){
       editsContainer = <Edits/>
+      sign = <Signature checked={true} {...this.props}/>
+      //irs = <IRSReport checked={false}/>
     }
 /*
     if(code > 9) irs = <IRSReport checked={false}/>
@@ -78,7 +82,9 @@ class SubmissionContainer extends Component {
 function mapStateToProps(state) {
   const {
     isFetching,
-    submission
+    submission,
+    irs,
+    signature
   } = state.app.submission || {
     isFetching: true,
     submission: {
@@ -87,12 +93,17 @@ function mapStateToProps(state) {
         code: 1,
         message: ''
       }
-    }
+    },
+    irs: {},
+    timestamp: null,
+    receipt: null
   }
 
   return {
     isFetching,
-    submission
+    submission,
+    irs,
+    signature
   }
 }
 
