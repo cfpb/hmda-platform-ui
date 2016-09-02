@@ -209,12 +209,11 @@ const irs = (state = defaultIRS, action) => {
         ...state,
         isFetching: true
       }
-    case RECEIVE_IRS: {
+    case RECEIVE_IRS:
       return {
         ...state,
         irs: action.irs
       }
-    }
     default:
       return state
   }
@@ -233,6 +232,8 @@ const signature = (state = defaultSubmission, action) => {
         timestamp: action.timestamp,
         receipt: action.receipt
       }
+    default:
+      return state
   }
 }
 
