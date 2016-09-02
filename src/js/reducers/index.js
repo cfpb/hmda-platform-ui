@@ -15,7 +15,9 @@ import {
   RECEIVE_EDITS_BY_TYPE,
   RECEIVE_EDITS_BY_ROW,
   REQUEST_IRS,
-  RECEIVE_IRS
+  RECEIVE_IRS,
+  REQUEST_SIGNATURE,
+  RECEIVE_SIGNATURE
 } from '../constants'
 
 const defaultUpload = {
@@ -218,11 +220,28 @@ const irs = (state = defaultIRS, action) => {
   }
 }
 
+const signature = (state = defaultSubmission, action) => {
+  switch (action.type) {
+    case REQUEST_SIGNATURE:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case RECEIVE_SIGNATURE:
+      return {
+        ...state,
+        timestamp: action.timestamp,
+        receipt: action.receipt
+      }
+  }
+}
+
 export default combineReducers({
   institutions,
   filings,
   submission,
   upload,
   edits,
-  irs
+  irs,
+  signature
 })
