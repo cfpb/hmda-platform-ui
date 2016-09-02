@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { fetchIRS } from '../actions'
 
 class IRS extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class IRS extends Component {
   }
 
   toggleCheck(e) {
-    // TODO - this.props.dispatch(postIRS)
+    // TODO - this.props.dispatch(postIRS())
   }
 
   render() {
