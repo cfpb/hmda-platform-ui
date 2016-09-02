@@ -45,8 +45,8 @@ class SubmissionContainer extends Component {
 
     if(code > 6){
       editsContainer = <Edits/>
-      sign = <Signature checked={true} {...this.props}/>
-      //irs = <IRSReport checked={false}/>
+      sign = <Signature checked={false} />
+      irs = <IRSReport checked={false} />
     }
 /*
     if(code > 9) irs = <IRSReport checked={false}/>
@@ -82,9 +82,7 @@ class SubmissionContainer extends Component {
 function mapStateToProps(state) {
   const {
     isFetching,
-    submission,
-    irs,
-    signature
+    submission
   } = state.app.submission || {
     isFetching: true,
     submission: {
@@ -93,17 +91,12 @@ function mapStateToProps(state) {
         code: 1,
         message: ''
       }
-    },
-    irs: {},
-    timestamp: null,
-    receipt: null
+    }
   }
 
   return {
     isFetching,
-    submission,
-    irs,
-    signature
+    submission
   }
 }
 

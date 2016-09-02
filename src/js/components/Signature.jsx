@@ -2,13 +2,12 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchSignature } from '../actions'
 
-export default class Signature extends Component {
+class Signature extends Component {
   constructor(props) {
     super(props)
   }
 
   componentDidMount() {
-    var self = this;
     if (this.props.checked) {
       this.props.dispatch(fetchSignature())
     }
@@ -45,3 +44,23 @@ Signature.propTypes = {
   //appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
   checked: React.PropTypes.bool
 }
+
+function mapStateToProps(state) {
+  const {
+    isFetching,
+    timestamp,
+    receipt
+  } = state.app.sign || {
+    isFetching: false,
+    timestamp: null,
+    receipt: null
+  }
+
+  return {
+    isFetching,
+    timestamp,
+    receipt
+  }
+}
+
+export default connect(mapStateToProps)(Signature)
