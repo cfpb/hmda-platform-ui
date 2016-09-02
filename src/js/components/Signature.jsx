@@ -30,6 +30,7 @@ class Signature extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className="Signature">
         <p><input type="checkbox" value="Signature" onChange={this.toggleSignature} checked={this.props.checked}/> I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</p>
@@ -40,28 +41,24 @@ class Signature extends Component {
 }
 
 Signature.propTypes = {
-  appStatus: React.PropTypes.object.isRequired,
   checked: React.PropTypes.bool
 }
 
 function mapStateToProps(state) {
   const {
     isFetching,
-    submission
-  } = state.app.submission || {
+    timestamp,
+    receipt
+  } = state.app || {
     isFetching: true,
-    submission: {
-      id: 1,
-      status: {
-        code: 1,
-        message: ''
-      }
-    }
+    timestamp: null,
+    receipt: null
   }
 
   return {
     isFetching,
-    submission
+    timestamp,
+    receipt
   }
 }
 
