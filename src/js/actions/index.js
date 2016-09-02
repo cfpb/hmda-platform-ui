@@ -273,7 +273,7 @@ export function fetchEditsByRow() {
 export function fetchIRS() {
   return dispatch => {
     dispatch(requestIRS())
-    return getIRS()
+    return getIRS(latestSubmissionId)
       .then(json => dispatch(receiveIRS(json)))
       .catch(err => console.log(err))
   }
@@ -282,7 +282,7 @@ export function fetchIRS() {
 export function fetchSignature() {
   return dispatch => {
     dispatch(requestSignature())
-    return getSignature()
+    return getSignature(latestSubmissionId)
       .then(json => dispatch(receiveSignature(json)))
       .catch(err => console.log(err))
   }
