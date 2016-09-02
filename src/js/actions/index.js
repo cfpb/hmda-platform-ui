@@ -6,7 +6,8 @@ import {
   getUploadUrl,
   getEditsByType,
   getEditsByRow,
-  getIRS
+  getIRS,
+  getSignature
 } from '../api'
 import * as types from '../constants'
 
@@ -127,6 +128,20 @@ export function receiveIRS(data) {
   return {
     type: types.RECEIVE_IRS,
     irs: data
+  }
+}
+
+export function requestSignature() {
+  return {
+    type: types.REQUEST_SIGNATURE
+  }
+}
+
+export function receiveSignature(data) {
+  latestSubmissionId = data.id
+  return {
+    type: types.RECEIVE_SIGNATURE,
+    submission: data
   }
 }
 
