@@ -1,25 +1,28 @@
-jest.dontMock('../src/js/DivisionHeader.jsx');
+jest.unmock('../src/js/components/DivisionHeader.jsx')
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+import DivisionHeader from '../src/js/components/DivisionHeader.jsx'
+import Wrapper from './Wrapper.js'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import TestUtils from 'react-addons-test-utils'
 
+describe('divisionHeader', () => {
 
-var DivisionHeader = require('../src/js/DivisionHeader.jsx');
+  const header = TestUtils.renderIntoDocument(
+    <Wrapper><DivisionHeader>testtext</DivisionHeader></Wrapper>
+  );
+  const headerNode = ReactDOM.findDOMNode(header)
 
+  it('renders the header', () => {
+    expect(headerNode).toBeDefined()
+  })
 
-describe('divisionHeader', function(){
+  it('sets the text prop appropriately', () => {
+    expect(header.props.children.props.children).toEqual('testtext')
+  })
 
-  var headerComponent = <DivisionHeader>testtext</DivisionHeader>;
-  var header = TestUtils.renderIntoDocument(headerComponent);
-  var headerNode = ReactDOM.findDOMNode(header);
+  it('renders correctly', () => {
+    expect(headerNode.textContent).toEqual('testtext')
+  })
 
-  it('renders the header', function(){
-    expect(headerNode).toBeDefined();
-  });
-
-  it('sets the text prop appropriately', function(){
-    expect(header.props.children).toEqual('testtext');
-  });
-
-});
+})
