@@ -6,7 +6,7 @@ function sendFetch(suffix, postData){
     method: postData ? 'POST' : 'GET',
     body: postData,
     headers: {
-      'CFPB-HMDA-Institutions': 'fakeinstitution',
+      'CFPB-HMDA-Institutions': '0,1,2,3',
       'CFPB-HMDA-Username': 'fakeuser'
     }
   }
