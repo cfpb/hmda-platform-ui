@@ -45,7 +45,7 @@ export default class IRSReport extends Component {
         </table>
         <p>
           <input type="checkbox" value="IRS verification"
-            /*onChange={self.props.dispatch(postIRS)}*/
+            /*TODO: handle onChange={self.props.dispatch(postIRS)}*/
             checked={self.props.isChecked} />
           I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.
         </p>
@@ -56,6 +56,12 @@ export default class IRSReport extends Component {
 
 IRSReport.propTypes = {
   isChecked: React.PropTypes.bool,
-  irs: React.PropTypes.object.isRequired,
+  irs: React.PropTypes.object,
   dispatch: PropTypes.func.isRequired
+}
+
+IRSReport.defaultProps = {
+  irs: {
+    msas: []
+  }
 }

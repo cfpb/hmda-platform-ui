@@ -30,5 +30,6 @@ export default class Signature extends Component {
 Signature.propTypes = {
   isChecked: React.PropTypes.bool,
   receipt: React.PropTypes.string,
-  timestamp: React.PropTypes.string
+  timestamp: React.PropTypes.string,
+  dispatch: PropTypes.func.isRequired
 }
