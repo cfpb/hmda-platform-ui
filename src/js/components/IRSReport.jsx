@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
 export default class IRSReport extends Component {
-
   render() {
     var self = this
     return (

@@ -1,22 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { fetchSignature } from '../actions'
 
-class Signature extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  componentDidMount() {
-    if (this.props.checked) {
-      this.props.dispatch(fetchSignature())
-    }
-  }
-
-  toggleSignature() {
-    // TODO - this.props.dispatch(postSignature())
-  }
-
+export default class Signature extends Component {
   showReceipt() {
     if(!this.props.receipt) return null;
 
@@ -29,11 +13,9 @@ class Signature extends Component {
   }
 
   render() {
-    console.log('Signature')
-    console.log(this.props)
     return (
       <div className="Signature">
-        <p><input type="checkbox" value="Signature" onChange={this.toggleSignature} checked={this.props.checked}/> I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</p>
+        <p><input type="checkbox" value="Signature" {/*this.props.dispatch(postSignature())*/} checked={this.props.isChecked}/> I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</p>
         {this.showReceipt()}
       </div>
     )
@@ -41,26 +23,7 @@ class Signature extends Component {
 }
 
 Signature.propTypes = {
-  //appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
-  checked: React.PropTypes.bool
+  isChecked: React.PropTypes.bool,
+  receipt: React.PropTypes.string,
+  timestamp: React.PropTypes.string
 }
-
-function mapStateToProps(state) {
-  const {
-    isFetching,
-    timestamp,
-    receipt
-  } = state.app.sign || {
-    isFetching: false,
-    timestamp: null,
-    receipt: null
-  }
-
-  return {
-    isFetching,
-    timestamp,
-    receipt
-  }
-}
-
-export default connect(mapStateToProps)(Signature)
