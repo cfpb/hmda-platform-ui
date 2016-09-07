@@ -1,24 +1,9 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { fetchIRS } from '../actions'
 
-class IRS extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  componentWillMount() {
-    this.props.dispatch(fetchIRS())
-  }
-
-  toggleCheck(e) {
-    // TODO - this.props.dispatch(postIRS())
-  }
+export default class IRSReport extends Component {
 
   render() {
     var self = this
-    console.log('IRS');
-    console.log(self.props)
     return (
       <div className="IRSReport EditsHeaderDescription">
         <h2>Institution Register Summary</h2>
@@ -59,30 +44,14 @@ class IRS extends Component {
             })}
           </tbody>
         </table>
-        <p><input type="checkbox" value="IRS verification" checked={self.props.checked} onChange={self.toggleCheck}/> I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.</p>
+        <p><input type="checkbox" value="IRS verification" checked={self.props.isChecked} {/*onChange={self.props.dispatch(postIRS)}*/}/> I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.</p>
       </div>
     )
   }
 }
 
-IRS.propTypes = {
-  //appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
-  checked: React.PropTypes.bool
+IRSReport.propTypes = {
+  isChecked: React.PropTypes.bool,
+  irs: React.PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
 }
-
-function mapStateToProps(state) {
-  const {
-    isFetching,
-    irs
-  } = state.app.irs || {
-    isFetching: false,
-    irs: {}
-  }
-
-  return {
-    isFetching,
-    irs
-  }
-}
-
-export default connect(mapStateToProps)(IRS)
