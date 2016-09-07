@@ -4,8 +4,8 @@ import { fetchSubmission } from '../actions'
 import UploadForm from './UploadForm.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Edits from './Edits.jsx'
-import Signature from '../components/Signature.jsx'
-import IRSReport from '../components/IRSReport.jsx'
+import SignatureContainer from './Signature.jsx'
+import IRSReportContainer from './IRSReport.jsx'
 /*import RefileWarning from './RefileWarning.jsx'
 import EditsContainer from './EditsContainer.jsx'
 import IRSReport from './IRSReport.jsx'
@@ -44,9 +44,9 @@ class SubmissionContainer extends Component {
     if (code > 2) progress = <ValidationProgress/>
 
     if(code > 6){
-      editsContainer = <Edits/>
-      sign = <Signature checked={false} />
-      irs = <IRSReport checked={false} />
+      //editsContainer = <Edits/>
+      sign = <SignatureContainer />
+      irs = <IRSReportContainer />
     }
 /*
     if(code > 9) irs = <IRSReport checked={false}/>
