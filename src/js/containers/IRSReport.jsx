@@ -8,7 +8,7 @@ class IRSReportContainer extends Component {
     super(props)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch(fetchIRS())
   }
 
