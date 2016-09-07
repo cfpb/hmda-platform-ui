@@ -48,7 +48,8 @@ const defaultEdits = {
 
 const defaultIRS = {
   isFetching: false,
-  irs: {}
+  irs: {},
+  isChecked: false
 }
 
 const defaultSignature = {
@@ -216,9 +217,6 @@ const irs = (state = {}, action) => {
         isFetching: true
       }
     case RECEIVE_IRS:
-      console.log('RECEIVE_IRS')
-      console.log(action)
-      console.log(action.msas)
       return {
         ...state,
         irs: action.msas
