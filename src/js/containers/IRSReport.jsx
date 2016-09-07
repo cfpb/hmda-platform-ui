@@ -12,10 +12,6 @@ class IRSReportContainer extends Component {
     this.props.dispatch(fetchIRS())
   }
 
-  toggleCheck(e) {
-    // TODO - this.props.dispatch(postIRS())
-  }
-
   render() {
     return <IRSReport {...this.props} />
   }
