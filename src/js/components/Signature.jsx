@@ -15,7 +15,12 @@ export default class Signature extends Component {
   render() {
     return (
       <div className="Signature">
-        <p><input type="checkbox" value="Signature" {/*this.props.dispatch(postSignature())*/} checked={this.props.isChecked}/> I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</p>
+        <p>
+          <input type="checkbox" value="Signature"
+            /*TODO: handle onChange=this.props.dispatch(postSignature())*/
+            checked={this.props.isChecked} />
+          I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.
+        </p>
         {this.showReceipt()}
       </div>
     )

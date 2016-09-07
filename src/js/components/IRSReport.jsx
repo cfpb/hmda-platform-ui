@@ -43,7 +43,12 @@ export default class IRSReport extends Component {
             })}
           </tbody>
         </table>
-        <p><input type="checkbox" value="IRS verification" checked={self.props.isChecked} {/*onChange={self.props.dispatch(postIRS)}*/}/> I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.</p>
+        <p>
+          <input type="checkbox" value="IRS verification"
+            /*onChange={self.props.dispatch(postIRS)}*/
+            checked={self.props.isChecked} />
+          I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.
+        </p>
       </div>
     )
   }
