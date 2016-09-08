@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 export default class IRSReport extends Component {
   render() {
     var self = this
+    if (!self.props.irs.msas) return null
     return (
       <div className="IRSReport EditsHeaderDescription">
         <h2>Institution Register Summary</h2>
