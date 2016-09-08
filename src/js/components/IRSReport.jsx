@@ -1,42 +1,14 @@
-var React = require('react');
-var api = require('./api');
+import React, { Component, PropTypes } from 'react'
 
-var IRS = React.createClass({
-  propTypes: {
-    appStatus: React.PropTypes.objectOf(React.PropTypes.func).isRequired,
-    checked: React.PropTypes.bool
-  },
-
-  getInitialState: function() {
-    return {
-      irs: {
-        msas: []
-      }
-    }
-  },
-
-  componentWillMount: function() {
-    var self = this;
-    api.getIRS(function(err, irsObj){
-      if(err) return console.log(err);
-      self.setState({
-        irs: irsObj
-      });
-    });
-  },
-
-  toggleCheck: function(e){
-    api.postIRS(this.props.appStatus.set, {verified: e.target.checked});
-  },
-
-
-  render: function() {
-    var self = this;
+export default class IRSReport extends Component {
+  render() {
+    var self = this
+    if (!self.props.irs.msas) return null
     return (
       <div className="IRSReport EditsHeaderDescription">
         <h2>Institution Register Summary</h2>
         <p>All MSA/MDs where my institution has a home or branch office (and took loan/applications in that office) are listed on the IRS. Each MSA/MD listed is an MSA/MD in which we have a home or branch office. No depository institutions, including mortgage subsidiaries, are considered to have a branch office in any MSA/MD where they have acted.</p>
-        <p>Please review each of the <strong>{self.state.irs.msas.length}</strong> MSA/MDs listed below. If you disagree please correct and re-upload the updated file.</p>
+        <p>Please review each of the <strong>{self.props.irs.msas.length}</strong> MSA/MDs listed below. If you disagree please correct and re-upload the updated file.</p>
         <table width="100%">
           <thead>
             <tr>
@@ -63,19 +35,34 @@ var IRS = React.createClass({
             </tr>
           </thead>
           <tbody>
-            {self.state.irs.msas.map(function(msa, i){
+            {self.props.irs.msas.map((msa, i) => {
               return <tr key={i}>
-                {Object.keys(msa).map(function(data, i){
+                {Object.keys(msa).map((data, i) => {
                   return <td key={i}>{msa[data]}</td>
                 })}
               </tr>
             })}
           </tbody>
         </table>
-        <p><input type="checkbox" value="IRS verification" checked={self.props.checked} onChange={self.toggleCheck}/> I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.</p>
+        <p>
+          <input type="checkbox" value="IRS verification"
+            /*TODO: handle onChange={self.props.dispatch(postIRS)}*/
+            checked={self.props.isChecked} />
+          I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.
+        </p>
       </div>
     )
   }
-});
+}
 
-module.exports = IRS;
+IRSReport.propTypes = {
+  isChecked: React.PropTypes.bool,
+  irs: React.PropTypes.object,
+  dispatch: PropTypes.func.isRequired
+}
+
+IRSReport.defaultProps = {
+  irs: {
+    msas: []
+  }
+}

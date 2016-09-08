@@ -13,7 +13,11 @@ import {
   REQUEST_EDITS_BY_TYPE,
   REQUEST_EDITS_BY_ROW,
   RECEIVE_EDITS_BY_TYPE,
-  RECEIVE_EDITS_BY_ROW
+  RECEIVE_EDITS_BY_ROW,
+  REQUEST_IRS,
+  RECEIVE_IRS,
+  REQUEST_SIGNATURE,
+  RECEIVE_SIGNATURE
 } from '../constants'
 
 const defaultUpload = {
@@ -40,6 +44,18 @@ const defaultEdits = {
   types: {},
   rows: [],
   groupByRow: false
+}
+
+const defaultIRS = {
+  isFetching: false,
+  irs: {},
+  isChecked: false
+}
+
+const defaultSignature = {
+  isFetching: false,
+  timestamp: null,
+  receipt: null
 }
 
 /*
@@ -167,29 +183,64 @@ const submissionStatus = (state = defaultSubmission, action) => {
 
 const edits = (state = defaultEdits, action) => {
   switch (action.type) {
-  case REQUEST_EDITS_BY_TYPE:
-    return {
-      ...state,
-      isFetching: true
-    }
-  case REQUEST_EDITS_BY_ROW:
-    return {
-      ...state,
-      isFetching: true
-    }
-  case RECEIVE_EDITS_BY_TYPE:
-    console.log(action.edits)
-    return {
-      ...state,
-      types: action.edits
-    }
-  case RECEIVE_EDITS_BY_ROW:
-    return {
-      ...state,
-      rows: action.edits
-    }
-  default:
-    return state
+    case REQUEST_EDITS_BY_TYPE:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case REQUEST_EDITS_BY_ROW:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case RECEIVE_EDITS_BY_TYPE:
+      console.log(action.edits)
+      return {
+        ...state,
+        types: action.edits
+      }
+    case RECEIVE_EDITS_BY_ROW:
+      return {
+        ...state,
+        rows: action.edits
+      }
+    default:
+      return state
+  }
+}
+
+const irs = (state = {}, action) => {
+  switch (action.type) {
+    case REQUEST_IRS:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case RECEIVE_IRS:
+      return {
+        ...state,
+        irs: action.msas
+      }
+    default:
+      return state
+  }
+}
+
+const signature = (state = {}, action) => {
+  switch (action.type) {
+    case REQUEST_SIGNATURE:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case RECEIVE_SIGNATURE:
+      return {
+        ...state,
+        timestamp: action.timestamp,
+        receipt: action.receipt
+      }
+    default:
+      return state
   }
 }
 
@@ -198,5 +249,7 @@ export default combineReducers({
   filings,
   submission,
   upload,
-  edits
+  edits,
+  irs,
+  signature
 })

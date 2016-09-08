@@ -5,7 +5,9 @@ import {
   getSubmission,
   getUploadUrl,
   getEditsByType,
-  getEditsByRow
+  getEditsByRow,
+  getIRS,
+  getSignature
 } from '../api'
 import * as types from '../constants'
 
@@ -113,6 +115,33 @@ export function uploadComplete(xhrLoadEvent) {
 export function uploadError() {
   return {
     type: types.UPLOAD_ERROR
+  }
+}
+
+export function requestIRS() {
+  return {
+    type: types.REQUEST_IRS
+  }
+}
+
+export function receiveIRS(data) {
+  return {
+    type: types.RECEIVE_IRS,
+    irs: data
+  }
+}
+
+export function requestSignature() {
+  return {
+    type: types.REQUEST_SIGNATURE
+  }
+}
+
+export function receiveSignature(data) {
+  latestSubmissionId = data.id
+  return {
+    type: types.RECEIVE_SIGNATURE,
+    submission: data
   }
 }
 
@@ -237,6 +266,24 @@ export function fetchEditsByRow() {
     dispatch(requestEditsByRow())
     return getEditsByRow(latestSubmissionId)
       .then(json => dispatch(receiveEditsByRow(json)))
+      .catch(err => console.log(err))
+  }
+}
+
+export function fetchIRS() {
+  return dispatch => {
+    dispatch(requestIRS())
+    return getIRS(latestSubmissionId)
+      .then(json => dispatch(receiveIRS(json)))
+      .catch(err => console.log(err))
+  }
+}
+
+export function fetchSignature() {
+  return dispatch => {
+    dispatch(requestSignature())
+    return getSignature(latestSubmissionId)
+      .then(json => dispatch(receiveSignature(json)))
       .catch(err => console.log(err))
   }
 }

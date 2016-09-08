@@ -61,16 +61,16 @@ export function getEditsByRow(submission){
   return sendFetch(`/submissions/${submission}/edits/lars`)
 }
 
-export function getIRS(url, cb){
-  return sendFetch(url, cb, '/irs');
+export function getIRS(submission){
+  return sendFetch(`/submissions/${submission}/irs`);
 }
 
 export function postIRS(url, cb, data){
   return sendFetch(url, cb, '/irs', data);
 }
 
-export function getSignature(url, cb){
-  return sendFetch(url, cb, '/sign');
+export function getSignature(submission){
+  return sendFetch(`/submissions/${submission}/sign`);
 }
 
 export function postSignature(url, cb, data){
