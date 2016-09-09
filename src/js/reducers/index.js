@@ -17,7 +17,8 @@ import {
   REQUEST_IRS,
   RECEIVE_IRS,
   REQUEST_SIGNATURE,
-  RECEIVE_SIGNATURE
+  RECEIVE_SIGNATURE,
+  POST_SIGNATURE
 } from '../constants'
 
 const defaultUpload = {
@@ -234,6 +235,12 @@ const signature = (state = {}, action) => {
         isFetching: true
       }
     case RECEIVE_SIGNATURE:
+      return {
+        ...state,
+        timestamp: action.timestamp,
+        receipt: action.receipt
+      }
+    case POST_SIGNATURE:
       return {
         ...state,
         timestamp: action.timestamp,
