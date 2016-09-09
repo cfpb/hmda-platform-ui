@@ -73,8 +73,8 @@ export function getSignature(submission){
   return sendFetch(`/submissions/${submission}/sign`);
 }
 
-export function postSignature(url, cb, data){
-  return sendFetch(url, cb, '/sign', data);
+export function postSignature(submission, data){
+  return sendFetch(`/submissions/${submission}/sign`, data);
 }
 
 export function postSubmissions(url, cb){
