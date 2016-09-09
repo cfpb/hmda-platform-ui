@@ -7,7 +7,8 @@ import {
   getEditsByType,
   getEditsByRow,
   getIRS,
-  getSignature
+  getSignature,
+  postSignature
 } from '../api'
 import * as types from '../constants'
 
@@ -138,9 +139,21 @@ export function requestSignature() {
 }
 
 export function receiveSignature(data) {
+  console.log('actions- receiveSignature')
+  console.log(data)
   latestSubmissionId = data.id
   return {
     type: types.RECEIVE_SIGNATURE,
+    submission: data
+  }
+}
+
+export function sendSignature(data) {
+  console.log('actions- sendSignature')
+  console.log(data)
+  //latestSubmissionId = data.id
+  return {
+    type: types.POST_SIGNATURE,
     submission: data
   }
 }
@@ -284,6 +297,17 @@ export function fetchSignature() {
     dispatch(requestSignature())
     return getSignature(latestSubmissionId)
       .then(json => dispatch(receiveSignature(json)))
+      .catch(err => console.log(err))
+  }
+}
+
+export function updateSignature(signed) {
+  console.log('actions - updateSignature')
+  console.log(signed)
+  return dispatch => {
+    //dispatch(postSignature(latestSubmissionId, signed))
+    return postSignature(latestSubmissionId, signed)
+      .then(json => dispatch(sendSignature(json)))
       .catch(err => console.log(err))
   }
 }
