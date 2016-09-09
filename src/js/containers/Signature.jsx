@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchSignature } from '../actions'
+import { fetchSignature, updateSignature } from '../actions'
 import Signature from '../components/Signature.jsx'
 
 class SignatureContainer extends Component {
@@ -35,4 +35,12 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(SignatureContainer)
+function mapDispatchToProps(dispatch) {
+  return {
+    onSignatureClick: function(signed) {
+      dispatch(updateSignature(signed))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignatureContainer)
