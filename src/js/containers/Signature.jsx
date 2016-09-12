@@ -13,6 +13,7 @@ class SignatureContainer extends Component {
   }
 
   render() {
+    console.log('SignatureContainer - render')
     return <Signature {...this.props} />
   }
 }

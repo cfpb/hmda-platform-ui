@@ -141,7 +141,7 @@ export function requestSignature() {
 export function receiveSignature(data) {
   console.log('actions- receiveSignature')
   console.log(data)
-  latestSubmissionId = data.id
+  //latestSubmissionId = data.id
   return {
     type: types.RECEIVE_SIGNATURE,
     submission: data
@@ -307,7 +307,7 @@ export function updateSignature(signed) {
   return dispatch => {
     //dispatch(postSignature(latestSubmissionId, signed))
     return postSignature(latestSubmissionId, signed)
-      .then(json => dispatch(sendSignature(json)))
+      .then(json => dispatch(receiveSignature(json)))
       .catch(err => console.log(err))
   }
 }

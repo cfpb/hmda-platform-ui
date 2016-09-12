@@ -45,22 +45,17 @@ class SubmissionContainer extends Component {
 
     if(code > 6){
       //editsContainer = <Edits/>
+      irs =  <IRSReportContainer />
       sign = <SignatureContainer />
-      irs = <IRSReportContainer />
     }
-/*
-    if(code > 9) irs = <IRSReport checked={false}/>
+
+    //if(code > 9) irs =  <IRSReportContainer />
 
     if(code > 10){
-      summary = <Summary/> // TODO: will have a prop added
-      irs = <IRSReport checked={true}/>
-      sign = <Signature checked={false}/>
+      //summary = <Summary/> // TODO: will have a prop added
+      sign = <SignatureContainer />
     }
 
-    if(code > 12){
-      sign = <Signature checked={true}/>
-    }
-*/
     return (
     <div className="SubmissionContainer container">
       {uploadForm}
