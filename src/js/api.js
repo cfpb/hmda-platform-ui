@@ -1,13 +1,14 @@
 import fetch from 'isomorphic-fetch'
 
-function sendFetch(suffix, postData){
+function sendFetch(suffix, postData) {
   var url = makeUrl(parseLocation(), suffix);
   var options = {
     method: postData ? 'POST' : 'GET',
     body: postData,
     headers: {
       'CFPB-HMDA-Institutions': '0,1,2,3',
-      'CFPB-HMDA-Username': 'fakeuser'
+      'CFPB-HMDA-Username': 'fakeuser',
+      'Content-Type': 'application/json'
     }
   }
 
@@ -74,7 +75,9 @@ export function getSignature(submission){
 }
 
 export function postSignature(submission, data){
-  return sendFetch(`/submissions/${submission}/sign`, data);
+  console.log('api - postSignature')
+  console.log(data)
+  return sendFetch(`/submissions/${submission}/sign`, JSON.stringify(data));
 }
 
 export function postSubmissions(url, cb){
