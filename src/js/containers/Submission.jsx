@@ -4,8 +4,8 @@ import { fetchSubmission } from '../actions'
 import UploadForm from './UploadForm.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Edits from './Edits.jsx'
-import SignatureContainer from './Signature.jsx'
-import IRSReportContainer from './IRSReport.jsx'
+import Signature from './Signature.jsx'
+import IRSReport from './IRSReport.jsx'
 /*import RefileWarning from './RefileWarning.jsx'
 import EditsContainer from './EditsContainer.jsx'
 import IRSReport from './IRSReport.jsx'
@@ -45,15 +45,15 @@ class SubmissionContainer extends Component {
 
     if(code > 6){
       //editsContainer = <Edits/>
-      irs =  <IRSReportContainer />
-      sign = <SignatureContainer />
+      //irs =  <IRSReport />
+      sign = <Signature />
     }
 
-    //if(code > 9) irs =  <IRSReportContainer />
+    //if(code > 9) irs =  <IRSReport />
 
     if(code > 10){
       //summary = <Summary/> // TODO: will have a prop added
-      sign = <SignatureContainer />
+      //sign = <Signature />
     }
 
     return (

@@ -227,7 +227,7 @@ const irs = (state = {}, action) => {
   }
 }
 
-const signature = (state = {}, action) => {
+const signature = (state = defaultSignature, action) => {
   switch (action.type) {
     case REQUEST_SIGNATURE:
       return {

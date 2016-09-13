@@ -9,7 +9,7 @@ class IRSReportContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchIRS())
+    //this.props.dispatch(fetchIRS())
   }
 
   render() {

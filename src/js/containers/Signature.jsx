@@ -19,11 +19,13 @@ class SignatureContainer extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log('SignatureContainer - mapStateToProps')
+  console.log(state.app)
   const {
     isFetching,
     timestamp,
     receipt
-  } = state.app.sign || {
+  } = state.app.signature || {
     isFetching: false,
     timestamp: null,
     receipt: null
