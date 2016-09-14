@@ -13,20 +13,17 @@ class SignatureContainer extends Component {
   }
 
   render() {
-    console.log('SignatureContainer - render')
     return <Signature {...this.props} />
   }
 }
 
 function mapStateToProps(state) {
-  console.log('SignatureContainer - mapStateToProps')
-  console.log(state.app)
   const {
     isFetching,
     timestamp,
     receipt
   } = state.app.signature || {
-    isFetching: false,
+    isFetching: true,
     timestamp: null,
     receipt: null
   }
@@ -40,10 +37,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSignatureClick: function(signed) {
-      dispatch(updateSignature(signed))
+    onSignatureClick: (e) => {
+      dispatch(updateSignature({signed: e.target.checked}))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignatureContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(Signature)
