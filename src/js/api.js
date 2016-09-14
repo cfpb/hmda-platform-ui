@@ -55,27 +55,27 @@ export function getLatestSubmission(){
 }
 
 export function getEditsByType(submission){
-  return sendFetch(`/submissions/${submission}/edits`)
+  return sendFetch('/submissions/${submission}/edits')
 }
 
 export function getEditsByRow(submission){
-  return sendFetch(`/submissions/${submission}/edits/lars`)
+  return sendFetch('/submissions/${submission}/edits/lars')
 }
 
 export function getIRS(submission){
-  return sendFetch(`/submissions/${submission}/irs`);
+  return sendFetch('/submissions/${submission}/irs');
 }
 
 export function postIRS(url, cb, data){
-  return sendFetch(url, cb, '/irs', data);
+  return sendFetch('/submissions/${submission}/irs', JSON.stringify(data));
 }
 
 export function getSignature(submission){
-  return sendFetch(`/submissions/${submission}/sign`);
+  return sendFetch('/submissions/${submission}/sign');
 }
 
 export function postSignature(submission, data){
-  return sendFetch(`/submissions/${submission}/sign`, JSON.stringify(data));
+  return sendFetch('/submissions/${submission}/sign', JSON.stringify(data));
 }
 
 export function postSubmissions(url, cb){

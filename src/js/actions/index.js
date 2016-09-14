@@ -7,6 +7,7 @@ import {
   getEditsByType,
   getEditsByRow,
   getIRS,
+  postIRS,
   getSignature,
   postSignature
 } from '../api'
@@ -128,6 +129,13 @@ export function requestIRS() {
 export function receiveIRS(data) {
   return {
     type: types.RECEIVE_IRS,
+    irs: data
+  }
+}
+
+export function sendIRS(data) {
+  return {
+    type: types.POST_IRS,
     irs: data
   }
 }
@@ -281,6 +289,14 @@ export function fetchIRS() {
   return dispatch => {
     dispatch(requestIRS())
     return getIRS(latestSubmissionId)
+      .then(json => dispatch(receiveIRS(json)))
+      .catch(err => console.log(err))
+  }
+}
+
+export function updateIRS(verified) {
+  return dispatch => {
+    return postIRS(latestSubmissionId, verified)
       .then(json => dispatch(receiveIRS(json)))
       .catch(err => console.log(err))
   }
