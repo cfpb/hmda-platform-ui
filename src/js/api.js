@@ -75,8 +75,6 @@ export function getSignature(submission){
 }
 
 export function postSignature(submission, data){
-  console.log('api - postSignature')
-  console.log(data)
   return sendFetch(`/submissions/${submission}/sign`, JSON.stringify(data));
 }
 

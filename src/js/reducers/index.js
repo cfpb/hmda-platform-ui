@@ -237,14 +237,14 @@ const signature = (state = defaultSignature, action) => {
     case RECEIVE_SIGNATURE:
       return {
         ...state,
-        timestamp: action.timestamp,
-        receipt: action.receipt
+        timestamp: action.signature.timestamp,
+        receipt: action.signature.receipt
       }
     case POST_SIGNATURE:
       return {
         ...state,
-        timestamp: action.timestamp,
-        receipt: action.receipt
+        timestamp: action.signature.timestamp,
+        receipt: action.signature.receipt
       }
     default:
       return state

@@ -133,15 +133,12 @@ export function receiveIRS(data) {
 }
 
 export function requestSignature() {
-  console.log('actions- requestSignature')
   return {
     type: types.REQUEST_SIGNATURE
   }
 }
 
 export function receiveSignature(data) {
-  console.log('actions- receiveSignature')
-  console.log(data)
   return {
     type: types.RECEIVE_SIGNATURE,
     signature: data
@@ -149,8 +146,6 @@ export function receiveSignature(data) {
 }
 
 export function sendSignature(data) {
-  console.log('actions- sendSignature')
-  console.log(data)
   return {
     type: types.POST_SIGNATURE,
     signature: data
@@ -292,7 +287,6 @@ export function fetchIRS() {
 }
 
 export function fetchSignature() {
-  console.log('actions - fetchSignature')
   return dispatch => {
     dispatch(requestSignature())
     return getSignature(latestSubmissionId)
@@ -302,10 +296,7 @@ export function fetchSignature() {
 }
 
 export function updateSignature(signed) {
-  console.log('actions - updateSignature')
-  console.log(signed)
   return dispatch => {
-    //dispatch(postSignature(latestSubmissionId, signed))
     return postSignature(latestSubmissionId, signed)
       .then(json => dispatch(receiveSignature(json)))
       .catch(err => console.log(err))
