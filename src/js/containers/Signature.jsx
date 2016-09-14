@@ -9,6 +9,7 @@ class SignatureContainer extends Component {
   }
 
   componentDidMount() {
+    console.log('SignatureContainer - componentDidMount')
     this.props.dispatch(fetchSignature())
   }
 
@@ -43,4 +44,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signature)
+export default connect(mapStateToProps, mapDispatchToProps)(SignatureContainer)

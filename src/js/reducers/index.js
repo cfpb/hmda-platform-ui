@@ -223,10 +223,10 @@ const irs = (state = {}, action) => {
         ...state,
         irs: action.msas
       }
-    case: POST_IRS:
+    case POST_IRS:
       return {
         ...state,
-        isChecked: action.status        
+        isChecked: action.status
       }
     default:
       return state

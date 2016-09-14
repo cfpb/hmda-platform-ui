@@ -286,6 +286,7 @@ export function fetchEditsByRow() {
 }
 
 export function fetchIRS() {
+  console.log('actions - fetchIRS')
   return dispatch => {
     dispatch(requestIRS())
     return getIRS(latestSubmissionId)

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchIRS } from '../actions'
+import { fetchIRS, updateIRS } from '../actions'
 import IRSReport from '../components/IRSReport.jsx'
 
 class IRSReportContainer extends Component {
@@ -9,7 +9,8 @@ class IRSReportContainer extends Component {
   }
 
   componentDidMount() {
-    //this.props.dispatch(fetchIRS())
+    console.log('IRSReportContainer - componentDidMount')
+    this.props.dispatch(fetchIRS())
   }
 
   render() {
@@ -18,6 +19,8 @@ class IRSReportContainer extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log('IRSReportContainer - mapStateToProps')
+  console.log(state)
   const {
     isFetching,
     irs,
@@ -35,4 +38,16 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(IRSReportContainer)
+IRSReportContainer.propTypes = {
+  //dispatch: PropTypes.func.isRequired
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onIRSClick: (e) => {
+      dispatch(updateIRS({verified: e.target.checked}))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(IRSReportContainer)
