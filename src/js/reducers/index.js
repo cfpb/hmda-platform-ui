@@ -51,14 +51,10 @@ const defaultEdits = {
 const defaultIRS = {
   isFetching: false,
   irs: {},
-  isChecked: false
+  submission: defaultSubmission
 }
 
-const defaultSignature = {
-  isFetching: false,
-  timestamp: null,
-  receipt: null
-}
+
 
 /*
  * Set isFetching to true when institutions are being requested
@@ -216,7 +212,7 @@ const irs = (state = {}, action) => {
     case REQUEST_IRS:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       }
     case RECEIVE_IRS:
       return {
@@ -233,24 +229,71 @@ const irs = (state = {}, action) => {
   }
 }
 
+/*
+this is here to show what defaultSubmission looks like
+
+const defaultSubmission = {
+  id: 1,
+  status: {
+    code: 1,
+    message: ''
+  }
+}
+*/
+
+const defaultSignature = {
+  isFetching: false,
+  timestamp: null,
+  receipt: null,
+  status: defaultSubmission.status
+}
+
 const signature = (state = defaultSignature, action) => {
   switch (action.type) {
+    // this is just the REQUEST so only update the isFetching to true
     case REQUEST_SIGNATURE:
       return {
         ...state,
         isFetching: true
       }
+    /*
+    the response from the GET looks like
+    {
+      "timestamp": 1457494448191,
+      "receipt": "somehash"
+    }
+    so we just update the timestamp and receipt
+    they could still be null, not signed (and will be at least the first time called)
+    */
     case RECEIVE_SIGNATURE:
+    console.log('reducers - RECEIVE_SIGNATURE')
+    console.log(action)
       return {
         ...state,
-        timestamp: action.signature.timestamp,
-        receipt: action.signature.receipt
+        timestamp: action.timestamp,
+        receipt: action.receipt
       }
+    /*
+    the response from a POST looks like
+    {
+      status: {
+        code: state,
+        message: ""
+      },
+      timestamp: timestamp,
+      receipt: receipt
+    }
+    so we need to update the timestamp, receipt, and the submission to change the status
+    TODO: what about the id? updating the submission like this removes the id? does that matter
+    */
     case POST_SIGNATURE:
+      console.log('reducers - POST_SIGNATURE')
+      console.log(action)
       return {
         ...state,
-        timestamp: action.signature.timestamp,
-        receipt: action.signature.receipt
+        timestamp: action.timestamp,
+        receipt: action.receipt,
+        status: action.status
       }
     default:
       return state

@@ -42,12 +42,14 @@ export function receiveInstitution(data) {
 }
 
 export function requestSubmission() {
+  console.log('actions - requestSubmission')
   return {
     type: types.REQUEST_SUBMISSION
   }
 }
 
 export function receiveSubmission(data) {
+  console.log('actions - receiveSubmission')
   latestSubmissionId = data.id
   return {
     type: types.RECEIVE_SUBMISSION,
@@ -140,25 +142,72 @@ export function sendIRS(data) {
   }
 }
 
+/*
+this is just to set the isFetching value to true
+*/
 export function requestSignature() {
+  console.log('actions - requestSignature')
   return {
     type: types.REQUEST_SIGNATURE
   }
 }
 
+/*
+the response from the GET looks like
+{
+  "timestamp": 1457494448191,
+  "receipt": "somehash"
+}
+*/
 export function receiveSignature(data) {
+  console.log('actions - receiveSignature')
+  console.log(data)
   return {
     type: types.RECEIVE_SIGNATURE,
-    signature: data
+    timestamp: data.timestamp,
+    receipt: data.receipt,
+    status: data.status
   }
 }
 
+/*
+the response from a POST looks like
+{
+  status: {
+    code: state,
+    message: ""
+  },
+  timestamp: timestamp,
+  receipt: receipt
+}
+*/
 export function sendSignature(data) {
   return {
     type: types.POST_SIGNATURE,
-    signature: data
+    timestamp: data.timestamp,
+    receipt: data.receipt,
+    status: data.status
   }
 }
+
+export function fetchSignature() {
+  console.log('actions - fetchSignature')
+  return dispatch => {
+    dispatch(requestSignature())
+    return getSignature(latestSubmissionId)
+      .then(json => dispatch(receiveSignature(json)))
+      .catch(err => console.log(err))
+  }
+}
+
+export function updateSignature(signed) {
+  return dispatch => {
+    return postSignature(latestSubmissionId, signed)
+      .then(json => dispatch(receiveSignature(json)))
+      .catch(err => console.log(err))
+  }
+}
+
 
 /*
  * Wire upload together with xhr so progress can be tracked
@@ -299,23 +348,6 @@ export function updateIRS(verified) {
   return dispatch => {
     return postIRS(latestSubmissionId, verified)
       .then(json => dispatch(receiveIRS(json)))
-      .catch(err => console.log(err))
-  }
-}
-
-export function fetchSignature() {
-  return dispatch => {
-    dispatch(requestSignature())
-    return getSignature(latestSubmissionId)
-      .then(json => dispatch(receiveSignature(json)))
-      .catch(err => console.log(err))
-  }
-}
-
-export function updateSignature(signed) {
-  return dispatch => {
-    return postSignature(latestSubmissionId, signed)
-      .then(json => dispatch(receiveSignature(json)))
       .catch(err => console.log(err))
   }
 }

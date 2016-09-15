@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchIRS, updateIRS } from '../actions'
 import IRSReport from '../components/IRSReport.jsx'
@@ -21,6 +21,7 @@ class IRSReportContainer extends Component {
 function mapStateToProps(state) {
   console.log('IRSReportContainer - mapStateToProps')
   console.log(state)
+  console.log(state.app.submission.submission.status.code)
   const {
     isFetching,
     irs,
@@ -38,10 +39,6 @@ function mapStateToProps(state) {
   }
 }
 
-IRSReportContainer.propTypes = {
-  //dispatch: PropTypes.func.isRequired
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     onIRSClick: (e) => {
@@ -50,4 +47,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(IRSReportContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(IRSReport)

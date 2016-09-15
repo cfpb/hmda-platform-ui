@@ -13,12 +13,15 @@ const showReceipt = (props) => {
 }
 
 const Signature = (props) => {
-  const isChecked = props.receipt ? true : false
+  console.log('Signature component')
+  console.log(props)
+  console.log(props.status.code)
+  const isChecked = props.status.code === 13 ? true : false
   return (
     <div className="Signature">
       <p>
         <input type="checkbox" value="Signature"
-          onChange={e => props.onSignatureClick(e)}
+          onChange={e => props.updateSignature({ signed: e.target.checked })}
           checked={isChecked} />
         I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.
       </p>
@@ -30,7 +33,8 @@ const Signature = (props) => {
 Signature.propTypes = {
   receipt: React.PropTypes.string,
   timestamp: React.PropTypes.number,
-  onSignatureClick: PropTypes.func.isRequired
+  status: React.PropTypes.object,
+  updateSignature: PropTypes.func.isRequired
 }
 
-export default Signature
+export default connect()(Signature)

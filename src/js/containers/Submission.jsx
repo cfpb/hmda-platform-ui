@@ -18,7 +18,6 @@ class SubmissionContainer extends Component {
   }
 
   componentDidMount() {
-    console.log('SubmissionContainer - componentDidMount')
     this.props.dispatch(fetchSubmission())
   }
 
@@ -46,7 +45,7 @@ class SubmissionContainer extends Component {
 
     if(code > 6){
       //editsContainer = <Edits/>
-      irs =  <IRSReport />
+      //irs =  <IRSReport />
       sign = <Signature />
     }
 
