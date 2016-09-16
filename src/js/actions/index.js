@@ -53,7 +53,7 @@ export function receiveSubmission(data) {
   latestSubmissionId = data.id
   return {
     type: types.RECEIVE_SUBMISSION,
-    submission: data
+    ...data
   }
 }
 
@@ -152,6 +152,13 @@ export function requestSignature() {
   }
 }
 
+export function requestSignaturePost() {
+  console.log('actions - requestPostSignature')
+  return {
+    type: types.REQUEST_SIGNATURE_POST
+  }
+}
+
 /*
 the response from the GET looks like
 {
@@ -165,8 +172,26 @@ export function receiveSignature(data) {
   return {
     type: types.RECEIVE_SIGNATURE,
     timestamp: data.timestamp,
-    receipt: data.receipt,
-    status: data.status
+    receipt: data.receipt
+  }
+}
+
+export function receiveSignaturePost(data) {
+  console.log('actions - receivePostSignature')
+  console.log(data)
+  return {
+    type: types.RECEIVE_SIGNATURE_POST,
+    timestamp: data.timestamp,
+    receipt: data.receipt
+  }
+}
+
+export function updateStatus(status) {
+  console.log('actions - updateStatus')
+  console.log(status)
+  return {
+    type: types.UPDATE_STATUS,
+    status: status
   }
 }
 
@@ -180,7 +205,7 @@ the response from a POST looks like
   timestamp: timestamp,
   receipt: receipt
 }
-*/
+
 export function sendSignature(data) {
   return {
     type: types.POST_SIGNATURE,
@@ -189,6 +214,7 @@ export function sendSignature(data) {
     status: data.status
   }
 }
+*/
 
 export function fetchSignature() {
   console.log('actions - fetchSignature')
@@ -202,8 +228,15 @@ export function fetchSignature() {
 
 export function updateSignature(signed) {
   return dispatch => {
+    dispatch(requestSignaturePost())
     return postSignature(latestSubmissionId, signed)
-      .then(json => dispatch(receiveSignature(json)))
+      .then(json => dispatch(receiveSignaturePost(json)))
+      .then(json => dispatch(updateStatus(
+        {
+          code: signed.signed ? 13 : 12,
+          message: ''
+        }
+      )))
       .catch(err => console.log(err))
   }
 }
@@ -217,8 +250,19 @@ export function requestUpload(file) {
     var xhr = new XMLHttpRequest()
 
     xhr.addEventListener('load', e => {
-      if(e.target.status !== 202) return dispatch(uploadError())
+      if(e.target.status !== 202) {
+        dispatch(uploadError())
+        dispatch(updateStatus({
+          code: -1,
+          message: 'Upload Error'
+        }))
+        return
+      }
       dispatch(uploadComplete(e))
+      dispatch(updateStatus({
+        code: 3,
+        message: ''
+      }))
       dispatch(pollForProgress())
     })
 
@@ -255,7 +299,7 @@ export function pollForProgress() {
     return getSubmission(latestSubmissionId)
       .then(json => dispatch(receiveSubmission(json)))
       .then(json => {
-        if(json.submission.status.code < 7){
+        if(json.status.code < 7){
           setTimeout(() => poller(dispatch), 500)
         }
       })

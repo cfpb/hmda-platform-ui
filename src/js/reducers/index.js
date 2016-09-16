@@ -19,7 +19,10 @@ import {
   POST_IRS,
   REQUEST_SIGNATURE,
   RECEIVE_SIGNATURE,
-  POST_SIGNATURE
+  REQUEST_SIGNATURE_POST,
+  RECEIVE_SIGNATURE_POST,
+  POST_SIGNATURE,
+  UPDATE_STATUS
 } from '../constants'
 
 const defaultUpload = {
@@ -28,17 +31,15 @@ const defaultUpload = {
   file: null
 }
 
-const defaultSubmission = {
-  id: 1,
-  status: {
-    code: 1,
-    message: ''
-  }
+const defaultStatus = {
+  code: 1,
+  message: ''
 }
 
-const submissionWrapper = {
-  isFetching: false,
-  submission: defaultSubmission
+const defaultSubmission = {
+  id: 1,
+  status: defaultStatus,
+  isFetching: false
 }
 
 const defaultEdits = {
@@ -46,12 +47,6 @@ const defaultEdits = {
   types: {},
   rows: [],
   groupByRow: false
-}
-
-const defaultIRS = {
-  isFetching: false,
-  irs: {},
-  submission: defaultSubmission
 }
 
 
@@ -126,56 +121,35 @@ export const upload = (state = defaultUpload, action) => {
  * Set isFetching to false and update the submission when new data is received
  * Update the submission status code and message when the upload completes or fails
  */
-export const submission = (state = submissionWrapper, action) => {
+export const submission = (state = defaultSubmission, action) => {
   switch (action.type) {
-  case REQUEST_SUBMISSION:
-    return {
-      ...state,
-      isFetching: true
-    }
-  case RECEIVE_SUBMISSION:
-    return {
-      ...state,
-      submission: action.submission
-    }
-  case UPLOAD_COMPLETE:
-    return {
-      ...state,
-      submission: submissionStatus(state.submission, action)
-    }
-  case UPLOAD_ERROR:
-    return {
-      ...state,
-      submission: submissionStatus(state.submission, action)
-    }
-  default:
-    return state
+    case REQUEST_SUBMISSION:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case RECEIVE_SUBMISSION:
+      return {
+        isFetching: false,
+        id: action.id,
+        status: action.status
+      }
+    case UPDATE_STATUS:
+      return {
+        ...state,
+        status: status(state.status, action)
+      }
+    default:
+      return state
   }
 }
 
-/*
- * Child of submission which handles updating the nested status code and message
- */
-const submissionStatus = (state = defaultSubmission, action) => {
-  switch (action.type) {
-  case UPLOAD_COMPLETE:
-      return {
-        ...state,
-        status: {
-          code: 3,
-          message: ''
-        }
-      }
-    case UPLOAD_ERROR:
-      return {
-        ...state,
-        status: {
-          code: -1,
-          message: 'Error uploading file'
-        }
-      }
-  default:
-    return state
+const status = (state = defaultStatus, action) => {
+  switch(action.type) {
+    case UPDATE_STATUS:
+      return action.status
+    default:
+      return state
   }
 }
 
@@ -207,7 +181,13 @@ const edits = (state = defaultEdits, action) => {
   }
 }
 
-const irs = (state = {}, action) => {
+const defaultIRS = {
+  isFetching: false,
+  irs: {},
+  status: defaultSubmission.status
+}
+
+const irs = (state = defaultIRS, action) => {
   switch (action.type) {
     case REQUEST_IRS:
       return {
@@ -219,7 +199,12 @@ const irs = (state = {}, action) => {
         ...state,
         irs: action.msas
       }
-    case POST_IRS:
+    case REQUEST_IRS_POST:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case RECEIVE_IRS_POST:
       return {
         ...state,
         isChecked: action.status
@@ -266,35 +251,27 @@ const signature = (state = defaultSignature, action) => {
     they could still be null, not signed (and will be at least the first time called)
     */
     case RECEIVE_SIGNATURE:
-    console.log('reducers - RECEIVE_SIGNATURE')
-    console.log(action)
       return {
         ...state,
+        isFetching: false,
         timestamp: action.timestamp,
         receipt: action.receipt
       }
-    /*
-    the response from a POST looks like
-    {
-      status: {
-        code: state,
-        message: ""
-      },
-      timestamp: timestamp,
-      receipt: receipt
-    }
-    so we need to update the timestamp, receipt, and the submission to change the status
-    TODO: what about the id? updating the submission like this removes the id? does that matter
-    */
-    case POST_SIGNATURE:
-      console.log('reducers - POST_SIGNATURE')
-      console.log(action)
+
+    case REQUEST_SIGNATURE_POST:
       return {
         ...state,
-        timestamp: action.timestamp,
-        receipt: action.receipt,
-        status: action.status
+        isFetching: true
       }
+
+    case RECEIVE_SIGNATURE_POST:
+      return {
+        ...state,
+        isFetching: false,
+        timestamp: action.timestamp,
+        receipt: action.receipt
+      }
+
     default:
       return state
   }

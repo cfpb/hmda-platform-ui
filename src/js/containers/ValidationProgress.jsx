@@ -2,19 +2,19 @@ import { connect } from 'react-redux'
 import ValidationProgress from '../components/ValidationProgress.jsx'
 
 function mapStateToProps(state) {
+  console.log('ValidationProgress - container')
+  console.log(state.app.submission)
+  console.log(state.app.submission.status)
   const {
-    submission
+    status
   } = state.app.submission || {
-    submission: {
-      id: 1,
-      status: {
-        code: 3,
-        message: ''
-      }
+    status: {
+      code: 3,
+      message: ''
     }
   }
 
-  return submission
+  return {status}
 }
 
 export default connect(mapStateToProps)(ValidationProgress)

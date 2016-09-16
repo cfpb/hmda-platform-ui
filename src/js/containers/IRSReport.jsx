@@ -9,7 +9,6 @@ class IRSReportContainer extends Component {
   }
 
   componentDidMount() {
-    console.log('IRSReportContainer - componentDidMount')
     this.props.dispatch(fetchIRS())
   }
 
@@ -19,32 +18,26 @@ class IRSReportContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('IRSReportContainer - mapStateToProps')
-  console.log(state)
-  console.log(state.app.submission.submission.status.code)
   const {
     isFetching,
-    irs,
-    isChecked
+    irs
   } = state.app.irs || {
     isFetching: false,
-    irs: {},
-    isChecked: false
+    irs: {}
   }
 
   return {
     isFetching,
-    irs,
-    isChecked
+    irs
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onIRSClick: (e) => {
-      dispatch(updateIRS({verified: e.target.checked}))
+    onIRSClick: (verified) => {
+      dispatch(updateIRS({verified: verified}))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(IRSReport)
+export default connect(mapStateToProps, mapDispatchToProps)(IRSReportContainer)

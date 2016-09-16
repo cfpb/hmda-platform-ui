@@ -22,7 +22,9 @@ class SubmissionContainer extends Component {
   }
 
   render() {
-    let uploadForm = <UploadForm submission={this.props.submission}/>
+    console.log('submission - render')
+    console.log(this.props)
+    let uploadForm = <UploadForm />
     let progress = null
     let refileWarning = null
     let editsContainer = null
@@ -30,7 +32,7 @@ class SubmissionContainer extends Component {
     let irs = null
     let sign = null
 
-    const status = this.props.submission.status
+    const status = this.props.status
     const code = status.code
 
     if (code === -1) {
@@ -77,21 +79,21 @@ class SubmissionContainer extends Component {
 function mapStateToProps(state) {
   const {
     isFetching,
-    submission
+    status,
+    id
   } = state.app.submission || {
     isFetching: true,
-    submission: {
-      id: 1,
-      status: {
-        code: 1,
-        message: ''
-      }
+    id: 1,
+    status: {
+      code: 1,
+      message: ''
     }
   }
 
   return {
     isFetching,
-    submission
+    status,
+    id
   }
 }
 

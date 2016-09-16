@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
 const IRSReport = (props) => {
-  console.log('IRSReport component - IRSReport')
-  console.log(props)
   if (!props.irs.msas) return null
   return (
     <div className="IRSReport EditsHeaderDescription">
@@ -46,7 +44,7 @@ const IRSReport = (props) => {
       </table>
       <p>
         <input type="checkbox" value="IRS verification"
-          onChange={e => props.onIRSClick(e)}
+          onChange={e => props.onIRSClick(e.target.checked)}
           checked={props.isChecked} />
         I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.
       </p>
@@ -55,8 +53,8 @@ const IRSReport = (props) => {
 }
 
 IRSReport.propTypes = {
-  isChecked: React.PropTypes.bool,
-  irs: React.PropTypes.object,
+  irs: PropTypes.object,
+  status: PropTypes.object,
   onIRSClick: PropTypes.func.isRequired
 }
 

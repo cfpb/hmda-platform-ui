@@ -12,10 +12,6 @@ router.post('/', function (req, res) {
   var receipt = state === 13 ? crypto.createHash('sha256').update(timestamp + '').digest('hex') : null;
 
   res.status(202).send({
-    status: {
-      code: state,
-      message: ""
-    },
     timestamp: timestamp,
     receipt: receipt
   });

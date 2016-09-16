@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchSignature, updateSignature } from '../actions'
 import Signature from '../components/Signature.jsx'
@@ -10,11 +9,7 @@ class SignatureContainer extends Component {
   }
 
   componentDidMount() {
-    // don't use dispatch here because we're overwriting dispatch in mapDispatchToProps() below
-    //fetchSignature()
-
-    let { dispatch } = this.props
-    dispatch(fetchSignature)
+    this.props.dispatch(fetchSignature())
   }
 
   render() {
@@ -26,14 +21,18 @@ function mapStateToProps(state) {
   const {
     isFetching,
     timestamp,
-    receipt,
-    status
+    receipt
   } = state.app.signature || {
     isFetching: true,
     timestamp: null,
-    receipt: null,
+    receipt: null
+  }
+
+  const {
+    status
+  } = state.app.submission || {
     status: {
-      code: 1,
+      code: 12,
       message: ''
     }
   }
@@ -47,11 +46,12 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateSignature }, dispatch)
-
-    /*onSignatureClick: (e) => {
-      dispatch(updateSignature({signed: e.target.checked}))
-    }*/
+  return {
+    onSignatureClick: (signed) => {
+      dispatch(updateSignature({signed: signed}))
+    },
+    dispatch
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignatureContainer)
