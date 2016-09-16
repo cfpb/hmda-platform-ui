@@ -66,7 +66,7 @@ export function getIRS(submission){
   return sendFetch('/submissions/${submission}/irs');
 }
 
-export function postIRS(url, cb, data){
+export function postIRS(submission, data){
   return sendFetch('/submissions/${submission}/irs', JSON.stringify(data));
 }
 

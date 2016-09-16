@@ -1,12 +1,21 @@
 import React, { Component, PropTypes } from 'react'
 
+const showConfirmation = (code) => {
+  if(code < 11) return null;
+
+  return (
+    <p className="confirmation">You have verified your IRS report.</p>
+  )
+}
+
 const IRSReport = (props) => {
-  if (!props.irs.msas) return null
+  if (!props.msas) return null
+  const isChecked = props.status.code > 10 ? true : false
   return (
     <div className="IRSReport EditsHeaderDescription">
       <h2>Institution Register Summary</h2>
       <p>All MSA/MDs where my institution has a home or branch office (and took loan/applications in that office) are listed on the IRS. Each MSA/MD listed is an MSA/MD in which we have a home or branch office. No depository institutions, including mortgage subsidiaries, are considered to have a branch office in any MSA/MD where they have acted.</p>
-      <p>Please review each of the <strong>{props.irs.msas.length}</strong> MSA/MDs listed below. If you disagree please correct and re-upload the updated file.</p>
+      <p>Please review each of the <strong>{props.msas.length}</strong> MSA/MDs listed below. If you disagree please correct and re-upload the updated file.</p>
       <table width="100%">
         <thead>
           <tr>
@@ -33,7 +42,7 @@ const IRSReport = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.irs.msas.map((msa, i) => {
+          {props.msas.map((msa, i) => {
             return <tr key={i}>
               {Object.keys(msa).map((data, i) => {
                 return <td key={i}>{msa[data]}</td>
@@ -45,22 +54,26 @@ const IRSReport = (props) => {
       <p>
         <input type="checkbox" value="IRS verification"
           onChange={e => props.onIRSClick(e.target.checked)}
-          checked={props.isChecked} />
+          checked={isChecked} />
         I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.
       </p>
+      {showConfirmation(props.status.code)}
     </div>
   )
 }
 
 IRSReport.propTypes = {
-  irs: PropTypes.object,
+  msas: PropTypes.array,
+  receipt: PropTypes.string,
+  timestamp: PropTypes.number,
   status: PropTypes.object,
   onIRSClick: PropTypes.func.isRequired
 }
 
 IRSReport.defaultProps = {
-  irs: {
-    msas: []
+  msas: [],
+  status: {
+    code: null
   }
 }
 

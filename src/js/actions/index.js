@@ -15,6 +15,13 @@ import * as types from '../constants'
 
 let latestSubmissionId
 
+export function updateStatus(status) {
+  return {
+    type: types.UPDATE_STATUS,
+    status: status
+  }
+}
+
 export function requestInstitutions() {
   return {
     type: types.REQUEST_INSTITUTIONS
@@ -42,14 +49,12 @@ export function receiveInstitution(data) {
 }
 
 export function requestSubmission() {
-  console.log('actions - requestSubmission')
   return {
     type: types.REQUEST_SUBMISSION
   }
 }
 
 export function receiveSubmission(data) {
-  console.log('actions - receiveSubmission')
   latestSubmissionId = data.id
   return {
     type: types.RECEIVE_SUBMISSION,
@@ -131,44 +136,61 @@ export function requestIRS() {
 export function receiveIRS(data) {
   return {
     type: types.RECEIVE_IRS,
-    irs: data
+    msas: data.msas,
+    timestamp: data.timestamp,
+    receipt: data.receipt
   }
 }
 
-export function sendIRS(data) {
+export function requestIRSPost() {
   return {
-    type: types.POST_IRS,
-    irs: data
+    type: types.REQUEST_IRS_POST
   }
 }
+
+export function receiveIRSPost(data) {
+  return {
+    type: types.RECEIVE_IRS_POST,
+    timestamp: data.timestamp,
+    receipt: data.receipt
+  }
+}
+
+export function fetchIRS() {
+  return dispatch => {
+    dispatch(requestIRS())
+    return getIRS(latestSubmissionId)
+      .then(json => dispatch(receiveIRS(json)))
+      .catch(err => console.log(err))
+  }
+}
+
+export function updateIRS(verified) {
+  return dispatch => {
+    dispatch(requestIRSPost())
+    return postIRS(latestSubmissionId, verified)
+      .then(json => dispatch(receiveIRSPost(json)))
+      .then(json => dispatch(updateStatus(
+        {
+          code: verified.verified ? 11 : 10,
+          message: ''
+        }
+      )))
+      .catch(err => console.log(err))
+  }
+}
+
 
 /*
 this is just to set the isFetching value to true
 */
 export function requestSignature() {
-  console.log('actions - requestSignature')
   return {
     type: types.REQUEST_SIGNATURE
   }
 }
 
-export function requestSignaturePost() {
-  console.log('actions - requestPostSignature')
-  return {
-    type: types.REQUEST_SIGNATURE_POST
-  }
-}
-
-/*
-the response from the GET looks like
-{
-  "timestamp": 1457494448191,
-  "receipt": "somehash"
-}
-*/
 export function receiveSignature(data) {
-  console.log('actions - receiveSignature')
-  console.log(data)
   return {
     type: types.RECEIVE_SIGNATURE,
     timestamp: data.timestamp,
@@ -176,9 +198,13 @@ export function receiveSignature(data) {
   }
 }
 
+export function requestSignaturePost() {
+  return {
+    type: types.REQUEST_SIGNATURE_POST
+  }
+}
+
 export function receiveSignaturePost(data) {
-  console.log('actions - receivePostSignature')
-  console.log(data)
   return {
     type: types.RECEIVE_SIGNATURE_POST,
     timestamp: data.timestamp,
@@ -186,38 +212,7 @@ export function receiveSignaturePost(data) {
   }
 }
 
-export function updateStatus(status) {
-  console.log('actions - updateStatus')
-  console.log(status)
-  return {
-    type: types.UPDATE_STATUS,
-    status: status
-  }
-}
-
-/*
-the response from a POST looks like
-{
-  status: {
-    code: state,
-    message: ""
-  },
-  timestamp: timestamp,
-  receipt: receipt
-}
-
-export function sendSignature(data) {
-  return {
-    type: types.POST_SIGNATURE,
-    timestamp: data.timestamp,
-    receipt: data.receipt,
-    status: data.status
-  }
-}
-*/
-
 export function fetchSignature() {
-  console.log('actions - fetchSignature')
   return dispatch => {
     dispatch(requestSignature())
     return getSignature(latestSubmissionId)
@@ -240,7 +235,6 @@ export function updateSignature(signed) {
       .catch(err => console.log(err))
   }
 }
-
 
 /*
  * Wire upload together with xhr so progress can be tracked
@@ -374,24 +368,6 @@ export function fetchEditsByRow() {
     dispatch(requestEditsByRow())
     return getEditsByRow(latestSubmissionId)
       .then(json => dispatch(receiveEditsByRow(json)))
-      .catch(err => console.log(err))
-  }
-}
-
-export function fetchIRS() {
-  console.log('actions - fetchIRS')
-  return dispatch => {
-    dispatch(requestIRS())
-    return getIRS(latestSubmissionId)
-      .then(json => dispatch(receiveIRS(json)))
-      .catch(err => console.log(err))
-  }
-}
-
-export function updateIRS(verified) {
-  return dispatch => {
-    return postIRS(latestSubmissionId, verified)
-      .then(json => dispatch(receiveIRS(json)))
       .catch(err => console.log(err))
   }
 }

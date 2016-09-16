@@ -22,8 +22,6 @@ class SubmissionContainer extends Component {
   }
 
   render() {
-    console.log('submission - render')
-    console.log(this.props)
     let uploadForm = <UploadForm />
     let progress = null
     let refileWarning = null
@@ -47,7 +45,7 @@ class SubmissionContainer extends Component {
 
     if(code > 6){
       //editsContainer = <Edits/>
-      //irs =  <IRSReport />
+      irs =  <IRSReport />
       sign = <Signature />
     }
 

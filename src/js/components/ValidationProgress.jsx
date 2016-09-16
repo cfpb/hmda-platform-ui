@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react'
 
 const ValidationProgress = (props) => {
-  console.log('ValidationProgress')
-  console.log(props.status)
   const code = props.status.code
 
   let uploadComplete = null

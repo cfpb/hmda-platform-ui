@@ -16,12 +16,12 @@ import {
   RECEIVE_EDITS_BY_ROW,
   REQUEST_IRS,
   RECEIVE_IRS,
-  POST_IRS,
+  REQUEST_IRS_POST,
+  RECEIVE_IRS_POST,
   REQUEST_SIGNATURE,
   RECEIVE_SIGNATURE,
   REQUEST_SIGNATURE_POST,
   RECEIVE_SIGNATURE_POST,
-  POST_SIGNATURE,
   UPDATE_STATUS
 } from '../constants'
 
@@ -183,48 +183,48 @@ const edits = (state = defaultEdits, action) => {
 
 const defaultIRS = {
   isFetching: false,
-  irs: {},
+  msas: [],
+  timestamp: null,
+  receipt: null,
   status: defaultSubmission.status
 }
 
 const irs = (state = defaultIRS, action) => {
   switch (action.type) {
+
     case REQUEST_IRS:
       return {
         ...state,
-        isFetching: true,
+        isFetching: true
       }
+
     case RECEIVE_IRS:
       return {
         ...state,
-        irs: action.msas
+        isFetching: false,
+        msas: action.msas,
+        timestamp: action.timestamp,
+        receipt: action.receipt
       }
+
     case REQUEST_IRS_POST:
       return {
         ...state,
         isFetching: true
       }
+
     case RECEIVE_IRS_POST:
       return {
         ...state,
-        isChecked: action.status
+        isFetching: false,
+        timestamp: action.timestamp,
+        receipt: action.receipt
       }
+
     default:
       return state
   }
 }
-
-/*
-this is here to show what defaultSubmission looks like
-
-const defaultSubmission = {
-  id: 1,
-  status: {
-    code: 1,
-    message: ''
-  }
-}
-*/
 
 const defaultSignature = {
   isFetching: false,
@@ -235,21 +235,13 @@ const defaultSignature = {
 
 const signature = (state = defaultSignature, action) => {
   switch (action.type) {
-    // this is just the REQUEST so only update the isFetching to true
+
     case REQUEST_SIGNATURE:
       return {
         ...state,
         isFetching: true
       }
-    /*
-    the response from the GET looks like
-    {
-      "timestamp": 1457494448191,
-      "receipt": "somehash"
-    }
-    so we just update the timestamp and receipt
-    they could still be null, not signed (and will be at least the first time called)
-    */
+
     case RECEIVE_SIGNATURE:
       return {
         ...state,

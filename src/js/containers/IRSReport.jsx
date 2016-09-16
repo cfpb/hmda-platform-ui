@@ -20,15 +20,31 @@ class IRSReportContainer extends Component {
 function mapStateToProps(state) {
   const {
     isFetching,
-    irs
+    msas,
+    timestamp,
+    receipt
   } = state.app.irs || {
-    isFetching: false,
-    irs: {}
+    isFetching: true,
+    msas: [],
+    timestamp: null,
+    receipt: null
+  }
+
+  const {
+    status
+  } = state.app.submission || {
+    status: {
+      code: 10,
+      message: ''
+    }
   }
 
   return {
     isFetching,
-    irs
+    msas,
+    timestamp,
+    receipt,
+    status
   }
 }
 
@@ -36,7 +52,8 @@ function mapDispatchToProps(dispatch) {
   return {
     onIRSClick: (verified) => {
       dispatch(updateIRS({verified: verified}))
-    }
+    },
+    dispatch
   }
 }
 
