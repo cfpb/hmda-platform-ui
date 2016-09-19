@@ -11,19 +11,22 @@ import {
   getInstitutions,
   getLatestSubmission,
   getSubmission,
-  getIRS
+  getIRS,
+  getSignature
 } from '../src/js/api.js'
 
 const filingsObj = JSON.parse(fs.readFileSync('./server/json/filings.json'))
 const institutionsObj = JSON.parse(fs.readFileSync('./server/json/institutions.json'))
 const submissionsObj = JSON.parse(fs.readFileSync('./server/json/submissions.json'))
 const IRSObj = JSON.parse(fs.readFileSync('./server/json/irs.json'))
+const signatureObj = JSON.parse(fs.readFileSync('./server/json/receipt.json'))
 
 getInstitution.mockImpl((id) => Promise.resolve(filingsObj[id]))
 getInstitutions.mockImpl(() => Promise.resolve(institutionsObj))
 getLatestSubmission.mockImpl(() => Promise.resolve(submissionsObj.bank0id.submissions[2]))
 getSubmission.mockImpl(() => Promise.resolve(submissionsObj.bank0id.submissions[2]))
 getIRS.mockImpl((id) => Promise.resolve(IRSObj))
+getSignature.mockImpl((id) => Promise.resolve(signatureObj))
 
 const xhrMock = {
     open: jest.fn(),
@@ -77,6 +80,21 @@ describe('actions', () => {
     expect(actions.receiveIRS(data)).toEqual({
       type: types.RECEIVE_IRS,
       msas: data.msas,
+      timestamp: data.timestamp,
+      receipt: data.receipt
+    })
+  })
+
+  it('creates an action to signal a request for the signature', () => {
+    expect(actions.requestSignature()).toEqual({
+      type: types.REQUEST_SIGNATURE
+    })
+  })
+
+  it('creates an action to signal the IRS report data has been acquired', () => {
+    const data = signatureObj
+    expect(actions.receiveSignature(data)).toEqual({
+      type: types.RECEIVE_SIGNATURE,
       timestamp: data.timestamp,
       receipt: data.receipt
     })
