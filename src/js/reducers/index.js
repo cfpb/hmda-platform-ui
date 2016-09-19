@@ -189,7 +189,7 @@ const defaultIRS = {
   status: defaultSubmission.status
 }
 
-const irs = (state = defaultIRS, action) => {
+export const irs = (state = defaultIRS, action) => {
   switch (action.type) {
 
     case REQUEST_IRS:
@@ -233,7 +233,7 @@ const defaultSignature = {
   status: defaultSubmission.status
 }
 
-const signature = (state = defaultSignature, action) => {
+export const signature = (state = defaultSignature, action) => {
   switch (action.type) {
 
     case REQUEST_SIGNATURE:
