@@ -10,7 +10,8 @@ import {
   getInstitution,
   getInstitutions,
   getLatestSubmission,
-  getSubmission
+  getSubmission,
+  getIRS
 } from '../src/js/api.js'
 
 const filingsObj = JSON.parse(fs.readFileSync('./server/json/filings.json'))
@@ -146,7 +147,7 @@ describe('actions', () => {
     const data = {answer: 42}
     expect(actions.receiveSubmission(data)).toEqual({
       type: types.RECEIVE_SUBMISSION,
-      submission: data
+      ...data
     })
   })
 
@@ -201,13 +202,16 @@ describe('actions', () => {
 
   it('creates a thunk that will send an http request for the latest submission', done => {
     const store = mockStore({submission: {}})
+    const submission = submissionsObj.bank0id.submissions[2]
     store.dispatch(actions.fetchSubmission())
       .then(() => {
         expect(store.getActions()).toEqual([
           {type: types.REQUEST_SUBMISSION},
           {
             type: types.RECEIVE_SUBMISSION,
-            submission: submissionsObj.bank0id.submissions[2]
+            id: submission.id,
+            status: submission.status,
+            timestamp: submission.timestamp
           }
         ])
         done()
@@ -220,12 +224,15 @@ describe('actions', () => {
 
   it('creates a thunk that will poll for updated status codes in the latest submission', done => {
     const store = mockStore({submission: {}})
+    const submission = submissionsObj.bank0id.submissions[2]
     store.dispatch(actions.pollForProgress())
       .then(() => {
         expect(store.getActions()).toEqual([
           {
             type: types.RECEIVE_SUBMISSION,
-            submission: submissionsObj.bank0id.submissions[2]
+            id: submission.id,
+            status: submission.status,
+            timestamp: submission.timestamp
           }
         ])
 
