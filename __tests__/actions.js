@@ -12,7 +12,9 @@ import {
   getLatestSubmission,
   getSubmission,
   getIRS,
-  getSignature
+  postIRS,
+  getSignature,
+  postSignature
 } from '../src/js/api.js'
 
 const filingsObj = JSON.parse(fs.readFileSync('./server/json/filings.json'))
@@ -69,6 +71,17 @@ const getEachInstitutionAction = [
 ]
 
 describe('actions', () => {
+  it('creates an action to update the status', () => {
+    const status = {
+      code: 10,
+      message: ''
+    }
+    expect(actions.updateStatus(status)).toEqual({
+      type: types.UPDATE_STATUS,
+      status: status
+    })
+  })
+
   it('creates an action to signal a request for the IRS report', () => {
     expect(actions.requestIRS()).toEqual({
       type: types.REQUEST_IRS
