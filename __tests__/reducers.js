@@ -30,6 +30,98 @@ const defaultSubmission = {
   isFetching: false
 }
 
+const defaultSignature = {
+  isFetching: false,
+  timestamp: null,
+  receipt: null,
+  status: defaultSubmission.status
+}
+
+const defaultIRS = {
+  isFetching: false,
+  msas: [],
+  timestamp: null,
+  receipt: null,
+  status: defaultSubmission.status
+}
+
+describe('signature reducer', () => {
+  it('should return the initial state on empty action', () => {
+    expect(
+      signature(undefined, {})
+    ).toEqual(defaultSignature)
+  })
+
+  it('handles REQUEST_SIGNATURE', () => {
+    expect(
+      signature({}, {type: types.REQUEST_SIGNATURE})
+    ).toEqual({isFetching: true})
+  })
+
+  it('handles REQUEST_SIGNATURE_POST', () => {
+    expect(
+      signature({}, {type: types.REQUEST_SIGNATURE_POST})
+    ).toEqual({isFetching: true})
+  })
+
+  it('handles RECEIVE_SIGNATURE', () => {
+    expect(
+      signature({}, {type: types.RECEIVE_SIGNATURE, timestamp: 1234, receipt: 'asdf'})
+    ).toEqual({isFetching: false, timestamp: 1234, receipt: 'asdf'})
+  })
+
+  it('handles RECEIVE_SIGNATURE_POST', () => {
+    expect(
+      signature({}, {type: types.RECEIVE_SIGNATURE_POST, timestamp: 1234, receipt: 'asdf'})
+    ).toEqual({isFetching: false, timestamp: 1234, receipt: 'asdf'})
+  })
+
+  it('shouldn\'t modify state on an unknown action type', () => {
+    excludeTypes(types.RECEIVE_SIGNATURE, types.REQUEST_SIGNATURE, types.REQUEST_SIGNATURE_POST, types.RECEIVE_SIGNATURE_POST)
+      .forEach(v => expect(signature({}, v))
+        .toEqual({})
+      )
+  })
+})
+
+describe('irs reducer', () => {
+  it('should return the initial state on empty action', () => {
+    expect(
+      irs(undefined, {})
+    ).toEqual(defaultIRS)
+  })
+
+  it('handles REQUEST_IRS', () => {
+    expect(
+      irs({}, {type: types.REQUEST_IRS})
+    ).toEqual({isFetching: true})
+  })
+
+  it('handles REQUEST_IRS_POST', () => {
+    expect(
+      irs({}, {type: types.REQUEST_IRS_POST})
+    ).toEqual({isFetching: true})
+  })
+
+  it('handles RECEIVE_IRS', () => {
+    expect(
+      irs({}, {type: types.RECEIVE_IRS, timestamp: 1234, receipt: 'asdf', msas: []})
+    ).toEqual({isFetching: false, timestamp: 1234, receipt: 'asdf', msas: []})
+  })
+
+  it('handles RECEIVE_IRS_POST', () => {
+    expect(
+      irs({}, {type: types.RECEIVE_IRS_POST, timestamp: 1234, receipt: 'asdf'})
+    ).toEqual({isFetching: false, timestamp: 1234, receipt: 'asdf'})
+  })
+
+  it('shouldn\'t modify state on an unknown action type', () => {
+    excludeTypes(types.RECEIVE_IRS, types.REQUEST_IRS, types.REQUEST_IRS_POST, types.RECEIVE_IRS_POST)
+      .forEach(v => expect(irs({}, v))
+        .toEqual({})
+      )
+  })
+})
 
 describe('institutions reducer', () => {
   it('should return the initial state on empty action', () => {
@@ -56,7 +148,6 @@ describe('institutions reducer', () => {
         .toEqual({})
       )
   })
-
 })
 
 describe('filings reducer', () => {
@@ -101,19 +192,22 @@ describe('submission reducer', () => {
   })
 
   it('handles RECEIVE_SUBMISSION', () => {
-    const submissionData = {
-      "id": "1",
-      "status": {
-        "code": 1,
-        "message": ""
+    const submissionAction = {
+      type: 'RECEIVE_SUBMISSION',
+      id: 1,
+      status: {
+        code: 1,
+        message: ''
       }
     }
-    expect(
-      submission({}, {type: types.RECEIVE_SUBMISSION})
+    expect(submission({}, submissionAction)
     ).toEqual({
       isFetching: false,
-      id: undefined,
-      status: undefined
+      id: 1,
+      status: {
+        code: 1,
+        message: ''
+      }
     })
   })
 
