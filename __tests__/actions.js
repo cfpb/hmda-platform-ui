@@ -28,6 +28,7 @@ getInstitutions.mockImpl(() => Promise.resolve(institutionsObj))
 getLatestSubmission.mockImpl(() => Promise.resolve(submissionsObj.bank0id.submissions[2]))
 getSubmission.mockImpl(() => Promise.resolve(submissionsObj.bank0id.submissions[2]))
 getIRS.mockImpl((id) => Promise.resolve(IRSObj))
+postIRS.mockImpl((id, verified) => Promise.resolve(IRSObj)) // this won't need the msas, but its already there
 getSignature.mockImpl((id) => Promise.resolve(signatureObj))
 
 const xhrMock = {
@@ -95,6 +96,22 @@ describe('actions', () => {
       msas: data.msas,
       timestamp: data.timestamp,
       receipt: data.receipt
+    })
+  })
+
+  it('creates an action to signal a POST request for the IRS report', () => {
+    expect(actions.requestIRSPost()).toEqual({
+      type: types.REQUEST_IRS_POST
+    })
+  })
+
+  it('creates an action to signal a POST request has been received for the IRS report', () => {
+    const verified = { verified: true }
+    const data = IRSObj
+    expect(actions.receiveIRSPost(IRSObj)).toEqual({
+      type: types.RECEIVE_IRS_POST,
+      timestamp: data.timestamp,
+      receipt: data.receipt      
     })
   })
 
