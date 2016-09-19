@@ -17,11 +17,13 @@ import {
 const filingsObj = JSON.parse(fs.readFileSync('./server/json/filings.json'))
 const institutionsObj = JSON.parse(fs.readFileSync('./server/json/institutions.json'))
 const submissionsObj = JSON.parse(fs.readFileSync('./server/json/submissions.json'))
+const IRSObj = JSON.parse(fs.readFileSync('./server/json/irs.json'))
 
 getInstitution.mockImpl((id) => Promise.resolve(filingsObj[id]))
 getInstitutions.mockImpl(() => Promise.resolve(institutionsObj))
 getLatestSubmission.mockImpl(() => Promise.resolve(submissionsObj.bank0id.submissions[2]))
 getSubmission.mockImpl(() => Promise.resolve(submissionsObj.bank0id.submissions[2]))
+getIRS.mockImpl((id) => Promise.resolve(IRSObj))
 
 const xhrMock = {
     open: jest.fn(),
@@ -64,6 +66,22 @@ const getEachInstitutionAction = [
 ]
 
 describe('actions', () => {
+  it('creates an action to signal a request for the IRS report', () => {
+    expect(actions.requestIRS()).toEqual({
+      type: types.REQUEST_IRS
+    })
+  })
+
+  it('creates an action to signal the IRS report data has been acquired', () => {
+    const data = IRSObj
+    expect(actions.receiveIRS(data)).toEqual({
+      type: types.RECEIVE_IRS,
+      msas: data.msas,
+      timestamp: data.timestamp,
+      receipt: data.receipt
+    })
+  })
+
   it('creates an action to signal a request for institutions', () => {
     expect(actions.requestInstitutions()).toEqual({
       type: types.REQUEST_INSTITUTIONS
