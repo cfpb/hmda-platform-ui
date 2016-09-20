@@ -71,7 +71,7 @@ export function postIRS(submission, data){
 }
 
 export function getSummary(submission){
-  return sendFetch('/submissions/${submission}/summary');
+  return sendFetch(`/submissions/${submission}/summary`);
 }
 
 export function getSignature(submission){
