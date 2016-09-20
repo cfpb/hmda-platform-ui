@@ -4,14 +4,13 @@ import { fetchSubmission } from '../actions'
 import UploadForm from './UploadForm.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Edits from './Edits.jsx'
-import Signature from './Signature.jsx'
 import IRSReport from './IRSReport.jsx'
+import Signature from './Signature.jsx'
+import Summary from './Summary.jsx'
 /*import RefileWarning from './RefileWarning.jsx'
 import EditsContainer from './EditsContainer.jsx'
-import IRSReport from './IRSReport.jsx'
-import Summary from './Summary.jsx'
-
 */
+
 class SubmissionContainer extends Component {
   constructor(props) {
     super(props)
@@ -47,6 +46,7 @@ class SubmissionContainer extends Component {
       //editsContainer = <Edits/>
       irs =  <IRSReport />
       sign = <Signature />
+      summary = <Summary />
     }
 
     //if(code > 9) irs =  <IRSReport />
