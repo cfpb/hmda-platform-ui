@@ -45,6 +45,21 @@ const defaultIRS = {
   status: defaultSubmission.status
 }
 
+describe('status reducer', () => {
+  it('should return the initial state on empty action', () => {
+    expect(
+      status(undefined, {})
+    ).toEqual(defaultStatus)
+  })
+
+  it('handles UPDATE_STATUS', () => {
+    expect(
+      status({}, {type: types.UPDATE_STATUS, status: { code: 3, message: ''}})
+    ).toEqual({ code: 3, message: ''})
+
+  })
+})
+
 describe('signature reducer', () => {
   it('should return the initial state on empty action', () => {
     expect(
@@ -210,18 +225,6 @@ describe('submission reducer', () => {
       }
     })
   })
-
-  /*it('handles UPLOAD_COMPLETE', () => {
-    expect(
-      submission({}, {type: types.UPLOAD_COMPLETE})
-    ).toEqual({submission:{id: 1, status:{code: 3, message: ''}}})
-  })
-
-  it('handles UPLOAD_ERROR', () => {
-    expect(
-      submission({}, {type: types.UPLOAD_ERROR})
-    ).toEqual({submission:{id: 1, status:{code: -1, message: 'Error uploading file'}}})
-  })*/
 
   it('shouldn\'t modify state on an unknown action type', () => {
     excludeTypes(types.RECEIVE_SUBMISSION, types.REQUEST_SUBMISSION,
