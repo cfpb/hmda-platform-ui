@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 
 const Summary = (props) => {
+  if (!props.respondent.name) return null
+
   return (
     <div className="Summary">
       <h2>Validation Summary</h2>
