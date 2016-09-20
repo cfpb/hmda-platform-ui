@@ -1,4 +1,4 @@
-jest.dontMock('../src/js/components/Signature.jsx')
+jest.unmock('../src/js/components/Signature.jsx')
 
 import Signature from '../src/js/components/Signature.jsx'
 import Wrapper from './Wrapper.js'
@@ -6,29 +6,23 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
-var code = 13
-/*
-api.postSignature = jest.fn(function(cb){
-  cb(null, {
-    status: {
-      code: code,
-      message: ''
-    },
-    timestamp: Date.now(),
-    receipt: 'dc9e5827abb678f54103e7b89435abf9b36648797ebb6516a52ab33ab4e46cee'
-  })
-  code = code === 13 ? 12 : 13
-})
-*/
+const fs = require('fs')
+const signJSON = JSON.parse(fs.readFileSync('./server/json/receipt.json'))
+const status = {
+  code: 12,
+  message: ''
+}
 
-describe('signature component', () => {
-
-  const uncheckedToggle = (err, status) => {
-    expect(status.code).toBe(13)
-  }
-
+describe('Signature component', () => {
+  const onSignatureClick = jest.fn()
   const signature = TestUtils.renderIntoDocument(
-    <Signature />
+    <Wrapper>
+      <Signature
+        receipt={signJSON.receipt}
+        timestamp={signJSON.timestamp}
+        status={status}
+        onSignatureClick={onSignatureClick} />
+    </Wrapper>
   )
   const signatureNode = ReactDOM.findDOMNode(signature)
 
@@ -45,7 +39,7 @@ describe('signature component', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(signature, 'timestamp').length).toEqual(0)
   })
 
-  it('toggles the unchecked checkbox to true', () => {
+  it('calls the function on change', () => {
     var checkbox = TestUtils.findRenderedDOMComponentWithTag(signature, 'input')
     expect(checkbox.checked).toBeFalsy()
 
@@ -54,36 +48,31 @@ describe('signature component', () => {
       {target: {checked: true}}
     )
 
-    expect(TestUtils.findRenderedDOMComponentWithClass(signature, 'receipt')).toBeDefined()
-    expect(TestUtils.findRenderedDOMComponentWithClass(signature, 'timestamp')).toBeDefined()
+    expect(onSignatureClick).toBeCalled()
   })
 
-  it('the checkbox IS checked and toggles to false', () => {
+  const statusSigned = {
+    code: 13,
+    message: ''
+  }
+  const signatureSigned = TestUtils.renderIntoDocument(
+    <Wrapper>
+      <Signature
+        receipt={signJSON.receipt}
+        timestamp={signJSON.timestamp}
+        status={statusSigned}
+        onSignatureClick={onSignatureClick} />
+    </Wrapper>
+  )
+  const signatureSignedNode = ReactDOM.findDOMNode(signatureSigned)
 
-    const checkedToggle = (err, status) => {
-      expect(status.code).toBe(12)
-    }
-
-    const signatureChecked = TestUtils.renderIntoDocument(
-      <Signature />
-    )
-    const checkbox = TestUtils.findRenderedDOMComponentWithTag(signatureChecked, 'input')
-    expect(checkbox.checked).toBeTruthy()
-
-    it('renders the receipt', () => {
-      expect(TestUtils.findRenderedDOMComponentWithClass(signatureChecked, 'receipt')).toBeDefined()
-      expect(TestUtils.findRenderedDOMComponentWithClass(signatureChecked, 'timestamp')).toBeDefined()
-    })
-
-    TestUtils.Simulate.change(
-      checkbox,
-      {target: {checked: false}}
-    )
-
-    it('does not render the receipt after toggle', () => {
-      expect(TestUtils.scryRenderedDOMComponentsWithClass(signatureChecked, 'receipt').length).toEqual(0)
-      expect(TestUtils.scryRenderedDOMComponentsWithClass(signatureChecked, 'timestamp').length).toEqual(0)
-    })
+  it('renders the receipt and timestamp', () => {
+    expect(TestUtils.findRenderedDOMComponentWithClass(signatureSigned, 'receipt')).toBeTruthy()
+    expect(TestUtils.findRenderedDOMComponentWithClass(signatureSigned, 'timestamp')).toBeTruthy()
   })
 
+  it('has the checkbox checked', () => {
+    const checkboxChecked = TestUtils.findRenderedDOMComponentWithTag(signatureSigned, 'input')
+    expect(checkboxChecked.checked).toBeTruthy()
+  })
 })

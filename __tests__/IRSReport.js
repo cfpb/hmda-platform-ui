@@ -22,8 +22,7 @@ describe('IRS report', () => {
         receipt={irsJSON.receipt}
         timestamp={irsJSON.timestamp}
         status={status}
-        onIRSClick={onIRSClick}
-      />
+        onIRSClick={onIRSClick} />
     </Wrapper>
   )
   const irsReportNode = ReactDOM.findDOMNode(irsReport)
@@ -40,7 +39,11 @@ describe('IRS report', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'input').length).toEqual(1)
   })
 
-  it('toggles an unchecked checkbox to checked', () => {
+  it('does NOT render the confirmation', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(irsReport, 'confirmation').length).toEqual(0)
+  })
+
+  it('calls the function on change', () => {
     const checkbox = TestUtils.findRenderedDOMComponentWithTag(irsReport, 'input')
 
     expect(checkbox.checked).toBeFalsy()
@@ -70,7 +73,12 @@ describe('IRS report', () => {
   )
   const irsReportConfirmedNode = ReactDOM.findDOMNode(irsReportConfirmed)
 
-  it('contains the checkbox input', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(irsReportConfirmed, 'confirmation').length).toEqual(1)
+  it('renders the confirmation', () => {
+    expect(TestUtils.findRenderedDOMComponentWithClass(irsReportConfirmed, 'confirmation')).toBeTruthy()
+  })
+
+  it('has the checkbox checked', () => {
+    const checkboxChecked = TestUtils.findRenderedDOMComponentWithTag(irsReportConfirmed, 'input')
+    expect(checkboxChecked.checked).toBeTruthy()
   })
 })
