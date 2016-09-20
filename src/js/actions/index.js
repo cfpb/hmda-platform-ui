@@ -251,7 +251,7 @@ export function receiveSummary(data) {
   }
 }
 
-export function fetchSignature() {
+export function fetchSummary() {
   return dispatch => {
     dispatch(requestSummary())
     return getSummary(latestSubmissionId)
