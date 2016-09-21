@@ -1,35 +1,43 @@
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 
-export default class Signature extends Component {
-  showReceipt() {
-    if(!this.props.receipt) return null;
+const showReceipt = (props) => {
+  if(props.status.code < 13) return null;
 
-    return (
-      <div>
-        <p className="receipt">Receipt #: {this.props.receipt}</p>
-        <p className="timestamp">Timestamp: {this.props.timestamp}</p>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <p className="receipt">Receipt #: {props.receipt}</p>
+      <p className="timestamp">Timestamp: {props.timestamp}</p>
+    </div>
+  )
+}
 
-  render() {
-    return (
-      <div className="Signature">
-        <p>
-          <input type="checkbox" value="Signature"
-            /*TODO: handle onChange=this.props.dispatch(postSignature())*/
-            checked={this.props.isChecked} />
-          I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.
-        </p>
-        {this.showReceipt()}
-      </div>
-    )
-  }
+const Signature = (props) => {
+  const isChecked = props.status.code > 12 ? true : false
+  return (
+    <div className="Signature">
+      <p>
+        <input type="checkbox" value="Signature"
+          onChange={e => props.onSignatureClick(e.target.checked)}
+          checked={isChecked} />
+        I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.
+      </p>
+      {showReceipt(props)}
+    </div>
+  )
 }
 
 Signature.propTypes = {
-  isChecked: React.PropTypes.bool,
-  receipt: React.PropTypes.string,
-  timestamp: React.PropTypes.string,
-  dispatch: PropTypes.func.isRequired
+  receipt: PropTypes.string,
+  timestamp: PropTypes.number,
+  status: PropTypes.object,
+  onSignatureClick: PropTypes.func.isRequired
 }
+
+Signature.defaultProps = {
+  status: {
+    code: null
+  }
+}
+
+export default Signature

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchIRS } from '../actions'
+import { fetchIRS, updateIRS } from '../actions'
 import IRSReport from '../components/IRSReport.jsx'
 
 class IRSReportContainer extends Component {
@@ -20,19 +20,41 @@ class IRSReportContainer extends Component {
 function mapStateToProps(state) {
   const {
     isFetching,
-    irs,
-    isChecked
+    msas,
+    timestamp,
+    receipt
   } = state.app.irs || {
-    isFetching: false,
-    irs: {},
-    isChecked: false
+    isFetching: true,
+    msas: [],
+    timestamp: null,
+    receipt: null
+  }
+
+  const {
+    status
+  } = state.app.submission || {
+    status: {
+      code: 10,
+      message: ''
+    }
   }
 
   return {
     isFetching,
-    irs,
-    isChecked
+    msas,
+    timestamp,
+    receipt,
+    status
   }
 }
 
-export default connect(mapStateToProps)(IRSReportContainer)
+function mapDispatchToProps(dispatch) {
+  return {
+    onIRSClick: (verified) => {
+      dispatch(updateIRS({verified: verified}))
+    },
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(IRSReportContainer)

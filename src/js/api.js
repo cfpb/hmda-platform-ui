@@ -1,13 +1,14 @@
 import fetch from 'isomorphic-fetch'
 
-function sendFetch(suffix, postData){
+function sendFetch(suffix, postData) {
   var url = makeUrl(parseLocation(), suffix);
   var options = {
     method: postData ? 'POST' : 'GET',
     body: postData,
     headers: {
       'CFPB-HMDA-Institutions': '0,1,2,3',
-      'CFPB-HMDA-Username': 'fakeuser'
+      'CFPB-HMDA-Username': 'fakeuser',
+      'Content-Type': 'application/json'
     }
   }
 
@@ -30,27 +31,27 @@ export function parseLocation(){
  }
 
 export function getInstitutions(){
-  return sendFetch('/institutions');
+  return sendFetch(`/institutions`);
 }
 
 export function getInstitution(id){
-  return sendFetch('/institutions/' + id);
+  return sendFetch(`/institutions/` + id);
 }
 
 export function getUploadUrl(){
-  return makeUrl(parseLocation(), '/submissions/latest')
+  return makeUrl(parseLocation(), `/submissions/latest`)
 }
 
 export function getProgress(url, cb){
-  return sendFetch(url, cb, '/progress');
+  return sendFetch(url, cb, `/progress`);
 }
 
 export function getSubmission(id){
-  return sendFetch('/submissions/' + id)
+  return sendFetch(`/submissions/` + id)
 }
 
 export function getLatestSubmission(){
-  return sendFetch('/submissions/latest')
+  return sendFetch(`/submissions/latest`)
 }
 
 export function getEditsByType(submission){
@@ -65,24 +66,24 @@ export function getIRS(submission){
   return sendFetch(`/submissions/${submission}/irs`);
 }
 
-export function postIRS(url, cb, data){
-  return sendFetch(url, cb, '/irs', data);
+export function postIRS(submission, data){
+  return sendFetch(`/submissions/${submission}/irs`, JSON.stringify(data));
 }
 
 export function getSignature(submission){
   return sendFetch(`/submissions/${submission}/sign`);
 }
 
-export function postSignature(url, cb, data){
-  return sendFetch(url, cb, '/sign', data);
+export function postSignature(submission, data){
+  return sendFetch(`/submissions/${submission}/sign`, JSON.stringify(data));
 }
 
 export function postSubmissions(url, cb){
-  return sendFetch(url, cb, '/submissions');
+  return sendFetch(url, cb, `/submissions`);
 }
 
 export function putEdit(edit, data){
-  var suffix = '/edits/' + edit;
+  var suffix = `/edits/` + edit;
   var url = makeUrl(parseLocation(), suffix);
 
   return fetch(url, {method: 'PUT', body: data});

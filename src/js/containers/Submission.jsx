@@ -4,8 +4,8 @@ import { fetchSubmission } from '../actions'
 import UploadForm from './UploadForm.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Edits from './Edits.jsx'
-import SignatureContainer from './Signature.jsx'
-import IRSReportContainer from './IRSReport.jsx'
+import Signature from './Signature.jsx'
+import IRSReport from './IRSReport.jsx'
 /*import RefileWarning from './RefileWarning.jsx'
 import EditsContainer from './EditsContainer.jsx'
 import IRSReport from './IRSReport.jsx'
@@ -22,7 +22,7 @@ class SubmissionContainer extends Component {
   }
 
   render() {
-    let uploadForm = <UploadForm submission={this.props.submission}/>
+    let uploadForm = <UploadForm />
     let progress = null
     let refileWarning = null
     let editsContainer = null
@@ -30,7 +30,7 @@ class SubmissionContainer extends Component {
     let irs = null
     let sign = null
 
-    const status = this.props.submission.status
+    const status = this.props.status
     const code = status.code
 
     if (code === -1) {
@@ -45,22 +45,17 @@ class SubmissionContainer extends Component {
 
     if(code > 6){
       //editsContainer = <Edits/>
-      sign = <SignatureContainer />
-      irs = <IRSReportContainer />
+      irs =  <IRSReport />
+      sign = <Signature />
     }
-/*
-    if(code > 9) irs = <IRSReport checked={false}/>
+
+    //if(code > 9) irs =  <IRSReport />
 
     if(code > 10){
-      summary = <Summary/> // TODO: will have a prop added
-      irs = <IRSReport checked={true}/>
-      sign = <Signature checked={false}/>
+      //summary = <Summary/> // TODO: will have a prop added
+      //sign = <Signature />
     }
 
-    if(code > 12){
-      sign = <Signature checked={true}/>
-    }
-*/
     return (
     <div className="SubmissionContainer container">
       {uploadForm}
@@ -82,21 +77,21 @@ class SubmissionContainer extends Component {
 function mapStateToProps(state) {
   const {
     isFetching,
-    submission
+    status,
+    id
   } = state.app.submission || {
     isFetching: true,
-    submission: {
-      id: 1,
-      status: {
-        code: 1,
-        message: ''
-      }
+    id: 1,
+    status: {
+      code: 1,
+      message: ''
     }
   }
 
   return {
     isFetching,
-    submission
+    status,
+    id
   }
 }
 

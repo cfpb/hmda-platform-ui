@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchSignature } from '../actions'
+import { fetchSignature, updateSignature } from '../actions'
 import Signature from '../components/Signature.jsx'
 
 class SignatureContainer extends Component {
@@ -22,17 +22,36 @@ function mapStateToProps(state) {
     isFetching,
     timestamp,
     receipt
-  } = state.app.sign || {
-    isFetching: false,
+  } = state.app.signature || {
+    isFetching: true,
     timestamp: null,
     receipt: null
+  }
+
+  const {
+    status
+  } = state.app.submission || {
+    status: {
+      code: 12,
+      message: ''
+    }
   }
 
   return {
     isFetching,
     timestamp,
-    receipt
+    receipt,
+    status
   }
 }
 
-export default connect(mapStateToProps)(SignatureContainer)
+function mapDispatchToProps(dispatch) {
+  return {
+    onSignatureClick: (signed) => {
+      dispatch(updateSignature({signed: signed}))
+    },
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignatureContainer)

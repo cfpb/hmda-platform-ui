@@ -3,18 +3,15 @@ import ValidationProgress from '../components/ValidationProgress.jsx'
 
 function mapStateToProps(state) {
   const {
-    submission
+    status
   } = state.app.submission || {
-    submission: {
-      id: 1,
-      status: {
-        code: 3,
-        message: ''
-      }
+    status: {
+      code: 3,
+      message: ''
     }
   }
 
-  return submission
+  return {status}
 }
 
 export default connect(mapStateToProps)(ValidationProgress)
