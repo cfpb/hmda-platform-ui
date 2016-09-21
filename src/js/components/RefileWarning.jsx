@@ -38,7 +38,7 @@ const RefileWarning = (props) => {
 }
 
 RefileWarning.propTypes = {
-  code: PropTypes.number
+  status: PropTypes.object
 }
 
 RefileWarning.defaultProps = {
