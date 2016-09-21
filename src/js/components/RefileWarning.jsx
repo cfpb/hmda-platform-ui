@@ -9,10 +9,10 @@ const getText = (props) => {
   let textToRender = null;
   let refileLink = null;
 
-  if(props.code === 7) {
+  if(props.status.code === 7) {
     textToRender = refileText;
     refileLink = getRefileLink();
-  } else if(props.code === 8) {
+  } else if(props.status.code === 8) {
     textToRender = validateText;
   }
 
@@ -22,24 +22,23 @@ const getText = (props) => {
 const getRefileLink = () => {
   const location = parseLocation()
   const href = `/${location.id}/${location.period}/${(+location.submission + 1)}`
-  //const href = '/' + location.id + '/' + location.period + '/' + (+location.submission + 1);
   return <Link to={href}> Refile here.</Link>
 }
 
 const RefileWarning = (props) => {
-  if (props.code > 8) return null
+  if (props.status.code > 8) return null
 
   return (
     <div className="RefileWarning">
       <div>
-        {getText()}
+        {getText(props)}
       </div>
     </div>
   )
 }
 
 RefileWarning.propTypes = {
-  status: PropTypes.object
+  code: PropTypes.number
 }
 
 RefileWarning.defaultProps = {
