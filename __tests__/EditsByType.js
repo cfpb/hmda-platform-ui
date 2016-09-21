@@ -1,5 +1,7 @@
 jest.unmock('../src/js/components/EditsByType.jsx')
 jest.unmock('../src/js/containers/EditsTable.jsx')
+jest.unmock('../src/js/components/EditsTableRow.jsx')
+jest.unmock('../src/js/components/EditsTableCell.jsx')
 jest.unmock('../src/js/components/EditsHeaderDescription.jsx')
 
 import fs from 'fs'
@@ -13,8 +15,7 @@ const types = {
   syntactical: JSON.parse(fs.readFileSync('./server/json/syntactical.json')),
   validity: JSON.parse(fs.readFileSync('./server/json/validity.json')),
   quality: JSON.parse(fs.readFileSync('./server/json/quality.json')),
-  macro: JSON.parse(fs.readFileSync('./server/json/macro.json')),
-  q595: JSON.parse(fs.readFileSync('./server/json/q595.json'))
+  macro: JSON.parse(fs.readFileSync('./server/json/macro.json'))
 }
 
 describe('EditsByType', function() {
@@ -26,9 +27,9 @@ describe('EditsByType', function() {
   })
 
   it('properly renders child elements', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(editsByType, 'EditsContainerEntry').length).toEqual(5)
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(editsByType, 'EditsHeaderDescription').length).toEqual(5)
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(editsByType, 'table').length).toEqual(8)
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(editsByType, 'EditsContainerEntry').length).toEqual(4)
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(editsByType, 'EditsHeaderDescription').length).toEqual(4)
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(editsByType, 'table').length).toEqual(7)
   })
 })
 

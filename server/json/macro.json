@@ -5,21 +5,20 @@
       "edit": "m1",
       "justifications": [
         {
-          "label":"A", 
+          "value":"A very long explanation of why this macro edit failure is in fact fine. expected, a-okay, and all-around stupendous.", 
           "selected": false
         },
         {
-          "label":"B", 
+          "value":"B", 
           "selected": true 
         },
         {
-          "label":"C", 
+          "value":"C", 
           "selected": false
         },
         {
-          "label":"Other",
-          "selected": false,
-          "text": ""
+          "selected": true,
+          "value": "some custom data"
         }
       ]
     },
@@ -27,11 +26,11 @@
       "edit": "m2",
       "justifications": [
         {
-          "label": "don't worry",
+          "value": "don't worry",
           "selected": false
         },
         {
-          "label": "be happy",
+          "value": "be happy",
           "selected": false
         }
       ]

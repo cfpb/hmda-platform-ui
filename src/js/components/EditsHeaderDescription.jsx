@@ -25,10 +25,6 @@ const getText = (editType) => {
       title =  'Macro Edits'
       desc = 'This is the macro description.'
       break
-    case 'q595':
-      title =  'Q595 Edits'
-      desc = 'MSA/MD not on respondent panel.'
-      break
     default:
       throw new Error('Unexpected edit type. Unable to create edit description')
   }

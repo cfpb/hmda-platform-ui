@@ -8,7 +8,6 @@ import EditsByRow from '../components/EditsByRow.jsx'
 var EditsSelector = require('./EditsSelector.jsx');
 var EditsGrouped = require('./EditsGrouped.jsx');
 var EditsMacro = require('./EditsMacro.jsx');
-var EditsQ595 = require('./EditsQ595.jsx');
 */
 
 class EditsContainer extends Component {

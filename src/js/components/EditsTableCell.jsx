@@ -2,15 +2,16 @@ import React, { PropTypes } from 'react'
 
 import JustificationSelector from '../containers/JustificationSelector.jsx'
 
-const renderCell = (field, cell) => {
-  console.log(cell)
-  if(field === 'justifications') return <JustificationSelector justifications={cell}/>
+const renderCell = (props) => {
+  const { field, cell, keyField } = props
+  console.log(keyField, cell)
+  if(field === 'justifications') return <JustificationSelector edit={keyField} justifications={cell}/>
   if(field === 'verified') return 'veriholder'//<JustificationSelector/>
   return cell
 }
 
 const EditsTableCell = props => {
-  return <td>{renderCell(props.field, props.cell)}</td>
+  return <td>{renderCell(props)}</td>
 }
 
 EditsTableCell.propTypes = {

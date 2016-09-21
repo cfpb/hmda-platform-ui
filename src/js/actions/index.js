@@ -5,7 +5,8 @@ import {
   getSubmission,
   getUploadUrl,
   getEditsByType,
-  getEditsByRow
+  getEditsByRow,
+  putEdit
 } from '../api'
 import * as types from '../constants'
 
@@ -34,6 +35,18 @@ export function receiveInstitution(data) {
   return {
     type: types.RECEIVE_INSTITUTION,
     institution: data
+  }
+}
+
+export function requestEditPut() {
+  return {
+    type: types.REQUEST_EDIT_PUT
+  }
+}
+
+export function receiveEditPut() {
+  return {
+    type: types.RECEIVE_EDIT_PUT
   }
 }
 
@@ -89,6 +102,8 @@ export function selectFile(file) {
     file
   }
 }
+
+
 
 export function uploadStart() {
   return {
@@ -237,6 +252,15 @@ export function fetchEditsByRow() {
     dispatch(requestEditsByRow())
     return getEditsByRow(latestSubmissionId)
       .then(json => dispatch(receiveEditsByRow(json)))
+      .catch(err => console.log(err))
+  }
+}
+
+export function justifyUpdate(edit, data) {
+  return dispatch => {
+    dispatch(requestEditPut())
+    return putEdit(latestSubmissionId, edit, data)
+      .then(json => dispatch(receiveEditPut(json)))
       .catch(err => console.log(err))
   }
 }

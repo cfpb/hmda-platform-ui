@@ -5,14 +5,12 @@ var syntactical = JSON.parse(fs.readFileSync('./server/json/syntactical.json'));
 var validity = JSON.parse(fs.readFileSync('./server/json/validity.json'));
 var quality = JSON.parse(fs.readFileSync('./server/json/quality.json'));
 var macro = JSON.parse(fs.readFileSync('./server/json/macro.json'));
-var q595 = JSON.parse(fs.readFileSync('./server/json/q595.json'));
 
 var edits = {
     syntactical: syntactical,
     validity: validity,
     quality: quality,
     macro: macro,
-    q595: q595
   }
 
 var noSyntactical = {
@@ -45,6 +43,7 @@ var macroEdits = {};
 function handlePut(req, res){
   if(req.body.verified !== undefined) req.body.verified ? qualityCount++ : qualityCount--;
   if(req.body.justifications) macroEdits[req.body.edit] = req.body;
+  console.log(req.body);
 
   var code = getCode();
   res.send({status:{code: code, message: ''}});

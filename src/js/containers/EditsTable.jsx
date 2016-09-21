@@ -2,13 +2,13 @@ import React from 'react'
 
 import EditsTableRow from '../components/EditsTableRow.jsx'
 
-const rowForEachLarTypes = ['synactical', 'validity', 'quality']
+const rowForEachLarTypes = ['syntactical', 'validity', 'quality']
 
 const rowForEachLar = (val) => rowForEachLarTypes.indexOf(val) !== -1
 
 const renderHeader = (props) => {
   let row = props.data[0]
-  if (rowForEachLar(props)) row = row.lar
+  if (rowForEachLar(props.type)) row = row.lar
 
   return (
     <tr>

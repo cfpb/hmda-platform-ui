@@ -7,9 +7,6 @@
 
         <EditsHeaderDescription>Macro Edits</EditsHeaderDescription>
         <EditsMacro edits={this.state.macro} appStatus={this.props.appStatus}/>
-
-        <EditsHeaderDescription>Q595 Edits</EditsHeaderDescription>
-        <EditsQ595 group={this.state.q595.edits}/>
       </div>
     )
   },
