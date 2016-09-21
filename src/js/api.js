@@ -70,6 +70,10 @@ export function postIRS(submission, data){
   return sendFetch(`/submissions/${submission}/irs`, JSON.stringify(data));
 }
 
+export function getSummary(submission){
+  return sendFetch(`/submissions/${submission}/summary`);
+}
+
 export function getSignature(submission){
   return sendFetch(`/submissions/${submission}/sign`);
 }

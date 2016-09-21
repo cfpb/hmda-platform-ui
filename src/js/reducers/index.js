@@ -22,6 +22,8 @@ import {
   RECEIVE_SIGNATURE,
   REQUEST_SIGNATURE_POST,
   RECEIVE_SIGNATURE_POST,
+  REQUEST_SUMMARY,
+  RECEIVE_SUMMARY,
   UPDATE_STATUS
 } from '../constants'
 
@@ -269,6 +271,33 @@ export const signature = (state = defaultSignature, action) => {
   }
 }
 
+const defaultSummary = {
+  isFetching: false,
+  respondent: {},
+  file: {}
+}
+
+export const summary = (state = defaultSummary, action) => {
+  switch (action.type) {
+    case REQUEST_SUMMARY:
+      return {
+        ...state,
+        isFetching: true
+      }
+
+    case RECEIVE_SUMMARY:
+      return {
+        ...state,
+        isFetching: false,
+        respondent: action.respondent,
+        file: action.file
+      }
+
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   institutions,
   filings,
@@ -276,5 +305,6 @@ export default combineReducers({
   upload,
   edits,
   irs,
-  signature
+  signature,
+  summary
 })

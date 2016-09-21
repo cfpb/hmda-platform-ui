@@ -9,7 +9,8 @@ import {
   getIRS,
   postIRS,
   getSignature,
-  postSignature
+  postSignature,
+  getSummary
 } from '../api'
 import * as types from '../constants'
 
@@ -232,6 +233,29 @@ export function updateSignature(signed) {
           message: ''
         }
       )))
+      .catch(err => console.log(err))
+  }
+}
+
+export function requestSummary() {
+  return {
+    type: types.REQUEST_SUMMARY
+  }
+}
+
+export function receiveSummary(data) {
+  return {
+    type: types.RECEIVE_SUMMARY,
+    respondent: data.respondent,
+    file: data.file
+  }
+}
+
+export function fetchSummary() {
+  return dispatch => {
+    dispatch(requestSummary())
+    return getSummary(latestSubmissionId)
+      .then(json => dispatch(receiveSummary(json)))
       .catch(err => console.log(err))
   }
 }
