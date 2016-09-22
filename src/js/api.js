@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 
-function sendFetch(suffix, options = {method: 'GET', body: ''}){
+function sendFetch(suffix, options = {method: 'GET'}){
   var url = makeUrl(parseLocation(), suffix);
 
   if(typeof options.body !== 'string') options.body = JSON.stringify(options.body)
