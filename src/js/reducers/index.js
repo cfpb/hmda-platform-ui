@@ -13,7 +13,18 @@ import {
   REQUEST_EDITS_BY_TYPE,
   REQUEST_EDITS_BY_ROW,
   RECEIVE_EDITS_BY_TYPE,
-  RECEIVE_EDITS_BY_ROW
+  RECEIVE_EDITS_BY_ROW,
+  REQUEST_IRS,
+  RECEIVE_IRS,
+  REQUEST_IRS_POST,
+  RECEIVE_IRS_POST,
+  REQUEST_SIGNATURE,
+  RECEIVE_SIGNATURE,
+  REQUEST_SIGNATURE_POST,
+  RECEIVE_SIGNATURE_POST,
+  REQUEST_SUMMARY,
+  RECEIVE_SUMMARY,
+  UPDATE_STATUS
 } from '../constants'
 
 const defaultUpload = {
@@ -22,17 +33,15 @@ const defaultUpload = {
   file: null
 }
 
-const defaultSubmission = {
-  id: 1,
-  status: {
-    code: 1,
-    message: ''
-  }
+const defaultStatus = {
+  code: 1,
+  message: ''
 }
 
-const submissionWrapper = {
-  isFetching: false,
-  submission: defaultSubmission
+const defaultSubmission = {
+  id: 1,
+  status: defaultStatus,
+  isFetching: false
 }
 
 const defaultEdits = {
@@ -41,6 +50,8 @@ const defaultEdits = {
   rows: [],
   groupByRow: false
 }
+
+
 
 /*
  * Set isFetching to true when institutions are being requested
@@ -112,84 +123,178 @@ export const upload = (state = defaultUpload, action) => {
  * Set isFetching to false and update the submission when new data is received
  * Update the submission status code and message when the upload completes or fails
  */
-export const submission = (state = submissionWrapper, action) => {
+export const submission = (state = defaultSubmission, action) => {
   switch (action.type) {
-  case REQUEST_SUBMISSION:
-    return {
-      ...state,
-      isFetching: true
-    }
-  case RECEIVE_SUBMISSION:
-    return {
-      ...state,
-      submission: action.submission
-    }
-  case UPLOAD_COMPLETE:
-    return {
-      ...state,
-      submission: submissionStatus(state.submission, action)
-    }
-  case UPLOAD_ERROR:
-    return {
-      ...state,
-      submission: submissionStatus(state.submission, action)
-    }
-  default:
-    return state
+    case REQUEST_SUBMISSION:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case RECEIVE_SUBMISSION:
+      return {
+        isFetching: false,
+        id: action.id,
+        status: action.status
+      }
+    case UPDATE_STATUS:
+      return {
+        ...state,
+        status: status(state.status, action)
+      }
+    default:
+      return state
   }
 }
 
-/*
- * Child of submission which handles updating the nested status code and message
- */
-const submissionStatus = (state = defaultSubmission, action) => {
-  switch (action.type) {
-  case UPLOAD_COMPLETE:
-      return {
-        ...state,
-        status: {
-          code: 3,
-          message: ''
-        }
-      }
-    case UPLOAD_ERROR:
-      return {
-        ...state,
-        status: {
-          code: -1,
-          message: 'Error uploading file'
-        }
-      }
-  default:
-    return state
+export const status = (state = defaultStatus, action) => {
+  switch(action.type) {
+    case UPDATE_STATUS:
+      return action.status
+    default:
+      return state
   }
 }
 
 const edits = (state = defaultEdits, action) => {
   switch (action.type) {
-  case REQUEST_EDITS_BY_TYPE:
-    return {
-      ...state,
-      isFetching: true
-    }
-  case REQUEST_EDITS_BY_ROW:
-    return {
-      ...state,
-      isFetching: true
-    }
-  case RECEIVE_EDITS_BY_TYPE:
-    console.log(action.edits)
-    return {
-      ...state,
-      types: action.edits
-    }
-  case RECEIVE_EDITS_BY_ROW:
-    return {
-      ...state,
-      rows: action.edits
-    }
-  default:
-    return state
+    case REQUEST_EDITS_BY_TYPE:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case REQUEST_EDITS_BY_ROW:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case RECEIVE_EDITS_BY_TYPE:
+      console.log(action.edits)
+      return {
+        ...state,
+        types: action.edits
+      }
+    case RECEIVE_EDITS_BY_ROW:
+      return {
+        ...state,
+        rows: action.edits
+      }
+    default:
+      return state
+  }
+}
+
+const defaultIRS = {
+  isFetching: false,
+  msas: [],
+  timestamp: null,
+  receipt: null,
+  status: defaultSubmission.status
+}
+
+export const irs = (state = defaultIRS, action) => {
+  switch (action.type) {
+
+    case REQUEST_IRS:
+      return {
+        ...state,
+        isFetching: true
+      }
+
+    case RECEIVE_IRS:
+      return {
+        ...state,
+        isFetching: false,
+        msas: action.msas,
+        timestamp: action.timestamp,
+        receipt: action.receipt
+      }
+
+    case REQUEST_IRS_POST:
+      return {
+        ...state,
+        isFetching: true
+      }
+
+    case RECEIVE_IRS_POST:
+      return {
+        ...state,
+        isFetching: false,
+        timestamp: action.timestamp,
+        receipt: action.receipt
+      }
+
+    default:
+      return state
+  }
+}
+
+const defaultSignature = {
+  isFetching: false,
+  timestamp: null,
+  receipt: null,
+  status: defaultSubmission.status
+}
+
+export const signature = (state = defaultSignature, action) => {
+  switch (action.type) {
+
+    case REQUEST_SIGNATURE:
+      return {
+        ...state,
+        isFetching: true
+      }
+
+    case RECEIVE_SIGNATURE:
+      return {
+        ...state,
+        isFetching: false,
+        timestamp: action.timestamp,
+        receipt: action.receipt
+      }
+
+    case REQUEST_SIGNATURE_POST:
+      return {
+        ...state,
+        isFetching: true
+      }
+
+    case RECEIVE_SIGNATURE_POST:
+      return {
+        ...state,
+        isFetching: false,
+        timestamp: action.timestamp,
+        receipt: action.receipt
+      }
+
+    default:
+      return state
+  }
+}
+
+const defaultSummary = {
+  isFetching: false,
+  respondent: {},
+  file: {}
+}
+
+export const summary = (state = defaultSummary, action) => {
+  switch (action.type) {
+    case REQUEST_SUMMARY:
+      return {
+        ...state,
+        isFetching: true
+      }
+
+    case RECEIVE_SUMMARY:
+      return {
+        ...state,
+        isFetching: false,
+        respondent: action.respondent,
+        file: action.file
+      }
+
+    default:
+      return state
   }
 }
 
@@ -198,5 +303,8 @@ export default combineReducers({
   filings,
   submission,
   upload,
-  edits
+  edits,
+  irs,
+  signature,
+  summary
 })

@@ -1,13 +1,17 @@
 import fetch from 'isomorphic-fetch'
 
-function sendFetch(suffix, options = {method: 'GET'}){
+function sendFetch(suffix, options = {method: 'GET', body: ''}){
   var url = makeUrl(parseLocation(), suffix);
+
+  if(typeof options.body !== 'string') options.body = JSON.stringify(options.body)
+
   var fetchOptions = {
     method: options.method,
     body: options.body,
     headers: {
-      'CFPB-HMDA-Institutions': 'fakeinstitution',
-      'CFPB-HMDA-Username': 'fakeuser'
+      'CFPB-HMDA-Institutions': '0,1,2,3',
+      'CFPB-HMDA-Username': 'fakeuser',
+      'Content-Type': 'application/json'
     }
   }
 
@@ -30,27 +34,27 @@ export function parseLocation(){
  }
 
 export function getInstitutions(){
-  return sendFetch('/institutions');
+  return sendFetch(`/institutions`);
 }
 
 export function getInstitution(id){
-  return sendFetch('/institutions/' + id);
+  return sendFetch(`/institutions/` + id);
 }
 
 export function getUploadUrl(){
-  return makeUrl(parseLocation(), '/submissions/latest')
+  return makeUrl(parseLocation(), `/submissions/latest`)
 }
 
 export function getProgress(url, cb){
-  return sendFetch(url, cb, '/progress');
+  return sendFetch(url, cb, `/progress`);
 }
 
 export function getSubmission(id){
-  return sendFetch('/submissions/' + id)
+  return sendFetch(`/submissions/` + id)
 }
 
 export function getLatestSubmission(){
-  return sendFetch('/submissions/latest')
+  return sendFetch(`/submissions/latest`)
 }
 
 export function getEditsByType(submission){
@@ -66,24 +70,26 @@ export function putEdit(submission, edit, data){
   return sendFetch(`/submissions/${submission}${suffix}`, {method: 'PUT', body: data})
 }
 
-export function getIRS(url, cb){
-  return sendFetch(url, cb, '/irs');
+export function getIRS(submission){
+  return sendFetch(`/submissions/${submission}/irs`);
 }
 
-export function postIRS(url, cb, data){
-  return sendFetch(url, cb, '/irs', {method: 'POST', body: data});
+export function postIRS(submission, data){
+  return sendFetch(`/submissions/${submission}/irs`, {method: 'POST', body: data});
 }
 
-export function getSignature(url, cb){
-  return sendFetch(url, cb, '/sign');
+export function getSummary(submission){
+  return sendFetch(`/submissions/${submission}/summary`);
 }
 
-export function postSignature(url, cb, data){
-  return sendFetch(url, cb, '/sign', {method: 'POST', body: data});
+export function getSignature(submission){
+  return sendFetch(`/submissions/${submission}/sign`);
+}
+
+export function postSignature(submission, data){
+  return sendFetch(`/submissions/${submission}/sign`, {method: 'POST', body: data});
 }
 
 export function postSubmissions(url, cb){
-  return sendFetch(url, cb, '/submissions');
+  return sendFetch(url, cb, `/submissions`);
 }
-
-

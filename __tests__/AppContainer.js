@@ -1,4 +1,5 @@
 jest.unmock('../src/js/AppContainer.jsx')
+jest.unmock('../src/js/components/HomeLink.jsx')
 
 import React from 'react'
 import ReactDOM from 'react-dom'

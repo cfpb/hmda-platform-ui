@@ -1,54 +1,67 @@
-jest.dontMock('../src/js/UserHeading.jsx');
+jest.unmock('../src/js/components/UserHeading.jsx')
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+import UserHeading from '../src/js/components/UserHeading.jsx'
+import Wrapper from './Wrapper.js'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import TestUtils from 'react-addons-test-utils'
+
+const data = {
+  user: 'User1',
+  institution: "Wacky data",
+  period: '2017'
+}
 
 
-var UserHeading = require('../src/js/UserHeading.jsx');
+describe('UserHeading', () => {
 
-var user = 'User1';
-var institution = "Wacky data";
-var period = '2017';
+  describe('does NOT render without user', () => {
+    const heading = TestUtils.renderIntoDocument(
+      <Wrapper><UserHeading period={data.period}/></Wrapper>
+    )
+    const headingNode = ReactDOM.findDOMNode(heading)
 
-describe('UserHeading', function(){
-  describe('render without institution', function() {
+    it('does NOT render the component', () => {
+      expect(headingNode).toBeNull()
+    })
+  })
 
-    var headingComponent = <UserHeading userName={user} period={period}/>
+  describe('render without institution', () => {
+    const heading = TestUtils.renderIntoDocument(
+      <Wrapper><UserHeading userName={data.user} period={data.period}/></Wrapper>
+    )
+    const headingNode = ReactDOM.findDOMNode(heading)
 
-    var heading = TestUtils.renderIntoDocument(headingComponent);
-    var headingNode = ReactDOM.findDOMNode(heading);
+    it('renders the component', () => {
+      expect(headingNode).toBeDefined()
+    })
 
-    it('renders the component', function(){
-      expect(headingNode).toBeDefined();
-    });
+    it('passes through the user appropriately as props', () => {
+      expect(heading.props.children.props.userName).toEqual(data.user)
+    })
 
-    it('passes through the user appropriately as props', function(){
-      expect(heading.props.userName).toEqual(user);
-    });
+    it('renders correctly', () => {
+      expect(headingNode.textContent).toEqual('Welcome to the 2017 HMDA filing, User1')
+    })
+  })
 
-    it('renders correctly', function(){
-      expect(headingNode.textContent).toEqual('Welcome to the 2017 HMDA filing, User1');
-    });
-  });
+  describe('render with institution', () => {
+    const heading = TestUtils.renderIntoDocument(
+      <Wrapper><UserHeading institution={data.institution} userName={data.user} period={data.period} /></Wrapper>
+    )
+    const headingNode = ReactDOM.findDOMNode(heading)
 
-  describe('render with institution', function() {
+    it('renders the component', () => {
+      expect(headingNode).toBeDefined()
+    })
 
-    var headingComponent = <UserHeading institution={institution} userName={user} period={period} />
+    it('passes through the institution appropriately as props', () => {
+      expect(heading.props.children.props.institution).toEqual("Wacky data")
+    })
 
-    var heading = TestUtils.renderIntoDocument(headingComponent);
-    var headingNode = ReactDOM.findDOMNode(heading);
+    it('renders correctly', () => {
+      expect(headingNode.textContent).toEqual('User1 filing on behalf of Wacky data')
+    })
+  })
 
-    it('renders the component', function(){
-      expect(headingNode).toBeDefined();
-    });
-
-    it('passes through the institution appropriately as props', function(){
-      expect(heading.props.institution).toEqual("Wacky data");
-    });
-
-    it('renders correctly', function(){
-      expect(headingNode.textContent).toEqual('User1 filing on behalf of Wacky data');
-    });
-  });
-});
+})

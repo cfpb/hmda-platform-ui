@@ -1,26 +1,33 @@
-jest.dontMock('../src/js/Summary.jsx');
+jest.unmock('../src/js/components/Summary.jsx');
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+import Summary from '../src/js/components/Summary.jsx'
+import Wrapper from './Wrapper.js'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import TestUtils from 'react-addons-test-utils'
 
-var Summary = require('../src/js/Summary.jsx');
+const fs = require('fs')
+const summaryJSON = JSON.parse(fs.readFileSync('./server/json/summary.json'))
 
-describe('Summary', function(){
-  var summaryComponent = <Summary />
-
-  var summary = TestUtils.renderIntoDocument(summaryComponent);
+describe('Summary', () => {
+  var summary = TestUtils.renderIntoDocument(
+    <Wrapper>
+      <Summary
+        respondent={summaryJSON.respondent}
+        file={summaryJSON.file} />
+    </Wrapper>
+  );
   var summaryNode = ReactDOM.findDOMNode(summary);
 
-  it('renders the component', function(){
+  it('renders the component', () => {
     expect(summaryNode).toBeDefined();
   });
 
-  it('renders the correct description lists', function(){
+  it('renders the correct description lists', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithTag(summary, 'dl').length).toEqual(2);
   });
 
-  it('renders the correct description terms', function(){
+  it('renders the correct description terms', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithTag(summary, 'dt').length).toEqual(10);
   });
 });

@@ -13,7 +13,7 @@ class InstitutionContainer extends Component {
   }
 
   render() {
-    return <Institutions {...this.props}/>
+    return <Institutions {...this.props} />
   }
 }
 

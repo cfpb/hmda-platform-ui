@@ -1,69 +1,84 @@
-jest.dontMock('../src/js/IRSReport.jsx');
+jest.unmock('../src/js/components/IRSReport.jsx')
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+import IRSReport from '../src/js/components/IRSReport.jsx'
+import Wrapper from './Wrapper.js'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import TestUtils from 'react-addons-test-utils'
 
-var IRSReport = require('../src/js/IRSReport.jsx');
-var fs = require('fs');
-var api = require('../src/js/api');
+const fs = require('fs')
+const irsJSON = JSON.parse(fs.readFileSync('./server/json/irs.json'))
+const status = {
+  code: 10,
+  message: ''
+}
 
-var irsJSON = JSON.parse(fs.readFileSync('./server/json/irs.json'));
+describe('IRS report', () => {
+  const onIRSClick = jest.fn()
+  const irsReport = TestUtils.renderIntoDocument(
+    <Wrapper>
+      <IRSReport
+        msas={irsJSON.msas}
+        receipt={irsJSON.receipt}
+        timestamp={irsJSON.timestamp}
+        status={status}
+        onIRSClick={onIRSClick} />
+    </Wrapper>
+  )
+  const irsReportNode = ReactDOM.findDOMNode(irsReport)
 
-api.getIRS = jest.fn(function(cb){
-  cb(null, irsJSON);
-});
+  it ('renders the irsReport', () => {
+    expect(irsReportNode).toBeDefined()
+  })
 
-api.postIRS = jest.fn(function(cb, data){
-  var code = data.verified ? 11 : 10;
-  cb(null, {status: {code: code, message: ''}});
-});
+  it('creates the correct number of rows', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'tr').length).toEqual(4)
+  })
 
-describe('irs report', function(){
+  it('contains the checkbox input', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'input').length).toEqual(1)
+  })
 
-  function uncheckedToggle(err, status){
-    expect(status.status.code).toBe(11);
-  }
+  it('does NOT render the confirmation', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(irsReport, 'confirmation').length).toEqual(0)
+  })
 
-  var irsReport = TestUtils.renderIntoDocument(<IRSReport checked={false} appStatus={{set:uncheckedToggle}}/>);
-  var irsReportNode = ReactDOM.findDOMNode(irsReport);
+  it('calls the function on change', () => {
+    const checkbox = TestUtils.findRenderedDOMComponentWithTag(irsReport, 'input')
 
-  it('renders the irs report component', function(){
-    expect(irsReportNode).toBeDefined();
-  });
-
-  it('creates the correct number of rows', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'tr').length).toEqual(4);
-  });
-
-  it('contains the checkbox input', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'input').length).toEqual(1);
-  });
-
-  it('toggles an unchecked checkbox to checked', function(){
-
-    var checkbox = TestUtils.findRenderedDOMComponentWithTag(irsReport, 'input');
-    expect(checkbox.checked).toBeFalsy();
+    expect(checkbox.checked).toBeFalsy()
 
     TestUtils.Simulate.change(
       checkbox,
       {'target': {'checked': true}}
-    );
-  });
+    )
 
-  it('toggles a checked checkbox to unchecked', function(){
+    expect(onIRSClick).toBeCalled()
+  })
 
-    function checkedToggle(err, status){
-      expect(status.status.code).toBe(10);
-    }
+  const statusConfirmed = {
+    code: 11,
+    message: ''
+  }
+  const irsReportConfirmed = TestUtils.renderIntoDocument(
+    <Wrapper>
+      <IRSReport
+        msas={irsJSON.msas}
+        receipt={irsJSON.receipt}
+        timestamp={irsJSON.timestamp}
+        status={statusConfirmed}
+        onIRSClick={onIRSClick}
+      />
+    </Wrapper>
+  )
+  const irsReportConfirmedNode = ReactDOM.findDOMNode(irsReportConfirmed)
 
-    var irsReportChecked = TestUtils.renderIntoDocument(<IRSReport checked={true} appStatus={{set: checkedToggle}}/>);
-    var checkbox = TestUtils.findRenderedDOMComponentWithTag(irsReportChecked, 'input');
-    expect(checkbox.checked).toBeTruthy();
+  it('renders the confirmation', () => {
+    expect(TestUtils.findRenderedDOMComponentWithClass(irsReportConfirmed, 'confirmation')).toBeTruthy()
+  })
 
-    TestUtils.Simulate.change(
-      checkbox,
-      {'target': {'checked': false}}
-    );
-  });
-});
+  it('has the checkbox checked', () => {
+    const checkboxChecked = TestUtils.findRenderedDOMComponentWithTag(irsReportConfirmed, 'input')
+    expect(checkboxChecked.checked).toBeTruthy()
+  })
+})

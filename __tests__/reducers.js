@@ -1,7 +1,7 @@
 jest.unmock('../src/js/reducers')
 
 import * as types from '../src/js/constants'
-import { institutions, filings, submission, upload } from '../src/js/reducers'
+import { institutions, filings, submission, upload, status, irs, signature } from '../src/js/reducers'
 
 const typesArr = Object.keys(types)
   .filter( v => v !== '__esModule')
@@ -13,25 +13,130 @@ const excludeTypes = (...args) => {
   })
 }
 
-const defaultSubmission = {
-  id: 1,
-  status: {
-    code: 1,
-    message: ''
-  }
-}
-
-const submissionWrapper = {
-  isFetching: false,
-  submission: defaultSubmission
-}
-
 const defaultUpload = {
   uploading: false,
   bytesUploaded: 0,
   file: null
 }
 
+const defaultStatus = {
+  code: 1,
+  message: ''
+}
+
+const defaultSubmission = {
+  id: 1,
+  status: defaultStatus,
+  isFetching: false
+}
+
+const defaultSignature = {
+  isFetching: false,
+  timestamp: null,
+  receipt: null,
+  status: defaultSubmission.status
+}
+
+const defaultIRS = {
+  isFetching: false,
+  msas: [],
+  timestamp: null,
+  receipt: null,
+  status: defaultSubmission.status
+}
+
+describe('status reducer', () => {
+  it('should return the initial state on empty action', () => {
+    expect(
+      status(undefined, {})
+    ).toEqual(defaultStatus)
+  })
+
+  it('handles UPDATE_STATUS', () => {
+    expect(
+      status({}, {type: types.UPDATE_STATUS, status: { code: 3, message: ''}})
+    ).toEqual({ code: 3, message: ''})
+
+  })
+})
+
+describe('signature reducer', () => {
+  it('should return the initial state on empty action', () => {
+    expect(
+      signature(undefined, {})
+    ).toEqual(defaultSignature)
+  })
+
+  it('handles REQUEST_SIGNATURE', () => {
+    expect(
+      signature({}, {type: types.REQUEST_SIGNATURE})
+    ).toEqual({isFetching: true})
+  })
+
+  it('handles REQUEST_SIGNATURE_POST', () => {
+    expect(
+      signature({}, {type: types.REQUEST_SIGNATURE_POST})
+    ).toEqual({isFetching: true})
+  })
+
+  it('handles RECEIVE_SIGNATURE', () => {
+    expect(
+      signature({}, {type: types.RECEIVE_SIGNATURE, timestamp: 1234, receipt: 'asdf'})
+    ).toEqual({isFetching: false, timestamp: 1234, receipt: 'asdf'})
+  })
+
+  it('handles RECEIVE_SIGNATURE_POST', () => {
+    expect(
+      signature({}, {type: types.RECEIVE_SIGNATURE_POST, timestamp: 1234, receipt: 'asdf'})
+    ).toEqual({isFetching: false, timestamp: 1234, receipt: 'asdf'})
+  })
+
+  it('shouldn\'t modify state on an unknown action type', () => {
+    excludeTypes(types.RECEIVE_SIGNATURE, types.REQUEST_SIGNATURE, types.REQUEST_SIGNATURE_POST, types.RECEIVE_SIGNATURE_POST)
+      .forEach(v => expect(signature({}, v))
+        .toEqual({})
+      )
+  })
+})
+
+describe('irs reducer', () => {
+  it('should return the initial state on empty action', () => {
+    expect(
+      irs(undefined, {})
+    ).toEqual(defaultIRS)
+  })
+
+  it('handles REQUEST_IRS', () => {
+    expect(
+      irs({}, {type: types.REQUEST_IRS})
+    ).toEqual({isFetching: true})
+  })
+
+  it('handles REQUEST_IRS_POST', () => {
+    expect(
+      irs({}, {type: types.REQUEST_IRS_POST})
+    ).toEqual({isFetching: true})
+  })
+
+  it('handles RECEIVE_IRS', () => {
+    expect(
+      irs({}, {type: types.RECEIVE_IRS, timestamp: 1234, receipt: 'asdf', msas: []})
+    ).toEqual({isFetching: false, timestamp: 1234, receipt: 'asdf', msas: []})
+  })
+
+  it('handles RECEIVE_IRS_POST', () => {
+    expect(
+      irs({}, {type: types.RECEIVE_IRS_POST, timestamp: 1234, receipt: 'asdf'})
+    ).toEqual({isFetching: false, timestamp: 1234, receipt: 'asdf'})
+  })
+
+  it('shouldn\'t modify state on an unknown action type', () => {
+    excludeTypes(types.RECEIVE_IRS, types.REQUEST_IRS, types.REQUEST_IRS_POST, types.RECEIVE_IRS_POST)
+      .forEach(v => expect(irs({}, v))
+        .toEqual({})
+      )
+  })
+})
 
 describe('institutions reducer', () => {
   it('should return the initial state on empty action', () => {
@@ -58,7 +163,6 @@ describe('institutions reducer', () => {
         .toEqual({})
       )
   })
-
 })
 
 describe('filings reducer', () => {
@@ -93,7 +197,7 @@ describe('submission reducer', () => {
   it('should return the initial state on empty action', () => {
     expect(
       submission(undefined, {})
-    ).toEqual(submissionWrapper)
+    ).toEqual(defaultSubmission)
   })
 
   it('handles REQUEST_SUBMISSION', () => {
@@ -103,21 +207,23 @@ describe('submission reducer', () => {
   })
 
   it('handles RECEIVE_SUBMISSION', () => {
-    expect(
-      submission({}, {type: types.RECEIVE_SUBMISSION, submission:{b:1}})
-    ).toEqual({submission: {b: 1}})
-  })
-
-  it('handles UPLOAD_COMPLETE', () => {
-    expect(
-      submission({}, {type: types.UPLOAD_COMPLETE})
-    ).toEqual({submission:{id: 1, status:{code: 3, message: ''}}})
-  })
-
-  it('handles UPLOAD_ERROR', () => {
-    expect(
-      submission({}, {type: types.UPLOAD_ERROR})
-    ).toEqual({submission:{id: 1, status:{code: -1, message: 'Error uploading file'}}})
+    const submissionAction = {
+      type: 'RECEIVE_SUBMISSION',
+      id: 1,
+      status: {
+        code: 1,
+        message: ''
+      }
+    }
+    expect(submission({}, submissionAction)
+    ).toEqual({
+      isFetching: false,
+      id: 1,
+      status: {
+        code: 1,
+        message: ''
+      }
+    })
   })
 
   it('shouldn\'t modify state on an unknown action type', () => {

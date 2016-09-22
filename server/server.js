@@ -8,17 +8,18 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
+
 //Log paths
 app.use(function(req, res, next){
   //Rewrite url if arriving via nginx
   if(req.get('X-Forwarded-For')){
     req.url = '/api' + req.url
   }
-  console.log(req.url);
+  console.log(req.method + ' - ' + req.url);
   next();
 });
-
-app.use(bodyParser.urlencoded({ extended: false}));
 
 //serve the app
 app.use(express.static('dist'));

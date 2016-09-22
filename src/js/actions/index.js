@@ -6,11 +6,23 @@ import {
   getUploadUrl,
   getEditsByType,
   getEditsByRow,
-  putEdit
+  putEdit,
+  getIRS,
+  postIRS,
+  getSignature,
+  postSignature,
+  getSummary
 } from '../api'
 import * as types from '../constants'
 
 let latestSubmissionId
+
+export function updateStatus(status) {
+  return {
+    type: types.UPDATE_STATUS,
+    status: status
+  }
+}
 
 export function requestInstitutions() {
   return {
@@ -60,7 +72,7 @@ export function receiveSubmission(data) {
   latestSubmissionId = data.id
   return {
     type: types.RECEIVE_SUBMISSION,
-    submission: data
+    ...data
   }
 }
 
@@ -131,6 +143,138 @@ export function uploadError() {
   }
 }
 
+export function requestIRS() {
+  return {
+    type: types.REQUEST_IRS
+  }
+}
+
+export function receiveIRS(data) {
+  return {
+    type: types.RECEIVE_IRS,
+    msas: data.msas,
+    timestamp: data.timestamp,
+    receipt: data.receipt
+  }
+}
+
+export function requestIRSPost() {
+  return {
+    type: types.REQUEST_IRS_POST
+  }
+}
+
+export function receiveIRSPost(data) {
+  return {
+    type: types.RECEIVE_IRS_POST,
+    timestamp: data.timestamp,
+    receipt: data.receipt
+  }
+}
+
+export function fetchIRS() {
+  return dispatch => {
+    dispatch(requestIRS())
+    return getIRS(latestSubmissionId)
+      .then(json => dispatch(receiveIRS(json)))
+      .catch(err => console.log(err))
+  }
+}
+
+export function updateIRS(verified) {
+  return dispatch => {
+    dispatch(requestIRSPost())
+    return postIRS(latestSubmissionId, verified)
+      .then(json => dispatch(receiveIRSPost(json)))
+      .then(json => dispatch(updateStatus(
+        {
+          code: verified.verified ? 11 : 10,
+          message: ''
+        }
+      )))
+      .catch(err => console.log(err))
+  }
+}
+
+
+/*
+this is just to set the isFetching value to true
+*/
+export function requestSignature() {
+  return {
+    type: types.REQUEST_SIGNATURE
+  }
+}
+
+export function receiveSignature(data) {
+  return {
+    type: types.RECEIVE_SIGNATURE,
+    timestamp: data.timestamp,
+    receipt: data.receipt
+  }
+}
+
+export function requestSignaturePost() {
+  return {
+    type: types.REQUEST_SIGNATURE_POST
+  }
+}
+
+export function receiveSignaturePost(data) {
+  return {
+    type: types.RECEIVE_SIGNATURE_POST,
+    timestamp: data.timestamp,
+    receipt: data.receipt
+  }
+}
+
+export function fetchSignature() {
+  return dispatch => {
+    dispatch(requestSignature())
+    return getSignature(latestSubmissionId)
+      .then(json => dispatch(receiveSignature(json)))
+      .catch(err => console.log(err))
+  }
+}
+
+export function updateSignature(signed) {
+  return dispatch => {
+    dispatch(requestSignaturePost())
+    return postSignature(latestSubmissionId, signed)
+      .then(json => dispatch(receiveSignaturePost(json)))
+      .then(json => dispatch(updateStatus(
+        {
+          code: signed.signed ? 13 : 12,
+          message: ''
+        }
+      )))
+      .catch(err => console.log(err))
+  }
+}
+
+export function requestSummary() {
+  return {
+    type: types.REQUEST_SUMMARY
+  }
+}
+
+export function receiveSummary(data) {
+  return {
+    type: types.RECEIVE_SUMMARY,
+    respondent: data.respondent,
+    file: data.file
+  }
+}
+
+export function fetchSummary() {
+  return dispatch => {
+    dispatch(requestSummary())
+    return getSummary(latestSubmissionId)
+      .then(json => dispatch(receiveSummary(json)))
+      .catch(err => console.log(err))
+  }
+}
+
 /*
  * Wire upload together with xhr so progress can be tracked
  */
@@ -139,8 +283,19 @@ export function requestUpload(file) {
     var xhr = new XMLHttpRequest()
 
     xhr.addEventListener('load', e => {
-      if(e.target.status !== 202) return dispatch(uploadError())
+      if(e.target.status !== 202) {
+        dispatch(uploadError())
+        dispatch(updateStatus({
+          code: -1,
+          message: 'Upload Error'
+        }))
+        return
+      }
       dispatch(uploadComplete(e))
+      dispatch(updateStatus({
+        code: 3,
+        message: ''
+      }))
       dispatch(pollForProgress())
     })
 
@@ -177,7 +332,7 @@ export function pollForProgress() {
     return getSubmission(latestSubmissionId)
       .then(json => dispatch(receiveSubmission(json)))
       .then(json => {
-        if(json.submission.status.code < 7){
+        if(json.status.code < 7){
           setTimeout(() => poller(dispatch), 500)
         }
       })

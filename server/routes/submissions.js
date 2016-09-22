@@ -3,6 +3,7 @@ var router = require('express').Router({mergeParams: true});
 var editRoute = require('./edits');
 var irsRoute = require('./irs');
 var signRoute = require('./sign');
+var summaryRoute = require('./summary');
 
 var submissionsObj = JSON.parse(fs.readFileSync('./server/json/submissions.json'));
 
@@ -56,5 +57,6 @@ router.post('/:submission', function (req, res) {
 router.use('/:submission/edits', editRoute);
 router.use('/:submission/irs', irsRoute);
 router.use('/:submission/sign', signRoute);
+router.use('/:submission/summary', summaryRoute);
 
 module.exports = router;
