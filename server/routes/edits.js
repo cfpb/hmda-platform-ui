@@ -10,7 +10,7 @@ var edits = {
     syntactical: syntactical,
     validity: validity,
     quality: quality,
-    macro: macro,
+    macro: macro
   }
 
 var noSyntactical = {
