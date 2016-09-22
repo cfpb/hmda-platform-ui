@@ -4,9 +4,8 @@ import JustificationSelector from '../containers/JustificationSelector.jsx'
 
 const renderCell = (props) => {
   const { field, cell, keyField } = props
-  console.log(keyField, cell)
   if(field === 'justifications') return <JustificationSelector edit={keyField} justifications={cell}/>
-  if(field === 'verified') return 'veriholder'//<JustificationSelector/>
+  if(field === 'verified') return 'veriholder'
   return cell
 }
 

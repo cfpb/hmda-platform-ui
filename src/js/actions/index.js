@@ -56,9 +56,11 @@ export function requestEditPut() {
   }
 }
 
-export function receiveEditPut() {
+export function receiveEditPut(edit, data) {
   return {
-    type: types.RECEIVE_EDIT_PUT
+    type: types.RECEIVE_EDIT_PUT,
+    edit: edit,
+    justifications: data
   }
 }
 
@@ -415,7 +417,7 @@ export function justifyUpdate(edit, data) {
   return dispatch => {
     dispatch(requestEditPut())
     return putEdit(latestSubmissionId, edit, data)
-      .then(json => dispatch(receiveEditPut(json)))
+      .then(json => dispatch(receiveEditPut(edit, data)))
       .catch(err => console.log(err))
   }
 }

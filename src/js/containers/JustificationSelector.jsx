@@ -29,7 +29,6 @@ class JustificationSelector extends Component {
   }
 
   render() {
-    console.log(this.justifications)
     return (
       <Select
         allowCreate={true}
@@ -54,7 +53,10 @@ function mapDispatchToProps(dispatch, ownProps){
     dispatchOnChange: function(value) {
       const values = value.split(delimiter)
       dispatch(justifyUpdate(ownProps.edit, ownProps.justifications.map(justification => {
-        justification.selected = values.includes(justification.value)
+        return {
+          ...justification,
+          selected: values.includes(justification.value)
+        }
       })))
       this.setState({value})
     }

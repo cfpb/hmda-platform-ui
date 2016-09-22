@@ -14,6 +14,8 @@ import {
   REQUEST_EDITS_BY_ROW,
   RECEIVE_EDITS_BY_TYPE,
   RECEIVE_EDITS_BY_ROW,
+  REQUEST_EDIT_PUT,
+  RECEIVE_EDIT_PUT,
   REQUEST_IRS,
   RECEIVE_IRS,
   REQUEST_IRS_POST,
@@ -178,6 +180,20 @@ const edits = (state = defaultEdits, action) => {
         ...state,
         rows: action.edits
       }
+    case RECEIVE_EDIT_PUT: {
+      const clonedState = {...state}
+      const edits = []
+      state.types.macro.edits.forEach((edit) => {
+        if(edit.edit !== action.edit) edits.push(edit)
+        else edits.push({
+          ...edit,
+          justifications: action.justifications
+        })
+      })
+
+      clonedState.types.macro.edits = edits
+      return clonedState
+    }
     default:
       return state
   }
