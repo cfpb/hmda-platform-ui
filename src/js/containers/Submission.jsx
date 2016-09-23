@@ -7,7 +7,8 @@ import Edits from './Edits.jsx'
 import IRSReport from './IRSReport.jsx'
 import Signature from './Signature.jsx'
 import Summary from './Summary.jsx'
-/*import RefileWarning from './RefileWarning.jsx'
+import RefileWarning from './RefileWarning.jsx'
+/*
 import EditsContainer from './EditsContainer.jsx'
 */
 
@@ -44,9 +45,15 @@ class SubmissionContainer extends Component {
 
     if(code > 6){
       editsContainer = <Edits/>
+      refileWarning = <RefileWarning />
       irs =  <IRSReport />
       sign = <Signature />
       summary = <Summary />
+    }
+
+    // edits are clean, don't show refileWarning
+    if(code > 8) {
+      refileWarning = null
     }
 
     //if(code > 9) irs =  <IRSReport />
