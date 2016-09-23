@@ -23,9 +23,9 @@ const Progress = props => {
 Progress.propTypes = {
   progress: PropTypes.number,
   total: PropTypes.number.isRequired,
-  units: React.PropTypes.string.isRequired,
-  singleUnit: React.PropTypes.string,
-  descriptor: React.PropTypes.string
+  units: PropTypes.string.isRequired,
+  singleUnit: PropTypes.string,
+  descriptor: PropTypes.string
 }
 
 Progress.defaultProps = {

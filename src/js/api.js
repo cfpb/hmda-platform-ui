@@ -1,10 +1,13 @@
 import fetch from 'isomorphic-fetch'
 
-function sendFetch(suffix, postData) {
+function sendFetch(suffix, options = {method: 'GET'}){
   var url = makeUrl(parseLocation(), suffix);
-  var options = {
-    method: postData ? 'POST' : 'GET',
-    body: postData,
+
+  if(typeof options.body !== 'string') options.body = JSON.stringify(options.body)
+
+  var fetchOptions = {
+    method: options.method,
+    body: options.body,
     headers: {
       'CFPB-HMDA-Institutions': '0,1,2,3',
       'CFPB-HMDA-Username': 'fakeuser',
@@ -12,7 +15,7 @@ function sendFetch(suffix, postData) {
     }
   }
 
-  return fetch(url, options)
+  return fetch(url, fetchOptions)
     .then(response => response.json())
 }
 
@@ -62,12 +65,17 @@ export function getEditsByRow(submission){
   return sendFetch(`/submissions/${submission}/edits/lars`)
 }
 
+export function putEdit(submission, edit, data){
+  var suffix = '/edits/' + edit;
+  return sendFetch(`/submissions/${submission}${suffix}`, {method: 'PUT', body: data})
+}
+
 export function getIRS(submission){
   return sendFetch(`/submissions/${submission}/irs`);
 }
 
 export function postIRS(submission, data){
-  return sendFetch(`/submissions/${submission}/irs`, JSON.stringify(data));
+  return sendFetch(`/submissions/${submission}/irs`, {method: 'POST', body: data});
 }
 
 export function getSummary(submission){
@@ -79,16 +87,9 @@ export function getSignature(submission){
 }
 
 export function postSignature(submission, data){
-  return sendFetch(`/submissions/${submission}/sign`, JSON.stringify(data));
+  return sendFetch(`/submissions/${submission}/sign`, {method: 'POST', body: data});
 }
 
 export function postSubmissions(url, cb){
   return sendFetch(url, cb, `/submissions`);
-}
-
-export function putEdit(edit, data){
-  var suffix = `/edits/` + edit;
-  var url = makeUrl(parseLocation(), suffix);
-
-  return fetch(url, {method: 'PUT', body: data});
 }

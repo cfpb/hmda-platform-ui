@@ -1,12 +1,14 @@
 import React from 'react'
 
-const perEditTypes = ['synactical', 'validity', 'quality']
+import EditsTableRow from '../components/EditsTableRow.jsx'
 
-const isPerEdit = (val) => perEditTypes.indexOf(val) !== -1
+const rowForEachLarTypes = ['syntactical', 'validity', 'quality']
+
+const rowForEachLar = (val) => rowForEachLarTypes.indexOf(val) !== -1
 
 const renderHeader = (props) => {
   let row = props.data[0]
-  if (isPerEdit(props)) row = row.lar
+  if (rowForEachLar(props.type)) row = row.lar
 
   return (
     <tr>
@@ -22,16 +24,7 @@ const renderHeader = (props) => {
 const renderBody = (props) => {
   return props.data.map((row, i) => {
     if(row.lar) row = row.lar
-
-    return (
-      <tr key={i}>
-        {
-          Object.keys(row).map((field, i) => {
-            return <td key={i}>{typeof row[field] === 'object' ? 'placeholder' : '' + row[field]}</td>
-          })
-        }
-      </tr>
-    )
+    return <EditsTableRow row={row} key={i}/>
   })
 }
 

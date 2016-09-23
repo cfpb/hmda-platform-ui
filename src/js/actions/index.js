@@ -6,6 +6,7 @@ import {
   getUploadUrl,
   getEditsByType,
   getEditsByRow,
+  putEdit,
   getIRS,
   postIRS,
   getSignature,
@@ -46,6 +47,20 @@ export function receiveInstitution(data) {
   return {
     type: types.RECEIVE_INSTITUTION,
     institution: data
+  }
+}
+
+export function requestEditPut() {
+  return {
+    type: types.REQUEST_EDIT_PUT
+  }
+}
+
+export function receiveEditPut(edit, data) {
+  return {
+    type: types.RECEIVE_EDIT_PUT,
+    edit: edit,
+    justifications: data
   }
 }
 
@@ -101,6 +116,8 @@ export function selectFile(file) {
     file
   }
 }
+
+
 
 export function uploadStart() {
   return {
@@ -392,6 +409,15 @@ export function fetchEditsByRow() {
     dispatch(requestEditsByRow())
     return getEditsByRow(latestSubmissionId)
       .then(json => dispatch(receiveEditsByRow(json)))
+      .catch(err => console.log(err))
+  }
+}
+
+export function justifyUpdate(edit, data) {
+  return dispatch => {
+    dispatch(requestEditPut())
+    return putEdit(latestSubmissionId, edit, data)
+      .then(json => dispatch(receiveEditPut(edit, data)))
       .catch(err => console.log(err))
   }
 }
