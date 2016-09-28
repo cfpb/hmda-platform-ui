@@ -7,9 +7,7 @@ import Edits from './Edits.jsx'
 import IRSReport from './IRSReport.jsx'
 import Signature from './Signature.jsx'
 import Summary from './Summary.jsx'
-/*import RefileWarning from './RefileWarning.jsx'
-import EditsContainer from './EditsContainer.jsx'
-*/
+//import RefileWarning from './RefileWarning.jsx'
 
 class SubmissionContainer extends Component {
   constructor(props) {
@@ -32,6 +30,7 @@ class SubmissionContainer extends Component {
     const status = this.props.status
     const code = status.code
 
+    // status codes can be found at https://github.com/cfpb/hmda-platform/blob/master/Documents/submission-status.md
     if (code === -1) {
       return (
       <div className="SubmissionContainer">
@@ -42,18 +41,19 @@ class SubmissionContainer extends Component {
 
     if (code > 2) progress = <ValidationProgress/>
 
-    if(code > 6){
+    if (code > 7) {
       editsContainer = <Edits/>
+      // TODO: remove irs, sign, and summary from code > 7 after more endpoints are ready
       irs =  <IRSReport />
       sign = <Signature />
       summary = <Summary />
     }
 
-    //if(code > 9) irs =  <IRSReport />
+    if (code > 9) // irs =  <IRSReport />
 
-    if(code > 10){
-      //summary = <Summary/> // TODO: will have a prop added
-      //sign = <Signature />
+    if (code > 11) {
+      // summary = <Summary/>
+      // sign = <Signature />
     }
 
     return (
