@@ -7,9 +7,9 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function (req, res) {
-  var state = req.body.signed ? 13 : 12;
-  var timestamp = state === 13 ? Date.now() : null;
-  var receipt = state === 13 ? crypto.createHash('sha256').update(timestamp + '').digest('hex') : null;
+  var state = req.body.signed ? 12 : 11;
+  var timestamp = state === 12 ? Date.now() : null;
+  var receipt = state === 12 ? crypto.createHash('sha256').update(timestamp + '').digest('hex') : null;
 
   res.status(202).send({
     timestamp: timestamp,

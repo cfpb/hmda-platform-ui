@@ -334,7 +334,7 @@ export function pollForProgress() {
     return getSubmission(latestSubmissionId)
       .then(json => dispatch(receiveSubmission(json)))
       .then(json => {
-        if(json.status.code < 7){
+        if(json.status.code < 8){
           setTimeout(() => poller(dispatch), 500)
         }
       })
