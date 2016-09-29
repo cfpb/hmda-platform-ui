@@ -1,13 +1,13 @@
-@import (inline) "node_modules/react-select/dist/react-select.css";
+@import "node_modules/react-select/dist/react-select.css";
 
-@import (less) "components/DivisionHeader.less";
-@import (less) "components/InstitutionStatus.less";
-@import (less) "components/UploadForm.less";
-@import (less) "components/Edits.less";
-@import (less) "components/IRSReport.less";
-@import (less) "components/RefileWarning.less";
-@import (less) "components/EditsContainer.less";
-@import (less) "components/EditsSelector.less";
+@import "components/DivisionHeader.scss";
+@import "components/InstitutionStatus.scss";
+@import "components/UploadForm.scss";
+@import "components/Edits.scss";
+@import "components/IRSReport.scss";
+@import "components/RefileWarning.scss";
+@import "components/EditsContainer.scss";
+@import "components/EditsSelector.scss";
 
 a {
  cursor: pointer;
