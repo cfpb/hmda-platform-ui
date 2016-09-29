@@ -12,17 +12,17 @@
     "clean": "rimraf ./dist && mkdir -p ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
     "start": "./server/server.js",
     "js": "browserify -d -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] -p [ minifyify --map app.min.js.map --output ./dist/js/app.min.js.map --uglify [ -cm ] ] ./src/js/index.js > ./dist/js/app.min.js",
-    "less": "lessc --clean-css --source-map=./dist/css/app.min.css.map ./src/less/app.less ./dist/css/app.min.css && cp node_modules/cf-icons/src/fonts/* ./dist/fonts",
+    "sass": "node-sass -q --output-style=compressed --source-map-embed --source-map ./src/sass/app.scss ./dist/css/app.min.css",
     "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html",
     "img": "imagemin ./src/img/* -o ./dist/img",
     "postinstall": "npm run clean",
     "watch:js": "nodemon --exitcrash -e js,jsx -w src/js -x 'npm run js'",
     "watch:tests": "nodemon --exitcrash -e js -w __tests__ -x 'jest --coverage -o'",
-    "watch:less": "nodemon --exitcrash -e less -w src/less -x 'npm run less'",
+    "watch:sass": "nodemon --exitcrash -e scss -w src/sass -x 'npm run sass'",
     "watch:html": "nodemon --exitcrash -e html -w src -x 'npm run html'",
     "watch:server": "nodemon --exitcrash -e js,json -w server -x 'npm start'",
-    "watch": "npm run watch:server & npm run watch:js & npm run watch:tests & npm run watch:less & npm run watch:html",
-    "build": "npm run js && npm run less && npm run html && npm run img"
+    "watch": "npm run watch:server & npm run watch:js & npm run watch:tests & npm run watch:sass & npm run watch:html",
+    "build": "npm run js && npm run sass && npm run html && npm run img"
   },
   "repository": {
     "type": "git",
