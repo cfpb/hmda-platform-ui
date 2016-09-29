@@ -52,8 +52,6 @@
     "imagemin": "5.2.2",
     "imagemin-cli": "3.0.0",
     "jest-cli": "14.0.0",
-    "less": "2.7.1",
-    "less-plugin-clean-css": "1.5.1",
     "minifyify": "7.3.3",
     "nodemon": "1.10.0",
     "react-addons-test-utils": "15.3.0",
