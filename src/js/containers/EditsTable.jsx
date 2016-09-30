@@ -40,7 +40,7 @@ const EditsTable = (props) => {
   return (
     <div className="EditsTable">
       <table width="100%">
-        <caption><h4>{props.label ? props.label : null}</h4></caption>
+        <caption><h3>{props.label ? props.label : null}</h3></caption>
         <thead>
           {renderHeader(props)}
         </thead>
