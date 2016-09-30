@@ -57,17 +57,23 @@ class SubmissionContainer extends Component {
     }
 
     return (
-    <div className="SubmissionContainer usa-grid">
-      {uploadForm}
-      <div className="usa-width-one-third">
-        {progress}
+    <div className="SubmissionContainer">
+      <div className="usa-grid-full">
+        <div className="usa-width-one-whole">
+          {uploadForm}
+        </div>
       </div>
-      <div className="usa-width-two-thirds">
-        {refileWarning}
-        {editsContainer}
-        {irs}
-        {summary}
-        {sign}
+      <div className="usa-grid-full">
+        <div className="usa-width-one-third">
+          {progress}
+        </div>
+        <div className="usa-width-two-thirds">
+          {refileWarning}
+          {editsContainer}
+          {irs}
+          {summary}
+          {sign}
+        </div>
       </div>
     </div>
     )
