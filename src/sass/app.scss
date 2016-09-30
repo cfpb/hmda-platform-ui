@@ -10,6 +10,8 @@
 @import "components/EditsTable.scss";
 @import "components/EditsHeaderDescription.scss";
 
+@import "containers/Edits.scss";
+
 .usa-display,
 .usa-display-alt,
 h1,
@@ -24,4 +26,12 @@ h6,
 
 a {
  cursor: pointer;
+}
+
+dt {
+  font-weight: bold;
+}
+dd {
+  margin-bottom: .5em;
+  margin-left: 0;
 }
