@@ -51,12 +51,17 @@ const IRSReport = (props) => {
           })}
         </tbody>
       </table>
-      <p>
-        <input type="checkbox" value="IRS verification"
-          onChange={e => props.onIRSClick(e.target.checked)}
-          checked={isChecked} />
-        I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.
-      </p>
+      <ul className="usa-unstyled-list">
+        <li>
+          <input id="irs-verify"
+            name="irs-verify"
+            type="checkbox"
+            value="irs-verify"
+            onChange={e => props.onIRSClick(e.target.checked)}
+            checked={isChecked} />
+          <label for="irs-verify">I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.</label>
+        </li>
+      </ul>
       {showConfirmation(props.status.code)}
     </div>
   )

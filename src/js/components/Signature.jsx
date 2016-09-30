@@ -16,12 +16,17 @@ const Signature = (props) => {
   const isChecked = props.status.code > 12 ? true : false
   return (
     <div className="Signature">
-      <p>
-        <input type="checkbox" value="Signature"
-          onChange={e => props.onSignatureClick(e.target.checked)}
-          checked={isChecked} />
-        I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.
-      </p>
+      <ul className="usa-unstyled-list">
+        <li>
+          <input id="signature"
+            name="signature"
+            type="checkbox"
+            value="signature"
+            onChange={e => props.onSignatureClick(e.target.checked)}
+            checked={isChecked} />
+          <label for="signature">I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</label>
+        </li>
+      </ul>
       {showReceipt(props)}
     </div>
   )
