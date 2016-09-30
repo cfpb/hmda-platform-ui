@@ -8,7 +8,7 @@ import ValidationProgress from '../src/js/components/ValidationProgress.jsx'
 
 describe('ValidationProgress', function(){
 
-  const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress status={{code:4}}/></Wrapper>);
+  const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress status={{code:5}}/></Wrapper>);
   const progressNode = ReactDOM.findDOMNode(progress);
 
   it('renders the component', function(){
@@ -16,7 +16,7 @@ describe('ValidationProgress', function(){
   });
 
   it('renders the correct amount of children', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(progress, 'p').length).toEqual(2);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(progress, 'li').length).toEqual(3);
   });
 
 });
