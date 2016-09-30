@@ -4,12 +4,23 @@
 
 @import "components/DivisionHeader.scss";
 @import "components/InstitutionStatus.scss";
-@import "components/UploadForm.scss";
 @import "components/Edits.scss";
 @import "components/IRSReport.scss";
 @import "components/RefileWarning.scss";
 @import "components/EditsContainer.scss";
 @import "components/Progress.scss";
+
+.usa-display,
+.usa-display-alt,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.usa-font-lead {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
 
 a {
  cursor: pointer;
