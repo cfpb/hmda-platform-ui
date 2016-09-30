@@ -6,7 +6,7 @@ export default class Institution extends Component {
   render() {
     var self = this
     return (
-    <div className="InstitutionStatus">
+    <div className="Institution">
       {this.props.institutions.map((institution, i) => {
         return (
         <div key={i}>
