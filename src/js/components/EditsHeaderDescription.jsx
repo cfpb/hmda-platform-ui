@@ -37,7 +37,7 @@ const EditsHeaderDescription = (props) => {
   return (
     <div className="EditsHeaderDescription">
       <h2>{textObj.title}</h2>
-      <p>{textObj.desc}</p>
+      <p className="usa-font-lead">{textObj.desc}</p>
     </div>
   )
 }
