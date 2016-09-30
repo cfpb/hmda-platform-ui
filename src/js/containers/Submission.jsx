@@ -57,12 +57,12 @@ class SubmissionContainer extends Component {
     }
 
     return (
-    <div className="SubmissionContainer">
+    <div className="SubmissionContainer usa-grid">
       {uploadForm}
-      <div>
+      <div className="usa-width-one-third">
         {progress}
       </div>
-      <div>
+      <div className="usa-width-two-thirds">
         {refileWarning}
         {editsContainer}
         {irs}

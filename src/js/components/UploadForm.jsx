@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import Progress from './Progress.jsx'
 
 const Upload = (props) => (
-  <div className="UploadForm">
+  <div className="UploadForm usa-grid-full">
     <form encType="multipart/form-data" onSubmit={e => props.handleSubmit(e, props.file)}>
       <input id="hmdaFile" name="hmdaFile" type="file" onChange={props.setFile}></input>
       <input className="btn" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
