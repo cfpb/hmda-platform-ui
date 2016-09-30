@@ -59,7 +59,7 @@ const IRSReport = (props) => {
             value="irs-verify"
             onChange={e => props.onIRSClick(e.target.checked)}
             checked={isChecked} />
-          <label for="irs-verify">I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.</label>
+          <label htmlFor="irs-verify">I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.</label>
         </li>
       </ul>
       {showConfirmation(props.status.code)}

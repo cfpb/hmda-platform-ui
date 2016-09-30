@@ -24,7 +24,7 @@ const Signature = (props) => {
             value="signature"
             onChange={e => props.onSignatureClick(e.target.checked)}
             checked={isChecked} />
-          <label for="signature">I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</label>
+          <label htmlFor="signature">I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</label>
         </li>
       </ul>
       {showReceipt(props)}
