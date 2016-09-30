@@ -39,8 +39,8 @@ const EditsTable = (props) => {
 
   return (
     <div className="EditsTable">
-      {props.label ? props.label : null}
       <table width="100%">
+        <caption><h4>{props.label ? props.label : null}</h4></caption>
         <thead>
           {renderHeader(props)}
         </thead>
