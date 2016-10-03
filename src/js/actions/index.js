@@ -1,8 +1,9 @@
 import {
   getInstitution,
   getInstitutions,
-  getLatestSubmission,
+  getFiling,
   getSubmission,
+  createSubmission,
   getUploadUrl,
   getEditsByType,
   getEditsByRow,
@@ -64,20 +65,27 @@ export function receiveEditPut(edit, data) {
   }
 }
 
-export function requestSubmission() {
+export function requestFiling() {
   return {
-    type: types.REQUEST_SUBMISSION
+    type: types.REQUEST_FILING
+  }
+}
+
+export function receiveFiling(data) {
+  return {
+    type: types.RECEIVE_FILING,
+    ...data
   }
 }
 
 export function receiveSubmission(data) {
+  console.log('recSub', data)
   latestSubmissionId = data.id
   return {
     type: types.RECEIVE_SUBMISSION,
     ...data
   }
 }
-
 export function requestEditsByType() {
     return {
       type: types.REQUEST_EDITS_BY_TYPE
@@ -188,7 +196,7 @@ export function updateIRS(verified) {
     dispatch(requestIRSPost())
     return postIRS(latestSubmissionId, verified)
       .then(json => dispatch(receiveIRSPost(json)))
-      .then(json => dispatch(updateStatus(
+      .then(() => dispatch(updateStatus(
         {
           code: verified.verified ? 11 : 10,
           message: ''
@@ -244,7 +252,7 @@ export function updateSignature(signed) {
     dispatch(requestSignaturePost())
     return postSignature(latestSubmissionId, signed)
       .then(json => dispatch(receiveSignaturePost(json)))
-      .then(json => dispatch(updateStatus(
+      .then(() => dispatch(updateStatus(
         {
           code: signed.signed ? 13 : 12,
           message: ''
@@ -305,7 +313,7 @@ export function requestUpload(file) {
       dispatch(uploadProgress(e))
     })
 
-    xhr.open('POST', getUploadUrl());
+    xhr.open('POST', getUploadUrl(latestSubmissionId));
     xhr.setRequestHeader('Content-Type', 'text/data');
     xhr.setRequestHeader('Content-Disposition', 'inline; filename="' + file.name + '"');
     xhr.setRequestHeader('CFPB-HMDA-Institutions', 'fakeinstitution');
@@ -316,15 +324,43 @@ export function requestUpload(file) {
     return Promise.resolve()
   }
 }
+/*
+ * Signal the creation of a new submission which will be used for subsequent actions
+ */
+
+export function fetchNewSubmission() {
+  return dispatch => {
+    return createSubmission()
+      .then(json => dispatch(receiveSubmission(json)))
+      .catch(err => console.log(err))
+  }
+}
 
 /*
  * Get the latest submission via the api and dispatch an action with the results
  */
 export function fetchSubmission() {
   return dispatch => {
-    dispatch(requestSubmission())
-    return getLatestSubmission()
-      .then(json => dispatch(receiveSubmission(json)))
+    dispatch(requestFiling())
+    return getFiling()
+      .then(json => {
+        console.log('from getfiling',json)
+        dispatch(receiveFiling(json))
+          console.log(json)
+
+        const latestSubmission = json.submissions.reduce((prev, curr) => {
+            return +curr.id > +prev.id ? curr : prev
+          }, {id: '0'})
+
+        if(latestSubmission.id !== '0'){
+          return dispatch(receiveSubmission(latestSubmission))
+        }else{
+          createSubmission()
+            .then(submission => {
+              return dispatch(receiveSubmission(submission))
+            })
+        }
+      })
       .catch(err => console.log(err))
   }
 }
@@ -417,7 +453,7 @@ export function justifyUpdate(edit, data) {
   return dispatch => {
     dispatch(requestEditPut())
     return putEdit(latestSubmissionId, edit, data)
-      .then(json => dispatch(receiveEditPut(edit, data)))
+      .then(() => dispatch(receiveEditPut(edit, data)))
       .catch(err => console.log(err))
   }
 }

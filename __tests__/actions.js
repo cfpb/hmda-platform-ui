@@ -10,6 +10,7 @@ import {
   getInstitution,
   getInstitutions,
   getLatestSubmission,
+  createSubmission,
   getSubmission,
   getIRS,
   postIRS,
@@ -17,13 +18,13 @@ import {
   postSignature
 } from '../src/js/api.js'
 
-const filingsObj = JSON.parse(fs.readFileSync('./server/json/filings.json'))
+const institutionsDetailObj = JSON.parse(fs.readFileSync('./server/json/institutions-detail.json'))
 const institutionsObj = JSON.parse(fs.readFileSync('./server/json/institutions.json'))
 const submissionsObj = JSON.parse(fs.readFileSync('./server/json/submissions.json'))
 const IRSObj = JSON.parse(fs.readFileSync('./server/json/irs.json'))
 const signatureObj = JSON.parse(fs.readFileSync('./server/json/receipt.json'))
 
-getInstitution.mockImpl((id) => Promise.resolve(filingsObj[id]))
+getInstitution.mockImpl((id) => Promise.resolve(institutionsDetailObj[id]))
 getInstitutions.mockImpl(() => Promise.resolve(institutionsObj))
 getLatestSubmission.mockImpl(() => Promise.resolve(submissionsObj.bank0id.submissions[2]))
 getSubmission.mockImpl(() => Promise.resolve(submissionsObj.bank0id.submissions[2]))
@@ -55,19 +56,19 @@ const getEachInstitutionAction = [
   {type: types.REQUEST_INSTITUTION},
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: filingsObj.bank0id
+    institution: institutionsDetailObj.bank0id
   },
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: filingsObj.bank1id
+    institution: institutionsDetailObj.bank1id
   },
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: filingsObj.bank2id
+    institution: institutionsDetailObj.bank2id
   },
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: filingsObj.bank3id
+    institution: institutionsDetailObj.bank3id
   }
 ]
 
@@ -232,7 +233,7 @@ describe('actions', () => {
           {type: types.REQUEST_INSTITUTION},
           {
             type: types.RECEIVE_INSTITUTION,
-            institution: filingsObj.bank0id
+            institution: institutionsDetailObj.bank0id
           }
         ])
         done()

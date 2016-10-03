@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch'
 function sendFetch(suffix, options = {method: 'GET'}){
   var url = makeUrl(parseLocation(), suffix);
 
-  if(typeof options.body !== 'string') options.body = JSON.stringify(options.body)
+  if(typeof options.body === 'object') options.body = JSON.stringify(options.body)
 
   var fetchOptions = {
     method: options.method,
@@ -34,27 +34,36 @@ export function parseLocation(){
  }
 
 export function getInstitutions(){
-  return sendFetch(`/institutions`);
+  return sendFetch('/institutions');
 }
 
 export function getInstitution(id){
-  return sendFetch(`/institutions/` + id);
+  return sendFetch(`/institutions/${id}`);
 }
 
-export function getUploadUrl(){
-  return makeUrl(parseLocation(), `/submissions/latest`)
+export function getUploadUrl(id){
+  if(id === undefined) throw new Error('Must provide a submission id when data is uploaded.')
+  return makeUrl(parseLocation(), `/submissions/${id}`)
 }
 
 export function getProgress(url, cb){
-  return sendFetch(url, cb, `/progress`);
+  return sendFetch(url, cb, '/progress');
 }
 
 export function getSubmission(id){
-  return sendFetch(`/submissions/` + id)
+  return sendFetch(`/submissions/${id}`)
+}
+
+export function createSubmission(){
+  return sendFetch('/submissions', {method: 'POST'})
+}
+
+export function getFiling(){
+  return sendFetch()
 }
 
 export function getLatestSubmission(){
-  return sendFetch(`/submissions/latest`)
+  return sendFetch('/submissions/latest')
 }
 
 export function getEditsByType(submission){
@@ -91,5 +100,5 @@ export function postSignature(submission, data){
 }
 
 export function postSubmissions(url, cb){
-  return sendFetch(url, cb, `/submissions`);
+  return sendFetch(url, cb, '/submissions');
 }
