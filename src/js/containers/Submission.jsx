@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchSubmission } from '../actions'
+import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Edits from './Edits.jsx'
@@ -19,6 +20,7 @@ class SubmissionContainer extends Component {
   }
 
   render() {
+    console.log(this.props.params)
     let uploadForm = <UploadForm />
     let progress = null
     let refileWarning = null
@@ -58,6 +60,7 @@ class SubmissionContainer extends Component {
 
     return (
     <div className="SubmissionContainer">
+      <UserHeading period={this.props.params.filing} userName="Jane Smith" institution={this.props.params.institution} />
       <div className="usa-grid-full">
         <div className="usa-width-one-whole">
           {uploadForm}

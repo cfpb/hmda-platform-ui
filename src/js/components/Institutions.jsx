@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
+import UserHeading from '../components/UserHeading.jsx'
 
 export default class Institution extends Component {
 
@@ -7,6 +8,7 @@ export default class Institution extends Component {
     var self = this
     return (
     <div className="Institution">
+      <UserHeading period="2017" userName="Jane Smith" />
       {this.props.institutions.map((institution, i) => {
         return (
         <div key={i}>
