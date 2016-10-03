@@ -14,7 +14,7 @@ const Summary = (props) => {
         <dt>Respondent ID:</dt>
         <dd>{props.respondent.id}</dd>
         <dt>Tax ID:</dt>
-        <dd>{props.respondent.taxID}</dd>
+        <dd>{props.respondent.taxId}</dd>
         <dt>Agency:</dt>
         <dd>{props.respondent.agency}</dd>
         <dt>Contact Name:</dt>
