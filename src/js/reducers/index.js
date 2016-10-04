@@ -173,7 +173,6 @@ const edits = (state = defaultEdits, action) => {
         isFetching: true
       }
     case RECEIVE_EDITS_BY_TYPE:
-      console.log(action.edits)
       return {
         ...state,
         types: action.edits

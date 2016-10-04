@@ -32,6 +32,7 @@ class SubmissionContainer extends Component {
 
     const status = this.props.status
     const code = status.code
+    console.log('current status code, from submission container', code)
 
     // status codes can be found at https://github.com/cfpb/hmda-platform/blob/master/Documents/submission-status.md
     if (code === -1) {
@@ -50,11 +51,6 @@ class SubmissionContainer extends Component {
       irs =  <IRSReport />
       sign = <Signature />
       summary = <Summary />
-    }
-
-    // edits are clean, don't show refileWarning
-    if(code > 8) {
-      refileWarning = null
     }
 
     return (

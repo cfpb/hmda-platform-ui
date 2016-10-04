@@ -8,8 +8,10 @@ var summaryRoute = require('./summary');
 var filingsObj = JSON.parse(fs.readFileSync('./server/json/filings.json'));
 var filings = filingsObj.filings;
 
-var requestCount = 0;
-var statusCodes = [3, 4, 7, 8];
+var requestCount = -1;
+var finalCodeCount = -1;
+var finalCode = [8, 8, 9];
+var statusCodes = [3, 4, 5, 6, finalCode];
 var currentSubmission = 0;
 
 
@@ -26,7 +28,10 @@ function getSubmissions(req){
 
 function patchCode(submission){
   submission = JSON.parse(JSON.stringify(submission));
-  submission.status.code = statusCodes[++requestCount%4];
+  var code = statusCodes[++requestCount%5];
+  if(typeof code === 'object') code = code[++finalCodeCount%3];
+  submission.status.code = code
+
   return submission;
 }
 

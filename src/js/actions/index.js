@@ -79,7 +79,6 @@ export function receiveFiling(data) {
 }
 
 export function receiveSubmission(data) {
-  console.log('recSub', data)
   latestSubmissionId = data.id
   return {
     type: types.RECEIVE_SUBMISSION,
@@ -99,6 +98,7 @@ export function requestEditsByRow() {
 }
 
 export function receiveEditsByType(data) {
+  console.log('getting edits')
   return {
     type: types.RECEIVE_EDITS_BY_TYPE,
     edits: data
@@ -187,7 +187,7 @@ export function fetchIRS() {
     dispatch(requestIRS())
     return getIRS(latestSubmissionId)
       .then(json => dispatch(receiveIRS(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -202,7 +202,7 @@ export function updateIRS(verified) {
           message: ''
         }
       )))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -243,7 +243,7 @@ export function fetchSignature() {
     dispatch(requestSignature())
     return getSignature(latestSubmissionId)
       .then(json => dispatch(receiveSignature(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -258,7 +258,7 @@ export function updateSignature(signed) {
           message: ''
         }
       )))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -281,7 +281,7 @@ export function fetchSummary() {
     dispatch(requestSummary())
     return getSummary(latestSubmissionId)
       .then(json => dispatch(receiveSummary(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -306,6 +306,7 @@ export function requestUpload(file) {
         code: 3,
         message: ''
       }))
+      console.log('starting poll for progress')
       dispatch(pollForProgress())
     })
 
@@ -329,10 +330,11 @@ export function requestUpload(file) {
  */
 
 export function fetchNewSubmission() {
+  console.log('fetchingNewSubmission')
   return dispatch => {
     return createSubmission()
       .then(json => dispatch(receiveSubmission(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -344,9 +346,7 @@ export function fetchSubmission() {
     dispatch(requestFiling())
     return getFiling()
       .then(json => {
-        console.log('from getfiling',json)
         dispatch(receiveFiling(json))
-          console.log(json)
 
         const latestSubmission = json.submissions.reduce((prev, curr) => {
             return +curr.id > +prev.id ? curr : prev
@@ -361,7 +361,7 @@ export function fetchSubmission() {
             })
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -374,7 +374,7 @@ export function pollForProgress() {
           setTimeout(() => poller(dispatch), 500)
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
   return poller
 }
@@ -387,7 +387,7 @@ export function fetchProgress(id) {
   return dispatch => {
     return getSubmission(id)
       .then(json => dispatch(receiveSubmission(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -401,7 +401,7 @@ export function fetchInstitutions() {
     return getInstitutions()
       .then(json => dispatch(receiveInstitutions(json)))
       .then(receiveAction => dispatch(fetchEachInstitution(receiveAction.institutions)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -427,7 +427,7 @@ export function fetchInstitution(institution) {
     dispatch(requestInstitution())
     return getInstitution(institution.id)
       .then(json => dispatch(receiveInstitution(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -436,7 +436,7 @@ export function fetchEditsByType() {
     dispatch(requestEditsByType())
     return getEditsByType(latestSubmissionId)
       .then(json => dispatch(receiveEditsByType(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -445,7 +445,7 @@ export function fetchEditsByRow() {
     dispatch(requestEditsByRow())
     return getEditsByRow(latestSubmissionId)
       .then(json => dispatch(receiveEditsByRow(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -454,6 +454,6 @@ export function justifyUpdate(edit, data) {
     dispatch(requestEditPut())
     return putEdit(latestSubmissionId, edit, data)
       .then(() => dispatch(receiveEditPut(edit, data)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }

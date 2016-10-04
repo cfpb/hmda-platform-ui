@@ -1,17 +1,35 @@
 import { connect } from 'react-redux'
 import RefileWarning from '../components/RefileWarning.jsx'
+import { fetchNewSubmission } from '../actions'
 
 function mapStateToProps(state) {
   const {
-    status
-  } = state.app.submission || {
+   submission
+  } = state.app || {
     status: {
       code: 3,
       message: ''
     }
   }
 
-  return {status}
+  const {
+    types
+  } = state.app.edits || {types: {
+    syntactical: [],
+    validity: [],
+    quality: [],
+    macro: []
+  }}
+
+  return {submission, types}
 }
 
-export default connect(mapStateToProps)(RefileWarning)
+function mapDispatchToProps(dispatch) {
+  const refileLink = (e) => {
+    e.preventDefault()
+    dispatch(fetchNewSubmission())
+  }
+  return {refileLink}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RefileWarning)

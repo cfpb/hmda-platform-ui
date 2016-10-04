@@ -4,11 +4,6 @@ import { fetchEditsByType, fetchEditsByRow } from '../actions'
 import EditsByType from '../components/EditsByType.jsx'
 import EditsByRow from '../components/EditsByRow.jsx'
 
-/*
-var EditsSelector = require('./EditsSelector.jsx');
-var EditsGrouped = require('./EditsGrouped.jsx');
-var EditsMacro = require('./EditsMacro.jsx');
-*/
 
 class EditsContainer extends Component {
   constructor(props) {

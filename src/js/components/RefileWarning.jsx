@@ -6,27 +6,29 @@ const refileText = 'Syntactical and validity edits require file resubmission.'
 const validateText = 'Quality and macro edits must be validated before continuing.'
 
 const getText = (props) => {
-  let textToRender = null;
-  let refileLink = null;
+  let textToRender = null
+  let refileLink = null
 
-  if(props.status.code === 7) {
-    textToRender = refileText;
-    refileLink = getRefileLink();
-  } else if(props.status.code === 8) {
-    textToRender = validateText;
-  }
+  if(props.types.syntactical.edits.length !== 0 ||
+     props.types.validity.edits.length !== 0){
+       textToRender = refileText
+       refileLink = getRefileLink(props)
+     }else{
+       textToRender = validateText
+     }
 
-  return <h3><span className="cf-icon cf-icon-error cf-icon__3x"></span><span className="refile-text">{textToRender}{refileLink}</span></h3>
+  return <h3><span className="cf-icon cf-icon-error cf-icon__3x"></span><span className="refile-text">{textToRender}{refileLink?' ':''}{refileLink}</span></h3>
 }
 
-const getRefileLink = () => {
+const getRefileLink = (props) => {
   const location = parseLocation()
-  const href = `/${location.id}/${location.period}/${(+location.submission + 1)}`
-  return <Link to={href}> Refile here.</Link>
+  const href = `/${location.id}/${location.filing}`
+  return <Link to={href} onClick={props.refileLink}>Refile here.</Link>
 }
 
 const RefileWarning = (props) => {
-  if (props.status.code > 8) return null
+  if(!props.types.syntactical) return null
+  if (props.submission.status.code > 8) return null
 
   return (
     <div className="RefileWarning">
@@ -35,16 +37,6 @@ const RefileWarning = (props) => {
       </div>
     </div>
   )
-}
-
-RefileWarning.propTypes = {
-  status: PropTypes.object
-}
-
-RefileWarning.defaultProps = {
-  status: {
-    code: null
-  }
 }
 
 export default RefileWarning

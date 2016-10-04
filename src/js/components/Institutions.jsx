@@ -14,7 +14,6 @@ export default class Institution extends Component {
           {self.props.filings.filter(
             filing => filing.institutionId === institution.id
           ).map((filing, i) => {
-            console.log(filing)
             return (
             <div key={i}>
               <p>id: {filing.period}</p>
