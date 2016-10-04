@@ -12,16 +12,31 @@ parseLocation.mockImpl(() => { return { id:'1', period: '2017', submission: 1 } 
 describe('Refile Warning', () => {
   const refileText = 'Syntactical and validity edits require file resubmission.';
   const validateText = 'Quality and macro edits must be validated before continuing.';
+  const synTypes = {
+    syntactical: {edits: [{some:'edit'}]},
+    validity: {edits: []},
+    quality: {edits: []},
+    macro: {edits: []}
+  }
+
+  const macTypes = {
+    syntactical: {edits: []},
+    validity: {edits: []},
+    quality: {edits: []},
+    macro: {edits: []}
+  }
 
   it('renders the correct elements for status code 7', () => {
-    const status = {
-      code: 7,
-      message: ''
+    const submission = {
+      status: {
+        code: 7,
+        message: ''
+      }
     }
 
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
-        <RefileWarning status={status}/>
+        <RefileWarning submission={submission} types={synTypes}/>
       </Wrapper>
     )
 
@@ -31,14 +46,16 @@ describe('Refile Warning', () => {
 
 
   it('renders the correct elements for status code 8', () => {
-    const status = {
-      code: 8,
-      message: ''
+    const submission = {
+      status: {
+        code: 8,
+        message: ''
+      }
     }
 
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
-        <RefileWarning status={status}/>
+        <RefileWarning submission={submission} types={macTypes}/>
       </Wrapper>
     )
 
@@ -47,14 +64,16 @@ describe('Refile Warning', () => {
   });
 
   it('renders the correct elements for status code > 8', () => {
-    const status = {
-      code: 10,
-      message: ''
+    const submission = {
+      status: {
+        code: 10,
+        message: ''
+      }
     }
 
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
-        <RefileWarning status={status}/>
+        <RefileWarning submission={submission} types={macTypes}/>
       </Wrapper>
     )
 

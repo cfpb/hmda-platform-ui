@@ -15,10 +15,10 @@ function mapStateToProps(state) {
   const {
     types
   } = state.app.edits || {types: {
-    syntactical: [],
-    validity: [],
-    quality: [],
-    macro: []
+    syntactical: {edits: []},
+    validity: {edits: []},
+    quality: {edits: []},
+    macro: {edits: []}
   }}
 
   return {submission, types}

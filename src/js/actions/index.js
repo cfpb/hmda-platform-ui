@@ -344,22 +344,21 @@ export function fetchNewSubmission() {
 export function fetchSubmission() {
   return dispatch => {
     dispatch(requestFiling())
-    return getFiling()
-      .then(json => {
+    return getFiling().then(json => {
         dispatch(receiveFiling(json))
 
         const latestSubmission = json.submissions.reduce((prev, curr) => {
             return +curr.id > +prev.id ? curr : prev
           }, {id: '0'})
-
+/*
         if(latestSubmission.id !== '0'){
           return dispatch(receiveSubmission(latestSubmission))
         }else{
-          createSubmission()
-            .then(submission => {
-              return dispatch(receiveSubmission(submission))
+          return createSubmission.then(submission => {
+              dispatch(receiveSubmission(submission))
             })
         }
+        */
       })
       .catch(err => console.error(err))
   }

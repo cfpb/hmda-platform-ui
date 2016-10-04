@@ -20,14 +20,14 @@ import {
 
 const institutionsDetailObj = JSON.parse(fs.readFileSync('./server/json/institutions-detail.json'))
 const institutionsObj = JSON.parse(fs.readFileSync('./server/json/institutions.json'))
-const submissionsObj = JSON.parse(fs.readFileSync('./server/json/submissions.json'))
+const filingsObj = JSON.parse(fs.readFileSync('./server/json/filings.json'))
 const IRSObj = JSON.parse(fs.readFileSync('./server/json/irs.json'))
 const signatureObj = JSON.parse(fs.readFileSync('./server/json/receipt.json'))
 
 getInstitution.mockImpl((id) => Promise.resolve(institutionsDetailObj[id]))
 getInstitutions.mockImpl(() => Promise.resolve(institutionsObj))
-getLatestSubmission.mockImpl(() => Promise.resolve(submissionsObj.bank0id.submissions[2]))
-getSubmission.mockImpl(() => Promise.resolve(submissionsObj.bank0id.submissions[2]))
+getLatestSubmission.mockImpl(() => Promise.resolve(filingsObj.filings[0].submissions[2]))
+getSubmission.mockImpl(() => Promise.resolve(filingsObj.filings[0].submissions[2]))
 getIRS.mockImpl((id) => Promise.resolve(IRSObj))
 postIRS.mockImpl((id, verified) => Promise.resolve(IRSObj)) // this won't need the msas, but its already there
 getSignature.mockImpl((id) => Promise.resolve(signatureObj))
@@ -112,7 +112,7 @@ describe('actions', () => {
     expect(actions.receiveIRSPost(IRSObj)).toEqual({
       type: types.RECEIVE_IRS_POST,
       timestamp: data.timestamp,
-      receipt: data.receipt      
+      receipt: data.receipt
     })
   })
 
@@ -204,9 +204,9 @@ describe('actions', () => {
     })
   })
 
-  it('creates an action to signal a request for the current submission', () => {
-    expect(actions.requestSubmission()).toEqual({
-      type: types.REQUEST_SUBMISSION
+  it('creates an action to signal a request for the relevant filing', () => {
+    expect(actions.requestFiling()).toEqual({
+      type: types.REQUEST_FILING
     })
   })
 
@@ -267,33 +267,11 @@ describe('actions', () => {
       })
   })
 
-  it('creates a thunk that will send an http request for the latest submission', done => {
-    const store = mockStore({submission: {}})
-    const submission = submissionsObj.bank0id.submissions[2]
-    store.dispatch(actions.fetchSubmission())
-      .then(() => {
-        expect(store.getActions()).toEqual([
-          {type: types.REQUEST_SUBMISSION},
-          {
-            type: types.RECEIVE_SUBMISSION,
-            id: submission.id,
-            status: submission.status,
-            timestamp: submission.timestamp
-          }
-        ])
-        done()
-      })
-      .catch(err => {
-        console.log(err)
-        done.fail()
-      })
-  })
 
   it('creates a thunk that will poll for updated status codes in the latest submission', done => {
     const store = mockStore({submission: {}})
-    const submission = submissionsObj.bank0id.submissions[2]
-    store.dispatch(actions.pollForProgress())
-      .then(() => {
+    const submission = filingsObj.filings[0].submissions[2]
+    store.dispatch(actions.pollForProgress()).then(() => {
         expect(store.getActions()).toEqual([
           {
             type: types.RECEIVE_SUBMISSION,
