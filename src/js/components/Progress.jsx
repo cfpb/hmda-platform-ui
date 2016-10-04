@@ -13,8 +13,8 @@ const getDescriptor = props => {
 
 const Progress = props => {
   return (
-    <p className="Progress">{props.progress + ' of ' + props.total + ' ' +
-        getUnits(props) + getDescriptor(props)}</p>
+    <span className="Progress">{props.progress + ' of ' + props.total + ' ' +
+        getUnits(props) + getDescriptor(props)}</span>
   )
 }
 

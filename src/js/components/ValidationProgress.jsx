@@ -14,10 +14,10 @@ const ValidationProgress = (props) => {
   if(code > 6) validationStatus = 'Validation complete'
 
   return (
-    <ul className="ValidationProgress usa-sidenav-list">
-      <li><a href="">{uploadComplete}</a></li>
-      <li><a href="">{parsingStatus}</a></li>
-      <li><a href="">{validationStatus}</a></li>
+    <ul className="ValidationProgress usa-unstyled-list">
+      <li>{uploadComplete}</li>
+      <li>{parsingStatus}</li>
+      <li>{validationStatus}</li>
     </ul>
   )
 }

@@ -64,13 +64,9 @@ class SubmissionContainer extends Component {
       <div className="usa-grid-full">
         <div className="usa-width-one-whole">
           {uploadForm}
-        </div>
-      </div>
-      <div className="usa-grid-full">
-        <div className="usa-width-one-third">
           {progress}
         </div>
-        <div className="usa-width-two-thirds">
+        <div className="usa-width-one-whole">
           {refileWarning}
           {editsContainer}
           {irs}
