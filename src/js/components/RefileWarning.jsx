@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import { parseLocation } from '../api'
 
 const refileText = 'Syntactical and validity edits require file resubmission.'
 const validateText = 'Quality and macro edits must be validated before continuing.'
@@ -21,9 +20,7 @@ const getText = (props) => {
 }
 
 const getRefileLink = (props) => {
-  const location = parseLocation()
-  const href = `/${location.id}/${location.filing}`
-  return <Link to={href} onClick={props.refileLink}>Refile here.</Link>
+  return <Link to='' onClick={props.refileLink}>Refile here.</Link>
 }
 
 const RefileWarning = (props) => {

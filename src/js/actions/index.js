@@ -350,7 +350,7 @@ export function fetchSubmission() {
         const latestSubmission = json.submissions.reduce((prev, curr) => {
             return +curr.id > +prev.id ? curr : prev
           }, {id: '0'})
-/*
+
         if(latestSubmission.id !== '0'){
           return dispatch(receiveSubmission(latestSubmission))
         }else{
@@ -358,7 +358,7 @@ export function fetchSubmission() {
               dispatch(receiveSubmission(submission))
             })
         }
-        */
+
       })
       .catch(err => console.error(err))
   }

@@ -29,6 +29,7 @@ function mapDispatchToProps(dispatch) {
     e.preventDefault()
     dispatch(fetchNewSubmission())
   }
+
   return {refileLink}
 }
 
