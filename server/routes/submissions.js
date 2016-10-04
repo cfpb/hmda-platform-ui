@@ -5,30 +5,61 @@ var irsRoute = require('./irs');
 var signRoute = require('./sign');
 var summaryRoute = require('./summary');
 
-var submissionsObj = JSON.parse(fs.readFileSync('./server/json/submissions.json'));
+var filingsObj = JSON.parse(fs.readFileSync('./server/json/filings.json'));
+var filings = filingsObj.filings;
 
-var requestCount = 0;
-var statusCodes = [3, 4, 7, 8];
+var requestCount = -1;
+var finalCodeCount = -1;
+var finalCode = [8, 8, 9];
+var statusCodes = [3, 4, 5, 6, finalCode];
+var currentSubmission = 0;
+
+
+function getSubmissions(req){
+  for(var i=0; i<filings.length; i++){
+    if(filings[i].filing.institutionId === req.params.institution &&
+       filings[i].filing.period === req.params.filing){
+         return filings[i].submissions
+    }
+  }
+  return [];
+}
+
 
 function patchCode(submission){
   submission = JSON.parse(JSON.stringify(submission));
-  submission.status.code = statusCodes[++requestCount%4];
+  var code = statusCodes[++requestCount%5];
+  if(typeof code === 'object') code = code[++finalCodeCount%3];
+  submission.status.code = code
+
   return submission;
 }
 
+
 router.get('/', function(req, res){
-  var submissions = submissionsObj[req.params.institution];
-  if(!submissions) res.status(404).end();
-  res.send(submissions)
+  res.send(getSubmissions(req));
 });
 
 router.post('/', function(req, res){
-  //increment currentSubmission, 1 here, assuming starting at zero
-  res.status(201).send({currentSubmission: 1})
+  var submissions = getSubmissions(req);
+  var maxId = submissions.reduce((prev, curr) => {
+    return +curr.id > +prev ? +curr.id : prev
+  }, 0)
+
+  var newSub = {
+    id: (maxId+1)+'',
+    status: {
+      code: 1,
+      message: ''
+    }
+  }
+
+  submissions.push(newSub)
+  res.status(201).send(newSub)
 });
 
 router.get('/:submission', function(req, res){
-  var submissions = submissionsObj[req.params.institution].submissions;
+  var submissions = getSubmissions(req);
 
   if(req.params.submission === 'latest'){
     return res.send(
@@ -50,6 +81,7 @@ router.get('/:submission', function(req, res){
 router.post('/:submission', function (req, res) {
   req.on('data', function(d){console.log(d.length)});
   req.on('end', function(){
+    console.log('upload received')
     res.status(202).end();
   });
 });

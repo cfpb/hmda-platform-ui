@@ -200,9 +200,9 @@ describe('submission reducer', () => {
     ).toEqual(defaultSubmission)
   })
 
-  it('handles REQUEST_SUBMISSION', () => {
+  it('handles REQUEST_FILING', () => {
     expect(
-      submission({a:2}, {type: types.REQUEST_SUBMISSION})
+      submission({a:2}, {type: types.REQUEST_FILING})
     ).toEqual({a:2, isFetching: true})
   })
 
@@ -227,7 +227,7 @@ describe('submission reducer', () => {
   })
 
   it('shouldn\'t modify state on an unknown action type', () => {
-    excludeTypes(types.RECEIVE_SUBMISSION, types.REQUEST_SUBMISSION,
+    excludeTypes(types.RECEIVE_SUBMISSION, types.REQUEST_FILING,
         types.UPLOAD_COMPLETE, types.UPLOAD_ERROR)
       .forEach(v => expect(submission({}, v))
         .toEqual({})

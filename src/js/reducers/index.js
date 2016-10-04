@@ -4,7 +4,8 @@ import {
   RECEIVE_INSTITUTIONS,
   RECEIVE_INSTITUTION,
   CLEAR_FILINGS,
-  REQUEST_SUBMISSION,
+  REQUEST_FILING,
+  RECEIVE_FILING,
   RECEIVE_SUBMISSION,
   SELECT_FILE,
   UPLOAD_PROGRESS,
@@ -126,8 +127,10 @@ export const upload = (state = defaultUpload, action) => {
  * Update the submission status code and message when the upload completes or fails
  */
 export const submission = (state = defaultSubmission, action) => {
+  let currentSubmission
+
   switch (action.type) {
-    case REQUEST_SUBMISSION:
+    case REQUEST_FILING:
       return {
         ...state,
         isFetching: true
@@ -170,7 +173,6 @@ const edits = (state = defaultEdits, action) => {
         isFetching: true
       }
     case RECEIVE_EDITS_BY_TYPE:
-      console.log(action.edits)
       return {
         ...state,
         types: action.edits

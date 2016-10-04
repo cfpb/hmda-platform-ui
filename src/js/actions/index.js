@@ -1,8 +1,9 @@
 import {
   getInstitution,
   getInstitutions,
-  getLatestSubmission,
+  getFiling,
   getSubmission,
+  createSubmission,
   getUploadUrl,
   getEditsByType,
   getEditsByRow,
@@ -64,9 +65,16 @@ export function receiveEditPut(edit, data) {
   }
 }
 
-export function requestSubmission() {
+export function requestFiling() {
   return {
-    type: types.REQUEST_SUBMISSION
+    type: types.REQUEST_FILING
+  }
+}
+
+export function receiveFiling(data) {
+  return {
+    type: types.RECEIVE_FILING,
+    ...data
   }
 }
 
@@ -77,7 +85,6 @@ export function receiveSubmission(data) {
     ...data
   }
 }
-
 export function requestEditsByType() {
     return {
       type: types.REQUEST_EDITS_BY_TYPE
@@ -91,6 +98,7 @@ export function requestEditsByRow() {
 }
 
 export function receiveEditsByType(data) {
+  console.log('getting edits')
   return {
     type: types.RECEIVE_EDITS_BY_TYPE,
     edits: data
@@ -179,7 +187,7 @@ export function fetchIRS() {
     dispatch(requestIRS())
     return getIRS(latestSubmissionId)
       .then(json => dispatch(receiveIRS(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -188,13 +196,13 @@ export function updateIRS(verified) {
     dispatch(requestIRSPost())
     return postIRS(latestSubmissionId, verified)
       .then(json => dispatch(receiveIRSPost(json)))
-      .then(json => dispatch(updateStatus(
+      .then(() => dispatch(updateStatus(
         {
           code: verified.verified ? 11 : 10,
           message: ''
         }
       )))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -235,7 +243,7 @@ export function fetchSignature() {
     dispatch(requestSignature())
     return getSignature(latestSubmissionId)
       .then(json => dispatch(receiveSignature(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -244,13 +252,13 @@ export function updateSignature(signed) {
     dispatch(requestSignaturePost())
     return postSignature(latestSubmissionId, signed)
       .then(json => dispatch(receiveSignaturePost(json)))
-      .then(json => dispatch(updateStatus(
+      .then(() => dispatch(updateStatus(
         {
           code: signed.signed ? 13 : 12,
           message: ''
         }
       )))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -273,7 +281,7 @@ export function fetchSummary() {
     dispatch(requestSummary())
     return getSummary(latestSubmissionId)
       .then(json => dispatch(receiveSummary(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -298,6 +306,7 @@ export function requestUpload(file) {
         code: 3,
         message: ''
       }))
+      console.log('starting poll for progress')
       dispatch(pollForProgress())
     })
 
@@ -305,7 +314,7 @@ export function requestUpload(file) {
       dispatch(uploadProgress(e))
     })
 
-    xhr.open('POST', getUploadUrl());
+    xhr.open('POST', getUploadUrl(latestSubmissionId));
     xhr.setRequestHeader('Content-Type', 'text/data');
     xhr.setRequestHeader('Content-Disposition', 'inline; filename="' + file.name + '"');
     xhr.setRequestHeader('CFPB-HMDA-Institutions', 'fakeinstitution');
@@ -316,16 +325,42 @@ export function requestUpload(file) {
     return Promise.resolve()
   }
 }
+/*
+ * Signal the creation of a new submission which will be used for subsequent actions
+ */
+
+export function fetchNewSubmission() {
+  console.log('fetchingNewSubmission')
+  return dispatch => {
+    return createSubmission()
+      .then(json => dispatch(receiveSubmission(json)))
+      .catch(err => console.error(err))
+  }
+}
 
 /*
  * Get the latest submission via the api and dispatch an action with the results
  */
 export function fetchSubmission() {
   return dispatch => {
-    dispatch(requestSubmission())
-    return getLatestSubmission()
-      .then(json => dispatch(receiveSubmission(json)))
-      .catch(err => console.log(err))
+    dispatch(requestFiling())
+    return getFiling().then(json => {
+        dispatch(receiveFiling(json))
+
+        const latestSubmission = json.submissions.reduce((prev, curr) => {
+            return +curr.id > +prev.id ? curr : prev
+          }, {id: '0'})
+
+        if(latestSubmission.id !== '0'){
+          return dispatch(receiveSubmission(latestSubmission))
+        }else{
+          return createSubmission.then(submission => {
+              dispatch(receiveSubmission(submission))
+            })
+        }
+
+      })
+      .catch(err => console.error(err))
   }
 }
 
@@ -338,7 +373,7 @@ export function pollForProgress() {
           setTimeout(() => poller(dispatch), 500)
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
   return poller
 }
@@ -351,7 +386,7 @@ export function fetchProgress(id) {
   return dispatch => {
     return getSubmission(id)
       .then(json => dispatch(receiveSubmission(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -365,7 +400,7 @@ export function fetchInstitutions() {
     return getInstitutions()
       .then(json => dispatch(receiveInstitutions(json)))
       .then(receiveAction => dispatch(fetchEachInstitution(receiveAction.institutions)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -391,7 +426,7 @@ export function fetchInstitution(institution) {
     dispatch(requestInstitution())
     return getInstitution(institution.id)
       .then(json => dispatch(receiveInstitution(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -400,7 +435,7 @@ export function fetchEditsByType() {
     dispatch(requestEditsByType())
     return getEditsByType(latestSubmissionId)
       .then(json => dispatch(receiveEditsByType(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -409,7 +444,7 @@ export function fetchEditsByRow() {
     dispatch(requestEditsByRow())
     return getEditsByRow(latestSubmissionId)
       .then(json => dispatch(receiveEditsByRow(json)))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -417,7 +452,7 @@ export function justifyUpdate(edit, data) {
   return dispatch => {
     dispatch(requestEditPut())
     return putEdit(latestSubmissionId, edit, data)
-      .then(json => dispatch(receiveEditPut(edit, data)))
-      .catch(err => console.log(err))
+      .then(() => dispatch(receiveEditPut(edit, data)))
+      .catch(err => console.error(err))
   }
 }

@@ -1,68 +1,103 @@
 {
-  "bank0id": {
-    "institution": {
-      "name": "Bank 0",
-      "id": "bank0id",
-      "status": "active"
-    },
-    "filings": [
-      {
+  "filings": [
+    {
+      "filing": {
         "period": "2017",
         "institutionId": "bank0id",
-        "status": "not-started"
+        "status": "in-progress"
       },
-      {
+      "submissions": [
+        {
+          "id": "1",
+          "status": {
+            "code": 3,
+            "message": ""
+          },
+          "timestamp": 1457494448191
+        },
+        {
+          "id": "2",
+          "status": {
+            "code": 7,
+            "message": ""
+          },
+          "timestamp": 1457494448191
+        },
+        {
+          "id": "3",
+          "status": {
+            "code": 1,
+            "message": ""
+          },
+          "timestamp": 1457494448191
+        }
+      ]
+    },
+    {
+      "filing": {
         "period": "2016",
         "institutionId": "bank0id",
         "status": "completed"
-      }
-    ]
-  },
-  "bank1id": {
-    "institution": {
-      "name": "Bank 1",
-      "id": "bank1id",
-      "status": "active"
+      },
+      "submissions": [
+        {
+          "id": "1",
+          "status": {
+            "code": 1,
+            "message": ""
+          },
+          "timestamp": 1457494448191
+        },
+        {
+          "id": "2",
+          "status": {
+            "code": -1,
+            "message": "submission cancelled by user"
+          },
+          "timestamp": 1457494448191
+        },
+        {
+          "id": "3",
+          "status": {
+            "code": 12,
+            "message": ""
+          },
+          "timestamp": 1457494448191
+        }
+      ]
     },
-    "filings": [
-      {
+    {
+      "filing": {
         "period": "2017",
         "institutionId": "bank1id",
-        "status": "completed"
-      }
-    ]
-  },
-  "bank2id": {
-    "institution": {
-      "name": "Bank 2",
-      "id": "bank2id",
-      "status": "inactive"
+        "status": "not-started"
+      },
+      "submissions": []
     },
-    "filings": [
-      {
+    {
+      "filing": {
         "period": "2016",
         "institutionId": "bank2id",
         "status": "completed"
-      }
-    ]
-  },
-  "bank3id": {
-    "institution": {
-      "name": "Bank 3",
-      "id": "bank3id",
-      "status": "active"
-    },
-    "filings": [
-      {
-        "period": "2017",
-        "institutionId": "bank3id",
-        "status": "not-started"
       },
-      {
-        "period": "2016",
-        "institutionId": "bank3id",
-        "status": "completed"
-      }
-    ]
-  }
+      "submissions": [
+        {
+          "id": "1",
+          "status": {
+            "code": -1,
+            "message": "error interrupted submission"
+          },
+          "timestamp": 1457494448191
+        },
+        {
+          "id": "2",
+          "status": {
+            "code": 12,
+            "message": ""
+          },
+          "timestamp": 1457494448191
+        }
+      ]
+    }
+  ]
 }
