@@ -1,14 +1,37 @@
+@import "node_modules/uswds/src/stylesheets/all.scss";
+
 @import "node_modules/react-select/dist/react-select";
 
 @import "components/DivisionHeader.scss";
 @import "components/InstitutionStatus.scss";
-@import "components/UploadForm.scss";
-@import "components/Edits.scss";
 @import "components/IRSReport.scss";
 @import "components/RefileWarning.scss";
-@import "components/EditsContainer.scss";
-@import "components/EditsSelector.scss";
+@import "components/Progress.scss";
+@import "components/EditsTable.scss";
+@import "components/EditsHeaderDescription.scss";
+
+@import "containers/Edits.scss";
+
+.usa-display,
+.usa-display-alt,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.usa-font-lead {
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
 
 a {
  cursor: pointer;
+}
+
+dt {
+  font-weight: bold;
+}
+dd {
+  margin-bottom: .5em;
+  margin-left: 0;
 }

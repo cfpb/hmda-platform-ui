@@ -14,7 +14,7 @@ const renderHeader = (props) => {
     <tr>
       {
         Object.keys(row).map((header, i) => {
-          return <td className="table-header" key={i}>{header}</td>
+          return <th key={i}>{header}</th>
         })
       }
     </tr>
@@ -31,7 +31,7 @@ const renderBody = (props) => {
 const EditsTable = (props) => {
   if(!props.data || !props.data.length){
     return (
-      <div className="EditsGrouped">
+      <div className="EditsTable">
         <h4><span className="cf-icon cf-icon-approved"></span>No edits found</h4>
       </div>
     )
@@ -39,8 +39,8 @@ const EditsTable = (props) => {
 
   return (
     <div className="EditsTable">
-      {props.label ? props.label : null}
       <table width="100%">
+        <caption><h3>{props.label ? props.label : null}</h3></caption>
         <thead>
           {renderHeader(props)}
         </thead>
