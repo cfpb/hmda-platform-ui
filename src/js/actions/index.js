@@ -354,7 +354,7 @@ export function fetchSubmission() {
         if(latestSubmission.id !== '0'){
           return dispatch(receiveSubmission(latestSubmission))
         }else{
-          return createSubmission.then(submission => {
+          return createSubmission().then(submission => {
               dispatch(receiveSubmission(submission))
             })
         }
