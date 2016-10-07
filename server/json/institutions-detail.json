@@ -9,12 +9,18 @@
       {
         "period": "2017",
         "institutionId": "bank0id",
-        "status": "not-started"
+        "status": {
+          "code": 1,
+          "message": "NotStarted"
+        }
       },
       {
         "period": "2016",
         "institutionId": "bank0id",
-        "status": "completed"
+        "status": {
+          "code": 3,
+          "message": "completed"
+        }
       }
     ]
   },
@@ -28,7 +34,10 @@
       {
         "period": "2017",
         "institutionId": "bank1id",
-        "status": "completed"
+        "status": {
+          "code": 3,
+          "message": "completed"
+        }
       }
     ]
   },
@@ -42,7 +51,10 @@
       {
         "period": "2016",
         "institutionId": "bank2id",
-        "status": "completed"
+        "status": {
+          "code": 3,
+          "message": "completed"
+        }
       }
     ]
   },
@@ -56,12 +68,18 @@
       {
         "period": "2017",
         "institutionId": "bank3id",
-        "status": "not-started"
+        "status": {
+          "code": 1,
+          "message": "NotStarted"
+        }
       },
       {
         "period": "2016",
         "institutionId": "bank3id",
-        "status": "completed"
+        "status": {
+          "code": 3,
+          "message": "completed"
+        }
       }
     ]
   }
