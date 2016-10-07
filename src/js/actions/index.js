@@ -79,7 +79,7 @@ export function receiveFiling(data) {
 }
 
 export function receiveSubmission(data) {
-  latestSubmissionId = data.id
+  latestSubmissionId = data.id.sequenceNumber
   return {
     type: types.RECEIVE_SUBMISSION,
     ...data
@@ -313,7 +313,8 @@ export function requestUpload(file) {
     xhr.upload.addEventListener('progress', e => {
       dispatch(uploadProgress(e))
     })
-
+    console.log('actions - requestUpload')
+    console.log(latestSubmissionId)
     xhr.open('POST', getUploadUrl(latestSubmissionId));
     xhr.setRequestHeader('Content-Type', 'text/data');
     xhr.setRequestHeader('Content-Disposition', 'inline; filename="' + file.name + '"');
@@ -342,6 +343,7 @@ export function fetchNewSubmission() {
  * Get the latest submission via the api and dispatch an action with the results
  */
 export function fetchSubmission() {
+  console.log('actions - fetchSubmission')
   return dispatch => {
     dispatch(requestFiling())
     return getFiling().then(json => {
