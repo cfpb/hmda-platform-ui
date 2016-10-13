@@ -11,7 +11,7 @@ const getText = (editType) => {
       break
     case 'syntactical':
       title = 'Syntactical Edits'
-      desc = 'This is the syntactical description.'
+      desc = 'Edits that check whether the loan/application register is in the correct format and whether the data covers the correct filing year. The loan/application register cannot be filed until the filer corrects all syntactical edit errors and reuploads the updated loan/application register to the HMDA Platform.'
       break
     case 'validity':
       title =  'Validity Edits'
