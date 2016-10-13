@@ -19,7 +19,7 @@ const getText = (editType) => {
       break
     case 'quality':
       title =  'Quality Edits'
-      desc = 'This is the quality description.'
+      desc = 'Edits that check whether entries in the individual data fields or combinations of data fields conform to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all values flagged by quality edits in the HMDA Platform, or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
       break
     case 'macro':
       title =  'Macro Edits'
