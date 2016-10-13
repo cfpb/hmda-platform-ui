@@ -15,7 +15,7 @@ const getText = (editType) => {
       break
     case 'validity':
       title =  'Validity Edits'
-      desc = 'This is the validity description.'
+      desc = 'Edits that check whether there are valid values in each data field. The loan/application register cannot be filed until the filer corrects all validity edit errors and reuploads the updated loan/application register to the HMDA Platform.'
       break
     case 'quality':
       title =  'Quality Edits'
