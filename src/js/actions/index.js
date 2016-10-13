@@ -316,9 +316,11 @@ export function requestUpload(file) {
     console.log('actions - requestUpload')
     console.log(latestSubmissionId)
     xhr.open('POST', getUploadUrl(latestSubmissionId));
-    xhr.setRequestHeader('Content-Type', 'text/data');
+    //xhr.setRequestHeader('Accept', 'application/json');
+    const boundary=Math.random().toString().substr(2);
+    xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + boundary);
     xhr.setRequestHeader('Content-Disposition', 'inline; filename="' + file.name + '"');
-    xhr.setRequestHeader('CFPB-HMDA-Institutions', 'fakeinstitution');
+    xhr.setRequestHeader('CFPB-HMDA-Institutions', '0');
     xhr.setRequestHeader('CFPB-HMDA-Username', 'fakeuser');
     xhr.send(file);
 
