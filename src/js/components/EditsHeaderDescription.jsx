@@ -7,7 +7,7 @@ const getText = (editType) => {
   switch (editType) {
     case 'lar':
       title = 'Loan Application Records'
-      desc = 'This is the LAR description'
+      desc = 'LAR refers to the loan/application register. Loan/Application Register means both the record of information required to be collected pursuant to § 1003.4 and the record submitted annually or quarterly, as applicable, pursuant to § 1003.5(a).'
       break
     case 'syntactical':
       title = 'Syntactical Edits'
