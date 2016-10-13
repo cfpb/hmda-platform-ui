@@ -289,6 +289,8 @@ export function fetchSummary() {
  * Wire upload together with xhr so progress can be tracked
  */
 export function requestUpload(file) {
+  console.log('actions - requestUpload')
+  console.log(file)
   return dispatch => {
     var xhr = new XMLHttpRequest()
 
@@ -317,11 +319,12 @@ export function requestUpload(file) {
     console.log(latestSubmissionId)
     xhr.open('POST', getUploadUrl(latestSubmissionId));
     //xhr.setRequestHeader('Accept', 'application/json');
-    const boundary=Math.random().toString().substr(2);
-    xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + boundary);
-    xhr.setRequestHeader('Content-Disposition', 'inline; filename="' + file.name + '"');
+
     xhr.setRequestHeader('CFPB-HMDA-Institutions', '0');
     xhr.setRequestHeader('CFPB-HMDA-Username', 'fakeuser');
+    const boundary=Math.random().toString().substr(2);
+    xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=----' + boundary);
+    xhr.setRequestHeader('Content-Disposition', 'form-data; name="file"; filename="' + file.name + '"');
     xhr.send(file);
 
     dispatch(uploadStart())
