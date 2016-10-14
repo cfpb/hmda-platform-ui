@@ -98,7 +98,6 @@ export function requestEditsByRow() {
 }
 
 export function receiveEditsByType(data) {
-  console.log('getting edits')
   return {
     type: types.RECEIVE_EDITS_BY_TYPE,
     edits: data
@@ -289,13 +288,12 @@ export function fetchSummary() {
  * Wire upload together with xhr so progress can be tracked
  */
 export function requestUpload(file) {
-  console.log('actions - requestUpload')
-  console.log(file)
   return dispatch => {
     var data = new FormData()
     data.append("file", file)
 
     var xhr = new XMLHttpRequest()
+
     xhr.addEventListener('load', e => {
       if(e.target.status !== 202) {
         dispatch(uploadError())
@@ -317,16 +315,12 @@ export function requestUpload(file) {
     xhr.upload.addEventListener('progress', e => {
       dispatch(uploadProgress(e))
     })
-    console.log('actions - requestUpload')
-    console.log(latestSubmissionId)
+
     xhr.open('POST', getUploadUrl(latestSubmissionId));
     xhr.setRequestHeader('Accept', 'text/plain');
     xhr.setRequestHeader('CFPB-HMDA-Institutions', '0');
     xhr.setRequestHeader('CFPB-HMDA-Username', 'fakeuser');
     xhr.setRequestHeader("cache-control", "no-cache");
-    //const boundary=Math.random().toString().substr(2);
-    //xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=----' + boundary);
-    //xhr.setRequestHeader('Content-Disposition', 'form-data; name="file"; filename="' + file.name + '"');
     xhr.send(data);
 
     dispatch(uploadStart())
@@ -338,7 +332,6 @@ export function requestUpload(file) {
  */
 
 export function fetchNewSubmission() {
-  console.log('fetchingNewSubmission')
   return dispatch => {
     return createSubmission()
       .then(json => dispatch(receiveSubmission(json)))
@@ -350,7 +343,6 @@ export function fetchNewSubmission() {
  * Get the latest submission via the api and dispatch an action with the results
  */
 export function fetchSubmission() {
-  console.log('actions - fetchSubmission')
   return dispatch => {
     dispatch(requestFiling())
     return getFiling().then(json => {
