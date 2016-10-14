@@ -292,8 +292,10 @@ export function requestUpload(file) {
   console.log('actions - requestUpload')
   console.log(file)
   return dispatch => {
-    var xhr = new XMLHttpRequest()
+    var data = new FormData()
+    data.append("file", file)
 
+    var xhr = new XMLHttpRequest()
     xhr.addEventListener('load', e => {
       if(e.target.status !== 202) {
         dispatch(uploadError())
@@ -322,10 +324,11 @@ export function requestUpload(file) {
 
     xhr.setRequestHeader('CFPB-HMDA-Institutions', '0');
     xhr.setRequestHeader('CFPB-HMDA-Username', 'fakeuser');
-    const boundary=Math.random().toString().substr(2);
-    xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=----' + boundary);
-    xhr.setRequestHeader('Content-Disposition', 'form-data; name="file"; filename="' + file.name + '"');
-    xhr.send(file);
+    xhr.setRequestHeader("cache-control", "no-cache");
+    //const boundary=Math.random().toString().substr(2);
+    //xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=----' + boundary);
+    //xhr.setRequestHeader('Content-Disposition', 'form-data; name="file"; filename="' + file.name + '"');
+    xhr.send(data);
 
     dispatch(uploadStart())
     return Promise.resolve()
