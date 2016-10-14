@@ -4,7 +4,10 @@
       "filing": {
         "period": "2017",
         "institutionId": "bank0id",
-        "status": "in-progress"
+        "status": {
+          "code": 2,
+          "message": "in-progress"
+        }
       },
       "submissions": [
         {
@@ -37,7 +40,10 @@
       "filing": {
         "period": "2016",
         "institutionId": "bank0id",
-        "status": "completed"
+        "status": {
+          "code": 3,
+          "message": "completed"
+        }
       },
       "submissions": [
         {
@@ -70,7 +76,10 @@
       "filing": {
         "period": "2017",
         "institutionId": "bank1id",
-        "status": "not-started"
+        "status": {
+          "code": 1,
+          "message": "not-started"
+        }
       },
       "submissions": []
     },
@@ -78,7 +87,10 @@
       "filing": {
         "period": "2016",
         "institutionId": "bank2id",
-        "status": "completed"
+        "status": {
+          "code": 3,
+          "message": "completed"
+        }
       },
       "submissions": [
         {
