@@ -320,8 +320,7 @@ export function requestUpload(file) {
     console.log('actions - requestUpload')
     console.log(latestSubmissionId)
     xhr.open('POST', getUploadUrl(latestSubmissionId));
-    //xhr.setRequestHeader('Accept', 'application/json');
-
+    xhr.setRequestHeader('Accept', 'text/plain');
     xhr.setRequestHeader('CFPB-HMDA-Institutions', '0');
     xhr.setRequestHeader('CFPB-HMDA-Username', 'fakeuser');
     xhr.setRequestHeader("cache-control", "no-cache");
