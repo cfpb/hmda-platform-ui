@@ -1,12 +1,13 @@
 import fetch from 'isomorphic-fetch'
 
 function sendFetch(suffix, options = {method: 'GET'}){
-  var url = makeUrl(parseLocation(), suffix);
+  var location = options.noParse ? {} : parseLocation();
+  var url = makeUrl(location, suffix);
 
   if(typeof options.body === 'object') options.body = JSON.stringify(options.body)
 
   var fetchOptions = {
-    method: options.method,
+    method: options.method || 'GET',
     body: options.body,
     headers: {
       'CFPB-HMDA-Institutions': '0,1,2,3',
@@ -14,7 +15,7 @@ function sendFetch(suffix, options = {method: 'GET'}){
       'Content-Type': 'application/json'
     }
   }
-
+console.log(url, fetchOptions)
   return fetch(url, fetchOptions)
     .then(response => response.json())
 }
@@ -34,11 +35,11 @@ export function parseLocation(){
  }
 
 export function getInstitutions(){
-  return sendFetch('/institutions');
+  return sendFetch('/institutions', {noParse:1});
 }
 
 export function getInstitution(id){
-  return sendFetch(`/institutions/${id}`);
+  return sendFetch(`/institutions/${id}`, {noParse:1});
 }
 
 export function getUploadUrl(id){

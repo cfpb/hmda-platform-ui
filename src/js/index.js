@@ -10,6 +10,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import AppContainer from './AppContainer.jsx'
 import InstitutionContainer from './containers/Institutions.jsx'
 import SubmissionContainer from './containers/Submission.jsx'
+import LoginContainer from './containers/Login.jsx'
 
 import appReducer from './reducers'
 
@@ -29,7 +30,8 @@ render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={AppContainer}>
-        <IndexRoute component={InstitutionContainer}/>
+        <IndexRoute component={LoginContainer}/>
+        <Route path="/institutions" component={InstitutionContainer}/>
         <Route path="/:institution/:filing" component={SubmissionContainer}/>
       </Route>
     </Router>

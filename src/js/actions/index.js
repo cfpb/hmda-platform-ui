@@ -25,6 +25,14 @@ export function updateStatus(status) {
   }
 }
 
+export function receiveAuth(idToken, accessToken) {
+  return {
+    type: types.RECEIVE_AUTH,
+    idToken: idToken,
+    accessToken: accessToken
+  }
+}
+
 export function requestInstitutions() {
   return {
     type: types.REQUEST_INSTITUTIONS
