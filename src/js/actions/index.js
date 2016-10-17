@@ -3,6 +3,7 @@ import {
   getInstitutions,
   getFiling,
   getSubmission,
+  getLatestSubmission,
   createSubmission,
   getUploadUrl,
   getEditsByType,
@@ -79,7 +80,18 @@ export function receiveFiling(data) {
 }
 
 export function receiveSubmission(data) {
+  /*
+  TODO:
+  doing this until https://github.com/cfpb/hmda-platform/issues/627 is completed
+  this will just be:
   latestSubmissionId = data.id.sequenceNumber
+  */
+  if (typeof(data.id) === 'number') {
+    latestSubmissionId = data.id
+  } else if (typeof(data.id) === 'object') {
+    latestSubmissionId = data.id.sequenceNumber
+  }
+  
   return {
     type: types.RECEIVE_SUBMISSION,
     ...data
@@ -343,6 +355,7 @@ export function fetchNewSubmission() {
  * Get the latest submission via the api and dispatch an action with the results
  */
 export function fetchSubmission() {
+  console.log('actions - fetchSubmission')
   return dispatch => {
     dispatch(requestFiling())
     return getFiling().then(json => {
@@ -367,7 +380,7 @@ export function fetchSubmission() {
 
 export function pollForProgress() {
   const poller = dispatch => {
-    return getSubmission(latestSubmissionId)
+    return getLatestSubmission()
       .then(json => dispatch(receiveSubmission(json)))
       .then(json => {
         if(json.status.code < 8){
@@ -432,6 +445,7 @@ export function fetchInstitution(institution) {
 }
 
 export function fetchEditsByType() {
+  console.log()
   return dispatch => {
     dispatch(requestEditsByType())
     return getEditsByType(latestSubmissionId)
