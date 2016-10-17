@@ -56,19 +56,19 @@ const getEachInstitutionAction = [
   {type: types.REQUEST_INSTITUTION},
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj.bank0id
+    institution: institutionsDetailObj['0']
   },
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj.bank1id
+    institution: institutionsDetailObj['1']
   },
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj.bank2id
+    institution: institutionsDetailObj['2']
   },
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj.bank3id
+    institution: institutionsDetailObj['3']
   }
 ]
 
@@ -211,7 +211,11 @@ describe('actions', () => {
   })
 
   it('creates an action to signal current submission data has been received', () => {
-    const data = {answer: 42}
+    const data = {
+      id: {
+        sequenceNumber: 2
+      }
+    }
     expect(actions.receiveSubmission(data)).toEqual({
       type: types.RECEIVE_SUBMISSION,
       ...data

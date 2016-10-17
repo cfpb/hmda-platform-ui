@@ -5,6 +5,8 @@ import UserHeading from '../components/UserHeading.jsx'
 export default class Institution extends Component {
 
   render() {
+    console.log('institution component')
+    console.log(this.props)
     var self = this
     return (
     <div className="Institution">
@@ -20,7 +22,7 @@ export default class Institution extends Component {
             <div key={i}>
               <p>id: {filing.period}</p>
               <p>institutionId: {filing.institutionId}</p>
-              <p>status: {filing.status}</p>
+              <p>status: {filing.status.message}</p>
               <p><Link to={`/${filing.institutionId}/${filing.period}`}>View filing</Link></p>
             </div>
             )
