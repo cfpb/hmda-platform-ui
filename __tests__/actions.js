@@ -56,19 +56,19 @@ const getEachInstitutionAction = [
   {type: types.REQUEST_INSTITUTION},
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj.bank0id
+    institution: institutionsDetailObj['0']
   },
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj.bank1id
+    institution: institutionsDetailObj['1']
   },
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj.bank2id
+    institution: institutionsDetailObj['2']
   },
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj.bank3id
+    institution: institutionsDetailObj['3']
   }
 ]
 
