@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 const showReceipt = (props) => {
-  if(props.status.code < 13) return null;
+  if(props.status.code !== 12) return null;
 
   return (
     <div>
@@ -25,8 +25,8 @@ const showWarning = (props) => {
 }
 
 const Signature = (props) => {
-  const isChecked = props.status.code > 12 ? true : false
-  const isDisabled = props.status.code > 11 ? false : true
+  const isChecked = props.status.code === 12 ? true : false
+  const isDisabled = props.status.code > 10 ? false : true
 
   return (
     <div className="Signature">
