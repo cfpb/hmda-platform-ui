@@ -8,9 +8,23 @@ const showConfirmation = (code) => {
   )
 }
 
+const showWarning = (props) => {
+  if(props.status.code > 9) return null
+
+  return (
+    <div className="usa-alert usa-alert-warning">
+      <div className="usa-alert-body">
+        <h3 className="usa-alert-heading">You can not verify the IRS report until all edits have been verified and the report has been generated.</h3>
+      </div>
+    </div>
+  )
+}
+
 const IRSReport = (props) => {
   if (!props.msas) return null
   const isChecked = props.status.code > 10 ? true : false
+  const isDisabled = props.status.code > 9 ? false : true
+
   return (
     <div className="IRSReport">
       <h2>Institution Register Summary</h2>
@@ -51,6 +65,9 @@ const IRSReport = (props) => {
           })}
         </tbody>
       </table>
+
+      {showWarning(props)}
+
       <ul className="usa-unstyled-list">
         <li>
           <input id="irs-verify"
@@ -58,10 +75,12 @@ const IRSReport = (props) => {
             type="checkbox"
             value="irs-verify"
             onChange={e => props.onIRSClick(e.target.checked)}
-            checked={isChecked} />
+            checked={isChecked}
+            disabled={isDisabled} />
           <label htmlFor="irs-verify">I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.</label>
         </li>
       </ul>
+
       {showConfirmation(props.status.code)}
     </div>
   )

@@ -40,7 +40,7 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.findRenderedDOMComponentWithClass(refileWarning, 'refile-text').innerHTML.match(refileText)[0]).toEqual(refileText);
+    expect(TestUtils.findRenderedDOMComponentWithClass(refileWarning, 'usa-alert-heading').innerHTML.match(refileText)[0]).toEqual(refileText);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(refileWarning, 'a').length).toEqual(1);
   });
 
@@ -59,7 +59,7 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.findRenderedDOMComponentWithClass(refileWarning, 'refile-text').innerHTML.match(validateText)[0]).toEqual(validateText);
+    expect(TestUtils.findRenderedDOMComponentWithClass(refileWarning, 'usa-alert-heading').innerHTML.match(validateText)[0]).toEqual(validateText);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(refileWarning, 'a').length).toEqual(0);
   });
 
@@ -77,7 +77,7 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(refileWarning, 'refile-text').length).toEqual(0);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(refileWarning, 'usa-alert-heading').length).toEqual(0);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(refileWarning, 'a').length).toEqual(0);
   });
 
