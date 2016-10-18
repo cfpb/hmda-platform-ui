@@ -91,7 +91,7 @@ export function receiveSubmission(data) {
   } else if (typeof(data.id) === 'object') {
     latestSubmissionId = data.id.sequenceNumber
   }
-  
+
   return {
     type: types.RECEIVE_SUBMISSION,
     ...data
@@ -383,7 +383,7 @@ export function pollForProgress() {
     return getLatestSubmission()
       .then(json => dispatch(receiveSubmission(json)))
       .then(json => {
-        if(json.status.code < 8){
+        if(json.status.code < 8 && json.status.code !== 5){
           setTimeout(() => poller(dispatch), 500)
         }
       })
