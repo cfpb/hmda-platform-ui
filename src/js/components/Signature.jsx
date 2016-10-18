@@ -31,6 +31,7 @@ const Signature = (props) => {
   return (
     <div className="Signature">
       {showWarning(props)}
+
       <ul className="usa-unstyled-list">
         <li>
           <input id="signature"
