@@ -3,6 +3,7 @@ import {
   getInstitutions,
   getFiling,
   getSubmission,
+  getLatestSubmission,
   createSubmission,
   getUploadUrl,
   getEditsByType,
@@ -87,7 +88,18 @@ export function receiveFiling(data) {
 }
 
 export function receiveSubmission(data) {
+  /*
+  TODO:
+  doing this until https://github.com/cfpb/hmda-platform/issues/627 is completed
+  this will just be:
   latestSubmissionId = data.id.sequenceNumber
+  */
+  if (typeof(data.id) === 'number') {
+    latestSubmissionId = data.id
+  } else if (typeof(data.id) === 'object') {
+    latestSubmissionId = data.id.sequenceNumber
+  }
+
   return {
     type: types.RECEIVE_SUBMISSION,
     ...data
@@ -106,7 +118,6 @@ export function requestEditsByRow() {
 }
 
 export function receiveEditsByType(data) {
-  console.log('getting edits')
   return {
     type: types.RECEIVE_EDITS_BY_TYPE,
     edits: data
@@ -300,6 +311,9 @@ export function requestUpload(file) {
   console.log('actions - requestUpload')
   console.log(file)
   return dispatch => {
+    var data = new FormData()
+    data.append('file', file)
+
     var xhr = new XMLHttpRequest()
 
     xhr.addEventListener('load', e => {
@@ -323,17 +337,13 @@ export function requestUpload(file) {
     xhr.upload.addEventListener('progress', e => {
       dispatch(uploadProgress(e))
     })
-    console.log('actions - requestUpload')
-    console.log(latestSubmissionId)
-    xhr.open('POST', getUploadUrl(latestSubmissionId));
-    //xhr.setRequestHeader('Accept', 'application/json');
 
+    xhr.open('POST', getUploadUrl(latestSubmissionId));
+    xhr.setRequestHeader('Accept', 'text/plain');
     xhr.setRequestHeader('CFPB-HMDA-Institutions', '0');
     xhr.setRequestHeader('CFPB-HMDA-Username', 'fakeuser');
-    const boundary=Math.random().toString().substr(2);
-    xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=----' + boundary);
-    xhr.setRequestHeader('Content-Disposition', 'form-data; name="file"; filename="' + file.name + '"');
-    xhr.send(file);
+    xhr.setRequestHeader('cache-control', 'no-cache');
+    xhr.send(data);
 
     dispatch(uploadStart())
     return Promise.resolve()
@@ -344,7 +354,6 @@ export function requestUpload(file) {
  */
 
 export function fetchNewSubmission() {
-  console.log('fetchingNewSubmission')
   return dispatch => {
     return createSubmission()
       .then(json => dispatch(receiveSubmission(json)))
@@ -381,10 +390,10 @@ export function fetchSubmission() {
 
 export function pollForProgress() {
   const poller = dispatch => {
-    return getSubmission(latestSubmissionId)
+    return getLatestSubmission()
       .then(json => dispatch(receiveSubmission(json)))
       .then(json => {
-        if(json.status.code < 8){
+        if(json.status.code < 8 && json.status.code !== 5){
           setTimeout(() => poller(dispatch), 500)
         }
       })
@@ -446,6 +455,7 @@ export function fetchInstitution(institution) {
 }
 
 export function fetchEditsByType() {
+  console.log()
   return dispatch => {
     dispatch(requestEditsByType())
     return getEditsByType(latestSubmissionId)

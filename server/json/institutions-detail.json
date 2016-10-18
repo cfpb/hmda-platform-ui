@@ -1,22 +1,22 @@
 {
-  "bank0id": {
+  "0": {
     "institution": {
       "name": "Bank 0",
-      "id": "bank0id",
+      "id": "0",
       "status": "active"
     },
     "filings": [
       {
         "period": "2017",
-        "institutionId": "bank0id",
+        "institutionId": "0",
         "status": {
           "code": 1,
-          "message": "NotStarted"
+          "message": "not-started"
         }
       },
       {
         "period": "2016",
-        "institutionId": "bank0id",
+        "institutionId": "0",
         "status": {
           "code": 3,
           "message": "completed"
@@ -24,16 +24,16 @@
       }
     ]
   },
-  "bank1id": {
+  "1": {
     "institution": {
       "name": "Bank 1",
-      "id": "bank1id",
+      "id": "1",
       "status": "active"
     },
     "filings": [
       {
         "period": "2017",
-        "institutionId": "bank1id",
+        "institutionId": "1",
         "status": {
           "code": 3,
           "message": "completed"
@@ -41,16 +41,16 @@
       }
     ]
   },
-  "bank2id": {
+  "2": {
     "institution": {
       "name": "Bank 2",
-      "id": "bank2id",
+      "id": "2",
       "status": "inactive"
     },
     "filings": [
       {
         "period": "2016",
-        "institutionId": "bank2id",
+        "institutionId": "2",
         "status": {
           "code": 3,
           "message": "completed"
@@ -58,24 +58,24 @@
       }
     ]
   },
-  "bank3id": {
+  "3": {
     "institution": {
       "name": "Bank 3",
-      "id": "bank3id",
+      "id": "3",
       "status": "active"
     },
     "filings": [
       {
         "period": "2017",
-        "institutionId": "bank3id",
+        "institutionId": "3",
         "status": {
           "code": 1,
-          "message": "NotStarted"
+          "message": "not-started"
         }
       },
       {
         "period": "2016",
-        "institutionId": "bank3id",
+        "institutionId": "3",
         "status": {
           "code": 3,
           "message": "completed"

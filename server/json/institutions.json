@@ -2,22 +2,22 @@
   "institutions": [
     {
       "name": "Bank 0",
-      "id": "bank0id",
+      "id": "0",
       "status": "active"
     },
     {
       "name": "Bank 1",
-      "id": "bank1id",
+      "id": "1",
       "status": "active"
     },
     {
       "name": "Bank 2",
-      "id": "bank2id",
+      "id": "2",
       "status": "inactive"
     },
     {
       "name": "Bank 3",
-      "id": "bank3id",
+      "id": "3",
       "status": "active"
     }
   ]

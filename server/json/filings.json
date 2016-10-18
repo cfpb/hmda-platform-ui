@@ -3,31 +3,46 @@
     {
       "filing": {
         "period": "2017",
-        "institutionId": "bank0id",
-        "status": "in-progress"
+        "institutionId": "0",
+        "status": {
+          "code": 2,
+          "message": "in-progress"
+        }
       },
       "submissions": [
         {
-          "id": "1",
+          "id": {
+            "institutionId": "0",
+            "period": "2017",
+            "sequenceNumber": 1
+          },
           "status": {
             "code": 3,
-            "message": ""
+            "message": "uploaded"
           },
           "timestamp": 1457494448191
         },
         {
-          "id": "2",
+          "id": {
+            "institutionId": "0",
+            "period": "2017",
+            "sequenceNumber": 2
+          },
           "status": {
             "code": 7,
-            "message": ""
+            "message": "validating"
           },
           "timestamp": 1457494448191
         },
         {
-          "id": "3",
+          "id": {
+            "institutionId": "0",
+            "period": "2017",
+            "sequenceNumber": 3
+          },
           "status": {
             "code": 1,
-            "message": ""
+            "message": "created"
           },
           "timestamp": 1457494448191
         }
@@ -36,31 +51,46 @@
     {
       "filing": {
         "period": "2016",
-        "institutionId": "bank0id",
-        "status": "completed"
+        "institutionId": "0",
+        "status": {
+          "code": 3,
+          "message": "completed"
+        }
       },
       "submissions": [
         {
-          "id": "1",
+          "id": {
+            "institutionId": "0",
+            "period": "2016",
+            "sequenceNumber": 1
+          },
           "status": {
             "code": 1,
-            "message": ""
+            "message": "created"
           },
           "timestamp": 1457494448191
         },
         {
-          "id": "2",
+          "id": {
+            "institutionId": "0",
+            "period": "2016",
+            "sequenceNumber": 2
+          },
           "status": {
             "code": -1,
-            "message": "submission cancelled by user"
+            "message": "Failed"
           },
           "timestamp": 1457494448191
         },
         {
-          "id": "3",
+          "id": {
+            "institutionId": "0",
+            "period": "2016",
+            "sequenceNumber": 3
+          },
           "status": {
             "code": 12,
-            "message": ""
+            "message": "signed"
           },
           "timestamp": 1457494448191
         }
@@ -69,31 +99,45 @@
     {
       "filing": {
         "period": "2017",
-        "institutionId": "bank1id",
-        "status": "not-started"
+        "institutionId": "1",
+        "status": {
+          "code": 1,
+          "message": "not-started"
+        }
       },
       "submissions": []
     },
     {
       "filing": {
         "period": "2016",
-        "institutionId": "bank2id",
-        "status": "completed"
+        "institutionId": "2",
+        "status": {
+          "code": 3,
+          "message": "completed"
+        }
       },
       "submissions": [
         {
-          "id": "1",
+          "id": {
+            "institutionId": "2",
+            "period": "2016",
+            "sequenceNumber": 1
+          },
           "status": {
             "code": -1,
-            "message": "error interrupted submission"
+            "message": "Failed"
           },
           "timestamp": 1457494448191
         },
         {
-          "id": "2",
+          "id": {
+            "institutionId": "2",
+            "period": "2016",
+            "sequenceNumber": 2
+          },
           "status": {
             "code": 12,
-            "message": ""
+            "message": "signed"
           },
           "timestamp": 1457494448191
         }
