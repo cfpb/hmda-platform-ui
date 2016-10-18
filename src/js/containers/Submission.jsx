@@ -45,7 +45,7 @@ class SubmissionContainer extends Component {
       )
     }
 
-    if (code > 2) progress = <ValidationProgress/>
+    if (code > 1) progress = <ValidationProgress/>
 
     if (code > 7) {
       editsContainer = <Edits/>

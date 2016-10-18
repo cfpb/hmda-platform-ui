@@ -6,7 +6,7 @@ function mapStateToProps(state) {
     status
   } = state.app.submission || {
     status: {
-      code: 3,
+      code: 2,
       message: ''
     }
   }
