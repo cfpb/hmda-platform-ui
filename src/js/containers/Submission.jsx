@@ -50,7 +50,7 @@ class SubmissionContainer extends Component {
     // render refileWarning for parsing and validation error status
     if (code === 5 || code === 8) refileWarning = <RefileWarning />
 
-    if (code > 7 && code !== 5) {
+    if (code > 7) {
       editsContainer = <Edits/>
       irs =  <IRSReport />
       sign = <Signature />
