@@ -47,7 +47,7 @@ class SubmissionContainer extends Component {
 
     if (code > 1) progress = <ValidationProgress/>
 
-    if (code > 7) {
+    if (code > 7 && code !== 5) {
       editsContainer = <Edits/>
       refileWarning = <RefileWarning />
       irs =  <IRSReport />
