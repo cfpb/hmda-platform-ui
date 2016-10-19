@@ -25,7 +25,7 @@ const EditsByType = (props) => {
         Object.keys(props.types).map((type, i) => {
           return (
             <div className="EditsContainerEntry" key={i}>
-              <EditsHeaderDescription>{type}</EditsHeaderDescription>
+              <EditsHeaderDescription count={props.types[type].edits.length} type={type} />
               {
                 renderTables(props.types[type])
               }
