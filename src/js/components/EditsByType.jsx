@@ -5,6 +5,10 @@ import EditsTable from '../containers/EditsTable.jsx'
 const renderTables = (editObj) => {
   const edits = editObj.edits
 
+  if(edits.length === 0) {
+    return <h4>No edits found</h4>
+  }
+
   if(edits[0] && !edits[0].lars){
     return <EditsTable data={edits} type={editObj.type}/>
   }
