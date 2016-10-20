@@ -21,7 +21,7 @@ console.log(url, fetchOptions)
 }
 
 export function makeUrl(obj, suffix){
-  var url = location.protocol + '//' + location.host + '/api'
+  var url = location.protocol + '//' + location.host + '/hmda'
   if(obj.id) url+= '/institutions/' + obj.id;
   if(obj.filing) url+= '/filings/' + obj.filing;
   if(obj.submission) url+= '/submissions/' + obj.submission;

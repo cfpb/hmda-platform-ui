@@ -40,8 +40,8 @@ function mapDispatchToProps(dispatch) {
     forward() {
       dispatch(forwardToAuth(new UserManager({
         authority: 'https://192.168.99.100:8443/auth/realms/hmda',
-        client_id: 'hmda-api-ui',
-        redirect_uri: 'http://localhost:8080/institutions',
+        client_id: 'hmda-api',
+        redirect_uri: 'http://192.168.99.100/institutions',
         scope: 'openid profile email',
         response_type: 'id_token token'
       })))
