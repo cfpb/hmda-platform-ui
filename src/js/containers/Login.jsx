@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { receiveAuth } from '../actions'
+import { forwardToAuth, processAuth } from '../actions'
+import { UserManager } from 'oidc-client'
 import Login from '../components/Login.jsx'
-
-function tokenToJWT(token) {
-   return OIDC.getIdTokenPayload(token)
-}
 
 class LoginContainer extends Component {
   constructor(props) {
@@ -13,22 +10,9 @@ class LoginContainer extends Component {
   }
 
   componentDidMount() {
-    var idToken = OIDC.getValidIdToken();
-    var accessToken;
-
-    try {
-        accessToken = OIDC.getAccessToken()
-    } catch(e) {
-        if (e instanceof OidcException) {
-            console.log('Could not get access_token.  Error: ' + e.message)
-        }
+    if(this.props.manager){
+      this.props.getAuthTokens(this.props.manager)
     }
-console.log('component stuff', idToken, accessToken)
-    if(!idToken || !accessToken) return
-
-    var idJWT = tokenToJWT(idToken)
-    var accessJWT = tokenToJWT(accessToken)
-    this.props.dispatch(receiveAuth(idJWT, accessJWT))
   }
 
   render() {
@@ -38,17 +22,34 @@ console.log('component stuff', idToken, accessToken)
 
 function mapStateToProps(state) {
   const {
-    idToken,
-    accessToken
+    user,
+    manager
   } = state.app.user || {
-    idToken: null,
-    accessToken: null
+    user: null,
+    manager: null
   }
 
   return {
-    idToken,
-    accessToken
+    user,
+    manager
   }
 }
 
-export default connect(mapStateToProps)(LoginContainer)
+function mapDispatchToProps(dispatch) {
+  return {
+    forward() {
+      dispatch(forwardToAuth(new UserManager({
+        authority: 'https://192.168.99.100:8443/auth/realms/hmda',
+        client_id: 'hmda-api-ui',
+        redirect_uri: 'http://localhost:8080/institutions',
+        scope: 'openid profile email',
+        response_type: 'id_token token'
+      })))
+    },
+    getAuthTokens(manager) {
+      dispatch(processAuth(manager))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)

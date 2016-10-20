@@ -28,7 +28,9 @@ import {
   REQUEST_SUMMARY,
   RECEIVE_SUMMARY,
   UPDATE_STATUS,
-  RECEIVE_AUTH
+  FORWARD_TO_AUTH,
+  RECEIVE_AUTH_USER,
+  RECEIVE_AUTH_MANAGER
 } from '../constants'
 
 const defaultUpload = {
@@ -58,15 +60,21 @@ const defaultEdits = {
 
 export const user = (state = {}, action) => {
   switch (action.type) {
-  case RECEIVE_AUTH:
+  case RECEIVE_AUTH_MANAGER:
     return {
-      idToken: action.idToken,
-      accessToken: action.accessToken
+      ...state,
+      manager: action.manager
+    }
+  case RECEIVE_AUTH_USER:
+    return {
+      ...state,
+      user: action.user
     }
   default:
     return state
   }
 }
+
 
 /*
  * Set isFetching to true when institutions are being requested

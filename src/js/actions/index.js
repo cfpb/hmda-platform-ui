@@ -26,11 +26,37 @@ export function updateStatus(status) {
   }
 }
 
-export function receiveAuth(idToken, accessToken) {
+export function receiveAuthManager(userManager) {
   return {
-    type: types.RECEIVE_AUTH,
-    idToken: idToken,
-    accessToken: accessToken
+    type: types.RECEIVE_AUTH_MANAGER,
+    userManager: userManager
+  }
+}
+
+export function forwardToAuth(userManager) {
+  console.log('forwarding')
+  return dispatch => {
+    dispatch(receiveAuthManager())
+      console.log('redir')
+    return {
+      type: types.FORWARD_TO_AUTH,
+      forward: userManager.signinRedirect()
+    }
+  }
+}
+
+export function processAuth(userManager) {
+  return dispatch => {
+    return userManager.getUser()
+      .then((user) => dispatch(receiveAuthUser(user)))
+      .catch(err => console.error(err))
+  }
+}
+
+export function receiveAuthUser(user) {
+  return {
+    type: types.RECEIVE_AUTH_USER,
+    user: user
   }
 }
 
