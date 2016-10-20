@@ -29,14 +29,6 @@ const renderBody = (props) => {
 }
 
 const EditsTable = (props) => {
-  if(!props.data || !props.data.length){
-    return (
-      <div className="EditsTable">
-        <h4><span className="cf-icon cf-icon-approved"></span>No edits found</h4>
-      </div>
-    )
-  }
-
   return (
     <div className="EditsTable">
       <table width="100%">
