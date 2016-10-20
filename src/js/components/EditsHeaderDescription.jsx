@@ -33,17 +33,18 @@ const getText = (editType) => {
 }
 
 const EditsHeaderDescription = (props) => {
-  const textObj = getText(props.children)
+  const textObj = getText(props.type)
   return (
     <div className="EditsHeaderDescription">
-      <h2>{textObj.title}</h2>
+      <h2>{textObj.title} - {props.count}</h2>
       <p className="usa-font-lead">{textObj.desc}</p>
     </div>
   )
 }
 
 EditsHeaderDescription.propTypes = {
-  children: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired
 }
 
 export default EditsHeaderDescription
