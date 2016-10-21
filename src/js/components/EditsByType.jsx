@@ -9,11 +9,9 @@ const renderTables = (editObj, type) => {
     return <h4>No edits found</h4>
   }
 
-  /*if(edits[0] && !edits[0].lars){
-    console.log('EditsByType - renderTables')
-    console.log('lars check')
+  if(edits[0] && !edits[0].lars){
     return <EditsTable data={edits} type={type} label={edits.edit} />
-  }*/
+  }
 
   return edits.map((edit, i) => {
     return <EditsTable lars={edit.lars} ts={edit.ts} type={type} label={edit.edit} key={i}/>
