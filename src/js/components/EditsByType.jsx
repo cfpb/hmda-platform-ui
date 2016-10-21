@@ -10,7 +10,7 @@ const renderTables = (editObj, type) => {
   }
 
   if(edits[0] && !edits[0].lars){
-    return <EditsTable data={edits} type={type} label={edits.edit} />
+    return <EditsTable data={edits} type={type} />
   }
 
   return edits.map((edit, i) => {
