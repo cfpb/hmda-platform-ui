@@ -1,7 +1,7 @@
 FROM nginx:1.10
 MAINTAINER Wyatt Pearsall<Wyatt.Pearsall@cfpb.gov>
 
-ARG HMDA_API_PORT=8080
+ARG HMDA_API_PORT=4443
 
 RUN apt-get update && \
     apt-get install -y curl && \

@@ -1,23 +1,32 @@
 import fetch from 'isomorphic-fetch'
 
+let accessToken
+
 function sendFetch(suffix, options = {method: 'GET'}){
   var location = options.noParse ? {} : parseLocation();
   var url = makeUrl(location, suffix);
 
   if(typeof options.body === 'object') options.body = JSON.stringify(options.body)
 
+  var headers = {
+    'Content-Type': 'application/json'
+  }
+
+  if(accessToken) headers.Authorization = 'Bearer ' + accessToken
+console.log('requesting with access token: ', accessToken)
   var fetchOptions = {
     method: options.method || 'GET',
     body: options.body,
-    headers: {
-      'CFPB-HMDA-Institutions': '0,1,2,3',
-      'CFPB-HMDA-Username': 'fakeuser',
-      'Content-Type': 'application/json'
-    }
+    headers: headers
   }
+
 console.log(url, fetchOptions)
   return fetch(url, fetchOptions)
     .then(response => response.json())
+}
+
+export function setAccessToken(token) {
+  accessToken = token
 }
 
 export function makeUrl(obj, suffix){

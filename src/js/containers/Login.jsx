@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { forwardToAuth, processAuth } from '../actions'
-import { UserManager } from 'oidc-client'
+import { redirectAuth, processAuth } from '../actions'
+import { UserManager, Log, WebStorageStateStore } from 'oidc-client'
 import Login from '../components/Login.jsx'
+
+Log.logger = console
+
+let manager
 
 class LoginContainer extends Component {
   constructor(props) {
@@ -10,9 +14,17 @@ class LoginContainer extends Component {
   }
 
   componentDidMount() {
-    if(this.props.manager){
-      this.props.getAuthTokens(this.props.manager)
-    }
+    console.log(localStorage)
+    manager = new UserManager({
+      authority: 'https://192.168.99.100:8443/auth/realms/hmda',
+      client_id: 'hmda-api',
+      redirect_uri: 'http://192.168.99.100',
+      scope: 'openid profile email',
+      response_type: 'id_token token',
+      store: new WebStorageStateStore({store: localStorage})
+    })
+    window.manager = manager
+    this.props.getAuthTokens()
   }
 
   render() {
@@ -22,32 +34,23 @@ class LoginContainer extends Component {
 
 function mapStateToProps(state) {
   const {
-    user,
-    manager
-  } = state.app.user || {
-    user: null,
-    manager: null
+    user
+  } = state.app.auth || {
+    user: null
   }
 
   return {
-    user,
-    manager
+    user
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, ownProps) {
   return {
-    forward() {
-      dispatch(forwardToAuth(new UserManager({
-        authority: 'https://192.168.99.100:8443/auth/realms/hmda',
-        client_id: 'hmda-api',
-        redirect_uri: 'http://192.168.99.100/institutions',
-        scope: 'openid profile email',
-        response_type: 'id_token token'
-      })))
+    redirect(){
+      dispatch(redirectAuth(manager))
     },
-    getAuthTokens(manager) {
-      dispatch(processAuth(manager))
+    getAuthTokens() {
+      dispatch(processAuth(manager, ownProps.router))
     }
   }
 }

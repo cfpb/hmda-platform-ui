@@ -13,7 +13,8 @@ import {
   postIRS,
   getSignature,
   postSignature,
-  getSummary
+  getSummary,
+  setAccessToken
 } from '../api'
 import * as types from '../constants'
 
@@ -26,30 +27,33 @@ export function updateStatus(status) {
   }
 }
 
-export function receiveAuthManager(userManager) {
-  return {
-    type: types.RECEIVE_AUTH_MANAGER,
-    userManager: userManager
-  }
-}
-
-export function forwardToAuth(userManager) {
-  console.log('forwarding')
+export function redirectAuth(userManager) {
   return dispatch => {
-    dispatch(receiveAuthManager())
-      console.log('redir')
-    return {
-      type: types.FORWARD_TO_AUTH,
-      forward: userManager.signinRedirect()
+    if(userManager){
+      userManager.signinRedirect()
     }
   }
 }
 
-export function processAuth(userManager) {
+export function processAuth(userManager, router) {
+  console.log("processing")
   return dispatch => {
-    return userManager.getUser()
-      .then((user) => dispatch(receiveAuthUser(user)))
-      .catch(err => console.error(err))
+    try {
+      userManager.signinRedirectCallback()
+        .then((user, hm) => {
+          console.log("promise returned")
+          console.log(user, hm)
+          if(user){
+            console.log('got user')
+            setAccessToken(user.accessToken)
+            dispatch(receiveAuthUser(user))
+            router.push('/institutions')
+          }
+        })
+        .catch(err => console.error(err))
+    } catch(e){
+      console.error(e)
+    }
   }
 }
 

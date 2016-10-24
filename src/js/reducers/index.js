@@ -28,9 +28,7 @@ import {
   REQUEST_SUMMARY,
   RECEIVE_SUMMARY,
   UPDATE_STATUS,
-  FORWARD_TO_AUTH,
-  RECEIVE_AUTH_USER,
-  RECEIVE_AUTH_MANAGER
+  RECEIVE_AUTH_USER
 } from '../constants'
 
 const defaultUpload = {
@@ -58,13 +56,8 @@ const defaultEdits = {
 }
 
 
-export const user = (state = {}, action) => {
+export const auth = (state = {}, action) => {
   switch (action.type) {
-  case RECEIVE_AUTH_MANAGER:
-    return {
-      ...state,
-      manager: action.manager
-    }
   case RECEIVE_AUTH_USER:
     return {
       ...state,
@@ -337,6 +330,7 @@ export const summary = (state = defaultSummary, action) => {
 }
 
 export default combineReducers({
+  auth,
   institutions,
   filings,
   submission,
