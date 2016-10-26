@@ -6,16 +6,15 @@ import { connect } from 'react-redux'
 class oidcCallback extends React.Component {
 
   successCallback(user) {
-    console.log('suc cb', user)
+    console.log('success from oidccb', user)
     // the user object gets the browser's URL before
     // redirection was triggered passed into its state
     // when triggerAuthFlow is set to `true`
-    const urlBeforeRedirection = user.state.redirectUrl
-    this.props.dispatch(push(urlBeforeRedirection))
+    this.props.dispatch(push('/institutions'))
   }
 
   render() {
-    return <CallbackComponent successCallback={this.successCallback} />
+    return <CallbackComponent successCallback={this.successCallback.bind(this)} />
   }
 }
 
