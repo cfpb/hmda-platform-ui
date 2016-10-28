@@ -7,13 +7,10 @@ function sendFetch(suffix, options = {method: 'GET'}){
   var url = makeUrl(location, suffix);
 
   if(typeof options.body === 'object') options.body = JSON.stringify(options.body)
-
-  var headers = {
-    'Content-Type': 'application/json'
-  }
+  var headers = {}
 
   if(accessToken) headers.Authorization = 'Bearer ' + accessToken
-console.log('requesting with access token: ', accessToken)
+  console.log('requesting with access token: ', accessToken)
   var fetchOptions = {
     method: options.method || 'GET',
     body: options.body,
@@ -30,7 +27,8 @@ export function setAccessToken(token) {
 }
 
 export function makeUrl(obj, suffix){
-  var url = location.protocol + '//' + location.host + '/hmda'
+  console.log('found hmda endpoint', process.env.HMDA_API)
+  var url = process.env.HMDA_API || location.protocol + '//' + location.host + '/hmda'
   if(obj.id) url+= '/institutions/' + obj.id;
   if(obj.filing) url+= '/filings/' + obj.filing;
   if(obj.submission) url+= '/submissions/' + obj.submission;

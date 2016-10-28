@@ -1,7 +1,7 @@
 FROM nginx:1.10
 MAINTAINER Wyatt Pearsall<Wyatt.Pearsall@cfpb.gov>
 
-ARG HMDA_API_PORT=4443
+ENV HMDA_API=https://192.168.99.100:4443/hmda
 
 RUN apt-get update && \
     apt-get install -y curl && \
@@ -18,10 +18,7 @@ COPY nginx/nginx.conf /etc/nginx/nginx.conf
 RUN npm cache clean && \
     npm install && \
     npm run clean && \
-    npm run build && \
-    sed -i.bak s/{{HMDA_API_PORT}}/${HMDA_API_PORT}/ /etc/nginx/nginx.conf && \
-    rm /etc/nginx/nginx.conf.bak && \
-    echo "api port set to ${HMDA_API_PORT}"
+    npm run build
 
 EXPOSE 80
 

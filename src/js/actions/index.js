@@ -35,7 +35,7 @@ export function redirectAuth(userManager) {
   }
 }
 
-export function processAuth(userManager, router) {
+export function processAuth(userManager, history) {
   console.log("processing")
   return dispatch => {
     try {
@@ -47,7 +47,7 @@ export function processAuth(userManager, router) {
             console.log('got user')
             setAccessToken(user.accessToken)
             dispatch(receiveAuthUser(user))
-            router.push('/institutions')
+            history.push('/institutions')
           }
         })
         .catch(err => console.error(err))
