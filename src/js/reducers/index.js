@@ -55,7 +55,7 @@ const defaultEdits = {
   groupByRow: false
 }
 
-
+/*
 export const auth = (state = {}, action) => {
   switch (action.type) {
   case RECEIVE_AUTH_USER:
@@ -67,8 +67,12 @@ export const auth = (state = {}, action) => {
     return state
   }
 }
+*/
 
-
+export const auth = (state = {}, action) => {
+  console.log(action.type, action, state)
+  return state
+}
 /*
  * Set isFetching to true when institutions are being requested
  * Set isFetching to false and populate the institutions key

@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { redirectAuth, processAuth } from '../actions'
 import { UserManager, Log, WebStorageStateStore } from 'oidc-client'
+//import { redirectAuth, processAuth } from '../actions'
 import Login from '../components/Login.jsx'
+import userManager from '../UserManager.js'
 
-Log.logger = console
-
-let manager
 
 class LoginContainer extends Component {
   constructor(props) {
@@ -15,7 +13,7 @@ class LoginContainer extends Component {
   }
 
   componentDidMount() {
-    manager = new UserManager({
+    const manager = new UserManager({
       authority: 'https://192.168.99.100:8443/auth/realms/hmda',
       client_id: 'hmda-api',
       redirect_uri: 'http://192.168.99.100',
@@ -45,12 +43,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    redirect(){
-      dispatch(redirectAuth(manager))
-    },
     getAuthTokens() {
-      console.log('ownProps.router', ownProps.router)
-      dispatch(processAuth(manager, ownProps.router))
+      userManager.signinRedirect()
     }
   }
 }

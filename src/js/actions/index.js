@@ -26,7 +26,7 @@ export function updateStatus(status) {
     status: status
   }
 }
-
+/*
 export function redirectAuth(userManager) {
   return dispatch => {
     if(userManager){
@@ -56,6 +56,7 @@ export function processAuth(userManager, history) {
     }
   }
 }
+*/
 
 export function receiveAuthUser(user) {
   return {
