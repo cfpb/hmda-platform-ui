@@ -2,7 +2,7 @@ import React from 'react'
 import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import EditsTable from '../containers/EditsTable.jsx'
 
-const renderTables = (editObj) => {
+const renderTables = (editObj, type) => {
   const edits = editObj.edits
 
   if(edits.length === 0) {
@@ -10,11 +10,11 @@ const renderTables = (editObj) => {
   }
 
   if(edits[0] && !edits[0].lars){
-    return <EditsTable data={edits} type={editObj.type}/>
+    return <EditsTable data={edits} type={type} />
   }
 
   return edits.map((edit, i) => {
-    return <EditsTable data={edit.lars} type={editObj.type} label={edit.edit} key={i}/>
+    return <EditsTable lars={edit.lars} ts={edit.ts} type={type} label={edit.edit} key={i}/>
   })
 }
 
@@ -27,7 +27,7 @@ const EditsByType = (props) => {
             <div className="EditsContainerEntry" key={i}>
               <EditsHeaderDescription count={props.types[type].edits.length} type={type} />
               {
-                renderTables(props.types[type])
+                renderTables(props.types[type], type)
               }
             </div>
           )
