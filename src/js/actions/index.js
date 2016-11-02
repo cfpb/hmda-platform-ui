@@ -28,13 +28,6 @@ export function updateStatus(status) {
   }
 }
 
-export function receiveAuthUser(user) {
-  return {
-    type: types.RECEIVE_AUTH_USER,
-    user: user
-  }
-}
-
 export function requestInstitutions() {
   return {
     type: types.REQUEST_INSTITUTIONS

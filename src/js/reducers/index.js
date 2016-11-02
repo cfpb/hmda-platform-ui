@@ -27,8 +27,7 @@ import {
   RECEIVE_SIGNATURE_POST,
   REQUEST_SUMMARY,
   RECEIVE_SUMMARY,
-  UPDATE_STATUS,
-  RECEIVE_AUTH_USER
+  UPDATE_STATUS
 } from '../constants'
 
 const defaultUpload = {
@@ -55,24 +54,12 @@ const defaultEdits = {
   groupByRow: false
 }
 
-/*
-export const auth = (state = {}, action) => {
-  switch (action.type) {
-  case RECEIVE_AUTH_USER:
-    return {
-      ...state,
-      user: action.user
-    }
-  default:
-    return state
-  }
-}
-*/
-
+//empty action logger, temporary / for debugging
 export const auth = (state = {}, action) => {
   console.log(action.type, action, state)
   return state
 }
+
 /*
  * Set isFetching to true when institutions are being requested
  * Set isFetching to false and populate the institutions key

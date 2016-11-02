@@ -10,9 +10,4 @@ const userManager = createUserManager({
   response_type: 'id_token token'
 })
 
-//Mock client-side validation until Keycloak implements CORS on certs endpoint
-//userManager.settings.validator.validateSigninResponse = function(state, response){
-//  return Promise.resolve(response)
-//}
-
 export default userManager
