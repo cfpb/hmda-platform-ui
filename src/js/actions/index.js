@@ -334,9 +334,9 @@ export function requestUpload(file) {
     })
 
     xhr.open('POST', getUploadUrl(latestSubmissionId));
-    xhr.setRequestHeader('Accept', 'text/plain');
     xhr.setRequestHeader('Cache-Control', 'no-cache');
     xhr.setRequestHeader('Authorization', 'Bearer ' + getAccessToken());
+    xhr.setRequestHeader('Accept', 'application/json');
     xhr.send(data);
 
     dispatch(uploadStart())
