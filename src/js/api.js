@@ -30,7 +30,8 @@ export function getAccessToken() {
 }
 
 export function makeUrl(obj, suffix){
-  var url = process.env.HMDA_API || location.protocol + '//' + location.host + '/hmda'
+  var url = process.env.HMDA_API
+  if(!url) throw new Error('No url provided for API, unable to fetch data. This is most likely a build issue.')
   if(obj.id) url+= '/institutions/' + obj.id;
   if(obj.filing) url+= '/filings/' + obj.filing;
   if(obj.submission) url+= '/submissions/' + obj.submission;
