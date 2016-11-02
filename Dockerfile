@@ -1,8 +1,6 @@
 FROM nginx:1.10
 MAINTAINER Wyatt Pearsall<Wyatt.Pearsall@cfpb.gov>
 
-ENV HMDA_API=https://192.168.99.100:4443/hmda
-
 RUN apt-get update && \
     apt-get install -y curl && \
     apt-get install -y make && \

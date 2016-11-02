@@ -14,7 +14,8 @@ import {
   getSignature,
   postSignature,
   getSummary,
-  setAccessToken
+  setAccessToken,
+  getAccessToken
 } from '../api'
 import * as types from '../constants'
 
@@ -26,37 +27,6 @@ export function updateStatus(status) {
     status: status
   }
 }
-/*
-export function redirectAuth(userManager) {
-  return dispatch => {
-    if(userManager){
-      userManager.signinRedirect()
-    }
-  }
-}
-
-export function processAuth(userManager, history) {
-  console.log("processing")
-  return dispatch => {
-    try {
-      userManager.signinRedirectCallback()
-        .then((user, hm) => {
-          console.log("promise returned")
-          console.log(user, hm)
-          if(user){
-            console.log('got user')
-            setAccessToken(user.accessToken)
-            dispatch(receiveAuthUser(user))
-            history.push('/institutions')
-          }
-        })
-        .catch(err => console.error(err))
-    } catch(e){
-      console.error(e)
-    }
-  }
-}
-*/
 
 export function receiveAuthUser(user) {
   return {
@@ -72,6 +42,7 @@ export function requestInstitutions() {
 }
 
 export function receiveInstitutions(data) {
+  console.log('institutions',data)
   return {
     type: types.RECEIVE_INSTITUTIONS,
     institutions: data.institutions
@@ -371,9 +342,8 @@ export function requestUpload(file) {
 
     xhr.open('POST', getUploadUrl(latestSubmissionId));
     xhr.setRequestHeader('Accept', 'text/plain');
-    xhr.setRequestHeader('CFPB-HMDA-Institutions', '0');
-    xhr.setRequestHeader('CFPB-HMDA-Username', 'fakeuser');
-    xhr.setRequestHeader('cache-control', 'no-cache');
+    xhr.setRequestHeader('Cache-Control', 'no-cache');
+    xhr.setRequestHeader('Authorization', 'Bearer ' + getAccessToken());
     xhr.send(data);
 
     dispatch(uploadStart())

@@ -5,7 +5,6 @@ let accessToken
 function sendFetch(suffix, options = {method: 'GET'}){
   var location = options.noParse ? {} : parseLocation();
   var url = makeUrl(location, suffix);
-
   if(typeof options.body === 'object') options.body = JSON.stringify(options.body)
   var headers = {}
 
@@ -17,17 +16,20 @@ function sendFetch(suffix, options = {method: 'GET'}){
     headers: headers
   }
 
-console.log(url, fetchOptions)
+  console.log('fetching from', url, 'with options', fetchOptions)
   return fetch(url, fetchOptions)
-    .then(response => response.json())
+    .then(response => {console.log('respose from fetch', response);return response.json()})
 }
 
 export function setAccessToken(token) {
   accessToken = token
 }
 
+export function getAccessToken() {
+  return accessToken || ''
+}
+
 export function makeUrl(obj, suffix){
-  console.log('found hmda endpoint', process.env.HMDA_API)
   var url = process.env.HMDA_API || location.protocol + '//' + location.host + '/hmda'
   if(obj.id) url+= '/institutions/' + obj.id;
   if(obj.filing) url+= '/filings/' + obj.filing;

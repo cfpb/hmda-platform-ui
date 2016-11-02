@@ -1,16 +1,15 @@
 import React from 'react'
 import { CallbackComponent } from 'redux-oidc'
-import { push } from 'react-router-redux'
+import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
+import { setAccessToken } from '../api'
 
 class oidcCallback extends React.Component {
 
   successCallback(user) {
     console.log('success from oidccb', user)
-    // the user object gets the browser's URL before
-    // redirection was triggered passed into its state
-    // when triggerAuthFlow is set to `true`
-    this.props.dispatch(push('/institutions'))
+    setAccessToken(user.access_token)
+    browserHistory.push('/institutions')
   }
 
   render() {
