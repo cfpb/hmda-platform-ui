@@ -6,7 +6,7 @@ const userManager = createUserManager({
   redirect_uri: 'http://192.168.99.100/oidc-callback',
   silent_redirect_uri: 'http://192.168.99.100/silent_renew.html',
   automaticSilentRenew: true,
-  scope: 'openid profile email',
+  scope: 'openid profile',
   response_type: 'id_token token'
 })
 
