@@ -329,7 +329,7 @@ export function requestUpload(file) {
     })
 
     xhr.open('POST', getUploadUrl(latestSubmissionId));
-    xhr.setRequestHeader('Accept', 'text/plain');
+    xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('CFPB-HMDA-Institutions', '0');
     xhr.setRequestHeader('CFPB-HMDA-Username', 'fakeuser');
     xhr.setRequestHeader("cache-control", "no-cache");
