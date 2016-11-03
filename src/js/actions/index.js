@@ -80,17 +80,7 @@ export function receiveFiling(data) {
 }
 
 export function receiveSubmission(data) {
-  /*
-  TODO:
-  doing this until https://github.com/cfpb/hmda-platform/issues/627 is completed
-  this will just be:
   latestSubmissionId = data.id.sequenceNumber
-  */
-  if (typeof(data.id) === 'number') {
-    latestSubmissionId = data.id
-  } else if (typeof(data.id) === 'object') {
-    latestSubmissionId = data.id.sequenceNumber
-  }
 
   return {
     type: types.RECEIVE_SUBMISSION,
