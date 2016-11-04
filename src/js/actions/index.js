@@ -297,20 +297,19 @@ export function requestUpload(file) {
     var xhr = new XMLHttpRequest()
 
     xhr.addEventListener('load', e => {
-      let uploadResponse = JSON.parse(e.target.response)
-      if(e.target.status !== 202) {
-        dispatch(uploadError())
-        dispatch(updateStatus({
-          code: uploadResponse.status.code,
-          message: uploadResponse.status.message
-        }))
-        return
-      }
-      dispatch(uploadComplete(e))
+      const uploadResponse = JSON.parse(e.target.response)
+
       dispatch(updateStatus({
         code: uploadResponse.status.code,
         message: uploadResponse.status.message
       }))
+
+      if(e.target.status !== 202) {
+        return dispatch(uploadError())
+      }
+
+      dispatch(uploadComplete(e))
+
       console.log('starting poll for progress')
       dispatch(pollForProgress())
     })
