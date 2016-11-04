@@ -83,17 +83,7 @@ export function receiveFiling(data) {
 }
 
 export function receiveSubmission(data) {
-  /*
-  TODO:
-  doing this until https://github.com/cfpb/hmda-platform/issues/627 is completed
-  this will just be:
   latestSubmissionId = data.id.sequenceNumber
-  */
-  if (typeof(data.id) === 'number') {
-    latestSubmissionId = data.id
-  } else if (typeof(data.id) === 'object') {
-    latestSubmissionId = data.id.sequenceNumber
-  }
 
   return {
     type: types.RECEIVE_SUBMISSION,
@@ -312,19 +302,19 @@ export function requestUpload(file) {
     var xhr = new XMLHttpRequest()
 
     xhr.addEventListener('load', e => {
-      if(e.target.status !== 202) {
-        dispatch(uploadError())
-        dispatch(updateStatus({
-          code: -1,
-          message: 'Upload Error'
-        }))
-        return
-      }
-      dispatch(uploadComplete(e))
+      const uploadResponse = JSON.parse(e.target.response)
+
       dispatch(updateStatus({
-        code: 3,
-        message: ''
+        code: uploadResponse.status.code,
+        message: uploadResponse.status.message
       }))
+
+      if(e.target.status !== 202) {
+        return dispatch(uploadError())
+      }
+
+      dispatch(uploadComplete(e))
+
       console.log('starting poll for progress')
       dispatch(pollForProgress())
     })

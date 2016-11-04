@@ -4,7 +4,7 @@ const Summary = (props) => {
   if (!props.respondent.name) return null
 
   return (
-    <div className="Summary usa-grid-full">
+    <div className="Summary usa-grid-full" id="summary">
       <h2>Validation Summary</h2>
       <p>You have succesfully validated your file. Please review the respondent and file information below.</p>
       <div className="usa-width-one-half">
