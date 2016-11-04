@@ -29,7 +29,8 @@ const Signature = (props) => {
   const isDisabled = props.status.code > 10 ? false : true
 
   return (
-    <div className="Signature">
+    <div className="Signature" id="signature">
+      <h2>Signature</h2>
       {showWarning(props)}
 
       <ul className="usa-unstyled-list">
