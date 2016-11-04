@@ -4,6 +4,7 @@ import 'babel-polyfill'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import createOidcMiddleware, { createUserManager, OidcProvider, reducer } from 'redux-oidc'
@@ -21,6 +22,7 @@ import appReducer from './reducers'
 oidc.Log.logger = console
 
 const oidcMiddleware = createOidcMiddleware(userManager, () => false, false, '/oidc-callback')
+const loggerMiddleware = createLogger()
 
 const store = createStore(
   combineReducers(
@@ -30,8 +32,7 @@ const store = createStore(
       oidc: reducer
     }
   ),
-  applyMiddleware(oidcMiddleware),
-  applyMiddleware(thunkMiddleware)
+  applyMiddleware(thunkMiddleware, oidcMiddleware, loggerMiddleware)
 )
 
 const history = syncHistoryWithStore(browserHistory, store)
