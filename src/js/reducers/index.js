@@ -54,7 +54,11 @@ const defaultEdits = {
   groupByRow: false
 }
 
-
+//empty action logger, temporary / for debugging
+export const auth = (state = {}, action) => {
+  console.log(action.type, action, state)
+  return state
+}
 
 /*
  * Set isFetching to true when institutions are being requested
@@ -317,6 +321,7 @@ export const summary = (state = defaultSummary, action) => {
 }
 
 export default combineReducers({
+  auth,
   institutions,
   filings,
   submission,
