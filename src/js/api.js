@@ -9,7 +9,6 @@ function sendFetch(suffix, options = {method: 'GET'}){
   var headers = {}
 
   if(accessToken) headers.Authorization = 'Bearer ' + accessToken
-  console.log('requesting with access token: ', accessToken)
   var fetchOptions = {
     method: options.method || 'GET',
     body: options.body,

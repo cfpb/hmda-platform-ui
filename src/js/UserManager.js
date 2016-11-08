@@ -1,5 +1,4 @@
 import { createUserManager } from 'redux-oidc'
-import { WebStorageStateStore } from 'oidc-client'
 
 const userManager = createUserManager({
   authority: 'https://192.168.99.100:8443/auth/realms/hmda',
@@ -9,9 +8,7 @@ const userManager = createUserManager({
   automaticSilentRenew: true,
   scope: 'openid profile',
   response_type: 'id_token token',
-  store: new WebStorageStateStore({store: localStorage})
+  monitorSession: false
 })
-
-userManager.events.addUserLoaded(user => console.log('USER LOADED', user))
 
 export default userManager

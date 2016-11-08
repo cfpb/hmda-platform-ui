@@ -10,7 +10,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import createOidcMiddleware, { createUserManager, OidcProvider, reducer } from 'redux-oidc'
 import oidc from 'oidc-client'
 
-import AppContainer from './AppContainer.jsx'
+import AppContainer from './containers/App.jsx'
 import oidcCallback from './containers/oidcCallback.jsx'
 import InstitutionContainer from './containers/Institutions.jsx'
 import SubmissionContainer from './containers/Submission.jsx'
