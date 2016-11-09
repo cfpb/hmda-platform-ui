@@ -12,6 +12,7 @@ import oidc from 'oidc-client'
 
 import AppContainer from './containers/App.jsx'
 import oidcCallback from './containers/oidcCallback.jsx'
+import HomeContainer from './containers/Home.jsx'
 import InstitutionContainer from './containers/Institutions.jsx'
 import SubmissionContainer from './containers/Submission.jsx'
 import LoginContainer from './containers/Login.jsx'
@@ -37,12 +38,18 @@ const store = createStore(
 
 const history = syncHistoryWithStore(browserHistory, store)
 
+history.listen((location) => {
+  console.log(JSON.parse(localStorage.getItem('hmdaHistory')))
+  console.log(`The current URL is ${location.pathname}${location.search}${location.hash}`)
+  localStorage.setItem('hmdaHistory', JSON.stringify(location))
+})
+
 render(
   <Provider store={store}>
     <OidcProvider store={store} userManager={userManager}>
       <Router history={history}>
         <Route path="/" component={AppContainer}>
-          <IndexRoute component={LoginContainer}/>
+          <IndexRoute component={HomeContainer}/>
           <Route path="/oidc-callback" component={oidcCallback}/>
           <Route path="/institutions" component={InstitutionContainer}/>
           <Route path="/:institution/:filing" component={SubmissionContainer}/>
