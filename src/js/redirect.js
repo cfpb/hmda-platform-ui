@@ -2,6 +2,7 @@ import userManager from './UserManager'
 import { browserHistory } from 'react-router'
 
 const signinRedirect = () => {
+  if(location.pathname === '/oidc-callback') return
   console.log('signinRedirect from', location.pathname)
   localStorage.setItem('hmdaPageBeforeSignin', location.pathname)
   userManager.signinRedirect()
