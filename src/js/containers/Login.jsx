@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import Login from '../components/Login.jsx'
-import userManager from '../UserManager.js'
+import signinRedirect from '../redirect.js'
 
 
 class LoginContainer extends Component {
@@ -18,7 +18,7 @@ class LoginContainer extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     redirect() {
-      userManager.signinRedirect()
+      signinRedirect()
     }
   }
 }
