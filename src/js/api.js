@@ -8,6 +8,12 @@ function sendFetch(suffix, options = {method: 'GET'}){
   if(typeof options.body === 'object') options.body = JSON.stringify(options.body)
   var headers = {}
 
+  if (options.method === 'POST') {
+    headers = {
+      'Content-Type': 'application/json'
+    }
+  }
+
   if(accessToken) headers.Authorization = 'Bearer ' + accessToken
   var fetchOptions = {
     method: options.method || 'GET',
