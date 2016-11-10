@@ -16,6 +16,7 @@ class HomeContainer extends Component {
 
 function mapStateToProps(state) {
   return {
+    user: state.oidc.user,
     viewInstitutions(e) {
       e.preventDefault()
       browserHistory.push('/institutions')

@@ -10,7 +10,7 @@ export default class Institution extends Component {
     var self = this
     return (
     <div className="Institution">
-      <UserHeading period="2017" userName="Jane Smith" />
+      <UserHeading period="2017" userName={this.props.user.profile.name} />
       {this.props.institutions.map((institution, i) => {
         return (
         <div key={i}>
