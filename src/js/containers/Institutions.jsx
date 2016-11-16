@@ -30,10 +30,13 @@ function mapStateToProps(state) {
     filings
   } = state.app
 
+  const user = state.oidc.user
+
   return {
     isFetching,
     institutions,
-    filings
+    filings,
+    user
   }
 }
 

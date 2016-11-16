@@ -13,7 +13,9 @@ import {
   postIRS,
   getSignature,
   postSignature,
-  getSummary
+  getSummary,
+  setAccessToken,
+  getAccessToken
 } from '../api'
 import * as types from '../constants'
 
@@ -33,6 +35,7 @@ export function requestInstitutions() {
 }
 
 export function receiveInstitutions(data) {
+  console.log('institutions',data)
   return {
     type: types.RECEIVE_INSTITUTIONS,
     institutions: data.institutions
@@ -290,9 +293,11 @@ export function fetchSummary() {
  * Wire upload together with xhr so progress can be tracked
  */
 export function requestUpload(file) {
+  console.log('actions - requestUpload')
+  console.log(file)
   return dispatch => {
     var data = new FormData()
-    data.append("file", file)
+    data.append('file', file)
 
     var xhr = new XMLHttpRequest()
 
@@ -319,10 +324,9 @@ export function requestUpload(file) {
     })
 
     xhr.open('POST', getUploadUrl(latestSubmissionId));
+    xhr.setRequestHeader('Cache-Control', 'no-cache');
+    xhr.setRequestHeader('Authorization', 'Bearer ' + getAccessToken());
     xhr.setRequestHeader('Accept', 'application/json');
-    xhr.setRequestHeader('CFPB-HMDA-Institutions', '0');
-    xhr.setRequestHeader('CFPB-HMDA-Username', 'fakeuser');
-    xhr.setRequestHeader("cache-control", "no-cache");
     xhr.send(data);
 
     dispatch(uploadStart())

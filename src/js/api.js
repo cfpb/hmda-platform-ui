@@ -1,26 +1,36 @@
 import fetch from 'isomorphic-fetch'
 
+let accessToken
+
 function sendFetch(suffix, options = {method: 'GET'}){
-  var url = makeUrl(parseLocation(), suffix);
-
+  var location = options.noParse ? {} : parseLocation();
+  var url = makeUrl(location, suffix);
   if(typeof options.body === 'object') options.body = JSON.stringify(options.body)
+  var headers = {}
 
+  if(accessToken) headers.Authorization = 'Bearer ' + accessToken
   var fetchOptions = {
-    method: options.method,
+    method: options.method || 'GET',
     body: options.body,
-    headers: {
-      'CFPB-HMDA-Institutions': '0,1,2,3',
-      'CFPB-HMDA-Username': 'fakeuser',
-      'Content-Type': 'application/json'
-    }
+    headers: headers
   }
 
+  console.log('fetching from', url, 'with options', fetchOptions)
   return fetch(url, fetchOptions)
-    .then(response => response.json())
+    .then(response => {console.log('respose from fetch', response);return response.json()})
+}
+
+export function setAccessToken(token) {
+  accessToken = token
+}
+
+export function getAccessToken() {
+  return accessToken || ''
 }
 
 export function makeUrl(obj, suffix){
-  var url = location.protocol + '//' + location.host + '/api'
+  var url = process.env.HMDA_API
+  if(!url) throw new Error('No url provided for API, unable to fetch data. This is most likely a build issue.')
   if(obj.id) url+= '/institutions/' + obj.id;
   if(obj.filing) url+= '/filings/' + obj.filing;
   if(obj.submission) url+= '/submissions/' + obj.submission;
@@ -34,11 +44,11 @@ export function parseLocation(){
  }
 
 export function getInstitutions(){
-  return sendFetch('/institutions');
+  return sendFetch('/institutions', {noParse:1});
 }
 
 export function getInstitution(id){
-  return sendFetch(`/institutions/${id}`);
+  return sendFetch(`/institutions/${id}`, {noParse:1});
 }
 
 export function getUploadUrl(id){

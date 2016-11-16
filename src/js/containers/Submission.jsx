@@ -59,7 +59,7 @@ class SubmissionContainer extends Component {
 
     return (
     <div className="SubmissionContainer">
-      <UserHeading period={this.props.params.filing} userName="Jane Smith" institution={this.props.params.institution} />
+      <UserHeading period={this.props.params.filing} userName={this.props.user.profile.name} institution={this.props.params.institution} />
       <div className="usa-grid-full">
         <div className="usa-width-one-whole">
           {uploadForm}
@@ -92,10 +92,13 @@ function mapStateToProps(state) {
     }
   }
 
+  const user = state.oidc.user
+
   return {
     isFetching,
     status,
-    id
+    id,
+    user
   }
 }
 
