@@ -32,6 +32,12 @@ const renderTS = (ts) => {
 }
 
 const renderBody = (props) => {
+  // if there is no props.lars (macro)
+  if (!props.lars) {
+    return props.data.map((macro, i) => {
+      return <EditsTableRow row={macro} key={i}/>
+    })
+  }
   return props.lars.map((row, i) => {
     if(row.lar) row = row.lar
     return <EditsTableRow row={row} key={i}/>
