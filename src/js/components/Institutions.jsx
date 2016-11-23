@@ -3,25 +3,24 @@ import { Link } from 'react-router'
 import UserHeading from '../components/UserHeading.jsx'
 import moment from 'moment'
 
-const renderLabel = (status) => {
-  let bgColor = 'bg-color-red'
-  if(status.code === 2) {
-    color = ''
+const renderTiming = (status, start, end) => {
+  // default to code 1, not-started
+  let messageClass = 'text-secondary'
+  let timing = null
+
+  switch(status.code) {
+    // in-progress
+    case 2:
+      messageClass = 'text-primary'
+      timing = moment(start).fromNow()
+    // completed
+    case 3:
+      messageClass = 'text-green'
+      timing = moment(end).format('MMMM Do')
+    // code 4 is cancelled, do nothing ... defaults are fine
   }
-  if(status.code === 3) {
-    bgColor = 'bg-color-green'
-  }
-  return <span className={`usa-label ${bgColor}`}>{status.message}</span>
-}
 
-const renderTiming = (start, end) => {
-  let timing = <p className="text-gray usa-text-small text-uppercase"><strong className="text-primary">Started</strong> {moment(start).fromNow()}</p>
-
-  if(start === 0) timing = <p className="text-gray usa-text-small text-uppercase"><strong className="text-secondary">Not started</strong></p>
-
-  if(end !== 0) timing = <p className="text-gray usa-text-small text-uppercase"><strong className="text-green">Completed</strong> {moment(end).format('MMMM Do')}</p>
-
-  return timing
+  return <p className="text-gray usa-text-small text-uppercase"><strong className={messageClass}>{status.message}</strong> {timing}</p>
 }
 
 const renderStatus = (code, institutionName, institutionId, period) => {
@@ -29,9 +28,9 @@ const renderStatus = (code, institutionName, institutionId, period) => {
 
   switch(code) {
     case 2:
-      status = <p>{institutionName}'s file is being processed. You can <Link to={`/${institutionId}/${period}`}>view the progress</Link> now.</p>
+      status = <p>{institutionName}'s filing is being processed. You can <Link to={`/${institutionId}/${period}`}>view the progress</Link> now.</p>
     case 3:
-      status = <p>{institutionName}'s file has been processed. You can <Link to={`/${institutionId}/${period}`}>review edits and sign</Link> {institutionName}'s submission now.</p>
+      status = <p>{institutionName}'s filing has been processed. You can <Link to={`/${institutionId}/${period}`}>review edits and sign</Link> {institutionName}'s submission now.</p>
     case 4:
       status = <p>{institutionName}'s filing is complete and signed. You can <Link to={`/${institutionId}/${period}`}>review</Link> {institutionName}'s signed submission now.</p>
   }
@@ -53,9 +52,8 @@ export default class Institution extends Component {
           ).map((filing, i) => {
             return (
             <div key={i}>
-              {renderTiming(filing.start, filing.end)}
+              {renderTiming(filing.status, filing.start, filing.end)}
               <h2>{institution.name}</h2>
-              {/*{renderLabel(filing.status)}*/}
               {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
             </div>
             )
