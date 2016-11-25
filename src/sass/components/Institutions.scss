@@ -1,0 +1,14 @@
+.institution {
+  border-top: 1px solid $color-gray-lightest;
+  margin-bottom: 2em;
+  padding-top: 2em;
+  h2,
+  .usa-text-small,
+  .status {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  .status {
+    margin-top: .5em;
+  }
+}

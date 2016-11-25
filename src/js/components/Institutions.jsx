@@ -5,62 +5,121 @@ import moment from 'moment'
 
 const renderTiming = (status, start, end) => {
   // default to code 1, not-started
-  let messageClass = 'text-secondary'
-  let timing = null
+  let messageClass
+  let timing
 
   switch(status.code) {
+    // not-started
+    case 1:
+      messageClass = 'text-secondary'
+      timing = null
     // in-progress
     case 2:
       messageClass = 'text-primary'
       timing = moment(start).fromNow()
+      break
     // completed
     case 3:
       messageClass = 'text-green'
       timing = moment(end).format('MMMM Do')
+      break
     // code 4 is cancelled, do nothing ... defaults are fine
+    default:
+      messageClass = 'text-secondary'
+      timing = null
   }
 
-  return <p className="text-gray usa-text-small text-uppercase"><strong className={messageClass}>{status.message}</strong> {timing}</p>
+  return <p className="text-gray usa-text-small"><strong className={`${messageClass} text-uppercase`}>{status.message}</strong> {timing}</p>
 }
 
 const renderStatus = (code, institutionName, institutionId, period) => {
-  let status = <p>{institutionName} hasn't started a filing yet. You can <Link to={`/${institutionId}/${period}`}>begin filing</Link> now.</p>
+  let status
 
   switch(code) {
+    // not started
+    case 1:
+      status = <p className="status">{institutionName} hasn't started a filing yet. You can <Link to={`/${institutionId}/${period}`}>begin filing</Link> now.</p>
+      break
+    // in progress
     case 2:
-      status = <p>{institutionName}'s filing is being processed. You can <Link to={`/${institutionId}/${period}`}>view the progress</Link> now.</p>
+      status = <p className="status">{institutionName}'s filing is being processed. You can <Link to={`/${institutionId}/${period}`}>view the progress</Link>.</p>
+      break
+    // completed
     case 3:
-      status = <p>{institutionName}'s filing has been processed. You can <Link to={`/${institutionId}/${period}`}>review edits and sign</Link> {institutionName}'s submission now.</p>
+      status = <p className="status">{institutionName}'s filing is complete and signed. You can <Link to={`/${institutionId}/${period}`}>review</Link> {institutionName}'s signed submission.</p>
+      break
+      // cancelled
     case 4:
-      status = <p>{institutionName}'s filing is complete and signed. You can <Link to={`/${institutionId}/${period}`}>review</Link> {institutionName}'s signed submission now.</p>
+      status = <p className="status">{institutionName}'s latest filing has been cancelled. You can <Link to={`/${institutionId}/${period}`}>review</Link> {institutionName}'s cancelled submission or <Link to={`/${institutionId}/${period}`}>submit a new file</Link>.</p>
+      break
+    default:
+      status = <p className="status">{institutionName} hasn't started a filing yet. You can <Link to={`/${institutionId}/${period}`}>begin filing</Link> now.</p>
   }
 
   return status
+}
+
+const renderButton = (code, institutionId, period) => {
+  let buttonText
+
+  switch(code) {
+    // not-started
+    case 1:
+      buttonText = 'File now'
+      break
+    // in progress
+    case 2:
+      buttonText = 'View filing'
+      break
+    // completed
+    case 3:
+      buttonText = 'View filing'
+      break
+    // cancelled
+    case 4:
+      buttonText = 'File now'
+      break
+  }
+
+  return <Link className="usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
 }
 
 export default class Institution extends Component {
   render() {
     var self = this
     return (
-    <div className="Institutions">
+    <div className="Institutions usa-grid-full">
       <UserHeading period="2017" userName={this.props.user.profile.name} />
-      {this.props.institutions.map((institution, i) => {
-        return (
-        <div key={i} className="institution">
-          {self.props.filings.filter(
-            filing => filing.institutionId === institution.id
-          ).map((filing, i) => {
-            return (
-            <div key={i}>
-              {renderTiming(filing.status, filing.start, filing.end)}
-              <h2>{institution.name}</h2>
-              {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
-            </div>
-            )
-          })}
-        </div>
-        )
-      })}
+      <div className="usa-width-two-thirds">
+        {this.props.institutions.map((institution, i) => {
+          return (
+          <div key={i} className="institution">
+            {self.props.filings.filter(
+              filing => filing.institutionId === institution.id
+            ).map((filing, i) => {
+              return (
+              <div className="usa-grid-full" key={i}>
+                <div className="usa-width-two-thirds">
+                  <h2>{institution.name}</h2>
+                  {renderTiming(filing.status, filing.start, filing.end)}
+                  {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
+                </div>
+                <div className="usa-width-one-third padding-left-2">
+                  {renderButton(filing.status.code, filing.institutionId, filing.period)}
+                  <Link className="usa-button usa-button-secondary usa-text-small" to={`/${filing.institutionId}/${filing.period}`}>Refile</Link>
+                </div>
+              </div>
+              )
+            })}
+          </div>
+          )
+        })}
+      </div>
+      <div className="usa-width-one-third padding-left-1 padding-right-1 bg-color-gray-lightest">
+        <p>We can use this area as some help text and talk about the process or whatever else we need to mention.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec auctor nisl. Nam ut justo nec ligula aliquam pretium et at orci. Nulla pulvinar feugiat tellus, in sagittis sem sollicitudin at. Nunc nec libero at elit consectetur elementum eu at nisl.</p>
+        <p>Curabitur molestie felis massa, vel semper nulla maximus nec. Quisque feugiat nulla nec urna tristique varius. Ut vulputate felis mi, non elementum lacus tempor ut. Etiam tempus porta arcu non venenatis. Vivamus nec tellus eleifend, pulvinar sapien sed, posuere leo.</p>
+      </div>
     </div>
     )
   }
