@@ -38,25 +38,25 @@ const renderStatus = (code, institutionName, institutionId, period) => {
   switch(code) {
     // not started
     case 1:
-      status = <p className="status">{institutionName} hasn't started a filing yet. You can <Link to={`/${institutionId}/${period}`}>begin filing</Link> now.</p>
+      status = `${institutionName} hasn't started a filing yet. You can begin filing now.`
       break
     // in progress
     case 2:
-      status = <p className="status">{institutionName}'s filing is being processed. You can <Link to={`/${institutionId}/${period}`}>view the progress</Link>.</p>
+      status = `${institutionName}'s filing is being processed. You can view the progress.`
       break
     // completed
     case 3:
-      status = <p className="status">{institutionName}'s filing is complete and signed. You can <Link to={`/${institutionId}/${period}`}>review</Link> {institutionName}'s signed submission.</p>
+      status = `${institutionName}'s filing is complete and signed. You can review ${institutionName}'s signed submission.`
       break
       // cancelled
     case 4:
-      status = <p className="status">{institutionName}'s latest filing has been cancelled. You can <Link to={`/${institutionId}/${period}`}>review</Link> {institutionName}'s cancelled submission or <Link to={`/${institutionId}/${period}`}>submit a new file</Link>.</p>
+      status = `${institutionName}'s latest filing has been cancelled. You can review ${institutionName}'s cancelled submission or submit a new file.`
       break
     default:
-      status = <p className="status">{institutionName} hasn't started a filing yet. You can <Link to={`/${institutionId}/${period}`}>begin filing</Link> now.</p>
+      status = `${institutionName} hasn't started a filing yet. You can begin filing now.`
   }
 
-  return status
+  return <p className="status">{status}</p>
 }
 
 const renderButton = (code, institutionId, period) => {
