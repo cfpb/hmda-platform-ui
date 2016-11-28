@@ -1,10 +1,13 @@
 import { createUserManager } from 'redux-oidc'
 
+const keycloak = process.env.KEYCLOAK_URL
+const app = process.env.APP_URL
+
 const userManager = createUserManager({
-  authority: 'https://192.168.99.100:8443/auth/realms/hmda',
+  authority: keycloak,
   client_id: 'hmda-api',
-  redirect_uri: 'http://192.168.99.100/oidc-callback',
-  silent_redirect_uri: 'http://192.168.99.100/silent_renew.html',
+  redirect_uri: app + '/oidc-callback',
+  silent_redirect_uri: app + '/silent_renew.html',
   automaticSilentRenew: true,
   scope: 'openid profile',
   response_type: 'id_token token',
