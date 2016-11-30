@@ -100,7 +100,7 @@ export default class Institution extends Component {
             ).map((filing, i) => {
               return (
               <div className="usa-grid-full" key={i}>
-                <h2>{institution.name} - <span className="text-gray">{institution.id}</span></h2>
+                <h2>{institution.name} - {institution.id}</h2>
                 {renderTiming(filing.status, filing.start, filing.end)}
                 {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
                 {renderButton(filing.status.code, filing.institutionId, filing.period)}
