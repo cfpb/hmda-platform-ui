@@ -13,6 +13,7 @@ const renderTiming = (status, start, end) => {
     case 1:
       messageClass = 'text-secondary'
       timing = null
+      break
     // in-progress
     case 2:
       messageClass = 'text-primary'
