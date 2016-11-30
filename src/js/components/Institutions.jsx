@@ -39,22 +39,22 @@ const renderStatus = (code, institutionName, institutionId, period) => {
   switch(code) {
     // not started
     case 1:
-      status = `${institutionName} hasn't started a filing yet. You can begin filing now.`
+      status = 'No filing started. You can begin filing now.'
       break
     // in progress
     case 2:
-      status = `${institutionName}'s filing is being processed. You can view the progress.`
+      status = 'The filing is being processed. You can view the progress.'
       break
     // completed
     case 3:
-      status = `${institutionName}'s filing is complete and signed. You can review ${institutionName}'s signed submission.`
+      status = 'The filing is complete and signed. You can review the signed submission.'
       break
       // cancelled
     case 4:
-      status = `${institutionName}'s latest filing has been cancelled. You can review ${institutionName}'s cancelled submission or submit a new file.`
+      status = 'The latest filing has been cancelled. You can review the cancelled submission or submit a new file.'
       break
     default:
-      status = `${institutionName} hasn't started a filing yet. You can begin filing now.`
+      status = 'No filing started. You can begin filing now.'
   }
 
   return <p className="status">{status}</p>
@@ -100,15 +100,11 @@ export default class Institution extends Component {
             ).map((filing, i) => {
               return (
               <div className="usa-grid-full" key={i}>
-                <div className="usa-width-two-thirds">
-                  <h2>{institution.name}</h2>
-                  {renderTiming(filing.status, filing.start, filing.end)}
-                  {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
-                </div>
-                <div className="usa-width-one-third padding-left-2">
-                  {renderButton(filing.status.code, filing.institutionId, filing.period)}
-                  <Link className="usa-button usa-button-secondary usa-text-small" to={`/${filing.institutionId}/${filing.period}`}>Refile</Link>
-                </div>
+                <h2>{institution.name} - <span className="text-gray">{institution.id}</span></h2>
+                {renderTiming(filing.status, filing.start, filing.end)}
+                {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
+                {renderButton(filing.status.code, filing.institutionId, filing.period)}
+                <Link className="usa-button usa-button-secondary usa-text-small" to={`/${filing.institutionId}/${filing.period}`}>Refile</Link>
               </div>
               )
             })}
