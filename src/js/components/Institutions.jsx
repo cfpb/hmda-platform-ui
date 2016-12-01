@@ -85,6 +85,11 @@ const renderButton = (code, institutionId, period) => {
   return <Link className="usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
 }
 
+const renderRefile = (code, institutionId, period) => {
+  if(code === 1) return null
+  return <Link className="usa-button usa-button-secondary usa-text-small" to={`/${institutionId}/${period}`}>Refile</Link>
+}
+
 export default class Institution extends Component {
   render() {
     var self = this
@@ -104,7 +109,7 @@ export default class Institution extends Component {
                 {renderTiming(filing.status, filing.start, filing.end)}
                 {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
                 {renderButton(filing.status.code, filing.institutionId, filing.period)}
-                <Link className="usa-button usa-button-secondary usa-text-small" to={`/${filing.institutionId}/${filing.period}`}>Refile</Link>
+                {renderRefile(filing.status.code, filing.institutionId, filing.period)}
               </div>
               )
             })}
