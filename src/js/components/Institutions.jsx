@@ -101,10 +101,10 @@ export default class Institution extends Component {
           return (
           <div key={i} className="institution">
             {self.props.filings.filter(
-              filing => filing.institutionId === institution.id
+              filing => filing.institutionId === institution.id && filing.period === '2017'
             ).map((filing, i) => {
               return (
-              <div className="usa-grid-full" key={i}>
+              <div className="usa-grid-full bg-color-hmda-gray padding-2" key={i}>
                 <h2>{institution.name} - {institution.id}</h2>
                 {renderTiming(filing.status, filing.start, filing.end)}
                 {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
@@ -117,7 +117,7 @@ export default class Institution extends Component {
           )
         })}
       </div>
-      <div className="usa-width-one-third padding-left-1 padding-right-1 bg-color-gray-lightest">
+      <div className="usa-width-one-third padding-left-1 padding-right-1">
         <p>We can use this area as some help text and talk about the process or whatever else we need to mention.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec auctor nisl. Nam ut justo nec ligula aliquam pretium et at orci. Nulla pulvinar feugiat tellus, in sagittis sem sollicitudin at. Nunc nec libero at elit consectetur elementum eu at nisl.</p>
         <p>Curabitur molestie felis massa, vel semper nulla maximus nec. Quisque feugiat nulla nec urna tristique varius. Ut vulputate felis mi, non elementum lacus tempor ut. Etiam tempus porta arcu non venenatis. Vivamus nec tellus eleifend, pulvinar sapien sed, posuere leo.</p>
