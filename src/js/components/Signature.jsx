@@ -1,21 +1,22 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 
-const showReceipt = (props) => {
-  if(props.status.code !== 12) return null;
+const showReceipt = (code, timestamp, receipt) => {
+  if(code !== 12) return null;
 
   return (
-    <div className="usa-alert usa-alert-success margin-top-0">
+    <div className="usa-alert usa-alert-success margin-top-1">
       <div className="usa-alert-body">
         <h3 className="usa-alert-heading">Submission signed.</h3>
-        <p className="usa-alert-text">You have signed your submission on {props.timestamp}. Your receipt # is {props.receipt}.</p>
+        <p className="usa-alert-text">You have signed your submission on <strong>{moment().calendar(timestamp)}</strong>. Your receipt # is <strong>{receipt}</strong>.</p>
       </div>
     </div>
   )
 }
 
-const showWarning = (props) => {
-  if(props.status.code > 10) return null
+const showWarning = (code) => {
+  if(code > 10) return null
 
   return (
     <div className="usa-alert usa-alert-warning margin-top-0">
@@ -39,7 +40,7 @@ const Signature = (props) => {
       </div>
 
       <div className="border margin-bottom-5 padding-1">
-        {showWarning(props)}
+        {showWarning(props.status.code)}
 
         <ul className="usa-unstyled-list">
           <li>
@@ -53,7 +54,7 @@ const Signature = (props) => {
             <label htmlFor="signature" className="max-width-100">I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</label>
           </li>
         </ul>
-        {showReceipt(props)}
+        {showReceipt(props.status.code, props.timestamp, props.receipt)}
       </div>
     </div>
   )
