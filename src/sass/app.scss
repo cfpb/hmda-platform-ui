@@ -3,7 +3,7 @@
 @import "node_modules/react-select/dist/react-select";
 
 @import "components/DivisionHeader.scss";
-@import "components/InstitutionStatus.scss";
+@import "components/Institutions.scss";
 @import "components/IRSReport.scss";
 @import "components/RefileWarning.scss";
 @import "components/Progress.scss";
@@ -33,4 +33,70 @@ dt {
 dd {
   margin-bottom: .5em;
   margin-left: 0;
+}
+
+// some basic color classes
+// can be broken out into another file
+
+// text color
+.text-gray {
+  color: $color-gray;
+}
+.text-gray-light {
+  color: $color-gray-light;
+}
+.text-secondary {
+  color: $color-secondary;
+}
+.text-green {
+  color: $color-green;
+}
+.text-primary {
+  color: $color-primary;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+// bg-color
+.bg-color-green {
+  background-color: $color-green;
+}
+.bg-color-red {
+  background-color: $color-secondary-dark;
+}
+.bg-color-gray-lightest {
+  background-color: $color-gray-lightest;
+}
+
+// display
+.inline {
+  display: inline;
+}
+
+// margins
+.margin-left-1 {
+  margin-left: 1em;
+}
+.margin-bottom-0 {
+  margin-bottom: 0;
+}
+.margin-top-0 {
+  margin-top: 0;
+}
+
+// padding
+.padding-left-1 {
+  padding-left: 1em;
+}
+.padding-right-1 {
+  padding-right: 1em;
+}
+.padding-left-2 {
+  padding-left: 2em;
+}
+
+.border-left {
+  border-left: 1px solid $color-gray-lightest;
 }
