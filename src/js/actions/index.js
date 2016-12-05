@@ -164,6 +164,7 @@ export function requestIRS() {
 }
 
 export function receiveIRS(data) {
+  console.log()
   return {
     type: types.RECEIVE_IRS,
     msas: data.msas,
@@ -190,7 +191,15 @@ export function fetchIRS() {
   return dispatch => {
     dispatch(requestIRS())
     return getIRS(latestSubmissionId)
-      .then(json => dispatch(receiveIRS(json)))
+      .then(json => {
+        dispatch(receiveIRS(json))
+        dispatch(updateStatus(
+          {
+            code: json.status.code,
+            message: json.status.message
+          }
+        ))
+      })
       .catch(err => console.error(err))
   }
 }
@@ -199,13 +208,15 @@ export function updateIRS(verified) {
   return dispatch => {
     dispatch(requestIRSPost())
     return postIRS(latestSubmissionId, verified)
-      .then(json => dispatch(receiveIRSPost(json)))
-      .then(() => dispatch(updateStatus(
-        {
-          code: verified.verified ? 11 : 10,
-          message: ''
-        }
-      )))
+      .then(json => {
+        dispatch(receiveIRSPost(json))
+        dispatch(updateStatus(
+          {
+            code: json.status.code,
+            message: json.status.message
+          }
+        ))
+      })
       .catch(err => console.error(err))
   }
 }
@@ -246,7 +257,15 @@ export function fetchSignature() {
   return dispatch => {
     dispatch(requestSignature())
     return getSignature(latestSubmissionId)
-      .then(json => dispatch(receiveSignature(json)))
+      .then(json => {
+        dispatch(receiveSignature(json))
+        dispatch(updateStatus(
+          {
+            code: json.status.code,
+            message: json.status.message
+          }
+        ))
+      })
       .catch(err => console.error(err))
   }
 }
@@ -255,13 +274,15 @@ export function updateSignature(signed) {
   return dispatch => {
     dispatch(requestSignaturePost())
     return postSignature(latestSubmissionId, signed)
-      .then(json => dispatch(receiveSignaturePost(json)))
-      .then(() => dispatch(updateStatus(
-        {
-          code: signed.signed ? 13 : 12,
-          message: ''
-        }
-      )))
+      .then(json => {
+        dispatch(receiveSignaturePost(json))
+        dispatch(updateStatus(
+          {
+            code: json.status.code,
+            message: json.status.message
+          }
+        ))
+      })
       .catch(err => console.error(err))
   }
 }
