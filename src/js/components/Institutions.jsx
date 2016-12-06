@@ -135,6 +135,7 @@ Institution.defaultProps = {
 Institution.propTypes = {
   params: PropTypes.object,
   filings: PropTypes.array,
+  user: PropTypes.object,
   institutions: PropTypes.array,
   dispatch: PropTypes.func.isRequired
 }

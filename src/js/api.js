@@ -3,8 +3,8 @@ import fetch from 'isomorphic-fetch'
 let accessToken
 
 function sendFetch(suffix, options = {method: 'GET'}){
-  var location = options.noParse ? {} : parseLocation();
-  var url = makeUrl(location, suffix);
+  var locationObj = options.noParse ? {} : parseLocation(location);
+  var url = makeUrl(locationObj, suffix);
   if(typeof options.body === 'object') options.body = JSON.stringify(options.body)
   var headers = {}
 
@@ -44,7 +44,7 @@ export function makeUrl(obj, suffix){
   return url;
 }
 
-export function parseLocation(){
+export function parseLocation(location){
   var pathParts = location.pathname.split('/');
   return {id: pathParts[1], filing: pathParts[2]}
  }
@@ -59,7 +59,7 @@ export function getInstitution(id){
 
 export function getUploadUrl(id){
   if(id === undefined) throw new Error('Must provide a submission id when data is uploaded.')
-  return makeUrl(parseLocation(), `/submissions/${id}`)
+  return makeUrl(parseLocation(location), `/submissions/${id}`)
 }
 
 export function getProgress(url, cb){

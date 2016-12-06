@@ -71,7 +71,7 @@
     ]
   },
   "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "transform": { ".*": "<rootDir>/node_modules/babel-jest"},
     "testPathIgnorePatterns": [
       "<rootDir>/__tests__/Wrapper.js"
     ],

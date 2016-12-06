@@ -17,7 +17,7 @@ describe('UserHeading', () => {
 
   describe('does NOT render without user', () => {
     const heading = TestUtils.renderIntoDocument(
-      <Wrapper><UserHeading period={data.period}/></Wrapper>
+      <Wrapper><UserHeading period={data.period} userName=''/></Wrapper>
     )
     const headingNode = ReactDOM.findDOMNode(heading)
 
