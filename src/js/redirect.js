@@ -11,6 +11,7 @@ const signinRedirect = () => {
 
 const restorePage = () => {
   const restored = localStorage.getItem('hmdaPageBeforeSignin')
+  localStorage.removeItem('hmdaPageBeforeSignin')
   console.log('restoring page to', restored)
   browserHistory.push(restored)
 }
