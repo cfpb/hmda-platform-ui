@@ -92,7 +92,7 @@ const renderRefile = (code, institutionId, period) => {
 
 export default class Institution extends Component {
   render() {
-    var self = this
+    const self = this
     return (
     <div className="Institutions usa-grid-full">
       <UserHeading period="2017" userName={this.props.user.profile.name} />
@@ -101,8 +101,9 @@ export default class Institution extends Component {
           return (
           <div key={i} className="institution">
             {self.props.filings.filter(
-              filing => filing.institutionId === institution.id
-            ).map((filing, i) => {
+              filingObj => filingObj.filing.institutionId === institution.id
+            ).map((filingObj, i) => {
+              const filing = filingObj.filing
               return (
               <div className="usa-grid-full" key={i}>
                 <h2>{institution.name} - {institution.id}</h2>

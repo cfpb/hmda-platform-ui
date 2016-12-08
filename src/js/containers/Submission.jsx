@@ -79,6 +79,7 @@ class SubmissionContainer extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log('submission container state', state)
   const {
     isFetching,
     status,

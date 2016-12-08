@@ -2,6 +2,7 @@ import {
   getInstitution,
   getInstitutions,
   getFiling,
+  getFilingFromUrl,
   getSubmission,
   getLatestSubmission,
   createSubmission,
@@ -20,6 +21,7 @@ import {
 import * as types from '../constants'
 
 let latestSubmissionId
+let currentFilingPeriod
 
 export function updateStatus(status) {
   return {
@@ -78,7 +80,16 @@ export function requestFiling() {
 export function receiveFiling(data) {
   return {
     type: types.RECEIVE_FILING,
-    ...data
+    filing: data
+  }
+}
+
+export function updateFilingPeriod(filingPeriod) {
+  currentFilingPeriod = filingPeriod
+
+  return {
+    type: types.UPDATE_FILING_PERIOD,
+    filingPeriod: filingPeriod
   }
 }
 
@@ -373,14 +384,14 @@ export function fetchSubmission() {
   console.log('actions - fetchSubmission')
   return dispatch => {
     dispatch(requestFiling())
-    return getFiling().then(json => {
+    return getFilingFromUrl().then(json => {
         dispatch(receiveFiling(json))
 
         const latestSubmission = json.submissions.reduce((prev, curr) => {
-            return +curr.id > +prev.id ? curr : prev
-          }, {id: '0'})
+            return +curr.id.sequenceNumber > +prev.id.sequenceNumber ? curr : prev
+          }, {id: {sequenceNumber: 0}})
 
-        if(latestSubmission.id !== '0'){
+        if(latestSubmission.id.sequenceNumber !== 0){
           return dispatch(receiveSubmission(latestSubmission))
         }else{
           return createSubmission().then(submission => {
@@ -428,7 +439,10 @@ export function fetchInstitutions() {
     dispatch(requestInstitutions())
     return getInstitutions()
       .then(json => dispatch(receiveInstitutions(json)))
-      .then(receiveAction => dispatch(fetchEachInstitution(receiveAction.institutions)))
+      .then(receiveAction => {
+        dispatch(fetchEachInstitution(receiveAction.institutions))
+        dispatch(fetchEachFiling(receiveAction.institutions))
+      })
       .catch(err => console.error(err))
   }
 }
@@ -438,10 +452,23 @@ export function fetchInstitutions() {
  */
 export function fetchEachInstitution(institutions) {
   return dispatch => {
-    dispatch(clearFilings())
     return Promise.all(
       institutions.map( institution => {
         dispatch(fetchInstitution(institution))
+      })
+    )
+  }
+}
+
+/*
+ * Given a list of institutions, dispatch fetch instructions for the filings of each institution
+ */
+export function fetchEachFiling(institutions) {
+  return dispatch => {
+    dispatch(clearFilings())
+    return Promise.all(
+      institutions.map( institution => {
+        dispatch(fetchFiling(institution))
       })
     )
   }
@@ -455,6 +482,19 @@ export function fetchInstitution(institution) {
     dispatch(requestInstitution())
     return getInstitution(institution.id)
       .then(json => dispatch(receiveInstitution(json)))
+      .catch(err => console.error(err))
+  }
+}
+
+/*
+ * Fetch the filing for the current filing period given an institution
+ * and dispatch an action with the results
+ */
+export function fetchFiling(institution) {
+  return dispatch => {
+    dispatch(requestFiling())
+    return getFiling(institution.id, currentFilingPeriod)
+      .then(json => dispatch(receiveFiling(json)))
       .catch(err => console.error(err))
   }
 }
