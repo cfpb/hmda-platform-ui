@@ -175,7 +175,6 @@ export function requestIRS() {
 }
 
 export function receiveIRS(data) {
-  console.log()
   return {
     type: types.RECEIVE_IRS,
     msas: data.msas,
