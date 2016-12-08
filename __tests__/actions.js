@@ -1,5 +1,6 @@
-jest.unmock('../src/js/actions');
-jest.unmock('../src/js/constants');
+jest.unmock('../src/js/actions')
+jest.unmock('../src/js/constants')
+jest.mock('../src/js/api')
 
 import fs from 'fs'
 import * as actions from '../src/js/actions'
