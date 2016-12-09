@@ -48,12 +48,15 @@ const Signature = (props) => {
               name="signature"
               type="checkbox"
               value="signature"
-              onChange={e => props.onSignatureClick(e.target.checked)}
               checked={isChecked}
               disabled={isDisabled} />
             <label htmlFor="signature" className="max-width-100">I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</label>
           </li>
         </ul>
+
+        <button onClick={props.onSignatureClick(document.getElementById('signature').checked)}>
+          Sign the submission
+        </button>
         {showReceipt(props.status.code, props.timestamp, props.receipt)}
       </div>
     </div>
