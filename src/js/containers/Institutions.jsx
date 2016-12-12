@@ -14,6 +14,7 @@ class InstitutionContainer extends Component {
   }
 
   render() {
+    if(!this.props.user) return null
     return <Institutions {...this.props} />
   }
 }
@@ -33,7 +34,7 @@ function mapStateToProps(state) {
     filings: []
   }
 
-  const user = state.oidc.user
+  const user = state.oidc && state.oidc.user || null
 
   return {
     isFetching,
@@ -41,6 +42,10 @@ function mapStateToProps(state) {
     filings,
     user
   }
+}
+
+InstitutionContainer.defaultProps = {
+  user: null
 }
 
 export default connect(mapStateToProps)(InstitutionContainer)

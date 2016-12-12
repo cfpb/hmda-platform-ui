@@ -85,6 +85,7 @@ export function receiveFiling(data) {
 }
 
 export function updateFilingPeriod(filingPeriod) {
+  filingPeriod = filingPeriod + ''
   currentFilingPeriod = filingPeriod
 
   return {
@@ -440,7 +441,6 @@ export function fetchInstitutions() {
       .then(json => dispatch(receiveInstitutions(json)))
       .then(receiveAction => {
         dispatch(fetchEachInstitution(receiveAction.institutions))
-        dispatch(fetchEachFiling(receiveAction.institutions))
       })
       .catch(err => console.error(err))
   }
@@ -451,6 +451,7 @@ export function fetchInstitutions() {
  */
 export function fetchEachInstitution(institutions) {
   return dispatch => {
+    dispatch(clearFilings())
     return Promise.all(
       institutions.map( institution => {
         dispatch(fetchInstitution(institution))
@@ -480,7 +481,17 @@ export function fetchInstitution(institution) {
   return dispatch => {
     dispatch(requestInstitution())
     return getInstitution(institution.id)
-      .then(json => dispatch(receiveInstitution(json)))
+      .then(json => {
+        dispatch(receiveInstitution(json))
+          console.log('filings for dispatch', json,json.filings)
+        if(json && json.filings){
+          json.filings.forEach((filing) => {
+            if(filing.period === currentFilingPeriod){
+              dispatch(fetchFiling(institution))
+            }
+          })
+        }
+      })
       .catch(err => console.error(err))
   }
 }

@@ -51,21 +51,12 @@ global.XMLHttpRequest = jest.fn().mockImpl(() => {
 
 const mockStore = configureMockStore([thunk])
 
-const getEachInstitutionRequests = [
-  {type: types.REQUEST_INSTITUTION},
-  {type: types.REQUEST_INSTITUTION},
-  {type: types.REQUEST_INSTITUTION},
-  {type: types.REQUEST_INSTITUTION}
-]
-const getEachFilingRequests = [
+const getEachInstitution = [
   {type: types.CLEAR_FILINGS},
-  {type: types.REQUEST_FILING},
-  {type: types.REQUEST_FILING},
-  {type: types.REQUEST_FILING},
-  {type: types.REQUEST_FILING},
-]
-
-const getEachInstitutionReceives = [
+  {type: types.REQUEST_INSTITUTION},
+  {type: types.REQUEST_INSTITUTION},
+  {type: types.REQUEST_INSTITUTION},
+  {type: types.REQUEST_INSTITUTION},
   {
     type: types.RECEIVE_INSTITUTION,
     institution: institutionsDetailObj['0']
@@ -81,25 +72,6 @@ const getEachInstitutionReceives = [
   {
     type: types.RECEIVE_INSTITUTION,
     institution: institutionsDetailObj['3']
-  }
-]
-
-const getEachFilingReceives = [
-  {
-    type: types.RECEIVE_FILING,
-    filing: {filing: {}}
-  },
-  {
-    type: types.RECEIVE_FILING,
-    filing: {filing: {}}
-  },
-  {
-    type: types.RECEIVE_FILING,
-    filing: {filing: {}}
-  },
-  {
-    type: types.RECEIVE_FILING,
-    filing: {filing: {}}
   }
 ]
 
@@ -336,7 +308,7 @@ describe('actions', () => {
 
     store.dispatch(actions.fetchEachInstitution(institutionsObj.institutions))
       .then(() => {
-        expect(store.getActions()).toEqual([...getEachInstitutionRequests, ...getEachInstitutionReceives])
+        expect(store.getActions()).toEqual([...getEachInstitution])
         done()
       })
       .catch(err => {
@@ -356,10 +328,7 @@ describe('actions', () => {
             type: types.RECEIVE_INSTITUTIONS,
             institutions: institutionsObj.institutions
           },
-          ...getEachInstitutionRequests,
-          ...getEachFilingRequests,
-          ...getEachInstitutionReceives,
-          ...getEachFilingReceives
+          ...getEachInstitution
         ])
         done()
       })
