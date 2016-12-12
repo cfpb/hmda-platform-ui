@@ -52,7 +52,10 @@ render(
           <IndexRoute component={HomeContainer}/>
           <Route path="/oidc-callback" component={oidcCallback}/>
           <Route path="/institutions" component={InstitutionContainer}/>
-          <Route path="/:institution/:filing" component={SubmissionContainer}/>
+          <Route path="/:institution/:filing/upload" component={SubmissionContainer}/>
+          <Route path="/:institution/:filing/syntax-validity" component={SubmissionContainer}/>
+          <Route path="/:institution/:filing/quality-macro" component={SubmissionContainer}/>
+          <Route path="/:institution/:filing/summary" component={SubmissionContainer}/>
         </Route>
       </Router>
     </OidcProvider>
