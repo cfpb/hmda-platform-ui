@@ -253,6 +253,13 @@ export function receiveSignaturePost(data) {
   }
 }
 
+/* this is only to track if the signature checkbox is checked or not */
+export function checkSignature(checked) {
+  return {
+    checked: checked
+  }
+}
+
 export function fetchSignature() {
   return dispatch => {
     dispatch(requestSignature())
