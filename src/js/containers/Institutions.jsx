@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { updateFilingPeriod, fetchInstitutions } from '../actions'
+import { browserHistory } from 'react-router'
+import { updateFilingPeriod, fetchInstitutions, fetchNewSubmission } from '../actions'
 import Institutions from '../components/Institutions.jsx'
 
 class InstitutionContainer extends Component {
@@ -44,8 +45,18 @@ function mapStateToProps(state) {
   }
 }
 
+function mapDispatchToProps(dispatch){
+  const createNewSubmission = (id, period) => {
+    return dispatch(fetchNewSubmission(id, period)).then(()=>{
+      browserHistory.push(`/${id}/${period}`)
+    })
+  }
+
+  return { createNewSubmission, dispatch }
+}
+
 InstitutionContainer.defaultProps = {
   user: null
 }
 
-export default connect(mapStateToProps)(InstitutionContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(InstitutionContainer)

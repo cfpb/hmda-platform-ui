@@ -85,9 +85,10 @@ const renderButton = (code, institutionId, period) => {
   return <Link className="usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
 }
 
-const renderRefile = (code, institutionId, period) => {
+const renderRefile = (createNewSubmission, code, institutionId, period) => {
   if(code === 1) return null
-  return <Link className="usa-button usa-button-secondary usa-text-small" to={`/${institutionId}/${period}`}>Refile</Link>
+  return <a className="usa-button usa-button-secondary usa-text-small" onClick={()=>{
+    createNewSubmission(institutionId, period)}}>Refile</a>
 }
 
 const getInstitutionFromFiling = (institutions, filing) => {
@@ -101,6 +102,7 @@ export default class Institution extends Component {
   render() {
     console.log('inst filings',this.props.institutions, this.props.filings)
     const institutions = this.props.institutions
+    const createNewSubmission = this.props.createNewSubmission
     return (
     <div className="Institutions usa-grid-full">
       <UserHeading period="2017" userName={this.props.user.profile.name} />
@@ -114,7 +116,7 @@ export default class Institution extends Component {
               {renderTiming(filing.status, filing.start, filing.end)}
               {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
               {renderButton(filing.status.code, filing.institutionId, filing.period)}
-              {renderRefile(filing.status.code, filing.institutionId, filing.period)}
+              {renderRefile(createNewSubmission, filing.status.code, filing.institutionId, filing.period)}
             </div>
           )
         })}
@@ -140,5 +142,5 @@ Institution.propTypes = {
   filings: PropTypes.array,
   user: PropTypes.object,
   institutions: PropTypes.array,
-  dispatch: PropTypes.func.isRequired
+  fetchNewSubmission: PropTypes.func
 }

@@ -74,8 +74,9 @@ export function getSubmission(id){
   return sendFetch(`/submissions/${id}`)
 }
 
-export function createSubmission(){
-  return sendFetch('/submissions', {method: 'POST'})
+export function createSubmission(id, filing){
+  return sendFetch(`/institutions/${id}/filings/${filing}/submissions`,
+      {method:'POST', noParse:1})
 }
 
 export function getFiling(id, filing){

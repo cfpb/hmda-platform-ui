@@ -15,6 +15,7 @@ import oidcCallback from './containers/oidcCallback.jsx'
 import HomeContainer from './containers/Home.jsx'
 import InstitutionContainer from './containers/Institutions.jsx'
 import SubmissionContainer from './containers/Submission.jsx'
+import SubmissionRouter from './containers/SubmissionRouter.jsx'
 import LoginContainer from './containers/Login.jsx'
 import userManager from './UserManager.js'
 
@@ -52,9 +53,9 @@ render(
           <IndexRoute component={HomeContainer}/>
           <Route path="/oidc-callback" component={oidcCallback}/>
           <Route path="/institutions" component={InstitutionContainer}/>
+          <Route path="/:institution/:filing" component={SubmissionRouter}/>
           <Route path="/:institution/:filing/upload" component={SubmissionContainer}/>
-          <Route path="/:institution/:filing/syntax-validity" component={SubmissionContainer}/>
-          <Route path="/:institution/:filing/quality-macro" component={SubmissionContainer}/>
+          <Route path="/:institution/:filing/edits" component={SubmissionContainer}/>
           <Route path="/:institution/:filing/summary" component={SubmissionContainer}/>
         </Route>
       </Router>
