@@ -21,11 +21,13 @@ function mapStateToProps(state) {
   const {
     isFetching,
     timestamp,
-    receipt
+    receipt,
+    checked
   } = state.app.signature || {
     isFetching: true,
     timestamp: null,
-    receipt: null
+    receipt: null,
+    checked: false
   }
 
   const {
@@ -49,6 +51,9 @@ function mapDispatchToProps(dispatch) {
   return {
     onSignatureClick: (signed) => {
       dispatch(updateSignature({signed: signed}))
+    },
+    onSignatureCheck: (checked) => {
+      dispatch(checkSignature({checked: checked}))
     },
     dispatch
   }
