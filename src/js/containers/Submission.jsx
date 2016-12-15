@@ -23,6 +23,7 @@ class SubmissionContainer extends Component {
   }
 
   render() {
+    if(!this.props.user) return null
     console.log(this.props.params)
     let uploadForm = <UploadForm />
     let progress = null
@@ -79,6 +80,7 @@ class SubmissionContainer extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log('submission container state', state)
   const {
     isFetching,
     status,
@@ -92,7 +94,7 @@ function mapStateToProps(state) {
     }
   }
 
-  const user = state.oidc.user
+  const user = state.oidc && state.oidc.user || null
 
   return {
     isFetching,
@@ -105,6 +107,10 @@ function mapStateToProps(state) {
 SubmissionContainer.propTypes = {
   params: PropTypes.object,
   dispatch: PropTypes.func.isRequired
+}
+
+SubmissionContainer.defaultProps = {
+  user: null
 }
 
 export default connect(mapStateToProps)(SubmissionContainer)

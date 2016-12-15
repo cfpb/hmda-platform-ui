@@ -90,30 +90,32 @@ const renderRefile = (code, institutionId, period) => {
   return <Link className="usa-button usa-button-secondary usa-text-small" to={`/${institutionId}/${period}`}>Refile</Link>
 }
 
+const getInstitutionFromFiling = (institutions, filing) => {
+  for(let i=0; i<institutions.length; i++){
+    if(institutions[i].id === filing.institutionId) return institutions[i]
+  }
+  return null
+}
+
 export default class Institution extends Component {
   render() {
-    var self = this
+    console.log('inst filings',this.props.institutions, this.props.filings)
+    const institutions = this.props.institutions
     return (
     <div className="Institutions usa-grid-full">
       <UserHeading period="2017" userName={this.props.user.profile.name} />
       <div className="usa-width-two-thirds">
-        {this.props.institutions.map((institution, i) => {
+        {this.props.filings.map((filingObj, i) => {
+          const filing = filingObj.filing
+          const institution = getInstitutionFromFiling(institutions, filing)
           return (
-          <div key={i} className="institution">
-            {self.props.filings.filter(
-              filing => filing.institutionId === institution.id
-            ).map((filing, i) => {
-              return (
-              <div className="usa-grid-full" key={i}>
-                <h2>{institution.name} - {institution.id}</h2>
-                {renderTiming(filing.status, filing.start, filing.end)}
-                {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
-                {renderButton(filing.status.code, filing.institutionId, filing.period)}
-                {renderRefile(filing.status.code, filing.institutionId, filing.period)}
-              </div>
-              )
-            })}
-          </div>
+            <div key={i} className="usa-grid-full institution">
+              <h2>{institution.name} - {institution.id}</h2>
+              {renderTiming(filing.status, filing.start, filing.end)}
+              {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
+              {renderButton(filing.status.code, filing.institutionId, filing.period)}
+              {renderRefile(filing.status.code, filing.institutionId, filing.period)}
+            </div>
           )
         })}
       </div>
@@ -129,7 +131,8 @@ export default class Institution extends Component {
 
 Institution.defaultProps = {
   filings: [],
-  institutions: []
+  institutions: [],
+  user: {profile: {name:null}}
 }
 
 Institution.propTypes = {

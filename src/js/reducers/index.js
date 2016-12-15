@@ -4,6 +4,7 @@ import {
   RECEIVE_INSTITUTIONS,
   RECEIVE_INSTITUTION,
   CLEAR_FILINGS,
+  UPDATE_FILING_PERIOD,
   REQUEST_FILING,
   RECEIVE_FILING,
   RECEIVE_SUBMISSION,
@@ -89,13 +90,25 @@ export const institutions = (state = {}, action) => {
  */
 export const filings = (state = [], action) => {
   switch (action.type) {
-  case RECEIVE_INSTITUTION:
+  case RECEIVE_FILING:
     return [
       ...state,
-      ...action.institution.filings
+      action.filing
     ]
   case CLEAR_FILINGS:
     return []
+  default:
+    return state
+  }
+}
+
+/*
+ * Set the default current filing period
+ */
+export const filingPeriod = (state = '2017', action) => {
+  switch (action.type) {
+  case UPDATE_FILING_PERIOD:
+    return action.filingPeriod
   default:
     return state
   }
@@ -324,6 +337,7 @@ export default combineReducers({
   auth,
   institutions,
   filings,
+  filingPeriod,
   submission,
   upload,
   edits,

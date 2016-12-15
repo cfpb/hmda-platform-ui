@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchInstitutions } from '../actions'
+import { updateFilingPeriod, fetchInstitutions } from '../actions'
 import Institutions from '../components/Institutions.jsx'
 
 class InstitutionContainer extends Component {
@@ -9,10 +9,12 @@ class InstitutionContainer extends Component {
   }
 
   componentDidMount() {
+    this.props.dispatch(updateFilingPeriod('2017')) //env.FILING_PERIOD
     this.props.dispatch(fetchInstitutions())
   }
 
   render() {
+    if(!this.props.user) return null
     return <Institutions {...this.props} />
   }
 }
@@ -28,9 +30,11 @@ function mapStateToProps(state) {
 
   const {
     filings
-  } = state.app
+  } = state.app || {
+    filings: []
+  }
 
-  const user = state.oidc.user
+  const user = state.oidc && state.oidc.user || null
 
   return {
     isFetching,
@@ -38,6 +42,10 @@ function mapStateToProps(state) {
     filings,
     user
   }
+}
+
+InstitutionContainer.defaultProps = {
+  user: null
 }
 
 export default connect(mapStateToProps)(InstitutionContainer)
