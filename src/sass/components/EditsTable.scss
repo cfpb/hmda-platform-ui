@@ -1,7 +1,17 @@
-caption {
-  text-align: left;
+.EditsContainerEntry:first-child {
+  margin-top: 3em;
+}
+.EditsTable {
+  margin-top: 1em;
+  caption {
+    text-align: left;
 
-  h3 {
+    h3 {
+      margin-top: 0;
+    }
+  }
+  table {
     margin-top: 0;
+    margin-bottom: 0;
   }
 }

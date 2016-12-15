@@ -16,10 +16,16 @@ class AppContainer extends Component {
 
   render() {
     return (
-      <div className="AppContainer usa-grid">
-        <HomeLink/><br />
-        <img src="/img/ffiec-logo.png" width="150px"/>
-        {this.props.children}
+      <div className="AppContainer">
+        <div className="bg-color-hmda-gray padding-1">
+          <div className="usa-grid">
+            <img src="/img/ffiec-logo.png" width="150px"/><br />
+            <HomeLink/>
+          </div>
+        </div>
+        <div className="usa-grid">
+          {this.props.children}
+        </div>
       </div>
     )
   }

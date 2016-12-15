@@ -45,10 +45,13 @@ const renderBody = (props) => {
 }
 
 const EditsTable = (props) => {
+  let editCount = !props.lars ? props.data.length : props.lars.length
+  editCount = props.ts ? (editCount + 1) : (editCount)
+
   return (
-    <div className="EditsTable">
+    <div className="EditsTable bg-color-white">
       <table width="100%">
-        <caption><h3>{props.label ? props.label : null}</h3></caption>
+        <caption><h3>{props.label ? props.label : null} - {editCount}</h3></caption>
         <thead>
           {/*renderHeader(props)*/}
           <tr><th>Row ID</th></tr>

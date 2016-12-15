@@ -17,17 +17,12 @@ describe('IRS report', () => {
   const onIRSClick = jest.fn()
   const irsReport = TestUtils.renderIntoDocument(
     <Wrapper>
-      <IRSReport
-        msas={irsJSON.msas}
-        receipt={irsJSON.receipt}
-        timestamp={irsJSON.timestamp}
-        status={status}
-        onIRSClick={onIRSClick} />
+      <IRSReport msas={irsJSON.msas} receipt={irsJSON.receipt} timestamp={irsJSON.timestamp} status={status} onIRSClick={onIRSClick}/>
     </Wrapper>
   )
   const irsReportNode = ReactDOM.findDOMNode(irsReport)
 
-  it ('renders the irsReport', () => {
+  it('renders the irsReport', () => {
     expect(irsReportNode).toBeDefined()
   })
 
@@ -48,10 +43,11 @@ describe('IRS report', () => {
 
     expect(checkbox.checked).toBeFalsy()
 
-    TestUtils.Simulate.change(
-      checkbox,
-      {'target': {'checked': true}}
-    )
+    TestUtils.Simulate.change(checkbox, {
+      'target': {
+        'checked': true
+      }
+    })
 
     expect(onIRSClick).toBeCalled()
   })
@@ -62,19 +58,13 @@ describe('IRS report', () => {
   }
   const irsReportConfirmed = TestUtils.renderIntoDocument(
     <Wrapper>
-      <IRSReport
-        msas={irsJSON.msas}
-        receipt={irsJSON.receipt}
-        timestamp={irsJSON.timestamp}
-        status={statusConfirmed}
-        onIRSClick={onIRSClick}
-      />
+      <IRSReport msas={irsJSON.msas} receipt={irsJSON.receipt} timestamp={irsJSON.timestamp} status={statusConfirmed} onIRSClick={onIRSClick}/>
     </Wrapper>
   )
   const irsReportConfirmedNode = ReactDOM.findDOMNode(irsReportConfirmed)
 
   it('renders the confirmation', () => {
-    expect(TestUtils.findRenderedDOMComponentWithClass(irsReportConfirmed, 'confirmation')).toBeTruthy()
+    expect(TestUtils.findRenderedDOMComponentWithClass(irsReportConfirmed, 'usa-alert-success')).toBeTruthy()
   })
 
   it('has the checkbox checked', () => {

@@ -17,11 +17,7 @@ describe('Signature component', () => {
   const onSignatureClick = jest.fn()
   const signature = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Signature
-        receipt={signJSON.receipt}
-        timestamp={signJSON.timestamp}
-        status={status}
-        onSignatureClick={onSignatureClick} />
+      <Signature receipt={signJSON.receipt} timestamp={signJSON.timestamp} status={status} onSignatureClick={onSignatureClick}/>
     </Wrapper>
   )
   const signatureNode = ReactDOM.findDOMNode(signature)
@@ -35,18 +31,18 @@ describe('Signature component', () => {
   })
 
   it('does NOT render the receipt and hash', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(signature, 'receipt').length).toEqual(0)
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(signature, 'timestamp').length).toEqual(0)
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(signature, 'usa-alert-success').length).toEqual(0)
   })
 
   it('calls the function on change', () => {
     var checkbox = TestUtils.findRenderedDOMComponentWithTag(signature, 'input')
     expect(checkbox.checked).toBeFalsy()
 
-    TestUtils.Simulate.change(
-      checkbox,
-      {target: {checked: true}}
-    )
+    TestUtils.Simulate.change(checkbox, {
+      target: {
+        checked: true
+      }
+    })
 
     expect(onSignatureClick).toBeCalled()
   })
@@ -57,18 +53,13 @@ describe('Signature component', () => {
   }
   const signatureSigned = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Signature
-        receipt={signJSON.receipt}
-        timestamp={signJSON.timestamp}
-        status={statusSigned}
-        onSignatureClick={onSignatureClick} />
+      <Signature receipt={signJSON.receipt} timestamp={signJSON.timestamp} status={statusSigned} onSignatureClick={onSignatureClick}/>
     </Wrapper>
   )
   const signatureSignedNode = ReactDOM.findDOMNode(signatureSigned)
 
   it('renders the receipt and timestamp', () => {
-    expect(TestUtils.findRenderedDOMComponentWithClass(signatureSigned, 'receipt')).toBeTruthy()
-    expect(TestUtils.findRenderedDOMComponentWithClass(signatureSigned, 'timestamp')).toBeTruthy()
+    expect(TestUtils.findRenderedDOMComponentWithClass(signatureSigned, 'usa-alert-success')).toBeTruthy()
   })
 
   it('has the checkbox checked', () => {

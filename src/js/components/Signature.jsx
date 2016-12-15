@@ -1,24 +1,28 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 
-const showReceipt = (props) => {
-  if(props.status.code !== 12) return null;
+const showReceipt = (code, timestamp, receipt) => {
+  if(code !== 12) return null;
 
   return (
-    <div>
-      <p className="receipt">Receipt #: {props.receipt}</p>
-      <p className="timestamp">Timestamp: {props.timestamp}</p>
+    <div className="usa-alert usa-alert-success margin-top-1">
+      <div className="usa-alert-body">
+        <h3 className="usa-alert-heading">Submission signed.</h3>
+        <p className="usa-alert-text">You have signed your submission on <strong>{moment().calendar(timestamp)}</strong>. Your receipt # is <strong>{receipt}</strong>.</p>
+      </div>
     </div>
   )
 }
 
-const showWarning = (props) => {
-  if(props.status.code > 10) return null
+const showWarning = (code) => {
+  if(code > 10) return null
 
   return (
-    <div className="usa-alert usa-alert-warning">
+    <div className="usa-alert usa-alert-warning margin-top-0">
       <div className="usa-alert-body">
-        <h3 className="usa-alert-heading">You can not sign your submission until the IRS report has been verified.</h3>
+        <h3 className="usa-alert-heading">IRS report hasn't been verified.</h3>
+        <p className="usa-alert-text">You can not sign your submission until the IRS report has been verified.</p>
       </div>
     </div>
   )
@@ -30,22 +34,28 @@ const Signature = (props) => {
 
   return (
     <div className="Signature" id="signature">
-      <h2>Signature</h2>
-      {showWarning(props)}
+      <div className="padding-2 bg-color-gray-lightest">
+        <h2 className="margin-top-0">Signature</h2>
+        <p className="usa-font-lead margin-top-half margin-bottom-0">Here you can sign your submission.</p>
+      </div>
 
-      <ul className="usa-unstyled-list">
-        <li>
-          <input id="signature"
-            name="signature"
-            type="checkbox"
-            value="signature"
-            onChange={e => props.onSignatureClick(e.target.checked)}
-            checked={isChecked}
-            disabled={isDisabled} />
-          <label htmlFor="signature">I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</label>
-        </li>
-      </ul>
-      {showReceipt(props)}
+      <div className="border margin-bottom-5 padding-1">
+        {showWarning(props.status.code)}
+
+        <ul className="usa-unstyled-list">
+          <li>
+            <input id="signature"
+              name="signature"
+              type="checkbox"
+              value="signature"
+              onChange={e => props.onSignatureClick(e.target.checked)}
+              checked={isChecked}
+              disabled={isDisabled} />
+            <label htmlFor="signature" className="max-width-100">I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</label>
+          </li>
+        </ul>
+        {showReceipt(props.status.code, props.timestamp, props.receipt)}
+      </div>
     </div>
   )
 }

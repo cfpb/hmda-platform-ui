@@ -41,7 +41,7 @@ const getText = (editType) => {
 const EditsHeaderDescription = (props) => {
   const textObj = getText(props.type)
   return (
-    <div className="EditsHeaderDescription" id={textObj.id}>
+    <div className="EditsHeaderDescription padding-2 bg-color-gray-lightest" id={textObj.id}>
       <h2>{textObj.title} - {props.count}</h2>
       <p className="usa-font-lead">{textObj.desc}</p>
     </div>
