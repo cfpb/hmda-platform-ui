@@ -92,39 +92,40 @@ const renderRefile = (code, institutionId, period) => {
   return <Link className="usa-button usa-button-secondary usa-text-small" to={`/${institutionId}/${period}`}>Refile</Link>
 }
 
+const getInstitutionFromFiling = (institutions, filing) => {
+  for(let i=0; i<institutions.length; i++){
+    if(institutions[i].id === filing.institutionId) return institutions[i]
+  }
+  return null
+}
+
 export default class Institution extends Component {
   render() {
-    var self = this
+    console.log('inst filings',this.props.institutions, this.props.filings)
+    const institutions = this.props.institutions
     return (
-      <div className="Institutions usa-grid-full">
-        <UserHeading period="2017" userName={this.props.user.profile.name}/>
-        <div className="usa-width-two-thirds">
-          {this.props.institutions.map((institution, i) => {
-            return (
-              <div key={i} className="institution">
-                {self.props.filings.filter(
-                  filing => filing.institutionId === institution.id
-                ).map((filing, i) => {
-                  return (
-                    <div className="usa-grid-full bg-color-hmda-gray padding-2" key={i}>
-                      <h2>{institution.name}
-                        - {institution.id}</h2>
-                      {renderTiming(filing.status, filing.start, filing.end)}
-                      {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
-                      {renderButton(filing.status.code, filing.institutionId, filing.period)}
-                      {renderRefile(filing.status.code, filing.institutionId, filing.period)}
-                    </div>
-                  )
-                })}
-              </div>
-            )
-          })}
-        </div>
-        <div className="usa-width-one-third padding-left-1 padding-right-1">
-          <p>We can use this area as some help text and talk about the process or whatever else we need to mention.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec auctor nisl. Nam ut justo nec ligula aliquam pretium et at orci. Nulla pulvinar feugiat tellus, in sagittis sem sollicitudin at. Nunc nec libero at elit consectetur elementum eu at nisl.</p>
-          <p>Curabitur molestie felis massa, vel semper nulla maximus nec. Quisque feugiat nulla nec urna tristique varius. Ut vulputate felis mi, non elementum lacus tempor ut. Etiam tempus porta arcu non venenatis. Vivamus nec tellus eleifend, pulvinar sapien sed, posuere leo.</p>
-        </div>
+
+    <div className="Institutions usa-grid-full">
+      <UserHeading period="2017" userName={this.props.user.profile.name} />
+      <div className="usa-width-two-thirds">
+        {this.props.filings.map((filingObj, i) => {
+          const filing = filingObj.filing
+          const institution = getInstitutionFromFiling(institutions, filing)
+          return (
+            <div key={i} className="usa-grid-full institution bg-color-hmda-gray padding-2">
+              <h2>{institution.name} - {institution.id}</h2>
+              {renderTiming(filing.status, filing.start, filing.end)}
+              {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
+              {renderButton(filing.status.code, filing.institutionId, filing.period)}
+              {renderRefile(filing.status.code, filing.institutionId, filing.period)}
+            </div>
+          )
+        })}
+      </div>
+      <div className="usa-width-one-third padding-left-1 padding-right-1">
+        <p>We can use this area as some help text and talk about the process or whatever else we need to mention.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec auctor nisl. Nam ut justo nec ligula aliquam pretium et at orci. Nulla pulvinar feugiat tellus, in sagittis sem sollicitudin at. Nunc nec libero at elit consectetur elementum eu at nisl.</p>
+        <p>Curabitur molestie felis massa, vel semper nulla maximus nec. Quisque feugiat nulla nec urna tristique varius. Ut vulputate felis mi, non elementum lacus tempor ut. Etiam tempus porta arcu non venenatis. Vivamus nec tellus eleifend, pulvinar sapien sed, posuere leo.</p>
       </div>
     )
   }
@@ -132,7 +133,8 @@ export default class Institution extends Component {
 
 Institution.defaultProps = {
   filings: [],
-  institutions: []
+  institutions: [],
+  user: {profile: {name:null}}
 }
 
 Institution.propTypes = {

@@ -9,6 +9,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import {
   getInstitution,
+  getFiling,
   getInstitutions,
   getLatestSubmission,
   createSubmission,
@@ -26,6 +27,7 @@ const IRSObj = JSON.parse(fs.readFileSync('./server/json/irs.json'))
 const signatureObj = JSON.parse(fs.readFileSync('./server/json/receipt.json'))
 
 getInstitution.mockImpl((id) => Promise.resolve(institutionsDetailObj[id]))
+getFiling.mockImpl((id) => Promise.resolve({filing:{}}))
 getInstitutions.mockImpl(() => Promise.resolve(institutionsObj))
 getLatestSubmission.mockImpl(() => Promise.resolve(filingsObj.filings[0].submissions[2]))
 getSubmission.mockImpl(() => Promise.resolve(filingsObj.filings[0].submissions[2]))
@@ -49,7 +51,7 @@ global.XMLHttpRequest = jest.fn().mockImpl(() => {
 
 const mockStore = configureMockStore([thunk])
 
-const getEachInstitutionAction = [
+const getEachInstitution = [
   {type: types.CLEAR_FILINGS},
   {type: types.REQUEST_INSTITUTION},
   {type: types.REQUEST_INSTITUTION},
@@ -129,6 +131,13 @@ describe('actions', () => {
       type: types.RECEIVE_SIGNATURE,
       timestamp: data.timestamp,
       receipt: data.receipt
+    })
+  })
+
+  it('creates an action to update the filing period', () => {
+    expect(actions.updateFilingPeriod('123')).toEqual({
+      type: types.UPDATE_FILING_PERIOD,
+      filingPeriod: '123'
     })
   })
 
@@ -295,11 +304,11 @@ describe('actions', () => {
   })
 
   it('creates a thunk that will clear current filings and fetch each institution', done => {
-    const store = mockStore({filings: []})
+    const store = mockStore({})
 
     store.dispatch(actions.fetchEachInstitution(institutionsObj.institutions))
       .then(() => {
-        expect(store.getActions()).toEqual(getEachInstitutionAction)
+        expect(store.getActions()).toEqual([...getEachInstitution])
         done()
       })
       .catch(err => {
@@ -309,7 +318,7 @@ describe('actions', () => {
   })
 
   it('creates a thunk that will fetch all institutions, looping over institution data to individually request filing info', done => {
-    const store = mockStore({filings: []})
+    const store = mockStore({})
 
     store.dispatch(actions.fetchInstitutions())
       .then(() => {
@@ -319,7 +328,7 @@ describe('actions', () => {
             type: types.RECEIVE_INSTITUTIONS,
             institutions: institutionsObj.institutions
           },
-          ...getEachInstitutionAction
+          ...getEachInstitution
         ])
         done()
       })
