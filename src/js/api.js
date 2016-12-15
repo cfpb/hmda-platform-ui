@@ -23,7 +23,11 @@ function sendFetch(suffix, options = {method: 'GET'}){
 
   console.log('fetching from', url, 'with options', fetchOptions)
   return fetch(url, fetchOptions)
-    .then(response => {console.log('respose from fetch', response);return response.json()})
+    .then(response => {
+      const json = response.json()
+      console.log('respose from fetch', response, json)
+      return json
+    })
 }
 
 export function setAccessToken(token) {
@@ -74,7 +78,11 @@ export function createSubmission(){
   return sendFetch('/submissions', {method: 'POST'})
 }
 
-export function getFiling(){
+export function getFiling(id, filing){
+  return sendFetch(`/institutions/${id}/filings/${filing}`, {noParse:1})
+}
+
+export function getFilingFromUrl(){
   return sendFetch()
 }
 

@@ -172,9 +172,9 @@ describe('filings reducer', () => {
     ).toEqual([])
   })
 
-  it('handles RECEIVE_INSTITUTION', () => {
+  it('handles RECEIVE_FILING', () => {
     expect(
-      filings([1], {type: types.RECEIVE_INSTITUTION, institution:{filings:[2,3,4]}})
+      filings([1,2,3], {type: types.RECEIVE_FILING, filing:4})
     ).toEqual([1,2,3,4])
   })
 
@@ -185,7 +185,7 @@ describe('filings reducer', () => {
   })
 
   it('shouldn\'t modify state on an unknown action type', () => {
-    excludeTypes(types.RECEIVE_INSTITUTION, types.CLEAR_FILINGS)
+    excludeTypes(types.RECEIVE_FILING, types.CLEAR_FILINGS)
       .forEach(v => expect(filings([], v))
         .toEqual([])
       )
@@ -193,7 +193,8 @@ describe('filings reducer', () => {
 
 })
 
-describe('submission reducer', () => {
+describe
+('submission reducer', () => {
   it('should return the initial state on empty action', () => {
     expect(
       submission(undefined, {})

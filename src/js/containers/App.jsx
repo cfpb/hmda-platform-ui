@@ -11,7 +11,6 @@ class AppContainer extends Component {
   }
 
   componentWillMount() {
-    console.log('App mounting', this.props.user)
     if(!this.props.user) signinRedirect()
   }
 
