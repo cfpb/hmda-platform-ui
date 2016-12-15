@@ -59,6 +59,7 @@ const Signature = (props) => {
               type="checkbox"
               value="signature"
               disabled={isDisabled}
+              checked={props.checked}
               onChange={e => props.onSignatureCheck(e.target.checked)}/>
             <label htmlFor="signature" className="max-width-100">I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</label>
           </li>
