@@ -365,6 +365,17 @@ export function requestUpload(file) {
     return Promise.resolve()
   }
 }
+
+/*
+ * Signal that submission state should be wiped and a new submission should be created
+ */
+export function createNewSubmission(id, period) {
+  return dispatch => {
+    dispatch(selectFile())
+    return dispatch(fetchNewSubmission(id, period))
+  }
+}
+
 /*
  * Signal the creation of a new submission which will be used for subsequent actions
  */

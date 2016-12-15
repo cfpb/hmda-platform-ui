@@ -25,8 +25,8 @@ class SubmissionRouter extends Component {
 
     console.log('current status code, from submission router', code)
 
-    // status codes can be found at https://github.com/cfpb/hmda-platform/blob/master/Documents/submission-status.md
-    
+  // status codes can be found at https://github.com/cfpb/hmda-platform/blob/master/Documents/submission-status.md
+
     if(code === -1){
       return (
       <div className="SubmissionContainer">
@@ -35,11 +35,11 @@ class SubmissionRouter extends Component {
       )
     }
 
-    if(code < 7) return browserHistory.push(pathname + '/upload')
+    if(code < 7) return browserHistory.replace(pathname + '/upload')
 
-    if(code < 10) return browserHistory.push(pathname + '/edits')
+    if(code < 10) return browserHistory.replace(pathname + '/edits')
 
-    return browserHistory.push(pathname + '/summary')
+    return browserHistory.replace(pathname + '/summary')
   }
 
   render() {
