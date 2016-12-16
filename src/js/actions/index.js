@@ -373,13 +373,24 @@ export function requestUpload(file) {
     return Promise.resolve()
   }
 }
+
+/*
+ * Signal that submission state should be wiped and a new submission should be created
+ */
+export function createNewSubmission(id, period) {
+  return dispatch => {
+    dispatch(selectFile())
+    return dispatch(fetchNewSubmission(id, period))
+  }
+}
+
 /*
  * Signal the creation of a new submission which will be used for subsequent actions
  */
 
-export function fetchNewSubmission() {
+export function fetchNewSubmission(id, period) {
   return dispatch => {
-    return createSubmission()
+    return createSubmission(id, period)
       .then(json => dispatch(receiveSubmission(json)))
       .catch(err => console.error(err))
   }
@@ -402,7 +413,7 @@ export function fetchSubmission() {
         if(latestSubmission.id.sequenceNumber !== 0){
           return dispatch(receiveSubmission(latestSubmission))
         }else{
-          return createSubmission().then(submission => {
+          return createSubmission(json.filing.institutionId, json.filing.period).then(submission => {
               dispatch(receiveSubmission(submission))
             })
         }

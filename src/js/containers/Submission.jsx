@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { fetchSubmission } from '../actions'
+import NavHeader from '../components/NavHeader.jsx'
 import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
@@ -19,59 +21,65 @@ class SubmissionContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchSubmission())
+    if(!this.props.status && this.props.dispatch){
+      this.props.dispatch(fetchSubmission())
+    }
   }
 
+  // Links should be their own component, disabled with a message when not available
+  // rather than unrendered
   render() {
     if(!this.props.user) return null
-    console.log(this.props.params)
-    let uploadForm = <UploadForm />
-    let progress = null
-    let refileWarning = null
-    let editsContainer = null
-    let summary = null
-    let irs = null
-    let sign = null
+    if(!this.props.status) return null
+    if(!this.props.location) return null
 
     const status = this.props.status
     const code = status.code
+    const pathname = this.props.location.pathname
+    const base = pathname.split('/').slice(0,-1).join('/')
+    const page = pathname.split('/').slice(-1)[0]
+    const toRender = []
     console.log('current status code, from submission container', code)
 
     // status codes can be found at https://github.com/cfpb/hmda-platform/blob/master/Documents/submission-status.md
-    if (code === -1) {
-      return (
-      <div className="SubmissionContainer">
-        <p>{status.message}</p>
-      </div>
-      )
+    if(code === -1) {
+      toRender.push(<p>{status.message}</p>)
+    }else{
+      if(page === 'upload'){
+        toRender.push(<UploadForm/>)
+        if(code > 1) toRender.push(<ValidationProgress/>)
+        if(code === 5) toRender.push(<RefileWarning/>)
+        if(code > 5) toRender.push(<Link className='Navlink' to={base + '/edits'}>Review Edits</Link>)
+      }else if(page === 'edits'){
+        if(code > 6){
+          if(code === 8) toRender.push(<RefileWarning/>)
+          toRender.push(<Edits/>)
+          if(code > 8) toRender.push(<Link className='Navlink' to={base + '/summary'}>Review Summary</Link>)
+        }
+      }else if(page === 'summary'){
+        if(code > 9){
+          toRender.push(<IRSReport/>)
+          toRender.push(<Signature/>)
+          toRender.push(<Summary/>)
+        }
+      }
     }
 
-    if (code > 1) progress = <ValidationProgress/>
-
-    // render refileWarning for parsing and validation error status
-    if (code === 5 || code === 8) refileWarning = <RefileWarning />
-
-    if (code > 7) {
-      editsContainer = <Edits/>
-      irs =  <IRSReport />
-      sign = <Signature />
-      summary = <Summary />
+    if(toRender.length === 0){
+      toRender.push(<p>Something is wrong, please <Link to='/institutions'>Go Back</Link></p>)
     }
+
+    console.log(toRender)
 
     return (
     <div className="SubmissionContainer">
+      <NavHeader page={page} base={base}/>
       <UserHeading period={this.props.params.filing} userName={this.props.user.profile.name} institution={this.props.params.institution} />
       <div className="usa-grid-full">
         <div className="usa-width-one-whole">
-          {uploadForm}
-          {progress}
-        </div>
-        <div className="usa-width-one-whole">
-          {refileWarning}
-          {editsContainer}
-          {irs}
-          {summary}
-          {sign}
+          {toRender.map((component, i) => {
+            return <div key={i}>{component}</div>
+          })}
         </div>
       </div>
     </div>
@@ -88,10 +96,7 @@ function mapStateToProps(state) {
   } = state.app.submission || {
     isFetching: true,
     id: 1,
-    status: {
-      code: 1,
-      message: ''
-    }
+    status: null
   }
 
   const user = state.oidc && state.oidc.user || null
@@ -104,13 +109,18 @@ function mapStateToProps(state) {
   }
 }
 
+function mapDispatchToProps(dispatch){
+  return { dispatch }
+}
+
 SubmissionContainer.propTypes = {
   params: PropTypes.object,
   dispatch: PropTypes.func.isRequired
 }
 
 SubmissionContainer.defaultProps = {
+  status: null,
   user: null
 }
 
-export default connect(mapStateToProps)(SubmissionContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(SubmissionContainer)

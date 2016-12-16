@@ -9,7 +9,7 @@ const getText = (props) => {
   let textToRender = null
   let refileLink = null
 
-  if(props.types.hasOwnProperty("syntactical")) {
+  if(props.types.hasOwnProperty('syntactical')) {
     if(props.types.syntactical.edits.length !== 0 || props.types.validity.edits.length !== 0) {
       textToRender = refileText
       refileLink = getRefileLink(props)
@@ -27,7 +27,10 @@ const getText = (props) => {
 }
 
 const getRefileLink = (props) => {
-  return <Link to='' onClick={props.refileLink}>Refile here.</Link>
+  return <a onClick={(e)=>{
+    e.preventDefault()
+    props.refileLink(props.submission.id.institutionId, props.submission.id.period)
+  }}>Refile here.</a>
 }
 
 const RefileWarning = (props) => {
@@ -35,7 +38,7 @@ const RefileWarning = (props) => {
   if (props.submission.status.code > 8) return null
 
   let alertClass = 'usa-alert-error'
-  if(props.types.hasOwnProperty("syntactical")) {
+  if(props.types.hasOwnProperty('syntactical')) {
     if(props.types.syntactical.edits.length === 0 && props.types.validity.edits.length === 0) {
       alertClass = 'usa-alert-warning'
     }

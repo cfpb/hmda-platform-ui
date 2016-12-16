@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
 import RefileWarning from '../components/RefileWarning.jsx'
-import { fetchNewSubmission } from '../actions'
+import { createNewSubmission } from '../actions'
 
 function mapStateToProps(state) {
   const {
@@ -25,9 +26,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const refileLink = (e) => {
-    e.preventDefault()
-    dispatch(fetchNewSubmission())
+  const refileLink = (id, period) => {
+    dispatch(createNewSubmission(id, period)).then(()=>{
+      browserHistory.replace(`/${id}/${period}`)
+    })
   }
 
   return {refileLink}
