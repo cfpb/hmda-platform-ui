@@ -40,7 +40,6 @@ const Signature = (props) => {
   if(props.status.code === 12) {
     buttonClass = 'usa-button-disabled'
   }
-  //let buttonClass = props.checked === true && props.status.code === 12 ? '' : 'usa-button-disabled'
 
   return (
     <div className="Signature" id="signature">
