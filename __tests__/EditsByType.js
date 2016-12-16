@@ -15,38 +15,47 @@ const types = {
   syntactical: JSON.parse(fs.readFileSync('./server/json/syntactical.json')),
   validity: JSON.parse(fs.readFileSync('./server/json/validity.json')),
   quality: JSON.parse(fs.readFileSync('./server/json/quality.json')),
-  macro: {"edits": []}
+  macro: {
+    "edits": []
+  }
 }
 
 const typesNoMacro = {
   syntactical: JSON.parse(fs.readFileSync('./server/json/syntactical.json')),
   validity: JSON.parse(fs.readFileSync('./server/json/validity.json')),
   quality: JSON.parse(fs.readFileSync('./server/json/quality.json')),
-  macro: {"edits": []}
+  macro: {
+    "edits": []
+  }
 }
 
 describe('EditsByType', function() {
-  const editsByType = TestUtils.renderIntoDocument(<Wrapper><EditsByType types={types}/></Wrapper>)
+  const editsByType = TestUtils.renderIntoDocument(
+    <Wrapper><EditsByType types={types}/></Wrapper>
+  )
   const editsByTypeNode = ReactDOM.findDOMNode(editsByType)
 
-  it('renders the component', function(){
+  it('renders the component', function() {
     expect(editsByTypeNode).toBeDefined()
   })
 
-  it('properly renders child elements', function(){
+  it('properly renders child elements', function() {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(editsByType, 'EditsContainerEntry').length).toEqual(4)
     expect(TestUtils.scryRenderedDOMComponentsWithClass(editsByType, 'EditsHeaderDescription').length).toEqual(4)
     expect(TestUtils.scryRenderedDOMComponentsWithTag(editsByType, 'table').length).toEqual(6)
   })
 
-  const editsByTypeNoMacro = TestUtils.renderIntoDocument(<Wrapper><EditsByType types={typesNoMacro}/></Wrapper>)
+  const editsByTypeNoMacro = TestUtils.renderIntoDocument(
+    <Wrapper><EditsByType types={typesNoMacro}/></Wrapper>
+  )
   const editsByTypeNoMacroNode = ReactDOM.findDOMNode(editsByTypeNoMacro)
 
-  it('properly renders child elements when no macro edits are present', function(){
+  it('properly renders child elements when no macro edits are present', function() {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(editsByTypeNoMacro, 'EditsContainerEntry').length).toEqual(4)
     expect(TestUtils.scryRenderedDOMComponentsWithClass(editsByTypeNoMacro, 'EditsHeaderDescription').length).toEqual(4)
     expect(TestUtils.scryRenderedDOMComponentsWithTag(editsByTypeNoMacro, 'table').length).toEqual(6)
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(editsByTypeNoMacro, 'h4').length).toEqual(1)
+    // this includes table captions and error, warning, and success messages
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(editsByTypeNoMacro, 'h3').length).toEqual(7)
   })
 
 })

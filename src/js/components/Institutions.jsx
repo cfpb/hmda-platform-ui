@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
+import React, {Component, PropTypes} from 'react'
+import {Link} from 'react-router'
 import UserHeading from '../components/UserHeading.jsx'
 import moment from 'moment'
 
@@ -8,35 +8,37 @@ const renderTiming = (status, start, end) => {
   let messageClass
   let timing
 
-  switch(status.code) {
-    // not-started
+  switch (status.code) {
+      // not-started
     case 1:
       messageClass = 'text-secondary'
       timing = null
       break
-    // in-progress
+      // in-progress
     case 2:
       messageClass = 'text-primary'
       timing = moment(start).fromNow()
       break
-    // completed
+      // completed
     case 3:
       messageClass = 'text-green'
       timing = moment(end).format('MMMM Do')
       break
-    // code 4 is cancelled, do nothing ... defaults are fine
+      // code 4 is cancelled, do nothing ... defaults are fine
     default:
       messageClass = 'text-secondary'
       timing = null
   }
 
-  return <p className="text-gray usa-text-small"><strong className={`${messageClass} text-uppercase`}>{status.message}</strong> {timing}</p>
+  return <p className="text-gray usa-text-small">
+    <strong className={`${messageClass} text-uppercase`}>{status.message}</strong>
+    {timing}</p>
 }
 
 const renderStatus = (code, institutionName, institutionId, period) => {
   let status
 
-  switch(code) {
+  switch (code) {
     // not started
     case 1:
       status = 'No filing started. You can begin filing now.'
@@ -49,7 +51,7 @@ const renderStatus = (code, institutionName, institutionId, period) => {
     case 3:
       status = 'The filing is complete and signed. You can review the signed submission.'
       break
-      // cancelled
+    // cancelled
     case 4:
       status = 'The latest filing has been cancelled. You can review the cancelled submission or submit a new file.'
       break
@@ -63,7 +65,7 @@ const renderStatus = (code, institutionName, institutionId, period) => {
 const renderButton = (code, institutionId, period) => {
   let buttonText
 
-  switch(code) {
+  switch (code) {
     // not-started
     case 1:
       buttonText = 'File now'
@@ -104,6 +106,7 @@ export default class Institution extends Component {
     const institutions = this.props.institutions
     const makeNewSubmission = this.props.makeNewSubmission
     return (
+
     <div className="Institutions usa-grid-full">
       <UserHeading period="2017" userName={this.props.user.profile.name} />
       <div className="usa-width-two-thirds">
@@ -111,7 +114,7 @@ export default class Institution extends Component {
           const filing = filingObj.filing
           const institution = getInstitutionFromFiling(institutions, filing)
           return (
-            <div key={i} className="usa-grid-full institution">
+            <div key={i} className="usa-grid-full institution bg-color-hmda-gray padding-2">
               <h2>{institution.name} - {institution.id}</h2>
               {renderTiming(filing.status, filing.start, filing.end)}
               {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
@@ -121,12 +124,11 @@ export default class Institution extends Component {
           )
         })}
       </div>
-      <div className="usa-width-one-third padding-left-1 padding-right-1 bg-color-gray-lightest">
+      <div className="usa-width-one-third padding-left-1 padding-right-1">
         <p>We can use this area as some help text and talk about the process or whatever else we need to mention.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec auctor nisl. Nam ut justo nec ligula aliquam pretium et at orci. Nulla pulvinar feugiat tellus, in sagittis sem sollicitudin at. Nunc nec libero at elit consectetur elementum eu at nisl.</p>
         <p>Curabitur molestie felis massa, vel semper nulla maximus nec. Quisque feugiat nulla nec urna tristique varius. Ut vulputate felis mi, non elementum lacus tempor ut. Etiam tempus porta arcu non venenatis. Vivamus nec tellus eleifend, pulvinar sapien sed, posuere leo.</p>
       </div>
-    </div>
     )
   }
 }
