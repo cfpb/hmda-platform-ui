@@ -87,9 +87,10 @@ const renderButton = (code, institutionId, period) => {
   return <Link className="usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
 }
 
-const renderRefile = (code, institutionId, period) => {
-  if (code === 1) return null
-  return <Link className="usa-button usa-button-secondary usa-text-small" to={`/${institutionId}/${period}`}>Refile</Link>
+const renderRefile = (makeNewSubmission, code, institutionId, period) => {
+  if(code === 1) return null
+  return <a className="usa-button usa-button-secondary usa-text-small" onClick={()=>{
+    makeNewSubmission(institutionId, period)}}>Refile</a>
 }
 
 const getInstitutionFromFiling = (institutions, filing) => {
@@ -103,6 +104,7 @@ export default class Institution extends Component {
   render() {
     console.log('inst filings',this.props.institutions, this.props.filings)
     const institutions = this.props.institutions
+    const makeNewSubmission = this.props.makeNewSubmission
     return (
 
     <div className="Institutions usa-grid-full">
@@ -117,7 +119,7 @@ export default class Institution extends Component {
               {renderTiming(filing.status, filing.start, filing.end)}
               {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
               {renderButton(filing.status.code, filing.institutionId, filing.period)}
-              {renderRefile(filing.status.code, filing.institutionId, filing.period)}
+              {renderRefile(makeNewSubmission, filing.status.code, filing.institutionId, filing.period)}
             </div>
           )
         })}
@@ -127,6 +129,7 @@ export default class Institution extends Component {
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec auctor nisl. Nam ut justo nec ligula aliquam pretium et at orci. Nulla pulvinar feugiat tellus, in sagittis sem sollicitudin at. Nunc nec libero at elit consectetur elementum eu at nisl.</p>
         <p>Curabitur molestie felis massa, vel semper nulla maximus nec. Quisque feugiat nulla nec urna tristique varius. Ut vulputate felis mi, non elementum lacus tempor ut. Etiam tempus porta arcu non venenatis. Vivamus nec tellus eleifend, pulvinar sapien sed, posuere leo.</p>
       </div>
+    </div>
     )
   }
 }
@@ -142,5 +145,5 @@ Institution.propTypes = {
   filings: PropTypes.array,
   user: PropTypes.object,
   institutions: PropTypes.array,
-  dispatch: PropTypes.func.isRequired
+  fetchNewSubmission: PropTypes.func
 }
