@@ -15,7 +15,6 @@ import {
   createSubmission,
   getSubmission,
   getIRS,
-  postIRS,
   getSignature,
   postSignature
 } from '../src/js/api.js'
@@ -32,7 +31,6 @@ getInstitutions.mockImpl(() => Promise.resolve(institutionsObj))
 getLatestSubmission.mockImpl(() => Promise.resolve(filingsObj.filings[0].submissions[2]))
 getSubmission.mockImpl(() => Promise.resolve(filingsObj.filings[0].submissions[2]))
 getIRS.mockImpl((id) => Promise.resolve(IRSObj))
-postIRS.mockImpl((id, verified) => Promise.resolve(IRSObj)) // this won't need the msas, but its already there
 getSignature.mockImpl((id) => Promise.resolve(signatureObj))
 
 const xhrMock = {
@@ -97,25 +95,7 @@ describe('actions', () => {
     const data = IRSObj
     expect(actions.receiveIRS(data)).toEqual({
       type: types.RECEIVE_IRS,
-      msas: data.msas,
-      timestamp: data.timestamp,
-      receipt: data.receipt
-    })
-  })
-
-  it('creates an action to signal a POST request for the IRS report', () => {
-    expect(actions.requestIRSPost()).toEqual({
-      type: types.REQUEST_IRS_POST
-    })
-  })
-
-  it('creates an action to signal a POST request has been received for the IRS report', () => {
-    const verified = { verified: true }
-    const data = IRSObj
-    expect(actions.receiveIRSPost(IRSObj)).toEqual({
-      type: types.RECEIVE_IRS_POST,
-      timestamp: data.timestamp,
-      receipt: data.receipt
+      msas: data.msas
     })
   })
 
@@ -132,7 +112,7 @@ describe('actions', () => {
     })
   })
 
-  it('creates an action to signal the IRS report data has been acquired', () => {
+  it('creates an action to signal the signature data has been acquired', () => {
     const data = signatureObj
     expect(actions.receiveSignature(data)).toEqual({
       type: types.RECEIVE_SIGNATURE,
