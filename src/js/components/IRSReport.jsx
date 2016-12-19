@@ -1,32 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
 
-const showConfirmation = (code, timestamp) => {
-  if(code < 11) return null;
-
-  return (
-    <div className="usa-alert usa-alert-success margin-top-1">
-      <div className="usa-alert-body">
-        <h3 className="usa-alert-heading">IRS report verified.</h3>
-        <p className="usa-alert-text">You have verifed your IRS report on <strong>{moment().calendar(timestamp)}</strong>.</p>
-      </div>
-    </div>
-  )
-}
-
-const showWarning = (code) => {
-  if(code > 9) return null
-
-  return (
-    <div className="usa-alert usa-alert-warning margin-top-0">
-      <div className="usa-alert-body">
-        <h3 className="usa-alert-heading">All edits haven't been verified.</h3>
-        <p className="usa-alert-text">You can not verify the IRS report until all edits have been verified and the report has been generated.</p>
-      </div>
-    </div>
-  )
-}
-
 const IRSReport = (props) => {
   if (!props.msas) return null
   const isChecked = props.status.code > 10 ? true : false
@@ -41,8 +15,6 @@ const IRSReport = (props) => {
       </div>
 
       <div className="border margin-bottom-5 padding-1">
-        {showWarning(props.status.code)}
-
         <table width="100%">
           <thead>
             <tr>
@@ -78,21 +50,6 @@ const IRSReport = (props) => {
             })}
           </tbody>
         </table>
-
-        <ul className="usa-unstyled-list">
-          <li>
-            <input id="irs-verify"
-              name="irs-verify"
-              type="checkbox"
-              value="irs-verify"
-              onChange={e => props.onIRSClick(e.target.checked)}
-              checked={isChecked}
-              disabled={isDisabled} />
-            <label htmlFor="irs-verify" className="max-width-100">I have verified that all of the submitted data is correct and agree with the accuracy of the values listed.</label>
-          </li>
-        </ul>
-
-        {showConfirmation(props.status.code, props.timestamp)}
       </div>
     </div>
   )
@@ -100,10 +57,7 @@ const IRSReport = (props) => {
 
 IRSReport.propTypes = {
   msas: PropTypes.array,
-  receipt: PropTypes.string,
-  timestamp: PropTypes.number,
-  status: PropTypes.object,
-  onIRSClick: PropTypes.func.isRequired
+  status: PropTypes.object
 }
 
 IRSReport.defaultProps = {
