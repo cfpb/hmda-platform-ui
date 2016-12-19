@@ -15,9 +15,10 @@ const status = {
 
 describe('Signature component', () => {
   const onSignatureClick = jest.fn()
+  const onSignatureCheck = jest.fn()
   const signature = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Signature receipt={signJSON.receipt} timestamp={signJSON.timestamp} status={status} onSignatureClick={onSignatureClick}/>
+      <Signature checked={false} receipt={signJSON.receipt} timestamp={signJSON.timestamp} status={status} onSignatureClick={onSignatureClick} onSignatureCheck={onSignatureCheck}/>
     </Wrapper>
   )
   const signatureNode = ReactDOM.findDOMNode(signature)
@@ -34,6 +35,10 @@ describe('Signature component', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(signature, 'usa-alert-success').length).toEqual(0)
   })
 
+  it('has button disabled', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(signature, 'usa-button-disabled').length).toEqual(1)
+  })
+
   it('calls the function on change', () => {
     var checkbox = TestUtils.findRenderedDOMComponentWithTag(signature, 'input')
     expect(checkbox.checked).toBeFalsy()
@@ -44,16 +49,29 @@ describe('Signature component', () => {
       }
     })
 
-    expect(onSignatureClick).toBeCalled()
+    expect(onSignatureCheck).toBeCalled()
   })
 
+ // button enabled
+  const buttonEnabled = TestUtils.renderIntoDocument(
+    <Wrapper>
+      <Signature checked={true} receipt={signJSON.receipt} timestamp={signJSON.timestamp} status={status} onSignatureClick={onSignatureClick} onSignatureCheck={onSignatureCheck}/>
+    </Wrapper>
+  )
+  const buttonEnabledNode = ReactDOM.findDOMNode(buttonEnabled)
+
+  it('has button enabled', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(buttonEnabled, 'usa-button-disabled').length).toEqual(0)
+  })
+
+  // checkbox checked and status is signed
   const statusSigned = {
     code: 12,
     message: ''
   }
   const signatureSigned = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Signature receipt={signJSON.receipt} timestamp={signJSON.timestamp} status={statusSigned} onSignatureClick={onSignatureClick}/>
+      <Signature checked={true} receipt={signJSON.receipt} timestamp={signJSON.timestamp} status={statusSigned} onSignatureClick={onSignatureClick} onSignatureCheck={onSignatureCheck}/>
     </Wrapper>
   )
   const signatureSignedNode = ReactDOM.findDOMNode(signatureSigned)

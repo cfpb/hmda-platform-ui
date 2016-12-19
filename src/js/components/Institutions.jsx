@@ -30,9 +30,7 @@ const renderTiming = (status, start, end) => {
       timing = null
   }
 
-  return <p className="text-gray usa-text-small">
-    <strong className={`${messageClass} text-uppercase`}>{status.message}</strong>
-    {timing}</p>
+  return <p className="text-gray usa-text-small"><strong className={`${messageClass} text-uppercase`}>{status.message}</strong>{timing}</p>
 }
 
 const renderStatus = (code, institutionName, institutionId, period) => {
@@ -106,7 +104,6 @@ export default class Institution extends Component {
     const institutions = this.props.institutions
     const makeNewSubmission = this.props.makeNewSubmission
     return (
-
     <div className="Institutions usa-grid-full">
       <UserHeading period="2017" userName={this.props.user.profile.name} />
       <div className="usa-width-two-thirds">

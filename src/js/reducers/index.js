@@ -28,7 +28,8 @@ import {
   RECEIVE_SIGNATURE_POST,
   REQUEST_SUMMARY,
   RECEIVE_SUMMARY,
-  UPDATE_STATUS
+  UPDATE_STATUS,
+  CHECK_SIGNATURE
 } from '../constants'
 
 const defaultUpload = {
@@ -267,7 +268,8 @@ const defaultSignature = {
   isFetching: false,
   timestamp: null,
   receipt: null,
-  status: defaultSubmission.status
+  status: defaultSubmission.status,
+  checked: false
 }
 
 export const signature = (state = defaultSignature, action) => {
@@ -299,6 +301,13 @@ export const signature = (state = defaultSignature, action) => {
         isFetching: false,
         timestamp: action.timestamp,
         receipt: action.receipt
+      }
+
+    case CHECK_SIGNATURE:
+      return {
+        ...state,
+        isFetching: false,
+        checked: action.checked
       }
 
     default:

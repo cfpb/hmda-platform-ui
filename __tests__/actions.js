@@ -125,6 +125,13 @@ describe('actions', () => {
     })
   })
 
+  it('creates an action to signal a signature checkbox', () => {
+    expect(actions.checkSignature({checked: true})).toEqual({
+      type: types.CHECK_SIGNATURE,
+      checked: true
+    })
+  })
+
   it('creates an action to signal the IRS report data has been acquired', () => {
     const data = signatureObj
     expect(actions.receiveSignature(data)).toEqual({

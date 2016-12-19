@@ -34,7 +34,8 @@ const defaultSignature = {
   isFetching: false,
   timestamp: null,
   receipt: null,
-  status: defaultSubmission.status
+  status: defaultSubmission.status,
+  checked: false
 }
 
 const defaultIRS = {
@@ -91,8 +92,14 @@ describe('signature reducer', () => {
     ).toEqual({isFetching: false, timestamp: 1234, receipt: 'asdf'})
   })
 
+  it('handles CHECK_SIGNATURE', () => {
+    expect(
+      signature({}, {type: types.CHECK_SIGNATURE, checked: true})
+    ).toEqual({checked: true, isFetching: false})
+  })
+
   it('shouldn\'t modify state on an unknown action type', () => {
-    excludeTypes(types.RECEIVE_SIGNATURE, types.REQUEST_SIGNATURE, types.REQUEST_SIGNATURE_POST, types.RECEIVE_SIGNATURE_POST)
+    excludeTypes(types.RECEIVE_SIGNATURE, types.REQUEST_SIGNATURE, types.REQUEST_SIGNATURE_POST, types.RECEIVE_SIGNATURE_POST, types.CHECK_SIGNATURE)
       .forEach(v => expect(signature({}, v))
         .toEqual({})
       )

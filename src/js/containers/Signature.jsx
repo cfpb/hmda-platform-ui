@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchSignature, updateSignature } from '../actions'
+import { fetchSignature, updateSignature, checkSignature } from '../actions'
 import Signature from '../components/Signature.jsx'
 
 class SignatureContainer extends Component {
@@ -21,11 +21,13 @@ function mapStateToProps(state) {
   const {
     isFetching,
     timestamp,
-    receipt
+    receipt,
+    checked
   } = state.app.signature || {
     isFetching: true,
     timestamp: null,
-    receipt: null
+    receipt: null,
+    checked: false
   }
 
   const {
@@ -41,7 +43,8 @@ function mapStateToProps(state) {
     isFetching,
     timestamp,
     receipt,
-    status
+    status,
+    checked
   }
 }
 
@@ -49,6 +52,9 @@ function mapDispatchToProps(dispatch) {
   return {
     onSignatureClick: (signed) => {
       dispatch(updateSignature({signed: signed}))
+    },
+    onSignatureCheck: (checked) => {
+      dispatch(checkSignature({checked: checked}))
     },
     dispatch
   }
