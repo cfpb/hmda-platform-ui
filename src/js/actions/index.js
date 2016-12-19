@@ -11,7 +11,6 @@ import {
   getEditsByRow,
   putEdit,
   getIRS,
-  postIRS,
   getSignature,
   postSignature,
   getSummary,
@@ -178,23 +177,7 @@ export function requestIRS() {
 export function receiveIRS(data) {
   return {
     type: types.RECEIVE_IRS,
-    msas: data.msas,
-    timestamp: data.timestamp,
-    receipt: data.receipt
-  }
-}
-
-export function requestIRSPost() {
-  return {
-    type: types.REQUEST_IRS_POST
-  }
-}
-
-export function receiveIRSPost(data) {
-  return {
-    type: types.RECEIVE_IRS_POST,
-    timestamp: data.timestamp,
-    receipt: data.receipt
+    msas: data.msas
   }
 }
 
@@ -214,24 +197,6 @@ export function fetchIRS() {
       .catch(err => console.error(err))
   }
 }
-
-export function updateIRS(verified) {
-  return dispatch => {
-    dispatch(requestIRSPost())
-    return postIRS(latestSubmissionId, verified)
-      .then(json => {
-        dispatch(receiveIRSPost(json))
-        dispatch(updateStatus(
-          {
-            code: json.status.code,
-            message: json.status.message
-          }
-        ))
-      })
-      .catch(err => console.error(err))
-  }
-}
-
 
 /*
 this is just to set the isFetching value to true
