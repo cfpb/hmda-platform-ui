@@ -20,8 +20,6 @@ import {
   RECEIVE_EDIT_PUT,
   REQUEST_IRS,
   RECEIVE_IRS,
-  REQUEST_IRS_POST,
-  RECEIVE_IRS_POST,
   REQUEST_SIGNATURE,
   RECEIVE_SIGNATURE,
   REQUEST_SIGNATURE_POST,
@@ -222,8 +220,6 @@ const edits = (state = defaultEdits, action) => {
 const defaultIRS = {
   isFetching: false,
   msas: [],
-  timestamp: null,
-  receipt: null,
   status: defaultSubmission.status
 }
 
@@ -240,23 +236,7 @@ export const irs = (state = defaultIRS, action) => {
       return {
         ...state,
         isFetching: false,
-        msas: action.msas,
-        timestamp: action.timestamp,
-        receipt: action.receipt
-      }
-
-    case REQUEST_IRS_POST:
-      return {
-        ...state,
-        isFetching: true
-      }
-
-    case RECEIVE_IRS_POST:
-      return {
-        ...state,
-        isFetching: false,
-        timestamp: action.timestamp,
-        receipt: action.receipt
+        msas: action.msas
       }
 
     default:
