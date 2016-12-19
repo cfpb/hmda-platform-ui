@@ -39,7 +39,6 @@ class SubmissionContainer extends Component {
     const base = pathname.split('/').slice(0,-1).join('/')
     const page = pathname.split('/').slice(-1)[0]
     const toRender = []
-    console.log('the page is ', page)
     console.log('current status code, from submission container', code)
 
     // status codes can be found at https://github.com/cfpb/hmda-platform/blob/master/Documents/submission-status.md
