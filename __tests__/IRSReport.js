@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
 const fs = require('fs')
-const irsJSON = JSON.parse(fs.readFileSync('./server/json/irs.json'))
+const irsJSON = JSON.parse(fs.readFileSync('./__tests__/json/irs.json'))
 const status = {
   code: 10,
   message: ''

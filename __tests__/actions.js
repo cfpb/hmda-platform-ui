@@ -19,11 +19,11 @@ import {
   postSignature
 } from '../src/js/api.js'
 
-const institutionsDetailObj = JSON.parse(fs.readFileSync('./server/json/institutions-detail.json'))
-const institutionsObj = JSON.parse(fs.readFileSync('./server/json/institutions.json'))
-const filingsObj = JSON.parse(fs.readFileSync('./server/json/filings.json'))
-const IRSObj = JSON.parse(fs.readFileSync('./server/json/irs.json'))
-const signatureObj = JSON.parse(fs.readFileSync('./server/json/receipt.json'))
+const institutionsDetailObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions-detail.json'))
+const institutionsObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions.json'))
+const filingsObj = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))
+const IRSObj = JSON.parse(fs.readFileSync('./__tests__/json/irs.json'))
+const signatureObj = JSON.parse(fs.readFileSync('./__tests__/json/receipt.json'))
 
 getInstitution.mockImpl((id) => Promise.resolve(institutionsDetailObj[id]))
 getFiling.mockImpl((id) => Promise.resolve({filing:{}}))

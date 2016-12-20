@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
 const fs = require('fs')
-const summaryJSON = JSON.parse(fs.readFileSync('./server/json/summary.json'))
+const summaryJSON = JSON.parse(fs.readFileSync('./__tests__/json/summary.json'))
 
 describe('Summary', () => {
   var summary = TestUtils.renderIntoDocument(

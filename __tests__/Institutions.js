@@ -7,8 +7,8 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
 const fs = require('fs')
-const filingJSON = JSON.parse(fs.readFileSync('./server/json/filings.json'))
-const institutionsJSON = JSON.parse(fs.readFileSync('./server/json/institutions.json'))
+const filingJSON = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))
+const institutionsJSON = JSON.parse(fs.readFileSync('./__tests__/json/institutions.json'))
 
 describe('Institutions', () => {
   const institutions = TestUtils.renderIntoDocument(
