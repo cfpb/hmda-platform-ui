@@ -15,7 +15,7 @@ const IRSReport = (props) => {
       </div>
 
       <div className="border margin-bottom-5 padding-1">
-        <table width="100%">
+        <table className="margin-bottom-0" width="100%">
           <thead>
             <tr>
               <th colSpan="4"></th>
