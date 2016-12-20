@@ -118,9 +118,9 @@ export default class Institution extends Component {
               {renderButton(filing.status.code, filing.institutionId, filing.period)}
               {renderRefile(makeNewSubmission, filing.status.code, filing.institutionId, filing.period)}
               <h5>Previous submissions for this filing</h5>
-              <ul className="usa-text-small">
+              <ul className="usa-text-small usa-unstyled-list">
                 {filingObj.submissions.map((submission, i) => {
-                  return (<li key={i}>Download edit report - <span className="text-gray">{moment(submission.start).format('MMM Do, YYYY')}</span></li>)
+                  return (<li key={i}><strong>{submission.id.sequenceNumber}</strong>. <a href="#">Download edit report</a> - <span className="text-gray">started on {moment(submission.start).format('MMM Do, YYYY')}</span></li>)
                 })}
               </ul>
             </div>
