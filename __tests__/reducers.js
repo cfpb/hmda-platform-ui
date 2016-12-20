@@ -41,8 +41,6 @@ const defaultSignature = {
 const defaultIRS = {
   isFetching: false,
   msas: [],
-  timestamp: null,
-  receipt: null,
   status: defaultSubmission.status
 }
 
@@ -119,26 +117,14 @@ describe('irs reducer', () => {
     ).toEqual({isFetching: true})
   })
 
-  it('handles REQUEST_IRS_POST', () => {
-    expect(
-      irs({}, {type: types.REQUEST_IRS_POST})
-    ).toEqual({isFetching: true})
-  })
-
   it('handles RECEIVE_IRS', () => {
     expect(
-      irs({}, {type: types.RECEIVE_IRS, timestamp: 1234, receipt: 'asdf', msas: []})
-    ).toEqual({isFetching: false, timestamp: 1234, receipt: 'asdf', msas: []})
-  })
-
-  it('handles RECEIVE_IRS_POST', () => {
-    expect(
-      irs({}, {type: types.RECEIVE_IRS_POST, timestamp: 1234, receipt: 'asdf'})
-    ).toEqual({isFetching: false, timestamp: 1234, receipt: 'asdf'})
+      irs({}, {type: types.RECEIVE_IRS, msas: []})
+    ).toEqual({isFetching: false, msas: []})
   })
 
   it('shouldn\'t modify state on an unknown action type', () => {
-    excludeTypes(types.RECEIVE_IRS, types.REQUEST_IRS, types.REQUEST_IRS_POST, types.RECEIVE_IRS_POST)
+    excludeTypes(types.RECEIVE_IRS, types.REQUEST_IRS)
       .forEach(v => expect(irs({}, v))
         .toEqual({})
       )

@@ -108,10 +108,6 @@ export function getIRS(submission){
   return sendFetch(`/submissions/${submission}/irs`);
 }
 
-export function postIRS(submission, data){
-  return sendFetch(`/submissions/${submission}/irs`, {method: 'POST', body: data});
-}
-
 export function getSummary(submission){
   return sendFetch(`/submissions/${submission}/summary`);
 }

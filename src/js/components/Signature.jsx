@@ -15,21 +15,21 @@ const showReceipt = (code, timestamp, receipt) => {
 }
 
 const showWarning = (code) => {
-  if(code > 10) return null
+  if(code > 8) return null
 
   return (
     <div className="usa-alert usa-alert-warning margin-top-0">
       <div className="usa-alert-body">
-        <h3 className="usa-alert-heading">IRS report hasn't been verified.</h3>
-        <p className="usa-alert-text">You can not sign your submission until the IRS report has been verified.</p>
+        <h3 className="usa-alert-heading">Edits still exist.</h3>
+        <p className="usa-alert-text">You can not sign your submission until all edits have passed or been verified.</p>
       </div>
     </div>
   )
 }
 
 const Signature = (props) => {
-  // if code 11, enable the checkbox
-  const isDisabled = props.status.code === 11 ? false : true
+  // if code greater than 8 (validated) and not 12 (signed), enable the checkbox
+  const isDisabled = (props.status.code > 8 && props.status.code !== 12) ? false : true
 
   let buttonClass = 'usa-button-disabled'
   // if the checkbox is checked remove disabled from button
@@ -60,7 +60,7 @@ const Signature = (props) => {
               disabled={isDisabled}
               checked={props.checked}
               onChange={e => props.onSignatureCheck(e.target.checked)}/>
-            <label htmlFor="signature" className="max-width-100">I am an authorized representative of my institution with knowledge of the data submitted and can certify to the accuracy and completeness of the data submitted.</label>
+            <label htmlFor="signature" className="max-width-100">I am an authorized representative of my institution with knowledge of the data submitted and am certifying to the accuracy and completeness of the data submitted.</label>
           </li>
         </ul>
 

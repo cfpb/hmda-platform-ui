@@ -57,10 +57,10 @@ class SubmissionContainer extends Component {
           if(code > 8) toRender.push(<Link className='Navlink' to={base + '/summary'}>Review Summary</Link>)
         }
       }else if(page === 'summary'){
-        if(code > 9){
+        if(code > 7){
           toRender.push(<IRSReport/>)
-          toRender.push(<Signature/>)
           toRender.push(<Summary/>)
+          toRender.push(<Signature/>)
         }
       }
     }
