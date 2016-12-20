@@ -28,8 +28,8 @@ const signatureObj = JSON.parse(fs.readFileSync('./server/json/receipt.json'))
 getInstitution.mockImpl((id) => Promise.resolve(institutionsDetailObj[id]))
 getFiling.mockImpl((id) => Promise.resolve({filing:{}}))
 getInstitutions.mockImpl(() => Promise.resolve(institutionsObj))
-getLatestSubmission.mockImpl(() => Promise.resolve(filingsObj.filings[0].submissions[2]))
-getSubmission.mockImpl(() => Promise.resolve(filingsObj.filings[0].submissions[2]))
+getLatestSubmission.mockImpl(() => Promise.resolve(filingsObj.submissions[2]))
+getSubmission.mockImpl(() => Promise.resolve(filingsObj.submissions[2]))
 getIRS.mockImpl((id) => Promise.resolve(IRSObj))
 getSignature.mockImpl((id) => Promise.resolve(signatureObj))
 
@@ -271,14 +271,15 @@ describe('actions', () => {
 
   it('creates a thunk that will poll for updated status codes in the latest submission', done => {
     const store = mockStore({submission: {}})
-    const submission = filingsObj.filings[0].submissions[2]
+    const submission = filingsObj.submissions[2]
     store.dispatch(actions.pollForProgress()).then(() => {
         expect(store.getActions()).toEqual([
           {
             type: types.RECEIVE_SUBMISSION,
             id: submission.id,
             status: submission.status,
-            timestamp: submission.timestamp
+            start: submission.start,
+            end: submission.end
           }
         ])
 
