@@ -21,7 +21,7 @@ const renderTables = (editObj, type) => {
   }
 
   return edits.map((edit, i) => {
-    return <EditsTable lars={edit.lars} ts={edit.ts} type={type} label={edit.edit} key={i}/>
+    return <EditsTable lars={edit.lars} ts={edit.ts} type={type} label={edit.edit} desc={edit.description} key={i}/>
   })
 }
 
