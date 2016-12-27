@@ -20,12 +20,12 @@ const defaultUpload = {
 }
 
 const defaultStatus = {
-  code: 1,
+  code: null,
   message: ''
 }
 
 const defaultSubmission = {
-  id: 1,
+  id: null,
   status: defaultStatus,
   isFetching: false
 }

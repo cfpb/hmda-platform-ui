@@ -99,9 +99,9 @@ export function getEditsByRow(submission){
   return sendFetch(`/submissions/${submission}/edits/lars`)
 }
 
-export function putEdit(submission, edit, data){
-  var suffix = '/edits/' + edit;
-  return sendFetch(`/submissions/${submission}${suffix}`, {method: 'PUT', body: data})
+export function postEdit(submission, data){
+  var suffix = '/edits/macro'
+  return sendFetch(`/submissions/${submission}${suffix}`, {method: 'POST', body: data})
 }
 
 export function getIRS(submission){
