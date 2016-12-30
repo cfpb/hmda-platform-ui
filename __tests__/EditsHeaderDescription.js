@@ -64,8 +64,7 @@ describe('EditsHeaderDescription', function(){
   it('throws an error for a bad type', () => {
     const getText = jest.fn()
     try {
-      TestUtils.renderIntoDocument(<Wrapper><EditsHeaderDescription type="blahblah" count={1} /></Wrapper>)
-      expect(getText).toBeCalledWith('blaasdfhblah')
+      TestUtils.renderIntoDocument(<Wrapper><EditsHeaderDescription type="badType" count={1} /></Wrapper>)
     }
     catch(err) {
       expect(err.message).toEqual('Unexpected edit type. Unable to create edit description')
