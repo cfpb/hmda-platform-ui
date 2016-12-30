@@ -1,7 +1,7 @@
-jest.unmock('../src/js/components/Summary.jsx');
+jest.unmock('../../src/js/components/Summary.jsx');
 
-import Summary from '../src/js/components/Summary.jsx'
-import Wrapper from './Wrapper.js'
+import Summary from '../../src/js/components/Summary.jsx'
+import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'

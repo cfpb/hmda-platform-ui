@@ -1,7 +1,7 @@
-jest.unmock('../src/js/components/Signature.jsx')
+jest.unmock('../../src/js/components/Signature.jsx')
 
-import Signature from '../src/js/components/Signature.jsx'
-import Wrapper from './Wrapper.js'
+import Signature from '../../src/js/components/Signature.jsx'
+import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'

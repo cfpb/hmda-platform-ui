@@ -1,11 +1,11 @@
-jest.unmock('../src/js/components/UploadForm.jsx')
-jest.unmock('../src/js/components/Progress.jsx')
+jest.unmock('../../src/js/components/UploadForm.jsx')
+jest.unmock('../../src/js/components/Progress.jsx')
 
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
-import Wrapper from './Wrapper.js'
-import UploadForm from '../src/js/components/UploadForm.jsx'
+import Wrapper from '../Wrapper.js'
+import UploadForm from '../../src/js/components/UploadForm.jsx'
 
 describe('submitform', function(){
   const handleSubmit = jest.fn()
@@ -45,5 +45,3 @@ describe('submitform', function(){
   })
 
 })
-
-

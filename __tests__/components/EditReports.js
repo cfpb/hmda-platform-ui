@@ -1,9 +1,9 @@
-jest.dontMock('../src/js/EditReports.jsx');
+jest.dontMock('../../src/js/EditReports.jsx');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
-
+var EditReports = require('../../src/js/EditReports.jsx');
 var institution = {
   "name": "Wacky data",
   "status": 2,
@@ -28,9 +28,6 @@ var institution = {
     }
   ]
 }
-
-var EditReports = require('../src/js/EditReports.jsx');
-
 
 describe('edit reports', function(){
 

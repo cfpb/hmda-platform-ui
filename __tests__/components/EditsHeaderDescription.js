@@ -1,10 +1,10 @@
-jest.unmock('../src/js/components/EditsHeaderDescription.jsx')
+jest.unmock('../../src/js/components/EditsHeaderDescription.jsx')
 
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
-import Wrapper from './Wrapper.js'
-import EditsHeaderDescription from '../src/js/components/EditsHeaderDescription.jsx'
+import Wrapper from '../Wrapper.js'
+import EditsHeaderDescription from '../../src/js/components/EditsHeaderDescription.jsx'
 
 describe('EditsHeaderDescription', function(){
   const header = TestUtils.renderIntoDocument(
