@@ -69,10 +69,9 @@ describe('Signature component', () => {
   })
 
   it('calls the function on click', () => {
-    var button = TestUtils.findRenderedDOMComponentWithTag(signature, 'button')
-    //expect(b.checked).toBeFalsy()
+    var button = TestUtils.findRenderedDOMComponentWithTag(buttonEnabled, 'button')
 
-    TestUtils.Simulate.click(button,)
+    TestUtils.Simulate.click(button)
 
     expect(onSignatureClick).toBeCalled()
   })
