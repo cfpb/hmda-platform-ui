@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
-const parserText = 'Parsing error require file resubmission.'
+const parserText = 'Parsing errors require file resubmission.'
 const refileText = 'Syntactical and validity edits require file resubmission.'
 const validateText = 'Quality and macro edits must be validated before continuing.'
 
@@ -34,7 +34,6 @@ const getRefileLink = (props) => {
 }
 
 const RefileWarning = (props) => {
-  //if(!props.types.syntactical) return null
   if (props.submission.status.code > 8) return null
 
   let alertClass = 'usa-alert-error'
