@@ -71,6 +71,7 @@
     ]
   },
   "jest": {
+    "coverageDirectory": ".coverage/",
     "transform": { ".*": "<rootDir>/node_modules/babel-jest"},
     "testPathIgnorePatterns": [
       "<rootDir>/__tests__/Wrapper.js"

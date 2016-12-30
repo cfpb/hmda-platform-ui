@@ -1,10 +1,10 @@
-jest.unmock('../src/js/actions')
-jest.unmock('../src/js/constants')
-jest.mock('../src/js/api')
+jest.unmock('../../src/js/actions')
+jest.unmock('../../src/js/constants')
+jest.mock('../../src/js/api')
 
 import fs from 'fs'
-import * as actions from '../src/js/actions'
-import * as types from '../src/js/constants'
+import * as actions from '../../src/js/actions'
+import * as types from '../../src/js/constants'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import {
@@ -17,13 +17,13 @@ import {
   getIRS,
   getSignature,
   postSignature
-} from '../src/js/api.js'
+} from '../../src/js/api.js'
 
-const institutionsDetailObj = JSON.parse(fs.readFileSync('./server/json/institutions-detail.json'))
-const institutionsObj = JSON.parse(fs.readFileSync('./server/json/institutions.json'))
-const filingsObj = JSON.parse(fs.readFileSync('./server/json/filings.json'))
-const IRSObj = JSON.parse(fs.readFileSync('./server/json/irs.json'))
-const signatureObj = JSON.parse(fs.readFileSync('./server/json/receipt.json'))
+const institutionsDetailObj = JSON.parse(fs.readFileSync('../server/json/institutions-detail.json'))
+const institutionsObj = JSON.parse(fs.readFileSync('../server/json/institutions.json'))
+const filingsObj = JSON.parse(fs.readFileSync('../server/json/filings.json'))
+const IRSObj = JSON.parse(fs.readFileSync('../server/json/irs.json'))
+const signatureObj = JSON.parse(fs.readFileSync('../server/json/receipt.json'))
 
 getInstitution.mockImpl((id) => Promise.resolve(institutionsDetailObj[id]))
 getFiling.mockImpl((id) => Promise.resolve({filing:{}}))
