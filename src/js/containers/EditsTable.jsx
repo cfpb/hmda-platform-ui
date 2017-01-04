@@ -6,20 +6,23 @@ const rowForEachLarTypes = ['syntactical', 'validity', 'quality']
 
 const rowForEachLar = (val) => rowForEachLarTypes.indexOf(val) !== -1
 
-/*const renderHeader = (props) => {
-  let row = props.lars[0]
+const renderHeader = (props) => {
+  let row = props.lars ? props.lars[0] : props.data[0]
   if (rowForEachLar(props.type)) row = row.lar
 
   return (
     <tr>
       {
         Object.keys(row).map((header, i) => {
+          if(header === 'loanId') header = 'Row ID'
+          if(header === 'edit') header = 'Edit ID'
+          if(header === 'justifications') header = 'Justifications'
           return <th key={i}>{header}</th>
         })
       }
     </tr>
   )
-}*/
+}
 
 const renderTS = (ts) => {
   if (ts) {
@@ -47,16 +50,16 @@ const renderBody = (props) => {
 const EditsTable = (props) => {
   let editCount = !props.lars ? props.data.length : props.lars.length
   editCount = props.ts ? (editCount + 1) : (editCount)
+
   return (
     <div className="EditsTable bg-color-white">
       <table width="100%" className="margin-top-1">
         <caption>
-          <h3>{props.label ? props.label : null} - {editCount}</h3>
-          <p>{props.desc}</p>
+          <h3>{props.label ? `${props.label} - ${editCount}`: null}</h3>
+          <p>{props.desc? `${props.desc}`: null}</p>
         </caption>
         <thead>
-          {/*renderHeader(props)*/}
-          <tr><th>Row ID</th></tr>
+          {renderHeader(props)}
         </thead>
         <tbody>
           {renderTS(props.ts)}

@@ -9,7 +9,7 @@ import {
   getUploadUrl,
   getEditsByType,
   getEditsByRow,
-  putEdit,
+  postEdit,
   getIRS,
   getSignature,
   postSignature,
@@ -55,17 +55,16 @@ export function receiveInstitution(data) {
   }
 }
 
-export function requestEditPut() {
+export function requestEditPost() {
   return {
-    type: types.REQUEST_EDIT_PUT
+    type: types.REQUEST_EDIT_POST
   }
 }
 
-export function receiveEditPut(edit, data) {
+export function receiveEditPost(data) {
   return {
-    type: types.RECEIVE_EDIT_PUT,
-    edit: edit,
-    justifications: data
+    type: types.RECEIVE_EDIT_POST,
+    data: data
   }
 }
 
@@ -113,6 +112,7 @@ export function requestEditsByRow() {
 }
 
 export function receiveEditsByType(data) {
+  console.log('edits by type', data)
   return {
     type: types.RECEIVE_EDITS_BY_TYPE,
     edits: data
@@ -505,11 +505,11 @@ export function fetchEditsByRow() {
   }
 }
 
-export function justifyUpdate(edit, data) {
+export function justifyUpdate(data) {
   return dispatch => {
-    dispatch(requestEditPut())
-    return putEdit(latestSubmissionId, edit, data)
-      .then(() => dispatch(receiveEditPut(edit, data)))
+    dispatch(requestEditPost())
+    return postEdit(latestSubmissionId, data)
+      .then(() => dispatch(receiveEditPost(data)))
       .catch(err => console.error(err))
   }
 }

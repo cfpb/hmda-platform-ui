@@ -33,6 +33,11 @@ class SubmissionContainer extends Component {
     if(!this.props.status) return null
     if(!this.props.location) return null
 
+    if(this.props.status.code === null){
+      this.props.dispatch(fetchSubmission())
+      return null
+    }
+
     const status = this.props.status
     const code = status.code
     const pathname = this.props.location.pathname
@@ -91,11 +96,9 @@ function mapStateToProps(state) {
   console.log('submission container state', state)
   const {
     isFetching,
-    status,
-    id
+    status
   } = state.app.submission || {
     isFetching: true,
-    id: 1,
     status: null
   }
 
@@ -104,7 +107,6 @@ function mapStateToProps(state) {
   return {
     isFetching,
     status,
-    id,
     user
   }
 }

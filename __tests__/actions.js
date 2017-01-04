@@ -43,9 +43,9 @@ const xhrMock = {
     }
   }
 
-global.XMLHttpRequest = jest.fn().mockImpl(() => {
-  return xhrMock
-})
+global.XMLHttpRequest = jest.fn(() => xhrMock)
+global.window.XMLHttpRequest = global.XMLHttpRequest
+
 
 const mockStore = configureMockStore([thunk])
 
@@ -267,7 +267,6 @@ describe('actions', () => {
         done.fail()
       })
   })
-
 
   it('creates a thunk that will poll for updated status codes in the latest submission', done => {
     const store = mockStore({submission: {}})
