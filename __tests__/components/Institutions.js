@@ -1,7 +1,7 @@
-jest.unmock('../src/js/components/Institutions.jsx')
+jest.unmock('../../src/js/components/Institutions.jsx')
 
-import Institutions from '../src/js/components/Institutions.jsx'
-import Wrapper from './Wrapper.js'
+import Institutions from '../../src/js/components/Institutions.jsx'
+import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'

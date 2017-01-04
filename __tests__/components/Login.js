@@ -1,7 +1,7 @@
-jest.unmock('../src/js/components/Login.jsx')
+jest.unmock('../../src/js/components/Login.jsx')
 
-import Login from '../src/js/components/Login.jsx'
-import Wrapper from './Wrapper.js'
+import Login from '../../src/js/components/Login.jsx'
+import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
