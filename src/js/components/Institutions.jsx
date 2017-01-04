@@ -30,7 +30,7 @@ const renderTiming = (status, start, end) => {
       timing = null
   }
 
-  return <p className="text-gray usa-text-small"><strong className={`${messageClass} text-uppercase`}>{status.message}</strong>{timing}</p>
+  return <p className="text-gray usa-text-small"><strong className={`${messageClass} text-uppercase`}>{status.message}</strong> {timing}</p>
 }
 
 const renderStatus = (code, institutionName, institutionId, period) => {
@@ -117,6 +117,12 @@ export default class Institution extends Component {
               {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
               {renderButton(filing.status.code, filing.institutionId, filing.period)}
               {renderRefile(makeNewSubmission, filing.status.code, filing.institutionId, filing.period)}
+              <h5>Previous submissions for this filing</h5>
+              <ul className="usa-text-small usa-unstyled-list">
+                {filingObj.submissions.map((submission, i) => {
+                  return (<li key={i}><strong>{submission.id.sequenceNumber}</strong>. <a href="#">Download edit report</a> - <span className="text-gray">started on {moment(submission.start).format('MMM Do, YYYY')}</span></li>)
+                })}
+              </ul>
             </div>
           )
         })}

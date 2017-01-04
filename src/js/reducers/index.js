@@ -56,7 +56,6 @@ const defaultEdits = {
 
 //empty action logger, temporary / for debugging
 export const auth = (state = {}, action) => {
-  console.log(action.type, action, state)
   return state
 }
 

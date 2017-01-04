@@ -36,7 +36,6 @@ export function requestInstitutions() {
 }
 
 export function receiveInstitutions(data) {
-  console.log('institutions',data)
   return {
     type: types.RECEIVE_INSTITUTIONS,
     institutions: data.institutions
@@ -298,8 +297,6 @@ export function fetchSummary() {
  * Wire upload together with xhr so progress can be tracked
  */
 export function requestUpload(file) {
-  console.log('actions - requestUpload')
-  console.log(file)
   return dispatch => {
     var data = new FormData()
     data.append('file', file)
@@ -320,7 +317,6 @@ export function requestUpload(file) {
 
       dispatch(uploadComplete(e))
 
-      console.log('starting poll for progress')
       dispatch(pollForProgress())
     })
 
@@ -365,7 +361,6 @@ export function fetchNewSubmission(id, period) {
  * Get the latest submission via the api and dispatch an action with the results
  */
 export function fetchSubmission() {
-  console.log('actions - fetchSubmission')
   return dispatch => {
     dispatch(requestFiling())
     return getFilingFromUrl().then(json => {
@@ -467,7 +462,6 @@ export function fetchInstitution(institution) {
     return getInstitution(institution.id)
       .then(json => {
         dispatch(receiveInstitution(json))
-          console.log('filings for dispatch', json,json.filings)
         if(json && json.filings){
           json.filings.forEach((filing) => {
             if(filing.period === currentFilingPeriod){
@@ -494,7 +488,6 @@ export function fetchFiling(institution) {
 }
 
 export function fetchEditsByType() {
-  console.log()
   return dispatch => {
     dispatch(requestEditsByType())
     return getEditsByType(latestSubmissionId)
