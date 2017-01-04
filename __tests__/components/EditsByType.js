@@ -12,18 +12,18 @@ import Wrapper from '../Wrapper.js'
 import EditsByType from '../../src/js/components/EditsByType.jsx'
 
 const types = {
-  syntactical: JSON.parse(fs.readFileSync('./server/json/syntactical.json')),
-  validity: JSON.parse(fs.readFileSync('./server/json/validity.json')),
-  quality: JSON.parse(fs.readFileSync('./server/json/quality.json')),
+  syntactical: JSON.parse(fs.readFileSync('./__tests__/json/syntactical.json')),
+  validity: JSON.parse(fs.readFileSync('./__tests__/json/validity.json')),
+  quality: JSON.parse(fs.readFileSync('./__tests__/json/quality.json')),
   macro: {
     "edits": []
   }
 }
 
 const typesNoMacro = {
-  syntactical: JSON.parse(fs.readFileSync('./server/json/syntactical.json')),
-  validity: JSON.parse(fs.readFileSync('./server/json/validity.json')),
-  quality: JSON.parse(fs.readFileSync('./server/json/quality.json')),
+  syntactical: JSON.parse(fs.readFileSync('./__tests__/json/syntactical.json')),
+  validity: JSON.parse(fs.readFileSync('./__tests__/json/validity.json')),
+  quality: JSON.parse(fs.readFileSync('./__tests__/json/quality.json')),
   macro: {
     "edits": []
   }

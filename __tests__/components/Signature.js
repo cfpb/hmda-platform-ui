@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
 const fs = require('fs')
-const signJSON = JSON.parse(fs.readFileSync('./server/json/receipt.json'))
+const signJSON = JSON.parse(fs.readFileSync('./__tests__/json/receipt.json'))
 const status = {
   code: 11,
   message: ''
@@ -29,6 +29,10 @@ describe('Signature component', () => {
 
   it('contains the checkbox input', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithTag(signature, 'input').length).toEqual(1)
+  })
+
+  it('contains the submit button', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(signature, 'button').length).toEqual(1)
   })
 
   it('does NOT render the receipt and hash', () => {
@@ -64,6 +68,14 @@ describe('Signature component', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(buttonEnabled, 'usa-button-disabled').length).toEqual(0)
   })
 
+  it('calls the function on click', () => {
+    var button = TestUtils.findRenderedDOMComponentWithTag(buttonEnabled, 'button')
+
+    TestUtils.Simulate.click(button)
+
+    expect(onSignatureClick).toBeCalled()
+  })
+
   // checkbox checked and status is signed
   const statusSigned = {
     code: 12,
@@ -83,5 +95,29 @@ describe('Signature component', () => {
   it('has the checkbox checked', () => {
     const checkboxChecked = TestUtils.findRenderedDOMComponentWithTag(signatureSigned, 'input')
     expect(checkboxChecked.checked).toBeTruthy()
+  })
+
+  it('has the checkbox disabled', () => {
+    const checkboxDisabled = TestUtils.findRenderedDOMComponentWithTag(signatureSigned, 'input')
+    expect(checkboxDisabled.disabled).toBeTruthy()
+  })
+
+  it('has the button disabled', () => {
+    expect(TestUtils.findRenderedDOMComponentWithClass(signatureSigned, 'usa-button-disabled')).toBeTruthy()
+  })
+
+  const statusEdits = {
+    code: 7,
+    message: ''
+  }
+  const signatureWithEdits = TestUtils.renderIntoDocument(
+    <Wrapper>
+      <Signature checked={true} receipt={signJSON.receipt} timestamp={signJSON.timestamp} status={statusEdits} onSignatureClick={onSignatureClick} onSignatureCheck={onSignatureCheck}/>
+    </Wrapper>
+  )
+  const signatureWithEditsNode = ReactDOM.findDOMNode(signatureWithEdits)
+
+  it('renders the warning', () => {
+    expect(TestUtils.findRenderedDOMComponentWithClass(signatureWithEdits, 'usa-alert-warning')).toBeTruthy()
   })
 })

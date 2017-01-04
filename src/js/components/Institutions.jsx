@@ -30,7 +30,7 @@ const renderTiming = (status, start, end) => {
       timing = null
   }
 
-  return <p className="text-gray usa-text-small"><strong className={`${messageClass} text-uppercase`}>{status.message}</strong>{timing}</p>
+  return <p className="text-gray usa-text-small"><strong className={`${messageClass} text-uppercase`}>{status.message}</strong> {timing}</p>
 }
 
 const renderStatus = (code, institutionName, institutionId, period) => {
@@ -82,13 +82,12 @@ const renderButton = (code, institutionId, period) => {
       break
   }
 
-  return <Link className="usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
+  return <Link className="status-button usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
 }
 
 const renderRefile = (makeNewSubmission, code, institutionId, period) => {
   if(code === 1) return null
-  return <a className="usa-button usa-button-secondary usa-text-small" onClick={()=>{
-    makeNewSubmission(institutionId, period)}}>Refile</a>
+  return <a className="usa-button usa-button-secondary usa-text-small" onClick={()=>{    makeNewSubmission(institutionId, period)}}>Refile</a>
 }
 
 const getInstitutionFromFiling = (institutions, filing) => {
@@ -100,7 +99,6 @@ const getInstitutionFromFiling = (institutions, filing) => {
 
 export default class Institution extends Component {
   render() {
-    console.log('inst filings',this.props.institutions, this.props.filings)
     const institutions = this.props.institutions
     const makeNewSubmission = this.props.makeNewSubmission
     return (
@@ -117,6 +115,12 @@ export default class Institution extends Component {
               {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
               {renderButton(filing.status.code, filing.institutionId, filing.period)}
               {renderRefile(makeNewSubmission, filing.status.code, filing.institutionId, filing.period)}
+              <h5>Previous submissions for this filing</h5>
+              <ul className="usa-text-small usa-unstyled-list">
+                {filingObj.submissions.map((submission, i) => {
+                  return (<li key={i}><strong>{submission.id.sequenceNumber}</strong>. <a href="#">Download edit report</a> - <span className="text-gray">started on {moment(submission.start).format('MMM Do, YYYY')}</span></li>)
+                })}
+              </ul>
             </div>
           )
         })}

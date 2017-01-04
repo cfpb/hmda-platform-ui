@@ -19,17 +19,17 @@ import {
   postSignature
 } from '../../src/js/api.js'
 
-const institutionsDetailObj = JSON.parse(fs.readFileSync('./server/json/institutions-detail.json'))
-const institutionsObj = JSON.parse(fs.readFileSync('./server/json/institutions.json'))
-const filingsObj = JSON.parse(fs.readFileSync('./server/json/filings.json'))
-const IRSObj = JSON.parse(fs.readFileSync('./server/json/irs.json'))
-const signatureObj = JSON.parse(fs.readFileSync('./server/json/receipt.json'))
+const institutionsDetailObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions-detail.json'))
+const institutionsObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions.json'))
+const filingsObj = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))
+const IRSObj = JSON.parse(fs.readFileSync('./__tests__/json/irs.json'))
+const signatureObj = JSON.parse(fs.readFileSync('./__tests__/json/receipt.json'))
 
 getInstitution.mockImpl((id) => Promise.resolve(institutionsDetailObj[id]))
 getFiling.mockImpl((id) => Promise.resolve({filing:{}}))
 getInstitutions.mockImpl(() => Promise.resolve(institutionsObj))
-getLatestSubmission.mockImpl(() => Promise.resolve(filingsObj.filings[0].submissions[2]))
-getSubmission.mockImpl(() => Promise.resolve(filingsObj.filings[0].submissions[2]))
+getLatestSubmission.mockImpl(() => Promise.resolve(filingsObj.submissions[2]))
+getSubmission.mockImpl(() => Promise.resolve(filingsObj.submissions[2]))
 getIRS.mockImpl((id) => Promise.resolve(IRSObj))
 getSignature.mockImpl((id) => Promise.resolve(signatureObj))
 
@@ -43,9 +43,9 @@ const xhrMock = {
     }
   }
 
-global.XMLHttpRequest = jest.fn().mockImpl(() => {
-  return xhrMock
-})
+global.XMLHttpRequest = jest.fn(() => xhrMock)
+global.window.XMLHttpRequest = global.XMLHttpRequest
+
 
 const mockStore = configureMockStore([thunk])
 
@@ -268,17 +268,17 @@ describe('actions', () => {
       })
   })
 
-
   it('creates a thunk that will poll for updated status codes in the latest submission', done => {
     const store = mockStore({submission: {}})
-    const submission = filingsObj.filings[0].submissions[2]
+    const submission = filingsObj.submissions[2]
     store.dispatch(actions.pollForProgress()).then(() => {
         expect(store.getActions()).toEqual([
           {
             type: types.RECEIVE_SUBMISSION,
             id: submission.id,
             status: submission.status,
-            timestamp: submission.timestamp
+            start: submission.start,
+            end: submission.end
           }
         ])
 

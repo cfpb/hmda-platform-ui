@@ -16,8 +16,8 @@ import {
   REQUEST_EDITS_BY_ROW,
   RECEIVE_EDITS_BY_TYPE,
   RECEIVE_EDITS_BY_ROW,
-  REQUEST_EDIT_PUT,
-  RECEIVE_EDIT_PUT,
+  REQUEST_EDIT_POST,
+  RECEIVE_EDIT_POST,
   REQUEST_IRS,
   RECEIVE_IRS,
   REQUEST_SIGNATURE,
@@ -37,12 +37,12 @@ const defaultUpload = {
 }
 
 const defaultStatus = {
-  code: 1,
+  code: null,
   message: ''
 }
 
 const defaultSubmission = {
-  id: 1,
+  id: null,
   status: defaultStatus,
   isFetching: false
 }
@@ -56,7 +56,6 @@ const defaultEdits = {
 
 //empty action logger, temporary / for debugging
 export const auth = (state = {}, action) => {
-  console.log(action.type, action, state)
   return state
 }
 
@@ -198,14 +197,14 @@ const edits = (state = defaultEdits, action) => {
         ...state,
         rows: action.edits
       }
-    case RECEIVE_EDIT_PUT: {
+    case RECEIVE_EDIT_POST: {
       const clonedState = {...state}
       const edits = []
       state.types.macro.edits.forEach((edit) => {
-        if(edit.edit !== action.edit) edits.push(edit)
+        if(edit.edit !== action.data.edit) edits.push(edit)
         else edits.push({
           ...edit,
-          justifications: action.justifications
+          justifications: action.data.justifications
         })
       })
 
