@@ -45,14 +45,19 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch){
-  const makeNewSubmission = (id, period) => {
-    return dispatch(createNewSubmission(id, period)).then(()=>{
-      browserHistory.push(`/${id}/${period}`)
-    })
+function mapDispatchToProps(dispatch) {
+  return {
+    makeNewSubmission = (id, period) => {
+      return dispatch(createNewSubmission(id, period)).then(()=>{
+        browserHistory.push(`/${id}/${period}`)
+      })
+    },
+    // triggered by a click on "Download edit report"
+    onDownloadClick = (id, period) => {
+      dispatch(requestCSV(id, period))
+    },
+    dispatch
   }
-
-  return { makeNewSubmission, dispatch }
 }
 
 InstitutionContainer.defaultProps = {
