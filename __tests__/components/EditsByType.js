@@ -1,15 +1,15 @@
-jest.unmock('../src/js/components/EditsByType.jsx')
-jest.unmock('../src/js/containers/EditsTable.jsx')
-jest.unmock('../src/js/components/EditsTableRow.jsx')
-jest.unmock('../src/js/components/EditsTableCell.jsx')
-jest.unmock('../src/js/components/EditsHeaderDescription.jsx')
+jest.unmock('../../src/js/components/EditsByType.jsx')
+jest.unmock('../../src/js/containers/EditsTable.jsx')
+jest.unmock('../../src/js/components/EditsTableRow.jsx')
+jest.unmock('../../src/js/components/EditsTableCell.jsx')
+jest.unmock('../../src/js/components/EditsHeaderDescription.jsx')
 
 import fs from 'fs'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
-import Wrapper from './Wrapper.js'
-import EditsByType from '../src/js/components/EditsByType.jsx'
+import Wrapper from '../Wrapper.js'
+import EditsByType from '../../src/js/components/EditsByType.jsx'
 
 const types = {
   syntactical: JSON.parse(fs.readFileSync('./__tests__/json/syntactical.json')),

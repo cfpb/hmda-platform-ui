@@ -1,7 +1,7 @@
-jest.unmock('../src/js/components/HomeLink.jsx')
+jest.unmock('../../src/js/components/HomeLink.jsx')
 
-import HomeLink from '../src/js/components/HomeLink.jsx'
-import Wrapper from './Wrapper.js'
+import HomeLink from '../../src/js/components/HomeLink.jsx'
+import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'

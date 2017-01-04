@@ -1,7 +1,7 @@
-jest.unmock('../src/js/components/IRSReport.jsx')
+jest.unmock('../../src/js/components/IRSReport.jsx')
 
-import IRSReport from '../src/js/components/IRSReport.jsx'
-import Wrapper from './Wrapper.js'
+import IRSReport from '../../src/js/components/IRSReport.jsx'
+import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'

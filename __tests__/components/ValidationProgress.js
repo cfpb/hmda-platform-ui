@@ -1,10 +1,10 @@
-jest.unmock('../src/js/components/ValidationProgress.jsx');
+jest.unmock('../../src/js/components/ValidationProgress.jsx');
 
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
-import Wrapper from './Wrapper.js'
-import ValidationProgress from '../src/js/components/ValidationProgress.jsx'
+import Wrapper from '../Wrapper.js'
+import ValidationProgress from '../../src/js/components/ValidationProgress.jsx'
 
 describe('ValidationProgress', function(){
 

@@ -1,7 +1,7 @@
-jest.unmock('../src/js/components/Progress.jsx');
+jest.unmock('../../src/js/components/Progress.jsx');
 
-import Progress from '../src/js/components/Progress.jsx'
-import Wrapper from './Wrapper.js'
+import Progress from '../../src/js/components/Progress.jsx'
+import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'

@@ -1,7 +1,7 @@
-jest.unmock('../src/js/components/UserHeading.jsx')
+jest.unmock('../../src/js/components/UserHeading.jsx')
 
-import UserHeading from '../src/js/components/UserHeading.jsx'
-import Wrapper from './Wrapper.js'
+import UserHeading from '../../src/js/components/UserHeading.jsx'
+import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'

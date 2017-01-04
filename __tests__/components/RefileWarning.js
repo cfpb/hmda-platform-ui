@@ -1,12 +1,12 @@
-jest.unmock('../src/js/components/RefileWarning.jsx');
-jest.mock('../src/js/api')
+jest.unmock('../../src/js/components/RefileWarning.jsx');
+jest.mock('../../src/js/api')
 
-import RefileWarning from '../src/js/components/RefileWarning.jsx'
-import Wrapper from './Wrapper.js'
+import RefileWarning from '../../src/js/components/RefileWarning.jsx'
+import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
-import { parseLocation } from '../src/js/api'
+import { parseLocation } from '../../src/js/api'
 
 parseLocation.mockImpl(() => { return { id:'1', period: '2017', submission: 1 } })
 

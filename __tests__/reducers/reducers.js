@@ -1,7 +1,7 @@
-jest.unmock('../src/js/reducers')
+jest.unmock('../../src/js/reducers')
 
-import * as types from '../src/js/constants'
-import { institutions, filings, submission, upload, status, irs, signature } from '../src/js/reducers'
+import * as types from '../../src/js/constants'
+import { institutions, filings, submission, upload, status, irs, signature } from '../../src/js/reducers'
 
 const typesArr = Object.keys(types)
   .filter( v => v !== '__esModule')
