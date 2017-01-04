@@ -82,13 +82,12 @@ const renderButton = (code, institutionId, period) => {
       break
   }
 
-  return <Link className="usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
+  return <Link className="status-button usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
 }
 
 const renderRefile = (makeNewSubmission, code, institutionId, period) => {
   if(code === 1) return null
-  return <a className="usa-button usa-button-secondary usa-text-small" onClick={()=>{
-    makeNewSubmission(institutionId, period)}}>Refile</a>
+  return <a className="usa-button usa-button-secondary usa-text-small" onClick={()=>{    makeNewSubmission(institutionId, period)}}>Refile</a>
 }
 
 const getInstitutionFromFiling = (institutions, filing) => {
@@ -100,7 +99,6 @@ const getInstitutionFromFiling = (institutions, filing) => {
 
 export default class Institution extends Component {
   render() {
-    console.log('inst filings',this.props.institutions, this.props.filings)
     const institutions = this.props.institutions
     const makeNewSubmission = this.props.makeNewSubmission
     return (

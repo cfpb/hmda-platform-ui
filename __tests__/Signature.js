@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
 const fs = require('fs')
-const signJSON = JSON.parse(fs.readFileSync('./server/json/receipt.json'))
+const signJSON = JSON.parse(fs.readFileSync('./__tests__/json/receipt.json'))
 const status = {
   code: 11,
   message: ''
