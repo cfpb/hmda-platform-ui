@@ -11,7 +11,9 @@ describe('submitform', function(){
   const handleSubmit = jest.fn()
   const setFile = jest.fn()
 
-  const form = TestUtils.renderIntoDocument(
+  // use ReactDOM.render instead to be able to test componentDidUpdate
+  const node = document.createElement('div')
+  const form = ReactDOM.render(
       <Wrapper>
         <UploadForm
           handleSubmit={handleSubmit}
@@ -20,11 +22,16 @@ describe('submitform', function(){
           bytesUploaded={42}
           file={{size:108}}
         />
-      </Wrapper>)
+      </Wrapper>, node)
   const formNode = ReactDOM.findDOMNode(form)
 
   it('renders the form', function(){
     expect(formNode).toBeDefined()
+  })
+
+  it('expects the file input to be empty', () => {
+    const input = TestUtils.scryRenderedDOMComponentsWithTag(form, 'input')[0]
+    expect(input.value).toEqual('')
   })
 
   TestUtils.Simulate.change(
@@ -44,6 +51,21 @@ describe('submitform', function(){
     expect(handleSubmit).toBeCalled()
   })
 
+  const form2 = ReactDOM.render(
+      <Wrapper>
+        <UploadForm
+          handleSubmit={handleSubmit}
+          setFile={setFile}
+          uploading={true}
+          bytesUploaded={42}
+          file={{size:200}}
+        />
+      </Wrapper>, node)
+  const form2Node = ReactDOM.findDOMNode(form2)
+
+  it('expects the file input to be empty', () => {
+    const input = TestUtils.scryRenderedDOMComponentsWithTag(form2, 'input')[0]
+    expect(input.value).toEqual('')
+  })
+
 })
-
-
