@@ -104,6 +104,11 @@ export function postEdit(submission, data){
   return sendFetch(`/submissions/${submission}${suffix}`, {method: 'POST', body: data})
 }
 
+export function postQuality(){
+  //FIXME implement call
+  return Promise.resolve()
+}
+
 export function getIRS(submission){
   return sendFetch(`/submissions/${submission}/irs`);
 }

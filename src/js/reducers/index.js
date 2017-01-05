@@ -26,6 +26,7 @@ import {
   RECEIVE_SIGNATURE_POST,
   REQUEST_SUMMARY,
   RECEIVE_SUMMARY,
+  VERIFY_QUALITY,
   UPDATE_STATUS,
   CHECK_SIGNATURE
 } from '../constants'
@@ -209,6 +210,11 @@ const edits = (state = defaultEdits, action) => {
       })
 
       clonedState.types.macro.edits = edits
+      return clonedState
+    }
+    case VERIFY_QUALITY: {
+      const clonedState = {...state}
+      clonedState.types.quality.verified = true
       return clonedState
     }
     default:

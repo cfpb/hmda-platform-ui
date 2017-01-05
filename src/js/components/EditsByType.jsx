@@ -1,10 +1,10 @@
 import React from 'react'
 import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import EditsTable from '../containers/EditsTable.jsx'
+import QualityVerifier from '../containers/QualityVerifier.jsx'
 
 const renderTables = (editObj, type) => {
   const edits = editObj.edits
-
   if(edits.length === 0) {
     return (
       <div className="usa-alert usa-alert-success margin-top-0">
@@ -16,13 +16,25 @@ const renderTables = (editObj, type) => {
     )
   }
 
-  if(edits[0] && !edits[0].lars){
+  if(type === 'macro'){
     return <EditsTable data={edits} type={type} />
   }
 
-  return edits.map((edit, i) => {
+  const editArray = edits.map((edit, i) => {
     return <EditsTable lars={edit.lars} ts={edit.ts} type={type} label={edit.edit} desc={edit.description} key={i}/>
   })
+
+  if(type === 'quality'){
+    return (
+      <div>
+        {editArray}
+        <QualityVerifier/>
+      </div>
+    )
+  }
+
+  return editArray
+
 }
 
 const EditsByType = (props) => {

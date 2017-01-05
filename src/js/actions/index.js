@@ -14,6 +14,7 @@ import {
   getSignature,
   postSignature,
   getSummary,
+  postQuality,
   setAccessToken,
   getAccessToken
 } from '../api'
@@ -123,6 +124,21 @@ export function receiveEditsByRow(data) {
   return {
     type: types.RECEIVE_EDITS_BY_ROW,
     edits: data
+  }
+}
+
+export function fetchVerifyQuality() {
+  return dispatch => {
+    return postQuality()
+      .then(json => {
+        dispatch(verifyQuality())
+      })
+  }
+}
+
+export function verifyQuality() {
+  return {
+    type: types.VERIFY_QUALITY
   }
 }
 
