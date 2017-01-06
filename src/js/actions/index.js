@@ -15,7 +15,8 @@ import {
   postSignature,
   getSummary,
   setAccessToken,
-  getAccessToken
+  getAccessToken,
+  getParseErrors
 } from '../api'
 import * as types from '../constants'
 
@@ -289,6 +290,29 @@ export function fetchSummary() {
     dispatch(requestSummary())
     return getSummary(latestSubmissionId)
       .then(json => dispatch(receiveSummary(json)))
+      .catch(err => console.error(err))
+  }
+}
+
+export function requestParseErrors() {
+  return {
+    type: types.REQUEST_PARSE_ERRORS
+  }
+}
+
+export function receiveParseErrors(data) {
+  return {
+    type: types.RECEIVE_PARSE_ERRORS,
+    transmittalSheetErrors: data.transmittalSheetErrors,
+    larErrors: data.larErrors
+  }
+}
+
+export function fetchParseErrors() {
+  return dispatch => {
+    dispatch(requestParseErrors())
+    return getParseErrors(latestSubmissionId)
+      .then(json => dispatch(receiveParseErrors(json)))
       .catch(err => console.error(err))
   }
 }
