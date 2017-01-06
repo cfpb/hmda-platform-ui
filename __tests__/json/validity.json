@@ -1,28 +1,11 @@
 {
-  "type": "validity",
   "edits": [
     {
-      "edit": "valedit1",
-      "lars": [
+      "edit": "V555",
+      "description": "If loan purpose = 1 or 3, then lien status must = 1, 2, or 4.",
+      "rows": [
         {
-          "lar": {"loanId": "v1"}
-        },
-        {
-          "lar": {"loanId": "v2"}
-        },
-        {
-          "lar": {"loanId": "v3"}
-        }
-      ]
-    },
-    {
-      "edit": "valedit2",
-      "lars": [
-        {
-          "lar": {"loanId": "v4"}
-        },
-        {
-          "lar": {"loanId": "v5"}
+          "row": { "rowId": "4977566612" }
         }
       ]
     }

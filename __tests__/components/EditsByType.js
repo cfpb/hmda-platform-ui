@@ -15,9 +15,7 @@ const types = {
   syntactical: JSON.parse(fs.readFileSync('./__tests__/json/syntactical.json')),
   validity: JSON.parse(fs.readFileSync('./__tests__/json/validity.json')),
   quality: JSON.parse(fs.readFileSync('./__tests__/json/quality.json')),
-  macro: {
-    "edits": []
-  }
+  macro: JSON.parse(fs.readFileSync('./__tests__/json/macro.json'))
 }
 
 const typesNoMacro = {
