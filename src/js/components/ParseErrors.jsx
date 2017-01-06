@@ -1,11 +1,15 @@
 import React, { Component, PropTypes } from 'react'
 
 const renderErrorMessages = (messages) => {
-  let errors = ''
-  messages.map((message, i) => {
-    errors = errors + message
-  })
-  return errors
+  return (
+    <ul className="usa-unstyled-list">
+      {
+        messages.map((message, i) => {
+          return <li key={i}>{message}</li>
+        })
+      }
+    </ul>
+  )
 }
 
 const renderData = (larError) => {
@@ -23,12 +27,25 @@ const renderData = (larError) => {
       return <td key={i}>{data}</td>
     })
   )
+}
 
+const renderTSErrors = (transmittalSheetErrors) => {
+  if(transmittalSheetErrors.length === 0) return null
+  return (
+    <tr>
+      <td>Transmittal Sheet</td>
+      <td>
+        <ul className="usa-unstyled-list" id="tsErrors">
+          {transmittalSheetErrors.map((tsError, i) => {
+            return <li key={i}>{tsError}</li>
+          })}
+        </ul>
+      </td>
+    </tr>
+  )
 }
 
 const ParseErrors = (props) => {
-  console.log('ParseErrors')
-  console.log(props)
   return (
     <div className="ParseErrors usa-grid-full" id="parseErrors">
       <div className="padding-2 bg-color-gray-lightest">
@@ -45,6 +62,7 @@ const ParseErrors = (props) => {
             </tr>
           </thead>
           <tbody>
+            {renderTSErrors(props.transmittalSheetErrors)}
             {props.larErrors.map((larError, i) => {
               return <tr key={i}>{renderData(larError)}</tr>
             })}
