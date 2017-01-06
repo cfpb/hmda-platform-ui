@@ -116,6 +116,10 @@ export function getSignature(submission){
   return sendFetch(`/submissions/${submission}/sign`);
 }
 
+export function getParseErrors(submission){
+  return sendFetch(`/submissions/${submission}/parseErrors`);
+}
+
 export function postSignature(submission, data){
   return sendFetch(`/submissions/${submission}/sign`, {method: 'POST', body: data});
 }
