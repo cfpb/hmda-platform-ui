@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
 const QualityVerifier = (props) => {
-  const oneWayVerification = 'Quality edits verified. Incorrect or inaccurate data fields revealed by quality edits will need to be corrected and refiled.'
+  const verficationMessage = 'Quality edits verified. Incorrect or inaccurate data fields revealed by quality edits will need to be corrected and refiled.'
 
   return (
     <div className="border margin-bottom-5 padding-1">
@@ -14,12 +14,11 @@ const QualityVerifier = (props) => {
             value="qualityVerifier"
             checked={props.checked}
             onChange={e => {
-              if (!e.target.checked) return e.preventDefault()
-              props.onVerify()
+              props.onVerify(e.target.checked)
             }}/>
           <label htmlFor="qualityVerifier" className="max-width-100">I have verified the accuracy of all data fields referenced by quality edits.</label>
         </li>
-        <li>{props.verified?oneWayVerification:null}</li>
+        <li>{props.verified?verficationMessage:null}</li>
       </ul>
     </div>
   )

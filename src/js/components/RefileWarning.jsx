@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 const parserText = 'Parsing errors require file resubmission.'
 const refileText = 'Syntactical and validity edits require file resubmission.'
-const validateText = 'Quality and macro edits must be validated before continuing.'
+const validateText = 'Quality and macro edits must be validated before continuing. Inaccurate or incorrect data cannot be validated and must be corrected and refiled.'
 
 const getText = (props) => {
   let textToRender = null

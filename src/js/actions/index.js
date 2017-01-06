@@ -127,18 +127,19 @@ export function receiveEditsByRow(data) {
   }
 }
 
-export function fetchVerifyQuality() {
+export function fetchVerifyQuality(checked) {
   return dispatch => {
-    return postQuality()
+    return postQuality(checked)
       .then(json => {
-        dispatch(verifyQuality())
+        dispatch(verifyQuality(checked))
       })
   }
 }
 
-export function verifyQuality() {
+export function verifyQuality(checked) {
   return {
-    type: types.VERIFY_QUALITY
+    type: types.VERIFY_QUALITY,
+    checked: checked
   }
 }
 

@@ -214,7 +214,7 @@ const edits = (state = defaultEdits, action) => {
     }
     case VERIFY_QUALITY: {
       const clonedState = {...state}
-      clonedState.types.quality.verified = true
+      clonedState.types.quality.verified = action.checked
       return clonedState
     }
     default:

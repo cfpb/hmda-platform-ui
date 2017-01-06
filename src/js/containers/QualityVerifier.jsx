@@ -28,7 +28,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     onVerify: (checked) => {
-      dispatch(fetchVerifyQuality())
+      dispatch(fetchVerifyQuality(checked))
     }
   }
 }
