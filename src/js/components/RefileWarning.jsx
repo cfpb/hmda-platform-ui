@@ -38,7 +38,7 @@ const RefileWarning = (props) => {
 
   let alertClass = 'usa-alert-error'
   if(props.types.hasOwnProperty('syntactical')) {
-    if(props.types.syntactical.edits.length === 0 && props.types.validity.edits.length === 0) {
+    if((props.types.syntactical.edits.length === 0 && props.types.validity.edits.length === 0) || props.submission.status.code !== 5) {
       alertClass = 'usa-alert-warning'
     }
   }
