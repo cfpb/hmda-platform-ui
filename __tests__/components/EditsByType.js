@@ -11,6 +11,7 @@ import TestUtils from 'react-addons-test-utils'
 import Wrapper from '../Wrapper.js'
 import EditsByType from '../../src/js/components/EditsByType.jsx'
 
+
 const types = {
   syntactical: JSON.parse(fs.readFileSync('./__tests__/json/syntactical.json')),
   validity: JSON.parse(fs.readFileSync('./__tests__/json/validity.json')),
@@ -30,32 +31,24 @@ const typesNoMacro = {
 }
 
 describe('EditsByType', function() {
-  const editsByType = TestUtils.renderIntoDocument(
-    <Wrapper><EditsByType types={types}/></Wrapper>
-  )
-  const editsByTypeNode = ReactDOM.findDOMNode(editsByType)
-
-  it('renders the component', function() {
-    expect(editsByTypeNode).toBeDefined()
-  })
-
   it('properly renders child elements', function() {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(editsByType, 'EditsContainerEntry').length).toEqual(4)
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(editsByType, 'EditsHeaderDescription').length).toEqual(4)
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(editsByType, 'table').length).toEqual(6)
-  })
+    const renderer = TestUtils.createRenderer()
+    const renderedEdits = renderer.render(
+      <EditsByType types={typesNoMacro}/>
+    )
+    const editsByType = renderer.getRenderOutput()
 
-  const editsByTypeNoMacro = TestUtils.renderIntoDocument(
-    <Wrapper><EditsByType types={typesNoMacro}/></Wrapper>
-  )
-  const editsByTypeNoMacroNode = ReactDOM.findDOMNode(editsByTypeNoMacro)
+    expect(editsByType.props.children.length).toEqual(4)
+  })
 
   it('properly renders child elements when no macro edits are present', function() {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(editsByTypeNoMacro, 'EditsContainerEntry').length).toEqual(4)
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(editsByTypeNoMacro, 'EditsHeaderDescription').length).toEqual(4)
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(editsByTypeNoMacro, 'table').length).toEqual(6)
-    // this includes table captions and error, warning, and success messages
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(editsByTypeNoMacro, 'h3').length).toEqual(7)
+    const renderer = TestUtils.createRenderer()
+    const renderedEdits = renderer.render(
+      <EditsByType types={typesNoMacro}/>
+    )
+    const editsByTypeNoMacro = renderer.getRenderOutput()
+
+    expect(editsByTypeNoMacro.props.children.length).toEqual(4)
   })
 
 })
