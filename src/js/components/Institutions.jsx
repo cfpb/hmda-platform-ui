@@ -118,7 +118,7 @@ export default class Institution extends Component {
               <h5>Previous submissions for this filing</h5>
               <ul className="usa-text-small usa-unstyled-list">
                 {filingObj.submissions.map((submission, i) => {
-                  return (<li key={i}><strong>{submission.id.sequenceNumber}</strong>. <a href="#" onClick={() => {onDownloadClick(submission.id.sequenceNumber, filing.period)}}>Download edit report</a> - <span className="text-gray">started on {moment(submission.start).format('MMM Do, YYYY')}</span></li>)
+                  return (<li key={i}><strong>{submission.id.sequenceNumber}</strong>. <a href="#" onClick={() => {this.props.onDownloadClick(institution.id, submission.id.sequenceNumber, filing.period)}}>Download edit report</a> - <span className="text-gray">started on {moment(submission.start).format('MMM Do, YYYY')}</span></li>)
                 })}
               </ul>
             </div>

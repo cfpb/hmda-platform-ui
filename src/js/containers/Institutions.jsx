@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { updateFilingPeriod, fetchInstitutions, createNewSubmission } from '../actions'
+import { updateFilingPeriod, fetchInstitutions, createNewSubmission, requestCSV } from '../actions'
 import Institutions from '../components/Institutions.jsx'
 
 class InstitutionContainer extends Component {
@@ -47,14 +47,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    makeNewSubmission = (id, period) => {
+    makeNewSubmission: (id, period) => {
       return dispatch(createNewSubmission(id, period)).then(()=>{
         browserHistory.push(`/${id}/${period}`)
       })
     },
     // triggered by a click on "Download edit report"
-    onDownloadClick = (id, period) => {
-      dispatch(requestCSV(id, period))
+    onDownloadClick: (institutionId, submissionId, period) => {
+      dispatch(requestCSV(institutionId, submissionId, period))
     },
     dispatch
   }
