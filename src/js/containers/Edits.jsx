@@ -5,7 +5,7 @@ import EditsByType from '../components/EditsByType.jsx'
 import EditsByRow from '../components/EditsByRow.jsx'
 
 
-class EditsContainer extends Component {
+export class EditsContainer extends Component {
   constructor(props) {
       super(props)
   }
@@ -30,7 +30,7 @@ class EditsContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const {
     isFetching,
     groupByRow,

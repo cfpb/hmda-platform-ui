@@ -15,7 +15,7 @@ import RefileWarning from './RefileWarning.jsx'
 import EditsContainer from './EditsContainer.jsx'
 */
 
-class SubmissionContainer extends Component {
+export class SubmissionContainer extends Component {
   constructor(props) {
     super(props)
   }
@@ -92,7 +92,7 @@ class SubmissionContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   console.log('submission container state', state)
   const {
     isFetching,
@@ -111,7 +111,7 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch){
+export function mapDispatchToProps(dispatch){
   return { dispatch }
 }
 

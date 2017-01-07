@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { fetchVerifyQuality } from '../actions'
 import QualityVerifier from '../components/QualityVerifier.jsx'
 
-class QualityVerifierContainer extends Component {
+export class QualityVerifierContainer extends Component {
   constructor(props) {
     super(props)
   }
@@ -13,19 +13,19 @@ class QualityVerifierContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const {
-    types 
+    types
   } = state.app.edits
-  
+
   const verified = types ? types.quality.verified : null
-  
+
   return {
     verified
   }
 }
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     onVerify: (checked) => {
       dispatch(fetchVerifyQuality(checked))

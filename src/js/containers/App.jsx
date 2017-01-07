@@ -5,7 +5,7 @@ import LoginContainer from './Login.jsx'
 import HomeLink from '../components/HomeLink.jsx'
 import { signinRedirect } from '../redirect'
 
-class AppContainer extends Component {
+export class AppContainer extends Component {
   constructor(props) {
       super(props)
   }
@@ -31,7 +31,7 @@ class AppContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const {
     user
   } = state.oidc || {

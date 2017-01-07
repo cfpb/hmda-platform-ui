@@ -12,7 +12,7 @@ const QualityVerifier = (props) => {
             name="qualityVerifier"
             type="checkbox"
             value="qualityVerifier"
-            checked={props.checked}
+            checked={props.verified}
             onChange={e => {
               props.onVerify(e.target.checked)
             }}/>
@@ -25,7 +25,7 @@ const QualityVerifier = (props) => {
 }
 
 QualityVerifier.propTypes = {
-  quality: PropTypes.object.isRequired,
+  verified: PropTypes.bool.isRequired,
   onVerify: PropTypes.func.isRequired
 }
 

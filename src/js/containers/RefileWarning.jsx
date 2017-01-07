@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router'
 import RefileWarning from '../components/RefileWarning.jsx'
 import { createNewSubmission } from '../actions'
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const {
    submission
   } = state.app || {
@@ -25,7 +25,7 @@ function mapStateToProps(state) {
   return {submission, types}
 }
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   const refileLink = (id, period) => {
     dispatch(createNewSubmission(id, period)).then(()=>{
       browserHistory.replace(`/${id}/${period}`)

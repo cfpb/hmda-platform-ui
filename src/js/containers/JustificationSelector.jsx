@@ -6,7 +6,7 @@ import { justifyUpdate } from '../actions'
 
 const delimiter = ':::'
 
-class JustificationSelector extends Component {
+export class JustificationSelector extends Component {
   constructor(props) {
     super(props)
     this.labelledJustifications = []
@@ -50,11 +50,11 @@ class JustificationSelector extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+export function mapStateToProps(state, ownProps) {
   return { ...ownProps }
 }
 
-function mapDispatchToProps(dispatch, ownProps){
+export function mapDispatchToProps(dispatch, ownProps){
 
  return {
     dispatchOnChange: function(value) {
