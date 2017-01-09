@@ -535,8 +535,6 @@ export function fetchEditsByType() {
     dispatch(requestEditsByType())
     return getEditsByType(latestSubmissionId)
       .then(json => {
-        console.log('fetchEditsByType')
-        console.log(json)
         dispatch(receiveEditsByType(json))
       })
       .catch(err => console.error(err))
