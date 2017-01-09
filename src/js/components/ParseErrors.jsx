@@ -50,7 +50,7 @@ const ParseErrors = (props) => {
     <div className="ParseErrors usa-grid-full" id="parseErrors">
       <div className="padding-2 bg-color-gray-lightest">
         <h2 className="margin-top-0">Parsing Errors</h2>
-        <p className="usa-font-lead margin-top-half margin-bottom-0">There are errors the prevented your file from being validated. You must fix these errors and re-upload your file.</p>
+        <p className="usa-font-lead margin-top-half margin-bottom-0">There are errors that prevented your file from being validated. You must fix these errors and re-upload your file.</p>
       </div>
 
       <div className="border margin-bottom-5 padding-1">
