@@ -2,7 +2,8 @@ import fetch from 'isomorphic-fetch'
 
 let accessToken
 
-function createQueryString(suffix, params, length) {
+function createQueryString(suffix, params) {
+  const length = Object.keys(params).length
   let newSuffix = `${suffix}?`
   let count = 0
   for(let key of Object.keys(params)) {
@@ -17,9 +18,8 @@ function sendFetch(suffix, options = {method: 'GET'}){
   var locationObj = options.noParse ? {} : parseLocation(location);
   // check if params exist and update suffix to add them
   if(options.params && Object.keys(options.params).length !== 0) {
-    suffix = createQueryString(suffix, options.params, Object.keys(options.params).length)
+    suffix = createQueryString(suffix, options.params)
   }
-  console.log(suffix)
   var url = makeUrl(locationObj, suffix);
   if(typeof options.body === 'object') options.body = JSON.stringify(options.body)
   var headers = {}
@@ -47,11 +47,9 @@ function sendFetch(suffix, options = {method: 'GET'}){
   return fetch(url, fetchOptions)
     .then(response => {
       if(options.params && options.params.format === 'csv') {
-        //console.log(response.text())
         return response.text()
       }
       const json = response.json()
-      console.log('respose from fetch', response, json)
       return json
     })
 }
@@ -121,7 +119,7 @@ export function getEditsByType(submission, institutionId, period, params){
   if(params) {
     return sendFetch(`/institutions/${institutionId}/filings/${period}/submissions/${submission}/edits`, {noParse:1, params:params})
   }
-  return sendFetch(`/submissions/${submission}/edits`, {params:params})
+  return sendFetch(`/submissions/${submission}/edits`)
 }
 
 export function getEditsByRow(submission){
