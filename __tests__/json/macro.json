@@ -1,37 +1,22 @@
 {
-  "type": "macro",
   "edits": [
     {
-      "edit": "m1",
+      "edit": "Q008",
       "justifications": [
         {
-          "value":"A very long explanation of why this macro edit failure is in fact fine. expected, a-okay, and all-around stupendous.", 
-          "selected": false
+          "id": 1,
+          "value": "Applicants decided not to proceed with the loan.",
+          "verified": false
         },
         {
-          "value":"B", 
-          "selected": true 
+          "id": 2,
+          "value": "There were a large number of applications, but few loans were closed",
+          "verified": false
         },
         {
-          "value":"C", 
-          "selected": false
-        },
-        {
-          "selected": true,
-          "value": "some custom data"
-        }
-      ]
-    },
-    {
-      "edit": "m2",
-      "justifications": [
-        {
-          "value": "don't worry",
-          "selected": false
-        },
-        {
-          "value": "be happy",
-          "selected": false
+          "id": 3,
+          "value": "Loan activity for this filing year consisted mainly of purchased loans.",
+          "verified": false
         }
       ]
     }

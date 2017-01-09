@@ -4,7 +4,7 @@ import EditsTableCell from '../components/EditsTableCell.jsx'
 
 const EditsTableRow = props => {
   const edit = props.row.edit
-  const lar = props.row.loanId
+  const lar = props.row.rowId
   return <tr>
     {
       Object.keys(props.row).map((field, i) => {
@@ -23,4 +23,3 @@ EditsTableRow.defaultProps = {
 }
 
 export default EditsTableRow
-
