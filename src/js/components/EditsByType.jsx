@@ -16,12 +16,12 @@ const renderTables = (editObj, type) => {
     )
   }
 
-  if(edits[0] && !edits[0].lars){
-    return <EditsTable data={edits} type={type} />
+  if(type === 'macro'){
+    return <EditsTable edits={edits} type={type} />
   }
 
   return edits.map((edit, i) => {
-    return <EditsTable lars={edit.lars} ts={edit.ts} type={type} label={edit.edit} desc={edit.description} key={i}/>
+    return <EditsTable edits={edit} type={type} key={i}/>
   })
 }
 
