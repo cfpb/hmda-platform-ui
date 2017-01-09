@@ -297,20 +297,20 @@ function detectIE() {
   const ua = window.navigator.userAgent;
 
   const msie = ua.indexOf('MSIE ');
-  if (msie > 0) {
+  if (msie >= 0) {
       // IE 10 or older => return version number
       return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
   }
 
   const trident = ua.indexOf('Trident/');
-  if (trident > 0) {
+  if (trident >= 0) {
       // IE 11 => return version number
       var rv = ua.indexOf('rv:');
       return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
   }
 
   const edge = ua.indexOf('Edge/');
-  if (edge > 0) {
+  if (edge >= 0) {
      // IE 12 => return version number
      return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
   }
@@ -330,7 +330,7 @@ export function requestCSV(institutionId, submissionId, period) {
           window.open('data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
         } else {
           var blob = new Blob([csv], {type: 'text/csv;charset=utf-8,'});
-          navigator.msSaveOrOpenBlob(blob, 'rural-or-underserved.csv');
+          navigator.msSaveOrOpenBlob(blob, 'edits.csv');
         }
       })
   }
