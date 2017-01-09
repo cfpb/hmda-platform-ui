@@ -50,4 +50,8 @@ const EditsTable = (props) => {
   )
 }
 
+EditsTable.defaultProps = {
+  edits: []
+}
+
 export default EditsTable
