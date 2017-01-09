@@ -27,7 +27,9 @@ import {
   REQUEST_SUMMARY,
   RECEIVE_SUMMARY,
   UPDATE_STATUS,
-  CHECK_SIGNATURE
+  CHECK_SIGNATURE,
+  REQUEST_PARSE_ERRORS,
+  RECEIVE_PARSE_ERRORS
 } from '../constants'
 
 const defaultUpload = {
@@ -321,6 +323,32 @@ export const summary = (state = defaultSummary, action) => {
   }
 }
 
+const defaultParseErrors = {
+  isFetching: false,
+  transmittalSheetErrors: [],
+  larErrors: []
+}
+
+export const parseErrors = (state = defaultParseErrors, action) => {
+  switch(action.type) {
+    case REQUEST_PARSE_ERRORS:
+      return {
+        ...state,
+        isFetching: true
+      }
+
+    case RECEIVE_PARSE_ERRORS:
+      return {
+        isFetching: false,
+        transmittalSheetErrors: action.transmittalSheetErrors,
+        larErrors: action.larErrors
+      }
+
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   auth,
   institutions,
@@ -331,5 +359,6 @@ export default combineReducers({
   edits,
   irs,
   signature,
-  summary
+  summary,
+  parseErrors
 })

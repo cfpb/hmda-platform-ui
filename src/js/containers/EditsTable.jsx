@@ -51,7 +51,7 @@ const EditsTable = (props) => {
 }
 
 EditsTable.propTypes = {
-  edits: PropTypes.array,
+  edits: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   type: PropTypes.string
 }
 

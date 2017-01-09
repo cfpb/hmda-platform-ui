@@ -31,7 +31,7 @@ describe('EditsByType', function() {
   it('properly renders child elements', function() {
     const renderer = TestUtils.createRenderer()
     const renderedEdits = renderer.render(
-      <EditsByType types={typesNoMacro}/>
+      <EditsByType types={types}/>
     )
     const editsByType = renderer.getRenderOutput()
 

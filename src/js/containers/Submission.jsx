@@ -11,6 +11,7 @@ import IRSReport from './IRSReport.jsx'
 import Signature from './Signature.jsx'
 import Summary from './Summary.jsx'
 import RefileWarning from './RefileWarning.jsx'
+import ParseErrors from './ParseErrors.jsx'
 /*
 import EditsContainer from './EditsContainer.jsx'
 */
@@ -53,7 +54,10 @@ class SubmissionContainer extends Component {
       if(page === 'upload'){
         toRender.push(<UploadForm/>)
         if(code > 1) toRender.push(<ValidationProgress/>)
-        if(code === 5) toRender.push(<RefileWarning/>)
+        if(code === 5) {
+          toRender.push(<RefileWarning/>)
+          toRender.push(<ParseErrors/>)
+        }
         if(code > 5) toRender.push(<Link className='Navlink' to={base + '/edits'}>Review Edits</Link>)
       }else if(page === 'edits'){
         if(code > 6){
