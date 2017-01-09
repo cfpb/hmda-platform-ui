@@ -25,14 +25,15 @@ const filingsObj = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))
 const IRSObj = JSON.parse(fs.readFileSync('./__tests__/json/irs.json'))
 const signatureObj = JSON.parse(fs.readFileSync('./__tests__/json/receipt.json'))
 
-getInstitution.mockImpl((id) => Promise.resolve(institutionsDetailObj[id]))
-getFiling.mockImpl((id) => Promise.resolve({filing:{}}))
-getInstitutions.mockImpl(() => Promise.resolve(institutionsObj))
-getLatestSubmission.mockImpl(() => Promise.resolve(filingsObj.submissions[2]))
-getSubmission.mockImpl(() => Promise.resolve(filingsObj.submissions[2]))
-getIRS.mockImpl((id) => Promise.resolve(IRSObj))
-getSignature.mockImpl((id) => Promise.resolve(signatureObj))
+getInstitution.mockImplementation((id) => Promise.resolve(institutionsDetailObj[id]))
+getFiling.mockImplementation((id) => Promise.resolve({filing:{}}))
+getInstitutions.mockImplementation(() => Promise.resolve(institutionsObj))
+getLatestSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissions[2]))
+getSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissions[2]))
+getIRS.mockImplementation((id) => Promise.resolve(IRSObj))
+getSignature.mockImplementation((id) => Promise.resolve(signatureObj))
 
+delete global.XMLHttpRequest
 const xhrMock = {
     open: jest.fn(),
     send: jest.fn(),
@@ -42,8 +43,9 @@ const xhrMock = {
       addEventListener: jest.fn()
     }
   }
+const xhrMockFn = jest.fn(() => xhrMock)
 
-global.XMLHttpRequest = jest.fn(() => xhrMock)
+global.XMLHttpRequest = xhrMockFn
 global.window.XMLHttpRequest = global.XMLHttpRequest
 
 

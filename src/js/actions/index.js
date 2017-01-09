@@ -313,6 +313,8 @@ export function fetchParseErrors() {
     return getParseErrors(latestSubmissionId)
       .then(json => dispatch(receiveParseErrors(json)))
       .catch(err => console.error(err))
+  }
+}
 
 // used to trigger csv download properly
 function detectIE() {

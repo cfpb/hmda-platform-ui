@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 import { parseLocation } from '../../src/js/api'
 
-parseLocation.mockImpl(() => { return { id:'1', period: '2017', submission: 1 } })
+parseLocation.mockImplementation(() => { return { id:'1', period: '2017', submission: 1 } })
 
 describe('Refile Warning', () => {
   const parserText = 'Parsing errors require file resubmission.'
