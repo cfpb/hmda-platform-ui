@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 import EditsTableRow from '../components/EditsTableRow.jsx'
 
@@ -48,6 +48,11 @@ const EditsTable = (props) => {
       </table>
     </div>
   )
+}
+
+EditsTable.propTypes = {
+  edits: PropTypes.array,
+  type: PropTypes.string
 }
 
 EditsTable.defaultProps = {
