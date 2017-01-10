@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { fetchSubmission } from '../actions'
+import HomeLink from '../components/HomeLink.jsx'
 import NavHeader from '../components/NavHeader.jsx'
 import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
@@ -45,7 +46,6 @@ class SubmissionContainer extends Component {
     const base = pathname.split('/').slice(0,-1).join('/')
     const page = pathname.split('/').slice(-1)[0]
     const toRender = []
-    console.log('current status code, from submission container', code)
 
     // status codes can be found at https://github.com/cfpb/hmda-platform/blob/master/Documents/submission-status.md
     if(code === -1) {
@@ -78,13 +78,26 @@ class SubmissionContainer extends Component {
       toRender.push(<p>Something is wrong, please <Link to='/institutions'>Go Back</Link></p>)
     }
 
-    console.log(toRender)
-
     return (
     <div className="SubmissionContainer">
-      <NavHeader page={page} base={base}/>
+      <header className="usa-header usa-header-extended" role="banner">
+        <div className="usa-banner">
+          <header className="usa-banner-header">
+            <div className="usa-grid usa-banner-inner">
+              <img src="/img/favicons/favicon-57.png" alt="U.S. flag" />
+              <p>An official website of the United States government</p>
+            </div>
+          </header>
+        </div>
+        <div className="usa-navbar">
+          <div className="usa-logo" id="logo">
+            <img src="/img/ffiec-logo.png" width="150px"/>
+          </div>
+        </div>
+        <NavHeader page={page} base={base}/>
+      </header>
       <UserHeading period={this.props.params.filing} userName={this.props.user.profile.name} institution={this.props.params.institution} />
-      <div className="usa-grid-full">
+      <div id="main-content" className="usa-grid-full">
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>
@@ -97,7 +110,6 @@ class SubmissionContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('submission container state', state)
   const {
     isFetching,
     status
