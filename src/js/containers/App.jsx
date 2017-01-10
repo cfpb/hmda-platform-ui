@@ -19,13 +19,37 @@ class AppContainer extends Component {
       <div className="AppContainer">
         <div className="bg-color-hmda-gray padding-1">
           <div className="usa-grid">
-            <img src="/img/ffiec-logo.png" width="150px"/><br />
+            <img src="/img/ffiec-logo.png" alt="FFIEC" width="150px"/><br />
             <HomeLink/>
           </div>
         </div>
+
         <div className="usa-grid">
           {this.props.children}
         </div>
+
+        <footer className="usa-footer usa-footer-slim" role="contentinfo">
+          <div className="usa-grid usa-footer-return-to-top">
+            <a href="#">Return to top</a>
+          </div>
+          <div className="usa-footer-primary-section">
+            <div className="usa-grid-full">
+              <nav className="usa-footer-nav usa-width-one-half">
+                <ul className="usa-unstyled-list">
+                  <li className="usa-footer-primary-content">
+                    <a className="usa-footer-primary-link" href="https://www.ffiec.gov/">FFIEC</a>
+                  </li>
+                </ul>
+              </nav>
+              <div className="usa-width-one-half">
+                <div className="usa-footer-primary-content usa-footer-contact_info">
+                  <h4>Questions?</h4>
+                  <a href="mailto:hmdahelp@cfpb.gov">hmdahelp@cfpb.gov</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     )
   }
