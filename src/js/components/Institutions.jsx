@@ -100,16 +100,12 @@ const getInstitutionFromFiling = (institutions, filing) => {
 
 export default class Institution extends Component {
   render() {
-    const pathname = this.props.location.pathname
-    const base = pathname.split('/').slice(0,-1).join('/')
-    const page = pathname.split('/').slice(-1)[0]
     const institutions = this.props.institutions
     const makeNewSubmission = this.props.makeNewSubmission
     return (
     <div className="Institutions">
       <NavHeader
-        page={page}
-        base={base}
+        pathname={this.props.location.pathname}
         userName={this.props.user.profile.name} />
       <div id="main-content" className="usa-grid">
         <UserHeading period="2017" userName={this.props.user.profile.name} />

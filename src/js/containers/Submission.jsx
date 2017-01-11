@@ -81,8 +81,7 @@ class SubmissionContainer extends Component {
     return (
     <div className="SubmissionContainer">
       <NavHeader
-          page={page}
-          base={base}
+          pathname={this.props.location.pathname}
           userName={this.props.user.profile.name} />
       <div id="main-content" className="usa-grid">
         <UserHeading

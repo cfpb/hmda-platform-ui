@@ -27,6 +27,9 @@ const styleSelectedPage = (selected, current) => {
 }
 
 const NavHeader = (props) => {
+  const base = props.pathname.split('/').slice(0,-1).join('/')
+  const page = props.pathname.split('/').slice(-1)[0]
+
   return (
     <header className="usa-header usa-header-extended" role="banner">
       <div className="usa-banner">
@@ -44,14 +47,14 @@ const NavHeader = (props) => {
       </div>
       <nav role="navigation" className="NavHeader usa-nav">
         <div className="usa-nav-inner">
-          {renderEditsNav(props.page, props.base)}
+          {renderEditsNav(page, base)}
           <div className="usa-nav-secondary">
             <ul className="usa-unstyled-list usa-nav-secondary-links">
               <li>
-                <Link className="usa-nav-link" style={styleSelectedPage(props.page, '')} to={'/'}>Home</Link>
+                <Link className="usa-nav-link" style={styleSelectedPage(page, '')} to={'/'}>Home</Link>
               </li>
               <li>
-                <Link className="usa-nav-link" style={styleSelectedPage(props.page, 'institutions')} to={'/institutions'}>Institutions</Link>
+                <Link className="usa-nav-link" style={styleSelectedPage(page, 'institutions')} to={'/institutions'}>Institutions</Link>
               </li>
               <li>
                 {props.userName} <a href="#">Logout</a>
@@ -65,9 +68,8 @@ const NavHeader = (props) => {
 }
 
 NavHeader.propTypes = {
-  page: React.PropTypes.string,
-  base: React.PropTypes.string,
-  userName: React.PropTypes.string
+  userName: React.PropTypes.string,
+  pathname: React.PropTypes.string
 }
 
 export default NavHeader
