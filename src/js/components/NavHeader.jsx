@@ -1,6 +1,26 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
+const noEditsNav = ['', 'institutions']
+
+const renderEditsNav = (page, base) => {
+  if(noEditsNav.indexOf(page) === -1) return (
+    <ul className="usa-nav-primary">
+      <li>
+        <Link className="usa-nav-link" style={styleSelectedPage(page, 'upload')} to={base + '/upload'}>Upload</Link>
+      </li>
+      <li>
+        <Link className="usa-nav-link" style={styleSelectedPage(page, 'edits')} to={base + '/edits'}>Edits</Link>
+      </li>
+      <li>
+        <Link className="usa-nav-link" style={styleSelectedPage(page, 'summary')} to={base + '/summary'}>Summary</Link>
+      </li>
+    </ul>
+  )
+
+  return null
+}
+
 const styleSelectedPage = (selected, current) => {
   if(selected === current) return {textDecoration: 'underline'}
   return {textDecoration: 'none'}
@@ -8,37 +28,46 @@ const styleSelectedPage = (selected, current) => {
 
 const NavHeader = (props) => {
   return (
-    <nav role="navigation" className="NavHeader usa-nav">
-      <div className="usa-nav-inner">
-        <ul className="usa-nav-primary">
-          <li>
-            <Link className="usa-nav-link" style={styleSelectedPage(props.page, 'upload')} to={props.base + '/upload'}>Upload</Link>
-          </li>
-          <li>
-            <Link className="usa-nav-link" style={styleSelectedPage(props.page, 'edits')} to={props.base + '/edits'}>Edits</Link>
-          </li>
-          <li>
-            <Link className="usa-nav-link" style={styleSelectedPage(props.page, 'summary')} to={props.base + '/summary'}>Summary</Link>
-          </li>
-        </ul>
-        <div className="usa-nav-secondary">
-          <ul className="usa-unstyled-list usa-nav-secondary-links">
-            <li>
-              <Link className="usa-nav-link" style={styleSelectedPage(props.page, 'upload')} to={'/'}>Home</Link>
-            </li>
-            <li>
-              <a href="#">Logout</a>
-            </li>
-          </ul>
+    <header className="usa-header usa-header-extended" role="banner">
+      <div className="usa-banner">
+        <header className="usa-banner-header">
+          <div className="usa-grid usa-banner-inner">
+            <img src="/img/favicons/favicon-57.png" alt="U.S. flag" />
+            <p>An official website of the United States government</p>
+          </div>
+        </header>
+      </div>
+      <div className="usa-navbar">
+        <div className="usa-logo" id="logo">
+          <img src="/img/ffiec-logo.png" width="150px"/>
         </div>
       </div>
-    </nav>
+      <nav role="navigation" className="NavHeader usa-nav">
+        <div className="usa-nav-inner">
+          {renderEditsNav(props.page, props.base)}
+          <div className="usa-nav-secondary">
+            <ul className="usa-unstyled-list usa-nav-secondary-links">
+              <li>
+                <Link className="usa-nav-link" style={styleSelectedPage(props.page, '')} to={'/'}>Home</Link>
+              </li>
+              <li>
+                <Link className="usa-nav-link" style={styleSelectedPage(props.page, 'institutions')} to={'/institutions'}>Institutions</Link>
+              </li>
+              <li>
+                {props.userName} <a href="#">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
   )
 }
 
 NavHeader.propTypes = {
   page: React.PropTypes.string,
-  base: React.PropTypes.string
+  base: React.PropTypes.string,
+  userName: React.PropTypes.string
 }
 
 export default NavHeader
