@@ -107,23 +107,11 @@ export default class Institution extends Component {
     const makeNewSubmission = this.props.makeNewSubmission
     return (
     <div className="Institutions">
-      <header className="usa-header usa-header-extended" role="banner">
-        <div className="usa-banner">
-          <header className="usa-banner-header">
-            <div className="usa-grid usa-banner-inner">
-              <img src="/img/favicons/favicon-57.png" alt="U.S. flag" />
-              <p>An official website of the United States government</p>
-            </div>
-          </header>
-        </div>
-        <div className="usa-navbar">
-          <div className="usa-logo" id="logo">
-            <img src="/img/ffiec-logo.png" width="150px"/>
-          </div>
-        </div>
-        <NavHeader page={page} base={base}/>
-      </header>
-      <div id="main-content" className="usa-grid-full">
+      <NavHeader
+        page={page}
+        base={base}
+        userName={this.props.user.profile.name} />
+      <div id="main-content" className="usa-grid">
         <UserHeading period="2017" userName={this.props.user.profile.name} />
         <div className="usa-width-two-thirds">
           {this.props.filings.map((filingObj, i) => {
@@ -139,7 +127,7 @@ export default class Institution extends Component {
                 <h5>Previous submissions for this filing</h5>
                 <ul className="usa-text-small usa-unstyled-list">
                   {filingObj.submissions.map((submission, i) => {
-                    return (<li key={i}><strong>{submission.id.sequenceNumber}</strong>. <a href="#" onClick={() => {this.props.onDownloadClick(institution.id, submission.id.sequenceNumber, filing.period)}}>Download edit report</a> - <span className="text-gray">started on {moment(submission.start).format('MMM Do, YYYY')}</span></li>)
+                    return (<li className="edit-report" key={i}><strong>{submission.id.sequenceNumber}</strong>. <a href="#" onClick={() => {this.props.onDownloadClick(institution.id, submission.id.sequenceNumber, filing.period)}}>Download edit report</a> - <span className="text-gray">started on {moment(submission.start).format('MMM Do, YYYY')}</span></li>)
                   })}
                 </ul>
               </div>

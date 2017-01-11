@@ -80,24 +80,15 @@ class SubmissionContainer extends Component {
 
     return (
     <div className="SubmissionContainer">
-      <header className="usa-header usa-header-extended" role="banner">
-        <div className="usa-banner">
-          <header className="usa-banner-header">
-            <div className="usa-grid usa-banner-inner">
-              <img src="/img/favicons/favicon-57.png" alt="U.S. flag" />
-              <p>An official website of the United States government</p>
-            </div>
-          </header>
-        </div>
-        <div className="usa-navbar">
-          <div className="usa-logo" id="logo">
-            <img src="/img/ffiec-logo.png" width="150px"/>
-          </div>
-        </div>
-        <NavHeader page={page} base={base}/>
-      </header>
-      <UserHeading period={this.props.params.filing} userName={this.props.user.profile.name} institution={this.props.params.institution} />
-      <div id="main-content" className="usa-grid-full">
+      <NavHeader
+          page={page}
+          base={base}
+          userName={this.props.user.profile.name} />
+      <div id="main-content" className="usa-grid">
+        <UserHeading
+          period={this.props.params.filing}
+          userName={this.props.user.profile.name}
+          institution={this.props.params.institution} />
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>
