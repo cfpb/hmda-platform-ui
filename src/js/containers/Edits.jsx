@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { fetchEditsByType, fetchEditsByRow } from '../actions'
 import EditsByType from '../components/EditsByType.jsx'
 import EditsByRow from '../components/EditsByRow.jsx'
+import SortPicker from '../containers/SortPicker.jsx'
 
 
 class EditsContainer extends Component {
@@ -24,6 +25,7 @@ class EditsContainer extends Component {
     var Subcomponent = this.props.groupByRow ? EditsByRow : EditsByType
     return (
       <div className="EditsContainer">
+        <SortPicker/>
         <Subcomponent {...this.props}/>
       </div>
     )

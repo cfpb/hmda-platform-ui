@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import ValidationProgress from '../components/ValidationProgress.jsx'
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const {
     status
   } = state.app.submission || {
