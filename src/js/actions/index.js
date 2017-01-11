@@ -7,8 +7,7 @@ import {
   getLatestSubmission,
   createSubmission,
   getUploadUrl,
-  getEditsByType,
-  getEditsByRow,
+  getEdits,
   postEdit,
   getIRS,
   getSignature,
@@ -344,10 +343,17 @@ function detectIE() {
 }
 
 // downloading the csv edit reports, no reducer required
-export function requestCSV(institutionId, submissionId, period) {
+export function requestCSV(institutionId, filing, submissionId) {
   return dispatch => {
     dispatch(requestEditsByType())
-    return getEditsByType(submissionId, institutionId, period, {format: 'csv'})
+    return getEdits({
+      id: institutionId,
+      filing: filing,
+      submission: submissionId,
+      params: {
+        format: 'csv'
+      }
+    })
       .then(csv => {
         // trigger the download
         if (detectIE() === false) {
@@ -557,7 +563,7 @@ export function fetchFiling(institution) {
 export function fetchEditsByType() {
   return dispatch => {
     dispatch(requestEditsByType())
-    return getEditsByType(latestSubmissionId)
+    return getEdits({submission: latestSubmissionId})
       .then(json => {
         dispatch(receiveEditsByType(json))
       })
@@ -568,7 +574,7 @@ export function fetchEditsByType() {
 export function fetchEditsByRow() {
   return dispatch => {
     dispatch(requestEditsByRow())
-    return getEditsByRow(latestSubmissionId)
+    return getEdits({submission: latestSubmissionId, params: {sortBy: 'row'}})
       .then(json => dispatch(receiveEditsByRow(json)))
       .catch(err => console.error(err))
   }
