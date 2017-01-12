@@ -99,6 +99,12 @@ export function receiveSubmission(data) {
     ...data
   }
 }
+
+export function requestCSV() {
+  return {
+    type: types.REQUEST_CSV
+  }
+}
 export function requestEditsByType() {
     return {
       type: types.REQUEST_EDITS_BY_TYPE
@@ -361,9 +367,9 @@ function detectIE() {
 }
 
 // downloading the csv edit reports, no reducer required
-export function requestCSV(institutionId, filing, submissionId) {
+export function fetchCSV(institutionId, filing, submissionId) {
   return dispatch => {
-    dispatch(requestEditsByType())
+    dispatch(requestCSV())
     return getEdits({
       id: institutionId,
       filing: filing,

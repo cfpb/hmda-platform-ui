@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { updateFilingPeriod, fetchInstitutions, createNewSubmission, requestCSV } from '../actions'
+import { updateFilingPeriod, fetchInstitutions, createNewSubmission, fetchCSV } from '../actions'
 import Institutions from '../components/Institutions.jsx'
 
 class InstitutionContainer extends Component {
@@ -54,7 +54,7 @@ function mapDispatchToProps(dispatch) {
     },
     // triggered by a click on "Download edit report"
     onDownloadClick: (institutionId, submissionId, filing) => {
-      dispatch(requestCSV(institutionId, filing, submissionId))
+      dispatch(fetchCSV(institutionId, filing, submissionId))
     },
     dispatch
   }

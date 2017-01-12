@@ -16,7 +16,8 @@ import {
   getSubmission,
   getIRS,
   getSignature,
-  postSignature
+  postSignature,
+  getEdits
 } from '../../src/js/api.js'
 
 const institutionsDetailObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions-detail.json'))
@@ -32,6 +33,9 @@ getLatestSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissi
 getSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissions[2]))
 getIRS.mockImplementation((id) => Promise.resolve(IRSObj))
 getSignature.mockImplementation((id) => Promise.resolve(signatureObj))
+getEdits.mockImplementation((id) => Promise.resolve({fakeEdits:1}))
+
+
 
 delete global.XMLHttpRequest
 const xhrMock = {
@@ -48,6 +52,8 @@ const xhrMockFn = jest.fn(() => xhrMock)
 global.XMLHttpRequest = xhrMockFn
 global.window.XMLHttpRequest = global.XMLHttpRequest
 
+delete window.open
+window.open = jest.fn()
 
 const mockStore = configureMockStore([thunk])
 
@@ -326,4 +332,63 @@ describe('actions', () => {
         done.fail()
       })
   })
+
+  it('creates a thunk that will fetch edits by type', done => {
+    const store = mockStore({})
+
+    store.dispatch(actions.fetchEditsByType())
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {type: types.REQUEST_EDITS_BY_TYPE},
+          {
+            type: types.RECEIVE_EDITS_BY_TYPE,
+            edits: {fakeEdits:1}
+          }
+        ])
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
+  })
+
+  it('creates a thunk that will fetch edits by row', done => {
+    const store = mockStore({})
+
+    store.dispatch(actions.fetchEditsByRow())
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {type: types.REQUEST_EDITS_BY_ROW},
+          {
+            type: types.RECEIVE_EDITS_BY_ROW,
+            edits: {fakeEdits:1}
+          }
+        ])
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
+  })
+
+  it('creates a thunk that will request edits and trigger a csv download', done => {
+    const store = mockStore({})
+
+    store.dispatch(actions.fetchCSV())
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {type: types.REQUEST_CSV}
+        ])
+        expect(window.blob.mock.calls.length).toBe(1)
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
+  })
 })
+
+
