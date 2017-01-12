@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { fetchSubmission } from '../actions'
+import HomeLink from '../components/HomeLink.jsx'
 import NavHeader from '../components/NavHeader.jsx'
 import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
@@ -45,7 +46,6 @@ class SubmissionContainer extends Component {
     const base = pathname.split('/').slice(0,-1).join('/')
     const page = pathname.split('/').slice(-1)[0]
     const toRender = []
-    console.log('current status code, from submission container', code)
 
     // status codes can be found at https://github.com/cfpb/hmda-platform/blob/master/Documents/submission-status.md
     if(code === -1) {
@@ -78,13 +78,16 @@ class SubmissionContainer extends Component {
       toRender.push(<p>Something is wrong, please <Link to='/institutions'>Go Back</Link></p>)
     }
 
-    console.log(toRender)
-
     return (
     <div className="SubmissionContainer">
-      <NavHeader page={page} base={base}/>
-      <UserHeading period={this.props.params.filing} userName={this.props.user.profile.name} institution={this.props.params.institution} />
-      <div className="usa-grid-full">
+      <NavHeader
+          pathname={this.props.location.pathname}
+          userName={this.props.user.profile.name} />
+      <div id="main-content" className="usa-grid">
+        <UserHeading
+          period={this.props.params.filing}
+          userName={this.props.user.profile.name}
+          institution={this.props.params.institution} />
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>
@@ -97,7 +100,6 @@ class SubmissionContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('submission container state', state)
   const {
     isFetching,
     status

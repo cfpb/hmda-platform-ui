@@ -13,7 +13,11 @@ const institutionsJSON = JSON.parse(fs.readFileSync('./__tests__/json/institutio
 describe('Institutions', () => {
   const institutions = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Institutions institutions={institutionsJSON.institutions} filings={[filingJSON]} user={{profile: {name: "someone"}}}/>
+      <Institutions
+        institutions={institutionsJSON.institutions}
+        filings={[filingJSON]}
+        user={{profile: {name: "someone"}}}
+        location={{pathname: '/institutions'}} />
     </Wrapper>
   )
   const institutionsNode = ReactDOM.findDOMNode(institutions)
@@ -43,6 +47,6 @@ describe('Institutions', () => {
   })
 
   it('creates the correct number of previous submissions', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'li').length).toEqual(4)
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'edit-report').length).toEqual(4)
   })
 })

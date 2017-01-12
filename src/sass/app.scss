@@ -34,6 +34,24 @@ h6,
   margin-top: 2em;
 }
 
+.usa-header {
+  margin-bottom: 3em;
+}
+
+.usa-logo {
+  line-height: 0;
+}
+
+.usa-nav-secondary-links {
+  li {
+    &:not(:last-child)::after {
+      @include media($nav-width) {
+        content: none;
+      }
+    }
+  }
+}
+
 a {
  cursor: pointer;
 }
