@@ -6,7 +6,7 @@ const getText = (groupByRow) => {
 }
 
 const getClass = (groupByRow) => {
-  if(groupByRow) return 'usa-button usa-button-secondary'
+  if(groupByRow) return 'usa-button usa-button-primary-alt'
   return 'usa-button'
 }
 

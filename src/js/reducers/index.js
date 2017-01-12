@@ -9,6 +9,7 @@ import {
   RECEIVE_FILING,
   RECEIVE_SUBMISSION,
   SELECT_FILE,
+  PICK_SORT,
   UPLOAD_PROGRESS,
   UPLOAD_COMPLETE,
   UPLOAD_ERROR,
@@ -212,6 +213,12 @@ const edits = (state = defaultEdits, action) => {
 
       clonedState.types.macro.edits = edits
       return clonedState
+    }
+    case PICK_SORT: {
+      return {
+        ...state,
+        groupByRow: action.groupByRow
+      }
     }
     default:
       return state

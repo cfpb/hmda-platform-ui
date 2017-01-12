@@ -1,5 +1,5 @@
-jest.unmock('../../src/js/components/EditsByType.jsx')
-jest.unmock('../../src/js/containers/EditsTable.jsx')
+jest.unmock('../../src/js/components/EditsTableWrapper.jsx')
+jest.unmock('../../src/js/components/EditsTable.jsx')
 jest.unmock('../../src/js/components/EditsTableRow.jsx')
 jest.unmock('../../src/js/components/EditsTableCell.jsx')
 jest.unmock('../../src/js/components/EditsHeaderDescription.jsx')
@@ -9,7 +9,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 import Wrapper from '../Wrapper.js'
-import EditsByType from '../../src/js/components/EditsByType.jsx'
+import EditsTableWrapper from '../../src/js/components/EditsTableWrapper.jsx'
 
 const types = {
   syntactical: JSON.parse(fs.readFileSync('./__tests__/json/syntactical.json')),
@@ -31,7 +31,7 @@ describe('EditsByType', function() {
   it('properly renders child elements', function() {
     const renderer = TestUtils.createRenderer()
     const renderedEdits = renderer.render(
-      <EditsByType types={types}/>
+      <EditsTableWrapper types={types}/>
     )
     const editsByType = renderer.getRenderOutput()
 
@@ -41,7 +41,7 @@ describe('EditsByType', function() {
   it('properly renders child elements when no macro edits are present', function() {
     const renderer = TestUtils.createRenderer()
     const renderedEdits = renderer.render(
-      <EditsByType types={typesNoMacro}/>
+      <EditsTableWrapper types={typesNoMacro}/>
     )
     const editsByTypeNoMacro = renderer.getRenderOutput()
 

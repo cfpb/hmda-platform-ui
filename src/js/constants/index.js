@@ -12,6 +12,8 @@ export const RECEIVE_EDIT_POST       = 'RECEIVE_EDIT_POST'
 export const UPDATE_FILING_PERIOD   = 'UPDATE_FILING_PERIOD'
 export const CLEAR_FILINGS          = 'CLEAR_FILINGS'
 
+export const PICK_SORT              = 'PICK_SORT'
+
 export const SELECT_FILE            = 'SELECT_FILE'
 export const REQUEST_UPLOAD         = 'REQUEST_UPLOAD'
 export const UPLOAD_START           = 'UPLOAD_START'

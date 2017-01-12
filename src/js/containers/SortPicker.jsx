@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { pickSort } from '../actions'
+import { triggerPickSort } from '../actions'
 import SortPicker from '../components/SortPicker.jsx'
 
 export function mapStateToProps(state) {
@@ -15,7 +15,7 @@ export function mapStateToProps(state) {
 export function mapDispatchToProps(dispatch){
   return {
     toggle(groupByRow){
-       dispatch(pickSort(groupByRow))
+       dispatch(triggerPickSort(!groupByRow))
     }
   }
 }
