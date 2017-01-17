@@ -30,9 +30,6 @@ h6,
 .usa-font-lead {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
-.usa-footer {
-  margin-top: 2em;
-}
 
 .usa-header {
   margin-bottom: 3em;
@@ -161,4 +158,22 @@ dd {
 // max-width reset
 .max-width-100 {
   max-width: 100%;
+}
+
+//sticky footer
+html {
+  position: relative;
+  min-height:100%;
+}
+
+body {
+  margin: 0 0 120px;
+}
+
+.usa-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  margin-top: 2em;
 }
