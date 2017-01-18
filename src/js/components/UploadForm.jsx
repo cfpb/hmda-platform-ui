@@ -12,15 +12,15 @@ class Upload extends Component {
 
   render() {
     return (
-    <div className="UploadForm">
+    <div className="UploadForm usa-width-one-half">
       <form className="usa-form" encType="multipart/form-data" onSubmit={e => this.props.handleSubmit(e, this.props.file)}>
         <input id="hmdaFile" name="hmdaFile" type="file" ref={(input) => {this.fileInput = input}} onChange={this.props.setFile}></input>
         <input className="usa-button" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
       </form>
-      {this.props.file
+      {/*this.props.file
         ? <Progress progress={this.props.bytesUploaded} total={this.props.file.size} units="bytes" descriptor="uploaded"/>
         : null
-      }
+      */}
     </div>
     )
   }
