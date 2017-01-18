@@ -22,7 +22,7 @@ describe('EditsHeaderDescription', function(){
   })
 
   it('correctly sets the syntactical desc', function(){
-    expect(headerNode.textContent).toEqual('Syntactical Edits - 1Edits that check whether the loan/application register is in the correct format and whether the data covers the correct filing year. The loan/application register cannot be filed until the filer corrects all syntactical edit errors and reuploads the updated loan/application register to the HMDA Platform.')
+    expect(headerNode.textContent).toEqual('Syntactical Edits - 1Edits that check whether the loan/application register is in the correct format and whether the data covers the correct filing year. The loan/application register cannot be filed until the filer corrects all syntactical edit errors and reuploads the updated loan/application register to the HMDA Platform.Download syntactical edits (CSV)')
   })
 
   const headerValidity = TestUtils.renderIntoDocument(
@@ -31,7 +31,7 @@ describe('EditsHeaderDescription', function(){
   const headerValidityNode = ReactDOM.findDOMNode(headerValidity)
 
   it('correctly sets the validity desc', function(){
-    expect(headerValidityNode.textContent).toEqual('Validity Edits - 1Edits that check whether there are valid values in each data field. The loan/application register cannot be filed until the filer corrects all validity edit errors and reuploads the updated loan/application register to the HMDA Platform.')
+    expect(headerValidityNode.textContent).toEqual('Validity Edits - 1Edits that check whether there are valid values in each data field. The loan/application register cannot be filed until the filer corrects all validity edit errors and reuploads the updated loan/application register to the HMDA Platform.Download validity edits (CSV)')
   })
 
   const headerQuality = TestUtils.renderIntoDocument(
@@ -40,7 +40,7 @@ describe('EditsHeaderDescription', function(){
   const headerQualityNode = ReactDOM.findDOMNode(headerQuality)
 
   it('correctly sets the Quality desc', function(){
-    expect(headerQualityNode.textContent).toEqual('Quality Edits - 1Edits that check whether entries in the individual data fields or combinations of data fields conform to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all values flagged by quality edits in the HMDA Platform, or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.')
+    expect(headerQualityNode.textContent).toEqual('Quality Edits - 1Edits that check whether entries in the individual data fields or combinations of data fields conform to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all values flagged by quality edits in the HMDA Platform, or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.Download quality edits (CSV)')
   })
 
   const headerMarcro = TestUtils.renderIntoDocument(
@@ -48,8 +48,8 @@ describe('EditsHeaderDescription', function(){
   )
   const headerMarcroNode = ReactDOM.findDOMNode(headerMarcro)
 
-  it('correctly sets the Quality desc', function(){
-    expect(headerMarcroNode.textContent).toEqual('Macro Edits - 1Edits that check whether the submitted loan/application register as a whole conforms to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all the values flagged by the macro quality edits in the HMDA Platform or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.')
+  it('correctly sets the Macro desc', function(){
+    expect(headerMarcroNode.textContent).toEqual('Macro Edits - 1Edits that check whether the submitted loan/application register as a whole conforms to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all the values flagged by the macro quality edits in the HMDA Platform or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.Download macro edits (CSV)')
   })
 
   const headerLAR = TestUtils.renderIntoDocument(
@@ -58,7 +58,7 @@ describe('EditsHeaderDescription', function(){
   const headerLARNode = ReactDOM.findDOMNode(headerLAR)
 
   it('correctly sets the LAR desc', function(){
-    expect(headerLARNode.textContent).toEqual('Loan Application Records - 1LAR refers to the loan/application register. Loan/Application Register means both the record of information required to be collected pursuant to § 1003.4 and the record submitted annually or quarterly, as applicable, pursuant to § 1003.5(a).')
+    expect(headerLARNode.textContent).toEqual('Loan Application Records - 1LAR refers to the loan/application register. Loan/Application Register means both the record of information required to be collected pursuant to § 1003.4 and the record submitted annually or quarterly, as applicable, pursuant to § 1003.5(a).Download lar edits (CSV)')
   })
 
   it('throws an error for a bad type', () => {
