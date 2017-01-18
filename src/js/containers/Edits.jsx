@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchEditsByType, fetchEditsByRow } from '../actions'
+import { fetchEditsByType, fetchEditsByRow, requestCSVByType } from '../actions'
 import EditsByType from '../components/EditsByType.jsx'
 import EditsByRow from '../components/EditsByRow.jsx'
 
@@ -51,4 +51,14 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(EditsContainer)
+function mapDispatchToProps(dispatch) {
+  return {
+    // triggered by a edit type download click
+    onDownloadClick: (type) => {
+      dispatch(requestCSVByType(type))
+    },
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditsContainer)

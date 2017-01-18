@@ -32,7 +32,7 @@ const EditsByType = (props) => {
         Object.keys(props.types).map((type, i) => {
           return (
             <div className="EditsContainerEntry" key={i}>
-              <EditsHeaderDescription count={props.types[type].edits.length} type={type} />
+              <EditsHeaderDescription count={props.types[type].edits.length} type={type} onDownloadClick={props.onDownloadClick} />
               <div className="border margin-bottom-5 padding-1">
                 {renderTables(props.types[type], type)}
               </div>
