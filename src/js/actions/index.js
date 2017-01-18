@@ -16,7 +16,8 @@ import {
   getSummary,
   setAccessToken,
   getAccessToken,
-  getParseErrors
+  getParseErrors,
+  getEditsOfType
 } from '../api'
 import * as types from '../constants'
 
@@ -344,6 +345,7 @@ function detectIE() {
 }
 
 // downloading the csv edit reports, no reducer required
+// used on the institution listing
 export function requestCSV(institutionId, submissionId, period) {
   return dispatch => {
     dispatch(requestEditsByType())
@@ -355,6 +357,20 @@ export function requestCSV(institutionId, submissionId, period) {
         } else {
           var blob = new Blob([csv], {type: 'text/csv;charset=utf-8,'});
           navigator.msSaveOrOpenBlob(blob, 'edits.csv');
+        }
+      })
+  }
+}
+
+export function requestCSVByType(type) {
+  return dispatch => {
+    return getEditsOfType(latestSubmissionId, type, {format: 'csv'})
+      .then(csv => {
+        if (detectIE() === false) {
+          window.open('data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
+        } else {
+          var blob = new Blob([csv], {type: 'text/csv;charset=utf-8,'});
+          navigator.msSaveOrOpenBlob(blob, `${type}.csv`);
         }
       })
   }

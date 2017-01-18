@@ -122,6 +122,11 @@ export function getEditsByType(submission, institutionId, period, params){
   return sendFetch(`/submissions/${submission}/edits`)
 }
 
+// fetch edits of a specific type
+export function getEditsOfType(submission, type, params = {}) {
+  return sendFetch(`/submissions/${submission}/edits/${type}`, {params:params})
+}
+
 export function getEditsByRow(submission){
   return sendFetch(`/submissions/${submission}/edits/lars`)
 }
