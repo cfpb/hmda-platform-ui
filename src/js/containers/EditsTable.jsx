@@ -29,16 +29,26 @@ const renderBody = (props) => {
   })
 }
 
-const EditsTable = (props) => {
+const renderCaption = (props) => {
+  if (props.type === 'macro') return null
+
   const edits = props.edits
   const { edit, description } = props.edits
+  const length = (props.type !== 'macro') ? props.edits.rows.length : props.edits.length
+
+  return (
+    <caption>
+      <h3>{edit ? `${edit} - ${length}`: null}</h3>
+      <p>{description ? `${description}`: null}</p>
+    </caption>
+  )
+}
+
+const EditsTable = (props) => {
   return (
     <div className="EditsTable bg-color-white">
       <table width="100%" className="margin-top-1">
-        <caption>
-          <h3>{edit ? `${edit} - ${length}`: null}</h3>
-          <p>{description ? `${description}`: null}</p>
-        </caption>
+        {renderCaption(props)}
         <thead>
           {renderHeader(props)}
         </thead>
