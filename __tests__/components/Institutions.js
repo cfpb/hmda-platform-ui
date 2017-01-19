@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/components/Institutions.jsx')
+jest.mock('oidc-client')
 
 import Institutions from '../../src/js/components/Institutions.jsx'
 import Wrapper from '../Wrapper.js'
