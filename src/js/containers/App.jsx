@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
-import LoginContainer from './Login.jsx'
 import { signinRedirect } from '../redirect'
 
 class AppContainer extends Component {
@@ -10,10 +8,11 @@ class AppContainer extends Component {
   }
 
   componentWillMount() {
-    if(!this.props.user) signinRedirect()
+    if(!this.props.user || !this.props.user.profile.name) signinRedirect()
   }
 
   render() {
+    if(!this.props.user || !this.props.user.profile.name) signinRedirect()
     return (
       <div className="AppContainer">
         <a className="usa-skipnav" href="#main-content">Skip to main content</a>
