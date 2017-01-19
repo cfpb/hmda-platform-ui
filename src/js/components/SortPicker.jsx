@@ -1,27 +1,33 @@
 import React, { PropTypes } from 'react'
 
-const getText = (groupByRow) => {
-  if(groupByRow) return 'Group by Edit'
-  return 'Group by Row'
-}
-
 const getClass = (groupByRow) => {
-  if(groupByRow) return 'usa-button usa-button-primary-alt'
+  if(groupByRow) return 'usa-button usa-button-active'
   return 'usa-button'
 }
 
 const SortPicker = (props) => {
   const groupByRow = props.groupByRow
   return (
-    <a
-      className={getClass(groupByRow)}
-      href="#"
-      onClick={(e)=>{
-        e.preventDefault()
-        props.toggle(groupByRow)
-      }}>
-      {getText(groupByRow)}
-    </a>
+    <div>
+      <a
+        className={getClass(!groupByRow)}
+        href="#"
+        onClick={(e)=>{
+          e.preventDefault()
+          if(groupByRow) props.toggle(groupByRow)
+        }}>
+        Group by Edit
+      </a>
+      <a
+        className={getClass(groupByRow)}
+        href="#"
+        onClick={(e)=>{
+          e.preventDefault()
+          if(!groupByRow) props.toggle(groupByRow)
+        }}>
+        Group by Row
+      </a>
+    </div>
   )
 }
 
