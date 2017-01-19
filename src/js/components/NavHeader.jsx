@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { signinRedirect, logout } from '../redirect.js'
 import { Link } from 'react-router'
 
 const noEditsNav = ['', 'institutions']
@@ -56,9 +57,21 @@ const NavHeader = (props) => {
               <li>
                 <Link className="usa-nav-link" style={styleSelectedPage(page, 'institutions')} to={'/institutions'}>Institutions</Link>
               </li>
-              <li>
-                {props.userName} <a href="#">Logout</a>
-              </li>
+                {props.userName
+                ?
+                  <span>
+                    <li><strong>{props.userName}</strong></li>
+                    <li><a href="#" onClick={(e) => {
+                     e.preventDefault()
+                     logout()
+                    }}>Logout</a></li>
+                  </span>
+                :
+                  <li><a href="#" onClick={(e) => {
+                    e.preventDefault()
+                    signinRedirect(true)
+                  }}>Login</a></li>
+                }
             </ul>
           </div>
         </div>

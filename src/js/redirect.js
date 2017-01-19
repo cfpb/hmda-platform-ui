@@ -1,9 +1,8 @@
 import userManager from './UserManager'
 import { browserHistory } from 'react-router'
 
-const signinRedirect = () => {
-  if(location.pathname === '/oidc-callback') return
-  console.log('signinRedirect from', location.pathname)
+const signinRedirect = (force) => {
+  if((!force && location.pathname === '/') || location.pathname === '/oidc-callback') return
   localStorage.setItem('hmdaPageBeforeSignin', location.pathname)
   userManager.signinRedirect()
 }
@@ -16,7 +15,13 @@ const restorePage = () => {
   browserHistory.push(restored)
 }
 
+const logout = () => {
+ browserHistory.push('/')
+ userManager.signoutRedirect()
+}
+
 export {
   signinRedirect,
-  restorePage
+  restorePage,
+  logout
 }
