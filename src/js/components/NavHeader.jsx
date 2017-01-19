@@ -32,7 +32,7 @@ const NavHeader = (props) => {
   const page = props.pathname.split('/').slice(-1)[0]
 
   return (
-    <header className="usa-header usa-header-extended" role="banner">
+    <header className="usa-header usa-header-basic" role="banner">
       <div className="usa-banner">
         <header className="usa-banner-header">
           <div className="usa-grid usa-banner-inner">
@@ -41,41 +41,36 @@ const NavHeader = (props) => {
           </div>
         </header>
       </div>
-      <div className="usa-navbar">
-        <div className="usa-logo" id="logo">
-          <img src="/img/ffiec-logo.png" width="150px"/>
-        </div>
-      </div>
-      <nav role="navigation" className="NavHeader usa-nav">
-        <div className="usa-nav-inner">
-          {renderEditsNav(page, base)}
-          <div className="usa-nav-secondary">
-            <ul className="usa-unstyled-list usa-nav-secondary-links">
-              <li>
-                <Link className="usa-nav-link" style={styleSelectedPage(page, '')} to={'/'}>Home</Link>
-              </li>
-              <li>
-                <Link className="usa-nav-link" style={styleSelectedPage(page, 'institutions')} to={'/institutions'}>Institutions</Link>
-              </li>
-                {props.userName
-                ?
-                  <span>
-                    <li><strong>{props.userName}</strong></li>
-                    <li><a href="#" onClick={(e) => {
-                     e.preventDefault()
-                     logout()
-                    }}>Logout</a></li>
-                  </span>
-                :
-                  <li><a href="#" onClick={(e) => {
-                    e.preventDefault()
-                    signinRedirect(true)
-                  }}>Login</a></li>
-                }
-            </ul>
+      <div className="usa-nav-container">
+        <div className="usa-navbar">
+          <div className="usa-logo" id="logo">
+            <img src="/img/ffiec-logo.png" width="150px"/>
           </div>
         </div>
-      </nav>
+        <nav role="navigation" className="NavHeader usa-nav">
+          <ul className="usa-nav-primary">
+            <li>
+              <Link className="usa-nav-link" style={styleSelectedPage(page, '')} to={'/'}>Home</Link>
+            </li>
+            <li>
+              <Link className="usa-nav-link" style={styleSelectedPage(page, 'institutions')} to={'/institutions'}>Institutions</Link>
+            </li>
+              {props.userName
+              ?
+                <li><a className="usa-nav-link" href="#" onClick={(e) => {
+                 e.preventDefault()
+                 logout()
+                }}>Logout - <strong>{props.userName}</strong></a></li>
+              :
+                <li><a className="usa-nav-link" href="#" onClick={(e) => {
+                  e.preventDefault()
+                  signinRedirect(true)
+                }}>Login</a></li>
+              }
+          </ul>
+        </nav>
+      </div>
+      {renderEditsNav(page, base)}
     </header>
   )
 }
