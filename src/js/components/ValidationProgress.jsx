@@ -1,30 +1,44 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
+const checkMark = <img src="/img/checkMark.svg" />
+
+const getUploadStatus = (code) => {
+  if(code < 3) return <li>Uploading ...</li>
+  return <li>Upload complete {checkMark}</li>
+}
+
+const getParsingStatus = (code) => {
+  if(code < 4) return null
+  if(code === 4) return <li>Parsing ...</li>
+  return <li>Parsing complete {checkMark}</li>
+}
+
+const getValidationStatus = (code) => {
+  if(code < 7) return null
+  if(code === 7) return <li>Validating ...</li>
+  return <li>Validation complete {checkMark}</li>
+}
+
+const getReviewLink = (code, base) => {
+  if(code < 8) return null
+  return (
+    <li>
+      <Link className='Navlink' to={base + '/edits'}>Review Edits</Link>
+    </li>
+  )
+}
+
 const ValidationProgress = (props) => {
   const code = props.status.code
 
-  let uploadComplete = 'Uploading...'
-  let parsingStatus = null
-  let validationStatus = null
-  let reviewEdits = null
-
-  if(code > 2) uploadComplete = 'Upload complete'
-  if(code > 3) parsingStatus = 'Parsing started...'
-  if(code > 4) parsingStatus = 'Parsing complete'
-  if(code > 6) validationStatus = 'Validation started...'
-  if(code > 7) validationStatus = 'Validation complete'
-  if(code > 7) reviewEdits = <Link className='Navlink' to={props.base + '/edits'}>Review Edits</Link>
-
   return (
-    <div className="usa-width-one-half">
-      <ul className="ValidationProgress usa-unstyled-list">
-        <li>{uploadComplete}</li>
-        <li>{parsingStatus}</li>
-        <li>{validationStatus}</li>
-        <li>{reviewEdits}</li>
-      </ul>
-    </div>
+    <ul className="ValidationProgress usa-unstyled-list">
+      {getUploadStatus(code)}
+      {getParsingStatus(code)}
+      {getValidationStatus(code)}
+      {getReviewLink(code, props.base)}
+    </ul>
   )
 }
 
