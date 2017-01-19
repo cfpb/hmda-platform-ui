@@ -15,7 +15,7 @@ const UserHeading = (props) => {
 
   const headingText = getText(props)
   return (
-    <h1 className="UserHeading">{headingText}</h1>
+    <h2 className="UserHeading">{headingText}</h2>
   )
 }
 
