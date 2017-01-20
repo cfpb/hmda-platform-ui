@@ -20,8 +20,7 @@
     "watch:tests": "nodemon --exitcrash -e js -w __tests__ -x 'jest --coverage -o'",
     "watch:sass": "nodemon --exitcrash -e scss -w src/sass -x 'npm run sass'",
     "watch:html": "nodemon --exitcrash -e html -w src -x 'npm run html'",
-    "watch:server": "nodemon --exitcrash -e js,json -w server -x 'npm start'",
-    "watch": "npm run watch:server & npm run watch:js & npm run watch:tests & npm run watch:sass & npm run watch:html",
+    "watch": "npm run watch:js & npm run watch:tests & npm run watch:sass & npm run watch:html",
     "build": "npm run js && npm run sass && npm run html && npm run img"
   },
   "repository": {
