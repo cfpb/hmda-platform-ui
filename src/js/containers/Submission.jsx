@@ -8,6 +8,7 @@ import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Edits from './Edits.jsx'
+import EditsNav from '../components/EditsNav.jsx'
 import IRSReport from './IRSReport.jsx'
 import Signature from './Signature.jsx'
 import Summary from './Summary.jsx'
@@ -32,27 +33,6 @@ class SubmissionContainer extends Component {
     if(selected === current) return {borderBottom: '2px solid'}
     return {borderBottom: 'none'}
   }
-
-  renderEditsNav(code, page, base) {
-    const noEditsNav = ['', 'institutions']
-
-    if(noEditsNav.indexOf(page) === -1) return (
-      <ul className="usa-nav-primary">
-        <li>
-          <Link className="usa-nav-link" style={this.styleSelectedPage(page, 'upload')} to={base + '/upload'}>Upload</Link>
-        </li>
-        <li>
-          <Link className="usa-nav-link" style={this.styleSelectedPage(page, 'edits')} to={base + '/edits'}>Edits</Link>
-        </li>
-        <li>
-          <Link className="usa-nav-link" style={this.styleSelectedPage(page, 'summary')} to={base + '/summary'}>Summary</Link>
-        </li>
-      </ul>
-    )
-
-    return null
-  }
-
 
   // Links should be their own component, disabled with a message when not available
   // rather than unrendered
@@ -113,7 +93,9 @@ class SubmissionContainer extends Component {
           period={this.props.params.filing}
           userName={this.props.user.profile.name}
           institution={this.props.params.institution} />
-        {this.renderEditsNav(code, page, base)}
+        <EditsNav
+          page={page}
+          base={base} />
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>
