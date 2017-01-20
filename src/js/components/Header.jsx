@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
+import { signinRedirect, logout } from '../redirect.js'
 import BannerUSA from './BannerUSA.jsx'
-import BannerUser from './BannerUser.jsx'
 
 const styleSelectedPage = (selected, current) => {
   if(selected === current) return {borderBottom: '2px solid'}
@@ -14,9 +14,7 @@ const Header = (props) => {
 
   return (
     <header className="usa-header usa-header-basic" role="banner">
-      {/* include usabanner here */}
       <BannerUSA />
-      <BannerUser userName={props.userName} />
       <div className="usa-nav-container">
         <div className="usa-navbar">
           <div className="usa-logo" id="logo">
@@ -31,6 +29,18 @@ const Header = (props) => {
             <li>
               <Link className="usa-nav-link" style={styleSelectedPage(page, 'institutions')} to={'/institutions'}>Institutions</Link>
             </li>
+            {props.userName
+            ?
+              <li className="logout">{props.userName} - <a className="usa-nav-link" href="#" onClick={(e) => {
+               e.preventDefault()
+               logout()
+             }}>Logout</a></li>
+            :
+              <li><a className="usa-button" href="#" onClick={(e) => {
+                e.preventDefault()
+                signinRedirect(true)
+              }}>Login</a></li>
+            }
           </ul>
         </nav>
       </div>

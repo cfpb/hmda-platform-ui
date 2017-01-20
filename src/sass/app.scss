@@ -59,11 +59,26 @@ h6,
 .usa-nav-primary>li {
   margin-left: 0;
 
+  &.logout {
+    margin-left: 3em;
+    &>a.usa-nav-link{
+      margin-left: 0;
+    }
+  }
+
   &>a {
     color: $color-base;
     font-size: 1.7rem;
     margin: 1.3rem 1.5rem 1.7rem;
     padding: 0;
+
+    &.usa-button {
+      padding: 1rem 2rem;
+      &:hover {
+        color: $color-white;
+        background-color: $color-primary-darker;
+      }
+    }
   }
 
   &:last-child>a {
@@ -77,6 +92,7 @@ h6,
 
 .usa-nav-primary a {
   padding: 0;
+  display: inline-block;
 }
 
 a {
