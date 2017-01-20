@@ -10,6 +10,7 @@
 @import "components/EditsTable.scss";
 @import "components/EditsHeaderDescription.scss";
 @import "components/ValidationProgress.scss";
+@import "components/BannerUser.scss";
 
 // fix for disabled and checked checkbox
 [type="checkbox"]:checked:disabled + label::before {
@@ -47,6 +48,10 @@ h6,
       }
     }
   }
+}
+
+.usa-nav-primary>li:last-child>a {
+  padding-right: 0;
 }
 
 a {

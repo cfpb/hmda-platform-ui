@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
-import { signinRedirect, logout } from '../redirect.js'
 import { Link } from 'react-router'
+import BannerUSA from './BannerUSA.jsx'
+import BannerUser from './BannerUser.jsx'
 
 const noEditsNav = ['', 'institutions']
 
@@ -33,14 +34,9 @@ const NavHeader = (props) => {
 
   return (
     <header className="usa-header usa-header-basic" role="banner">
-      <div className="usa-banner">
-        <header className="usa-banner-header">
-          <div className="usa-grid usa-banner-inner">
-            <img src="/img/favicons/favicon-57.png" alt="U.S. flag" />
-            <p>An official website of the United States government</p>
-          </div>
-        </header>
-      </div>
+      {/* include usabanner here */}
+      <BannerUSA />
+      <BannerUser userName={props.userName} />
       <div className="usa-nav-container">
         <div className="usa-navbar">
           <div className="usa-logo" id="logo">
@@ -55,18 +51,6 @@ const NavHeader = (props) => {
             <li>
               <Link className="usa-nav-link" style={styleSelectedPage(page, 'institutions')} to={'/institutions'}>Institutions</Link>
             </li>
-              {props.userName
-              ?
-                <li><a className="usa-nav-link" href="#" onClick={(e) => {
-                 e.preventDefault()
-                 logout()
-                }}>Logout - <strong>{props.userName}</strong></a></li>
-              :
-                <li><a className="usa-nav-link" href="#" onClick={(e) => {
-                  e.preventDefault()
-                  signinRedirect(true)
-                }}>Login</a></li>
-              }
           </ul>
         </nav>
       </div>
