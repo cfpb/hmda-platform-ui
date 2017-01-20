@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import Progress from './Progress.jsx'
 
 class Upload extends Component {
   constructor(props) {
@@ -28,10 +27,6 @@ class Upload extends Component {
         <input id="hmdaFileName" name="hmdaFileName" type="text" value='No file chosen' ref={(input) => {this.fileName = input}} readOnly disabled></input>
         <input className="usa-button" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
       </form>
-      {/*this.props.file
-        ? <Progress progress={this.props.bytesUploaded} total={this.props.file.size} units="bytes" descriptor="uploaded"/>
-        : null
-      */}
     </div>
     )
   }
@@ -41,7 +36,6 @@ Upload.propTypes = {
   handleSubmit: PropTypes.func,
   setFile: PropTypes.func,
   uploading: PropTypes.bool,
-  bytesUploaded: PropTypes.number,
   file: PropTypes.object
 }
 
