@@ -1,0 +1,33 @@
+.UploadForm {
+  .usa-form {
+    max-width: 100%;
+  }
+  .usa-button.usa-button-gray {
+    border: 1px solid $color-gray;
+    margin-right: -1px;
+  }
+  input[type="text"] {
+    border-color: $color-gray;
+    border-left: none;
+    display: inline;
+    max-width: 30rem;
+  }
+
+  .hmda-file-input {
+    display: inline;
+    position: relative;
+    label {
+      display: inline;
+      margin-top: 0;
+    }
+    input[type="file"] {
+      cursor: pointer;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
+}

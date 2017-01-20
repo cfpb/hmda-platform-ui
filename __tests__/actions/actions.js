@@ -189,15 +189,6 @@ describe('actions', () => {
     })
   })
 
-  it('creates an action to signal progress of the file upload', () => {
-    const event = {}
-
-    expect(actions.uploadProgress(event)).toEqual({
-      type: types.UPLOAD_PROGRESS,
-      xhrProgressEvent: event
-    })
-  })
-
   it('creates an action to signal completion of the file upload', () => {
     const event = {}
 
@@ -271,7 +262,6 @@ describe('actions', () => {
         expect(xhrMock.setRequestHeader.mock.calls.length).toBe(3)
         expect(xhrMock.send.mock.calls.length).toBe(1)
         expect(xhrMock.addEventListener.mock.calls.length).toBe(1)
-        expect(xhrMock.upload.addEventListener.mock.calls.length).toBe(1)
         done()
       })
       .catch(err => {

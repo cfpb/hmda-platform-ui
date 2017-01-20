@@ -1,5 +1,9 @@
 .ValidationProgress {
-  color: $color-gray;
-  font-size: $small-font-size;
-  font-style: italic;
+  li:last-child {
+    margin-top: 1em;
+  }
+}
+
+.checkMark {
+  fill: $color-green;
 }

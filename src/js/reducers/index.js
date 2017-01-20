@@ -35,7 +35,6 @@ import {
 
 const defaultUpload = {
   uploading: false,
-  bytesUploaded: 0,
   file: null
 }
 
@@ -117,21 +116,13 @@ export const filingPeriod = (state = '2017', action) => {
 
 /*
  * Maintain data on the current upload
- * When a file is selected, reset bytesUploaded and set the file
- * When upload progress is dispatched, update bytesLoaded
  */
 export const upload = (state = defaultUpload, action) => {
   switch (action.type) {
   case SELECT_FILE:
     return {
       ...state,
-      bytesUploaded: 0,
       file: action.file
-    }
-  case UPLOAD_PROGRESS:
-    return {
-      ...state,
-     bytesUploaded: action.xhrProgressEvent.loaded
     }
   default:
     return state

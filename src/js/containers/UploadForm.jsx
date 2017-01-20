@@ -5,17 +5,14 @@ import { selectFile, requestUpload } from '../actions'
 function mapStateToProps(state) {
   const {
     uploading,
-    bytesUploaded,
     file
   } = state.app.upload || {
     uploading: false,
-    bytesUploaded: 0,
     file: null
   }
 
   return {
     uploading,
-    bytesUploaded,
     file
   }
 }

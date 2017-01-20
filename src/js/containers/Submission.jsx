@@ -79,12 +79,11 @@ class SubmissionContainer extends Component {
     }else{
       if(page === 'upload'){
         toRender.push(<UploadForm/>)
-        if(code > 1) toRender.push(<ValidationProgress/>)
+        if(code > 1) toRender.push(<ValidationProgress base={base} />)
         if(code === 5) {
           toRender.push(<RefileWarning/>)
           toRender.push(<ParseErrors/>)
         }
-        if(code > 5) toRender.push(<Link className='Navlink' to={base + '/edits'}>Review Edits</Link>)
       }else if(page === 'edits'){
         if(code > 6){
           if(code === 8) toRender.push(<RefileWarning/>)
