@@ -354,7 +354,6 @@ export function fetchCSV(institutionId, filing, submissionId) {
       }
     })
       .then(csv => {
-        // trigger the download
         fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-8'}), 'editreport.csv')
       })
   }
@@ -362,6 +361,7 @@ export function fetchCSV(institutionId, filing, submissionId) {
 
 export function fetchCSVByType(type) {
   return dispatch => {
+    dispatch(requestCSV())
     return getEdits({
       suffix: `/edits/${type}`,
       submission: latestSubmissionId,

@@ -47,7 +47,7 @@ const EditsTableWrapper = (props) => {
       Object.keys(editObj).map((type, i) => {
         return (
           <div className="EditsContainerEntry" key={i}>
-            <EditsHeaderDescription count={getCount(editObj[type], type)} type={type} />
+            <EditsHeaderDescription count={getCount(editObj[type], type)} type={type} onDownloadClick={props.onDownloadClick}/>
             <div className="border margin-bottom-5 padding-1">
               {renderTables(editObj[type], type)}
             </div>

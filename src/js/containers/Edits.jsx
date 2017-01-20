@@ -3,9 +3,6 @@ import { connect } from 'react-redux'
 import EditsTableWrapper from '../components/EditsTableWrapper.jsx'
 import SortPicker from '../containers/SortPicker.jsx'
 import { fetchEditsByType, fetchEditsByRow, fetchCSVByType } from '../actions'
-import EditsByType from '../components/EditsByType.jsx'
-import EditsByRow from '../components/EditsByRow.jsx'
-
 
 class EditsContainer extends Component {
   constructor(props) {
