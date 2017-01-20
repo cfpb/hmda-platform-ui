@@ -15,9 +15,11 @@ import {
   getSummary,
   setAccessToken,
   getAccessToken,
-  getParseErrors
+  getParseErrors,
+  getEditsOfType
 } from '../api'
 import * as types from '../constants'
+import fileSaver from 'file-saver'
 
 let latestSubmissionId
 let currentFilingPeriod
@@ -339,33 +341,6 @@ export function fetchParseErrors() {
   }
 }
 
-// used to trigger csv download properly
-export function detectIE() {
-  const ua = window.navigator.userAgent;
-
-  const msie = ua.indexOf('MSIE ');
-  if (msie >= 0) {
-      // IE 10 or older => return version number
-      return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
-  }
-
-  const trident = ua.indexOf('Trident/');
-  if (trident >= 0) {
-      // IE 11 => return version number
-      var rv = ua.indexOf('rv:');
-      return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
-  }
-
-  const edge = ua.indexOf('Edge/');
-  if (edge >= 0) {
-     // IE 12 => return version number
-     return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
-  }
-
-  // other browser
-  return false;
-}
-
 // downloading the csv edit reports, no reducer required
 export function fetchCSV(institutionId, filing, submissionId) {
   return dispatch => {
@@ -380,12 +355,22 @@ export function fetchCSV(institutionId, filing, submissionId) {
     })
       .then(csv => {
         // trigger the download
-        if (detectIE() === false) {
-          window.open('data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
-        } else {
-          var blob = new Blob([csv], {type: 'text/csv;charset=utf-8,'});
-          navigator.msSaveOrOpenBlob(blob, 'edits.csv');
-        }
+        fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-8'}), 'editreport.csv')
+      })
+  }
+}
+
+export function fetchCSVByType(type) {
+  return dispatch => {
+    return getEdits({
+      suffix: `/edits/${type}`,
+      submission: latestSubmissionId,
+      params: {
+        format: 'csv'
+      }
+    })
+      .then(csv => {
+        fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-8'}), `${type}.csv`)
       })
   }
 }

@@ -121,7 +121,7 @@ export function getLatestSubmission(){
 }
 
 export function getEdits(pathObj){
-  pathObj.suffix = '/edits'
+  pathObj.suffix = pathObj.suffix ? pathObj.suffix : '/edits'
   return sendFetch(pathObj)
 }
 

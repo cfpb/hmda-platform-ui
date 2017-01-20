@@ -43,12 +43,24 @@ const getText = (editType) => {
   return {id, title, desc}
 }
 
+const renderCSVLink = (props) => {
+  if(props.count === 0) return null
+
+  return (
+    <p><a href="#" onClick={(e) => {
+      e.preventDefault()
+      props.onDownloadClick(props.type)
+    }}>Download {props.type} edits (CSV)</a></p>
+  )
+}
+
 const EditsHeaderDescription = (props) => {
   const textObj = getText(props.type)
   return (
     <div className="EditsHeaderDescription padding-2 bg-color-gray-lightest" id={textObj.id}>
       <h2>{textObj.title} - {props.count}</h2>
       <p className="usa-font-lead">{textObj.desc}</p>
+      {renderCSVLink(props)}
     </div>
   )
 }

@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchEditsByType, fetchEditsByRow } from '../actions'
 import EditsTableWrapper from '../components/EditsTableWrapper.jsx'
 import SortPicker from '../containers/SortPicker.jsx'
+import { fetchEditsByType, fetchEditsByRow, fetchCSVByType } from '../actions'
+import EditsByType from '../components/EditsByType.jsx'
+import EditsByRow from '../components/EditsByRow.jsx'
 
 
 class EditsContainer extends Component {
@@ -51,4 +53,14 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(EditsContainer)
+function mapDispatchToProps(dispatch) {
+  return {
+    // triggered by a edit type download click
+    onDownloadClick: (type) => {
+      dispatch(fetchCSVByType(type))
+    },
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditsContainer)
