@@ -4,8 +4,8 @@ import BannerUSA from './BannerUSA.jsx'
 import BannerUser from './BannerUser.jsx'
 
 const styleSelectedPage = (selected, current) => {
-  if(selected === current) return {textDecoration: 'underline'}
-  return {textDecoration: 'none'}
+  if(selected === current) return {borderBottom: '2px solid'}
+  return {borderBottom: 'none'}
 }
 
 const Header = (props) => {

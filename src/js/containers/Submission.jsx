@@ -29,14 +29,14 @@ class SubmissionContainer extends Component {
   }
 
   styleSelectedPage(selected, current) {
-    if(selected === current) return {textDecoration: 'underline'}
-    return {textDecoration: 'none'}
+    if(selected === current) return {borderBottom: '2px solid'}
+    return {borderBottom: 'none'}
   }
 
   renderEditsNav(code, page, base) {
     const noEditsNav = ['', 'institutions']
 
-    if(code > 5 && noEditsNav.indexOf(page) === -1) return (
+    if(noEditsNav.indexOf(page) === -1) return (
       <ul className="usa-nav-primary">
         <li>
           <Link className="usa-nav-link" style={this.styleSelectedPage(page, 'upload')} to={base + '/upload'}>Upload</Link>
