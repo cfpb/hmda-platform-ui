@@ -28,6 +28,32 @@ class SubmissionContainer extends Component {
     }
   }
 
+  styleSelectedPage(selected, current) {
+    if(selected === current) return {textDecoration: 'underline'}
+    return {textDecoration: 'none'}
+  }
+
+  renderEditsNav(code, page, base) {
+    const noEditsNav = ['', 'institutions']
+
+    if(code > 5 && noEditsNav.indexOf(page) === -1) return (
+      <ul className="usa-nav-primary">
+        <li>
+          <Link className="usa-nav-link" style={this.styleSelectedPage(page, 'upload')} to={base + '/upload'}>Upload</Link>
+        </li>
+        <li>
+          <Link className="usa-nav-link" style={this.styleSelectedPage(page, 'edits')} to={base + '/edits'}>Edits</Link>
+        </li>
+        <li>
+          <Link className="usa-nav-link" style={this.styleSelectedPage(page, 'summary')} to={base + '/summary'}>Summary</Link>
+        </li>
+      </ul>
+    )
+
+    return null
+  }
+
+
   // Links should be their own component, disabled with a message when not available
   // rather than unrendered
   render() {
@@ -88,6 +114,7 @@ class SubmissionContainer extends Component {
           period={this.props.params.filing}
           userName={this.props.user.profile.name}
           institution={this.props.params.institution} />
+        {this.renderEditsNav(code, page, base)}
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>

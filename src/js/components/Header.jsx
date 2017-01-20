@@ -3,26 +3,6 @@ import { Link } from 'react-router'
 import BannerUSA from './BannerUSA.jsx'
 import BannerUser from './BannerUser.jsx'
 
-const noEditsNav = ['', 'institutions']
-
-const renderEditsNav = (page, base) => {
-  if(noEditsNav.indexOf(page) === -1) return (
-    <ul className="usa-nav-primary">
-      <li>
-        <Link className="usa-nav-link" style={styleSelectedPage(page, 'upload')} to={base + '/upload'}>Upload</Link>
-      </li>
-      <li>
-        <Link className="usa-nav-link" style={styleSelectedPage(page, 'edits')} to={base + '/edits'}>Edits</Link>
-      </li>
-      <li>
-        <Link className="usa-nav-link" style={styleSelectedPage(page, 'summary')} to={base + '/summary'}>Summary</Link>
-      </li>
-    </ul>
-  )
-
-  return null
-}
-
 const styleSelectedPage = (selected, current) => {
   if(selected === current) return {textDecoration: 'underline'}
   return {textDecoration: 'none'}
@@ -40,7 +20,7 @@ const Header = (props) => {
       <div className="usa-nav-container">
         <div className="usa-navbar">
           <div className="usa-logo" id="logo">
-            <img src="/img/ffiec-logo.png" width="150px"/>
+            <img src="/img/ffiec-logo.png" width="125px"/>
           </div>
         </div>
         <nav role="navigation" className="Header usa-nav">
@@ -54,7 +34,6 @@ const Header = (props) => {
           </ul>
         </nav>
       </div>
-      {renderEditsNav(page, base)}
     </header>
   )
 }
