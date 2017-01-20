@@ -8,6 +8,7 @@ const userManager = createUserManager({
   client_id: 'hmda-api',
   redirect_uri: app + '/oidc-callback',
   silent_redirect_uri: app + '/silent_renew.html',
+  post_logout_redirect_uri: app,
   automaticSilentRenew: true,
   scope: 'openid profile',
   response_type: 'id_token token',
