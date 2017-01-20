@@ -1,10 +1,10 @@
 import React from 'react'
-import NavHeader from '../components/NavHeader.jsx'
+import Header from '../components/Header.jsx'
 
 const Home = (props) => {
   return (
     <div className="Home">
-      <NavHeader
+      <Header
         pathname={props.location.pathname}
         userName={props.user.profile.name} />
       <div id="main-content" className="usa-grid">

@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { fetchSubmission } from '../actions'
 import HomeLink from '../components/HomeLink.jsx'
-import NavHeader from '../components/NavHeader.jsx'
+import Header from '../components/Header.jsx'
 import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
@@ -80,7 +80,7 @@ class SubmissionContainer extends Component {
 
     return (
     <div className="SubmissionContainer">
-      <NavHeader
+      <Header
           pathname={this.props.location.pathname}
           userName={this.props.user.profile.name} />
       <div id="main-content" className="usa-grid">

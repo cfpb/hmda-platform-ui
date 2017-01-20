@@ -28,7 +28,7 @@ const styleSelectedPage = (selected, current) => {
   return {textDecoration: 'none'}
 }
 
-const NavHeader = (props) => {
+const Header = (props) => {
   const base = props.pathname.split('/').slice(0,-1).join('/')
   const page = props.pathname.split('/').slice(-1)[0]
 
@@ -43,7 +43,7 @@ const NavHeader = (props) => {
             <img src="/img/ffiec-logo.png" width="150px"/>
           </div>
         </div>
-        <nav role="navigation" className="NavHeader usa-nav">
+        <nav role="navigation" className="Header usa-nav">
           <ul className="usa-nav-primary">
             <li>
               <Link className="usa-nav-link" style={styleSelectedPage(page, '')} to={'/'}>Home</Link>
@@ -59,9 +59,9 @@ const NavHeader = (props) => {
   )
 }
 
-NavHeader.propTypes = {
+Header.propTypes = {
   userName: React.PropTypes.string,
   pathname: React.PropTypes.string
 }
 
-export default NavHeader
+export default Header

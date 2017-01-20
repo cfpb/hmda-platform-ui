@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import {Link} from 'react-router'
 import UserHeading from '../components/UserHeading.jsx'
-import NavHeader from '../components/NavHeader.jsx'
+import Header from '../components/Header.jsx'
 import moment from 'moment'
 
 const renderTiming = (status, start, end) => {
@@ -104,7 +104,7 @@ export default class Institution extends Component {
     const makeNewSubmission = this.props.makeNewSubmission
     return (
     <div className="Institutions">
-      <NavHeader
+      <Header
         pathname={this.props.location.pathname}
         userName={this.props.user.profile.name} />
       <div id="main-content" className="usa-grid">
