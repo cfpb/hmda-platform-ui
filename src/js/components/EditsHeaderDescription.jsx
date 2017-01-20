@@ -42,7 +42,10 @@ const renderCSVLink = (props) => {
   if(props.count === 0) return null
 
   return (
-    <p><a href="javascript:void(0)" onClick={() => {props.onDownloadClick(props.type)}}>Download {props.type} edits (CSV)</a></p>
+    <p><a href="#" onClick={(e) => {
+      e.preventDefault()
+      props.onDownloadClick(props.type)
+    }}>Download {props.type} edits (CSV)</a></p>
   )
 }
 
