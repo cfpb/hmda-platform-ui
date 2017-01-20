@@ -1,6 +1,7 @@
 jest.unmock('../../src/js/actions')
 jest.unmock('../../src/js/constants')
 jest.mock('../../src/js/api')
+jest.mock('file-saver')
 
 import fs from 'fs'
 import * as actions from '../../src/js/actions'
@@ -376,29 +377,6 @@ describe('actions', () => {
       })
   })
 
-  it('detects IE negatively', () => {
-    expect(actions.detectIE()).toBe(false)
-  })
-
-  function uaTest(ua){
-    const orig = window.navigator.userAgent
-    window.navigator.__defineGetter__('userAgent', () => ua)
-    expect(actions.detectIE()).not.toBe(false)
-    window.navigator.__defineGetter__('userAgent', () => orig)
-  }
-
-  it('detects IE when ua has "MSIE "', () => {
-    uaTest('MSIE ')
-  })
-
-  it('detects IE when ua has "Trident/"', () => {
-    uaTest('Trident/')
-  })
-
-  it('detects IE when ua has "Edge/"', () => {
-    uaTest('Edge/')
-  })
-
   it('creates a thunk that will request edits and trigger a csv download', done => {
     const store = mockStore({})
 
@@ -407,7 +385,7 @@ describe('actions', () => {
         expect(store.getActions()).toEqual([
           {type: types.REQUEST_CSV}
         ])
-        expect(window.open.mock.calls.length).toBe(1)
+        expect(window.Blob.mock.calls.length).toBe(1)
         done()
       })
       .catch(err => {
@@ -420,15 +398,13 @@ describe('actions', () => {
     const store = mockStore({})
 
     window.navigator.__defineGetter__('userAgent', () => 'MSIE ')
-    window.navigator.msSaveOrOpenBlob = jest.fn()
 
     store.dispatch(actions.fetchCSV())
     .then(() => {
       expect(store.getActions()).toEqual([
         {type: types.REQUEST_CSV}
       ])
-      expect(window.Blob.mock.calls.length).toBe(1)
-      expect(window.navigator.msSaveOrOpenBlob.mock.calls.length).toBe(1)
+      expect(window.Blob.mock.calls.length).toBe(2)
       done()
     })
     .catch(err => {
