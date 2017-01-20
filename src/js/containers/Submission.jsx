@@ -29,11 +29,6 @@ class SubmissionContainer extends Component {
     }
   }
 
-  styleSelectedPage(selected, current) {
-    if(selected === current) return {borderBottom: '2px solid'}
-    return {borderBottom: 'none'}
-  }
-
   // Links should be their own component, disabled with a message when not available
   // rather than unrendered
   render() {
