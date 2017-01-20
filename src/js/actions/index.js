@@ -156,13 +156,6 @@ export function uploadStart() {
   }
 }
 
-export function uploadProgress(xhrProgressEvent) {
-  return {
-    type: types.UPLOAD_PROGRESS,
-    xhrProgressEvent
-  }
-}
-
 export function uploadComplete(xhrLoadEvent) {
   return {
     type: types.UPLOAD_COMPLETE,
@@ -400,10 +393,6 @@ export function requestUpload(file) {
       dispatch(uploadComplete(e))
 
       dispatch(pollForProgress())
-    })
-
-    xhr.upload.addEventListener('progress', e => {
-      dispatch(uploadProgress(e))
     })
 
     xhr.open('POST', getUploadUrl(latestSubmissionId));

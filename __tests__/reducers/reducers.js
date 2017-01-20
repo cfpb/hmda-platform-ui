@@ -15,7 +15,6 @@ const excludeTypes = (...args) => {
 
 const defaultUpload = {
   uploading: false,
-  bytesUploaded: 0,
   file: null
 }
 
@@ -186,8 +185,7 @@ describe('filings reducer', () => {
 
 })
 
-describe
-('submission reducer', () => {
+describe('submission reducer', () => {
   it('should return the initial state on empty action', () => {
     expect(
       submission(undefined, {})
@@ -239,17 +237,10 @@ describe('upload reducer', () => {
 
   it('handles SELECT_FILE', () => {
     expect(
-      upload({bytesUploaded: 123, file: {}},
+      upload({file: {}},
       {type: types.SELECT_FILE, file: {name: 'afile'}}
-    )).toEqual({bytesUploaded: 0, file: {name: 'afile'}})
+    )).toEqual({file: {name: 'afile'}})
   })
-
-  it('handles UPLOAD_PROGRESS', () => {
-    expect(
-      upload({}, {type: types.UPLOAD_PROGRESS, xhrProgressEvent: {loaded: 42}})
-    ).toEqual({bytesUploaded: 42})
-  })
-
 
   it('shouldn\'t modify state on an unknown action type', () => {
     excludeTypes(types.SELECT_FILE, types.UPLOAD_PROGRESS)

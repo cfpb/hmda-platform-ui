@@ -16,7 +16,13 @@ describe('ValidationProgress', function(){
   });
 
   it('renders the correct amount of children', function(){
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(progress, 'li').length).toEqual(3);
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(progress, 'li').length).toEqual(2);
+  });
+
+  const progress2 = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress status={{code:9}}/></Wrapper>);
+
+  it('renders the correct amount of children', function(){
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(progress2, 'li').length).toEqual(4);
   });
 
 });

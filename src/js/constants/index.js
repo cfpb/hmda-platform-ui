@@ -18,7 +18,6 @@ export const REQUEST_CSV            = 'REQUEST_CSV'
 export const SELECT_FILE            = 'SELECT_FILE'
 export const REQUEST_UPLOAD         = 'REQUEST_UPLOAD'
 export const UPLOAD_START           = 'UPLOAD_START'
-export const UPLOAD_PROGRESS        = 'UPLOAD_PROGRESS'
 export const UPLOAD_COMPLETE        = 'UPLOAD_COMPLETE'
 export const UPLOAD_ERROR           = 'UPLOAD_ERROR'
 
