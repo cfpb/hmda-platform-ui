@@ -340,7 +340,7 @@ export function fetchParseErrors() {
 }
 
 // used to trigger csv download properly
-function detectIE() {
+export function detectIE() {
   const ua = window.navigator.userAgent;
 
   const msie = ua.indexOf('MSIE ');
