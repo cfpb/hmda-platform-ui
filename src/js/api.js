@@ -2,25 +2,31 @@ import fetch from 'isomorphic-fetch'
 
 let accessToken
 
-function createQueryString(suffix, params) {
+function createQueryString(params) {
   const length = Object.keys(params).length
-  let newSuffix = `${suffix}?`
   let count = 0
+  let qs = '?'
   for(let key of Object.keys(params)) {
-    newSuffix = `${newSuffix}${key}=${params[key]}`
+    qs = `${qs}${key}=${params[key]}`
     count++
-    if(count < length) newSuffix = `${newSuffix}&`
+    if(count < length) qs = `${qs}&`
   }
-  return newSuffix
+  return qs
 }
 
-function sendFetch(suffix, options = {method: 'GET'}){
-  var locationObj = options.noParse ? {} : parseLocation(location);
-  // check if params exist and update suffix to add them
-  if(options.params && Object.keys(options.params).length !== 0) {
-    suffix = createQueryString(suffix, options.params)
+function sendFetch(options = {method: 'GET'}){
+  var pathname = options.pathname
+  var locationObj = pathname ? {} : parseLocation(location)
+  // check if params exist and update pathname to add them
+
+  options = Object.assign({}, locationObj, options)
+
+  if(options.params) {
+    options.querystring = createQueryString(options.params)
   }
-  var url = makeUrl(locationObj, suffix);
+
+  var url = makeUrl(options)
+
   if(typeof options.body === 'object') options.body = JSON.stringify(options.body)
   var headers = {}
 
@@ -62,49 +68,48 @@ export function getAccessToken() {
   return accessToken || ''
 }
 
-export function makeUrl(obj, suffix){
+export function makeUrl(obj){
   var url = process.env.HMDA_API
   if(!url) throw new Error('No url provided for API, unable to fetch data. This is most likely a build issue.')
-  if(obj.id) url+= '/institutions/' + obj.id;
-  if(obj.filing) url+= '/filings/' + obj.filing;
-  if(obj.submission) url+= '/submissions/' + obj.submission;
-  if(suffix) url += suffix;
-  return url;
+  if(obj.pathname) return url + obj.pathname
+  if(obj.id) url += '/institutions/' + obj.id
+  if(obj.filing) url += '/filings/' + obj.filing
+  if(obj.submission) url += '/submissions/' + obj.submission
+  if(obj.suffix) url += obj.suffix
+  if(obj.querystring) url += obj.querystring
+  return url
 }
 
 export function parseLocation(location){
-  var pathParts = location.pathname.split('/');
+  var pathParts = location.pathname.split('/')
   return {id: pathParts[1], filing: pathParts[2]}
  }
 
 export function getInstitutions(){
-  return sendFetch('/institutions', {noParse:1});
+  return sendFetch({pathname: '/institutions'})
 }
 
 export function getInstitution(id){
-  return sendFetch(`/institutions/${id}`, {noParse:1});
+  return sendFetch({pathname: `/institutions/${id}`})
 }
 
 export function getUploadUrl(id){
   if(id === undefined) throw new Error('Must provide a submission id when data is uploaded.')
-  return makeUrl(parseLocation(location), `/submissions/${id}`)
-}
-
-export function getProgress(url, cb){
-  return sendFetch(url, cb, '/progress');
+  var locationObj = parseLocation(location)
+  locationObj.submission = id
+  return makeUrl(locationObj)
 }
 
 export function getSubmission(id){
-  return sendFetch(`/submissions/${id}`)
+  return sendFetch({submission: id})
 }
 
 export function createSubmission(id, filing){
-  return sendFetch(`/institutions/${id}/filings/${filing}/submissions`,
-      {method:'POST', noParse:1})
+  return sendFetch({pathname:`/institutions/${id}/filings/${filing}/submissions`, method:'POST'})
 }
 
 export function getFiling(id, filing){
-  return sendFetch(`/institutions/${id}/filings/${filing}`, {noParse:1})
+  return sendFetch({pathname: `/institutions/${id}/filings/${filing}`})
 }
 
 export function getFilingFromUrl(){
@@ -112,45 +117,44 @@ export function getFilingFromUrl(){
 }
 
 export function getLatestSubmission(){
-  return sendFetch('/submissions/latest')
+  return sendFetch({suffix: '/submissions/latest'})
 }
 
-export function getEditsByType(submission, institutionId, period, params){
-  if(params) {
-    return sendFetch(`/institutions/${institutionId}/filings/${period}/submissions/${submission}/edits`, {noParse:1, params:params})
-  }
-  return sendFetch(`/submissions/${submission}/edits`)
-}
-
-export function getEditsByRow(submission){
-  return sendFetch(`/submissions/${submission}/edits/lars`)
+export function getEdits(pathObj){
+  pathObj.suffix = pathObj.suffix ? pathObj.suffix : '/edits'
+  return sendFetch(pathObj)
 }
 
 export function postEdit(submission, data){
-  var suffix = '/edits/macro'
-  return sendFetch(`/submissions/${submission}${suffix}`, {method: 'POST', body: data})
+  return sendFetch({
+    submission: submission,
+    suffix: '/edits/macro',
+    method: 'POST',
+    body: data
+  })
 }
 
 export function getIRS(submission){
-  return sendFetch(`/submissions/${submission}/irs`);
+  return sendFetch({submission:submission, suffix:'/irs'})
 }
 
 export function getSummary(submission){
-  return sendFetch(`/submissions/${submission}/summary`);
+  return sendFetch({submission: submission, suffix: '/summary'})
 }
 
 export function getSignature(submission){
-  return sendFetch(`/submissions/${submission}/sign`);
+  return sendFetch({submission: submission, suffix: '/sign'})
 }
 
 export function getParseErrors(submission){
-  return sendFetch(`/submissions/${submission}/parseErrors`);
+  return sendFetch({submission: submission, suffix: '/parseErrors'})
 }
 
 export function postSignature(submission, data){
-  return sendFetch(`/submissions/${submission}/sign`, {method: 'POST', body: data});
-}
-
-export function postSubmissions(url, cb){
-  return sendFetch(url, cb, '/submissions');
+  return sendFetch({
+    submission: submission,
+    suffix: '/sign',
+    method: 'POST',
+    body: data
+  })
 }

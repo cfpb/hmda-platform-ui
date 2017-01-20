@@ -7,8 +7,7 @@ import {
   getLatestSubmission,
   createSubmission,
   getUploadUrl,
-  getEditsByType,
-  getEditsByRow,
+  getEdits,
   postEdit,
   getIRS,
   getSignature,
@@ -16,9 +15,11 @@ import {
   getSummary,
   setAccessToken,
   getAccessToken,
-  getParseErrors
+  getParseErrors,
+  getEditsOfType
 } from '../api'
 import * as types from '../constants'
+import fileSaver from 'file-saver'
 
 let latestSubmissionId
 let currentFilingPeriod
@@ -100,6 +101,12 @@ export function receiveSubmission(data) {
     ...data
   }
 }
+
+export function requestCSV() {
+  return {
+    type: types.REQUEST_CSV
+  }
+}
 export function requestEditsByType() {
     return {
       type: types.REQUEST_EDITS_BY_TYPE
@@ -138,6 +145,8 @@ export function selectFile(file) {
     file
   }
 }
+
+
 
 
 
@@ -270,6 +279,22 @@ export function updateSignature(signed) {
   }
 }
 
+export function pickSort(groupByRow) {
+  return {
+    type: types.PICK_SORT,
+    groupByRow
+  }
+}
+
+export function triggerPickSort(groupByRow) {
+  return dispatch => {
+    dispatch(pickSort(groupByRow))
+    let editAction = fetchEditsByType
+    if(groupByRow) editAction = fetchEditsByRow
+    dispatch(editAction())
+  }
+}
+
 export function requestSummary() {
   return {
     type: types.REQUEST_SUMMARY
@@ -316,46 +341,36 @@ export function fetchParseErrors() {
   }
 }
 
-// used to trigger csv download properly
-function detectIE() {
-  const ua = window.navigator.userAgent;
-
-  const msie = ua.indexOf('MSIE ');
-  if (msie >= 0) {
-      // IE 10 or older => return version number
-      return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+// downloading the csv edit reports, no reducer required
+export function fetchCSV(institutionId, filing, submissionId) {
+  return dispatch => {
+    dispatch(requestCSV())
+    return getEdits({
+      id: institutionId,
+      filing: filing,
+      submission: submissionId,
+      params: {
+        format: 'csv'
+      }
+    })
+      .then(csv => {
+        fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-8'}), 'editreport.csv')
+      })
   }
-
-  const trident = ua.indexOf('Trident/');
-  if (trident >= 0) {
-      // IE 11 => return version number
-      var rv = ua.indexOf('rv:');
-      return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
-  }
-
-  const edge = ua.indexOf('Edge/');
-  if (edge >= 0) {
-     // IE 12 => return version number
-     return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
-  }
-
-  // other browser
-  return false;
 }
 
-// downloading the csv edit reports, no reducer required
-export function requestCSV(institutionId, submissionId, period) {
+export function fetchCSVByType(type) {
   return dispatch => {
-    dispatch(requestEditsByType())
-    return getEditsByType(submissionId, institutionId, period, {format: 'csv'})
+    dispatch(requestCSV())
+    return getEdits({
+      suffix: `/edits/${type}`,
+      submission: latestSubmissionId,
+      params: {
+        format: 'csv'
+      }
+    })
       .then(csv => {
-        // trigger the download
-        if (detectIE() === false) {
-          window.open('data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
-        } else {
-          var blob = new Blob([csv], {type: 'text/csv;charset=utf-8,'});
-          navigator.msSaveOrOpenBlob(blob, 'edits.csv');
-        }
+        fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-8'}), `${type}.csv`)
       })
   }
 }
@@ -557,7 +572,7 @@ export function fetchFiling(institution) {
 export function fetchEditsByType() {
   return dispatch => {
     dispatch(requestEditsByType())
-    return getEditsByType(latestSubmissionId)
+    return getEdits({submission: latestSubmissionId})
       .then(json => {
         dispatch(receiveEditsByType(json))
       })
@@ -568,7 +583,7 @@ export function fetchEditsByType() {
 export function fetchEditsByRow() {
   return dispatch => {
     dispatch(requestEditsByRow())
-    return getEditsByRow(latestSubmissionId)
+    return getEdits({submission: latestSubmissionId, params: {sortBy: 'row'}})
       .then(json => dispatch(receiveEditsByRow(json)))
       .catch(err => console.error(err))
   }

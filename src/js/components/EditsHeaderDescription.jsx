@@ -31,11 +31,27 @@ const getText = (editType) => {
       title =  'Macro Edits'
       desc = 'Edits that check whether the submitted loan/application register as a whole conforms to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all the values flagged by the macro quality edits in the HMDA Platform or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
       break
+    case 'rows':
+      id = 'rowheader'
+      title =  'Edits by Row'
+      desc = 'Syntactical, Validity, and Quality edits grouped together by row from the source file.'
+      break
     default:
       throw new Error('Unexpected edit type. Unable to create edit description')
   }
 
   return {id, title, desc}
+}
+
+const renderCSVLink = (props) => {
+  if(props.count === 0) return null
+
+  return (
+    <p><a href="#" onClick={(e) => {
+      e.preventDefault()
+      props.onDownloadClick(props.type)
+    }}>Download {props.type} edits (CSV)</a></p>
+  )
 }
 
 const EditsHeaderDescription = (props) => {
@@ -44,6 +60,7 @@ const EditsHeaderDescription = (props) => {
     <div className="EditsHeaderDescription padding-2 bg-color-gray-lightest" id={textObj.id}>
       <h2>{textObj.title} - {props.count}</h2>
       <p className="usa-font-lead">{textObj.desc}</p>
+      {renderCSVLink(props)}
     </div>
   )
 }
