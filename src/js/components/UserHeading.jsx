@@ -4,7 +4,7 @@ const getText = (props) => {
   let headingText = 'Welcome to the ' + props.period + ' HMDA filing, ' + props.userName
 
   if (props.institution) {
-    headingText = props.userName + ' filing on behalf of ' + props.institution;
+    headingText = 'Filing on behalf of ' + props.institution;
   }
 
   return headingText
@@ -15,7 +15,7 @@ const UserHeading = (props) => {
 
   const headingText = getText(props)
   return (
-    <h3 className="UserHeading">{headingText}</h3>
+    <h2 className="UserHeading">{headingText}</h2>
   )
 }
 

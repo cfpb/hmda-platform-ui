@@ -5,7 +5,7 @@ import BannerUSA from './BannerUSA.jsx'
 
 const styleSelectedPage = (selected, current) => {
   if(selected === current) return {borderBottom: '2px solid'}
-  return {borderBottom: 'none'}
+  return {}
 }
 
 const Header = (props) => {
@@ -16,12 +16,10 @@ const Header = (props) => {
     <header className="usa-header usa-header-basic" role="banner">
       <BannerUSA />
       <div className="usa-nav-container">
-        <div className="usa-navbar">
-          <div className="usa-logo" id="logo">
-            <img src="/img/ffiec-logo.png" width="125px"/>
-          </div>
+        <div className="usa-logo" id="logo">
+          <img src="/img/ffiec-logo.png" width="125px"/>
         </div>
-        <nav role="navigation" className="Header usa-nav">
+        <nav role="navigation" className="Header usa-nav usa-nav-left">
           <ul className="usa-nav-primary">
             <li>
               <Link className="usa-nav-link" style={styleSelectedPage(page, '')} to={'/'}>Home</Link>
@@ -29,6 +27,10 @@ const Header = (props) => {
             <li>
               <Link className="usa-nav-link" style={styleSelectedPage(page, 'institutions')} to={'/institutions'}>Institutions</Link>
             </li>
+          </ul>
+        </nav>
+        <nav role="navigation" className="Header usa-nav">
+          <ul className="usa-nav-primary">
             {props.userName
             ?
               <li className="logout">{props.userName} - <a className="usa-nav-link" href="#" onClick={(e) => {

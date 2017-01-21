@@ -81,8 +81,8 @@ class SubmissionContainer extends Component {
     return (
     <div className="SubmissionContainer">
       <Header
-          pathname={this.props.location.pathname}
-          userName={this.props.user.profile.name} />
+        pathname={this.props.location.pathname}
+        userName={this.props.user.profile.name} />
       <div id="main-content" className="usa-grid">
         <UserHeading
           period={this.props.params.filing}
