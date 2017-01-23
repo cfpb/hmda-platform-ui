@@ -17,8 +17,6 @@ class Upload extends Component {
   }
 
   render() {
-    console.log('UploadForm')
-    console.log(this.props)
     const isDisabled = (this.props.code > 1) ? true : false
 
     return (
