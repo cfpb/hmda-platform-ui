@@ -90,7 +90,8 @@ class SubmissionContainer extends Component {
           institution={this.props.params.institution} />
         <EditsNav
           page={page}
-          base={base} />
+          base={base}
+          code={code} />
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>
