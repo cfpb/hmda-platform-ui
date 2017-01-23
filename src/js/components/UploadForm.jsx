@@ -17,6 +17,10 @@ class Upload extends Component {
   }
 
   render() {
+    console.log('UploadForm')
+    console.log(this.props)
+    const isDisabled = (this.props.code > 1) ? true : false
+
     return (
     <div className="UploadForm">
       <form className="usa-form" encType="multipart/form-data" onSubmit={e => this.props.handleSubmit(e, this.props.file)}>
@@ -25,7 +29,7 @@ class Upload extends Component {
           <input id="hmdaFile" name="hmdaFile" type="file" ref={(input) => {this.fileInput = input}} onChange={this.props.setFile}></input>
         </div>
         <input id="hmdaFileName" name="hmdaFileName" type="text" value='No file chosen' ref={(input) => {this.fileName = input}} readOnly disabled></input>
-        <input className="usa-button" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
+        <input disabled={isDisabled} className="usa-button" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
       </form>
     </div>
     )
@@ -36,7 +40,8 @@ Upload.propTypes = {
   handleSubmit: PropTypes.func,
   setFile: PropTypes.func,
   uploading: PropTypes.bool,
-  file: PropTypes.object
+  file: PropTypes.object,
+  code: PropTypes.number
 }
 
 Upload.defaultProps = {
