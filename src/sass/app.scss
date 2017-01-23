@@ -11,6 +11,9 @@
 @import "components/EditsHeaderDescription.scss";
 @import "components/Upload.scss";
 @import "components/ValidationProgress.scss";
+@import "components/BannerUser.scss";
+@import "components/UserHeading.scss";
+@import "components/EditsNav.scss";
 
 // fix for disabled and checked checkbox
 [type="checkbox"]:checked:disabled + label::before {
@@ -18,6 +21,10 @@
   background-image: url('#{$image-path}/correct8.svg');
   background-position: 50%;
   background-repeat: no-repeat;
+}
+
+#main-content {
+  padding-bottom: 2em;
 }
 
 .usa-display,
@@ -33,11 +40,46 @@ h6,
 }
 
 .usa-header {
-  margin-bottom: 3em;
+  border-bottom: 1px solid $color-gray-lightest;
+  margin-bottom: 2em;
+}
+
+.usa-navbar {
+  height: auto;
+}
+
+.usa-nav {
+  padding-top: .5rem;
+}
+
+.usa-nav.usa-nav-left {
+  display: inline-block;
+  float: none;
+  padding-left: 4em;
 }
 
 .usa-logo {
   line-height: 0;
+}
+
+.usa-header-basic .usa-logo {
+  bottom: 0;
+  position: relative;
+}
+
+.usa-banner-inner,
+.usa-nav-container {
+  max-width: none;
+}
+
+.usa-banner-inner {
+  padding-top: .25em;
+  padding-bottom: .25em;
+}
+
+.usa-nav-container {
+  padding-top: .5em;
+  padding-bottom: .5em;
 }
 
 .usa-nav-secondary-links {
@@ -48,6 +90,47 @@ h6,
       }
     }
   }
+}
+
+.usa-nav-primary>li {
+  font-size: 1.5rem;
+  margin-left: 0;
+
+  &.logout {
+    margin-left: 3em;
+    &>a.usa-nav-link{
+      margin-left: 0;
+    }
+  }
+
+  &>a {
+    color: $color-base;
+    margin: 1.3rem 1.5rem 1.7rem;
+    padding: 0;
+    text-transform: capitalize;
+
+    &.usa-button {
+      margin: 0;
+      padding: 1rem 2rem;
+      &:hover {
+        color: $color-white;
+        background-color: $color-primary-darker;
+      }
+    }
+  }
+
+  &:last-child>a {
+    margin-right: 0;
+  }
+
+  &:first-child>a {
+    margin-left: 0;
+  }
+}
+
+.usa-nav-primary a {
+  padding: 0;
+  display: inline-block;
 }
 
 a {
@@ -176,5 +259,4 @@ body {
   left: 0;
   bottom: 0;
   width: 100%;
-  margin-top: 2em;
 }

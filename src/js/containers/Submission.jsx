@@ -3,11 +3,12 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { fetchSubmission } from '../actions'
 import HomeLink from '../components/HomeLink.jsx'
-import NavHeader from '../components/NavHeader.jsx'
+import Header from '../components/Header.jsx'
 import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Edits from './Edits.jsx'
+import EditsNav from '../components/EditsNav.jsx'
 import IRSReport from './IRSReport.jsx'
 import Signature from './Signature.jsx'
 import Summary from './Summary.jsx'
@@ -79,14 +80,18 @@ class SubmissionContainer extends Component {
 
     return (
     <div className="SubmissionContainer">
-      <NavHeader
-          pathname={this.props.location.pathname}
-          userName={this.props.user.profile.name} />
+      <Header
+        pathname={this.props.location.pathname}
+        userName={this.props.user.profile.name} />
       <div id="main-content" className="usa-grid">
         <UserHeading
           period={this.props.params.filing}
           userName={this.props.user.profile.name}
           institution={this.props.params.institution} />
+        <EditsNav
+          page={page}
+          base={base}
+          code={code} />
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>

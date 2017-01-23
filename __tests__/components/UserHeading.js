@@ -60,7 +60,7 @@ describe('UserHeading', () => {
     })
 
     it('renders correctly', () => {
-      expect(headingNode.textContent).toEqual('User1 filing on behalf of Wacky data')
+      expect(headingNode.textContent).toEqual('Filing on behalf of Wacky data')
     })
   })
 
