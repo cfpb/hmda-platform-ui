@@ -10,6 +10,13 @@ const styleSelectedPage = (selected, current) => {
 
 const renderLinkOrText = (props, linkTo) => {
   const { page, base, code } = props
+  
+  // always render the upload as a link
+  if(linkTo === 'upload') return (
+    <Link className="usa-nav-link" style={styleSelectedPage(page, linkTo)}
+      to={`${base}/${linkTo}`}>{linkTo}</Link>
+  )
+
   // only render link when code > 7 (so it's finished validating)
   if(code > 7) {
     return <Link className="usa-nav-link" style={styleSelectedPage(page, linkTo)} to={`${base}/${linkTo}`}>{linkTo}</Link>
@@ -20,18 +27,15 @@ const renderLinkOrText = (props, linkTo) => {
 
 const EditsNav = (props) => {
   const { page, base, code } = props
+  const editPages = ['upload', 'edits', 'summary']
 
   if(noEditsNav.indexOf(page) === -1) return (
     <ul className="EditsNav usa-nav-primary">
-      <li>
-        <Link className="usa-nav-link" style={styleSelectedPage(page, 'upload')} to={base + '/upload'}>Upload</Link>
-      </li>
-      <li>
-        {renderLinkOrText(props, 'edits')}
-      </li>
-      <li>
-        {renderLinkOrText(props, 'summary')}
-      </li>
+      {
+        editPages.map((page, i) => {
+          return <li key={i}>{renderLinkOrText(props, page)}</li>
+        })
+      }
     </ul>
   )
 
