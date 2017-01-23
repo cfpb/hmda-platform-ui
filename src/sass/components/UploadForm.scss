@@ -1,4 +1,9 @@
 .UploadForm {
+  border: 1px solid $color-gray-lightest;
+  margin-bottom: 2em;
+  padding: 20px;
+  text-align: center;
+  width: 470px;
   .usa-form {
     max-width: 100%;
   }
@@ -11,6 +16,10 @@
     border-left: none;
     display: inline;
     max-width: 30rem;
+  }
+  [type="submit"] {
+    margin: 1em auto 0;
+    width: 100%;
   }
 
   .hmda-file-input {
