@@ -10,12 +10,21 @@
   .usa-button.usa-button-gray {
     border: 1px solid $color-gray;
     margin-right: -1px;
+    &.usa-button-disabled {
+      background-color: $color-gray-lighter;
+      border-color: $color-gray-lighter;
+      color: $color-base;
+    }
   }
   input[type="text"] {
     border-color: $color-gray;
     border-left: none;
     display: inline;
     max-width: 30rem;
+    &.input-disabled {
+      border-color: $color-gray-lighter;
+      color: $color-gray;
+    }
   }
   [type="submit"] {
     margin: 1em auto 0;
