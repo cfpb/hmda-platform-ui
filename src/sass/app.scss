@@ -133,6 +133,20 @@ h6,
   display: inline-block;
 }
 
+.usa-alert {
+  width: 100%;
+}
+
+.usa-alert-error,
+.usa-alert-warning,
+.usa-alert-success {
+  background-image: none;
+}
+
+.usa-alert-body {
+  padding-left: 0;
+}
+
 a {
  cursor: pointer;
 }

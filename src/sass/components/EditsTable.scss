@@ -1,5 +1,8 @@
-.EditsContainerEntry:first-child {
-  margin-top: 3em;
+.EditsContainerEntry {
+  margin-bottom: 6em;
+  &:first-child {
+    margin-top: 3em;
+  }
 }
 .EditsTable {
   margin-top: 3em;
