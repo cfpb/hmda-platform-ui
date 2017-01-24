@@ -2,26 +2,40 @@ import React, { PropTypes } from 'react'
 
 import EditsTableRow from './EditsTableRow.jsx'
 
+const formatHeader = (text) => {
+  if (text === 'rowId') return 'Row ID'
+  if (text === 'edit') return 'Edit ID'
+  if (text === 'justifications') return 'Justifications'
+  if (text === 'description') return 'Description'
+  return text
+}
+
 const renderHeader = (props) => {
   let row
+  let cellCount = 0
+  let keyCells
+  let fieldCells = {}
+  const cells = []
 
-  if (props.type === 'macro' ) row = props.edits[0]
-  else if (props.type === 'rows' ) row = props.edits.edits[0]
-  else row = props.edits.rows[0].row
+  if (props.type === 'macro' ){
+    keyCells = props.edits[0]
+  }else if (props.type === 'rows' ){
+    keyCells = {editId: props.edits.edits[0].editId}
+    fieldCells = props.edits.edits[0].fields
+  }else{
+    keyCells = props.edits.rows[0].row
+    fieldCells = props.edits.rows[0].fields
+  }
 
-  return (
-    <tr>
-      {
-        Object.keys(row).map((header, i) => {
-          if (header === 'rowId') header = 'Row ID'
-          if (header === 'edit') header = 'Edit ID'
-          if (header === 'justifications') header = 'Justifications'
-          if (header === 'description') header = 'Description'
-          return <th key={i}>{header}</th>
-        })
-      }
-    </tr>
-  )
+  Object.keys(keyCells).forEach((field) => {
+    cells.push(<th key={++cellCount}>{formatHeader(field)}</th>)
+  })
+
+  Object.keys(fieldCells).forEach((field) => {
+    cells.push(<th key={++cellCount}>{formatHeader(field)}</th>)
+  })
+
+  return <tr>{cells}</tr>
 }
 
 const renderBody = (props) => {
@@ -32,11 +46,11 @@ const renderBody = (props) => {
   }
   if (props.type === 'rows') {
     return props.edits.edits.map((edit, i) => {
-      return <EditsTableRow row={edit} key={i}/>
+      return <EditsTableRow row={{editId:edit.editId}} fields={edit.fields} key={i}/>
     })
   }
   return props.edits.rows.map((row, i) => {
-    return <EditsTableRow row={row.row} key={i}/>
+    return <EditsTableRow row={row.row} fields={row.fields} key={i}/>
   })
 }
 
