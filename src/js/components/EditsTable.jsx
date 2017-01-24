@@ -72,11 +72,13 @@ const EditsTable = (props) => {
     length = edits.edits.length
   }
 
+  const editText = length === 1 ? 'edit' : 'edits'
+
   return (
-    <div className="EditsTable bg-color-white">
+    <div className="EditsTable">
       <table width="100%" className="margin-top-1">
         <caption>
-          <h3>{name ? `${name} - ${length}`:null}</h3>
+          <h3>{name ? `${length} ${name} ${editText} found.`:null}</h3>
           <p>{description}</p>
         </caption>
         <thead>
