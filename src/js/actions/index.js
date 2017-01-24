@@ -347,7 +347,7 @@ export function fetchCSV(institutionId, filing, submissionId) {
       }
     })
       .then(csv => {
-        fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-8'}), 'editreport.csv')
+        fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${submissionId}-full-edit-report.csv`)
       })
   }
 }
@@ -363,7 +363,7 @@ export function fetchCSVByType(type) {
       }
     })
       .then(csv => {
-        fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-8'}), `${type}.csv`)
+        fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${latestSubmissionId}-${type}-edit-report.csv`)
       })
   }
 }
