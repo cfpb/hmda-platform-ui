@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
-const parserText = 'Parsing errors require file resubmission.'
-const refileText = 'Syntactical and validity edits require file resubmission.'
-const validateText = 'Quality and macro edits must be validated before continuing.'
+const parserText = ''
+const refileText = ''
+const validateText = ''
 
 const getText = (props) => {
   let textToRender = null
@@ -11,19 +11,23 @@ const getText = (props) => {
 
   if(props.types.hasOwnProperty('syntactical')) {
     if(props.types.syntactical.edits.length !== 0 || props.types.validity.edits.length !== 0) {
-      textToRender = refileText
-      refileLink = getRefileLink(props)
+      textToRender = <p className="usa-alert-text"><strong>Syntactical</strong> and <strong>validity</strong> edits require file resubmission. {getRefileLink(props)}</p>
+      //refileLink =
     } else {
-      textToRender = validateText
+      textToRender = <p className="usa-alert-text"><strong>Quality</strong> and <strong>macro</strong> edits must be validated before continuing.</p>
     }
   }
 
   if(props.submission.status.code === 5) {
-    textToRender = parserText
-    refileLink = getRefileLink(props)
+    textToRender = <p className="usa-alert-text"><strong>Parsing</strong> errors require file resubmission. {getRefileLink(props)}</p>
+    //refileLink = getRefileLink(props)
   }
 
-  return <h3 className="usa-alert-heading">{textToRender}{refileLink?' ':''}{refileLink}</h3>
+  return (
+    <div className="usa-alert-body">
+      {textToRender}
+    </div>
+  )
 }
 
 const getRefileLink = (props) => {
@@ -44,7 +48,7 @@ const RefileWarning = (props) => {
   }
 
   return (
-    <div className={`RefileWarning usa-alert ${alertClass}`}>
+    <div className={`RefileWarning usa-alert ${alertClass} margin-bottom-2`}>
       <div className="usa-alert-body">
         {getText(props)}
       </div>
