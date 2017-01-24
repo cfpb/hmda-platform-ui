@@ -1,10 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
-const parserText = ''
-const refileText = ''
-const validateText = ''
-
 const getText = (props) => {
   let textToRender = null
   let refileLink = null
@@ -12,7 +8,6 @@ const getText = (props) => {
   if(props.types.hasOwnProperty('syntactical')) {
     if(props.types.syntactical.edits.length !== 0 || props.types.validity.edits.length !== 0) {
       textToRender = <p className="usa-alert-text"><strong>Syntactical</strong> and <strong>validity</strong> edits require file resubmission. {getRefileLink(props)}</p>
-      //refileLink =
     } else {
       textToRender = <p className="usa-alert-text"><strong>Quality</strong> and <strong>macro</strong> edits must be validated before continuing.</p>
     }
@@ -20,7 +15,6 @@ const getText = (props) => {
 
   if(props.submission.status.code === 5) {
     textToRender = <p className="usa-alert-text"><strong>Parsing</strong> errors require file resubmission. {getRefileLink(props)}</p>
-    //refileLink = getRefileLink(props)
   }
 
   return (
