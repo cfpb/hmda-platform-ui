@@ -24,7 +24,7 @@ const getReviewLink = (code, base) => {
   if(code < 8) return null
   return (
     <li>
-      <Link className='Navlink' to={base + '/edits'}>Review Edits</Link>
+      <Link className='usa-button' to={base + '/edits'}>Review Edits</Link>
     </li>
   )
 }
