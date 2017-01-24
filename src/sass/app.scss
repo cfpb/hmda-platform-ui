@@ -14,6 +14,7 @@
 @import "components/BannerUser.scss";
 @import "components/UserHeading.scss";
 @import "components/EditsNav.scss";
+@import "components/ParseErrors.scss";
 
 // fix for disabled and checked checkbox
 [type="checkbox"]:checked:disabled + label::before {
