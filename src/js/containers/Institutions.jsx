@@ -53,7 +53,7 @@ function mapDispatchToProps(dispatch) {
       })
     },
     // triggered by a click on "Download edit report"
-    onDownloadClick: (institutionId, submissionId, filing) => {
+    onDownloadClick: (institutionId, filing, submissionId) => {
       dispatch(fetchCSV(institutionId, filing, submissionId))
     },
     dispatch
