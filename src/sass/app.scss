@@ -160,6 +160,28 @@ dd {
   margin-left: 0;
 }
 
+// circles as indicators
+.progress {
+  background-color: $color-gray-light;
+  border-radius: 50%;
+  display: inline-block;
+  height: 10px;
+  margin-right: .25em;
+  width: 10px;
+
+  &.progress-running {
+    background-color: $color-gold-light;
+  }
+
+  &.progress-success {
+    background-color: $color-green;
+  }
+
+  &.progress-error {
+    background-color: $color-secondary;
+  }
+}
+
 // some basic color classes
 // can be broken out into another file
 
@@ -213,6 +235,9 @@ dd {
 .margin-bottom-2 {
   margin-bottom: 2em;
 }
+.margin-bottom-3 {
+  margin-bottom: 3em;
+}
 .margin-bottom-5 {
   margin-bottom: 5em;
 }
@@ -252,6 +277,9 @@ dd {
 }
 .border-left {
   border-left: 1px solid $color-gray-lightest;
+}
+.border-bottom {
+  border-bottom: 1px solid $color-gray-lighter;
 }
 
 // max-width reset

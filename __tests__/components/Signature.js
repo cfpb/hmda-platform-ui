@@ -9,7 +9,7 @@ import TestUtils from 'react-addons-test-utils'
 const fs = require('fs')
 const signJSON = JSON.parse(fs.readFileSync('./__tests__/json/receipt.json'))
 const status = {
-  code: 11,
+  code: 10,
   message: ''
 }
 
@@ -78,7 +78,7 @@ describe('Signature component', () => {
 
   // checkbox checked and status is signed
   const statusSigned = {
-    code: 12,
+    code: 11,
     message: ''
   }
   const signatureSigned = TestUtils.renderIntoDocument(

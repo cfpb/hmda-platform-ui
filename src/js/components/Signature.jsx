@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
 
 const showReceipt = (code, timestamp, receipt) => {
-  if(code !== 12) return null;
+  if(code !== 11) return null;
 
   return (
     <div className="usa-alert usa-alert-success margin-top-1">
@@ -29,7 +29,7 @@ const showWarning = (code) => {
 
 const Signature = (props) => {
   // if code greater than 8 (validated) and not 12 (signed), enable the checkbox
-  const isDisabled = (props.status.code > 8 && props.status.code !== 12) ? false : true
+  const isDisabled = (props.status.code > 8 && props.status.code !== 11) ? false : true
 
   let buttonClass = 'usa-button-disabled'
   // if the checkbox is checked remove disabled from button
@@ -37,18 +37,20 @@ const Signature = (props) => {
     buttonClass = ''
   }
   // if code is 12 (signed), disable button again
-  if(props.status.code === 12) {
+  if(props.status.code === 11) {
     buttonClass = 'usa-button-disabled'
   }
 
+  const headingClass = props.status.code === 11 ? 'text-green' : 'text-secondary'
+
   return (
     <div className="Signature" id="signature">
-      <div className="padding-2 bg-color-gray-lightest">
-        <h2 className="margin-top-0">Signature</h2>
-        <p className="usa-font-lead margin-top-half margin-bottom-0">To complete your submission first check the checkbox to certify accuracy and then click the button to sign.</p>
+      <div className="border-bottom margin-bottom-3">
+        <h2 className={headingClass}>Signature</h2>
+        <p className="usa-font-lead">To complete your submission first check the checkbox to certify accuracy and then click the button to sign.</p>
       </div>
 
-      <div className="border margin-bottom-5 padding-1">
+      <div className="margin-bottom-5">
         {showWarning(props.status.code)}
 
         <ul className="usa-unstyled-list">
