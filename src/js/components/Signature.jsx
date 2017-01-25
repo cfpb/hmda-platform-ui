@@ -41,10 +41,12 @@ const Signature = (props) => {
     buttonClass = 'usa-button-disabled'
   }
 
+  const headingClass = props.status.code === 11 ? 'text-green' : 'text-secondary'
+
   return (
     <div className="Signature" id="signature">
       <div className="border-bottom margin-bottom-3">
-        <h2>Signature</h2>
+        <h2 className={headingClass}>Signature</h2>
         <p className="usa-font-lead">To complete your submission first check the checkbox to certify accuracy and then click the button to sign.</p>
       </div>
 
