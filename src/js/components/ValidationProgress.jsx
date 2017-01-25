@@ -28,17 +28,17 @@ const getIndicator = (code, type) => {
 
 const getUploadStatus = (code) => {
   if(code <= 2) return <li className="text-gray-light">Uploading ... {getIndicator(code, 'upload')}</li>
-  return <li>Upload complete {getIndicator(code, 'upload')}</li>
+  return <li>{getIndicator(code, 'upload')} Upload complete</li>
 }
 
 const getParsingStatus = (code) => {
-  if(code <= 4) return <li className="text-gray-light">Parsing ... {getIndicator(code, 'parse')}</li>
-  return <li>Parsing complete {getIndicator(code, 'parse')}</li>
+  if(code <= 4) return <li className="text-gray-light">{getIndicator(code, 'parse')} Parsing ...</li>
+  return <li>{getIndicator(code, 'parse')} Parsing complete</li>
 }
 
 const getValidationStatus = (code) => {
-  if(code <= 7) return <li className="text-gray-light">Validating ... {getIndicator(code, 'validate')}</li>
-  return <li>Validation complete {getIndicator(code, 'validate')}</li>
+  if(code <= 7) return <li className="text-gray-light">{getIndicator(code, 'validate')} Validating ...</li>
+  return <li>{getIndicator(code, 'validate')} Validation complete</li>
 }
 
 const getNextLink = (code, base) => {
