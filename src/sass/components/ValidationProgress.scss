@@ -1,9 +1,5 @@
 .ValidationProgress {
-  li:last-child {
-    margin-top: 1em;
+  .usa-button {
+    margin-top: 2em;
   }
-}
-
-.checkMark {
-  fill: $color-green;
 }
