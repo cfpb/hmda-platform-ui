@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
 
 const showReceipt = (code, timestamp, receipt) => {
-  if(code !== 12) return null;
+  if(code !== 11) return null;
 
   return (
     <div className="usa-alert usa-alert-success margin-top-1">
@@ -29,7 +29,7 @@ const showWarning = (code) => {
 
 const Signature = (props) => {
   // if code greater than 8 (validated) and not 12 (signed), enable the checkbox
-  const isDisabled = (props.status.code > 8 && props.status.code !== 12) ? false : true
+  const isDisabled = (props.status.code > 8 && props.status.code !== 11) ? false : true
 
   let buttonClass = 'usa-button-disabled'
   // if the checkbox is checked remove disabled from button
@@ -37,7 +37,7 @@ const Signature = (props) => {
     buttonClass = ''
   }
   // if code is 12 (signed), disable button again
-  if(props.status.code === 12) {
+  if(props.status.code === 11) {
     buttonClass = 'usa-button-disabled'
   }
 
