@@ -43,12 +43,12 @@ const Signature = (props) => {
 
   return (
     <div className="Signature" id="signature">
-      <div className="padding-2 bg-color-gray-lightest">
-        <h2 className="margin-top-0">Signature</h2>
-        <p className="usa-font-lead margin-top-half margin-bottom-0">To complete your submission first check the checkbox to certify accuracy and then click the button to sign.</p>
+      <div className="border-bottom margin-bottom-3">
+        <h2>Signature</h2>
+        <p className="usa-font-lead">To complete your submission first check the checkbox to certify accuracy and then click the button to sign.</p>
       </div>
 
-      <div className="border margin-bottom-5 padding-1">
+      <div className="margin-bottom-5">
         {showWarning(props.status.code)}
 
         <ul className="usa-unstyled-list">

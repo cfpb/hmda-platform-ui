@@ -213,6 +213,9 @@ dd {
 .margin-bottom-2 {
   margin-bottom: 2em;
 }
+.margin-bottom-3 {
+  margin-bottom: 3em;
+}
 .margin-bottom-5 {
   margin-bottom: 5em;
 }
@@ -252,6 +255,9 @@ dd {
 }
 .border-left {
   border-left: 1px solid $color-gray-lightest;
+}
+.border-bottom {
+  border-bottom: 1px solid $color-gray-lighter;
 }
 
 // max-width reset
