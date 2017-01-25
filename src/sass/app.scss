@@ -160,6 +160,28 @@ dd {
   margin-left: 0;
 }
 
+// circles as indicators
+.progress {
+  background-color: $color-gray-light;
+  border-radius: 50%;
+  display: inline-block;
+  height: 10px;
+  margin-right: .25em;
+  width: 10px;
+
+  &.progress-running {
+    background-color: $color-gold-light;
+  }
+
+  &.progress-success {
+    background-color: $color-green;
+  }
+
+  &.progress-error {
+    background-color: $color-secondary;
+  }
+}
+
 // some basic color classes
 // can be broken out into another file
 
