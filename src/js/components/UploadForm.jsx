@@ -16,7 +16,18 @@ class Upload extends Component {
     }
   }
 
+  getRefileLink(props) {
+    const institutionId = props.base.split('/').slice(1,2)
+    console.log('getRefileLink ' + institutionId)
+    return <a onClick={(e)=>{
+      e.preventDefault()
+      props.refileLink(institutionId, props.filingPeriod)
+    }}>Refile here.</a>
+  }
+
   render() {
+    console.log('UploadForm')
+    console.log(this.props)
     const isDisabled = (this.props.code > 1) ? true : false
     const disabledFileInput = (this.props.code > 1) ? 'usa-button-disabled' : ''
     const disabledFileName = (this.props.code > 1) ? 'input-disabled' : ''
@@ -31,6 +42,7 @@ class Upload extends Component {
         <input className={disabledFileName} id="hmdaFileName" name="hmdaFileName" type="text" value='No file chosen' ref={(input) => {this.fileName = input}} readOnly disabled></input>
         <input disabled={isDisabled} className="usa-button" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
       </form>
+      {this.getRefileLink(this.props)}
     </div>
     )
   }

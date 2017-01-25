@@ -53,7 +53,7 @@ class SubmissionContainer extends Component {
       toRender.push(<p>{status.message}</p>)
     }else{
       if(page === 'upload'){
-        toRender.push(<UploadForm code={code}/>)
+        toRender.push(<UploadForm code={code} base={base}/>)
         if(code > 1) toRender.push(<ValidationProgress base={base} />)
         if(code === 5) {
           toRender.push(<RefileWarning/>)
