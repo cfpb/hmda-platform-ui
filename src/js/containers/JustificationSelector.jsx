@@ -53,6 +53,10 @@ class JustificationSelector extends Component {
   }
 }
 
+JustificationSelector.defaultProps = {
+  justifications: []
+}
+
 function mapStateToProps(state, ownProps) {
   const code = state.app.submission.status.code || null
 
