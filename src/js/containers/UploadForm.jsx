@@ -35,8 +35,6 @@ function mapDispatchToProps(dispatch) {
     },
 
     refileLink: (id, period) => {
-      console.log('container')
-      console.log(id + ' and ' + period)
       dispatch(createNewSubmission(id, period))
     }
   }

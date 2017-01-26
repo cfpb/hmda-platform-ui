@@ -9,6 +9,7 @@
   }
   .usa-button.usa-button-gray {
     border: 1px solid $color-gray;
+    border-radius: .3rem 0 0 .3rem;
     margin-right: -1px;
     &.usa-button-disabled {
       background-color: $color-gray-lighter;

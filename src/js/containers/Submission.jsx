@@ -6,7 +6,6 @@ import HomeLink from '../components/HomeLink.jsx'
 import Header from '../components/Header.jsx'
 import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
-import ValidationProgress from './ValidationProgress.jsx'
 import Edits from './Edits.jsx'
 import EditsNav from '../components/EditsNav.jsx'
 import IRSReport from './IRSReport.jsx'
@@ -54,7 +53,6 @@ class SubmissionContainer extends Component {
     }else{
       if(page === 'upload'){
         toRender.push(<UploadForm code={code} base={base}/>)
-        if(code > 1) toRender.push(<ValidationProgress base={base} />)
         if(code === 5) {
           toRender.push(<RefileWarning/>)
           toRender.push(<ParseErrors/>)
