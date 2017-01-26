@@ -27,17 +27,21 @@ const getIndicator = (code, type) => {
 }
 
 const getUploadStatus = (code) => {
-  if(code <= 2) return <li className="text-gray-light">Uploading ... {getIndicator(code, 'upload')}</li>
+  if(code <= 2) return <li>{getIndicator(code, 'upload')} Uploading ... </li>
   return <li>{getIndicator(code, 'upload')} Upload complete</li>
 }
 
 const getParsingStatus = (code) => {
-  if(code <= 4) return <li className="text-gray-light">{getIndicator(code, 'parse')} Parsing ...</li>
+  let textClass = ''
+  if(code < 4) textClass = 'text-gray-light'
+  if(code <= 4) return <li className={textClass}>{getIndicator(code, 'parse')} Parsing ...</li>
   return <li>{getIndicator(code, 'parse')} Parsing complete</li>
 }
 
 const getValidationStatus = (code) => {
-  if(code <= 7) return <li className="text-gray-light">{getIndicator(code, 'validate')} Validating ...</li>
+  let textClass = ''
+  if(code < 7) textClass = 'text-gray-light'
+  if(code <= 7) return <li className={textClass}>{getIndicator(code, 'validate')} Validating ...</li>
   return <li>{getIndicator(code, 'validate')} Validation complete</li>
 }
 
@@ -53,7 +57,7 @@ const ValidationProgress = (props) => {
   const code = props.status.code
 
   return (
-    <div className="ValidationProgress">
+    <div className="ValidationProgress" style={{textAlign: 'left'}}>
       <ul className="usa-unstyled-list">
         {getUploadStatus(code)}
         {getParsingStatus(code)}
