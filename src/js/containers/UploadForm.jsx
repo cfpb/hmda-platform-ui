@@ -32,6 +32,7 @@ function mapDispatchToProps(dispatch) {
     setFile: e => {
       if(!e.target.files) return
       dispatch(selectFile(e.target.files[0]))
+      e.target.value = null
     },
 
     refileLink: (id, period) => {
