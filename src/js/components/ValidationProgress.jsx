@@ -54,7 +54,7 @@ const getNextLink = (code, base) => {
 }
 
 const ValidationProgress = (props) => {
-  const code = props.status.code
+  const code = props.code
 
   return (
     <div className="ValidationProgress" style={{textAlign: 'left'}}>
@@ -71,10 +71,6 @@ const ValidationProgress = (props) => {
 ValidationProgress.propTypes = {
   code: PropTypes.number,
   base: PropTypes.string
-}
-
-ValidationProgress.defaultProps = {
-  status: {}
 }
 
 export default ValidationProgress

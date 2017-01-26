@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import ValidationProgress from '../containers/ValidationProgress.jsx'
+import ValidationProgress from './ValidationProgress.jsx'
 
 class Upload extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class Upload extends Component {
 
   getValidation(props) {
     if(props.code === 1) return null
-    return <ValidationProgress base={props.base} />
+    return <ValidationProgress base={props.base} code={props.code} />
   }
 
   render() {

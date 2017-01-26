@@ -8,7 +8,7 @@ import ValidationProgress from '../../src/js/components/ValidationProgress.jsx'
 
 describe('ValidationProgress', () => {
 
-  const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress status={{code:5}}/></Wrapper>)
+  const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress code={5}/></Wrapper>)
   const progressNode = ReactDOM.findDOMNode(progress)
 
   it('renders the component', () => {
@@ -31,11 +31,9 @@ describe('ValidationProgress', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(progress, 'text-gray-light').length).toEqual(1)
   })
 
-  const progress9 = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress status={{code:9}}/></Wrapper>)
+  const progress9 = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress code={9}/></Wrapper>)
 
   it('renders a progress-success class for uploaded', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(progress9, 'progress-success').length).toEqual(3)
   })
-
-
 })

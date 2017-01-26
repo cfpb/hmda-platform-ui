@@ -11,7 +11,7 @@ function mapStateToProps(state) {
     file: null
   }
 
-  const filingPeriod = state.app.filingPeriod
+  const filingPeriod = state.app.filingPeriod || null
 
   return {
     uploading,
