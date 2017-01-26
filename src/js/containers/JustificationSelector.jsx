@@ -35,6 +35,8 @@ class JustificationSelector extends Component {
   }
 
   render() {
+    const { syntax, validity } = this.props.edits.types
+    const disabled = (this.props.code === 8 && (validity.length === 0 && syntax.length === 0)) ? false : true
     return (
       <Select
         allowCreate={true}
@@ -45,13 +47,23 @@ class JustificationSelector extends Component {
         value={this.state && this.state.value}
         onChange={this.props.dispatchOnChange.bind(this)}
         options={this.labelledJustifications}
+        disabled={disabled}
       />
     )
   }
 }
 
 function mapStateToProps(state, ownProps) {
-  return { ...ownProps }
+  const code = state.app.submission.status.code || null
+
+  // can remove the edits if we later update status to include a status for syntax/validity edits and separate status for quality/macro
+  const edits = state.app.edits || null
+
+  return {
+    ...ownProps,
+    code,
+    edits
+  }
 }
 
 function mapDispatchToProps(dispatch, ownProps){
