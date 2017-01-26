@@ -2,51 +2,60 @@ import React, { PropTypes } from 'react'
 
 import EditsTableRow from './EditsTableRow.jsx'
 
-const renderHeader = (props) => {
-  let row
-
-  if (props.type === 'macro' ) row = props.edits[0]
-  else if (props.type === 'rows' ) row = props.edits.edits[0]
-  else row = props.edits.rows[0].row
-
-  return (
-    <tr>
-      {
-        Object.keys(row).map((header, i) => {
-          if (header === 'rowId') header = 'Row ID'
-          if (header === 'edit') header = 'Edit ID'
-          if (header === 'justifications') header = 'Justifications'
-          if (header === 'description') header = 'Description'
-          return <th key={i}>{header}</th>
-        })
-      }
-    </tr>
-  )
+export const formatHeader = (text) => {
+  if (text === 'rowId') return 'Row ID'
+  if (text === 'edit') return 'Edit ID'
+  if (text === 'editId') return 'Edit ID'
+  if (text === 'justifications') return 'Justifications'
+  if (text === 'description') return 'Description'
+  return text
 }
 
-const renderBody = (props) => {
-  if (props.type === 'macro') {
-    return props.edits.map((macro, i) => {
+export const renderHeader = (edits, type) => {
+  let row
+  let cellCount = 0
+  let keyCells
+  let fieldCells = {}
+  const cells = []
+
+  if (type === 'macro' ){
+    keyCells = edits[0]
+  }else if (type === 'rows' ){
+    keyCells = {editId: edits.editId}
+    fieldCells = edits.fields
+  }else{
+    keyCells = edits.rows[0].row
+    fieldCells = edits.rows[0].fields
+  }
+
+  Object.keys(keyCells).forEach((field) => {
+    cells.push(<th key={++cellCount}>{formatHeader(field)}</th>)
+  })
+
+  Object.keys(fieldCells).forEach((field) => {
+    cells.push(<th key={++cellCount}>{formatHeader(field)}</th>)
+  })
+
+  return <tr>{cells}</tr>
+}
+
+export const renderBody = (edits, type) => {
+  if (type === 'macro') {
+    return edits.map((macro, i) => {
       return <EditsTableRow row={macro} key={i}/>
     })
   }
-  if (props.type === 'rows') {
-    return props.edits.edits.map((edit, i) => {
-      return <EditsTableRow row={edit} key={i}/>
-    })
+  if (type === 'rows') {
+    return <EditsTableRow row={{editId:edits.editId}} fields={edits.fields}/>
   }
-  return props.edits.rows.map((row, i) => {
-    return <EditsTableRow row={row.row} key={i}/>
+  return edits.rows.map((row, i) => {
+    return <EditsTableRow row={row.row} fields={row.fields} key={i}/>
   })
 }
 
-const EditsTable = (props) => {
-  const edits = props.edits
-
-  if (!edits) return null
-
+const makeTableLabel = (edits) => {
   let name
-  let description = null
+  let description
   let length
 
   if(edits.edit) {
@@ -58,22 +67,47 @@ const EditsTable = (props) => {
     length = edits.edits.length
   }
 
+  if(!name) return null
+
   const editText = length === 1 ? 'edit' : 'edits'
+
+  if(edits.rowId && name !== 'Transmittal Sheet'){
+    return `${length} ${editText} found in row ${name}.`
+  }
+
+  return `${length} ${name} ${editText} found.`
+}
+
+const makeTables = (props) => {
+  const edits = props.edits
+
+  const makeTable = (edit, i) => {
+    return (
+    <table width="100%" className="margin-top-1" key={i}>
+      {i === 0 ? <caption><h3>{makeTableLabel(edits)}</h3></caption>:null}
+      <thead>
+        {renderHeader(edit, props.type)}
+      </thead>
+      <tbody>
+        {renderBody(edit, props.type)}
+      </tbody>
+    </table>
+    )
+  }
+
+  if(edits.rowId){
+    return edits.edits.map(makeTable)
+  }
+  return makeTable(edits, 0)
+}
+
+
+const EditsTable = (props) => {
+  if (!props.edits) return null
 
   return (
     <div className="EditsTable">
-      <table width="100%" className="margin-top-1">
-        <caption>
-          <h3>{name ? `${length} ${name} ${editText} found.`:null}</h3>
-          <p>{description}</p>
-        </caption>
-        <thead>
-          {renderHeader(props)}
-        </thead>
-        <tbody>
-          {renderBody(props)}
-        </tbody>
-      </table>
+      {makeTables(props)}
     </div>
   )
 }

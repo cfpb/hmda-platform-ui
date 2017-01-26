@@ -50,6 +50,10 @@ class JustificationSelector extends Component {
   }
 }
 
+JustificationSelector.defaultProps = {
+  justifications: []
+}
+
 function mapStateToProps(state, ownProps) {
   return { ...ownProps }
 }

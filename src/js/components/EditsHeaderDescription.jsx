@@ -33,7 +33,7 @@ const getText = (editType, count) => {
       break
     case 'rows':
       id = 'rowheader'
-      title =  'Edits by Row'
+      title =  count === 1 ? 'Edit' : 'Edits'
       desc = 'Syntactical, Validity, and Quality edits grouped together by row from the source file.'
       break
     default:

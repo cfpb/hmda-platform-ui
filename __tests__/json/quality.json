@@ -5,13 +5,16 @@
       "verified": false,
       "rows": [
         {
-          "row": {"rowId": "q1"}
+          "row": {"rowId": "q1"},
+          "fields": {"Agency Code": 1}
         },
         {
-          "row": {"rowId": "q2"}
+          "row": {"rowId": "q2"},
+          "fields": {"Agency Code": 1}
         },
         {
-          "row": {"rowId": "q3"}
+          "row": {"rowId": "q3"},
+          "fields": {"Agency Code": 1}
         }
       ]
     },
@@ -20,10 +23,12 @@
       "verified": true,
       "rows": [
         {
-          "row": {"rowId": "q4"}
+          "row": {"rowId": "q4"},
+          "fields": {"Agency Code": 1}
         },
         {
-          "row": {"rowId": "q5"}
+          "row": {"rowId": "q5"},
+          "fields": {"Agency Code": 1}
         }
       ]
     }
