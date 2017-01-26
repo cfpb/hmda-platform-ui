@@ -67,6 +67,8 @@ const makeTableLabel = (edits) => {
     length = edits.edits.length
   }
 
+  if(!name) return null
+
   const editText = length === 1 ? 'edit' : 'edits'
 
   if(edits.rowId && name !== 'Transmittal Sheet'){
