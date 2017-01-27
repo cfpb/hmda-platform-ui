@@ -35,8 +35,12 @@ class JustificationSelector extends Component {
   }
 
   render() {
-    const { syntax, validity } = this.props.edits.types
-    const disabled = (this.props.code === 8 && (validity.length === 0 && syntax.length === 0)) ? false : true
+    const { syntactical, validity } = this.props.edits.types
+    let disabled = true
+    // if the submission is in any other status but signed AND there are no syntactical and validity edits, enable it
+    if (this.props.code !== 11 && (validity.edits.length === 0 && syntactical.edits.length === 0)) {
+      disabled = false
+    }
     return (
       <Select
         allowCreate={true}
