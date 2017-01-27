@@ -4,6 +4,7 @@ import ValidationProgress from './ValidationProgress.jsx'
 class Upload extends Component {
   constructor(props) {
     super(props)
+    this.state = { showConfirm: false }
   }
 
   componentDidUpdate() {
@@ -17,11 +18,30 @@ class Upload extends Component {
     }
   }
 
+  getConfirmation(props) {
+    const institutionId = props.base.split('/').slice(1,2)
+    return (
+      <div>
+        <p>Are you sure?</p>
+        <button onClick={(e)=>{
+          e.preventDefault()
+          this.setState({ showConfirm: false })
+          props.refileLink(institutionId, props.filingPeriod)
+        }}>Yes</button>
+
+        <button className="usa-button usa-button-secondary"
+          onClick={(e)=>{
+            e.preventDefault()
+            this.setState({ showConfirm: false })
+          }}>No</button>
+      </div>
+    )
+  }
+
   getRefileLink(props) {
     if(props.code > 7) {
       let message = 'is in progress'
       if(props.code === 11) message = 'has already been submitted'
-      const institutionId = props.base.split('/').slice(1,2)
 
       return (
         <div className="usa-text-small margin-top-1" style={{textAlign: 'left'}}>
@@ -30,7 +50,7 @@ class Upload extends Component {
           <a className="usa-button usa-button-secondary usa-text-small"
             onClick={(e)=>{
               e.preventDefault()
-              props.refileLink(institutionId, props.filingPeriod)
+              this.setState({ showConfirm: true })
             }}>Refile here.</a>
         </div>
       )
@@ -45,9 +65,13 @@ class Upload extends Component {
   }
 
   render() {
+    console.log('UploadForm')
+    console.log(this.state)
     const isDisabled = (this.props.code > 1) ? true : false
     const disabledFileInput = (this.props.code > 1) ? 'usa-button-disabled' : ''
     const disabledFileName = (this.props.code > 1) ? 'input-disabled' : ''
+
+    let confirm = this.state.showConfirm ? this.getConfirmation(this.props) : null
 
     return (
       <div>
@@ -63,6 +87,7 @@ class Upload extends Component {
           {this.getValidation(this.props)}
         </div>
         {this.getRefileLink(this.props)}
+        {confirm}
       </div>
     )
   }
