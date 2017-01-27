@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Upload from '../components/UploadForm.jsx'
-import { selectFile, requestUpload } from '../actions'
+import { selectFile, requestUpload, createNewSubmission } from '../actions'
 
 function mapStateToProps(state) {
   const {
@@ -11,9 +11,12 @@ function mapStateToProps(state) {
     file: null
   }
 
+  const filingPeriod = state.app.filingPeriod || null
+
   return {
     uploading,
-    file
+    file,
+    filingPeriod
   }
 }
 
@@ -29,6 +32,11 @@ function mapDispatchToProps(dispatch) {
     setFile: e => {
       if(!e.target.files) return
       dispatch(selectFile(e.target.files[0]))
+      e.target.value = null
+    },
+
+    refileLink: (id, period) => {
+      dispatch(createNewSubmission(id, period))
     }
   }
 }

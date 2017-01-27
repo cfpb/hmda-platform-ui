@@ -19,6 +19,8 @@ describe('submitform', function(){
           setFile={setFile}
           uploading={true}
           file={{size:108}}
+          code={5}
+          filingPeriod={2017}
         />
       </Wrapper>, node)
   const formNode = ReactDOM.findDOMNode(form)
