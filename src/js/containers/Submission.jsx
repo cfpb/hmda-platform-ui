@@ -28,6 +28,16 @@ class SubmissionContainer extends Component {
     }
   }
 
+  makeEditLink(toRender, props, code, base, page) {
+    let suffix = 'quality'
+    if(page === 'quality') suffix = 'macro'
+    if(page === 'macro') suffix = 'summary'
+
+    if(page !== 'macro' || code > 8){
+      toRender.push(<Link className='usa-button Navlink' to={`${base}/${suffix}`}>{`Review ${suffix} \u21D2`}</Link>)
+    }
+  }
+
   // Links should be their own component, disabled with a message when not available
   // rather than unrendered
   render() {
@@ -57,12 +67,12 @@ class SubmissionContainer extends Component {
           toRender.push(<RefileWarning/>)
           toRender.push(<ParseErrors/>)
         }
-      }else if(page === 'edits'){
+      }else if(['syntacticalvalidity','quality','macro'].indexOf(page) !== -1){
         if(code > 6){
           if(code === 8) toRender.push(<RefileWarning/>)
           toRender.push(<Edits/>)
-          if(code > 8) toRender.push(<Link className='Navlink' to={base + '/summary'}>Review Summary</Link>)
         }
+        this.makeEditLink(toRender, this.props, code, base, page)
       }else if(page === 'summary'){
         if(code > 7){
           toRender.push(<IRSReport/>)

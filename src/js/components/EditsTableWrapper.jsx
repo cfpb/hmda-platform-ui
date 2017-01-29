@@ -2,6 +2,10 @@ import React from 'react'
 import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import EditsTable from './EditsTable.jsx'
 
+const filterByType = (editObj, type, typeFromPath, groupByRow) => {
+  if(typeFromPath.indexOf(type) === -1) return true
+}
+
 const renderTables = (editObj, type) => {
   let edits
   let label
@@ -40,10 +44,12 @@ const getCount = (editObj, type) => {
 
 const EditsTableWrapper = (props) => {
   const editObj = props.groupByRow ? props.rows : props.types
+
   return (
     <div className="EditsContainerBody">
     {
       Object.keys(editObj).map((type, i) => {
+        if(filterByType(editObj, type, props.editTypeFromPath, props.groupByRow)) return null
         return (
           <div className="EditsContainerEntry" key={i}>
             <EditsHeaderDescription count={getCount(editObj[type], type)} type={type} onDownloadClick={props.onDownloadClick}/>

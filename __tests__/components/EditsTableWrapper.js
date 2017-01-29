@@ -23,7 +23,7 @@ const typesNoMacro = {
   validity: JSON.parse(fs.readFileSync('./__tests__/json/validity.json')),
   quality: JSON.parse(fs.readFileSync('./__tests__/json/quality.json')),
   macro: {
-    "edits": []
+    'edits': []
   }
 }
 
@@ -31,7 +31,7 @@ describe('EditsByType', function() {
   it('properly renders child elements', function() {
     const renderer = TestUtils.createRenderer()
     const renderedEdits = renderer.render(
-      <EditsTableWrapper types={types}/>
+      <EditsTableWrapper types={types} editTypeFromPath="syntacticalvalidity"/>
     )
     const editsByType = renderer.getRenderOutput()
 
@@ -41,7 +41,7 @@ describe('EditsByType', function() {
   it('properly renders child elements when no macro edits are present', function() {
     const renderer = TestUtils.createRenderer()
     const renderedEdits = renderer.render(
-      <EditsTableWrapper types={typesNoMacro}/>
+      <EditsTableWrapper types={typesNoMacro} editTypeFromPath="syntacticalvalidity"/>
     )
     const editsByTypeNoMacro = renderer.getRenderOutput()
 
