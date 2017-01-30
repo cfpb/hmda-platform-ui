@@ -52,15 +52,23 @@ describe('EditsHeaderDescription', function(){
     expect(headerMarcroNode.textContent).toEqual('4 Macro EditsEdits that check whether the submitted loan/application register as a whole conforms to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all the values flagged by the macro quality edits in the HMDA Platform or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.Download macro edits (CSV)')
   })
 
-  const headerLAR = TestUtils.renderIntoDocument(
-    <Wrapper><EditsHeaderDescription type="lar" count={1} /></Wrapper>
+  const headerRowQuality = TestUtils.renderIntoDocument(
+    <Wrapper><EditsHeaderDescription type="rowsquality" count={1} /></Wrapper>
   )
-  const headerLARNode = ReactDOM.findDOMNode(headerLAR)
+  const headerRowQualityNode = ReactDOM.findDOMNode(headerRowQuality)
 
-  it('correctly sets the LAR desc', function(){
-    expect(headerLARNode.textContent).toEqual('1 Loan Application RecordLAR refers to the loan/application register. Loan/Application Register means both the record of information required to be collected pursuant to § 1003.4 and the record submitted annually or quarterly, as applicable, pursuant to § 1003.5(a).Download lar edits (CSV)')
+  it('correctly sets the rows Quality desc', function(){
+    expect(headerRowQualityNode.textContent).toEqual('1 Row of Quality EditsEdits that check whether entries in the individual data fields or combinations of data fields conform to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all values flagged by quality edits in the HMDA Platform, or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.')
   })
 
+  const headerRowSV= TestUtils.renderIntoDocument(
+    <Wrapper><EditsHeaderDescription type="rowssyntacticalvalidity" count={2} /></Wrapper>
+  )
+  const headerRowSVNode= ReactDOM.findDOMNode(headerRowSV)
+
+  it('correctly sets the rows synval desc', function(){
+    expect(headerRowSVNode.textContent).toEqual('2 Rows of Syntactical and Validity EditsEdits that check whether the loan/application register is in the correct format, whether the data covers the correct filing year, and whether there are valid values in each data field. The loan/application register cannot be filed until the filer corrects all syntactical edit errors and reuploads the updated loan/application register to the HMDA Platform.')
+  })
   it('throws an error for a bad type', () => {
     const getText = jest.fn()
     try {
