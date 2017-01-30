@@ -2,17 +2,27 @@ import React from 'react'
 import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import EditsTable from './EditsTable.jsx'
 
-const filterByType = (editObj, type, typeFromPath, groupByRow) => {
+const filterByType = (editObj, type, typeFromPath) => {
+  if(type === 'rows' && (typeFromPath === 'quality' || typeFromPath === 'syntacticalvalidity')) return
   if(typeFromPath.indexOf(type) === -1) return true
 }
 
-const renderTables = (editObj, type) => {
+const renderTables = (editObj, type, typeFromPath) => {
   let edits
   let label
 
   if(type === 'rows'){
-    edits = editObj
-    label = 'syntactical, validity, or quality'
+    edits = JSON.parse(JSON.stringify(editObj))
+    editObj.forEach((editOverview,i) => {
+      edits[i].edits = editOverview.edits.filter((edit)=>{
+        return (typeFromPath === 'quality' && edit.editId.slice(0,1) === 'Q') ||
+          (typeFromPath !== 'quality' && edit.editId.slice(0,1) !== 'Q')
+      })
+    })
+    edits = edits.filter((editOverview) => {
+      return editOverview.edits.length
+    })
+    label = typeFromPath === 'quality' ? 'quality' : 'syntactical or validity'
   }else{
     edits = editObj.edits
     label = type
@@ -49,11 +59,11 @@ const EditsTableWrapper = (props) => {
     <div className="EditsContainerBody">
     {
       Object.keys(editObj).map((type, i) => {
-        if(filterByType(editObj, type, props.editTypeFromPath, props.groupByRow)) return null
+        if(filterByType(editObj, type, props.editTypeFromPath)) return null
         return (
           <div className="EditsContainerEntry" key={i}>
             <EditsHeaderDescription count={getCount(editObj[type], type)} type={type} onDownloadClick={props.onDownloadClick}/>
-            {renderTables(editObj[type], type)}
+            {renderTables(editObj[type], type, props.editTypeFromPath)}
           </div>
         )
       })
