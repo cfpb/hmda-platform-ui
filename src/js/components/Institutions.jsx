@@ -113,6 +113,7 @@ export default class Institution extends Component {
           {this.props.filings.map((filingObj, i) => {
             const filing = filingObj.filing
             const institution = getInstitutionFromFiling(institutions, filing)
+            if(!institution) return
             return (
               <div key={i} className="usa-grid-full institution bg-color-hmda-gray padding-2">
                 <h2>{institution.name} - {institution.id}</h2>
