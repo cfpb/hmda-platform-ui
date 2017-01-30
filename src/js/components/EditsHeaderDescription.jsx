@@ -6,11 +6,6 @@ const getText = (editType, count) => {
   let desc = null
 
   switch (editType) {
-    case 'lar':
-      id = 'lar'
-      title = count === 1 ? 'Loan Application Record' : 'Loan Application Records'
-      desc = 'LAR refers to the loan/application register. Loan/Application Register means both the record of information required to be collected pursuant to § 1003.4 and the record submitted annually or quarterly, as applicable, pursuant to § 1003.5(a).'
-      break
     case 'syntactical':
       id = 'syntactical'
       title = count === 1 ? 'Syntactical Edit' : 'Syntactical Edits'
@@ -31,10 +26,15 @@ const getText = (editType, count) => {
       title = count === 1 ? 'Macro Edit' : 'Macro Edits'
       desc = 'Edits that check whether the submitted loan/application register as a whole conforms to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all the values flagged by the macro quality edits in the HMDA Platform or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
       break
-    case 'rows':
+    case 'rowsquality':
+      id = 'quality'
+      title = (count === 1 ? 'Row':'Rows') + ' of Quality Edits'
+      desc = 'Edits that check whether entries in the individual data fields or combinations of data fields conform to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all values flagged by quality edits in the HMDA Platform, or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
+      break
+    case 'rowssyntacticalvalidity':
       id = 'rowheader'
-      title =  count === 1 ? 'Edit' : 'Edits'
-      desc = 'Syntactical, Validity, and Quality edits grouped together by row from the source file.'
+      title = (count === 1 ? 'Row':'Rows') + ' of Syntactical and Validity Edits'
+      desc = 'Edits that check whether the loan/application register is in the correct format, whether the data covers the correct filing year, and whether there are valid values in each data field. The loan/application register cannot be filed until the filer corrects all syntactical edit errors and reuploads the updated loan/application register to the HMDA Platform.'
       break
     default:
       throw new Error('Unexpected edit type. Unable to create edit description')
@@ -45,12 +45,14 @@ const getText = (editType, count) => {
 
 const renderCSVLink = (props) => {
   if(props.count === 0) return null
+  let linkText = props.type
+  if(linkText.slice(0,4) === 'rows') return null
 
   return (
     <p><a href="#" onClick={(e) => {
       e.preventDefault()
       props.onDownloadClick(props.type)
-    }}>Download {props.type} edits (CSV)</a></p>
+    }}>Download {linkText} edits (CSV)</a></p>
   )
 }
 

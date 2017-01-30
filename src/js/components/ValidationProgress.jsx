@@ -47,7 +47,7 @@ const getValidationStatus = (code) => {
 
 const getNextLink = (code, base) => {
   if(code < 8) return null
-  if(code === 8) return <Link className='usa-button' to={base + '/edits'}>Review Edits</Link>
+  if(code === 8) return <Link className='usa-button' to={base + '/syntacticalvalidity'}>{'Review Edits \u21D2'}</Link>
   if(code === 9 || code === 10) return <Link className='usa-button' to={base + '/summary'}>View Summary and Sign</Link>
   // signed
   return <Link className='usa-button' to={base + '/summary'}>Review Summary and Signature</Link>
