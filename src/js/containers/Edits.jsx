@@ -42,11 +42,14 @@ function mapStateToProps(state) {
     rows: []
   }
 
+  const editTypeFromPath = state.routing.locationBeforeTransitions.pathname.split('/').slice(-1)[0]
+
   return {
     isFetching,
     groupByRow,
     types,
-    rows
+    rows,
+    editTypeFromPath
   }
 }
 

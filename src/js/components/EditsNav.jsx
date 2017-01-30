@@ -3,14 +3,18 @@ import { Link } from 'react-router'
 
 const noEditsNav = ['', 'institutions']
 
+const formatLink = (link) => {
+  return link.replace(/[^a-zA-Z]/g,'')
+}
+
 const styleSelectedPage = (selected, current) => {
-  if(selected === current) return {borderBottom: '2px solid'}
+  if(selected === formatLink(current)) return {borderBottom: '2px solid'}
   return {borderBottom: 'none'}
 }
 
 const renderLinkOrText = (props, linkTo) => {
   const { page, base, code } = props
-  
+
   // always render the upload as a link
   if(linkTo === 'upload') return (
     <Link className="usa-nav-link" style={styleSelectedPage(page, linkTo)}
@@ -19,7 +23,7 @@ const renderLinkOrText = (props, linkTo) => {
 
   // only render link when code > 7 (so it's finished validating)
   if(code > 7) {
-    return <Link className="usa-nav-link" style={styleSelectedPage(page, linkTo)} to={`${base}/${linkTo}`}>{linkTo}</Link>
+    return <Link className="usa-nav-link" style={styleSelectedPage(page, linkTo)} to={`${base}/${formatLink(linkTo)}`}>{linkTo}</Link>
   } else {
     return <span>{linkTo}</span>
   }
@@ -27,7 +31,7 @@ const renderLinkOrText = (props, linkTo) => {
 
 const EditsNav = (props) => {
   const { page, base, code } = props
-  const editPages = ['upload', 'edits', 'summary']
+  const editPages = ['upload', 'syntactical & validity', 'quality', 'macro', 'summary']
 
   if(noEditsNav.indexOf(page) === -1) return (
     <ul className="EditsNav usa-nav-primary">
