@@ -18,24 +18,28 @@ class Upload extends Component {
     }
   }
 
-  getConfirmation(props) {
-    const institutionId = props.base.split('/').slice(1,2)
-    return (
-      <div className="usa-text-small">
-        <p>Are you sure?</p>
-        <button className="usa-text-small" onClick={(e)=>{
-          e.preventDefault()
-          this.setState({ showConfirm: false })
-          props.refileLink(institutionId, props.filingPeriod)
-        }}>Yes</button>
-
-        <button className="usa-button usa-button-secondary usa-text-small"
-          onClick={(e)=>{
+  getConfirmation(props, show) {
+    if(show) {
+      const institutionId = props.base.split('/').slice(1,2)
+      return (
+        <div className="usa-text-small">
+          <p>Are you sure?</p>
+          <button className="usa-text-small" onClick={(e)=>{
             e.preventDefault()
             this.setState({ showConfirm: false })
-          }}>No</button>
-      </div>
-    )
+            props.refileLink(institutionId, props.filingPeriod)
+          }}>Yes</button>
+
+          <button className="usa-button usa-button-secondary usa-text-small"
+            onClick={(e)=>{
+              e.preventDefault()
+              this.setState({ showConfirm: false })
+            }}>No</button>
+        </div>
+      )
+    }
+
+    return null
   }
 
   getRefileLink(props) {
@@ -65,13 +69,9 @@ class Upload extends Component {
   }
 
   render() {
-    console.log('UploadForm')
-    console.log(this.state)
     const isDisabled = (this.props.code > 1) ? true : false
     const disabledFileInput = (this.props.code > 1) ? 'usa-button-disabled' : ''
     const disabledFileName = (this.props.code > 1) ? 'input-disabled' : ''
-
-    let confirm = this.state.showConfirm ? this.getConfirmation(this.props) : null
 
     return (
       <div>
@@ -87,7 +87,7 @@ class Upload extends Component {
           {this.getValidation(this.props)}
         </div>
         {this.getRefileLink(this.props)}
-        {confirm}
+        {this.getConfirmation(this.props, this.state.showConfirm)}
       </div>
     )
   }
