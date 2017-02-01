@@ -45,7 +45,8 @@ class Upload extends Component {
   }
 
   render() {
-    const isDisabled = (this.props.code > 1) ? true : false
+    const isSelectDisabled = this.props.code > 1 ? true : false
+    const isUploadDisabled = (this.props.code > 1 || this.props.file === null || this.props.file.name === 'No file chosen') ? true : false
     const disabledFileInput = (this.props.code > 1) ? 'usa-button-disabled' : ''
     const disabledFileName = (this.props.code > 1) ? 'input-disabled' : ''
 
@@ -55,10 +56,10 @@ class Upload extends Component {
           <form className="usa-form" encType="multipart/form-data" onSubmit={e => this.props.handleSubmit(e, this.props.file)}>
             <div className={`hmda-file-input usa-button usa-button-gray ${disabledFileInput}`}>
               <label htmlFor="hmdaFile">Select a file</label>
-              <input id="hmdaFile" name="hmdaFile" type="file" ref={(input) => {this.fileInput = input}} disabled={isDisabled} onChange={this.props.setFile}></input>
+              <input id="hmdaFile" name="hmdaFile" type="file" ref={(input) => {this.fileInput = input}} disabled={isSelectDisabled} onChange={this.props.setFile}></input>
             </div>
             <input className={disabledFileName} id="hmdaFileName" name="hmdaFileName" type="text" value='No file chosen' ref={(input) => {this.fileName = input}} readOnly disabled></input>
-            <input disabled={isDisabled} className="usa-button" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
+            <input disabled={isUploadDisabled} className="usa-button" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
           </form>
           {this.getValidation(this.props)}
         </div>

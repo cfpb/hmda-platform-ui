@@ -23,7 +23,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     handleSubmit: (e, file) => {
-      e.preventDefault();
+      e.preventDefault()
       if(file){
         dispatch(requestUpload(file))
       }
