@@ -21,15 +21,15 @@ class Upload extends Component {
   getConfirmation(props) {
     const institutionId = props.base.split('/').slice(1,2)
     return (
-      <div>
+      <div className="usa-text-small">
         <p>Are you sure?</p>
-        <button onClick={(e)=>{
+        <button className="usa-text-small" onClick={(e)=>{
           e.preventDefault()
           this.setState({ showConfirm: false })
           props.refileLink(institutionId, props.filingPeriod)
         }}>Yes</button>
 
-        <button className="usa-button usa-button-secondary"
+        <button className="usa-button usa-button-secondary usa-text-small"
           onClick={(e)=>{
             e.preventDefault()
             this.setState({ showConfirm: false })
