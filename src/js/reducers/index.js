@@ -35,7 +35,8 @@ import {
 
 const defaultUpload = {
   uploading: false,
-  file: null
+  file: null,
+  errors: []
 }
 
 const defaultStatus = {
@@ -122,7 +123,8 @@ export const upload = (state = defaultUpload, action) => {
   case SELECT_FILE:
     return {
       ...state,
-      file: action.file
+      file: action.file,
+      errors: action.errors
     }
   default:
     return state

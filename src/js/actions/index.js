@@ -139,16 +139,30 @@ export function clearFilings() {
   }
 }
 
-export function selectFile(file) {
-  return {
-    type: types.SELECT_FILE,
-    file
+function checkErrors(file) {
+  const errors = []
+  if(file) {
+    if(file.size === 0) {
+      errors.push('The file size is 0.')
+    }
+    if(file.name.split('.')[1] !== 'txt') {
+      errors.push('You need a .txt file.')
+    }
   }
+  return errors
 }
 
-
-
-
+export function selectFile(file) {
+  console.log('actions - selectFile')
+  console.log(file)
+  console.log(checkErrors(file))
+  // setup errors here
+  return {
+    type: types.SELECT_FILE,
+    file,
+    errors: checkErrors(file)
+  }
+}
 
 export function uploadStart() {
   return {
