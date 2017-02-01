@@ -28,12 +28,15 @@ export const renderHeader = (edits, type) => {
     fieldCells = edits.rows[0].fields
   }
 
+  const numOfCells = Object.keys(keyCells).length + Object.keys(fieldCells).length
+  const cellWidth = `${100/numOfCells}%`
+
   Object.keys(keyCells).forEach((field) => {
-    cells.push(<th key={++cellCount}>{formatHeader(field)}</th>)
+    cells.push(<th key={++cellCount} width={cellWidth}>{formatHeader(field)}</th>)
   })
 
   Object.keys(fieldCells).forEach((field) => {
-    cells.push(<th key={++cellCount}>{formatHeader(field)}</th>)
+    cells.push(<th key={++cellCount} width={cellWidth}>{formatHeader(field)}</th>)
   })
 
   return <tr>{cells}</tr>
