@@ -5,18 +5,22 @@ import { selectFile, requestUpload, createNewSubmission } from '../actions'
 function mapStateToProps(state) {
   const {
     uploading,
-    file
+    file,
+    errors
   } = state.app.upload || {
     uploading: false,
-    file: null
+    file: null,
+    errors: []
   }
 
   const filingPeriod = state.app.filingPeriod || null
-
+  console.log('UploadForm container')
+  console.log(errors)
   return {
     uploading,
     file,
-    filingPeriod
+    filingPeriod,
+    errors
   }
 }
 
