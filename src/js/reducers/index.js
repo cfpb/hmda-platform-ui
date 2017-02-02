@@ -9,6 +9,7 @@ import {
   RECEIVE_FILING,
   RECEIVE_SUBMISSION,
   SELECT_FILE,
+  SHOW_CONFIRM,
   PICK_SORT,
   UPLOAD_PROGRESS,
   UPLOAD_COMPLETE,
@@ -129,6 +130,17 @@ export const upload = (state = defaultUpload, action) => {
   }
 }
 
+/*
+ * Track confirmation modal for refiling
+ */
+export const confirmation = (state = false, action) => {
+  switch (action.type) {
+  case SHOW_CONFIRM:
+    return action.showConfirm
+  default:
+    return state
+  }
+}
 /*
  * Maintain the status of the current submission
  * Set isFetching to true when a request is made
@@ -354,6 +366,7 @@ export default combineReducers({
   filingPeriod,
   submission,
   upload,
+  confirmation,
   edits,
   irs,
   signature,

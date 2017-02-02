@@ -228,6 +228,17 @@ describe('actions', () => {
     })
   })
 
+  it('creates an action to signal display of the refile confirmation modal', () => {
+    expect(actions.showConfirm(true)).toEqual({
+      type: types.SHOW_CONFIRM,
+      showConfirm: true
+    })
+    expect(actions.showConfirm(false)).toEqual({
+      type: types.SHOW_CONFIRM,
+      showConfirm: false
+    })
+  })
+
   it('creates a thunk that will send an http request for an institution by id', done => {
     const store = mockStore({filings: []})
 
