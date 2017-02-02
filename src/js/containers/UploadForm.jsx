@@ -14,8 +14,7 @@ function mapStateToProps(state) {
   }
 
   const filingPeriod = state.app.filingPeriod || null
-  console.log('UploadForm container')
-  console.log(errors)
+  
   return {
     uploading,
     file,

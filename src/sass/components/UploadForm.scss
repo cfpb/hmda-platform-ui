@@ -6,6 +6,10 @@
   .usa-alert {
     margin-bottom: 1em;
     margin-top: 0;
+    ul.usa-alert-text {
+      margin-top: 0;
+      padding-left: 1em;
+    }
   }
   .usa-form {
     max-width: 100%;

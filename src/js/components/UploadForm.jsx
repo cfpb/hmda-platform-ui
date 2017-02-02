@@ -47,14 +47,27 @@ class Upload extends Component {
   getErrors(errors) {
     if(errors.length === 0) return null
 
-    return (
+    return(
       <div className="usa-alert usa-alert-error" role="alert">
         <div className="usa-alert-body">
-          {errors.map((error, i) => {
-            return(<p className="usa-alert-text">{error}</p>)
-          })}
+          <ul className="usa-alert-text">
+            {errors.map((error, i) => {
+              return(<li key={i}>{error}</li>)
+            })}
+          </ul>
         </div>
       </div>
+    )
+    return(
+      errors.map((error, i) => {
+        return(
+          <div key={i} className="usa-alert usa-alert-error" role="alert">
+            <div className="usa-alert-body">
+              <p className="usa-alert-text">{error}</p>
+            </div>
+          </div>
+        )
+      })
     )
   }
 
