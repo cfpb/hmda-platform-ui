@@ -143,20 +143,16 @@ function checkErrors(file) {
   const errors = []
   if(file) {
     if(file.size === 0) {
-      errors.push('The file size is 0.')
+      errors.push('The file you uploaded does not contain any data. Please check your rile and re-upload.')
     }
     if(file.name.split('.')[1] !== 'txt') {
-      errors.push('You need a .txt file.')
+      errors.push('The file you uploaded is not a text file (.txt). Please check your file and re-upload.')
     }
   }
   return errors
 }
 
 export function selectFile(file) {
-  console.log('actions - selectFile')
-  console.log(file)
-  console.log(checkErrors(file))
-  // setup errors here
   return {
     type: types.SELECT_FILE,
     file,
