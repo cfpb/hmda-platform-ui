@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Upload from '../components/UploadForm.jsx'
-import { selectFile, requestUpload, createNewSubmission } from '../actions'
+import { showConfirm, selectFile, requestUpload, createNewSubmission } from '../actions'
 
 function mapStateToProps(state) {
   const {
@@ -14,12 +14,14 @@ function mapStateToProps(state) {
   }
 
   const filingPeriod = state.app.filingPeriod || null
-  
+
+  const { confirmation } = state.app
   return {
     uploading,
     file,
     filingPeriod,
-    errors
+    errors,
+    confirmation
   }
 }
 
@@ -40,6 +42,9 @@ function mapDispatchToProps(dispatch) {
 
     refileLink: (id, period) => {
       dispatch(createNewSubmission(id, period))
+    },
+    toggleConfirm: (show) => {
+      dispatch(showConfirm(show))
     }
   }
 }

@@ -1,7 +1,7 @@
 jest.unmock('../../src/js/reducers')
 
 import * as types from '../../src/js/constants'
-import { institutions, filings, submission, upload, status, irs, signature } from '../../src/js/reducers'
+import { institutions, confirmation, filings, submission, upload, status, irs, signature } from '../../src/js/reducers'
 
 const typesArr = Object.keys(types)
   .filter( v => v !== '__esModule')
@@ -56,6 +56,24 @@ describe('status reducer', () => {
       status({}, {type: types.UPDATE_STATUS, status: { code: 3, message: ''}})
     ).toEqual({ code: 3, message: ''})
 
+  })
+})
+
+describe('confirmation reducer', () => {
+  it('should return the initial state on empty action', () => {
+    expect(
+      confirmation(undefined, {})
+    ).toEqual(false)
+  })
+  it('should positively set confirmation', () => {
+    expect(
+      confirmation(false, {type: types.SHOW_CONFIRM, showConfirm: true})
+    ).toEqual(true)
+  })
+  it('should negatively set confirmation', () => {
+    expect(
+      confirmation(true, {type: types.SHOW_CONFIRM, showConfirm: false})
+    ).toEqual(false)
   })
 })
 
