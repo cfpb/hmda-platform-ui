@@ -146,7 +146,12 @@ export function selectFile(file) {
   }
 }
 
-
+export function showConfirm(show) {
+  return {
+    type: types.SHOW_CONFIRM,
+    showConfirm: show
+  }
+}
 
 
 

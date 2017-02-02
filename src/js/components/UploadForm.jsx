@@ -4,7 +4,6 @@ import ValidationProgress from './ValidationProgress.jsx'
 class Upload extends Component {
   constructor(props) {
     super(props)
-    this.state = { showConfirm: false }
   }
 
   componentDidUpdate() {
@@ -18,22 +17,22 @@ class Upload extends Component {
     }
   }
 
-  getConfirmation(props, show) {
-    if(show) {
+  getConfirmation(props) {
+    if(props.confirmation) {
       const institutionId = props.base.split('/').slice(1,2)
       return (
         <div className="usa-text-small">
           <p>Are you sure?</p>
           <button className="usa-text-small" onClick={(e)=>{
             e.preventDefault()
-            this.setState({ showConfirm: false })
+            props.toggleConfirm(false)
             props.refileLink(institutionId, props.filingPeriod)
           }}>Yes</button>
 
           <button className="usa-button usa-button-secondary usa-text-small"
             onClick={(e)=>{
               e.preventDefault()
-              this.setState({ showConfirm: false })
+              props.toggleConfirm(false)
             }}>No</button>
         </div>
       )
@@ -54,7 +53,7 @@ class Upload extends Component {
           <a className="usa-button usa-button-secondary usa-text-small"
             onClick={(e)=>{
               e.preventDefault()
-              this.setState({ showConfirm: true })
+                props.toggleConfirm(true)
             }}>Refile here.</a>
         </div>
       )
@@ -87,7 +86,7 @@ class Upload extends Component {
           {this.getValidation(this.props)}
         </div>
         {this.getRefileLink(this.props)}
-        {this.getConfirmation(this.props, this.state.showConfirm)}
+        {this.getConfirmation(this.props)}
       </div>
     )
   }
@@ -98,7 +97,9 @@ Upload.propTypes = {
   setFile: PropTypes.func,
   uploading: PropTypes.bool,
   file: PropTypes.object,
-  code: PropTypes.number
+  code: PropTypes.number,
+  confirmation: PropTypes.bool,
+  showConfirm: PropTypes.func
 }
 
 Upload.defaultProps = {
