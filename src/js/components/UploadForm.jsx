@@ -17,11 +17,34 @@ class Upload extends Component {
     }
   }
 
+  getConfirmation(props) {
+    if(props.confirmation) {
+      const institutionId = props.base.split('/').slice(1,2)
+      return (
+        <div className="usa-text-small">
+          <p>Are you sure?</p>
+          <button className="usa-text-small" onClick={(e)=>{
+            e.preventDefault()
+            props.toggleConfirm(false)
+            props.refileLink(institutionId, props.filingPeriod)
+          }}>Yes</button>
+
+          <button className="usa-button usa-button-secondary usa-text-small"
+            onClick={(e)=>{
+              e.preventDefault()
+              props.toggleConfirm(false)
+            }}>No</button>
+        </div>
+      )
+    }
+
+    return null
+  }
+
   getRefileLink(props) {
     if(props.code > 7) {
       let message = 'is in progress'
       if(props.code === 11) message = 'has already been submitted'
-      const institutionId = props.base.split('/').slice(1,2)
 
       return (
         <div className="usa-text-small margin-top-1" style={{textAlign: 'left'}}>
@@ -30,7 +53,7 @@ class Upload extends Component {
           <a className="usa-button usa-button-secondary usa-text-small"
             onClick={(e)=>{
               e.preventDefault()
-              props.refileLink(institutionId, props.filingPeriod)
+                props.toggleConfirm(true)
             }}>Refile here.</a>
         </div>
       )
@@ -63,6 +86,7 @@ class Upload extends Component {
           {this.getValidation(this.props)}
         </div>
         {this.getRefileLink(this.props)}
+        {this.getConfirmation(this.props)}
       </div>
     )
   }
@@ -73,7 +97,9 @@ Upload.propTypes = {
   setFile: PropTypes.func,
   uploading: PropTypes.bool,
   file: PropTypes.object,
-  code: PropTypes.number
+  code: PropTypes.number,
+  confirmation: PropTypes.bool,
+  showConfirm: PropTypes.func
 }
 
 Upload.defaultProps = {
