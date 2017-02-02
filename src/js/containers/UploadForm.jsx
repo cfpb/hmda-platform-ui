@@ -5,20 +5,22 @@ import { showConfirm, selectFile, requestUpload, createNewSubmission } from '../
 function mapStateToProps(state) {
   const {
     uploading,
-    file
+    file,
+    errors
   } = state.app.upload || {
     uploading: false,
-    file: null
+    file: null,
+    errors: []
   }
 
   const filingPeriod = state.app.filingPeriod || null
 
   const { confirmation } = state.app
-
   return {
     uploading,
     file,
     filingPeriod,
+    errors,
     confirmation
   }
 }
@@ -26,7 +28,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     handleSubmit: (e, file) => {
-      e.preventDefault();
+      e.preventDefault()
       if(file){
         dispatch(requestUpload(file))
       }

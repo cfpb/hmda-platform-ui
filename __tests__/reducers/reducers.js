@@ -15,7 +15,8 @@ const excludeTypes = (...args) => {
 
 const defaultUpload = {
   uploading: false,
-  file: null
+  file: null,
+  errors: []
 }
 
 const defaultStatus = {

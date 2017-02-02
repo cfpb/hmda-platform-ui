@@ -175,11 +175,12 @@ describe('actions', () => {
   })
 
   it('creates an action to signal file selection', () => {
-    const file = {size:42}
+    const file = {size:42, name: 'test.txt'}
 
     expect(actions.selectFile(file)).toEqual({
       type: types.SELECT_FILE,
-      file
+      file,
+      errors: []
     })
   })
 
