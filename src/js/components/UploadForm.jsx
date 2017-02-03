@@ -81,17 +81,6 @@ class Upload extends Component {
         </div>
       </div>
     )
-    return(
-      errors.map((error, i) => {
-        return(
-          <div key={i} className="usa-alert usa-alert-error" role="alert">
-            <div className="usa-alert-body">
-              <p className="usa-alert-text">{error}</p>
-            </div>
-          </div>
-        )
-      })
-    )
   }
 
   render() {
