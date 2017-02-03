@@ -1,0 +1,27 @@
+.ConfirmationModal, .ConfirmationBlurredBlocker {
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.ConfirmationModal {
+  width: 30%;
+  min-width: 320px;
+  height: 300px;
+  margin: auto;
+  z-index:3;
+}
+
+.ConfirmationBlurredBlocker {
+  background:white;
+  opacity:0;
+  display:none;
+}
+
+.ShowingBlurredBlocker {
+  opacity: 0.7;
+  display:block;
+}
