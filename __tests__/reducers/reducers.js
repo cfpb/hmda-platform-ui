@@ -19,6 +19,12 @@ const defaultUpload = {
   errors: []
 }
 
+const defaultConfirmation = {
+  showing: false,
+  id: null,
+  filing: null
+}
+
 const defaultStatus = {
   code: null,
   message: ''
@@ -63,17 +69,17 @@ describe('confirmation reducer', () => {
   it('should return the initial state on empty action', () => {
     expect(
       confirmation(undefined, {})
-    ).toEqual(false)
+    ).toEqual(defaultConfirmation)
   })
   it('should positively set confirmation', () => {
     expect(
-      confirmation(false, {type: types.SHOW_CONFIRM, showConfirm: true})
-    ).toEqual(true)
+      confirmation(defaultConfirmation, {type: types.SHOW_CONFIRM, showing: true, id:'a', filing: 'b'})
+    ).toEqual({showing: true, id: 'a', filing: 'b'})
   })
   it('should negatively set confirmation', () => {
     expect(
-      confirmation(true, {type: types.SHOW_CONFIRM, showConfirm: false})
-    ).toEqual(false)
+      confirmation({showing: true}, {type: types.HIDE_CONFIRM, showing: false})
+    ).toEqual({showing: false})
   })
 })
 

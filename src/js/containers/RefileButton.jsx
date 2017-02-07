@@ -21,4 +21,11 @@ function mapDispatchToProps(dispatch) {
   return {showConfirmModal}
 }
 
+RefileButtonContainer.propTypes = {
+  showConfirmModal: React.PropTypes.func.isRequired,
+  id: React.PropTypes.string.isRequired,
+  filing: React.PropTypes.string.isRequired
+}
+
 export default connect(null, mapDispatchToProps)(RefileButtonContainer)
+export {RefileButtonContainer, mapDispatchToProps}

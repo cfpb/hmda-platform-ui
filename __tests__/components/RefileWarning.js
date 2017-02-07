@@ -11,8 +11,8 @@ import { parseLocation } from '../../src/js/api'
 parseLocation.mockImplementation(() => { return { id:'1', period: '2017', submission: 1 } })
 
 describe('Refile Warning', () => {
-  const parserText = 'Parsing errors require file resubmission. Refile here.'
-  const refileText = 'Syntactical and validity edits require file resubmission. Refile here.';
+  const parserText = 'Parsing errors require file resubmission.'
+  const refileText = 'Syntactical and validity edits require file resubmission.';
   const validateText = 'Quality and macro edits must be validated before continuing.';
   const synTypes = {
     syntactical: {edits: [{some:'edit'}]},
@@ -41,21 +41,18 @@ describe('Refile Warning', () => {
       }
     }
 
-    const refileLink = jest.fn()
 
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
-        <RefileWarning submission={submission} types={synTypes} refileLink={refileLink}/>
+        <RefileWarning submission={submission} types={synTypes}/>
       </Wrapper>
     )
-    
+
     expect(TestUtils.findRenderedDOMComponentWithClass(refileWarning, 'usa-alert-text').textContent).toEqual(parserText);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(refileWarning, 'a').length).toEqual(1);
 
     const link = TestUtils.findRenderedDOMComponentWithTag(refileWarning, 'a')
     TestUtils.Simulate.click(link)
-    expect(refileLink).toBeCalled()
-    expect(refileLink).toBeCalledWith('12345', '2017')
   });
 
   it('renders the correct elements for status code 7', () => {
@@ -63,6 +60,11 @@ describe('Refile Warning', () => {
       status: {
         code: 7,
         message: ''
+      },
+      id: {
+        institutionId: '12345',
+        period: '2017',
+        sequenceNumber: 1
       }
     }
 

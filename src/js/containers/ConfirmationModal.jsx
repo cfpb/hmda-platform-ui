@@ -10,7 +10,6 @@ class ConfirmationModalContainer extends Component {
   }
 
   render() {
-    console.log(this.props)
     return <ConfirmationModal {...this.props} />
   }
 }
