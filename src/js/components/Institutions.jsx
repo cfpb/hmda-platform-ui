@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 import {Link} from 'react-router'
-import UserHeading from '../components/UserHeading.jsx'
-import Header from '../components/Header.jsx'
+import UserHeading from './UserHeading.jsx'
+import Header from './Header.jsx'
+import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 
 const renderTiming = (status, start, end) => {
@@ -120,7 +121,7 @@ export default class Institution extends Component {
                 {renderTiming(filing.status, filing.start, filing.end)}
                 {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
                 {renderButton(filing.status.code, filing.institutionId, filing.period)}
-                {renderRefile(makeNewSubmission, filing.status.code, filing.institutionId, filing.period)}
+                <RefileButton id={filing.institutionId} filing={filing.period}/>
                 <h5>Previous submissions for this filing</h5>
                 <ul className="usa-text-small usa-unstyled-list">
                   {filingObj.submissions.map((submission, i) => {

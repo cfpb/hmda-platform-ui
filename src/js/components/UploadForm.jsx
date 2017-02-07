@@ -28,7 +28,7 @@ class Upload extends Component {
         <div className="usa-text-small margin-top-1" style={{textAlign: 'left'}}>
           <p className="margin-bottom-0">The HMDA data for this filing year <strong>{message}</strong>.</p>
           <p className="margin-top-0">Would you like to start the resubmission process?</p>
-          <RefileButton id={splitBase[1]} filing={splitBase[2]} {...props}/>
+          <RefileButton id={splitBase[1]} filing={splitBase[2]}/>
         </div>
       )
     }
