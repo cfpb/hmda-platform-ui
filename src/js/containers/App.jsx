@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { signinRedirect } from '../redirect'
+import ConfirmationModal from './ConfirmationModal.jsx'
 
 class AppContainer extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class AppContainer extends Component {
             </div>
           </div>
         </footer>
+        <ConfirmationModal/>
       </div>
     )
   }
