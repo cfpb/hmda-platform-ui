@@ -18,17 +18,6 @@ class Upload extends Component {
     }
   }
 
-  getRefileLink(props) {
-    if(!props.base || props.code < 2) return null
-    const splitBase = props.base.split('/')
-
-    return (
-      <div className="FloatingRefile">
-        <RefileButton id={splitBase[1]} filing={splitBase[2]} code={props.code}/>
-      </div>
-    )
-  }
-
   getValidationProgress(props) {
     if(props.code === 1) return null
     return <ValidationProgress base={props.base} code={props.code} />
@@ -71,7 +60,6 @@ class Upload extends Component {
           </form>
           {this.getValidationProgress(this.props)}
         </div>
-        {this.getRefileLink(this.props)}
       </div>
     )
   }

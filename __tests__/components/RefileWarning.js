@@ -49,10 +49,6 @@ describe('Refile Warning', () => {
     )
 
     expect(TestUtils.findRenderedDOMComponentWithClass(refileWarning, 'usa-alert-text').textContent).toEqual(parserText);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(refileWarning, 'a').length).toEqual(1);
-
-    const link = TestUtils.findRenderedDOMComponentWithTag(refileWarning, 'a')
-    TestUtils.Simulate.click(link)
   });
 
   it('renders the correct elements for status code 7', () => {
@@ -75,7 +71,6 @@ describe('Refile Warning', () => {
     )
 
     expect(TestUtils.findRenderedDOMComponentWithClass(refileWarning, 'usa-alert-text').textContent).toEqual(refileText);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(refileWarning, 'a').length).toEqual(1);
   });
 
 
