@@ -230,13 +230,15 @@ describe('actions', () => {
   })
 
   it('creates an action to signal display of the refile confirmation modal', () => {
-    expect(actions.showConfirm(true)).toEqual({
+    expect(actions.showConfirm('a','b')).toEqual({
       type: types.SHOW_CONFIRM,
-      showConfirm: true
+      showing: true,
+      id: 'a',
+      filing: 'b'
     })
-    expect(actions.showConfirm(false)).toEqual({
-      type: types.SHOW_CONFIRM,
-      showConfirm: false
+    expect(actions.hideConfirm()).toEqual({
+      type: types.HIDE_CONFIRM,
+      showing: false
     })
   })
 

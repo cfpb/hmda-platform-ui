@@ -10,6 +10,7 @@ import {
   RECEIVE_SUBMISSION,
   SELECT_FILE,
   SHOW_CONFIRM,
+  HIDE_CONFIRM,
   PICK_SORT,
   UPLOAD_PROGRESS,
   UPLOAD_COMPLETE,
@@ -38,6 +39,12 @@ const defaultUpload = {
   uploading: false,
   file: null,
   errors: []
+}
+
+const defaultConfirmation = {
+  showing: false,
+  id: null,
+  filing: null
 }
 
 const defaultStatus = {
@@ -135,10 +142,20 @@ export const upload = (state = defaultUpload, action) => {
 /*
  * Track confirmation modal for refiling
  */
-export const confirmation = (state = false, action) => {
+export const confirmation = (state = defaultConfirmation, action) => {
   switch (action.type) {
   case SHOW_CONFIRM:
-    return action.showConfirm
+    return {
+      showing: action.showing,
+      id: action.id,
+      filing: action.filing,
+      code: action.code
+    }
+  case HIDE_CONFIRM:
+    return {
+      ...state,
+      showing: action.showing,
+    }
   default:
     return state
   }

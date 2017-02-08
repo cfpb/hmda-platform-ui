@@ -160,10 +160,20 @@ export function selectFile(file) {
   }
 }
 
-export function showConfirm(show) {
+export function showConfirm(id, filing, code) {
   return {
     type: types.SHOW_CONFIRM,
-    showConfirm: show
+    showing: true,
+    id,
+    filing,
+    code
+  }
+}
+
+export function hideConfirm() {
+  return {
+    type: types.HIDE_CONFIRM,
+    showing: false
   }
 }
 

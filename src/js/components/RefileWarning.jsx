@@ -3,18 +3,17 @@ import { Link } from 'react-router'
 
 const getText = (props) => {
   let textToRender = null
-  let refileLink = null
 
   if(props.types.hasOwnProperty('syntactical')) {
     if(props.types.syntactical.edits.length !== 0 || props.types.validity.edits.length !== 0) {
-      textToRender = <p className="usa-alert-text"><strong>Syntactical</strong> and <strong>validity</strong> edits require file resubmission. {getRefileLink(props)}</p>
+      textToRender = <div><span style={{marginRight: '8px'}} className="usa-alert-text"><strong>Syntactical</strong> and <strong>validity</strong> edits require file resubmission.</span></div>
     } else {
-      textToRender = <p className="usa-alert-text"><strong>Quality</strong> and <strong>macro</strong> edits must be validated before continuing.</p>
+      textToRender = <span className="usa-alert-text"><strong>Quality</strong> and <strong>macro</strong> edits must be validated before continuing.</span>
     }
   }
 
   if(props.submission.status.code === 5) {
-    textToRender = <p className="usa-alert-text"><strong>Parsing</strong> errors require file resubmission. {getRefileLink(props)}</p>
+    textToRender = <div><span style={{marginRight: '8px'}} className="usa-alert-text"><strong>Parsing</strong> errors require file resubmission.</span></div>
   }
 
   return (
@@ -24,12 +23,6 @@ const getText = (props) => {
   )
 }
 
-const getRefileLink = (props) => {
-  return <a onClick={(e)=>{
-    e.preventDefault()
-    props.refileLink(props.submission.id.institutionId, props.submission.id.period)
-  }}>Refile here.</a>
-}
 
 const RefileWarning = (props) => {
   if (props.submission.status.code > 8) return null

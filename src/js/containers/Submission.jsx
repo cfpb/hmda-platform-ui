@@ -12,6 +12,7 @@ import IRSReport from './IRSReport.jsx'
 import Signature from './Signature.jsx'
 import Summary from './Summary.jsx'
 import RefileWarning from './RefileWarning.jsx'
+import RefileButton from '../containers/RefileButton.jsx'
 import ParseErrors from './ParseErrors.jsx'
 /*
 import EditsContainer from './EditsContainer.jsx'
@@ -52,6 +53,8 @@ class SubmissionContainer extends Component {
 
     const status = this.props.status
     const code = status.code
+    const params = this.props.params
+    const user = this.props.user
     const pathname = this.props.location.pathname
     const base = pathname.split('/').slice(0,-1).join('/')
     const page = pathname.split('/').slice(-1)[0]
@@ -89,13 +92,14 @@ class SubmissionContainer extends Component {
     return (
     <div className="SubmissionContainer">
       <Header
-        pathname={this.props.location.pathname}
-        userName={this.props.user.profile.name} />
+        pathname={pathname}
+        userName={user.profile.name} />
       <div id="main-content" className="usa-grid">
         <UserHeading
-          period={this.props.params.filing}
-          userName={this.props.user.profile.name}
-          institution={this.props.params.institution} />
+          period={params.filing}
+          userName={user.profile.name}
+          institution={params.institution} />
+        {code > 2 ? <div className="FloatingRefile"><RefileButton id={params.institution} filing={params.filing} code={code}/></div> : null}
         <EditsNav
           page={page}
           base={base}
