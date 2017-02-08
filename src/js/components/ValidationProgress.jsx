@@ -1,33 +1,76 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
+
+const getIndicator = (code, type) => {
+  let indicator = <span className="progress"></span>
+
+  switch(type) {
+    case 'upload':
+      if(code === 2) indicator = <span className="progress progress-running"></span>
+      if(code >= 3) {
+        indicator = <span className="progress progress-success"></span>
+      }
+      break;
+    case 'parse':
+      if(code === 4) indicator = <span className="progress progress-running"></span>
+      if(code === 5) indicator = <span className="progress progress-error"></span>
+      if(code >= 6) indicator = <span className="progress progress-success"></span>
+      break;
+    case 'validate':
+      if(code === 7) indicator = <span className="progress progress-running"></span>
+      if(code === 8) indicator = <span className="progress progress-error"></span>
+      if(code >= 9) indicator = <span className="progress progress-success"></span>
+      break;
+  }
+
+  return indicator
+}
+
+const getUploadStatus = (code) => {
+  if(code <= 2) return <li>{getIndicator(code, 'upload')} Uploading ... </li>
+  return <li>{getIndicator(code, 'upload')} Upload complete</li>
+}
+
+const getParsingStatus = (code) => {
+  let textClass = ''
+  if(code < 4) textClass = 'text-gray-light'
+  if(code <= 4) return <li className={textClass}>{getIndicator(code, 'parse')} Parsing ...</li>
+  return <li>{getIndicator(code, 'parse')} Parsing complete</li>
+}
+
+const getValidationStatus = (code) => {
+  let textClass = ''
+  if(code < 7) textClass = 'text-gray-light'
+  if(code <= 7) return <li className={textClass}>{getIndicator(code, 'validate')} Validating ...</li>
+  return <li>{getIndicator(code, 'validate')} Validation complete</li>
+}
+
+const getNextLink = (code, base) => {
+  if(code < 8) return null
+  if(code === 8) return <Link className='usa-button' to={base + '/syntacticalvalidity'}>{'Review Edits \u21D2'}</Link>
+  if(code === 9 || code === 10) return <Link className='usa-button' to={base + '/summary'}>View Summary and Sign</Link>
+  // signed
+  return <Link className='usa-button' to={base + '/summary'}>Review Summary and Signature</Link>
+}
 
 const ValidationProgress = (props) => {
-  const code = props.status.code
-
-  let uploadComplete = 'Uploading...'
-  let parsingStatus = null
-  let validationStatus = null
-
-  if(code > 2) uploadComplete = 'Upload complete'
-  if(code > 3) parsingStatus = 'Parsing started...'
-  if(code > 4) parsingStatus = 'Parsing complete'
-  if(code > 6) validationStatus = 'Validation started...'
-  if(code > 7) validationStatus = 'Validation complete'
+  const code = props.code
 
   return (
-    <ul className="ValidationProgress usa-unstyled-list">
-      <li>{uploadComplete}</li>
-      <li>{parsingStatus}</li>
-      <li>{validationStatus}</li>
-    </ul>
+    <div className="ValidationProgress" style={{textAlign: 'left'}}>
+      <ul className="usa-unstyled-list">
+        {getUploadStatus(code)}
+        {getParsingStatus(code)}
+        {getValidationStatus(code)}
+      </ul>
+      {getNextLink(code, props.base)}
+    </div>
   )
 }
 
 ValidationProgress.propTypes = {
-  code: PropTypes.number
-}
-
-ValidationProgress.defaultProps = {
-  status: {}
+  code: PropTypes.number,
+  base: PropTypes.string
 }
 
 export default ValidationProgress

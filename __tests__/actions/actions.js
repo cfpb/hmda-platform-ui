@@ -1,6 +1,7 @@
 jest.unmock('../../src/js/actions')
 jest.unmock('../../src/js/constants')
 jest.mock('../../src/js/api')
+jest.mock('file-saver')
 
 import fs from 'fs'
 import * as actions from '../../src/js/actions'
@@ -17,7 +18,8 @@ import {
   getIRS,
   getSignature,
   postSignature,
-  postQuality
+  postQuality,
+  getEdits
 } from '../../src/js/api.js'
 
 const institutionsDetailObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions-detail.json'))
@@ -34,6 +36,7 @@ getSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissions[2]
 getIRS.mockImplementation((id) => Promise.resolve(IRSObj))
 getSignature.mockImplementation((id) => Promise.resolve(signatureObj))
 postQuality.mockImplementation(() => Promise.resolve())
+getEdits.mockImplementation((id) => Promise.resolve({fakeEdits:1}))
 
 delete global.XMLHttpRequest
 const xhrMock = {
@@ -49,6 +52,12 @@ const xhrMockFn = jest.fn(() => xhrMock)
 
 global.XMLHttpRequest = xhrMockFn
 global.window.XMLHttpRequest = global.XMLHttpRequest
+
+delete window.open
+window.open = jest.fn()
+
+delete window.Blob
+window.Blob = jest.fn(() => {})
 
 const mockStore = configureMockStore([thunk])
 
@@ -166,26 +175,18 @@ describe('actions', () => {
   })
 
   it('creates an action to signal file selection', () => {
-    const file = {size:42}
+    const file = {size:42, name: 'test.txt'}
 
     expect(actions.selectFile(file)).toEqual({
       type: types.SELECT_FILE,
-      file
+      file,
+      errors: []
     })
   })
 
   it('creates an action to signal the start of the file upload', () => {
     expect(actions.uploadStart()).toEqual({
       type: types.UPLOAD_START
-    })
-  })
-
-  it('creates an action to signal progress of the file upload', () => {
-    const event = {}
-
-    expect(actions.uploadProgress(event)).toEqual({
-      type: types.UPLOAD_PROGRESS,
-      xhrProgressEvent: event
     })
   })
 
@@ -245,6 +246,19 @@ describe('actions', () => {
       })
   })
 
+  it('creates an action to signal display of the refile confirmation modal', () => {
+    expect(actions.showConfirm('a','b')).toEqual({
+      type: types.SHOW_CONFIRM,
+      showing: true,
+      id: 'a',
+      filing: 'b'
+    })
+    expect(actions.hideConfirm()).toEqual({
+      type: types.HIDE_CONFIRM,
+      showing: false
+    })
+  })
+
   it('creates a thunk that will send an http request for an institution by id', done => {
     const store = mockStore({filings: []})
 
@@ -279,7 +293,6 @@ describe('actions', () => {
         expect(xhrMock.setRequestHeader.mock.calls.length).toBe(3)
         expect(xhrMock.send.mock.calls.length).toBe(1)
         expect(xhrMock.addEventListener.mock.calls.length).toBe(1)
-        expect(xhrMock.upload.addEventListener.mock.calls.length).toBe(1)
         done()
       })
       .catch(err => {
@@ -343,5 +356,81 @@ describe('actions', () => {
         console.log(err)
         done.fail()
       })
+  })
+
+  it('creates a thunk that will fetch edits by type', done => {
+    const store = mockStore({})
+
+    store.dispatch(actions.fetchEditsByType())
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {type: types.REQUEST_EDITS_BY_TYPE},
+          {
+            type: types.RECEIVE_EDITS_BY_TYPE,
+            edits: {fakeEdits:1}
+          }
+        ])
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
+  })
+
+  it('creates a thunk that will fetch edits by row', done => {
+    const store = mockStore({})
+
+    store.dispatch(actions.fetchEditsByRow())
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {type: types.REQUEST_EDITS_BY_ROW},
+          {
+            type: types.RECEIVE_EDITS_BY_ROW,
+            edits: {fakeEdits:1}
+          }
+        ])
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
+  })
+
+  it('creates a thunk that will request edits and trigger a csv download', done => {
+    const store = mockStore({})
+
+    store.dispatch(actions.fetchCSV())
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {type: types.REQUEST_CSV}
+        ])
+        expect(window.Blob.mock.calls.length).toBe(1)
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
+  })
+
+  it('creates a thunk that will request edits and trigger a csv download when IE is detected', done => {
+    const store = mockStore({})
+
+    window.navigator.__defineGetter__('userAgent', () => 'MSIE ')
+
+    store.dispatch(actions.fetchCSV())
+    .then(() => {
+      expect(store.getActions()).toEqual([
+        {type: types.REQUEST_CSV}
+      ])
+      expect(window.Blob.mock.calls.length).toBe(2)
+      done()
+    })
+    .catch(err => {
+      console.log(err)
+      done.fail()
+    })
   })
 })

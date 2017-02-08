@@ -14,10 +14,14 @@ export const CLEAR_FILINGS          = 'CLEAR_FILINGS'
 
 export const VERIFY_QUALITY         = 'VERIFY_QUALITY'
 
+export const SHOW_CONFIRM           = 'SHOW_CONFIRM'
+export const HIDE_CONFIRM           = 'HIDE_CONFIRM'
+export const PICK_SORT              = 'PICK_SORT'
+export const REQUEST_CSV            = 'REQUEST_CSV'
+
 export const SELECT_FILE            = 'SELECT_FILE'
 export const REQUEST_UPLOAD         = 'REQUEST_UPLOAD'
 export const UPLOAD_START           = 'UPLOAD_START'
-export const UPLOAD_PROGRESS        = 'UPLOAD_PROGRESS'
 export const UPLOAD_COMPLETE        = 'UPLOAD_COMPLETE'
 export const UPLOAD_ERROR           = 'UPLOAD_ERROR'
 
@@ -39,6 +43,9 @@ export const RECEIVE_IRS_POST       = 'RECEIVE_IRS_POST'
 
 export const REQUEST_SUMMARY        = 'REQUEST_SUMMARY'
 export const RECEIVE_SUMMARY        = 'RECEIVE_SUMMARY'
+
+export const REQUEST_PARSE_ERRORS   = 'REQUEST_PARSE_ERRORS'
+export const RECEIVE_PARSE_ERRORS   = 'RECEIVE_PARSE_ERRORS'
 
 export const REQUEST_SIGNATURE      = 'REQUEST_SIGNATURE'
 export const RECEIVE_SIGNATURE      = 'RECEIVE_SIGNATURE'

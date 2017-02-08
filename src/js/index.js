@@ -54,9 +54,7 @@ render(
           <Route path="/oidc-callback" component={oidcCallback}/>
           <Route path="/institutions" component={InstitutionContainer}/>
           <Route path="/:institution/:filing" component={SubmissionRouter}/>
-          <Route path="/:institution/:filing/upload" component={SubmissionContainer}/>
-          <Route path="/:institution/:filing/edits" component={SubmissionContainer}/>
-          <Route path="/:institution/:filing/summary" component={SubmissionContainer}/>
+          <Route path="/:institution/:filing/*" component={SubmissionContainer}/>
         </Route>
       </Router>
     </OidcProvider>

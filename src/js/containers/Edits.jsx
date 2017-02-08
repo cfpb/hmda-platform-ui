@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchEditsByType, fetchEditsByRow } from '../actions'
-import EditsByType from '../components/EditsByType.jsx'
-import EditsByRow from '../components/EditsByRow.jsx'
-
+import EditsTableWrapper from '../components/EditsTableWrapper.jsx'
+import SortPicker from '../containers/SortPicker.jsx'
+import { fetchEditsByType, fetchEditsByRow, fetchCSVByType } from '../actions'
 
 export class EditsContainer extends Component {
   constructor(props) {
@@ -21,10 +20,10 @@ export class EditsContainer extends Component {
   }
 
   render() {
-    var Subcomponent = this.props.groupByRow ? EditsByRow : EditsByType
     return (
       <div className="EditsContainer">
-        <Subcomponent {...this.props}/>
+        <SortPicker/>
+        <EditsTableWrapper {...this.props}/>
       </div>
     )
   }
@@ -43,12 +42,25 @@ export function mapStateToProps(state) {
     rows: []
   }
 
+  const editTypeFromPath = state.routing.locationBeforeTransitions.pathname.split('/').slice(-1)[0]
+
   return {
     isFetching,
     groupByRow,
     types,
-    rows
+    rows,
+    editTypeFromPath
   }
 }
 
-export default connect(mapStateToProps)(EditsContainer)
+function mapDispatchToProps(dispatch) {
+  return {
+    // triggered by a edit type download click
+    onDownloadClick: (type) => {
+      dispatch(fetchCSVByType(type))
+    },
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditsContainer)

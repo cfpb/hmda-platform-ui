@@ -1,50 +1,41 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
-const parserText = 'Parsing errors require file resubmission.'
-const refileText = 'Syntactical and validity edits require file resubmission.'
-const validateText = 'Quality and macro edits must be validated before continuing. Inaccurate or incorrect data cannot be validated and must be corrected and refiled.'
-
 const getText = (props) => {
   let textToRender = null
-  let refileLink = null
 
   if(props.types.hasOwnProperty('syntactical')) {
     if(props.types.syntactical.edits.length !== 0 || props.types.validity.edits.length !== 0) {
-      textToRender = refileText
-      refileLink = getRefileLink(props)
+      textToRender = <div><span style={{marginRight: '8px'}} className="usa-alert-text"><strong>Syntactical</strong> and <strong>validity</strong> edits require file resubmission.</span></div>
     } else {
-      textToRender = validateText
+      textToRender = <span className="usa-alert-text"><strong>Quality</strong> and <strong>macro</strong> edits must be validated before continuing.</span>
     }
   }
 
   if(props.submission.status.code === 5) {
-    textToRender = parserText
-    refileLink = getRefileLink(props)
+    textToRender = <div><span style={{marginRight: '8px'}} className="usa-alert-text"><strong>Parsing</strong> errors require file resubmission.</span></div>
   }
 
-  return <h3 className="usa-alert-heading">{textToRender}{refileLink?' ':''}{refileLink}</h3>
+  return (
+    <div className="usa-alert-body">
+      {textToRender}
+    </div>
+  )
 }
 
-const getRefileLink = (props) => {
-  return <a onClick={(e)=>{
-    e.preventDefault()
-    props.refileLink(props.submission.id.institutionId, props.submission.id.period)
-  }}>Refile here.</a>
-}
 
 const RefileWarning = (props) => {
   if (props.submission.status.code > 8) return null
 
   let alertClass = 'usa-alert-error'
   if(props.types.hasOwnProperty('syntactical')) {
-    if(props.types.syntactical.edits.length === 0 && props.types.validity.edits.length === 0) {
+    if((props.types.syntactical.edits.length === 0 && props.types.validity.edits.length === 0) && props.submission.status.code !== 5) {
       alertClass = 'usa-alert-warning'
     }
   }
 
   return (
-    <div className={`RefileWarning usa-alert ${alertClass}`}>
+    <div className={`RefileWarning usa-alert ${alertClass} margin-bottom-2`}>
       <div className="usa-alert-body">
         {getText(props)}
       </div>

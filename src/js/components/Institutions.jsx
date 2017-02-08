@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 import {Link} from 'react-router'
-import UserHeading from '../components/UserHeading.jsx'
+import UserHeading from './UserHeading.jsx'
+import Header from './Header.jsx'
+import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 
 const renderTiming = (status, start, end) => {
@@ -85,11 +87,6 @@ const renderButton = (code, institutionId, period) => {
   return <Link className="status-button usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
 }
 
-const renderRefile = (makeNewSubmission, code, institutionId, period) => {
-  if(code === 1) return null
-  return <a className="usa-button usa-button-secondary usa-text-small" onClick={()=>{    makeNewSubmission(institutionId, period)}}>Refile</a>
-}
-
 const getInstitutionFromFiling = (institutions, filing) => {
   for(let i=0; i<institutions.length; i++){
     if(institutions[i].id === filing.institutionId) return institutions[i]
@@ -102,33 +99,39 @@ export default class Institution extends Component {
     const institutions = this.props.institutions
     const makeNewSubmission = this.props.makeNewSubmission
     return (
-    <div className="Institutions usa-grid-full">
-      <UserHeading period="2017" userName={this.props.user.profile.name} />
-      <div className="usa-width-two-thirds">
-        {this.props.filings.map((filingObj, i) => {
-          const filing = filingObj.filing
-          const institution = getInstitutionFromFiling(institutions, filing)
-          return (
-            <div key={i} className="usa-grid-full institution bg-color-hmda-gray padding-2">
-              <h2>{institution.name} - {institution.id}</h2>
-              {renderTiming(filing.status, filing.start, filing.end)}
-              {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
-              {renderButton(filing.status.code, filing.institutionId, filing.period)}
-              {renderRefile(makeNewSubmission, filing.status.code, filing.institutionId, filing.period)}
-              <h5>Previous submissions for this filing</h5>
-              <ul className="usa-text-small usa-unstyled-list">
-                {filingObj.submissions.map((submission, i) => {
-                  return (<li key={i}><strong>{submission.id.sequenceNumber}</strong>. <a href="#">Download edit report</a> - <span className="text-gray">started on {moment(submission.start).format('MMM Do, YYYY')}</span></li>)
-                })}
-              </ul>
-            </div>
-          )
-        })}
-      </div>
-      <div className="usa-width-one-third padding-left-1 padding-right-1">
-        <p>We can use this area as some help text and talk about the process or whatever else we need to mention.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec auctor nisl. Nam ut justo nec ligula aliquam pretium et at orci. Nulla pulvinar feugiat tellus, in sagittis sem sollicitudin at. Nunc nec libero at elit consectetur elementum eu at nisl.</p>
-        <p>Curabitur molestie felis massa, vel semper nulla maximus nec. Quisque feugiat nulla nec urna tristique varius. Ut vulputate felis mi, non elementum lacus tempor ut. Etiam tempus porta arcu non venenatis. Vivamus nec tellus eleifend, pulvinar sapien sed, posuere leo.</p>
+    <div className="Institutions">
+      <Header
+        pathname={this.props.location.pathname}
+        userName={this.props.user.profile.name} />
+      <div id="main-content" className="usa-grid">
+        <UserHeading period="2017" userName={this.props.user.profile.name} />
+        <div className="usa-width-two-thirds">
+          {this.props.filings.map((filingObj, i) => {
+            const filing = filingObj.filing
+            const institution = getInstitutionFromFiling(institutions, filing)
+            if(!institution) return
+            return (
+              <div key={i} className="usa-grid-full institution bg-color-hmda-gray padding-2">
+                <h2>{institution.name} - {institution.id}</h2>
+                {renderTiming(filing.status, filing.start, filing.end)}
+                {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
+                {renderButton(filing.status.code, filing.institutionId, filing.period)}
+                <RefileButton id={filing.institutionId} filing={filing.period} code={filing.status.code}/>
+                <h5>Previous submissions for this filing</h5>
+                <ul className="usa-text-small usa-unstyled-list">
+                  {filingObj.submissions.map((submission, i) => {
+                    return (<li className="edit-report" key={i}><strong>{submission.id.sequenceNumber}</strong>. <a href="#" onClick={(e) => {e.preventDefault(); this.props.onDownloadClick(institution.id, filing.period, submission.id.sequenceNumber)}}>Download edit report</a> - <span className="text-gray">started on {moment(submission.start).format('MMMM Do, YYYY')}</span></li>)
+                  })}
+                </ul>
+              </div>
+            )
+          })}
+        </div>
+        <div className="usa-width-one-third padding-left-1 padding-right-1">
+          <p>We can use this area as some help text and talk about the process or whatever else we need to mention.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec auctor nisl. Nam ut justo nec ligula aliquam pretium et at orci. Nulla pulvinar feugiat tellus, in sagittis sem sollicitudin at. Nunc nec libero at elit consectetur elementum eu at nisl.</p>
+          <p>Curabitur molestie felis massa, vel semper nulla maximus nec. Quisque feugiat nulla nec urna tristique varius. Ut vulputate felis mi, non elementum lacus tempor ut. Etiam tempus porta arcu non venenatis. Vivamus nec tellus eleifend, pulvinar sapien sed, posuere leo.</p>
+        </div>
       </div>
     </div>
     )
@@ -146,5 +149,6 @@ Institution.propTypes = {
   filings: PropTypes.array,
   user: PropTypes.object,
   institutions: PropTypes.array,
-  fetchNewSubmission: PropTypes.func
+  makeNewSubmission: PropTypes.func,
+  onDownloadClick: PropTypes.func
 }

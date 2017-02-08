@@ -1,5 +1,4 @@
 jest.unmock('../../src/js/components/UploadForm.jsx')
-jest.unmock('../../src/js/components/Progress.jsx')
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -19,8 +18,9 @@ describe('submitform', function(){
           handleSubmit={handleSubmit}
           setFile={setFile}
           uploading={true}
-          bytesUploaded={42}
           file={{size:108}}
+          code={5}
+          filingPeriod={2017}
         />
       </Wrapper>, node)
   const formNode = ReactDOM.findDOMNode(form)
@@ -57,7 +57,6 @@ describe('submitform', function(){
           handleSubmit={handleSubmit}
           setFile={setFile}
           uploading={true}
-          bytesUploaded={42}
           file={{size:200}}
         />
       </Wrapper>, node)

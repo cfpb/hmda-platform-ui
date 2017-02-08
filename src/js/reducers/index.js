@@ -9,6 +9,9 @@ import {
   RECEIVE_FILING,
   RECEIVE_SUBMISSION,
   SELECT_FILE,
+  SHOW_CONFIRM,
+  HIDE_CONFIRM,
+  PICK_SORT,
   UPLOAD_PROGRESS,
   UPLOAD_COMPLETE,
   UPLOAD_ERROR,
@@ -28,13 +31,21 @@ import {
   RECEIVE_SUMMARY,
   VERIFY_QUALITY,
   UPDATE_STATUS,
-  CHECK_SIGNATURE
+  CHECK_SIGNATURE,
+  REQUEST_PARSE_ERRORS,
+  RECEIVE_PARSE_ERRORS
 } from '../constants'
 
 const defaultUpload = {
   uploading: false,
-  bytesUploaded: 0,
-  file: null
+  file: null,
+  errors: []
+}
+
+const defaultConfirmation = {
+  showing: false,
+  id: null,
+  filing: null
 }
 
 const defaultStatus = {
@@ -115,27 +126,41 @@ export const filingPeriod = (state = '2017', action) => {
 
 /*
  * Maintain data on the current upload
- * When a file is selected, reset bytesUploaded and set the file
- * When upload progress is dispatched, update bytesLoaded
  */
 export const upload = (state = defaultUpload, action) => {
   switch (action.type) {
   case SELECT_FILE:
     return {
       ...state,
-      bytesUploaded: 0,
-      file: action.file
-    }
-  case UPLOAD_PROGRESS:
-    return {
-      ...state,
-     bytesUploaded: action.xhrProgressEvent.loaded
+      file: action.file,
+      errors: action.errors
     }
   default:
     return state
   }
 }
 
+/*
+ * Track confirmation modal for refiling
+ */
+export const confirmation = (state = defaultConfirmation, action) => {
+  switch (action.type) {
+  case SHOW_CONFIRM:
+    return {
+      showing: action.showing,
+      id: action.id,
+      filing: action.filing,
+      code: action.code
+    }
+  case HIDE_CONFIRM:
+    return {
+      ...state,
+      showing: action.showing,
+    }
+  default:
+    return state
+  }
+}
 /*
  * Maintain the status of the current submission
  * Set isFetching to true when a request is made
@@ -216,6 +241,12 @@ const edits = (state = defaultEdits, action) => {
       const clonedState = {...state}
       clonedState.types.quality.verified = action.checked
       return clonedState
+    }
+    case PICK_SORT: {
+      return {
+        ...state,
+        groupByRow: action.groupByRow
+      }
     }
     default:
       return state
@@ -327,6 +358,32 @@ export const summary = (state = defaultSummary, action) => {
   }
 }
 
+const defaultParseErrors = {
+  isFetching: false,
+  transmittalSheetErrors: [],
+  larErrors: []
+}
+
+export const parseErrors = (state = defaultParseErrors, action) => {
+  switch(action.type) {
+    case REQUEST_PARSE_ERRORS:
+      return {
+        ...state,
+        isFetching: true
+      }
+
+    case RECEIVE_PARSE_ERRORS:
+      return {
+        isFetching: false,
+        transmittalSheetErrors: action.transmittalSheetErrors,
+        larErrors: action.larErrors
+      }
+
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   auth,
   institutions,
@@ -334,8 +391,10 @@ export default combineReducers({
   filingPeriod,
   submission,
   upload,
+  confirmation,
   edits,
   irs,
   signature,
-  summary
+  summary,
+  parseErrors
 })

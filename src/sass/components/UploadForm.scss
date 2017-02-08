@@ -1,0 +1,63 @@
+.UploadForm {
+  border: 1px solid $color-gray-lightest;
+  margin-bottom: 2em;
+  padding: 20px;
+  width: 470px;
+  .usa-alert {
+    margin-bottom: 1em;
+    margin-top: 0;
+    ul.usa-alert-text {
+      margin-top: 0;
+      padding-left: 1em;
+    }
+  }
+  .usa-form {
+    max-width: 100%;
+  }
+  .usa-button.usa-button-gray {
+    border: 1px solid $color-gray;
+    border-radius: .3rem 0 0 .3rem;
+    margin-right: -1px;
+    &.usa-button-disabled {
+      background-color: $color-gray-lighter;
+      border-color: $color-gray-lighter;
+      color: $color-gray-dark;
+    }
+  }
+  input[type="text"] {
+    border-color: $color-gray;
+    border-left: none;
+    display: inline;
+    max-width: 30rem;
+    &.input-disabled {
+      border-color: $color-gray-lighter;
+      color: $color-gray;
+    }
+    &.input-error {
+      border-color: $color-secondary;
+      color: $color-secondary;
+    }
+  }
+  [type="submit"] {
+    margin: 1em auto 0;
+    width: 100%;
+  }
+
+  .hmda-file-input {
+    display: inline;
+    position: relative;
+    label {
+      display: inline;
+      margin-top: 0;
+    }
+    input[type="file"] {
+      cursor: pointer;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
+}

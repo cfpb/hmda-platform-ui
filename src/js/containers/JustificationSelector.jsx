@@ -35,6 +35,12 @@ export class JustificationSelector extends Component {
   }
 
   render() {
+    const { syntactical, validity } = this.props.edits.types
+    let disabled = true
+    // if the submission is in any other status but signed AND there are no syntactical and validity edits, enable it
+    if (this.props.code !== 11 && (validity.edits.length === 0 && syntactical.edits.length === 0)) {
+      disabled = false
+    }
     return (
       <Select
         allowCreate={true}
@@ -45,13 +51,27 @@ export class JustificationSelector extends Component {
         value={this.state && this.state.value}
         onChange={this.props.dispatchOnChange.bind(this)}
         options={this.labelledJustifications}
+        disabled={disabled}
       />
     )
   }
 }
 
-export function mapStateToProps(state, ownProps) {
-  return { ...ownProps }
+JustificationSelector.defaultProps = {
+  justifications: []
+}
+
+function mapStateToProps(state, ownProps) {
+  const code = state.app.submission.status.code || null
+
+  // can remove the edits if we later update status to include a status for syntax/validity edits and separate status for quality/macro
+  const edits = state.app.edits || null
+
+  return {
+    ...ownProps,
+    code,
+    edits
+  }
 }
 
 export function mapDispatchToProps(dispatch, ownProps){

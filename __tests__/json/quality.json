@@ -1,30 +1,34 @@
-  {
-  "type":"quality",
+{
   "edits": [
     {
       "edit": "quality1337",
       "verified": false,
-      "lars": [
+      "rows": [
         {
-          "lar": {"loanId": "q1"}
+          "row": {"rowId": "q1"},
+          "fields": {"Agency Code": 1}
         },
         {
-          "lar": {"loanId": "q2"}
+          "row": {"rowId": "q2"},
+          "fields": {"Agency Code": 1}
         },
         {
-          "lar": {"loanId": "q3"}
+          "row": {"rowId": "q3"},
+          "fields": {"Agency Code": 1}
         }
       ]
     },
     {
       "edit": "quality1338",
       "verified": true,
-      "lars": [
+      "rows": [
         {
-          "lar": {"loanId": "q4"}
+          "row": {"rowId": "q4"},
+          "fields": {"Agency Code": 1}
         },
         {
-          "lar": {"loanId": "q5"}
+          "row": {"rowId": "q5"},
+          "fields": {"Agency Code": 1}
         }
       ]
     }

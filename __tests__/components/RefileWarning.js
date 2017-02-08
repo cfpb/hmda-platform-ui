@@ -40,21 +40,14 @@ describe('Refile Warning', () => {
       }
     }
 
-    const refileLink = jest.fn()
 
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
-        <RefileWarning submission={submission} types={synTypes} refileLink={refileLink}/>
+        <RefileWarning submission={submission} types={synTypes}/>
       </Wrapper>
     )
 
-    expect(TestUtils.findRenderedDOMComponentWithClass(refileWarning, 'usa-alert-heading').innerHTML.match(parserText)[0]).toEqual(parserText);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(refileWarning, 'a').length).toEqual(1);
-
-    const link = TestUtils.findRenderedDOMComponentWithTag(refileWarning, 'a')
-    TestUtils.Simulate.click(link)
-    expect(refileLink).toBeCalled()
-    expect(refileLink).toBeCalledWith('12345', '2017')
+    expect(TestUtils.findRenderedDOMComponentWithClass(refileWarning, 'usa-alert-text').textContent).toEqual(parserText);
   });
 
   it('renders the correct elements for status code 7', () => {
@@ -62,6 +55,11 @@ describe('Refile Warning', () => {
       status: {
         code: 7,
         message: ''
+      },
+      id: {
+        institutionId: '12345',
+        period: '2017',
+        sequenceNumber: 1
       }
     }
 
@@ -71,8 +69,7 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.findRenderedDOMComponentWithClass(refileWarning, 'usa-alert-heading').innerHTML.match(refileText)[0]).toEqual(refileText);
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(refileWarning, 'a').length).toEqual(1);
+    expect(TestUtils.findRenderedDOMComponentWithClass(refileWarning, 'usa-alert-text').textContent).toEqual(refileText);
   });
 
 
@@ -90,7 +87,7 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.findRenderedDOMComponentWithClass(refileWarning, 'usa-alert-heading').innerHTML.match(validateText)[0]).toEqual(validateText);
+    expect(TestUtils.findRenderedDOMComponentWithClass(refileWarning, 'usa-alert-text').textContent).toEqual(validateText);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(refileWarning, 'a').length).toEqual(0);
   });
 
@@ -108,7 +105,7 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(refileWarning, 'usa-alert-heading').length).toEqual(0);
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(refileWarning, 'usa-alert-text').length).toEqual(0);
     expect(TestUtils.scryRenderedDOMComponentsWithTag(refileWarning, 'a').length).toEqual(0);
   });
 

@@ -1,7 +1,7 @@
 jest.unmock('../../src/js/reducers')
 
 import * as types from '../../src/js/constants'
-import { institutions, filings, submission, upload, status, irs, signature } from '../../src/js/reducers'
+import { institutions, confirmation, filings, submission, upload, status, irs, signature } from '../../src/js/reducers'
 
 const typesArr = Object.keys(types)
   .filter( v => v !== '__esModule')
@@ -15,8 +15,14 @@ const excludeTypes = (...args) => {
 
 const defaultUpload = {
   uploading: false,
-  bytesUploaded: 0,
-  file: null
+  file: null,
+  errors: []
+}
+
+const defaultConfirmation = {
+  showing: false,
+  id: null,
+  filing: null
 }
 
 const defaultStatus = {
@@ -56,6 +62,24 @@ describe('status reducer', () => {
       status({}, {type: types.UPDATE_STATUS, status: { code: 3, message: ''}})
     ).toEqual({ code: 3, message: ''})
 
+  })
+})
+
+describe('confirmation reducer', () => {
+  it('should return the initial state on empty action', () => {
+    expect(
+      confirmation(undefined, {})
+    ).toEqual(defaultConfirmation)
+  })
+  it('should positively set confirmation', () => {
+    expect(
+      confirmation(defaultConfirmation, {type: types.SHOW_CONFIRM, showing: true, id:'a', filing: 'b'})
+    ).toEqual({showing: true, id: 'a', filing: 'b'})
+  })
+  it('should negatively set confirmation', () => {
+    expect(
+      confirmation({showing: true}, {type: types.HIDE_CONFIRM, showing: false})
+    ).toEqual({showing: false})
   })
 })
 
@@ -186,8 +210,7 @@ describe('filings reducer', () => {
 
 })
 
-describe
-('submission reducer', () => {
+describe('submission reducer', () => {
   it('should return the initial state on empty action', () => {
     expect(
       submission(undefined, {})
@@ -239,17 +262,10 @@ describe('upload reducer', () => {
 
   it('handles SELECT_FILE', () => {
     expect(
-      upload({bytesUploaded: 123, file: {}},
+      upload({file: {}},
       {type: types.SELECT_FILE, file: {name: 'afile'}}
-    )).toEqual({bytesUploaded: 0, file: {name: 'afile'}})
+    )).toEqual({file: {name: 'afile'}})
   })
-
-  it('handles UPLOAD_PROGRESS', () => {
-    expect(
-      upload({}, {type: types.UPLOAD_PROGRESS, xhrProgressEvent: {loaded: 42}})
-    ).toEqual({bytesUploaded: 42})
-  })
-
 
   it('shouldn\'t modify state on an unknown action type', () => {
     excludeTypes(types.SELECT_FILE, types.UPLOAD_PROGRESS)

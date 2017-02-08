@@ -1,5 +1,11 @@
 .ValidationProgress {
-  color: $color-gray;
-  font-size: $small-font-size;
-  font-style: italic;
+  border-top: 1px solid $color-gray-lightest;
+  margin-top: 1em;
+  padding-top: 1em;
+  .usa-button {
+    margin-top: .5em;
+  }
+  .usa-unstyled-list>li {
+    margin-bottom: .5em;
+  }
 }

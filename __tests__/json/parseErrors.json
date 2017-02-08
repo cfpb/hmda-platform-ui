@@ -1,0 +1,29 @@
+{
+  "transmittalSheetErrors": [
+    "Record Identifier is not an Integer",
+    "Agency Code is not an Integer"
+  ],
+  "larErrors": [
+    {
+      "lineNumber": 2,
+      "errorMessages": [
+        "Incorrect number of fields. found: 32, expected: 39"
+      ]
+    },
+    {
+      "lineNumber": 4,
+      "errorMessages": [
+        "Record Identifier is not an Integer"
+      ]
+    },
+    {
+      "lineNumber": 11,
+      "errorMessages": [
+        "Loan Type is not an Integer",
+        "Property Type is not an Integer",
+        "Loan Purpose is not an Integer",
+        "Owner Occupancy is not an Integer"
+      ]
+    }
+  ]
+}

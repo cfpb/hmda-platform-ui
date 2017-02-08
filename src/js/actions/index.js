@@ -7,8 +7,7 @@ import {
   getLatestSubmission,
   createSubmission,
   getUploadUrl,
-  getEditsByType,
-  getEditsByRow,
+  getEdits,
   postEdit,
   getIRS,
   getSignature,
@@ -16,9 +15,12 @@ import {
   getSummary,
   postQuality,
   setAccessToken,
-  getAccessToken
+  getAccessToken,
+  getParseErrors,
+  getEditsOfType
 } from '../api'
 import * as types from '../constants'
+import fileSaver from 'file-saver'
 
 let latestSubmissionId
 let currentFilingPeriod
@@ -100,6 +102,12 @@ export function receiveSubmission(data) {
     ...data
   }
 }
+
+export function requestCSV() {
+  return {
+    type: types.REQUEST_CSV
+  }
+}
 export function requestEditsByType() {
     return {
       type: types.REQUEST_EDITS_BY_TYPE
@@ -113,7 +121,6 @@ export function requestEditsByRow() {
 }
 
 export function receiveEditsByType(data) {
-  console.log('edits by type', data)
   return {
     type: types.RECEIVE_EDITS_BY_TYPE,
     edits: data
@@ -149,25 +156,47 @@ export function clearFilings() {
   }
 }
 
+function checkErrors(file) {
+  const errors = []
+  if(file) {
+    if(file.size === 0) {
+      errors.push('The file you uploaded does not contain any data. Please check your file and re-upload.')
+    }
+    if(file.name.split('.').slice(-1)[0] !== 'txt') {
+      errors.push('The file you uploaded is not a text file (.txt). Please check your file and re-upload.')
+    }
+  }
+  return errors
+}
+
 export function selectFile(file) {
   return {
     type: types.SELECT_FILE,
-    file
+    file,
+    errors: checkErrors(file)
   }
 }
 
+export function showConfirm(id, filing, code) {
+  return {
+    type: types.SHOW_CONFIRM,
+    showing: true,
+    id,
+    filing,
+    code
+  }
+}
 
+export function hideConfirm() {
+  return {
+    type: types.HIDE_CONFIRM,
+    showing: false
+  }
+}
 
 export function uploadStart() {
   return {
     type: types.UPLOAD_START
-  }
-}
-
-export function uploadProgress(xhrProgressEvent) {
-  return {
-    type: types.UPLOAD_PROGRESS,
-    xhrProgressEvent
   }
 }
 
@@ -287,6 +316,22 @@ export function updateSignature(signed) {
   }
 }
 
+export function pickSort(groupByRow) {
+  return {
+    type: types.PICK_SORT,
+    groupByRow
+  }
+}
+
+export function triggerPickSort(groupByRow) {
+  return dispatch => {
+    dispatch(pickSort(groupByRow))
+    let editAction = fetchEditsByType
+    if(groupByRow) editAction = fetchEditsByRow
+    dispatch(editAction())
+  }
+}
+
 export function requestSummary() {
   return {
     type: types.REQUEST_SUMMARY
@@ -307,6 +352,63 @@ export function fetchSummary() {
     return getSummary(latestSubmissionId)
       .then(json => dispatch(receiveSummary(json)))
       .catch(err => console.error(err))
+  }
+}
+
+export function requestParseErrors() {
+  return {
+    type: types.REQUEST_PARSE_ERRORS
+  }
+}
+
+export function receiveParseErrors(data) {
+  return {
+    type: types.RECEIVE_PARSE_ERRORS,
+    transmittalSheetErrors: data.transmittalSheetErrors,
+    larErrors: data.larErrors
+  }
+}
+
+export function fetchParseErrors() {
+  return dispatch => {
+    dispatch(requestParseErrors())
+    return getParseErrors(latestSubmissionId)
+      .then(json => dispatch(receiveParseErrors(json)))
+      .catch(err => console.error(err))
+  }
+}
+
+// downloading the csv edit reports, no reducer required
+export function fetchCSV(institutionId, filing, submissionId) {
+  return dispatch => {
+    dispatch(requestCSV())
+    return getEdits({
+      id: institutionId,
+      filing: filing,
+      submission: submissionId,
+      params: {
+        format: 'csv'
+      }
+    })
+      .then(csv => {
+        fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${submissionId}-full-edit-report.csv`)
+      })
+  }
+}
+
+export function fetchCSVByType(type) {
+  return dispatch => {
+    dispatch(requestCSV())
+    return getEdits({
+      suffix: `/edits/${type}`,
+      submission: latestSubmissionId,
+      params: {
+        format: 'csv'
+      }
+    })
+      .then(csv => {
+        fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${latestSubmissionId}-${type}-edit-report.csv`)
+      })
   }
 }
 
@@ -335,10 +437,6 @@ export function requestUpload(file) {
       dispatch(uploadComplete(e))
 
       dispatch(pollForProgress())
-    })
-
-    xhr.upload.addEventListener('progress', e => {
-      dispatch(uploadProgress(e))
     })
 
     xhr.open('POST', getUploadUrl(latestSubmissionId));
@@ -507,8 +605,10 @@ export function fetchFiling(institution) {
 export function fetchEditsByType() {
   return dispatch => {
     dispatch(requestEditsByType())
-    return getEditsByType(latestSubmissionId)
-      .then(json => dispatch(receiveEditsByType(json)))
+    return getEdits({submission: latestSubmissionId})
+      .then(json => {
+        dispatch(receiveEditsByType(json))
+      })
       .catch(err => console.error(err))
   }
 }
@@ -516,7 +616,7 @@ export function fetchEditsByType() {
 export function fetchEditsByRow() {
   return dispatch => {
     dispatch(requestEditsByRow())
-    return getEditsByRow(latestSubmissionId)
+    return getEdits({submission: latestSubmissionId, params: {sortBy: 'row'}})
       .then(json => dispatch(receiveEditsByRow(json)))
       .catch(err => console.error(err))
   }

@@ -25,14 +25,4 @@ export function mapStateToProps(state) {
   return {submission, types}
 }
 
-export function mapDispatchToProps(dispatch) {
-  const refileLink = (id, period) => {
-    dispatch(createNewSubmission(id, period)).then(()=>{
-      browserHistory.replace(`/${id}/${period}`)
-    })
-  }
-
-  return {refileLink}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(RefileWarning)
+export default connect(mapStateToProps)(RefileWarning)

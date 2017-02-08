@@ -1,35 +1,40 @@
 import React, { PropTypes } from 'react'
 
-const getText = (editType) => {
+const getText = (editType, count) => {
   let id = null
   let title = null
   let desc = null
 
   switch (editType) {
-    case 'lar':
-      id = 'lar'
-      title = 'Loan Application Records'
-      desc = 'LAR refers to the loan/application register. Loan/Application Register means both the record of information required to be collected pursuant to § 1003.4 and the record submitted annually or quarterly, as applicable, pursuant to § 1003.5(a).'
-      break
     case 'syntactical':
       id = 'syntactical'
-      title = 'Syntactical Edits'
+      title = count === 1 ? 'Syntactical Edit' : 'Syntactical Edits'
       desc = 'Edits that check whether the loan/application register is in the correct format and whether the data covers the correct filing year. The loan/application register cannot be filed until the filer corrects all syntactical edit errors and reuploads the updated loan/application register to the HMDA Platform.'
       break
     case 'validity':
       id = 'validity'
-      title =  'Validity Edits'
+      title = count === 1 ? 'Validity Edit' : 'Validity Edits'
       desc = 'Edits that check whether there are valid values in each data field. The loan/application register cannot be filed until the filer corrects all validity edit errors and reuploads the updated loan/application register to the HMDA Platform.'
       break
     case 'quality':
       id = 'quality'
-      title =  'Quality Edits'
+      title = count === 1 ? 'Quality Edit' : 'Quality Edits'
       desc = 'Edits that check whether entries in the individual data fields or combinations of data fields conform to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all values flagged by quality edits in the HMDA Platform, or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
       break
     case 'macro':
       id = 'macro'
-      title =  'Macro Edits'
+      title = count === 1 ? 'Macro Edit' : 'Macro Edits'
       desc = 'Edits that check whether the submitted loan/application register as a whole conforms to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all the values flagged by the macro quality edits in the HMDA Platform or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
+      break
+    case 'rowsquality':
+      id = 'quality'
+      title = (count === 1 ? 'Row':'Rows') + ' of Quality Edits'
+      desc = 'Edits that check whether entries in the individual data fields or combinations of data fields conform to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all values flagged by quality edits in the HMDA Platform, or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
+      break
+    case 'rowssyntacticalvalidity':
+      id = 'rowheader'
+      title = (count === 1 ? 'Row':'Rows') + ' of Syntactical and Validity Edits'
+      desc = 'Edits that check whether the loan/application register is in the correct format, whether the data covers the correct filing year, and whether there are valid values in each data field. The loan/application register cannot be filed until the filer corrects all syntactical edit errors and reuploads the updated loan/application register to the HMDA Platform.'
       break
     default:
       throw new Error('Unexpected edit type. Unable to create edit description')
@@ -38,12 +43,29 @@ const getText = (editType) => {
   return {id, title, desc}
 }
 
-const EditsHeaderDescription = (props) => {
-  const textObj = getText(props.type)
+const renderCSVLink = (props) => {
+  if(props.count === 0) return null
+  let linkText = props.type
+  if(linkText.slice(0,4) === 'rows') return null
+
   return (
-    <div className="EditsHeaderDescription padding-2 bg-color-gray-lightest" id={textObj.id}>
-      <h2>{textObj.title} - {props.count}</h2>
-      <p className="usa-font-lead">{textObj.desc}</p>
+    <p><a href="#" onClick={(e) => {
+      e.preventDefault()
+      props.onDownloadClick(props.type)
+    }}>Download {linkText} edits (CSV)</a></p>
+  )
+}
+
+const EditsHeaderDescription = (props) => {
+  const { type, count } = props
+  const { id, title, desc } = getText(type, count)
+  const headingClass = count > 0 ? 'text-secondary' : 'text-green'
+
+  return (
+    <div className="EditsHeaderDescription" id={id}>
+      <h2 className={headingClass}>{count} {title}</h2>
+      <p className="usa-font-lead">{desc}</p>
+      {renderCSVLink(props)}
     </div>
   )
 }
