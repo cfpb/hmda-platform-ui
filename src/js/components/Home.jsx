@@ -43,53 +43,48 @@ const Home = (props) => {
 
         <div className="usa-grid margin-top-2 margin-bottom-2 padding-top-2 border-top">
           <div className="usa-width-one-half">
+            <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
             <h3>How to get started</h3>
-            <p className="usa-font-lead">You can go the the <Link className="usa-nav-link" to={'/institutions'}>institutions page</Link> to begnin filing immediately or to review your current filing progress. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce porttitor at nisi ut sodales. Duis cursus tortor id cursus interdum. Vivamus venenatis ultrices urna eget elementum. Proin maximus dolor nec est faucibus porttitor. Morbi rutrum porta libero. Aenean tortor eros, tincidunt id consectetur id, pulvinar molestie ante. Integer aliquam metus sit amet lacus tincidunt ultricies in nec lorem.</p>
-            <p>Nulla facilisi. Morbi mi eros, feugiat vitae ligula ac, commodo pharetra tortor. Duis quis nunc dignissim, efficitur lectus id, tincidunt metus. Fusce pellentesque dictum tellus, eu sagittis nisl molestie sit amet. Fusce semper, leo nec venenatis lobortis, nibh eros tincidunt est, id rhoncus enim lectus vitae dolor. Nulla sapien enim, auctor vitae sagittis ut, fermentum at est. Integer sit amet tempus nulla. Morbi lobortis non tortor et tempor. Praesent sit amet convallis ex. Sed tempus a velit ut dignissim. Pellentesque tincidunt est quis ex rhoncus tristique. Sed nisl lacus, iaculis sed vestibulum quis, volutpat a mi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vehicula, leo nec mollis elementum, felis eros scelerisque nulla, et tempor felis est at ipsum.</p>
+            <p>Select the Login button to begin the process for filing your HMDA data. The HMDA Platform will require every HMDA filer to register online for login credentials and establish an account prior to using the system.</p>
+            <p>Once you have logged in, you may upload your financial institution’s LAR. The HMDA Platform will then guide you through the filing process.</p>
+            <p>For resources to help you prepare your HMDA filing, please visit <a href="http://www.consumerfinance.gov/data-research/hmda/for-filers">Resources for HMDA filers</a>.</p>
           </div>
           <div className="usa-width-one-half">
             <h3>Top FAQs</h3>
             <dl>
-              <dt>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</dt>
-              <dd>Fusce porttitor at nisi ut sodales. Duis cursus tortor id cursus interdum. Vivamus venenatis ultrices urna eget elementum. Proin maximus dolor nec est faucibus porttitor.</dd>
-              <dt>Morbi rutrum porta libero. Aenean tortor eros, tincidunt id consectetur id, pulvinar molestie ante?</dt>
-              <dd>Integer aliquam metus sit amet lacus tincidunt ultricies in nec lorem.</dd>
-              <dt>Nulla facilisi. Morbi mi eros, feugiat vitae ligula ac, commodo pharetra tortor. Duis quis nunc dignissim, efficitur lectus id, tincidunt metus?</dt>
-              <dd>Fusce pellentesque dictum tellus, eu sagittis nisl molestie sit amet. Fusce semper, leo nec venenatis lobortis, nibh eros tincidunt est, id rhoncus enim lectus vitae dolor. Nulla sapien enim, auctor vitae sagittis ut, fermentum at est.</dd>
-              <dt>Integer sit amet tempus nulla. Morbi lobortis non tortor et tempor. Praesent sit amet convallis ex. Sed tempus a velit ut dignissim. Pellentesque tincidunt est quis ex rhoncus tristique. Sed nisl lacus, iaculis sed vestibulum quis, volutpat a mi?</dt>
-              <dd>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vehicula, leo nec mollis elementum, felis eros scelerisque nulla, et tempor felis est at ipsum.</dd>
+              <dt>What type of browser do I need in order to use the CFPB’s HMDA Platform?</dt>
+              <dd>We recommend that HMDA filers use a modern browser, such as the latest version of Google Chrome or Mozilla Firefox, Internet Explorer 11, Microsoft Edge, or other modern browsers.</dd>
+              <dt>What is the deadline for submitting my HMDA data?</dt>
+              <dd>The deadline for submitting HMDA data is March 1 following the calendar year for which data are collected and recorded. For example, for data collected in 2017, the deadline for submitting HMDA data is March 1, 2018.</dd>
+              <dt>Can my financial institution have multiple user accounts?</dt>
+              <dd>Each financial institution may have multiple users. Also, a user may be authorized by more than one financial institution to file HMDA data on those institutions’ behalf, provided that under Regulation C, each such institution is a HMDA filer.</dd>
+              <dt>Will I be able to manually enter my LAR into the HMDA Platform?</dt>
+              <dd>The HMDA Platform only accepts a pipe delimited text file containing your LAR. Any modifications to the data must be updated in the file and uploaded to the HMDA Platform. This must be a single file as the HMDA Platform will not allow users to combine multiple files.</dd>
+              <dt>Is there another tool for me to confirm that my LAR is in the correct format?</dt>
+              <dd>Filers who wish to confirm that their LAR is formatted in the required pipe delimited text file format may use the File <a href="https://github.com/cfpb/hmda-platform-tools">Format Verification Tool</a>. This tool will conduct the same initial checks that the HMDA Platform performs, and provides a convenient test mechanism for filers.</dd>
             </dl>
           </div>
         </div>
 
         <div className="usa-grid margin-top-2 margin-bottom-2 padding-top-2 border-top">
           <div className="usa-width-one-third">
-            <h4>The Regulation</h4>
+            <h4>1003 Regulation C</h4>
             <ul className="usa-unstyled-list">
-              <li><a href="#">Eregs</a></li>
-              <li><a href="#">Regulation</a></li>
-              <li><a href="#">Other legal document</a></li>
+              <li><a href="http://www.consumerfinance.gov/eregulations/1003">Home Mortgage Disclosure</a></li>
             </ul>
           </div>
 
           <div className="usa-width-one-third">
             <h4>Tools</h4>
             <ul className="usa-unstyled-list">
-              <li><a href="#">Stand alone parser</a></li>
-              <li><a href="#">Grasshopper</a></li>
-              <li><a href="#">One more</a></li>
-              <li><a href="#">And another</a></li>
+              <li><a href="https://github.com/cfpb/hmda-platform-tools">File Format Verification Tool</a></li>
             </ul>
           </div>
 
           <div className="usa-width-one-third">
-            <h4>Another highlight</h4>
+            <h4>FFIEC</h4>
             <ul className="usa-unstyled-list">
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+              <li><a href="https://www.ffiec.gov/hmda/">HMDA</a></li>
             </ul>
           </div>
         </div>
