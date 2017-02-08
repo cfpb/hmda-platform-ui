@@ -61,7 +61,7 @@ const Home = (props) => {
               <dt>Will I be able to manually enter my LAR into the HMDA Platform?</dt>
               <dd>The HMDA Platform only accepts a pipe delimited text file containing your LAR. Any modifications to the data must be updated in the file and uploaded to the HMDA Platform. This must be a single file as the HMDA Platform will not allow users to combine multiple files.</dd>
               <dt>Is there another tool for me to confirm that my LAR is in the correct format?</dt>
-              <dd>Filers who wish to confirm that their LAR is formatted in the required pipe delimited text file format may use the File <a href="https://github.com/cfpb/hmda-platform-tools">Format Verification Tool</a>. This tool will conduct the same initial checks that the HMDA Platform performs, and provides a convenient test mechanism for filers.</dd>
+              <dd>Filers who wish to confirm that their LAR is formatted in the required pipe delimited text file format may use the <a href="https://github.com/cfpb/hmda-platform-tools">File Format Verification Tool</a>. This tool will conduct the same initial checks that the HMDA Platform performs, and provides a convenient test mechanism for filers.</dd>
             </dl>
           </div>
         </div>
