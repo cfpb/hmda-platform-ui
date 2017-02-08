@@ -8,9 +8,9 @@ const RefileText = (props) => {
     if(props.code === 11) message = 'has already been submitted'
   }
 
-  return <div className="usa-text-small margin-top-1" style={{textAlign: 'left'}}>
-    {message ? <p className="margin-bottom-0">The HMDA data for this filing year <strong>{message}</strong>.</p>:null}
-    <p className="margin-top-0">Would you like to start the resubmission process?</p>
+  return <div>
+    {message ? <p>The HMDA data for this filing year <strong>{message}</strong>.</p>:null}
+    <p className="margin-bottom-1">Would you like to start the resubmission process?</p>
   </div>
 }
 

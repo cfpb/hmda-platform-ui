@@ -1,32 +1,24 @@
-.confirmation-modal, .confirmation-blurred-blocker {
-  position: absolute;
-  top:0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 9002;
-}
-
 .confirmation-modal {
-  width: 30%;
-  min-width: 320px;
-  height: 200px;
-  margin: auto;
   position: fixed;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+  padding:2em 3em;
   z-index:9003;
   background:$color-gray-lightest;
   border-radius: 4px;
   box-shadow: 0 0 4px -1px $color-gray-warm-dark, 0 1px 2px -1px $color-gray-warm-dark;
 }
 
-.confirmation-modal > div {
-  width: 145px;
-  margin: 50px auto 0;
-}
-
 .confirmation-blurred-blocker {
   background: rgba(255,255,255,0);
   display:none;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9002;
 }
 
 div.showing-blurred-blocker {

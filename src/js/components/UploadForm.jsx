@@ -19,7 +19,7 @@ class Upload extends Component {
   }
 
   getRefileLink(props) {
-    if(!props.base) return null
+    if(!props.base || props.code < 2) return null
     const splitBase = props.base.split('/')
 
     return (
