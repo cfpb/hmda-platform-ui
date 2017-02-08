@@ -13,20 +13,20 @@ describe('RefileButton', () => {
   it('renders the connected component', () => {
     const wrappedConnected = TestUtils.renderIntoDocument(
         <Wrapper>
-          <RefileButton id='a' filing='b'/>
+          <RefileButton id='a' filing='b' code={3}/>
         </Wrapper>
       )
-      expect(wrappedConnected.props.children.props).toEqual({id:'a',filing:'b'})
+      expect(wrappedConnected.props.children.props).toEqual({id:'a',filing:'b',code:3})
       expect(console.error).not.toBeCalled()
   })
 
   it('fails to render the unconnected component', () => {
     const wrappedContainer = TestUtils.renderIntoDocument(
         <Wrapper>
-          <RefileButtonContainer id='a' filing='b'/>
+          <RefileButtonContainer id='a' filing='b' code={3}/>
         </Wrapper>
       )
-      expect(wrappedContainer.props.children.props).toEqual({id:'a',filing:'b'})
+      expect(wrappedContainer.props.children.props).toEqual({id:'a',filing:'b',code:3})
       expect(console.error).toHaveBeenCalledTimes(2)
   })
 
@@ -35,7 +35,7 @@ describe('RefileButton', () => {
     const mapped = mapDispatchToProps(dispatch)
 
     expect(Object.keys(mapped)).toEqual(['showConfirmModal'])
-    mapped.showConfirmModal('a','b')
+    mapped.showConfirmModal('a','b',3)
     expect(dispatch).toBeCalled()
   })
 })

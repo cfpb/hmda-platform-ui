@@ -19,21 +19,14 @@ class Upload extends Component {
   }
 
   getRefileLink(props) {
-    if(props.code > 7) {
-      let message = 'is in progress'
-      if(props.code === 11) message = 'has already been submitted'
-      const splitBase = props.base.split('/')
+    if(!props.base) return null
+    const splitBase = props.base.split('/')
 
-      return (
-        <div className="usa-text-small margin-top-1" style={{textAlign: 'left'}}>
-          <p className="margin-bottom-0">The HMDA data for this filing year <strong>{message}</strong>.</p>
-          <p className="margin-top-0">Would you like to start the resubmission process?</p>
-          <RefileButton id={splitBase[1]} filing={splitBase[2]}/>
-        </div>
-      )
-    }
-
-    return null
+    return (
+      <div className="FloatingRefile">
+        <RefileButton id={splitBase[1]} filing={splitBase[2]} code={props.code}/>
+      </div>
+    )
   }
 
   getValidationProgress(props) {

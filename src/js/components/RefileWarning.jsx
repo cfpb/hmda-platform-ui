@@ -25,7 +25,7 @@ const getText = (props) => {
 }
 
 const getRefileLink = (props) => {
-  return <RefileButton id={props.submission.id.institutionId} filing={props.submission.id.period}/>
+  return <RefileButton id={props.submission.id.institutionId} filing={props.submission.id.period} code={props.submission.status.code}/>
 }
 
 const RefileWarning = (props) => {

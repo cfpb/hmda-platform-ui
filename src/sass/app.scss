@@ -4,6 +4,7 @@
 @import "node_modules/react-select/dist/react-select";
 
 @import "components/DivisionHeader.scss";
+@import "components/RefileButton.scss";
 @import "components/ConfirmationModal.scss";
 @import "components/Submission.scss";
 @import "components/Institutions.scss";
@@ -28,6 +29,7 @@
 }
 
 #main-content {
+  position:relative;
   padding-bottom: 2em;
 }
 

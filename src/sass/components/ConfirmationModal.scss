@@ -4,7 +4,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 9002;
 }
 
 .confirmation-modal {
@@ -13,10 +13,10 @@
   height: 200px;
   margin: auto;
   position: fixed;
-  z-index:3;
-  background:#e6e7e9;
+  z-index:9003;
+  background:$color-gray-lightest;
   border-radius: 4px;
-  box-shadow: 0 0 4px -1px #525652, 0 1px 2px -1px #525652;
+  box-shadow: 0 0 4px -1px $color-gray-warm-dark, 0 1px 2px -1px $color-gray-warm-dark;
 }
 
 .confirmation-modal > div {

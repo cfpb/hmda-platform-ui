@@ -14,8 +14,8 @@ class RefileButtonContainer extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  const showConfirmModal = (id, filing) => {
-    dispatch(showConfirm(id, filing))
+  const showConfirmModal = (id, filing, code) => {
+    dispatch(showConfirm(id, filing, code))
   }
 
   return {showConfirmModal}
@@ -24,7 +24,8 @@ function mapDispatchToProps(dispatch) {
 RefileButtonContainer.propTypes = {
   showConfirmModal: React.PropTypes.func.isRequired,
   id: React.PropTypes.string.isRequired,
-  filing: React.PropTypes.string.isRequired
+  filing: React.PropTypes.string.isRequired,
+  code: React.PropTypes.number.isRequired
 }
 
 export default connect(null, mapDispatchToProps)(RefileButtonContainer)

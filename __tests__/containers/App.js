@@ -9,6 +9,7 @@ import Wrapper from '../Wrapper.js'
 
 
 describe('AppContainer', () => {
+  console.error = jest.fn()
   const wrappedContainer = TestUtils.renderIntoDocument(
     <Wrapper store={{app:{},oidc:{user:{profile:{name:'auser'}}}}}>
       <AppContainer><p>hey</p></AppContainer>
@@ -20,5 +21,6 @@ describe('AppContainer', () => {
   it('renders the component', () => {
     expect(containerNode).toBeDefined()
     expect(containerNode.firstChild.textContent).toEqual('Skip to main content')
+    expect(console.error).toBeCalled()
   })
 })

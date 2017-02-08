@@ -87,11 +87,6 @@ const renderButton = (code, institutionId, period) => {
   return <Link className="status-button usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
 }
 
-const renderRefile = (makeNewSubmission, code, institutionId, period) => {
-  if(code === 1) return null
-  return <a className="usa-button usa-button-secondary usa-text-small" onClick={()=>{makeNewSubmission(institutionId, period)}}>Refile</a>
-}
-
 const getInstitutionFromFiling = (institutions, filing) => {
   for(let i=0; i<institutions.length; i++){
     if(institutions[i].id === filing.institutionId) return institutions[i]
@@ -121,7 +116,7 @@ export default class Institution extends Component {
                 {renderTiming(filing.status, filing.start, filing.end)}
                 {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
                 {renderButton(filing.status.code, filing.institutionId, filing.period)}
-                <RefileButton id={filing.institutionId} filing={filing.period}/>
+                <RefileButton id={filing.institutionId} filing={filing.period} code={filing.status.code}/>
                 <h5>Previous submissions for this filing</h5>
                 <ul className="usa-text-small usa-unstyled-list">
                   {filingObj.submissions.map((submission, i) => {

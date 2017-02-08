@@ -1,11 +1,12 @@
 import React from 'react'
+import RefileText from './RefileText.jsx'
 
 const ModalConfirm = (props) => {
   return (
     <div className={'confirmation-blurred-blocker'+ (props.showing ? ' showing-blurred-blocker' : '')}>
       <div className="confirmation-modal">
       <div>
-        <h4>Are you sure?</h4>
+        <RefileText code={props.code}/>
         <button onClick={(e)=>{
           e.preventDefault()
           props.hideConfirmModal()

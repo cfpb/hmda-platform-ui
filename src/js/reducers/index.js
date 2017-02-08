@@ -148,7 +148,8 @@ export const confirmation = (state = defaultConfirmation, action) => {
     return {
       showing: action.showing,
       id: action.id,
-      filing: action.filing
+      filing: action.filing,
+      code: action.code
     }
   case HIDE_CONFIRM:
     return {
