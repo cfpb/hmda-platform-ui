@@ -14,6 +14,7 @@ export class JustificationSelector extends Component {
   }
 
   componentWillMount() {
+    if(!this.props.justifications) return
     this.labelledJustifications = this.props.justifications.map(justification => {
       return {
         ...justification,

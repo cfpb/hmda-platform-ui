@@ -22,7 +22,11 @@ export function mapStateToProps(state) {
     macro: {edits: []}
   }}
 
-  return {submission, types}
+  const code = submission.status.code
+  const syntacticalValidityEditsExist = types.syntactical.edits.length !== 0 ||
+    types.validity.edits.length !== 0
+
+  return {code, syntacticalValidityEditsExist}
 }
 
 export default connect(mapStateToProps)(RefileWarning)

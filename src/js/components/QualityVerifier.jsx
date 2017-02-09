@@ -11,7 +11,6 @@ const QualityVerifier = (props) => {
           <input id="qualityVerifier"
             name="qualityVerifier"
             type="checkbox"
-            value="qualityVerifier"
             checked={props.verified}
             onChange={e => {
               props.onVerify(e.target.checked)

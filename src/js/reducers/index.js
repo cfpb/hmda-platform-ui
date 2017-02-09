@@ -61,7 +61,12 @@ const defaultSubmission = {
 
 const defaultEdits = {
   isFetching: false,
-  types: {},
+  types: {
+    syntactical: {edits: []},
+    validity: {edits: []},
+    quality: {edits: []},
+    macro: {edits: []}
+  },
   rows: [],
   groupByRow: false
 }

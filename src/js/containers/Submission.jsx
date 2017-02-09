@@ -7,16 +7,13 @@ import Header from '../components/Header.jsx'
 import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
 import Edits from './Edits.jsx'
-import EditsNav from '../components/EditsNav.jsx'
+import EditsNav from '../containers/EditsNav.jsx'
 import IRSReport from './IRSReport.jsx'
 import Signature from './Signature.jsx'
 import Summary from './Summary.jsx'
 import RefileWarning from './RefileWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import ParseErrors from './ParseErrors.jsx'
-/*
-import EditsContainer from './EditsContainer.jsx'
-*/
 
 class SubmissionContainer extends Component {
   constructor(props) {
@@ -100,10 +97,7 @@ class SubmissionContainer extends Component {
           userName={user.profile.name}
           institution={params.institution} />
         {code > 2 ? <div className="FloatingRefile"><RefileButton id={params.institution} filing={params.filing} code={code}/></div> : null}
-        <EditsNav
-          page={page}
-          base={base}
-          code={code} />
+        <EditsNav/>
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>

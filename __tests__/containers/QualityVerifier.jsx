@@ -15,8 +15,8 @@ describe('QualityVerifier Container', () => {
     expect(mapStateToProps(defaultState)).toEqual({verified: true})
   })
 
-  it('sets verified to null if no edit types are present', () => {
-    expect(mapStateToProps({app:{edits:{}}})).toEqual({verified:null})
+  it('sets verified to false if no edit types are present', () => {
+    expect(mapStateToProps({app:{edits:{}}})).toEqual({verified:false})
   })
 
   it('throws on bad state', () => {

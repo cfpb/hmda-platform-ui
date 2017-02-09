@@ -626,7 +626,7 @@ export function justifyUpdate(data) {
   return dispatch => {
     dispatch(requestEditPost())
     return postEdit(latestSubmissionId, data)
-      .then(() => dispatch(receiveEditPost(data)))
+      .then((responseData) => dispatch(receiveEditPost(responseData)))
       .catch(err => console.error(err))
   }
 }
