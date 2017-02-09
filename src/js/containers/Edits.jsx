@@ -10,7 +10,7 @@ export class EditsContainer extends Component {
   }
 
   componentDidMount() {
-    this.getEditsByGrouping()
+    if(!this.props.fetched) this.getEditsByGrouping()
   }
 
 
@@ -32,20 +32,17 @@ export class EditsContainer extends Component {
 export function mapStateToProps(state) {
   const {
     isFetching,
+    fetched,
     groupByRow,
     types,
     rows
-  } = state.app.edits || {
-    isFetching: true,
-    groupByRow: false,
-    types: {},
-    rows: []
-  }
+  } = state.app.edits
 
   const editTypeFromPath = state.routing.locationBeforeTransitions.pathname.split('/').slice(-1)[0]
 
   return {
     isFetching,
+    fetched,
     groupByRow,
     types,
     rows,

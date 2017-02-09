@@ -61,6 +61,7 @@ const defaultSubmission = {
 
 const defaultEdits = {
   isFetching: false,
+  fetched: false,
   types: {
     syntactical: {edits: []},
     validity: {edits: []},
@@ -221,12 +222,14 @@ const edits = (state = defaultEdits, action) => {
     case RECEIVE_EDITS_BY_TYPE:
       return {
         ...state,
-        types: action.edits
+        types: action.edits,
+        fetched: true
       }
     case RECEIVE_EDITS_BY_ROW:
       return {
         ...state,
-        rows: action.edits
+        rows: action.edits,
+        fetched: true
       }
     case RECEIVE_EDIT_POST: {
       const clonedState = {...state}

@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
-import EditsNav from '../components/EditsNav.jsx'
 
-export function mapStateToProps(state) {
+function mapStateToProps(state) {
 
   const pathname = state.routing ? state.routing.locationBeforeTransitions.pathname : ''
   const page = pathname.split('/').slice(-1)[0]
@@ -39,4 +38,6 @@ export function mapStateToProps(state) {
   return {page, base, code, syntacticalValidityEditsExist, qualityVerified, macroVerified}
 }
 
-export default connect(mapStateToProps)(EditsNav)
+export default component => {
+  return connect(mapStateToProps)(component)
+}

@@ -7,13 +7,17 @@ import Header from '../components/Header.jsx'
 import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
 import Edits from './Edits.jsx'
-import EditsNav from '../containers/EditsNav.jsx'
+import EditsNavComponent from '../components/EditsNav.jsx'
+import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
 import IRSReport from './IRSReport.jsx'
 import Signature from './Signature.jsx'
 import Summary from './Summary.jsx'
 import RefileWarning from './RefileWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import ParseErrors from './ParseErrors.jsx'
+
+const EditsNav = submissionProgressHOC(EditsNavComponent)
+
 
 class SubmissionContainer extends Component {
   constructor(props) {
