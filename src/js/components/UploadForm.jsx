@@ -20,7 +20,7 @@ class Upload extends Component {
 
   getValidationProgress(props) {
     if(props.code === 1) return null
-    return <ValidationProgress base={props.base} code={props.code} />
+    return <ValidationProgress code={props.code} />
   }
 
   getErrors(errors) {

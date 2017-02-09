@@ -23,4 +23,8 @@ const ModalConfirm = (props) => {
   )
 }
 
+ModalConfirm.propTypes = {
+  code: React.PropTypes.number.isRequired
+}
+
 export default ModalConfirm

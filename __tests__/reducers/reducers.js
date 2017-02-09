@@ -21,6 +21,7 @@ const defaultUpload = {
 
 const defaultConfirmation = {
   showing: false,
+  code: 0,
   id: null,
   filing: null
 }
