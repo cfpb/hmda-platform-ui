@@ -13,7 +13,7 @@ function mapStateToProps(state) {
 
   const syntacticalValidityEditsExist = types.syntactical.edits.length !== 0 ||
     types.validity.edits.length !== 0
-  const qualityVerified = types.quality.verified
+  const qualityVerified = types.quality.verified || types.quality.edits.length === 0
   const macroVerified = types.macro.edits.filter(edit => {
     return edit.justifications.filter(justification => {
       return justification.verified

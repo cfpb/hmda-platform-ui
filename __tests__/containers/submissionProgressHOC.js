@@ -17,7 +17,7 @@ const defaultState = {
       types: {
         syntactical: {edits: []},
         validity: {edits: []},
-        quality: {edits: [], verified: false},
+        quality: {edits: [{}], verified: false},
         macro: {edits: []}
       }
     },
@@ -57,6 +57,12 @@ describe('submissionProgressHOC', () => {
     expect(mapped.syntacticalValidityEditsExist).toBe(false)
     expect(mapped.qualityVerified).toBe(false)
     expect(mapped.macroVerified).toBe(true)
+  })
+
+  it('defaults quality verification to true if no edits exist', () => {
+    defaultState.app.edits.types.quality = {edits:[], verified: false}
+    const qualityMapped = mapStateToProps(defaultState)
+    expect(qualityMapped.qualityVerified).toBe(true)
   })
 
   it('shortcircuits on bad state', () => {
