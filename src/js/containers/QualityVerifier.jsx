@@ -35,5 +35,10 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
+QualityVerifierContainer.propTypes = {
+  verified: React.PropTypes.bool.isRequired,
+  onVerify: React.PropTypes.func.isRequired
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(QualityVerifierContainer)
 export {QualityVerifierContainer, mapStateToProps, mapDispatchToProps }

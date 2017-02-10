@@ -2,29 +2,14 @@ import { connect } from 'react-redux'
 
 function mapStateToProps(state) {
 
-  const pathname = state.routing ? state.routing.locationBeforeTransitions.pathname : ''
+  if(!state || !state.routing || !state.app) return
+
+  const pathname = state.routing.locationBeforeTransitions.pathname
   const page = pathname.split('/').slice(-1)[0]
   const base = pathname.split('/').slice(0,-1).join('/')
 
-  const {
-   submission
-  } = state.app || {
-    status: {
-      code: 1,
-      message: ''
-    }
-  }
-
-  const {
-    types
-  } = state.app.edits || {types: {
-    syntactical: {edits: []},
-    validity: {edits: []},
-    quality: {edits: []},
-    macro: {edits: []}
-  }}
-
-  const code = submission.status.code
+  const { code } = state.app.submission.status
+  const { types } = state.app.edits
 
   const syntacticalValidityEditsExist = types.syntactical.edits.length !== 0 ||
     types.validity.edits.length !== 0
@@ -41,3 +26,5 @@ function mapStateToProps(state) {
 export default component => {
   return connect(mapStateToProps)(component)
 }
+
+export { mapStateToProps }

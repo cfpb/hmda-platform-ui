@@ -24,15 +24,15 @@ const NavButton = (props) => {
       break
     case 'syntacticalvalidity':
       suffix = 'quality'
-      if(syntacticalValidityEditsExist) className+=disabled
+      if(code < 8 || syntacticalValidityEditsExist) className+=disabled
       break
     case 'quality':
       suffix = 'macro'
-      if(!qualityVerified) className+=disabled
+      if(code < 8 || syntacticalValidityEditsExist || !qualityVerified) className+=disabled
       break
     case 'macro':
       suffix = 'summary'
-      if(!qualityVerified || !macroVerified) className+=disabled
+      if(code < 8 || syntacticalValidityEditsExist || !qualityVerified || !macroVerified) className+=disabled
       break
     default:
       return null

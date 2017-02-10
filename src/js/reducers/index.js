@@ -66,7 +66,7 @@ const defaultEdits = {
   types: {
     syntactical: {edits: []},
     validity: {edits: []},
-    quality: {edits: []},
+    quality: {edits: [], verified: false},
     macro: {edits: []}
   },
   rows: [],

@@ -9,16 +9,17 @@ import UploadForm from './UploadForm.jsx'
 import Edits from './Edits.jsx'
 import EditsNavComponent from '../components/EditsNav.jsx'
 import NavButtonComponent from '../components/NavButton.jsx'
+import RefileWarningComponent  from '../components/RefileWarning.jsx'
 import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
 import IRSReport from './IRSReport.jsx'
 import Signature from './Signature.jsx'
 import Summary from './Summary.jsx'
-import RefileWarning from './RefileWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import ParseErrors from './ParseErrors.jsx'
 
 const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
+const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
 
 class SubmissionContainer extends Component {
@@ -47,7 +48,6 @@ class SubmissionContainer extends Component {
     const params = this.props.params
     const user = this.props.user
     const pathname = this.props.location.pathname
-    const base = pathname.split('/').slice(0,-1).join('/')
     const page = pathname.split('/').slice(-1)[0]
     const toRender = []
 

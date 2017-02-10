@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
-const noEditsNav = ['', 'institutions']
 const editPages = ['upload', 'syntactical & validity', 'quality', 'macro', 'summary']
 
 const formatLink = (link) => {
@@ -41,27 +40,24 @@ const renderLinkOrText = (props, linkTo) => {
 }
 
 const EditsNav = (props) => {
-
-  if(noEditsNav.indexOf(props.page) === -1) return (
-    <ul className="EditsNav usa-nav-primary">
-      {
-        editPages.map((page, i) => {
-          return <li key={i}>{renderLinkOrText(props, page)}</li>
-        })
-      }
-    </ul>
-  )
-
-  return null
+  return <ul className="EditsNav usa-nav-primary">
+    {
+      editPages.map((page, i) => {
+        return <li key={i}>{renderLinkOrText(props, page)}</li>
+      })
+    }
+  </ul>
 }
 
 EditsNav.propTypes = {
-  page: React.PropTypes.string,
-  base: React.PropTypes.string,
-  code: React.PropTypes.number,
-  syntacticalValidityEditsExist: React.PropTypes.bool,
-  qualityVerified: React.PropTypes.bool,
-  macroVerified: React.PropTypes.bool
+  page: React.PropTypes.string.isRequired,
+  base: React.PropTypes.string.isRequired,
+  code: React.PropTypes.number.isRequired,
+  syntacticalValidityEditsExist: React.PropTypes.bool.isRequired,
+  qualityVerified: React.PropTypes.bool.isRequired,
+  macroVerified: React.PropTypes.bool.isRequired
 }
 
 export default EditsNav
+
+export { formatLink, styleSelectedPage, renderLinkOrText }
