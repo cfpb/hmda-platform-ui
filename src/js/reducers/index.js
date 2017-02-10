@@ -29,6 +29,7 @@ import {
   RECEIVE_SIGNATURE_POST,
   REQUEST_SUMMARY,
   RECEIVE_SUMMARY,
+  VERIFY_QUALITY,
   UPDATE_STATUS,
   CHECK_SIGNATURE,
   REQUEST_PARSE_ERRORS,
@@ -43,6 +44,7 @@ const defaultUpload = {
 
 const defaultConfirmation = {
   showing: false,
+  code: 0,
   id: null,
   filing: null
 }
@@ -60,7 +62,13 @@ const defaultSubmission = {
 
 const defaultEdits = {
   isFetching: false,
-  types: {},
+  fetched: false,
+  types: {
+    syntactical: {edits: []},
+    validity: {edits: []},
+    quality: {edits: [], verified: false},
+    macro: {edits: []}
+  },
   rows: [],
   groupByRow: false
 }
@@ -215,12 +223,14 @@ const edits = (state = defaultEdits, action) => {
     case RECEIVE_EDITS_BY_TYPE:
       return {
         ...state,
-        types: action.edits
+        types: action.edits,
+        fetched: true
       }
     case RECEIVE_EDITS_BY_ROW:
       return {
         ...state,
-        rows: action.edits
+        rows: action.edits,
+        fetched: true
       }
     case RECEIVE_EDIT_POST: {
       const clonedState = {...state}
@@ -234,6 +244,11 @@ const edits = (state = defaultEdits, action) => {
       })
 
       clonedState.types.macro.edits = edits
+      return clonedState
+    }
+    case VERIFY_QUALITY: {
+      const clonedState = {...state}
+      clonedState.types.quality.verified = action.checked
       return clonedState
     }
     case PICK_SORT: {

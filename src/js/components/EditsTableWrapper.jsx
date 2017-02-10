@@ -1,6 +1,7 @@
 import React from 'react'
 import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import EditsTable from './EditsTable.jsx'
+import QualityVerifier from '../containers/QualityVerifier.jsx'
 
 const getEdits = (editObj, type, typeFromPath) => {
   let edits
@@ -35,10 +36,9 @@ const getLabel = (type, typeFromPath) => {
   }
   return label
 }
+
 const renderTables = (edits, type, typeFromPath) => {
   let label
-
-  
 
   if(edits.length === 0) {
     return (
@@ -73,6 +73,7 @@ const EditsTableWrapper = (props) => {
           <div className="EditsContainerEntry" key={i}>
             <EditsHeaderDescription count={edits.length} type={type==='rows'?'rows'+props.editTypeFromPath:type} onDownloadClick={props.onDownloadClick}/>
             {renderTables(edits, type, props.editTypeFromPath)}
+            {type === 'quality' ? <QualityVerifier/> : null}
           </div>
         )
       })

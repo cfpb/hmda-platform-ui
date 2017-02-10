@@ -134,6 +134,15 @@ export function postEdit(submission, data){
   })
 }
 
+export function postQuality(submission, verified){
+  return sendFetch({
+    submission: submission,
+    suffix: '/edits/quality',
+    method: 'POST',
+    body: {verified: verified}
+  })
+}
+
 export function getIRS(submission){
   return sendFetch({submission:submission, suffix:'/irs'})
 }

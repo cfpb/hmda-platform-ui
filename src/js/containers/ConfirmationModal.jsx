@@ -15,7 +15,7 @@ class ConfirmationModalContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  const { id, filing, code, showing } = state.app.confirmation || {}
+  const { id, filing, code, showing } = state.app.confirmation || {code: 0}
 
   return {id, filing, code, showing}
 }

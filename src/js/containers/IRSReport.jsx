@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { fetchIRS } from '../actions'
 import IRSReport from '../components/IRSReport.jsx'
 
-class IRSReportContainer extends Component {
+export class IRSReportContainer extends Component {
   constructor(props) {
     super(props)
   }
@@ -17,7 +17,7 @@ class IRSReportContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const {
     isFetching,
     msas

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import Upload from '../components/UploadForm.jsx'
 import { selectFile, requestUpload, createNewSubmission } from '../actions'
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const {
     uploading,
     file,
@@ -23,7 +23,7 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     handleSubmit: (e, file) => {
       e.preventDefault()

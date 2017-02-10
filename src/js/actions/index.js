@@ -13,6 +13,7 @@ import {
   getSignature,
   postSignature,
   getSummary,
+  postQuality,
   setAccessToken,
   getAccessToken,
   getParseErrors,
@@ -130,6 +131,23 @@ export function receiveEditsByRow(data) {
   return {
     type: types.RECEIVE_EDITS_BY_ROW,
     edits: data
+  }
+}
+
+export function fetchVerifyQuality(checked) {
+  return dispatch => {
+    return postQuality(latestSubmissionId, checked)
+      .then(json => {
+        dispatch(verifyQuality(checked))
+      })
+      .catch(err => console.error(err))
+  }
+}
+
+export function verifyQuality(checked) {
+  return {
+    type: types.VERIFY_QUALITY,
+    checked: checked
   }
 }
 
@@ -609,7 +627,7 @@ export function justifyUpdate(data) {
   return dispatch => {
     dispatch(requestEditPost())
     return postEdit(latestSubmissionId, data)
-      .then(() => dispatch(receiveEditPost(data)))
+      .then((responseData) => dispatch(receiveEditPost(responseData)))
       .catch(err => console.error(err))
   }
 }

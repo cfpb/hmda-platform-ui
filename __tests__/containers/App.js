@@ -21,6 +21,6 @@ describe('AppContainer', () => {
   it('renders the component', () => {
     expect(containerNode).toBeDefined()
     expect(containerNode.firstChild.textContent).toEqual('Skip to main content')
-    expect(console.error).toBeCalled()
+    expect(console.error).not.toBeCalled()
   })
 })

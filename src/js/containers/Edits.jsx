@@ -4,13 +4,13 @@ import EditsTableWrapper from '../components/EditsTableWrapper.jsx'
 import SortPicker from '../containers/SortPicker.jsx'
 import { fetchEditsByType, fetchEditsByRow, fetchCSVByType } from '../actions'
 
-class EditsContainer extends Component {
+export class EditsContainer extends Component {
   constructor(props) {
       super(props)
   }
 
   componentDidMount() {
-    this.getEditsByGrouping()
+    if(!this.props.fetched) this.getEditsByGrouping()
   }
 
 
@@ -29,23 +29,20 @@ class EditsContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const {
     isFetching,
+    fetched,
     groupByRow,
     types,
     rows
-  } = state.app.edits || {
-    isFetching: true,
-    groupByRow: false,
-    types: {},
-    rows: []
-  }
+  } = state.app.edits
 
   const editTypeFromPath = state.routing.locationBeforeTransitions.pathname.split('/').slice(-1)[0]
 
   return {
     isFetching,
+    fetched,
     groupByRow,
     types,
     rows,

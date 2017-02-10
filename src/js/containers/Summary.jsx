@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { fetchSummary } from '../actions'
 import Summary from '../components/Summary.jsx'
 
-class SummaryContainer extends Component {
+export class SummaryContainer extends Component {
   constructor(props) {
     super(props)
   }
@@ -17,7 +17,7 @@ class SummaryContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const {
     isFetching,
     respondent,

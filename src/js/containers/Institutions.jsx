@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router'
 import { updateFilingPeriod, fetchInstitutions, createNewSubmission, fetchCSV } from '../actions'
 import Institutions from '../components/Institutions.jsx'
 
-class InstitutionContainer extends Component {
+export class InstitutionContainer extends Component {
   constructor(props) {
       super(props)
   }
@@ -20,7 +20,7 @@ class InstitutionContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const {
     isFetching,
     institutions

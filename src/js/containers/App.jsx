@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { signinRedirect } from '../redirect'
 import ConfirmationModal from './ConfirmationModal.jsx'
 
-class AppContainer extends Component {
+export class AppContainer extends Component {
   constructor(props) {
       super(props)
   }
@@ -47,7 +47,7 @@ class AppContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const {
     user
   } = state.oidc || {

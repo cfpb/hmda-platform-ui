@@ -45,14 +45,6 @@ const getValidationStatus = (code) => {
   return <li>{getIndicator(code, 'validate')} Validation complete</li>
 }
 
-const getNextLink = (code, base) => {
-  if(code < 8) return null
-  if(code === 8) return <Link className='usa-button' to={base + '/syntacticalvalidity'}>{'Review Edits \u21D2'}</Link>
-  if(code === 9 || code === 10) return <Link className='usa-button' to={base + '/summary'}>View Summary and Sign</Link>
-  // signed
-  return <Link className='usa-button' to={base + '/summary'}>Review Summary and Signature</Link>
-}
-
 const ValidationProgress = (props) => {
   const code = props.code
 
@@ -63,14 +55,12 @@ const ValidationProgress = (props) => {
         {getParsingStatus(code)}
         {getValidationStatus(code)}
       </ul>
-      {getNextLink(code, props.base)}
     </div>
   )
 }
 
 ValidationProgress.propTypes = {
   code: PropTypes.number,
-  base: PropTypes.string
 }
 
 export default ValidationProgress

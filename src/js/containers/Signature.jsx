@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { fetchSignature, updateSignature, checkSignature } from '../actions'
 import Signature from '../components/Signature.jsx'
 
-class SignatureContainer extends Component {
+export class SignatureContainer extends Component {
   constructor(props) {
     super(props)
   }
@@ -17,7 +17,7 @@ class SignatureContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const {
     isFetching,
     timestamp,
@@ -48,7 +48,7 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     onSignatureClick: (signed) => {
       dispatch(updateSignature({signed: signed}))

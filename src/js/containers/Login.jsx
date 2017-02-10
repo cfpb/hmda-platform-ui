@@ -5,7 +5,7 @@ import Login from '../components/Login.jsx'
 import signinRedirect from '../redirect.js'
 
 
-class LoginContainer extends Component {
+export class LoginContainer extends Component {
   constructor(props) {
       super(props)
   }

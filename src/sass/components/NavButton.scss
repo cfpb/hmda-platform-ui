@@ -1,0 +1,9 @@
+.usa-button-disabled.usa-button {
+  background-color: $color-gray-lighter;
+  color: $color-gray-dark;
+  pointer-events: none;
+}
+
+.NavButton {
+  text-transform: capitalize;
+}

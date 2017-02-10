@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { fetchSubmission } from '../actions'
 
-class SubmissionRouter extends Component {
+export class SubmissionRouter extends Component {
   constructor(props) {
     super(props)
   }
@@ -47,7 +47,7 @@ class SubmissionRouter extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+export function mapStateToProps(state, ownProps) {
   console.log('submission router state', state)
   const {
     status

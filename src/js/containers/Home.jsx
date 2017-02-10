@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import HomeComponent from '../components/Home.jsx'
 
-class HomeContainer extends Component {
+export class HomeContainer extends Component {
   constructor(props) {
       super(props)
   }
@@ -14,7 +14,7 @@ class HomeContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     user: state.oidc.user || {profile: {name: null}},
     viewInstitutions(e) {

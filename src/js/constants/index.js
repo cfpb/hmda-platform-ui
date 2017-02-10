@@ -12,6 +12,8 @@ export const RECEIVE_EDIT_POST       = 'RECEIVE_EDIT_POST'
 export const UPDATE_FILING_PERIOD   = 'UPDATE_FILING_PERIOD'
 export const CLEAR_FILINGS          = 'CLEAR_FILINGS'
 
+export const VERIFY_QUALITY         = 'VERIFY_QUALITY'
+
 export const SHOW_CONFIRM           = 'SHOW_CONFIRM'
 export const HIDE_CONFIRM           = 'HIDE_CONFIRM'
 export const PICK_SORT              = 'PICK_SORT'

@@ -7,16 +7,20 @@ import Header from '../components/Header.jsx'
 import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
 import Edits from './Edits.jsx'
-import EditsNav from '../components/EditsNav.jsx'
+import EditsNavComponent from '../components/EditsNav.jsx'
+import NavButtonComponent from '../components/NavButton.jsx'
+import RefileWarningComponent  from '../components/RefileWarning.jsx'
+import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
 import IRSReport from './IRSReport.jsx'
 import Signature from './Signature.jsx'
 import Summary from './Summary.jsx'
-import RefileWarning from './RefileWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import ParseErrors from './ParseErrors.jsx'
-/*
-import EditsContainer from './EditsContainer.jsx'
-*/
+
+const EditsNav = submissionProgressHOC(EditsNavComponent)
+const NavButton = submissionProgressHOC(NavButtonComponent)
+const RefileWarning = submissionProgressHOC(RefileWarningComponent)
+
 
 class SubmissionContainer extends Component {
   constructor(props) {
@@ -29,18 +33,6 @@ class SubmissionContainer extends Component {
     }
   }
 
-  makeEditLink(toRender, props, code, base, page) {
-    let suffix = 'quality'
-    if(page === 'quality') suffix = 'macro'
-    if(page === 'macro') suffix = 'summary'
-
-    if(page !== 'macro' || code > 8){
-      toRender.push(<Link className='usa-button Navlink' to={`${base}/${suffix}`}>{`Review ${suffix} \u21D2`}</Link>)
-    }
-  }
-
-  // Links should be their own component, disabled with a message when not available
-  // rather than unrendered
   render() {
     if(!this.props.user) return null
     if(!this.props.status) return null
@@ -56,7 +48,6 @@ class SubmissionContainer extends Component {
     const params = this.props.params
     const user = this.props.user
     const pathname = this.props.location.pathname
-    const base = pathname.split('/').slice(0,-1).join('/')
     const page = pathname.split('/').slice(-1)[0]
     const toRender = []
 
@@ -65,7 +56,7 @@ class SubmissionContainer extends Component {
       toRender.push(<p>{status.message}</p>)
     }else{
       if(page === 'upload'){
-        toRender.push(<UploadForm code={code} base={base}/>)
+        toRender.push(<UploadForm code={code}/>)
         if(code === 5) {
           toRender.push(<RefileWarning/>)
           toRender.push(<ParseErrors/>)
@@ -75,7 +66,6 @@ class SubmissionContainer extends Component {
           if(code === 8) toRender.push(<RefileWarning/>)
           toRender.push(<Edits/>)
         }
-        this.makeEditLink(toRender, this.props, code, base, page)
       }else if(page === 'summary'){
         if(code > 7){
           toRender.push(<IRSReport/>)
@@ -89,6 +79,8 @@ class SubmissionContainer extends Component {
       toRender.push(<p>Something is wrong, please <Link to='/institutions'>Go Back</Link></p>)
     }
 
+    toRender.push(<NavButton/>)
+
     return (
     <div className="SubmissionContainer">
       <Header
@@ -100,10 +92,7 @@ class SubmissionContainer extends Component {
           userName={user.profile.name}
           institution={params.institution} />
         {code > 2 ? <div className="FloatingRefile"><RefileButton id={params.institution} filing={params.filing} code={code}/></div> : null}
-        <EditsNav
-          page={page}
-          base={base}
-          code={code} />
+        <EditsNav/>
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>
@@ -148,3 +137,4 @@ SubmissionContainer.defaultProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubmissionContainer)
+export { SubmissionContainer, mapStateToProps, mapDispatchToProps }

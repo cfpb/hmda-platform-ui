@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { setAccessToken } from '../api'
 import { restorePage } from '../redirect'
 
-class oidcCallback extends React.Component {
+export class oidcCallback extends React.Component {
 
   successCallback(user) {
     console.log('success from oidccb', user)

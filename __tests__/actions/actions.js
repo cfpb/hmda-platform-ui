@@ -18,6 +18,7 @@ import {
   getIRS,
   getSignature,
   postSignature,
+  postQuality,
   getEdits
 } from '../../src/js/api.js'
 
@@ -34,9 +35,8 @@ getLatestSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissi
 getSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissions[2]))
 getIRS.mockImplementation((id) => Promise.resolve(IRSObj))
 getSignature.mockImplementation((id) => Promise.resolve(signatureObj))
+postQuality.mockImplementation(() => Promise.resolve())
 getEdits.mockImplementation((id) => Promise.resolve({fakeEdits:1}))
-
-
 
 delete global.XMLHttpRequest
 const xhrMock = {
@@ -227,6 +227,23 @@ describe('actions', () => {
     expect(actions.clearFilings()).toEqual({
       type: types.CLEAR_FILINGS
     })
+  })
+
+  it('creates an action to signal quality has been verified', () => {
+    expect(actions.verifyQuality(true)).toEqual({
+      type: types.VERIFY_QUALITY,
+      checked: true
+    })
+  })
+
+  it('creates a thunk that will post to the quality endpoint', () => {
+    const store = mockStore({})
+    store.dispatch(actions.fetchVerifyQuality(true))
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {type: types.VERIFY_QUALITY, checked: true}
+          ])
+      })
   })
 
   it('creates an action to signal display of the refile confirmation modal', () => {
