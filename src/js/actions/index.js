@@ -136,10 +136,11 @@ export function receiveEditsByRow(data) {
 
 export function fetchVerifyQuality(checked) {
   return dispatch => {
-    return postQuality(checked)
+    return postQuality(latestSubmissionId, checked)
       .then(json => {
         dispatch(verifyQuality(checked))
       })
+      .catch(err => console.error(err))
   }
 }
 
