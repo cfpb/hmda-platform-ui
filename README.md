@@ -44,7 +44,7 @@ $ npm install
 
 ### Using the back-end API
 
-Viewing the full application requires the back-end [API](https://github.com/cfpb/hmda-platform) and [authentication](https://github.com/cfpb/hmda-platform-auth). Please follow the instructions found under the "Building and Running" heading of the [HMDA platform README](https://github.com/cfpb/hmda-platform#building-and-running).
+Viewing the full application requires the back-end [API](https://github.com/cfpb/hmda-platform) and [authentication](https://github.com/cfpb/hmda-platform-auth). Please follow the instructions found under the "Building and Running" heading of the [HMDA platform README](https://github.com/cfpb/hmda-platform#to-run-the-entire-platform).
 
 ## How to test the front-end
 
