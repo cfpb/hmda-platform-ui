@@ -86,7 +86,7 @@ const makeTables = (props) => {
 
   const makeTable = (edit, i) => {
     return (
-    <table width="100%" className="margin-top-1" key={i}>
+    <table width="100%" key={i}>
       {i === 0 ? <caption><h3>{makeTableLabel(edits)}</h3></caption>:null}
       <thead>
         {renderHeader(edit, props.type)}
