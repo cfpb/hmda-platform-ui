@@ -2,6 +2,7 @@
 @import "node_modules/uswds/src/stylesheets/all.scss";
 @import "uswds/header.scss";
 @import "uswds/alert.scss";
+@import "uswds/footer.scss";
 
 @import "node_modules/react-select/dist/react-select";
 
@@ -184,21 +185,4 @@ dd {
 // max-width reset
 .max-width-100 {
   max-width: 100%;
-}
-
-//sticky footer
-html {
-  position: relative;
-  min-height:100%;
-}
-
-body {
-  margin: 0 0 120px;
-}
-
-.usa-footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
 }
