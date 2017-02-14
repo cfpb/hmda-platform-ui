@@ -3,9 +3,13 @@
 @import "uswds/header.scss";
 @import "uswds/alert.scss";
 @import "uswds/footer.scss";
+@import "uswds/fixes.scss";
+
+@import "hmda.scss";
 
 @import "node_modules/react-select/dist/react-select";
 
+@import "components/Home.scss";
 @import "components/DivisionHeader.scss";
 @import "components/RefileButton.scss";
 @import "components/NavButton.scss";
@@ -23,33 +27,7 @@
 @import "components/EditsNav.scss";
 @import "components/ParseErrors.scss";
 
-// fix for disabled and checked checkbox
-[type="checkbox"]:checked:disabled + label::before {
-  background-image: url('#{$image-path}/correct8.png');
-  background-image: url('#{$image-path}/correct8.svg');
-  background-position: 50%;
-  background-repeat: no-repeat;
-}
 
-#main-content {
-  position:relative;
-  padding-bottom: 2em;
-}
-
-a {
- cursor: pointer;
-}
-
-dt {
-  font-weight: bold;
-}
-dd {
-  margin-bottom: 1em;
-  margin-left: 0;
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
 
 // circles as indicators
 .progress {

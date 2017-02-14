@@ -21,11 +21,11 @@ const getLoginMessage = (userName) => {
 
 const Home = (props) => {
   return (
-    <div className="Home">
+    <div>
       <Header
         pathname={props.location.pathname}
         userName={props.user.profile.name} />
-      <div id="main-content">
+      <div className="Home" id="main-content">
         <div className="usa-grid">
           <div className="usa-width-one-whole">
             <h2>Welcome to HMDA Filing{props.user.profile.name ? ' ' + props.user.profile.name : ''}</h2>
@@ -38,10 +38,12 @@ const Home = (props) => {
                 <p className="usa-alert-text">You can now <a href="#">search for and view</a> the modified LAR files.</p>
               </div>
             </div>
+
+            <hr />
           </div>
         </div>
 
-        <div className="usa-grid margin-top-2 margin-bottom-2 padding-top-2 border-top">
+        <div className="usa-grid">
           <div className="usa-width-one-half">
             <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
             <h3>How to get started</h3>
@@ -66,7 +68,8 @@ const Home = (props) => {
           </div>
         </div>
 
-        <div className="usa-grid margin-top-2 margin-bottom-2 padding-top-2 border-top">
+        <div className="usa-grid">
+          <hr />
           <div className="usa-width-one-third">
             <h4>1003 Regulation C</h4>
             <ul className="usa-unstyled-list">

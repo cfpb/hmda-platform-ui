@@ -1,0 +1,15 @@
+.Home {
+  .usa-grid {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+  .usa-grid:first-of-type {
+    border-bottom: $color-gray-lightest;
+  }
+
+  .usa-alert {
+    margin-bottom: 2em;
+  }
+
+}

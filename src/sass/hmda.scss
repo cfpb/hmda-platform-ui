@@ -1,0 +1,24 @@
+#main-content {
+  position:relative;
+  padding-bottom: 2em;
+}
+
+a {
+ cursor: pointer;
+}
+
+dt {
+  font-weight: bold;
+}
+dd {
+  margin-bottom: 1em;
+  margin-left: 0;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+hr {
+  border-bottom-width: 0;
+  border-color: $color-gray-lightest;
+}
