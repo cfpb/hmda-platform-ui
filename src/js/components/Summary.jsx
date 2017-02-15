@@ -5,11 +5,11 @@ const Summary = (props) => {
 
   return (
     <div className="Summary usa-grid-full" id="summary">
-      <div className="border-bottom margin-bottom-3">
+      <header>
         <h2>Validation Summary</h2>
         <p className="usa-font-lead">You have succesfully validated your file. Please review the respondent and file information below.</p>
-      </div>
-      <div className="margin-bottom-5 usa-grid-full">
+      </header>
+      <div className="info usa-grid-full">
         <div className="usa-width-one-half">
           <h3>Respondent Information</h3>
           <dl>
@@ -41,6 +41,8 @@ const Summary = (props) => {
           </dl>
         </div>
       </div>
+
+      <hr />
     </div>
   )
 }
