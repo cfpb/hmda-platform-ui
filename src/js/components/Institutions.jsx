@@ -24,7 +24,7 @@ const renderTiming = (status, start, end) => {
     // completed
     case 3:
       messageClass = 'text-green'
-      timing = `Compoleted ${moment(end).format('MMMM Do')}`
+      timing = `Completed ${moment(end).format('MMMM Do')}`
       break
     // code 4 is cancelled, do nothing ... defaults are fine
     default:
