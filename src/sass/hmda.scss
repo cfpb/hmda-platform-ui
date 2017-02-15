@@ -22,3 +22,35 @@ hr {
   border-bottom-width: 0;
   border-color: $color-gray-lightest;
 }
+
+
+// text colors
+.text-gray {
+  color: $color-gray;
+}
+.text-gray-light {
+  color: $color-gray-light;
+}
+.text-secondary {
+  color: $color-secondary;
+}
+.text-green {
+  color: $color-green;
+}
+.text-primary {
+  color: $color-primary;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+// display
+.inline {
+  display: inline;
+}
+
+// max-width reset
+.max-width-100 {
+  max-width: 100%;
+}
