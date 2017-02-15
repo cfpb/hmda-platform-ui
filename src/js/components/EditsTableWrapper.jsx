@@ -74,6 +74,7 @@ const EditsTableWrapper = (props) => {
             <EditsHeaderDescription count={edits.length} type={type==='rows'?'rows'+props.editTypeFromPath:type} onDownloadClick={props.onDownloadClick}/>
             {renderTables(edits, type, props.editTypeFromPath)}
             {type === 'quality' ? <QualityVerifier/> : null}
+            {type === 'syntactical' ? <hr /> : null}
           </div>
         )
       })

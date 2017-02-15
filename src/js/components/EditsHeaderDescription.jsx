@@ -62,11 +62,11 @@ const EditsHeaderDescription = (props) => {
   const headingClass = count > 0 ? 'text-secondary' : 'text-green'
 
   return (
-    <div className="EditsHeaderDescription" id={id}>
+    <header className="EditsHeaderDescription" id={id}>
       <h2 className={headingClass}>{count} {title}</h2>
       <p className="usa-font-lead">{desc}</p>
       {renderCSVLink(props)}
-    </div>
+    </header>
   )
 }
 
