@@ -32,7 +32,12 @@ const renderTiming = (status, start, end) => {
       timing = null
   }
 
-  return <p className="text-gray usa-text-small"><strong className={`${messageClass} text-uppercase`}>{status.message}</strong> {timing}</p>
+  return (
+    <div className="timing usa-text-small">
+      <p><strong className={`${messageClass} text-uppercase`}>{status.message}</strong></p>
+      <p>{timing}</p>
+    </div>
+  )
 }
 
 const renderStatus = (code, institutionName, institutionId, period) => {

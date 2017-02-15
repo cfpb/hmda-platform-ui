@@ -1,15 +1,22 @@
 .Institutions {
   .institution {
     margin-bottom: 3em;
-    h2,
-    .usa-text-small,
-    .status {
+    h2 {
       margin-bottom: 0;
       margin-top: 0;
     }
     .status {
       margin-top: .5em;
       margin-bottom: .5em;
+    }
+    .timing {
+      color: $color-gray;
+      p {
+        margin: 0;
+      }
+      strong {
+        text-transform: uppercase;
+      }
     }
   }
 
