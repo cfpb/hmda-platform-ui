@@ -40,7 +40,7 @@ const renderTiming = (status, start, end) => {
   )
 }
 
-const renderStatus = (code, institutionName, institutionId, period) => {
+const renderStatusMessage = (code) => {
   let status
 
   switch (code) {
@@ -120,7 +120,7 @@ export default class Institution extends Component {
                 <div className="institution">
                   {renderTiming(filing.status, filing.start, filing.end)}
                   <h2>{institution.name} - {institution.id}</h2>
-                  {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
+                  {renderStatusMessage(filing.status.code)}
                   {renderButton(filing.status.code, filing.institutionId, filing.period)}
                   <RefileButton id={filing.institutionId} filing={filing.period} code={filing.status.code}/>
                   <h5>Previous submissions for this filing</h5>
