@@ -97,6 +97,12 @@ describe('actions', () => {
     })
   })
 
+  it('creates an action to refresh the state', () => {
+    expect(actions.refreshState()).toEqual({
+      type: types.REFRESH_STATE
+    })
+  })
+
   it('creates an action to signal a request for the IRS report', () => {
     expect(actions.requestIRS()).toEqual({
       type: types.REQUEST_IRS

@@ -25,6 +25,12 @@ import fileSaver from 'file-saver'
 let latestSubmissionId
 let currentFilingPeriod
 
+export function refreshState() {
+  return {
+    type: types.REFRESH_STATE
+  }
+}
+
 export function updateStatus(status) {
   return {
     type: types.UPDATE_STATUS,
@@ -451,12 +457,13 @@ export function requestUpload(file) {
   }
 }
 
+
 /*
  * Signal that submission state should be wiped and a new submission should be created
  */
 export function createNewSubmission(id, period) {
   return dispatch => {
-    dispatch(selectFile())
+    dispatch(refreshState())
     return dispatch(fetchNewSubmission(id, period))
   }
 }

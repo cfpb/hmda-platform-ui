@@ -28,7 +28,9 @@ const Home = (props) => {
       <div className="Home" id="main-content">
         <div className="usa-grid">
           <div className="usa-width-one-whole">
-            <h2>Welcome to HMDA Filing{props.user.profile.name ? ' ' + props.user.profile.name : ''}</h2>
+            <h2>Welcome to HMDA Filing{props.user.profile.name ? ' ' + props.user.profile.name : ''}
+            <Link className="usa-button" to="/institutions">{props.user.profile.name ? 'Begin Filing' : 'Login and Begin Filing'}</Link>
+            </h2>
 
             {getLoginMessage(props.user.profile.name)}
 

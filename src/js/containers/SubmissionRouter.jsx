@@ -37,7 +37,7 @@ export class SubmissionRouter extends Component {
 
     if(code < 7) return browserHistory.replace(pathname + '/upload')
 
-    if(code < 10) return browserHistory.replace(pathname + '/edits')
+    if(code < 10) return browserHistory.replace(pathname + '/syntacticalvalidity')
 
     return browserHistory.replace(pathname + '/summary')
   }

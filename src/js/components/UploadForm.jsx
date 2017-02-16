@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import ValidationProgress from './ValidationProgress.jsx'
-import RefileButton from '../containers/RefileButton.jsx'
 
 class Upload extends Component {
   constructor(props) {

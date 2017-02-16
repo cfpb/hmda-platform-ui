@@ -1,3 +1,5 @@
+export const REFRESH_STATE          = 'REFRESH_STATE'
+
 export const RECEIVE_AUTH_USER      = 'RECEIVE_AUTH_USER'
 
 export const REQUEST_INSTITUTIONS   = 'REQUEST_INSTITUTIONS'
