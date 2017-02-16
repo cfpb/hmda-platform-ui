@@ -8,10 +8,12 @@ const RefileText = (props) => {
     if(props.code === 11) message = 'has already been submitted'
   }
 
-  return <div>
-    {message ? <p>The HMDA data for this filing year <strong>{message}</strong>.</p>:null}
-    <p className="margin-bottom-1">Would you like to start the resubmission process?</p>
-  </div>
+  return (
+    <div className="RefileText">
+      {message ? <p>The HMDA data for this filing year <strong>{message}</strong>.</p>:null}
+      <p className="question">Would you like to start the resubmission process?</p>
+    </div>
+  )
 }
 
 RefileText.propTypes = {
