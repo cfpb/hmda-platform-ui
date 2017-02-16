@@ -52,26 +52,32 @@ const renderStatusMessage = (submissionStatus) => {
   let statusMessage
   const { code, message } = submissionStatus
 
+  // created
   if(code === 1) {
     statusMessage = 'A submission has been created and is ready for a file upload.'
   }
 
+  // in progress
   if(code > 1 && code < 8) {
     statusMessage = 'Your file is currently being processed.'
   }
 
+  // failed parser
   if(code === 5) {
     statusMessage = 'Your file failed to parse and will need to be fixed and re-submitted.'
   }
 
+  // has edits
   if(code === 8) {
     statusMessage = `Your submission has been ${message}.`
   }
 
+  // validated
   if(code === 9) {
     statusMessage = `Your submission has been ${message} and is ready to be signed.`
   }
 
+  // signed
   if(code === 11) {
     statusMessage = `Your submission has been ${message}. Thank you!`
   }
@@ -104,6 +110,34 @@ const renderButton = (code, institutionId, period) => {
   return <Link className="status-button usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
 }
 
+const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, period) => {
+  return (
+    <div className="previous-submissions">
+      <h5>Previous submissions for this filing</h5>
+
+      <ol reversed className="usa-text-small">
+        {submissions.map((submission, i) => {
+          // render the end date if it was signed
+          const date = (submission.status.code === 11) ? moment(submission.end).format('MMMM Do, YYYY') : moment(submission.start).format('MMMM Do, YYYY')
+          return (
+            <li className="edit-report" key={i}>
+              <a href="#"
+                onClick={(e) => {
+                  e.preventDefault()
+                  onDownloadClick(
+                    institutionId,
+                    period,
+                    submission.id.sequenceNumber
+                  )
+                }
+              }>Download edit report</a> <strong>{submission.status.message}</strong> on {date}
+            </li>)
+        })}
+      </ol>
+    </div>
+  )
+}
+
 const getInstitutionFromFiling = (institutions, filing) => {
   for(let i=0; i<institutions.length; i++){
     if(institutions[i].id === filing.institutionId) return institutions[i]
@@ -133,44 +167,35 @@ export default class Institution extends Component {
             return (
               <div key={i} className="usa-grid-full">
                 <div className="institution">
-                  {renderTiming(
-                    latestSubmissionStatus,
-                    filing.start,
-                    filing.end
-                  )}
+                  <div className="current-status">
+                    {renderTiming(
+                      latestSubmissionStatus,
+                      filing.start,
+                      filing.end
+                    )}
 
-                  <h2>{institution.name} - {institution.id}</h2>
+                    <h2>{institution.name} - {institution.id}</h2>
 
-                  {renderStatusMessage(latestSubmissionStatus)}
+                    {renderStatusMessage(latestSubmissionStatus)}
 
-                  {renderButton(
-                    filing.status.code,
-                    filing.institutionId,
+                    {renderButton(
+                      filing.status.code,
+                      filing.institutionId,
+                      filing.period
+                    )}
+
+                    <RefileButton
+                      id={filing.institutionId}
+                      filing={filing.period}
+                      code={filing.status.code} />
+                  </div>
+
+                  {renderPreviousSubmissions(
+                    filingObj.submissions,
+                    this.props.onDownloadClick,
+                    institution.id,
                     filing.period
                   )}
-
-                  <RefileButton
-                    id={filing.institutionId}
-                    filing={filing.period}
-                    code={filing.status.code} />
-
-                  <h5>Previous submissions for this filing</h5>
-
-                  <ul className="usa-text-small usa-unstyled-list">
-                    {filingObj.submissions.map((submission, i) => {
-                      return (
-                        <li className="edit-report" key={i}>
-                          <strong>{submission.id.sequenceNumber}</strong>.
-                          <a href="#" onClick={(e) => {
-                            e.preventDefault()
-                            this.props.onDownloadClick(
-                              institution.id,
-                              filing.period,
-                              submission.id.sequenceNumber
-                          )}}>Download edit report</a> started on {moment(submission.start).format('MMMM Do, YYYY')}
-                        </li>)
-                    })}
-                  </ul>
                 </div>
               </div>
             )
