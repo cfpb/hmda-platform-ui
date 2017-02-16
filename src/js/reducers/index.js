@@ -211,7 +211,7 @@ export const status = (state = defaultStatus, action) => {
   }
 }
 
-const edits = (state = defaultEdits, action) => {
+export const edits = (state = defaultEdits, action) => {
   switch (action.type) {
     case REQUEST_EDITS_BY_TYPE:
       return {
@@ -227,12 +227,14 @@ const edits = (state = defaultEdits, action) => {
       return {
         ...state,
         types: action.edits,
+        isFetching: false,
         fetched: true
       }
     case RECEIVE_EDITS_BY_ROW:
       return {
         ...state,
         rows: action.edits,
+        isFetching: false,
         fetched: true
       }
     case RECEIVE_EDIT_POST: {

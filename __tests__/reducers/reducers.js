@@ -1,7 +1,7 @@
 jest.unmock('../../src/js/reducers')
 
 import * as types from '../../src/js/constants'
-import { institutions, confirmation, filings, submission, upload, status, irs, signature } from '../../src/js/reducers'
+import { edits, institutions, confirmation, filings, submission, upload, status, irs, signature } from '../../src/js/reducers'
 
 const typesArr = Object.keys(types)
   .filter( v => v !== '__esModule')
@@ -49,6 +49,19 @@ const defaultIRS = {
   isFetching: false,
   msas: [],
   status: defaultSubmission.status
+}
+
+const defaultEdits = {
+  isFetching: false,
+  fetched: false,
+  types: {
+    syntactical: {edits: []},
+    validity: {edits: []},
+    quality: {edits: [], verified: false},
+    macro: {edits: []}
+  },
+  rows: [],
+  groupByRow: false
 }
 
 describe('status reducer', () => {
@@ -268,6 +281,13 @@ describe('upload reducer', () => {
     )).toEqual({file: {name: 'afile'}})
   })
 
+  it('handles REFRESH_STATE', () => {
+    expect(
+       upload({},
+      {type: types.REFRESH_STATE}
+    )).toEqual(defaultUpload)
+  })
+
   it('shouldn\'t modify state on an unknown action type', () => {
     excludeTypes(types.SELECT_FILE, types.UPLOAD_PROGRESS, types.REFRESH_STATE)
       .forEach(v => expect(upload({}, v))
@@ -275,4 +295,118 @@ describe('upload reducer', () => {
       )
   })
 
+})
+
+describe('edits reducer', () => {
+  it('should return the initial state on empty action', () => {
+    expect(
+      edits(undefined, {})
+    ).toEqual(defaultEdits)
+  })
+
+  it('handles REQUEST_EDITS_BY_TYPE', () => {
+    expect(
+      edits({},
+      {type: types.REQUEST_EDITS_BY_TYPE}
+    )).toEqual({isFetching: true})
+  })
+
+  it('handles REQUEST_EDITS_BY_ROW', () => {
+    expect(
+      edits({},
+      {type: types.REQUEST_EDITS_BY_ROW}
+    )).toEqual({isFetching: true})
+  })
+
+  it('handles RECEIVE_EDITS_BY_TYPE', () => {
+    expect(
+      edits({},
+      {type: types.RECEIVE_EDITS_BY_TYPE,
+       edits:'EDITS'
+      }
+    )).toEqual({types: 'EDITS', fetched: true, isFetching: false})
+  })
+
+  it('handles RECEIVE_EDITS_BY_ROW', () => {
+    expect(
+      edits({},
+      {type: types.RECEIVE_EDITS_BY_ROW,
+       edits:'EDITS'
+      }
+    )).toEqual({rows: 'EDITS', fetched: true, isFetching: false})
+  })
+
+  it('handles RECEIVE_EDIT_POST', () => {
+    expect(
+      edits({types:{
+       macro: {
+         edits:[
+           {edit:'1',
+            justifications:'oh'
+           },
+           {edit:'2',
+            justifications:'dear'
+           }
+         ]}}},
+      {type: types.RECEIVE_EDIT_POST,
+       data:{
+         edit:'2',
+         justifications: 'my'
+      }
+      }
+    )).toEqual({types:{
+       macro: {
+         edits:[
+           {edit:'1',
+            justifications:'oh'
+           },
+           {edit:'2',
+            justifications:'my'
+           }
+         ]}}})
+  })
+
+  it('handles VERIFY_QUALITY', () => {
+    expect(
+       edits({types:{quality:{verified:false}}},
+      {type: types.VERIFY_QUALITY, checked: true}
+    )).toEqual({types:{quality:{verified:true}}})
+    expect(
+       edits({types:{quality:{verified:true}}},
+      {type: types.VERIFY_QUALITY, checked: false}
+    )).toEqual({types:{quality:{verified:false}}})
+    expect(
+       edits({types:{quality:{verified:true}}},
+      {type: types.VERIFY_QUALITY, checked: true}
+    )).toEqual({types:{quality:{verified:true}}})
+  })
+
+  it('handles PICK_SORT', () => {
+    expect(
+       edits({},
+      {type: types.PICK_SORT, groupByRow: true}
+    )).toEqual({groupByRow: true})
+  })
+
+  it('handles REFRESH_STATE', () => {
+    expect(
+       edits({},
+      {type: types.REFRESH_STATE}
+    )).toEqual(defaultEdits)
+  })
+
+  it('shouldn\'t modify state on an unknown action type', () => {
+    excludeTypes(
+        types.VERIFY_QUALITY,
+        types.PICK_SORT,
+        types.RECEIVE_EDIT_POST,
+        types.RECEIVE_EDITS_BY_ROW,
+        types.RECEIVE_EDITS_BY_TYPE,
+        types.REQUEST_EDITS_BY_ROW,
+        types.REQUEST_EDITS_BY_TYPE,
+        types.REFRESH_STATE)
+      .forEach(v => expect(edits({}, v))
+        .toEqual({})
+      )
+  })
 })
