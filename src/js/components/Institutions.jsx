@@ -5,36 +5,44 @@ import Header from './Header.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 
-const renderTiming = (status, start, end) => {
-  // default to code 1, not-started
+const renderTiming = (submissionStatus, start, end) => {
+  if(submissionStatus.code === null) return
+
   let messageClass
   let timing
 
-  switch (status.code) {
-    // not-started
-    case 1:
-      messageClass = 'text-secondary'
-      timing = null
-      break
-    // in-progress
-    case 2:
-      messageClass = 'text-primary'
-      timing = `Started ${moment(start).fromNow()}`
-      break
-    // completed
-    case 3:
-      messageClass = 'text-green'
-      timing = `Completed ${moment(end).format('MMMM Do')}`
-      break
-    // code 4 is cancelled, do nothing ... defaults are fine
-    default:
-      messageClass = 'text-secondary'
-      timing = null
+  // submission created
+  if(submissionStatus.code === 1) {
+    messageClass = 'text-secondary'
+    timing = 'Submission is created but not started'
+  }
+
+  // any submission status but created or signed
+  if(submissionStatus.code > 1) {
+    messageClass = 'text-primary'
+    timing = `Started ${moment(start).fromNow()}`
+  }
+
+  // if its parsed with errors or validated with errors
+  if(submissionStatus.code === 5 || submissionStatus.code === 8) {
+    messageClass = 'text-secondary'
+  }
+
+  // signed (completed)
+  if(submissionStatus.code === 11) {
+    messageClass = 'text-green'
+    timing = `Completed ${moment(end).format('MMMM Do')}`
+  }
+
+  // failed submission
+  if(submissionStatus.code === -1) {
+    messageClass = 'text-secondary'
+    timing = `Submission failed ${moment(start).fromNow()}`
   }
 
   return (
     <div className="timing usa-text-small">
-      <p><strong className={`${messageClass} text-uppercase`}>{status.message}</strong></p>
+      <p><strong className={`${messageClass} text-uppercase`}>{submissionStatus.message}</strong></p>
       <p>{timing}</p>
     </div>
   )
@@ -109,24 +117,54 @@ export default class Institution extends Component {
         pathname={this.props.location.pathname}
         userName={this.props.user.profile.name} />
       <div id="main-content" className="usa-grid">
-        <UserHeading period="2017" userName={this.props.user.profile.name} />
+        <UserHeading
+          period="2017"
+          userName={this.props.user.profile.name} />
         <div className="usa-width-two-thirds">
           {this.props.filings.map((filingObj, i) => {
             const filing = filingObj.filing
+            const latestSubmissionStatus = filingObj.submissions[0].status || null
             const institution = getInstitutionFromFiling(institutions, filing)
             if(!institution) return
             return (
               <div key={i} className="usa-grid-full">
                 <div className="institution">
-                  {renderTiming(filing.status, filing.start, filing.end)}
+                  {renderTiming(
+                    latestSubmissionStatus,
+                    filing.start,
+                    filing.end
+                  )}
+
                   <h2>{institution.name} - {institution.id}</h2>
+
                   {renderStatusMessage(filing.status.code)}
-                  {renderButton(filing.status.code, filing.institutionId, filing.period)}
-                  <RefileButton id={filing.institutionId} filing={filing.period} code={filing.status.code}/>
+
+                  {renderButton(
+                    filing.status.code,
+                    filing.institutionId,
+                    filing.period
+                  )}
+
+                  <RefileButton
+                    id={filing.institutionId}
+                    filing={filing.period}
+                    code={filing.status.code} />
+
                   <h5>Previous submissions for this filing</h5>
+
                   <ul className="usa-text-small usa-unstyled-list">
                     {filingObj.submissions.map((submission, i) => {
-                      return (<li className="edit-report" key={i}><strong>{submission.id.sequenceNumber}</strong>. <a href="#" onClick={(e) => {e.preventDefault(); this.props.onDownloadClick(institution.id, filing.period, submission.id.sequenceNumber)}}>Download edit report</a> - <span className="text-gray">started on {moment(submission.start).format('MMMM Do, YYYY')}</span></li>)
+                      return (
+                        <li className="edit-report" key={i}>
+                          <strong>{submission.id.sequenceNumber}</strong>.
+                          <a href="#" onClick={(e) => {
+                            e.preventDefault()
+                            this.props.onDownloadClick(
+                              institution.id,
+                              filing.period,
+                              submission.id.sequenceNumber
+                          )}}>Download edit report</a> started on {moment(submission.start).format('MMMM Do, YYYY')}
+                        </li>)
                     })}
                   </ul>
                 </div>
