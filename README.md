@@ -12,10 +12,19 @@ For more information on HMDA, checkout the [About HMDA page](http://www.consumer
 
 ## The Platform UI
 
-This repo contains the code for the entirety of the HMDA platform front-end, working directly with the [HMDA platform back-end](https://github.com/cfpb/hmda-platform). The various parts of the platform UI are:
+This repo contains the code for the entirety of the HMDA platform front-end, working directly with the [HMDA platform back-end](https://github.com/cfpb/hmda-platform) and the [HMDA platform authentication](https://github.com/cfpb/hmda-platform). The various parts of the platform UI are:
 
-- filing interface
-  - from authentication -> data submission -> validation -> signed submission
+_All pages, expect the home page, require authentication._
+
+- `/` - home page
+  - provides general information about the HMDA filing process and requirements
+- `/institutions` - institutions listing
+  - displays all institutions for which a filer has access to file
+- `/<institutionId>/<filingPeriod>/upload` - file upload form for a specific institution and filing period
+- `/<institutionId>/<filingPeriod>/syntacticalvalidity` - displays the list of all syntactical and validity edits the exist in the uploaded file
+- `/<institutionId>/<filingPeriod>/quality` - displays the list of all quality edits the exist in the uploaded file and allows for verification
+- `/<institutionId>/<filingPeriod>/macro` - displays the list of all macro edits the exist in the uploaded file and allows for verification
+- `/<institutionId>/<filingPeriod>/summary` - displays the Institution Register Summary (IRS), the validation summary (an overall summary of the submission), and allows for signing of the submission.
 
 ## Dependencies
 
@@ -33,58 +42,13 @@ $ npm install
 
 ## Building and viewing
 
-### Using the mocked version of the API
-
-#### npm
-
-There are several npm scripts available to run, see [package.json](https://github.com/cfpb/hmda-platform-ui/blob/master/package.json) `scripts` section. For local development the most useful is:
-
-``` shell
-npm run watch
-```
-
-This script will build the application and make the site available to preview at `http://localhost:3000/`. This script also uses a mocked version of the API.
-
-#### docker
-
- _This is an alternative to the npm build mentioned above. This build may only exist temporarily until a better integration with the HMDA platform back-end takes place._
-
-We use docker, docker-machine, and docker-compose to run a local dev setup. We use homebrew to install the necessary packages:
-
-``` shell
-$ brew install docker docker-compose docker-machine
-```
-
-After starting your local docker-machine, [`docker-machine create`](https://docs.docker.com/machine/reference/create/), you'll need to:
-
-- Build the image: `docker build -t mock-api -f api-dockerfile .`
-  - the `-t` flag is used to name the image;
-  - the `-f` flag is necessary because the api-dockerfile is what is used for developing using the mocked version of the api.
-
-Once the image is built, you can run:
-
-`npm run watch`
-
-to build the app and start watching for changes. This will allow you do local development, modify the files in `/src`, and refresh the browser to see the changes. Then run:
-
-`docker run -d -p 80:8080 -v /dist:/user/src/app mock-api`
-
-This starts the container and mounts the local `/dist` folder, the location where the files are built, to the container. (See the docker documentation on [mounting a volume](https://docs.docker.com/engine/tutorials/dockervolumes/#/mount-a-host-directory-as-a-data-volume) for more details.)
-
-To view the site, again using the mocked version of the API, you'll need to run:
-
-`docker-machine ip`
-
-Using that IP you can view the application in your browser.
-
-
 ### Using the back-end API
 
-To view the full application with the back-end API please follow the instructions found under the "Building and Running" heading of the [HMDA platform README](https://github.com/cfpb/hmda-platform).
+Viewing the full application requires the back-end [API](https://github.com/cfpb/hmda-platform) and [authentication](https://github.com/cfpb/hmda-platform-auth). Please follow the instructions found under the "Building and Running" heading of the [HMDA platform README](https://github.com/cfpb/hmda-platform#to-run-the-entire-platform).
 
-## How to test the software
+## How to test the front-end
 
-``` shell
+```shell
 $ npm test
 ```
 
@@ -111,3 +75,4 @@ If you have questions, concerns, bug reports, etc, please file an issue in this 
   - https://github.com/cfpb/hmda-pilot
 2. Related projects
   - https://github.com/cfpb/hmda-platform
+  - https://github.com/cfpb/hmda-platform-auth

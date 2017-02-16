@@ -5,20 +5,16 @@ const getText = (props) => {
   let textToRender = null
 
   if(props.syntacticalValidityEditsExist) {
-    textToRender = <div><span style={{marginRight: '8px'}} className="usa-alert-text"><strong>Syntactical</strong> and <strong>validity</strong> edits require file resubmission.</span></div>
+    textToRender = <p className="usa-alert-text"><strong>Syntactical</strong> and <strong>validity</strong> edits require file resubmission.</p>
   } else {
-    textToRender = <span className="usa-alert-text"><strong>Quality</strong> and <strong>macro</strong> edits must be validated before continuing.</span>
+    textToRender = <p className="usa-alert-text"><strong>Quality</strong> and <strong>macro</strong> edits must be validated before continuing.</p>
   }
 
   if(props.code === 5) {
-    textToRender = <div><span style={{marginRight: '8px'}} className="usa-alert-text"><strong>Parsing</strong> errors require file resubmission.</span></div>
+    textToRender = <p className="usa-alert-text"><strong>Parsing</strong> errors require file resubmission.</p>
   }
 
-  return (
-    <div className="usa-alert-body">
-      {textToRender}
-    </div>
-  )
+  return textToRender
 }
 
 
@@ -31,7 +27,7 @@ const RefileWarning = (props) => {
   }
 
   return (
-    <div className={`RefileWarning usa-alert ${alertClass} margin-bottom-2`}>
+    <div className={`RefileWarning usa-alert ${alertClass}`}>
       <div className="usa-alert-body">
         {getText(props)}
       </div>

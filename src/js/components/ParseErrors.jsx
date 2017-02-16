@@ -51,11 +51,11 @@ const ParseErrors = (props) => {
 
   return (
     <div className="ParseErrors usa-grid-full" id="parseErrors">
-      <div className="desc">
-        <h2 className="margin-top-0 text-secondary">{count} Parsing {errorText}</h2>
+      <header>
+        <h2>{count} Parsing {errorText}</h2>
         <p className="usa-font-lead">There are errors that prevented your file from being validated. You must fix these errors and re-upload your file.</p>
-      </div>
-      <table className="margin-bottom-0" width="100%">
+      </header>
+      <table width="100%">
         <thead>
           <tr>
             <th>Row</th>

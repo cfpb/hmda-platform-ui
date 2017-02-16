@@ -11,28 +11,33 @@ const renderTiming = (status, start, end) => {
   let timing
 
   switch (status.code) {
-      // not-started
+    // not-started
     case 1:
       messageClass = 'text-secondary'
       timing = null
       break
-      // in-progress
+    // in-progress
     case 2:
       messageClass = 'text-primary'
-      timing = moment(start).fromNow()
+      timing = `Started ${moment(start).fromNow()}`
       break
-      // completed
+    // completed
     case 3:
       messageClass = 'text-green'
-      timing = moment(end).format('MMMM Do')
+      timing = `Completed ${moment(end).format('MMMM Do')}`
       break
-      // code 4 is cancelled, do nothing ... defaults are fine
+    // code 4 is cancelled, do nothing ... defaults are fine
     default:
       messageClass = 'text-secondary'
       timing = null
   }
 
-  return <p className="text-gray usa-text-small"><strong className={`${messageClass} text-uppercase`}>{status.message}</strong> {timing}</p>
+  return (
+    <div className="timing usa-text-small">
+      <p><strong className={`${messageClass} text-uppercase`}>{status.message}</strong></p>
+      <p>{timing}</p>
+    </div>
+  )
 }
 
 const renderStatus = (code, institutionName, institutionId, period) => {
@@ -111,23 +116,25 @@ export default class Institution extends Component {
             const institution = getInstitutionFromFiling(institutions, filing)
             if(!institution) return
             return (
-              <div key={i} className="usa-grid-full institution bg-color-hmda-gray padding-2">
-                <h2>{institution.name} - {institution.id}</h2>
-                {renderTiming(filing.status, filing.start, filing.end)}
-                {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
-                {renderButton(filing.status.code, filing.institutionId, filing.period)}
-                <RefileButton id={filing.institutionId} filing={filing.period} code={filing.status.code}/>
-                <h5>Previous submissions for this filing</h5>
-                <ul className="usa-text-small usa-unstyled-list">
-                  {filingObj.submissions.map((submission, i) => {
-                    return (<li className="edit-report" key={i}><strong>{submission.id.sequenceNumber}</strong>. <a href="#" onClick={(e) => {e.preventDefault(); this.props.onDownloadClick(institution.id, filing.period, submission.id.sequenceNumber)}}>Download edit report</a> - <span className="text-gray">started on {moment(submission.start).format('MMMM Do, YYYY')}</span></li>)
-                  })}
-                </ul>
+              <div key={i} className="usa-grid-full">
+                <div className="institution">
+                  {renderTiming(filing.status, filing.start, filing.end)}
+                  <h2>{institution.name} - {institution.id}</h2>
+                  {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
+                  {renderButton(filing.status.code, filing.institutionId, filing.period)}
+                  <RefileButton id={filing.institutionId} filing={filing.period} code={filing.status.code}/>
+                  <h5>Previous submissions for this filing</h5>
+                  <ul className="usa-text-small usa-unstyled-list">
+                    {filingObj.submissions.map((submission, i) => {
+                      return (<li className="edit-report" key={i}><strong>{submission.id.sequenceNumber}</strong>. <a href="#" onClick={(e) => {e.preventDefault(); this.props.onDownloadClick(institution.id, filing.period, submission.id.sequenceNumber)}}>Download edit report</a> - <span className="text-gray">started on {moment(submission.start).format('MMMM Do, YYYY')}</span></li>)
+                    })}
+                  </ul>
+                </div>
               </div>
             )
           })}
         </div>
-        <div className="usa-width-one-third padding-left-1 padding-right-1">
+        <div className="content usa-width-one-third">
           <p>We can use this area as some help text and talk about the process or whatever else we need to mention.</p>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec auctor nisl. Nam ut justo nec ligula aliquam pretium et at orci. Nulla pulvinar feugiat tellus, in sagittis sem sollicitudin at. Nunc nec libero at elit consectetur elementum eu at nisl.</p>
           <p>Curabitur molestie felis massa, vel semper nulla maximus nec. Quisque feugiat nulla nec urna tristique varius. Ut vulputate felis mi, non elementum lacus tempor ut. Etiam tempus porta arcu non venenatis. Vivamus nec tellus eleifend, pulvinar sapien sed, posuere leo.</p>

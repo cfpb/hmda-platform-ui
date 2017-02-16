@@ -19,7 +19,7 @@ function mapStateToProps(state) {
   } = state.app.edits
 
   const verified = types && types.quality.verified !== undefined
-    ? types.quality.verified
+    ? (types.quality.verified || types.quality.edits.length === 0)
     : false
 
   return {
