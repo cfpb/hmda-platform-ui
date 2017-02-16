@@ -48,31 +48,35 @@ const renderTiming = (submissionStatus, start, end) => {
   )
 }
 
-const renderStatusMessage = (code) => {
-  let status
+const renderStatusMessage = (submissionStatus) => {
+  let statusMessage
+  const { code, message } = submissionStatus
 
-  switch (code) {
-    // not started
-    case 1:
-      status = 'No filing started. You can begin filing now.'
-      break
-    // in progress
-    case 2:
-      status = 'The filing is being processed. You can view the progress.'
-      break
-    // completed
-    case 3:
-      status = 'The filing is complete and signed. You can review the signed submission.'
-      break
-    // cancelled
-    case 4:
-      status = 'The latest filing has been cancelled. You can review the cancelled submission or submit a new file.'
-      break
-    default:
-      status = 'No filing started. You can begin filing now.'
+  if(code === 1) {
+    statusMessage = 'A submission has been created and is ready for a file upload.'
   }
 
-  return <p className="status">{status}</p>
+  if(code > 1 && code < 8) {
+    statusMessage = 'Your file is currently being processed.'
+  }
+
+  if(code === 5) {
+    statusMessage = 'Your file failed to parse and will need to be fixed and re-submitted.'
+  }
+
+  if(code === 8) {
+    statusMessage = `Your submission has been ${message}.`
+  }
+
+  if(code === 9) {
+    statusMessage = `Your submission has been ${message} and is ready to be signed.`
+  }
+
+  if(code === 11) {
+    statusMessage = `Your submission has been ${message}. Thank you!`
+  }
+
+  return <p className="status">{statusMessage}</p>
 }
 
 const renderButton = (code, institutionId, period) => {
@@ -137,7 +141,7 @@ export default class Institution extends Component {
 
                   <h2>{institution.name} - {institution.id}</h2>
 
-                  {renderStatusMessage(filing.status.code)}
+                  {renderStatusMessage(latestSubmissionStatus)}
 
                   {renderButton(
                     filing.status.code,
