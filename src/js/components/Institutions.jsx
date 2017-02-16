@@ -5,66 +5,84 @@ import Header from './Header.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 
-const renderTiming = (status, start, end) => {
-  // default to code 1, not-started
+const renderTiming = (submissionStatus, start, end) => {
+  if(submissionStatus.code === null) return
+
   let messageClass
   let timing
 
-  switch (status.code) {
-    // not-started
-    case 1:
-      messageClass = 'text-secondary'
-      timing = null
-      break
-    // in-progress
-    case 2:
-      messageClass = 'text-primary'
-      timing = `Started ${moment(start).fromNow()}`
-      break
-    // completed
-    case 3:
-      messageClass = 'text-green'
-      timing = `Completed ${moment(end).format('MMMM Do')}`
-      break
-    // code 4 is cancelled, do nothing ... defaults are fine
-    default:
-      messageClass = 'text-secondary'
-      timing = null
+  // submission created
+  if(submissionStatus.code === 1) {
+    messageClass = 'text-secondary'
+    timing = 'Submission is created but not started'
+  }
+
+  // any submission status but created or signed
+  if(submissionStatus.code > 1) {
+    messageClass = 'text-primary'
+    timing = `Started ${moment(start).fromNow()}`
+  }
+
+  // if its parsed with errors or validated with errors
+  if(submissionStatus.code === 5 || submissionStatus.code === 8) {
+    messageClass = 'text-secondary'
+  }
+
+  // signed (completed)
+  if(submissionStatus.code === 11) {
+    messageClass = 'text-green'
+    timing = `Completed ${moment(end).format('MMMM Do')}`
+  }
+
+  // failed submission
+  if(submissionStatus.code === -1) {
+    messageClass = 'text-secondary'
+    timing = `Submission failed ${moment(start).fromNow()}`
   }
 
   return (
     <div className="timing usa-text-small">
-      <p><strong className={`${messageClass} text-uppercase`}>{status.message}</strong></p>
+      <p><strong className={`${messageClass} text-uppercase`}>{submissionStatus.message}</strong></p>
       <p>{timing}</p>
     </div>
   )
 }
 
-const renderStatus = (code, institutionName, institutionId, period) => {
-  let status
+const renderStatusMessage = (submissionStatus) => {
+  let statusMessage
+  const { code, message } = submissionStatus
 
-  switch (code) {
-    // not started
-    case 1:
-      status = 'No filing started. You can begin filing now.'
-      break
-    // in progress
-    case 2:
-      status = 'The filing is being processed. You can view the progress.'
-      break
-    // completed
-    case 3:
-      status = 'The filing is complete and signed. You can review the signed submission.'
-      break
-    // cancelled
-    case 4:
-      status = 'The latest filing has been cancelled. You can review the cancelled submission or submit a new file.'
-      break
-    default:
-      status = 'No filing started. You can begin filing now.'
+  // created
+  if(code === 1) {
+    statusMessage = 'A submission has been created and is ready for a file upload.'
   }
 
-  return <p className="status">{status}</p>
+  // in progress
+  if(code > 1 && code < 8) {
+    statusMessage = 'Your file is currently being processed.'
+  }
+
+  // failed parser
+  if(code === 5) {
+    statusMessage = 'Your file failed to parse and will need to be fixed and re-submitted.'
+  }
+
+  // has edits
+  if(code === 8) {
+    statusMessage = `Your submission has been ${message}.`
+  }
+
+  // validated
+  if(code === 9) {
+    statusMessage = `Your submission has been ${message} and is ready to be signed.`
+  }
+
+  // signed
+  if(code === 11) {
+    statusMessage = `Your submission has been ${message}. Thank you!`
+  }
+
+  return <p className="status">{statusMessage}</p>
 }
 
 const renderButton = (code, institutionId, period) => {
@@ -92,6 +110,34 @@ const renderButton = (code, institutionId, period) => {
   return <Link className="status-button usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
 }
 
+const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, period) => {
+  return (
+    <div className="previous-submissions">
+      <h5>Previous submissions for this filing</h5>
+
+      <ol reversed className="usa-text-small">
+        {submissions.map((submission, i) => {
+          // render the end date if it was signed
+          const date = (submission.status.code === 11) ? moment(submission.end).format('MMMM Do, YYYY') : moment(submission.start).format('MMMM Do, YYYY')
+          return (
+            <li className="edit-report" key={i}>
+              <a href="#"
+                onClick={(e) => {
+                  e.preventDefault()
+                  onDownloadClick(
+                    institutionId,
+                    period,
+                    submission.id.sequenceNumber
+                  )
+                }
+              }>Download edit report</a> <strong>{submission.status.message}</strong> on {date}
+            </li>)
+        })}
+      </ol>
+    </div>
+  )
+}
+
 const getInstitutionFromFiling = (institutions, filing) => {
   for(let i=0; i<institutions.length; i++){
     if(institutions[i].id === filing.institutionId) return institutions[i]
@@ -109,26 +155,47 @@ export default class Institution extends Component {
         pathname={this.props.location.pathname}
         userName={this.props.user.profile.name} />
       <div id="main-content" className="usa-grid">
-        <UserHeading period="2017" userName={this.props.user.profile.name} />
+        <UserHeading
+          period="2017"
+          userName={this.props.user.profile.name} />
         <div className="usa-width-two-thirds">
           {this.props.filings.map((filingObj, i) => {
             const filing = filingObj.filing
+            const latestSubmissionStatus = filingObj.submissions[0] && filingObj.submissions[0].status || null
             const institution = getInstitutionFromFiling(institutions, filing)
             if(!institution) return
             return (
               <div key={i} className="usa-grid-full">
                 <div className="institution">
-                  {renderTiming(filing.status, filing.start, filing.end)}
-                  <h2>{institution.name} - {institution.id}</h2>
-                  {renderStatus(filing.status.code, institution.name, filing.institutionId, filing.period)}
-                  {renderButton(filing.status.code, filing.institutionId, filing.period)}
-                  <RefileButton id={filing.institutionId} filing={filing.period} code={filing.status.code}/>
-                  <h5>Previous submissions for this filing</h5>
-                  <ul className="usa-text-small usa-unstyled-list">
-                    {filingObj.submissions.map((submission, i) => {
-                      return (<li className="edit-report" key={i}><strong>{submission.id.sequenceNumber}</strong>. <a href="#" onClick={(e) => {e.preventDefault(); this.props.onDownloadClick(institution.id, filing.period, submission.id.sequenceNumber)}}>Download edit report</a> - <span className="text-gray">started on {moment(submission.start).format('MMMM Do, YYYY')}</span></li>)
-                    })}
-                  </ul>
+                  <div className="current-status">
+                    {renderTiming(
+                      latestSubmissionStatus,
+                      filing.start,
+                      filing.end
+                    )}
+
+                    <h2>{institution.name} - {institution.id}</h2>
+
+                    {renderStatusMessage(latestSubmissionStatus)}
+
+                    {renderButton(
+                      filing.status.code,
+                      filing.institutionId,
+                      filing.period
+                    )}
+
+                    <RefileButton
+                      id={filing.institutionId}
+                      filing={filing.period}
+                      code={filing.status.code} />
+                  </div>
+
+                  {renderPreviousSubmissions(
+                    filingObj.submissions,
+                    this.props.onDownloadClick,
+                    institution.id,
+                    filing.period
+                  )}
                 </div>
               </div>
             )
