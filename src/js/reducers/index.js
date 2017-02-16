@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import {
+  REFRESH_STATE,
   REQUEST_INSTITUTIONS,
   RECEIVE_INSTITUTIONS,
   RECEIVE_INSTITUTION,
@@ -142,6 +143,8 @@ export const upload = (state = defaultUpload, action) => {
       file: action.file,
       errors: action.errors
     }
+  case REFRESH_STATE:
+    return defaultUpload
   default:
     return state
   }
@@ -256,6 +259,9 @@ const edits = (state = defaultEdits, action) => {
         ...state,
         groupByRow: action.groupByRow
       }
+    }
+    case REFRESH_STATE: {
+      return defaultEdits
     }
     default:
       return state

@@ -9,9 +9,9 @@ function mapStateToProps(state) {
   const base = pathname.split('/').slice(0,-1).join('/')
 
   const { code } = state.app.submission.status
-  const { types } = state.app.edits
+  const { types, fetched } = state.app.edits
 
-  const syntacticalValidityEditsExist = types.syntactical.edits.length !== 0 ||
+  const syntacticalValidityEditsExist = !fetched || types.syntactical.edits.length !== 0 ||
     types.validity.edits.length !== 0
   const qualityVerified = types.quality.verified || types.quality.edits.length === 0
   const macroVerified = types.macro.edits.filter(edit => {

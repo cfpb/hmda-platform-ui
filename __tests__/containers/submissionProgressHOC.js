@@ -54,7 +54,7 @@ describe('submissionProgressHOC', () => {
     expect(mapped.page).toBe('c')
     expect(mapped.base).toBe('a/b')
     expect(mapped.code).toBe(0)
-    expect(mapped.syntacticalValidityEditsExist).toBe(false)
+    expect(mapped.syntacticalValidityEditsExist).toBe(true)
     expect(mapped.qualityVerified).toBe(false)
     expect(mapped.macroVerified).toBe(true)
   })

@@ -269,7 +269,7 @@ describe('upload reducer', () => {
   })
 
   it('shouldn\'t modify state on an unknown action type', () => {
-    excludeTypes(types.SELECT_FILE, types.UPLOAD_PROGRESS)
+    excludeTypes(types.SELECT_FILE, types.UPLOAD_PROGRESS, types.REFRESH_STATE)
       .forEach(v => expect(upload({}, v))
         .toEqual({})
       )
