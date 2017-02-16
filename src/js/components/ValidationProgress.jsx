@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
 
 const getIndicator = (code, type) => {
   let indicator = <span className="progress"></span>
