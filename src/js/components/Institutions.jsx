@@ -161,7 +161,7 @@ export default class Institution extends Component {
         <div className="usa-width-two-thirds">
           {this.props.filings.map((filingObj, i) => {
             const filing = filingObj.filing
-            const latestSubmissionStatus = filingObj.submissions[0].status || null
+            const latestSubmissionStatus = filingObj.submissions[0] && filingObj.submissions[0].status || null
             const institution = getInstitutionFromFiling(institutions, filing)
             if(!institution) return
             return (
