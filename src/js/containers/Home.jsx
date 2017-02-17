@@ -17,6 +17,7 @@ export class HomeContainer extends Component {
 export function mapStateToProps(state) {
   return {
     user: state.oidc.user || {profile: {name: null}},
+    filingPeriod: state.app.filingPeriod,
     viewInstitutions(e) {
       e.preventDefault()
       browserHistory.push('/institutions')
