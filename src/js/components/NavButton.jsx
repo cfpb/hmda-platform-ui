@@ -13,12 +13,10 @@ const NavButton = (props) => {
 
   let className
   let suffix
-  let displayName
 
   switch (page) {
     case 'upload':
       suffix = 'syntacticalvalidity'
-      displayName = 'edits'
       if(code < 8) className = 'usa-button-disabled'
       break
     case 'syntacticalvalidity':
@@ -37,11 +35,14 @@ const NavButton = (props) => {
       return null
   }
 
-  if(!displayName) displayName = suffix
+  let displayName = (suffix === 'syntacticalvalidity') ? '' : suffix
+  displayName = (suffix !== 'summary') ? `${displayName} Edits` : displayName
 
   return <Link
     className={`NavButton usa-button ${className}`}
-    to={`${base}/${suffix}`}>{`Review ${displayName}`}</Link>
+    to={`${base}/${suffix}`}>
+      {`Review ${displayName}`}
+    </Link>
 
 }
 
