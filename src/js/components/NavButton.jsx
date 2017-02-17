@@ -41,7 +41,7 @@ const NavButton = (props) => {
 
   return <Link
     className={`NavButton usa-button ${className}`}
-    to={`${base}/${suffix}`}>{`Review ${displayName} \u21D2`}</Link>
+    to={`${base}/${suffix}`}>{`Review ${displayName}`}</Link>
 
 }
 
