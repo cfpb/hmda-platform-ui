@@ -1,14 +1,17 @@
 import React, { PropTypes } from 'react'
 
 const getText = (props) => {
+  // not logged in, on home page
   let headingText = `Welcome to the ${props.period} HMDA filing.`
 
+  // logged in, on home page
   if(props.userName) {
     headingText = `Welcome to the ${props.period} HMDA filing, ${props.userName}.`
   }
 
-  if (props.institution) {
-    headingText = `Filing on behalf of ${props.institution} for ${props.period}.`
+  // logged in, submission pages
+  if(props.institution) {
+    headingText = `${props.userName} filing on behalf of ${props.institution} for ${props.period}.`
   }
 
   return headingText
