@@ -11,8 +11,7 @@ const NavButton = (props) => {
     macroVerified
   } = props
 
-  const disabled = ' usa-button-disabled'
-  let className = 'usa-button NavButton'
+  let className
   let suffix
   let displayName
 
@@ -20,19 +19,19 @@ const NavButton = (props) => {
     case 'upload':
       suffix = 'syntacticalvalidity'
       displayName = 'edits'
-      if(code < 8) className+=disabled
+      if(code < 8) className = 'usa-button-disabled'
       break
     case 'syntacticalvalidity':
       suffix = 'quality'
-      if(code < 8 || syntacticalValidityEditsExist) className+=disabled
+      if(code < 8 || syntacticalValidityEditsExist) className = 'usa-button-disabled'
       break
     case 'quality':
       suffix = 'macro'
-      if(code < 8 || syntacticalValidityEditsExist || !qualityVerified) className+=disabled
+      if(code < 8 || syntacticalValidityEditsExist || !qualityVerified) className = 'usa-button-disabled'
       break
     case 'macro':
       suffix = 'summary'
-      if(code < 8 || syntacticalValidityEditsExist || !qualityVerified || !macroVerified) className+=disabled
+      if(code < 8 || syntacticalValidityEditsExist || !qualityVerified || !macroVerified) className = 'usa-button-disabled'
       break
     default:
       return null
@@ -40,7 +39,9 @@ const NavButton = (props) => {
 
   if(!displayName) displayName = suffix
 
-  return <Link className={className} to={`${base}/${suffix}`}>{`Review ${displayName} \u21D2`}</Link>
+  return <Link
+    className={`NavButton usa-button ${className}`}
+    to={`${base}/${suffix}`}>{`Review ${displayName} \u21D2`}</Link>
 
 }
 
