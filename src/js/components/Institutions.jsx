@@ -119,19 +119,32 @@ const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, 
         {submissions.map((submission, i) => {
           // render the end date if it was signed
           const date = (submission.status.code === 11) ? moment(submission.end).format('MMMM Do, YYYY') : moment(submission.start).format('MMMM Do, YYYY')
+
+          // render a link if validted with errors
+          if(submission.status.code === 8) {
+            return (
+              <li className="edit-report" key={i}>
+                <a href="#"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    onDownloadClick(
+                      institutionId,
+                      period,
+                      submission.id.sequenceNumber
+                    )
+                  }
+                }>Download edit report</a> <strong>{submission.status.message}</strong> on {date}.
+              </li>
+            )
+          }
+
+          // other statuses contain no edits
           return (
             <li className="edit-report" key={i}>
-              <a href="#"
-                onClick={(e) => {
-                  e.preventDefault()
-                  onDownloadClick(
-                    institutionId,
-                    period,
-                    submission.id.sequenceNumber
-                  )
-                }
-              }>Download edit report</a> <strong>{submission.status.message}</strong> on {date}
-            </li>)
+              Submission on {date} was <strong>{submission.status.message}</strong> and has no edits.
+            </li>
+          )
+
         })}
       </ol>
     </div>
