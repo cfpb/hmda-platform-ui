@@ -32,7 +32,7 @@ describe('Institutions', () => {
   })
 
   it('creates the status (renderStatus) with correct content', () => {
-    expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status').textContent).toEqual('The filing is complete and signed. You can review the signed submission.')
+    expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status').textContent).toEqual('Your submission has been validated and is ready to be signed.')
   })
 
   it('creates the status button (renderButton)', () => {
