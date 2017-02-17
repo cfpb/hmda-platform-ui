@@ -1,14 +1,47 @@
+// USWDS
+// HMDA custom vars (needs to be first)
 @import "uswds/uswds-customer-vars.scss";
-@import "node_modules/uswds/src/stylesheets/all.scss";
+// Vendor -------------- //
+@import 'node_modules/uswds/src/stylesheets/lib/bourbon';
+@import 'node_modules/uswds/src/stylesheets/lib/neat';
+@import 'node_modules/uswds/src/stylesheets/lib/normalize';
+// Core -------------- //
+@import 'node_modules/uswds/src/stylesheets/core/defaults';
+@import 'node_modules/uswds/src/stylesheets/core/fonts';
+@import 'node_modules/uswds/src/stylesheets/core/base';
+@import 'node_modules/uswds/src/stylesheets/core/grid-settings';
+@import 'node_modules/uswds/src/stylesheets/core/grid';
+@import 'node_modules/uswds/src/stylesheets/core/utilities';
+// Elements -------------- //
+// Styles basic HTML elements
+@import 'node_modules/uswds/src/stylesheets/elements/buttons';
+@import 'node_modules/uswds/src/stylesheets/elements/inputs';
+@import 'node_modules/uswds/src/stylesheets/elements/labels';
+@import 'node_modules/uswds/src/stylesheets/elements/list';
+@import 'node_modules/uswds/src/stylesheets/elements/table';
+@import 'node_modules/uswds/src/stylesheets/elements/typography';
+// Components -------------- //;
+@import 'node_modules/uswds/src/stylesheets/components/alerts';
+@import 'node_modules/uswds/src/stylesheets/components/banner';
+@import 'node_modules/uswds/src/stylesheets/components/footer';
+@import 'node_modules/uswds/src/stylesheets/components/forms';
+// sidenav is only necessary to make the header compile
+@import 'node_modules/uswds/src/stylesheets/components/sidenav';
+@import 'node_modules/uswds/src/stylesheets/components/header';
+@import 'node_modules/uswds/src/stylesheets/components/skipnav';
+
+// HDMA customizations to USWDS
 @import "uswds/header.scss";
 @import "uswds/alert.scss";
 @import "uswds/footer.scss";
 @import "uswds/fixes.scss";
 
+// HMDA specific
 @import "hmda.scss";
 
 @import "node_modules/react-select/dist/react-select";
 
+// Components
 @import "components/Home.scss";
 @import "components/RefileButton.scss";
 @import "components/NavButton.scss";
