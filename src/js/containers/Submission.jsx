@@ -21,6 +21,40 @@ const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
 const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
+const renderByCode = (code, page, message) => {
+  const toRender = []
+  if(code === -1) {
+    toRender.push(<p>{message}</p>)
+  }else{
+    if(page === 'upload'){
+      toRender.push(<UploadForm code={code}/>)
+      if(code === 5) {
+        toRender.push(<RefileWarning/>)
+        toRender.push(<ParseErrors/>)
+      }
+    }else if(['syntacticalvalidity','quality','macro'].indexOf(page) !== -1){
+      if(code > 6){
+        if(code === 8) toRender.push(<RefileWarning/>)
+        toRender.push(<Edits/>)
+      }
+    }else if(page === 'summary'){
+      if(code > 7){
+        toRender.push(<IRSReport/>)
+        toRender.push(<Summary/>)
+        toRender.push(<Signature/>)
+      }
+    }
+  }
+
+  if(toRender.length === 0){
+    toRender.push(<p>Something is wrong, please <Link to='/institutions'>Go Back</Link></p>)
+  }
+
+  toRender.push(<NavButton/>)
+
+  return toRender
+}
+
 
 class SubmissionContainer extends Component {
   constructor(props) {
@@ -35,51 +69,23 @@ class SubmissionContainer extends Component {
 
   render() {
     if(!this.props.user) return null
-    if(!this.props.status) return null
     if(!this.props.location) return null
 
-    if(this.props.status.code === null){
+    if(!this.prop.isFetching &&
+      (!this.props.status||this.props.status.code === null)){
+      console.log('dispatching from render')
       this.props.dispatch(fetchSubmission())
-      return null
     }
 
     const status = this.props.status
-    const code = status.code
+    const code = status && status.code
     const params = this.props.params
     const user = this.props.user
     const pathname = this.props.location.pathname
     const page = pathname.split('/').slice(-1)[0]
-    const toRender = []
 
-    // status codes can be found at https://github.com/cfpb/hmda-platform/blob/master/Documents/submission-status.md
-    if(code === -1) {
-      toRender.push(<p>{status.message}</p>)
-    }else{
-      if(page === 'upload'){
-        toRender.push(<UploadForm code={code}/>)
-        if(code === 5) {
-          toRender.push(<RefileWarning/>)
-          toRender.push(<ParseErrors/>)
-        }
-      }else if(['syntacticalvalidity','quality','macro'].indexOf(page) !== -1){
-        if(code > 6){
-          if(code === 8) toRender.push(<RefileWarning/>)
-          toRender.push(<Edits/>)
-        }
-      }else if(page === 'summary'){
-        if(code > 7){
-          toRender.push(<IRSReport/>)
-          toRender.push(<Summary/>)
-          toRender.push(<Signature/>)
-        }
-      }
-    }
+    const toRender = code ? renderByCode(code, page, status.message) : []
 
-    if(toRender.length === 0){
-      toRender.push(<p>Something is wrong, please <Link to='/institutions'>Go Back</Link></p>)
-    }
-
-    toRender.push(<NavButton/>)
 
     return (
     <div className="SubmissionContainer">
@@ -91,7 +97,7 @@ class SubmissionContainer extends Component {
           period={params.filing}
           userName={user.profile.name}
           institution={params.institution} />
-        {code > 2 ? <div className="FloatingRefile"><RefileButton id={params.institution} filing={params.filing} code={code}/></div> : null}
+        {code > 1 ? <div className="FloatingRefile"><RefileButton id={params.institution} filing={params.filing} code={code}/></div> : null}
         <EditsNav/>
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
@@ -108,10 +114,7 @@ function mapStateToProps(state) {
   const {
     isFetching,
     status
-  } = state.app.submission || {
-    isFetching: true,
-    status: null
-  }
+  } = state.app.submission
 
   const user = state.oidc && state.oidc.user || null
 

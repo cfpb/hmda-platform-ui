@@ -8,6 +8,7 @@ import {
   UPDATE_FILING_PERIOD,
   REQUEST_FILING,
   RECEIVE_FILING,
+  RECEIVE_FILINGS,
   RECEIVE_SUBMISSION,
   SELECT_FILE,
   SHOW_CONFIRM,
@@ -50,6 +51,11 @@ const defaultConfirmation = {
   filing: null
 }
 
+const defaultFilings = {
+  filings: [],
+  isFetching: true
+}
+
 const defaultStatus = {
   code: null,
   message: ''
@@ -58,11 +64,11 @@ const defaultStatus = {
 const defaultSubmission = {
   id: null,
   status: defaultStatus,
-  isFetching: false
+  isFetching: true
 }
 
 const defaultEdits = {
-  isFetching: false,
+  isFetching: true,
   fetched: false,
   types: {
     syntactical: {edits: []},
@@ -106,15 +112,20 @@ export const institutions = (state = {}, action) => {
  * When an filing data for an institution is received, it is added to the list
  * When clear filings is dispatched, empty the list
  */
-export const filings = (state = [], action) => {
+export const filings = (state = defaultFilings, action) => {
   switch (action.type) {
   case RECEIVE_FILING:
-    return [
+    return {
       ...state,
-      action.filing
-    ]
+      filings: [...state.filings, action.filing]
+    }
   case CLEAR_FILINGS:
-    return []
+    return defaultFilings
+  case RECEIVE_FILINGS:
+      return {
+        ...state,
+        isFetching: false
+      }
   default:
     return state
   }

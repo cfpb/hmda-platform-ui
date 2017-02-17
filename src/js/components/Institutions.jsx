@@ -2,11 +2,12 @@ import React, {Component, PropTypes} from 'react'
 import {Link} from 'react-router'
 import UserHeading from './UserHeading.jsx'
 import Header from './Header.jsx'
+import LoadingIcon from './LoadingIcon.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 
 const renderTiming = (submissionStatus, start, end) => {
-  if(submissionStatus.code === null) return
+  if(!submissionStatus || submissionStatus.code === null) return
 
   let messageClass
   let timing
@@ -49,6 +50,7 @@ const renderTiming = (submissionStatus, start, end) => {
 }
 
 const renderStatusMessage = (submissionStatus) => {
+  if(!submissionStatus) submissionStatus = {code: null}
   let statusMessage
   const { code, message } = submissionStatus
 
@@ -82,6 +84,10 @@ const renderStatusMessage = (submissionStatus) => {
     statusMessage = `Your submission has been ${message}. Thank you!`
   }
 
+  if(code === null) {
+    statusMessage = 'You are ready to begin the submission process.'
+  }
+
   return <p className="status">{statusMessage}</p>
 }
 
@@ -111,6 +117,7 @@ const renderButton = (code, institutionId, period) => {
 }
 
 const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, period) => {
+  if(!submissions.length) return
   return (
     <div className="previous-submissions">
       <h5>Previous submissions for this filing</h5>
@@ -159,7 +166,13 @@ export default class Institution extends Component {
           period="2017"
           userName={this.props.user.profile.name} />
         <div className="usa-width-two-thirds">
-          {this.props.filings.map((filingObj, i) => {
+          {this.props.isFetching ?
+            <div className="usa-grid-full">
+              <p style={{visibility: 'hidden'}}>Loading data</p>
+              <LoadingIcon/>
+            </div>
+          :
+            this.props.filings.map((filingObj, i) => {
             const filing = filingObj.filing
             const latestSubmissionStatus = filingObj.submissions[0] && filingObj.submissions[0].status || null
             const institution = getInstitutionFromFiling(institutions, filing)
@@ -184,10 +197,12 @@ export default class Institution extends Component {
                       filing.period
                     )}
 
-                    <RefileButton
+                    {latestSubmissionStatus ?
+                      <RefileButton
                       id={filing.institutionId}
                       filing={filing.period}
-                      code={filing.status.code} />
+                      code={filing.status.code} /> : null
+                    }
                   </div>
 
                   {renderPreviousSubmissions(

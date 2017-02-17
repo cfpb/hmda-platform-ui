@@ -22,18 +22,13 @@ export class InstitutionContainer extends Component {
 
 export function mapStateToProps(state) {
   const {
-    isFetching,
     institutions
-  } = state.app.institutions || {
-    isFetching: true,
-    institutions: []
-  }
+  } = state.app.institutions
 
   const {
-    filings
-  } = state.app || {
-    filings: []
-  }
+    filings,
+    isFetching
+  } = state.app.filings
 
   const user = state.oidc && state.oidc.user || null
 
