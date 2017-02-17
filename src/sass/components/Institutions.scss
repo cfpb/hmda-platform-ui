@@ -1,47 +1,45 @@
-.Institutions {
-  .institution {
-    margin-bottom: 3em;
+.institution {
+  margin-bottom: 3em;
 
-    .current-status {
-      background-color: $color-gray-lightest;
-      padding: 1em;
-    }
+  .current-status {
+    background-color: $color-gray-lightest;
+    padding: 1em;
+  }
 
-    .previous-submissions {
-      border: 1px solid $color-gray-lightest;
-      padding: 1em;
+  .previous-submissions {
+    border: 1px solid $color-gray-lightest;
+    padding: 1em;
 
-      h5 {
-        margin-top: 0;
-      }
-
-      ol {
-        margin-bottom: 0;
-        padding-left: 1.5em;
-      }
-    }
-
-    h2 {
-      margin-bottom: 0;
+    h5 {
       margin-top: 0;
     }
-    .status {
-      margin-top: .5em;
-      margin-bottom: .5em;
-    }
-    .timing {
-      color: $color-gray;
-      p {
-        margin: 0;
-      }
-      strong {
-        text-transform: uppercase;
-      }
+
+    ol {
+      margin-bottom: 0;
+      padding-left: 1.5em;
     }
   }
 
-  .content {
-    padding-right: 1em;
-    padding-left: 1em;
+  h2 {
+    margin-bottom: 0;
+    margin-top: 0;
   }
+  .status {
+    margin-top: .5em;
+    margin-bottom: .5em;
+  }
+  .timing {
+    color: $color-gray;
+    p {
+      margin: 0;
+    }
+    strong {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.content {
+  padding-right: 1em;
+  padding-left: 1em;
 }
