@@ -5,7 +5,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+import { Router, Route, browserHistory, IndexRoute, applyRouterMiddleware } from 'react-router'
+import useScroll from 'react-router-scroll/lib/useScroll';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import createOidcMiddleware, { createUserManager, OidcProvider, reducer } from 'redux-oidc'
 import oidc from 'oidc-client'
@@ -48,7 +49,9 @@ history.listen((location) => {
 render(
   <Provider store={store}>
     <OidcProvider store={store} userManager={userManager}>
-      <Router history={history}>
+      <Router
+        history={history}
+        render={applyRouterMiddleware(useScroll())}>
         <Route path="/" component={AppContainer}>
           <IndexRoute component={HomeContainer}/>
           <Route path="/oidc-callback" component={oidcCallback}/>
