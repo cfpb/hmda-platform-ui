@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react'
 
 const getClass = (groupByRow) => {
-  if(groupByRow) return 'usa-button usa-button-active'
-  return 'usa-button'
+  if(groupByRow) return 'usa-button usa-button-active usa-text-small'
+  return 'usa-button usa-text-small'
 }
 
 const SortPicker = (props) => {
   const groupByRow = props.groupByRow
   return (
-    <div>
+    <div className="SortPicker">
       <a
         className={getClass(!groupByRow)}
         href="#"
