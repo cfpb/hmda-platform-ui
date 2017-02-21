@@ -12,7 +12,11 @@
     margin-bottom: 2em;
   }
 
-  h2 > .usa-button {
+  h2 {
+    display: inline-block;
+  }
+
+  .login-button {
     float:right;
   }
 

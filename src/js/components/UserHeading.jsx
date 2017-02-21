@@ -1,26 +1,32 @@
 import React, { PropTypes } from 'react'
 
 const getText = (props) => {
-  let headingText = 'Welcome to the ' + props.period + ' HMDA filing, ' + props.userName
+  // not logged in, on home page
+  let headingText = `Welcome to the ${props.period} HMDA filing.`
 
-  if (props.institution) {
-    headingText = 'Filing on behalf of ' + props.institution;
+  // logged in, on home page
+  if(props.userName) {
+    headingText = `Welcome to the ${props.period} HMDA filing, ${props.userName}.`
+  }
+
+  // logged in, submission pages
+  if(props.institution) {
+    headingText = `${props.userName} filing on behalf of ${props.institution} for ${props.period}.`
   }
 
   return headingText
 }
 
 const UserHeading = (props) => {
-  if(!props.userName) return null
+  if(!props.period) return null
 
-  const headingText = getText(props)
   return (
-    <h2 className="UserHeading">{headingText}</h2>
+    <h2 className="UserHeading">{getText(props)}</h2>
   )
 }
 
 UserHeading.propTypes = {
-  userName: React.PropTypes.string.isRequired,
+  userName: React.PropTypes.string,
   period: React.PropTypes.string.isRequired,
   institution: React.PropTypes.string
 }

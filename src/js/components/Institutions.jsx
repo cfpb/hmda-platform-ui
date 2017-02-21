@@ -6,7 +6,7 @@ import LoadingIcon from './LoadingIcon.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 
-const renderTiming = (submissionStatus, start, end) => {
+export const renderTiming = (submissionStatus, start, end) => {
   if(!submissionStatus || submissionStatus.code === null) return
 
   let messageClass
@@ -21,7 +21,7 @@ const renderTiming = (submissionStatus, start, end) => {
   // any submission status but created or signed
   if(submissionStatus.code > 1) {
     messageClass = 'text-primary'
-    timing = `Started ${moment(start).fromNow()}`
+    if(start) timing = `Started ${moment(start).utcOffset(-5).fromNow()}`
   }
 
   // if its parsed with errors or validated with errors
@@ -32,13 +32,13 @@ const renderTiming = (submissionStatus, start, end) => {
   // signed (completed)
   if(submissionStatus.code === 11) {
     messageClass = 'text-green'
-    timing = `Completed ${moment(end).format('MMMM Do')}`
+    if(end) timing = `Completed ${moment(end).utcOffset(-5).format('MMMM Do')}`
   }
 
   // failed submission
   if(submissionStatus.code === -1) {
     messageClass = 'text-secondary'
-    timing = `Submission failed ${moment(start).fromNow()}`
+    if(start) timing = `Submission failed ${moment(start).utcOffset(-5).fromNow()}`
   }
 
   return (
@@ -49,8 +49,9 @@ const renderTiming = (submissionStatus, start, end) => {
   )
 }
 
-const renderStatusMessage = (submissionStatus) => {
-  if(!submissionStatus) submissionStatus = {code: null}
+export const renderStatusMessage = (submissionStatus) => {
+  if (!submissionStatus) return
+
   let statusMessage
   const { code, message } = submissionStatus
 
@@ -91,7 +92,7 @@ const renderStatusMessage = (submissionStatus) => {
   return <p className="status">{statusMessage}</p>
 }
 
-const renderButton = (code, institutionId, period) => {
+export const renderButton = (code, institutionId, period) => {
   let buttonText
 
   switch (code) {
@@ -111,24 +112,30 @@ const renderButton = (code, institutionId, period) => {
     case 4:
       buttonText = 'File now'
       break
+    default:
+      buttonText = 'File now'
   }
 
   return <Link className="status-button usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
 }
 
-const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, period) => {
+export const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, period) => {
   if(!submissions.length) return
   return (
-    <div className="previous-submissions">
-      <h5>Previous submissions for this filing</h5>
+  <div className="previous-submissions">
+    <h5>Previous submissions for this filing</h5>
 
-      <ol reversed className="usa-text-small">
-        {submissions.map((submission, i) => {
-          // render the end date if it was signed
-          const date = (submission.status.code === 11) ? moment(submission.end).format('MMMM Do, YYYY') : moment(submission.start).format('MMMM Do, YYYY')
+    <ol reversed className="usa-text-small">
+      {submissions.map((submission, i) => {
+        // render the end date if it was signed
+        const date = (submission.status.code === 11) ? moment(submission.end).utcOffset(-5).format('MMMM Do, YYYY') : moment(submission.start).utcOffset(-5).format('MMMM Do, YYYY')
+
+        // render a link if validted with errors
+        if(submission.status.code === 8) {
           return (
             <li className="edit-report" key={i}>
-              <a href="#"
+               <strong>{submission.status.message}</strong> on {date}.{'\u00a0'}
+               <a href="#"
                 onClick={(e) => {
                   e.preventDefault()
                   onDownloadClick(
@@ -137,15 +144,25 @@ const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, 
                     submission.id.sequenceNumber
                   )
                 }
-              }>Download edit report</a> <strong>{submission.status.message}</strong> on {date}
-            </li>)
-        })}
-      </ol>
-    </div>
+              }>Download edit report</a>
+            </li>
+          )
+        }
+
+        // other statuses contain no edits
+        return (
+          <li className="edit-report" key={i}>
+            <strong>{submission.status.message}</strong> on {date} with no edits.
+          </li>
+        )
+
+      })}
+    </ol>
+  </div>
   )
 }
 
-const getInstitutionFromFiling = (institutions, filing) => {
+export const getInstitutionFromFiling = (institutions, filing) => {
   for(let i=0; i<institutions.length; i++){
     if(institutions[i].id === filing.institutionId) return institutions[i]
   }
