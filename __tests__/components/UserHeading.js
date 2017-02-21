@@ -15,9 +15,11 @@ const data = {
 
 describe('UserHeading', () => {
 
-  describe('does NOT render without user', () => {
+  describe('does NOT render without period', () => {
     const heading = TestUtils.renderIntoDocument(
-      <Wrapper><UserHeading period={data.period} userName=''/></Wrapper>
+      <Wrapper>
+        <UserHeading userName='' />
+      </Wrapper>
     )
     const headingNode = ReactDOM.findDOMNode(heading)
 
@@ -26,9 +28,13 @@ describe('UserHeading', () => {
     })
   })
 
-  describe('render without institution', () => {
+  describe('render with username', () => {
     const heading = TestUtils.renderIntoDocument(
-      <Wrapper><UserHeading userName={data.user} period={data.period}/></Wrapper>
+      <Wrapper>
+        <UserHeading
+          userName={data.user}
+          period={data.period} />
+      </Wrapper>
     )
     const headingNode = ReactDOM.findDOMNode(heading)
 
@@ -41,13 +47,18 @@ describe('UserHeading', () => {
     })
 
     it('renders correctly', () => {
-      expect(headingNode.textContent).toEqual('Welcome to the 2017 HMDA filing, User1')
+      expect(headingNode.textContent).toEqual('Welcome to the 2017 HMDA filing, User1.')
     })
   })
 
   describe('render with institution', () => {
     const heading = TestUtils.renderIntoDocument(
-      <Wrapper><UserHeading institution={data.institution} userName={data.user} period={data.period} /></Wrapper>
+      <Wrapper>
+        <UserHeading
+          institution={data.institution}
+          userName={data.user}
+          period={data.period} />
+      </Wrapper>
     )
     const headingNode = ReactDOM.findDOMNode(heading)
 
@@ -60,7 +71,7 @@ describe('UserHeading', () => {
     })
 
     it('renders correctly', () => {
-      expect(headingNode.textContent).toEqual('Filing on behalf of Wacky data')
+      expect(headingNode.textContent).toEqual('User1 filing on behalf of Wacky data for 2017.')
     })
   })
 
