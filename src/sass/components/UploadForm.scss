@@ -1,7 +1,5 @@
 .UploadForm {
-  border: 1px solid $color-gray-lightest;
   margin-bottom: 2em;
-  padding: 20px;
   width: 470px;
   .usa-alert {
     margin-bottom: 1em;
@@ -13,6 +11,11 @@
   }
   .usa-form {
     max-width: 100%;
+  }
+  .container-upload {
+    border: 1px solid $color-gray-lighter;
+    border-bottom: none;
+    padding: 1em;
   }
   .usa-button.usa-button-gray {
     border: 1px solid $color-gray;
@@ -26,11 +29,9 @@
   }
   input[type="text"] {
     border-color: $color-gray;
-    border-left: none;
-    display: inline;
-    max-width: 30rem;
-    &.input-disabled {
-      border-color: $color-gray-lighter;
+    max-width: 100%;
+    &:disabled {
+      border-color: $color-gray-light;
       color: $color-gray;
     }
     &.input-error {
@@ -38,26 +39,31 @@
       color: $color-secondary;
     }
   }
+
   [type="submit"] {
-    margin: 1em auto 0;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    margin-top: 0;
     width: 100%;
+    max-width: 100%;
   }
 
-  .hmda-file-input {
-    display: inline;
+  .dropzone {
+    border: 1px dashed $color-gray-light;
+    color: $color-gray;
+    height: 200px;
+    padding: 1em;
     position: relative;
-    label {
-      display: inline;
-      margin-top: 0;
-    }
-    input[type="file"] {
-      cursor: pointer;
-      opacity: 0;
+    text-align: center;
+    width: 100%;
+
+    div {
+      margin: 0;
       position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
+      top: 50%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
     }
   }
 }

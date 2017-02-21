@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import ValidationProgress from './ValidationProgress.jsx'
+import Dropzone from 'react-dropzone'
 
 class Upload extends Component {
   constructor(props) {
@@ -7,13 +8,15 @@ class Upload extends Component {
   }
 
   componentDidUpdate() {
-    this.fileName.value = this.props.file.name
+    let upload = this.props.errors.length === 0 ? 'Upload' : 'Can\'t upload'
+    this.dropzoneContent.innerHTML = `<p>${upload} "${this.props.file.name}".</p><p>Drag another LAR file to this area or click to select a LAR file to upload.</p>`
   }
 
-  // keeps the filename after leaving /upload and coming back
+  // keeps the info about the file after leaving /upload and coming back
   componentDidMount() {
+    let upload = this.props.errors.length === 0 ? 'Upload' : 'Can\'t upload'
     if(this.props.file && 'name' in this.props.file) {
-      this.fileName.value = this.props.file.name
+      this.dropzoneContent.innerHTML = `<p>${upload} "${this.props.file.name}".</p><p>Drag another LAR file to this area or click to select a LAR file to upload.</p>`
     }
   }
 
@@ -39,10 +42,7 @@ class Upload extends Component {
   }
 
   render() {
-    const isSelectDisabled = this.props.code > 1 ? true : false
     const isUploadDisabled = (this.props.code > 1 || this.props.file === null || this.props.file.name === 'No file chosen' || this.props.errors.length !== 0) ? true : false
-    const disabledFileInput = (this.props.code > 1) ? 'usa-button-disabled' : ''
-    const disabledFileName = (this.props.code > 1) ? 'input-disabled' : ''
     const inputError = (this.props.errors.length === 0) ? '' : 'input-error'
 
     return (
@@ -50,11 +50,19 @@ class Upload extends Component {
         <div className="UploadForm">
           {this.getErrors(this.props.errors)}
           <form className="usa-form" encType="multipart/form-data" onSubmit={e => this.props.handleSubmit(e, this.props.file)}>
-            <div className={`hmda-file-input usa-button usa-button-gray ${disabledFileInput}`}>
-              <label htmlFor="hmdaFile">Select a file</label>
-              <input id="hmdaFile" name="hmdaFile" type="file" ref={(input) => {this.fileInput = input}} disabled={isSelectDisabled} onChange={this.props.setFile}></input>
+            <div className="container-upload">
+              <Dropzone
+                onDrop={this.props.setFile}
+                multiple={false}
+                className='dropzone'
+                inputProps={{disabled: true}}>
+                <div
+                  ref={(node) => {this.dropzoneContent = node}}
+                  className="usa-text-small">
+                  <p>Drag your LAR file to this area or click to select a LAR file to upload.</p>
+                </div>
+              </Dropzone>
             </div>
-            <input className={`${disabledFileName} ${inputError}`} id="hmdaFileName" name="hmdaFileName" type="text" value='No file chosen' ref={(input) => {this.fileName = input}} readOnly disabled></input>
             <input disabled={isUploadDisabled} className="usa-button" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
           </form>
           {this.getValidationProgress(this.props)}
