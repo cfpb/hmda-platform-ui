@@ -8,7 +8,7 @@ const showReceipt = (code, timestamp, receipt) => {
     <div className="usa-alert usa-alert-success">
       <div className="usa-alert-body">
         <h3 className="usa-alert-heading">Submission signed.</h3>
-        <p className="usa-alert-text">You have signed your submission on <strong>{moment().calendar(timestamp)}</strong>. Your receipt # is <strong>{receipt}</strong>.</p>
+        <p className="usa-alert-text">You have signed your submission on <strong>{moment().utcOffset(-5).calendar(timestamp)}</strong>. Your receipt # is <strong>{receipt}</strong>.</p>
       </div>
     </div>
   )
@@ -70,7 +70,7 @@ const Signature = (props) => {
         onClick={e => props.onSignatureClick(props.checked)}>
         Sign the submission
       </button>
-      
+
       {showReceipt(props.status.code, props.timestamp, props.receipt)}
     </div>
   )

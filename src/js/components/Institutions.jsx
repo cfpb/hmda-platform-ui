@@ -20,7 +20,7 @@ export const renderTiming = (submissionStatus, start, end) => {
   // any submission status but created or signed
   if(submissionStatus.code > 1) {
     messageClass = 'text-primary'
-    if(start) timing = `Started ${moment(start).fromNow()}`
+    if(start) timing = `Started ${moment(start).utcOffset(-5).fromNow()}`
   }
 
   // if its parsed with errors or validated with errors
@@ -31,13 +31,13 @@ export const renderTiming = (submissionStatus, start, end) => {
   // signed (completed)
   if(submissionStatus.code === 11) {
     messageClass = 'text-green'
-    if(end) timing = `Completed ${moment(end).format('MMMM Do')}`
+    if(end) timing = `Completed ${moment(end).utcOffset(-5).format('MMMM Do')}`
   }
 
   // failed submission
   if(submissionStatus.code === -1) {
     messageClass = 'text-secondary'
-    if(start) timing = `Submission failed ${moment(start).fromNow()}`
+    if(start) timing = `Submission failed ${moment(start).utcOffset(-5).fromNow()}`
   }
 
   return (
@@ -122,7 +122,7 @@ export const renderPreviousSubmissions = (submissions, onDownloadClick, institut
       <ol reversed className="usa-text-small">
         {submissions.map((submission, i) => {
           // render the end date if it was signed
-          const date = (submission.status.code === 11) ? moment(submission.end).format('MMMM Do, YYYY') : moment(submission.start).format('MMMM Do, YYYY')
+          const date = (submission.status.code === 11) ? moment(submission.end).utcOffset(-5).format('MMMM Do, YYYY') : moment(submission.start).utcOffset(-5).format('MMMM Do, YYYY')
 
           // render a link if validted with errors
           if(submission.status.code === 8) {
