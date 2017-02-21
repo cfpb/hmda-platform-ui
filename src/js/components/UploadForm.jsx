@@ -17,12 +17,12 @@ class Upload extends Component {
     }
   }
 
-  getValidationProgress(props) {
+  renderValidationProgress(props) {
     if(props.code === 1) return null
     return <ValidationProgress code={props.code} />
   }
 
-  getErrors(errors) {
+  renderErrors(errors) {
     if(errors.length === 0) return null
 
     return(
@@ -48,16 +48,42 @@ class Upload extends Component {
     return (
       <div>
         <div className="UploadForm">
-          {this.getErrors(this.props.errors)}
-          <form className="usa-form" encType="multipart/form-data" onSubmit={e => this.props.handleSubmit(e, this.props.file)}>
+          {this.renderErrors(this.props.errors)}
+          <form
+            className="usa-form"
+            encType="multipart/form-data"
+            onSubmit={e => this.props.handleSubmit(e, this.props.file)}>
             <div className={`hmda-file-input usa-button usa-button-gray ${disabledFileInput}`}>
               <label htmlFor="hmdaFile">Select a file</label>
-              <input id="hmdaFile" name="hmdaFile" type="file" ref={(input) => {this.fileInput = input}} disabled={isSelectDisabled} onChange={this.props.setFile}></input>
+              <input
+                id="hmdaFile"
+                name="hmdaFile"
+                type="file"
+                ref={(input) => {this.fileInput = input}}
+                disabled={isSelectDisabled}
+                onChange={this.props.setFile}>
+              </input>
             </div>
-            <input className={`${disabledFileName} ${inputError}`} id="hmdaFileName" name="hmdaFileName" type="text" value='No file chosen' ref={(input) => {this.fileName = input}} readOnly disabled></input>
-            <input disabled={isUploadDisabled} className="usa-button" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
+            <input
+              className={`${disabledFileName} ${inputError}`}
+              id="hmdaFileName"
+              name="hmdaFileName"
+              type="text"
+              value='No file chosen'
+              ref={(input) => {this.fileName = input}}
+              readOnly
+              disabled>
+            </input>
+            <input
+              disabled={isUploadDisabled}
+              className="usa-button"
+              id="uploadButton"
+              name="uploadButton"
+              type="submit"
+              value="Upload">
+            </input>
           </form>
-          {this.getValidationProgress(this.props)}
+          {this.renderValidationProgress(this.props)}
         </div>
       </div>
     )
