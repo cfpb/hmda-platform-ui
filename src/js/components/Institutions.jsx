@@ -5,8 +5,8 @@ import Header from './Header.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 
-const renderTiming = (submissionStatus, start, end) => {
-  if(submissionStatus.code === null) return
+export const renderTiming = (submissionStatus, start, end) => {
+  if(!submissionStatus || !submissionStatus.code) return
 
   let messageClass
   let timing
@@ -20,7 +20,7 @@ const renderTiming = (submissionStatus, start, end) => {
   // any submission status but created or signed
   if(submissionStatus.code > 1) {
     messageClass = 'text-primary'
-    timing = `Started ${moment(start).fromNow()}`
+    if(start) timing = `Started ${moment(start).fromNow()}`
   }
 
   // if its parsed with errors or validated with errors
@@ -31,13 +31,13 @@ const renderTiming = (submissionStatus, start, end) => {
   // signed (completed)
   if(submissionStatus.code === 11) {
     messageClass = 'text-green'
-    timing = `Completed ${moment(end).format('MMMM Do')}`
+    if(end) timing = `Completed ${moment(end).format('MMMM Do')}`
   }
 
   // failed submission
   if(submissionStatus.code === -1) {
     messageClass = 'text-secondary'
-    timing = `Submission failed ${moment(start).fromNow()}`
+    if(start) timing = `Submission failed ${moment(start).fromNow()}`
   }
 
   return (
@@ -48,7 +48,9 @@ const renderTiming = (submissionStatus, start, end) => {
   )
 }
 
-const renderStatusMessage = (submissionStatus) => {
+export const renderStatusMessage = (submissionStatus) => {
+  if (!submissionStatus) return
+
   let statusMessage
   const { code, message } = submissionStatus
 
@@ -85,7 +87,7 @@ const renderStatusMessage = (submissionStatus) => {
   return <p className="status">{statusMessage}</p>
 }
 
-const renderButton = (code, institutionId, period) => {
+export const renderButton = (code, institutionId, period) => {
   let buttonText
 
   switch (code) {
@@ -105,12 +107,14 @@ const renderButton = (code, institutionId, period) => {
     case 4:
       buttonText = 'File now'
       break
+    default:
+      buttonText = 'File now'
   }
 
   return <Link className="status-button usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
 }
 
-const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, period) => {
+export const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, period) => {
   return (
     <div className="previous-submissions">
       <h5>Previous submissions for this filing</h5>
@@ -124,7 +128,8 @@ const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, 
           if(submission.status.code === 8) {
             return (
               <li className="edit-report" key={i}>
-                <a href="#"
+                 <strong>{submission.status.message}</strong> on {date}.{'\u00a0'}
+                 <a href="#"
                   onClick={(e) => {
                     e.preventDefault()
                     onDownloadClick(
@@ -133,7 +138,7 @@ const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, 
                       submission.id.sequenceNumber
                     )
                   }
-                }>Download edit report</a> <strong>{submission.status.message}</strong> on {date}.
+                }>Download edit report</a>
               </li>
             )
           }
@@ -141,7 +146,7 @@ const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, 
           // other statuses contain no edits
           return (
             <li className="edit-report" key={i}>
-              Submission on {date} was <strong>{submission.status.message}</strong> and has no edits.
+              <strong>{submission.status.message}</strong> on {date} with no edits.
             </li>
           )
 
@@ -151,7 +156,7 @@ const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, 
   )
 }
 
-const getInstitutionFromFiling = (institutions, filing) => {
+export const getInstitutionFromFiling = (institutions, filing) => {
   for(let i=0; i<institutions.length; i++){
     if(institutions[i].id === filing.institutionId) return institutions[i]
   }
