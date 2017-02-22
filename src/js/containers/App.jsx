@@ -13,7 +13,9 @@ export class AppContainer extends Component {
   }
 
   render() {
-    if(!this.props.user || !this.props.user.profile.name) signinRedirect()
+    if(!this.props.user || !this.props.user.profile.name){
+      if(signinRedirect()) return
+    }
     return (
       <div className="AppContainer">
         <a className="usa-skipnav" href="#main-content">Skip to main content</a>

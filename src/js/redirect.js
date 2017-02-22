@@ -5,6 +5,7 @@ const signinRedirect = (force) => {
   if((!force && location.pathname === '/') || location.pathname === '/oidc-callback') return
   localStorage.setItem('hmdaPageBeforeSignin', location.pathname)
   userManager.signinRedirect()
+  return true
 }
 
 

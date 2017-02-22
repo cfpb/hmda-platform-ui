@@ -183,7 +183,7 @@ export default class Institution extends Component {
           period="2017"
           userName={this.props.user.profile.name} />
         <div className="usa-width-two-thirds">
-          {this.props.isFetching ?
+          {this.props.isFetching || !this.props.filings ?
             <div className="usa-grid-full">
               <p style={{visibility: 'hidden'}}>Loading data</p>
               <LoadingIcon/>

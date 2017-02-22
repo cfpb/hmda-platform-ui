@@ -3,7 +3,6 @@ import {
   REFRESH_STATE,
   REQUEST_INSTITUTIONS,
   RECEIVE_INSTITUTIONS,
-  RECEIVE_INSTITUTION,
   CLEAR_FILINGS,
   UPDATE_FILING_PERIOD,
   REQUEST_FILING,
@@ -53,7 +52,7 @@ const defaultConfirmation = {
 
 const defaultFilings = {
   filings: [],
-  isFetching: true
+  isFetching: false,
 }
 
 const defaultStatus = {
@@ -64,11 +63,11 @@ const defaultStatus = {
 const defaultSubmission = {
   id: null,
   status: defaultStatus,
-  isFetching: true
+  isFetching: false,
 }
 
 const defaultEdits = {
-  isFetching: true,
+  isFetching: false,
   fetched: false,
   types: {
     syntactical: {edits: []},
@@ -114,6 +113,11 @@ export const institutions = (state = {}, action) => {
  */
 export const filings = (state = defaultFilings, action) => {
   switch (action.type) {
+  case REQUEST_FILING:
+    return {
+      ...state,
+      isFetching: true
+    }
   case RECEIVE_FILING:
     return {
       ...state,
@@ -192,11 +196,6 @@ export const submission = (state = defaultSubmission, action) => {
   let currentSubmission
 
   switch (action.type) {
-    case REQUEST_FILING:
-      return {
-        ...state,
-        isFetching: true
-      }
     case RECEIVE_SUBMISSION:
       return {
         isFetching: false,

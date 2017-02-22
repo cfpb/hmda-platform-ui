@@ -68,14 +68,18 @@ class SubmissionContainer extends Component {
   }
 
   render() {
+    console.log('code', this.props.status.code)
     if(!this.props.user) return null
     if(!this.props.location) return null
 
-    if(!this.prop.isFetching &&
-      (!this.props.status||this.props.status.code === null)){
-      console.log('dispatching from render')
+    if(!this.props.isFetching &&
+      (!this.props.status || this.props.status.code === null)){
+      console.log('fetching')
       this.props.dispatch(fetchSubmission())
+      return null
     }
+
+    if(this.props.isFetching) return null
 
     const status = this.props.status
     const code = status && status.code
@@ -132,11 +136,6 @@ function mapDispatchToProps(dispatch){
 SubmissionContainer.propTypes = {
   params: PropTypes.object,
   dispatch: PropTypes.func.isRequired
-}
-
-SubmissionContainer.defaultProps = {
-  status: null,
-  user: null
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubmissionContainer)

@@ -480,7 +480,7 @@ export function createNewSubmission(id, period) {
 export function fetchNewSubmission(id, period) {
   return dispatch => {
     return createSubmission(id, period)
-      .then(json => dispatch(receiveSubmission(json)))
+      .then(json => setTimeout(()=>dispatch(receiveSubmission(json)),1000))
       .catch(err => console.error(err))
   }
 }
@@ -496,7 +496,7 @@ export function fetchSubmission() {
           const splitPath = json.path.split('/')
           return dispatch(fetchNewSubmission(splitPath[2], splitPath[4]))
         }else{
-          return setTimeout(()=>dispatch(receiveSubmission(json)),2000)
+          return setTimeout(()=>dispatch(receiveSubmission(json)),1000)
         }
       })
       .catch(err => console.error(err))
@@ -588,7 +588,7 @@ export function fetchEachFiling(filings) {
         return dispatch(fetchFiling(filing))
       })
     ).then(() => {
-      dispatch(receiveFilings())
+      setTimeout(()=>dispatch(receiveFilings()),1000)
     })
   }
 }
