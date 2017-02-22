@@ -8,15 +8,23 @@ class Upload extends Component {
   }
 
   componentDidUpdate() {
+    let message = 'Drag another LAR file to this area or click to select a LAR file to upload.'
+    if (this.props.code > 1) {
+      message = 'Submission currently in progess. You have to click the "Refile" button to start again.'
+    }
     let upload = this.props.errors.length === 0 ? 'Upload' : 'Can\'t upload'
-    this.dropzoneContent.innerHTML = `<p>${upload} "${this.props.file.name}".</p><p>Drag another LAR file to this area or click to select a LAR file to upload.</p>`
+    this.dropzoneContent.innerHTML = `<p>${upload} "${this.props.file.name}".</p><p>${message}</p>`
   }
 
   // keeps the info about the file after leaving /upload and coming back
   componentDidMount() {
+    let message = 'Drag another LAR file to this area or click to select a LAR file to upload.'
+    if (this.props.code > 1) {
+      message = 'Submission currently in progess. You have to click the "Refile" button to start again.'
+    }
     let upload = this.props.errors.length === 0 ? 'Upload' : 'Can\'t upload'
     if(this.props.file && 'name' in this.props.file) {
-      this.dropzoneContent.innerHTML = `<p>${upload} "${this.props.file.name}".</p><p>Drag another LAR file to this area or click to select a LAR file to upload.</p>`
+      this.dropzoneContent.innerHTML = `<p>${upload} "${this.props.file.name}".</p><p>${message}</p>`
     }
   }
 
@@ -44,17 +52,20 @@ class Upload extends Component {
   render() {
     const isUploadDisabled = (this.props.code > 1 || this.props.file === null || this.props.file.name === 'No file chosen' || this.props.errors.length !== 0) ? true : false
     const inputError = (this.props.errors.length === 0) ? '' : 'input-error'
-
+    // don't do anything if submission is in progress
+    const setFile = (this.props.code > 1) ? null : this.props.setFile
+    const dropzoneDisabled = (this.props.code > 1) ? 'dropzone-disabled' : ''
     return (
       <div>
         <div className="UploadForm">
-          {this.getErrors(this.props.errors)}
+          {this.renderErrors(this.props.errors)}
           <form className="usa-form" encType="multipart/form-data" onSubmit={e => this.props.handleSubmit(e, this.props.file)}>
             <div className="container-upload">
               <Dropzone
-                onDrop={this.props.setFile}
+                disablePreview={true}
+                onDrop={setFile}
                 multiple={false}
-                className='dropzone'
+                className={`dropzone ${dropzoneDisabled}`}
                 inputProps={{disabled: true}}>
                 <div
                   ref={(node) => {this.dropzoneContent = node}}
