@@ -97,7 +97,11 @@ class SubmissionContainer extends Component {
           period={params.filing}
           userName={user.profile.name}
           institution={params.institution} />
-        {code > 1 ? <div className="FloatingRefile"><RefileButton id={params.institution} filing={params.filing} code={code}/></div> : null}
+        {code > 2 ? <RefileButton
+          id={params.institution}
+          filing={params.filing}
+          code={code}
+          class='float' /> : null}
         <EditsNav/>
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {

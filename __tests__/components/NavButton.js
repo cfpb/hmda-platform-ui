@@ -13,8 +13,8 @@ const baseProps = {
   macroVerified: false
 }
 
-const enabled = 'usa-button NavButton'
-const disabled = 'usa-button NavButton usa-button-disabled'
+const enabled = 'NavButton usa-button undefined'
+const disabled = 'NavButton usa-button usa-button-disabled'
 
 describe('NavButton', () => {
 
@@ -27,7 +27,7 @@ describe('NavButton', () => {
     const rendered = NavButton({...baseProps, page: 'upload'})
     expect(rendered.props.to).toBe('a/b/syntacticalvalidity')
     expect(rendered.props.className).toBe(disabled)
-    expect(rendered.props.children).toBe('Review edits \u21D2')
+    expect(rendered.props.children).toBe('Review  Edits')
 
     const enabledButton = NavButton({...baseProps, page: 'upload', code:8})
     expect(enabledButton.props.className).toBe(enabled)
@@ -37,7 +37,7 @@ describe('NavButton', () => {
     const rendered = NavButton({...baseProps, page: 'syntacticalvalidity'})
     expect(rendered.props.to).toBe('a/b/quality')
     expect(rendered.props.className).toBe(disabled)
-    expect(rendered.props.children).toBe('Review quality \u21D2')
+    expect(rendered.props.children).toBe('Review quality Edits')
 
     const enabledButton = NavButton({...baseProps, code:8, page: 'syntacticalvalidity', syntacticalValidityEditsExist: false})
     expect(enabledButton.props.className).toBe(enabled)
@@ -47,7 +47,7 @@ describe('NavButton', () => {
     const rendered = NavButton({...baseProps, page: 'quality'})
     expect(rendered.props.to).toBe('a/b/macro')
     expect(rendered.props.className).toBe(disabled)
-    expect(rendered.props.children).toBe('Review macro \u21D2')
+    expect(rendered.props.children).toBe('Review macro Edits')
 
     const enabledButton = NavButton({...baseProps, code:8, page: 'quality', syntacticalValidityEditsExist: false, qualityVerified: true})
     expect(enabledButton.props.className).toBe(enabled)
@@ -61,7 +61,7 @@ describe('NavButton', () => {
     const rendered = NavButton({...baseProps, page: 'macro'})
     expect(rendered.props.to).toBe('a/b/summary')
     expect(rendered.props.className).toBe(disabled)
-    expect(rendered.props.children).toBe('Review summary \u21D2')
+    expect(rendered.props.children).toBe('Review summary')
 
     const enabledButton = NavButton({...baseProps, page: 'macro', code: 8, syntacticalValidityEditsExist: false, qualityVerified: true, macroVerified: true})
     expect(enabledButton.props.className).toBe(enabled)
