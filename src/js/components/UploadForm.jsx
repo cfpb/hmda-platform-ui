@@ -2,7 +2,28 @@ import React, { Component, PropTypes } from 'react'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
 
-class Upload extends Component {
+export const renderValidationProgress = (props) => {
+  if(props.code === 1) return null
+  return <ValidationProgress code={props.code} />
+}
+
+export const renderErrors = (errors) => {
+  if(errors.length === 0) return null
+
+  return(
+    <div className="usa-alert usa-alert-error" role="alert">
+      <div className="usa-alert-body">
+        <ul className="usa-alert-text">
+          {errors.map((error, i) => {
+            return(<li key={i}>{error}</li>)
+          })}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+export default class Upload extends Component {
   constructor(props) {
     super(props)
   }
@@ -28,27 +49,6 @@ class Upload extends Component {
     }
   }
 
-  renderValidationProgress(props) {
-    if(props.code === 1) return null
-    return <ValidationProgress code={props.code} />
-  }
-
-  renderErrors(errors) {
-    if(errors.length === 0) return null
-
-    return(
-      <div className="usa-alert usa-alert-error" role="alert">
-        <div className="usa-alert-body">
-          <ul className="usa-alert-text">
-            {errors.map((error, i) => {
-              return(<li key={i}>{error}</li>)
-            })}
-          </ul>
-        </div>
-      </div>
-    )
-  }
-
   render() {
     const isUploadDisabled = (this.props.code > 1 || this.props.file === null || this.props.file.name === 'No file chosen' || this.props.errors.length !== 0) ? true : false
     const inputError = (this.props.errors.length === 0) ? '' : 'input-error'
@@ -58,7 +58,7 @@ class Upload extends Component {
     return (
       <div>
         <div className="UploadForm">
-          {this.renderErrors(this.props.errors)}
+          {renderErrors(this.props.errors)}
           <form className="usa-form" encType="multipart/form-data" onSubmit={e => this.props.handleSubmit(e, this.props.file)}>
             <div className="container-upload">
               <Dropzone
@@ -75,7 +75,7 @@ class Upload extends Component {
             </div>
             <input disabled={isUploadDisabled} className="usa-button" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
           </form>
-          {this.renderValidationProgress(this.props)}
+          {renderValidationProgress(this.props)}
         </div>
       </div>
     )
@@ -97,5 +97,3 @@ Upload.defaultProps = {
   },
   errors: []
 }
-
-export default Upload
