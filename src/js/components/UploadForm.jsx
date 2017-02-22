@@ -20,12 +20,12 @@ class Upload extends Component {
     }
   }
 
-  getValidationProgress(props) {
+  renderValidationProgress(props) {
     if(props.code === 1) return null
     return <ValidationProgress code={props.code} />
   }
 
-  getErrors(errors) {
+  renderErrors(errors) {
     if(errors.length === 0) return null
 
     return(
@@ -65,7 +65,7 @@ class Upload extends Component {
             </div>
             <input disabled={isUploadDisabled} className="usa-button" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
           </form>
-          {this.getValidationProgress(this.props)}
+          {this.renderValidationProgress(this.props)}
         </div>
       </div>
     )

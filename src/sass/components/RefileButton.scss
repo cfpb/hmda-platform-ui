@@ -1,5 +1,7 @@
-.FloatingRefile {
-  position:absolute;
-  top: 0;
-  right: 0;
+.RefileButton {
+  &.float {
+    position:absolute;
+    top: 0;
+    right: 0;
+  }
 }
