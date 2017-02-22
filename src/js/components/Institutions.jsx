@@ -7,7 +7,7 @@ import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 
 export const renderTiming = (submissionStatus, start, end) => {
-  if(!submissionStatus || submissionStatus.code === 0) return
+  if(!submissionStatus || !submissionStatus.code) return
 
   let messageClass
   let timing
