@@ -34,15 +34,6 @@ describe('submitform', function(){
     expect(input.value).toEqual('')
   })
 
-  TestUtils.Simulate.change(
-    TestUtils.scryRenderedDOMComponentsWithTag(form, 'input')[0],
-    {target: {files: [new File(['thisisafakefile'], 'fakefile')]}}
-  )
-
-  it('sets the file on change', function(){
-    expect(setFile).toBeCalled()
-  })
-
   it('submits the form', function(){
     TestUtils.Simulate.submit(
       TestUtils.findRenderedDOMComponentWithTag(form, 'form')

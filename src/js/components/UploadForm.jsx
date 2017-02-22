@@ -65,8 +65,7 @@ class Upload extends Component {
                 disablePreview={true}
                 onDrop={setFile}
                 multiple={false}
-                className={`dropzone ${dropzoneDisabled}`}
-                inputProps={{disabled: true}}>
+                className={`dropzone ${dropzoneDisabled}`}>
                 <div
                   ref={(node) => {this.dropzoneContent = node}}
                   className="usa-text-small">
