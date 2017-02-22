@@ -7,7 +7,7 @@ import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 
 export const renderTiming = (submissionStatus, start, end) => {
-  if(!submissionStatus || submissionStatus.code === null) return
+  if(!submissionStatus || submissionStatus.code === 0) return
 
   let messageClass
   let timing
@@ -85,7 +85,7 @@ export const renderStatusMessage = (submissionStatus) => {
     statusMessage = `Your submission has been ${message}. Thank you!`
   }
 
-  if(code === null) {
+  if(code === 0) {
     statusMessage = 'You are ready to begin the submission process.'
   }
 

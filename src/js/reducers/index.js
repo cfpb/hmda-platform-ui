@@ -56,7 +56,7 @@ const defaultFilings = {
 }
 
 const defaultStatus = {
-  code: null,
+  code: 0,
   message: ''
 }
 
@@ -207,6 +207,8 @@ export const submission = (state = defaultSubmission, action) => {
         ...state,
         status: status(state.status, action)
       }
+    case REFRESH_STATE:
+      return defaultSubmission
     default:
       return state
   }

@@ -23,8 +23,6 @@ export class SubmissionRouter extends Component {
     const code = status.code
     const pathname= props.pathname
 
-    console.log('current status code, from submission router', code)
-
   // status codes can be found at https://github.com/cfpb/hmda-platform/blob/master/Documents/submission-status.md
 
     if(code === -1){
@@ -48,7 +46,6 @@ export class SubmissionRouter extends Component {
 }
 
 export function mapStateToProps(state, ownProps) {
-  console.log('submission router state', state)
   const {
     status
   } = state.app.submission || {

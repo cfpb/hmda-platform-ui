@@ -16,6 +16,7 @@ import Signature from './Signature.jsx'
 import Summary from './Summary.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import ParseErrors from './ParseErrors.jsx'
+import LoadingIcon from '../components/LoadingIcon.jsx'
 
 const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
@@ -68,18 +69,13 @@ class SubmissionContainer extends Component {
   }
 
   render() {
-    console.log('code', this.props.status.code)
     if(!this.props.user) return null
     if(!this.props.location) return null
 
     if(!this.props.isFetching &&
-      (!this.props.status || this.props.status.code === null)){
-      console.log('fetching')
+      (!this.props.status || this.props.status.code === 0)){
       this.props.dispatch(fetchSubmission())
-      return null
     }
-
-    if(this.props.isFetching) return null
 
     const status = this.props.status
     const code = status && status.code
@@ -88,7 +84,7 @@ class SubmissionContainer extends Component {
     const pathname = this.props.location.pathname
     const page = pathname.split('/').slice(-1)[0]
 
-    const toRender = code ? renderByCode(code, page, status.message) : []
+    const toRender = code ? renderByCode(code, page, status.message) : [<LoadingIcon/>]
 
 
     return (

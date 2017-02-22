@@ -466,6 +466,8 @@ export function requestUpload(file) {
 /*
  * Signal that submission state should be wiped and a new submission should be created
  */
+
+//
 export function createNewSubmission(id, period) {
   return dispatch => {
     dispatch(refreshState())
@@ -480,7 +482,14 @@ export function createNewSubmission(id, period) {
 export function fetchNewSubmission(id, period) {
   return dispatch => {
     return createSubmission(id, period)
-      .then(json => setTimeout(()=>dispatch(receiveSubmission(json)),1000))
+      .then(json => {
+        return new Promise((resolve, reject) => {
+          setTimeout(()=>{
+            dispatch(receiveSubmission(json))
+            resolve()
+          },1000)
+        })
+      })
       .catch(err => console.error(err))
   }
 }
