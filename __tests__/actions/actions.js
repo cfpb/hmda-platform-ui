@@ -85,7 +85,11 @@ const getEachInstitution = [
     type: types.RECEIVE_INSTITUTION,
     institution: institutionsDetailObj['3']
   },
-  {type:types.CLEAR_FILINGS}
+  {type:types.CLEAR_FILINGS},
+  {type:types.RECEIVE_FILINGS},
+  {type:types.RECEIVE_FILINGS},
+  {type:types.RECEIVE_FILINGS},
+  {type:types.RECEIVE_FILINGS}
 ]
 
 describe('actions', () => {

@@ -185,7 +185,6 @@ export default class Institution extends Component {
         <div className="usa-width-two-thirds">
           {this.props.isFetching || !this.props.filings ?
             <div className="usa-grid-full">
-              <p style={{visibility: 'hidden'}}>Loading data</p>
               <LoadingIcon/>
             </div>
           :

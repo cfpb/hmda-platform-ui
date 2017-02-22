@@ -32,6 +32,8 @@ const renderByCode = (code, page, message) => {
       if(code === 5) {
         toRender.push(<RefileWarning/>)
         toRender.push(<ParseErrors/>)
+      }else if (code === 8) {
+        toRender.push(<RefileWarning/>)
       }
     }else if(['syntacticalvalidity','quality','macro'].indexOf(page) !== -1){
       if(code > 6){
@@ -48,7 +50,7 @@ const renderByCode = (code, page, message) => {
   }
 
   if(toRender.length === 0){
-    toRender.push(<p>Something is wrong, please <Link to='/institutions'>Go Back</Link></p>)
+    toRender.push(<p>Something is wrong. <Link to='/institutions'>Return to institutions</Link>.</p>)
   }
 
   toRender.push(<NavButton/>)
@@ -77,12 +79,9 @@ class SubmissionContainer extends Component {
       this.props.dispatch(fetchSubmission())
     }
 
-    const status = this.props.status
+    const { status, params, user, location } = this.props
     const code = status && status.code
-    const params = this.props.params
-    const user = this.props.user
-    const pathname = this.props.location.pathname
-    const page = pathname.split('/').slice(-1)[0]
+    const page = location.pathname.split('/').slice(-1)[0]
 
     const toRender = code ? renderByCode(code, page, status.message) : [<LoadingIcon/>]
 
@@ -90,7 +89,7 @@ class SubmissionContainer extends Component {
     return (
     <div className="SubmissionContainer">
       <Header
-        pathname={pathname}
+        pathname={location.pathname}
         userName={user.profile.name} />
       <div id="main-content" className="usa-grid">
         <UserHeading
