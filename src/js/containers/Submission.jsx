@@ -32,8 +32,6 @@ const renderByCode = (code, page, message) => {
       if(code === 5) {
         toRender.push(<RefileWarning/>)
         toRender.push(<ParseErrors/>)
-      }else if (code === 8) {
-        toRender.push(<RefileWarning/>)
       }
     }else if(['syntacticalvalidity','quality','macro'].indexOf(page) !== -1){
       if(code > 6){
