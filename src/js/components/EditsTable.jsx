@@ -18,12 +18,12 @@ export const renderHeader = (edits, type) => {
   let fieldCells = {}
   const cells = []
 
-  if (type === 'macro' ){
+  if (type === 'macro' ) {
     keyCells = edits[0]
-  }else if (type === 'rows' ){
-    keyCells = {editId: edits.editId}
+  } else if (type === 'rows' ) {
+    keyCells = { editId: edits.editId }
     fieldCells = edits.fields
-  }else{
+  } else {
     keyCells = edits.rows[0].row
     fieldCells = edits.rows[0].fields
   }
@@ -56,7 +56,7 @@ export const renderBody = (edits, type) => {
   })
 }
 
-const makeTableLabel = (edits) => {
+export const renderTableCaption = (edits) => {
   let name
   let description
   let length
@@ -65,7 +65,7 @@ const makeTableLabel = (edits) => {
     name = edits.edit
     description = edits.description
     length = edits.rows.length
-  }else if(edits.rowId) {
+  } else if(edits.rowId) {
     name = edits.rowId
     length = edits.edits.length
   }
@@ -74,20 +74,26 @@ const makeTableLabel = (edits) => {
 
   const editText = length === 1 ? 'edit' : 'edits'
 
+  let captionHeader = `${length} ${name} ${editText} found.`
   if(edits.rowId && name !== 'Transmittal Sheet'){
-    return `${length} ${editText} found in row ${name}.`
+    captionHeader = `${length} ${editText} found in row ${name}.`
   }
 
-  return `${length} ${name} ${editText} found.`
+  return (
+    <caption>
+      <h3>{captionHeader}</h3>
+      {description ? <p className="usa-font-lead">{description}</p>:null}
+    </caption>
+  )
 }
 
-const makeTables = (props) => {
+export const makeTables = (props) => {
   const edits = props.edits
 
   const makeTable = (edit, i) => {
     return (
     <table width="100%" key={i}>
-      {i === 0 ? <caption><h3>{makeTableLabel(edits)}</h3></caption>:null}
+      {i === 0 ? renderTableCaption(edits):null}
       <thead>
         {renderHeader(edit, props.type)}
       </thead>
