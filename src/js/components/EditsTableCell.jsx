@@ -20,7 +20,8 @@ EditsTableCell.propTypes = {
     PropTypes.number,
     PropTypes.bool,
     PropTypes.array
-  ])
+  ]),
+  keyField: PropTypes.string
 }
 
 EditsTableCell.defaultProps = {
