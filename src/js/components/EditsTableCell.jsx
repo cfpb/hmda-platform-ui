@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 
 import JustificationSelector from '../containers/JustificationSelector.jsx'
 
-const renderCell = (props) => {
+export const renderCell = (props) => {
   const { field, cell, keyField } = props
   if(field === 'justifications') return <JustificationSelector edit={keyField} justifications={cell}/>
   if(field === 'verified') return 'veriholder'
@@ -20,7 +20,8 @@ EditsTableCell.propTypes = {
     PropTypes.number,
     PropTypes.bool,
     PropTypes.array
-  ])
+  ]),
+  keyField: PropTypes.string
 }
 
 EditsTableCell.defaultProps = {

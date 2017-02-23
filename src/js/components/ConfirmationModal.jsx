@@ -2,20 +2,24 @@ import React from 'react'
 import RefileText from './RefileText.jsx'
 
 const ModalConfirm = (props) => {
+  const { code, filing, id, showing, hideConfirmModal, triggerRefile } = props
+
+  if(!filing || !id || !hideConfirmModal || !triggerRefile) return null
+
   return (
-    <div className={'confirmation-blurred-blocker'+ (props.showing ? ' showing-blurred-blocker' : '')}>
+    <div className={'confirmation-blurred-blocker'+ (showing ? ' showing-blurred-blocker' : '')}>
       <div className="confirmation-modal">
       <div>
-        <RefileText code={props.code}/>
+        <RefileText code={code}/>
         <button onClick={(e)=>{
           e.preventDefault()
-          props.hideConfirmModal()
-          props.triggerRefile(props.id, props.filing)
+          hideConfirmModal()
+          triggerRefile(id, filing)
         }}>Yes</button>
         <button className="usa-button usa-button-secondary"
           onClick={(e)=>{
             e.preventDefault()
-            props.hideConfirmModal()
+            hideConfirmModal()
           }}>No</button>
         </div>
       </div>
@@ -24,7 +28,17 @@ const ModalConfirm = (props) => {
 }
 
 ModalConfirm.propTypes = {
-  code: React.PropTypes.number.isRequired
+  filing: React.PropTypes.string.isRequired,
+  id: React.PropTypes.string.isRequired,
+  hideConfirmModal: React.PropTypes.func.isRequired,
+  triggerRefile: React.PropTypes.func.isRequired,
+  showing: React.PropTypes.bool,
+  code: React.PropTypes.number
+}
+
+ModalConfirm.defaultProps = {
+  showing: false,
+  code: 0
 }
 
 export default ModalConfirm

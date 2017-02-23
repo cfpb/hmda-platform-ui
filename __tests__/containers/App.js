@@ -11,7 +11,21 @@ import Wrapper from '../Wrapper.js'
 describe('AppContainer', () => {
   console.error = jest.fn()
   const wrappedContainer = TestUtils.renderIntoDocument(
-    <Wrapper store={{app:{},oidc:{user:{profile:{name:'auser'}}}}}>
+    <Wrapper store={{
+      app:{
+        confirmation: {
+          filing: "2017",
+          id: "3"
+        }
+      },
+      oidc: {
+        user: {
+          profile: {
+            name:'auser'
+          }
+        }
+      }
+    }}>
       <AppContainer><p>hey</p></AppContainer>
     </Wrapper>
   )
