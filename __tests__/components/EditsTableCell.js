@@ -1,7 +1,6 @@
 jest.unmock('../../src/js/components/EditsTableCell.jsx')
 
 import EditsTableCell, { renderCell } from '../../src/js/components/EditsTableCell.jsx'
-import Wrapper from '../Wrapper.js'
 import fs from 'fs'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -16,7 +15,7 @@ const types = {
 
 describe('Edits Table', () => {
   const editsTableCell = TestUtils.renderIntoDocument(
-    <Wrapper><EditsTableCell edits={types.syntactical.edits[0]} type='syntactical'/></Wrapper>
+    <EditsTableCell edits={types.syntactical.edits[0]} type='syntactical'/>
   )
   const tableNode = ReactDOM.findDOMNode(editsTableCell)
 
