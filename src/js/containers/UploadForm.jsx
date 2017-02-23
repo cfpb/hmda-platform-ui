@@ -32,10 +32,10 @@ export function mapDispatchToProps(dispatch) {
       }
     },
 
-    setFile: e => {
-      if(!e.target.files) return
-      dispatch(selectFile(e.target.files[0]))
-      e.target.value = null
+    setFile: (acceptedFiles, rejectedFiles) => {
+      if(!acceptedFiles || !rejectedFiles) return
+      let file = acceptedFiles[0] || rejectedFiles[0]
+      dispatch(selectFile(file))
     },
 
     refileLink: (id, period) => {
