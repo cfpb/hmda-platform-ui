@@ -2,7 +2,6 @@ jest.unmock('../../src/js/components/Header.jsx')
 jest.mock('oidc-client')
 
 import Header, { styleSelectedPage } from '../../src/js/components/Header.jsx'
-import { signinRedirect, logout } from '../../src/js/redirect.js'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
