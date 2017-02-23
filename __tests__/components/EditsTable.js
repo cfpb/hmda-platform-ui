@@ -1,5 +1,4 @@
 jest.unmock('../../src/js/components/EditsTable.jsx')
-jest.unmock('../../src/js/components/EditsTableRow.jsx')
 
 import EditsTable, {
   formatHeader,
