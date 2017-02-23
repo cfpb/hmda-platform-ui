@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import {Link} from 'react-router'
 import UserHeading from './UserHeading.jsx'
 import Header from './Header.jsx'
+import LoadingIcon from './LoadingIcon.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 
@@ -84,6 +85,10 @@ export const renderStatusMessage = (submissionStatus) => {
     statusMessage = `Your submission has been ${message}. Thank you!`
   }
 
+  if(code === 0) {
+    statusMessage = 'You are ready to begin the submission process.'
+  }
+
   return <p className="status">{statusMessage}</p>
 }
 
@@ -115,44 +120,45 @@ export const renderButton = (code, institutionId, period) => {
 }
 
 export const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, period) => {
+  if(!submissions.length) return
   return (
-    <div className="previous-submissions">
-      <h5>Previous submissions for this filing</h5>
+  <div className="previous-submissions">
+    <h5>Previous submissions for this filing</h5>
 
-      <ol reversed className="usa-text-small">
-        {submissions.map((submission, i) => {
-          // render the end date if it was signed
-          const date = (submission.status.code === 11) ? moment(submission.end).utcOffset(-5).format('MMMM Do, YYYY') : moment(submission.start).utcOffset(-5).format('MMMM Do, YYYY')
+    <ol reversed className="usa-text-small">
+      {submissions.map((submission, i) => {
+        // render the end date if it was signed
+        const date = (submission.status.code === 11) ? moment(submission.end).utcOffset(-5).format('MMMM Do, YYYY') : moment(submission.start).utcOffset(-5).format('MMMM Do, YYYY')
 
-          // render a link if validted with errors
-          if(submission.status.code === 8) {
-            return (
-              <li className="edit-report" key={i}>
-                 <strong>{submission.status.message}</strong> on {date}.{'\u00a0'}
-                 <a href="#"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    onDownloadClick(
-                      institutionId,
-                      period,
-                      submission.id.sequenceNumber
-                    )
-                  }
-                }>Download edit report</a>
-              </li>
-            )
-          }
-
-          // other statuses contain no edits
+        // render a link if validted with errors
+        if(submission.status.code === 8) {
           return (
             <li className="edit-report" key={i}>
-              <strong>{submission.status.message}</strong> on {date} with no edits.
+               <strong>{submission.status.message}</strong> on {date}.{'\u00a0'}
+               <a href="#"
+                onClick={(e) => {
+                  e.preventDefault()
+                  onDownloadClick(
+                    institutionId,
+                    period,
+                    submission.id.sequenceNumber
+                  )
+                }
+              }>Download edit report</a>
             </li>
           )
+        }
 
-        })}
-      </ol>
-    </div>
+        // other statuses contain no edits
+        return (
+          <li className="edit-report" key={i}>
+            <strong>{submission.status.message}</strong> on {date} with no edits.
+          </li>
+        )
+
+      })}
+    </ol>
+  </div>
   )
 }
 
@@ -177,7 +183,12 @@ export default class Institution extends Component {
           period="2017"
           userName={this.props.user.profile.name} />
         <div className="usa-width-two-thirds">
-          {this.props.filings.map((filingObj, i) => {
+          {this.props.isFetching || !this.props.filings ?
+            <div className="usa-grid-full">
+              <LoadingIcon/>
+            </div>
+          :
+            this.props.filings.map((filingObj, i) => {
             const filing = filingObj.filing
             const latestSubmissionStatus = filingObj.submissions[0] && filingObj.submissions[0].status || null
             const institution = getInstitutionFromFiling(institutions, filing)
@@ -202,10 +213,12 @@ export default class Institution extends Component {
                       filing.period
                     )}
 
-                    <RefileButton
+                    {latestSubmissionStatus ?
+                      <RefileButton
                       id={filing.institutionId}
                       filing={filing.period}
-                      code={filing.status.code} />
+                      code={filing.status.code} /> : null
+                    }
                   </div>
 
                   {renderPreviousSubmissions(

@@ -16,10 +16,45 @@ import Signature from './Signature.jsx'
 import Summary from './Summary.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import ParseErrors from './ParseErrors.jsx'
+import LoadingIcon from '../components/LoadingIcon.jsx'
 
 const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
 const RefileWarning = submissionProgressHOC(RefileWarningComponent)
+
+const renderByCode = (code, page, message) => {
+  const toRender = []
+  if(code === -1) {
+    toRender.push(<p>{message}</p>)
+  }else{
+    if(page === 'upload'){
+      toRender.push(<UploadForm code={code}/>)
+      if(code === 5) {
+        toRender.push(<RefileWarning/>)
+        toRender.push(<ParseErrors/>)
+      }
+    }else if(['syntacticalvalidity','quality','macro'].indexOf(page) !== -1){
+      if(code > 6){
+        if(code === 8) toRender.push(<RefileWarning/>)
+        toRender.push(<Edits/>)
+      }
+    }else if(page === 'summary'){
+      if(code > 7){
+        toRender.push(<IRSReport/>)
+        toRender.push(<Summary/>)
+        toRender.push(<Signature/>)
+      }
+    }
+  }
+
+  if(toRender.length === 0){
+    toRender.push(<p>Something is wrong. <Link to='/institutions'>Return to institutions</Link>.</p>)
+  }
+
+  toRender.push(<NavButton/>)
+
+  return toRender
+}
 
 
 class SubmissionContainer extends Component {
@@ -35,56 +70,24 @@ class SubmissionContainer extends Component {
 
   render() {
     if(!this.props.user) return null
-    if(!this.props.status) return null
     if(!this.props.location) return null
 
-    if(this.props.status.code === null){
+    if(!this.props.isFetching &&
+      (!this.props.status || this.props.status.code === 0)){
       this.props.dispatch(fetchSubmission())
-      return null
     }
 
-    const status = this.props.status
-    const code = status.code
-    const params = this.props.params
-    const user = this.props.user
-    const pathname = this.props.location.pathname
-    const page = pathname.split('/').slice(-1)[0]
-    const toRender = []
+    const { status, params, user, location } = this.props
+    const code = status && status.code
+    const page = location.pathname.split('/').slice(-1)[0]
 
-    // status codes can be found at https://github.com/cfpb/hmda-platform/blob/master/Documents/submission-status.md
-    if(code === -1) {
-      toRender.push(<p>{status.message}</p>)
-    }else{
-      if(page === 'upload'){
-        toRender.push(<UploadForm code={code}/>)
-        if(code === 5) {
-          toRender.push(<RefileWarning/>)
-          toRender.push(<ParseErrors/>)
-        }
-      }else if(['syntacticalvalidity','quality','macro'].indexOf(page) !== -1){
-        if(code > 6){
-          if(code === 8) toRender.push(<RefileWarning/>)
-          toRender.push(<Edits/>)
-        }
-      }else if(page === 'summary'){
-        if(code > 7){
-          toRender.push(<IRSReport/>)
-          toRender.push(<Summary/>)
-          toRender.push(<Signature/>)
-        }
-      }
-    }
+    const toRender = code ? renderByCode(code, page, status.message) : [<LoadingIcon/>]
 
-    if(toRender.length === 0){
-      toRender.push(<p>Something is wrong, please <Link to='/institutions'>Go Back</Link></p>)
-    }
-
-    toRender.push(<NavButton/>)
 
     return (
     <div className="SubmissionContainer">
       <Header
-        pathname={pathname}
+        pathname={location.pathname}
         userName={user.profile.name} />
       <div id="main-content" className="usa-grid">
         <UserHeading
@@ -112,10 +115,7 @@ function mapStateToProps(state) {
   const {
     isFetching,
     status
-  } = state.app.submission || {
-    isFetching: true,
-    status: null
-  }
+  } = state.app.submission
 
   const user = state.oidc && state.oidc.user || null
 
@@ -133,11 +133,6 @@ function mapDispatchToProps(dispatch){
 SubmissionContainer.propTypes = {
   params: PropTypes.object,
   dispatch: PropTypes.func.isRequired
-}
-
-SubmissionContainer.defaultProps = {
-  status: null,
-  user: null
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubmissionContainer)

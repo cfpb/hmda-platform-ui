@@ -3,11 +3,11 @@ import {
   REFRESH_STATE,
   REQUEST_INSTITUTIONS,
   RECEIVE_INSTITUTIONS,
-  RECEIVE_INSTITUTION,
   CLEAR_FILINGS,
   UPDATE_FILING_PERIOD,
   REQUEST_FILING,
   RECEIVE_FILING,
+  RECEIVE_FILINGS,
   RECEIVE_SUBMISSION,
   SELECT_FILE,
   SHOW_CONFIRM,
@@ -50,15 +50,20 @@ const defaultConfirmation = {
   filing: null
 }
 
+const defaultFilings = {
+  filings: [],
+  isFetching: false,
+}
+
 const defaultStatus = {
-  code: null,
+  code: 0,
   message: ''
 }
 
 const defaultSubmission = {
   id: null,
   status: defaultStatus,
-  isFetching: false
+  isFetching: false,
 }
 
 const defaultEdits = {
@@ -106,15 +111,25 @@ export const institutions = (state = {}, action) => {
  * When an filing data for an institution is received, it is added to the list
  * When clear filings is dispatched, empty the list
  */
-export const filings = (state = [], action) => {
+export const filings = (state = defaultFilings, action) => {
   switch (action.type) {
-  case RECEIVE_FILING:
-    return [
+  case REQUEST_FILING:
+    return {
       ...state,
-      action.filing
-    ]
+      isFetching: true
+    }
+  case RECEIVE_FILING:
+    return {
+      ...state,
+      filings: [...state.filings, action.filing]
+    }
   case CLEAR_FILINGS:
-    return []
+    return defaultFilings
+  case RECEIVE_FILINGS:
+      return {
+        ...state,
+        isFetching: false
+      }
   default:
     return state
   }
@@ -181,11 +196,6 @@ export const submission = (state = defaultSubmission, action) => {
   let currentSubmission
 
   switch (action.type) {
-    case REQUEST_FILING:
-      return {
-        ...state,
-        isFetching: true
-      }
     case RECEIVE_SUBMISSION:
       return {
         isFetching: false,
@@ -197,6 +207,8 @@ export const submission = (state = defaultSubmission, action) => {
         ...state,
         status: status(state.status, action)
       }
+    case REFRESH_STATE:
+      return defaultSubmission
     default:
       return state
   }

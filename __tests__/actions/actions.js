@@ -62,7 +62,6 @@ window.Blob = jest.fn(() => {})
 const mockStore = configureMockStore([thunk])
 
 const getEachInstitution = [
-  {type: types.CLEAR_FILINGS},
   {type: types.REQUEST_INSTITUTION},
   {type: types.REQUEST_INSTITUTION},
   {type: types.REQUEST_INSTITUTION},
@@ -71,18 +70,26 @@ const getEachInstitution = [
     type: types.RECEIVE_INSTITUTION,
     institution: institutionsDetailObj['0']
   },
+  {type:types.CLEAR_FILINGS},
   {
     type: types.RECEIVE_INSTITUTION,
     institution: institutionsDetailObj['1']
   },
+  {type:types.CLEAR_FILINGS},
   {
     type: types.RECEIVE_INSTITUTION,
     institution: institutionsDetailObj['2']
   },
+  {type:types.CLEAR_FILINGS},
   {
     type: types.RECEIVE_INSTITUTION,
     institution: institutionsDetailObj['3']
-  }
+  },
+  {type:types.CLEAR_FILINGS},
+  {type:types.RECEIVE_FILINGS},
+  {type:types.RECEIVE_FILINGS},
+  {type:types.RECEIVE_FILINGS},
+  {type:types.RECEIVE_FILINGS}
 ]
 
 describe('actions', () => {

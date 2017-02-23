@@ -90,6 +90,12 @@ export function receiveFiling(data) {
   }
 }
 
+export function receiveFilings() {
+  return {
+    type: types.RECEIVE_FILINGS
+  }
+}
+
 export function updateFilingPeriod(filingPeriod) {
   filingPeriod = filingPeriod + ''
   currentFilingPeriod = filingPeriod
@@ -457,10 +463,11 @@ export function requestUpload(file) {
   }
 }
 
-
 /*
  * Signal that submission state should be wiped and a new submission should be created
  */
+
+//
 export function createNewSubmission(id, period) {
   return dispatch => {
     dispatch(refreshState())
@@ -475,7 +482,12 @@ export function createNewSubmission(id, period) {
 export function fetchNewSubmission(id, period) {
   return dispatch => {
     return createSubmission(id, period)
-      .then(json => dispatch(receiveSubmission(json)))
+      .then(json => {
+        return new Promise((resolve, reject) => {
+          dispatch(receiveSubmission(json))
+          resolve()
+        })
+      })
       .catch(err => console.error(err))
   }
 }
@@ -485,22 +497,14 @@ export function fetchNewSubmission(id, period) {
  */
 export function fetchSubmission() {
   return dispatch => {
-    dispatch(requestFiling())
-    return getFilingFromUrl().then(json => {
-        dispatch(receiveFiling(json))
-
-        const latestSubmission = json.submissions.reduce((prev, curr) => {
-            return +curr.id.sequenceNumber > +prev.id.sequenceNumber ? curr : prev
-          }, {id: {sequenceNumber: 0}})
-
-        if(latestSubmission.id.sequenceNumber !== 0){
-          return dispatch(receiveSubmission(latestSubmission))
+    return getLatestSubmission()
+      .then(json => {
+        if(json.httpStatus === 404){
+          const splitPath = json.path.split('/')
+          return dispatch(fetchNewSubmission(splitPath[2], splitPath[4]))
         }else{
-          return createSubmission(json.filing.institutionId, json.filing.period).then(submission => {
-              dispatch(receiveSubmission(submission))
-            })
+          return dispatch(receiveSubmission(json))
         }
-
       })
       .catch(err => console.error(err))
   }
@@ -553,24 +557,9 @@ export function fetchInstitutions() {
  */
 export function fetchEachInstitution(institutions) {
   return dispatch => {
-    dispatch(clearFilings())
     return Promise.all(
       institutions.map( institution => {
         dispatch(fetchInstitution(institution))
-      })
-    )
-  }
-}
-
-/*
- * Given a list of institutions, dispatch fetch instructions for the filings of each institution
- */
-export function fetchEachFiling(institutions) {
-  return dispatch => {
-    dispatch(clearFilings())
-    return Promise.all(
-      institutions.map( institution => {
-        dispatch(fetchFiling(institution))
       })
     )
   }
@@ -586,11 +575,7 @@ export function fetchInstitution(institution) {
       .then(json => {
         dispatch(receiveInstitution(json))
         if(json && json.filings){
-          json.filings.forEach((filing) => {
-            if(filing.period === currentFilingPeriod){
-              dispatch(fetchFiling(institution))
-            }
-          })
+          return dispatch(fetchEachFiling(json.filings))
         }
       })
       .catch(err => console.error(err))
@@ -598,13 +583,29 @@ export function fetchInstitution(institution) {
 }
 
 /*
+ * Given a list of filings, dispatch fetch instructions for each
+ */
+export function fetchEachFiling(filings) {
+  return dispatch => {
+    dispatch(clearFilings())
+    return Promise.all(
+      filings.filter(filing => {
+        return filing.period === currentFilingPeriod
+      }).map(filing => {
+        return dispatch(fetchFiling(filing))
+      })
+    ).then(() => dispatch(receiveFilings()))
+  }
+}
+
+/*
  * Fetch the filing for the current filing period given an institution
  * and dispatch an action with the results
  */
-export function fetchFiling(institution) {
+export function fetchFiling(filing) {
   return dispatch => {
     dispatch(requestFiling())
-    return getFiling(institution.id, currentFilingPeriod)
+    return getFiling(filing.institutionId, filing.period)
       .then(json => dispatch(receiveFiling(json)))
       .catch(err => console.error(err))
   }
