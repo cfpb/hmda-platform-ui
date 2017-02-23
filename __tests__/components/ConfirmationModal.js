@@ -1,5 +1,4 @@
 jest.unmock('../../src/js/components/ConfirmationModal.jsx')
-jest.mock('oidc-client')
 
 import ModalConfirm from '../../src/js/components/ConfirmationModal.jsx'
 import Wrapper from '../Wrapper.js'
