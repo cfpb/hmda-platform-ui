@@ -3,15 +3,13 @@ import { Link } from 'react-router'
 import { signinRedirect, logout } from '../redirect.js'
 import BannerUSA from './BannerUSA.jsx'
 
-const styleSelectedPage = (selected, current) => {
+export const styleSelectedPage = (selected, current) => {
   if(selected === current) return {borderBottom: '2px solid'}
   return {}
 }
 
 const Header = (props) => {
-  const base = props.pathname.split('/').slice(0,-1).join('/')
   const page = props.pathname.split('/').slice(-1)[0]
-
   return (
     <header className="usa-header usa-header-basic" role="banner">
       <BannerUSA />
