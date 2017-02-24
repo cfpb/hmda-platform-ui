@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
 const Summary = (props) => {
-  if (!props.respondent.name) return null
+  if (!props.respondent || !props.file) return null
 
   return (
     <div className="Summary usa-grid-full" id="summary">
