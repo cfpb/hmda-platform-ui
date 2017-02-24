@@ -43,8 +43,7 @@ export const getText = (editType, count) => {
   return {id, title, desc}
 }
 
-export const renderCSVLink = (props) => {
-  const { count, type, onDownloadClick } = props
+export const renderCSVLink = ({ count, type, onDownloadClick }) => {
   if(count === 0) return null
   let linkText = type
   if(linkText.slice(0,4) === 'rows') return null
