@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-const getText = (editType, count) => {
+export const getText = (editType, count) => {
   let id = null
   let title = null
   let desc = null
@@ -43,15 +43,15 @@ const getText = (editType, count) => {
   return {id, title, desc}
 }
 
-const renderCSVLink = (props) => {
-  if(props.count === 0) return null
-  let linkText = props.type
+export const renderCSVLink = ({ count, type, onDownloadClick }) => {
+  if(count === 0) return null
+  let linkText = type
   if(linkText.slice(0,4) === 'rows') return null
 
   return (
     <p><a href="#" onClick={(e) => {
       e.preventDefault()
-      props.onDownloadClick(props.type)
+      onDownloadClick(type)
     }}>Download {linkText} edits (CSV)</a></p>
   )
 }
@@ -59,7 +59,7 @@ const renderCSVLink = (props) => {
 const EditsHeaderDescription = (props) => {
   const { type, count } = props
   const { id, title, desc } = getText(type, count)
-  const headingClass = count > 0 ? 'text-secondary' : 'text-green'
+  const headingClass = count === 0 ? 'text-green' : 'text-secondary'
 
   return (
     <header className="EditsHeaderDescription" id={id}>
@@ -72,7 +72,8 @@ const EditsHeaderDescription = (props) => {
 
 EditsHeaderDescription.propTypes = {
   type: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired
+  count: PropTypes.number.isRequired,
+  onDownloadClick: PropTypes.func.isRequired
 }
 
 export default EditsHeaderDescription

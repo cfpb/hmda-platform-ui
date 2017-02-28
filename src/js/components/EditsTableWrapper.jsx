@@ -3,7 +3,7 @@ import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import EditsTable from './EditsTable.jsx'
 import QualityVerifier from '../containers/QualityVerifier.jsx'
 
-const getEdits = (editObj, type, typeFromPath) => {
+export const getEdits = (editObj, type, typeFromPath) => {
   let edits
   if(type === 'rows'){
     edits = JSON.parse(JSON.stringify(editObj))
@@ -22,12 +22,14 @@ const getEdits = (editObj, type, typeFromPath) => {
   return edits
 }
 
-const filterByType = (type, typeFromPath) => {
-  if(type === 'rows' && (typeFromPath === 'quality' || typeFromPath === 'syntacticalvalidity')) return
+export const filterByType = (type, typeFromPath) => {
+  if(type === 'rows' && (typeFromPath === 'quality' || typeFromPath === 'syntacticalvalidity')) {
+    return
+  }
   if(typeFromPath.indexOf(type) === -1) return true
 }
 
-const getLabel = (type, typeFromPath) => {
+export const getLabel = (type, typeFromPath) => {
   let label
   if(type === 'rows'){
     label = typeFromPath === 'quality' ? 'quality' : 'syntactical or validity'
@@ -37,14 +39,12 @@ const getLabel = (type, typeFromPath) => {
   return label
 }
 
-const renderTables = (edits, type, typeFromPath) => {
-  let label
-
+export const renderTables = (edits, type, typeFromPath) => {
   if(edits.length === 0) {
     return (
       <div className="usa-alert usa-alert-success">
         <div className="usa-alert-body">
-          <p className="usa-alert-text">No <strong>{label}</strong> edits found.</p>
+          <p className="usa-alert-text">No <strong>{getLabel(type, typeFromPath)}</strong> edits found.</p>
         </div>
       </div>
     )
@@ -68,10 +68,13 @@ const EditsTableWrapper = (props) => {
       Object.keys(editsObj).map((type, i) => {
         if(filterByType(type, props.editTypeFromPath)) return null
         const edits = getEdits(editsObj[type], type, props.editTypeFromPath)
-        const label = getLabel(editsObj[type])
         return (
           <div className="EditsContainerEntry" key={i}>
-            <EditsHeaderDescription count={edits.length} type={type==='rows'?'rows'+props.editTypeFromPath:type} onDownloadClick={props.onDownloadClick}/>
+            <EditsHeaderDescription
+              count={edits.length}
+              type={type==='rows'?'rows'+props.editTypeFromPath:type}
+              onDownloadClick={props.onDownloadClick}
+            />
             {renderTables(edits, type, props.editTypeFromPath)}
             {type === 'quality' ? <QualityVerifier/> : null}
             {type === 'syntactical' ? <hr /> : null}

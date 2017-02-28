@@ -1,16 +1,21 @@
 import React from 'react'
 
-const RefileText = (props) => {
-  let message
+export const getStatus = (code) => {
+  let status
 
-  if(props.code > 7) {
-    message = 'is in progress'
-    if(props.code === 11) message = 'has already been submitted'
+  if(code > 7) {
+    status = 'is in progress'
+    if(code === 11) status = 'has already been submitted'
   }
 
+  const message = status ? <p>The HMDA data for this filing year <strong>{status}</strong>.</p> : null
+
+  return message
+}
+const RefileText = (props) => {
   return (
     <div className="RefileText">
-      {message ? <p>The HMDA data for this filing year <strong>{message}</strong>.</p>:null}
+      {getStatus(props.code)}
       <p className="question">Would you like to start the resubmission process?</p>
     </div>
   )
