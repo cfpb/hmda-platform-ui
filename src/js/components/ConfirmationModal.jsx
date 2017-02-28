@@ -9,7 +9,7 @@ const ModalConfirm = (props) => {
   return (
     <div className={'confirmation-blurred-blocker'+ (showing ? ' showing-blurred-blocker' : '')}>
       <div className="confirmation-modal">
-        <div className="confirmation-title">Refile</div>
+        <h4>Refile</h4>
         <div className="confirmation-contents">
           <RefileText code={code}/>
           <button onClick={(e)=>{
