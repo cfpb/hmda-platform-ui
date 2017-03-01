@@ -9,19 +9,20 @@ const ModalConfirm = (props) => {
   return (
     <div className={'confirmation-blurred-blocker'+ (showing ? ' showing-blurred-blocker' : '')}>
       <div className="confirmation-modal">
-      <div>
-        <RefileText code={code}/>
-        <button onClick={(e)=>{
-          e.preventDefault()
-          hideConfirmModal()
-          triggerRefile(id, filing)
-        }}>Yes</button>
-        <button className="usa-button usa-button-secondary"
-          onClick={(e)=>{
+        <h4>Refile</h4>
+        <div className="confirmation-contents">
+          <RefileText code={code}/>
+          <button onClick={(e)=>{
             e.preventDefault()
             hideConfirmModal()
-          }}>No</button>
-        </div>
+            triggerRefile(id, filing)
+          }}>Yes, I would like to resubmit.</button>
+          <button className="usa-button usa-button-secondary"
+            onClick={(e)=>{
+              e.preventDefault()
+              hideConfirmModal()
+            }}>No, take me back.</button>
+          </div>
       </div>
     </div>
   )
