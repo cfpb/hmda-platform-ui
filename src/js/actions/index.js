@@ -568,13 +568,13 @@ export function fetchEachInstitution(institutions) {
 /*
  * Fetch an institution via the api and dispatch an action with the results
  */
-export function fetchInstitution(institution) {
+export function fetchInstitution(institution, fetchFilings = true) {
   return dispatch => {
     dispatch(requestInstitution())
     return getInstitution(institution.id)
       .then(json => {
         dispatch(receiveInstitution(json))
-        if(json && json.filings){
+        if(json && json.filings && fetchFilings){
           return dispatch(fetchEachFiling(json.filings))
         }
       })
