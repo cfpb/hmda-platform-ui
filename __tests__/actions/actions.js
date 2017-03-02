@@ -68,22 +68,22 @@ const getEachInstitution = [
   {type: types.REQUEST_INSTITUTION},
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj['0']
+    institution: institutionsDetailObj['0'].institution
   },
   {type:types.CLEAR_FILINGS},
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj['1']
+    institution: institutionsDetailObj['1'].institution
   },
   {type:types.CLEAR_FILINGS},
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj['2']
+    institution: institutionsDetailObj['2'].institution
   },
   {type:types.CLEAR_FILINGS},
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj['3']
+    institution: institutionsDetailObj['3'].institution
   },
   {type:types.CLEAR_FILINGS},
   {type:types.RECEIVE_FILINGS},
@@ -183,7 +183,7 @@ describe('actions', () => {
 
     expect(actions.receiveInstitution(data)).toEqual({
       type: types.RECEIVE_INSTITUTION,
-      institution: data
+      institution: data.institution
     })
   })
 
@@ -275,14 +275,10 @@ describe('actions', () => {
   it('creates a thunk that will send an http request for an institution by id', done => {
     const store = mockStore({filings: []})
 
-    store.dispatch(actions.fetchInstitution({id: 'bank0id'}))
+    store.dispatch(actions.fetchInstitution({id: 'bank0id'}, false))
       .then(() => {
         expect(store.getActions()).toEqual([
-          {type: types.REQUEST_INSTITUTION},
-          {
-            type: types.RECEIVE_INSTITUTION,
-            institution: institutionsDetailObj.bank0id
-          }
+          {type: types.REQUEST_INSTITUTION}
         ])
         done()
       })
