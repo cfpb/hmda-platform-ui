@@ -22,11 +22,11 @@ const Summary = (props) => {
             <dt>Agency:</dt>
             <dd>{props.respondent.agency}</dd>
             <dt>Contact Name:</dt>
-            <dd>{props.respondent.contact.name}</dd>
+            <dd>{props.respondent.contact && props.respondent.contact.name}</dd>
             <dt>Phone:</dt>
-            <dd>{props.respondent.contact.phone}</dd>
+            <dd>{props.respondent.contact && props.respondent.contact.phone}</dd>
             <dt>Email</dt>
-            <dd>{props.respondent.contact.email}</dd>
+            <dd>{props.respondent.contact && props.respondent.contact.email}</dd>
           </dl>
         </div>
         <div className="usa-width-one-half">

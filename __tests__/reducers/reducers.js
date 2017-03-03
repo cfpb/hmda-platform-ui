@@ -64,9 +64,7 @@ const defaultEdits = {
     validity: {edits: []},
     quality: {edits: [], verified: false},
     macro: {edits: []}
-  },
-  rows: [],
-  groupByRow: false
+  }
 }
 
 describe('status reducer', () => {
@@ -322,13 +320,6 @@ describe('edits reducer', () => {
     )).toEqual({isFetching: true})
   })
 
-  it('handles REQUEST_EDITS_BY_ROW', () => {
-    expect(
-      edits({},
-      {type: types.REQUEST_EDITS_BY_ROW}
-    )).toEqual({isFetching: true})
-  })
-
   it('handles RECEIVE_EDITS_BY_TYPE', () => {
     expect(
       edits({},
@@ -336,15 +327,6 @@ describe('edits reducer', () => {
        edits:'EDITS'
       }
     )).toEqual({types: 'EDITS', fetched: true, isFetching: false})
-  })
-
-  it('handles RECEIVE_EDITS_BY_ROW', () => {
-    expect(
-      edits({},
-      {type: types.RECEIVE_EDITS_BY_ROW,
-       edits:'EDITS'
-      }
-    )).toEqual({rows: 'EDITS', fetched: true, isFetching: false})
   })
 
   it('handles RECEIVE_EDIT_POST', () => {
@@ -392,13 +374,6 @@ describe('edits reducer', () => {
     )).toEqual({types:{quality:{verified:true}}})
   })
 
-  it('handles PICK_SORT', () => {
-    expect(
-       edits({},
-      {type: types.PICK_SORT, groupByRow: true}
-    )).toEqual({groupByRow: true})
-  })
-
   it('handles REFRESH_STATE', () => {
     expect(
        edits({},
@@ -409,11 +384,8 @@ describe('edits reducer', () => {
   it('shouldn\'t modify state on an unknown action type', () => {
     excludeTypes(
         types.VERIFY_QUALITY,
-        types.PICK_SORT,
         types.RECEIVE_EDIT_POST,
-        types.RECEIVE_EDITS_BY_ROW,
         types.RECEIVE_EDITS_BY_TYPE,
-        types.REQUEST_EDITS_BY_ROW,
         types.REQUEST_EDITS_BY_TYPE,
         types.REFRESH_STATE)
       .forEach(v => expect(edits({}, v))

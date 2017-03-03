@@ -12,7 +12,6 @@ import Wrapper from '../Wrapper.js'
 import EditsTableWrapper, {
   getEdits,
   filterByType,
-  getLabel,
   renderTables
 } from '../../src/js/components/EditsTableWrapper.jsx'
 
@@ -48,39 +47,7 @@ describe('EditsTableWrapper', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(edits, 'EditsContainerEntry').length).toEqual(2)
   })
 
-  it('renders 1 child if type is row and typeFromPath is quality', () => {
-    const rendered = EditsTableWrapper({
-      onDownloadClick: onDownloadClick,
-      groupByRow: true,
-      editTypeFromPath: 'quality',
-      rows: {
-        rows: [
-          {
-            edits: [
-              {
-                description: 'description',
-                editId: 'S020',
-                fields: {
-                  'Agency Code': 22
-                }
-              }
-            ],
-            rowId: 'Transmittal Sheet'
-          }
-        ]
-      },
-      types: {
-        syntactical: types.syntactical,
-        validity: types.validity,
-        quality: types.quality,
-        macro: types.macro
-      }
-    })
-
-    expect(rendered.props.children.length).toBe(1)
-  })
-
-  it('renders 4 children if type is NOT row and typeFromPath is quality', () => {
+  it('renders 4 children if type is quality and typeFromPath is quality', () => {
     const rendered = EditsTableWrapper({
       onDownloadClick: onDownloadClick,
       groupByRow: false,
@@ -140,34 +107,10 @@ describe('renderTables', () => {
   })
 })
 
-describe('getLabel', () => {
-  it('returns the type', () => {
-    const returned = getLabel('syntactical', 'syntactical')
-    expect(returned).toBe('syntactical')
-  })
-
-  it('returns "quality" when type is rows the typeFromPath is quality', () => {
-    const returned = getLabel('rows', 'quality')
-    expect(returned).toBe('quality')
-  })
-
-  it('returns "syntactical or validity" when type is rows the typeFromPath is not quality', () => {
-    const returned = getLabel('rows', 'something else')
-    expect(returned).toBe('syntactical or validity')
-  })
-})
-
 describe('filterByType', () => {
   it('returns true when type is not in typeFromPath', () => {
     const returned = filterByType('quality', 'macro')
     expect(returned).toBeTruthy()
-  })
-
-  it('returns undefined when type is "rows" and the typeFromPath is "quality" or "syntacticalvalidity"', () => {
-    let returned = filterByType('rows', 'quality')
-    expect(returned).not.toBeDefined()
-    returned = filterByType('rows', 'syntacticalvalidity')
-    expect(returned).not.toBeDefined()
   })
 
   it('returns undefined when typeFromPath is "syntacticalvalidity" and type is either "syntactical" or "validity"', () => {

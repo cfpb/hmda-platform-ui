@@ -126,22 +126,9 @@ export function requestEditsByType() {
     }
 }
 
-export function requestEditsByRow() {
-    return {
-      type: types.REQUEST_EDITS_BY_ROW
-    }
-}
-
 export function receiveEditsByType(data) {
   return {
     type: types.RECEIVE_EDITS_BY_TYPE,
-    edits: data
-  }
-}
-
-export function receiveEditsByRow(data) {
-  return {
-    type: types.RECEIVE_EDITS_BY_ROW,
     edits: data
   }
 }
@@ -327,22 +314,6 @@ export function updateSignature(signed) {
         ))
       })
       .catch(err => console.error(err))
-  }
-}
-
-export function pickSort(groupByRow) {
-  return {
-    type: types.PICK_SORT,
-    groupByRow
-  }
-}
-
-export function triggerPickSort(groupByRow) {
-  return dispatch => {
-    dispatch(pickSort(groupByRow))
-    let editAction = fetchEditsByType
-    if(groupByRow) editAction = fetchEditsByRow
-    dispatch(editAction())
   }
 }
 
@@ -620,15 +591,6 @@ export function fetchEditsByType() {
       .then(json => {
         dispatch(receiveEditsByType(json))
       })
-      .catch(err => console.error(err))
-  }
-}
-
-export function fetchEditsByRow() {
-  return dispatch => {
-    dispatch(requestEditsByRow())
-    return getEdits({submission: latestSubmissionId, params: {sortBy: 'row'}})
-      .then(json => dispatch(receiveEditsByRow(json)))
       .catch(err => console.error(err))
   }
 }
