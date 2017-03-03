@@ -15,6 +15,9 @@ class RefileButtonContainer extends Component {
 
 function mapDispatchToProps(dispatch) {
   const showConfirmModal = (id, filing, code) => {
+    console.log(id)
+    console.log(filing)
+    console.log(code)
     dispatch(showConfirm(id, filing, code))
   }
 

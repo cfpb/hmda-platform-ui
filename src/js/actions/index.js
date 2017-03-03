@@ -440,9 +440,14 @@ export function requestUpload(file) {
  */
 
 //
-export function createNewSubmission(id, period) {
+export function createNewSubmission(id, period, page = null) {
+  console.log('createNewSubmission')
+  console.log(page)
   return dispatch => {
-    dispatch(refreshState())
+    // only refresh the state when not trigged from the upload page
+    if(page === null) {
+      dispatch(refreshState())
+    }
     return dispatch(fetchNewSubmission(id, period))
   }
 }

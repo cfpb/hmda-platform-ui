@@ -25,13 +25,24 @@ function mapDispatchToProps(dispatch) {
     dispatch(hideConfirm())
   }
 
-  const triggerRefile = (id, period) => {
-    dispatch(createNewSubmission(id, period)).then(()=>{
-      browserHistory.replace(`/${id}/${period}`)
-    })
+  const triggerRefile = (id, period, page = '') => {
+    console.log('triggerRefile')
+    console.log(page)
+    if(page === 'upload') {
+      console.log('yep')
+      dispatch(createNewSubmission(id, period, page))
+    } else {
+      dispatch(createNewSubmission(id, period)).then(()=>{
+        browserHistory.replace(`/${id}/${period}`)
+      })
+    }
+
   }
 
-  return {hideConfirmModal, triggerRefile}
+  return {
+    hideConfirmModal,
+    triggerRefile
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfirmationModalContainer)

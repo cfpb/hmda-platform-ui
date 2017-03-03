@@ -4,6 +4,9 @@ import RefileText from './RefileText.jsx'
 const ModalConfirm = (props) => {
   const { code, filing, id, showing, hideConfirmModal, triggerRefile } = props
 
+  // get the page
+  const page = location.pathname.split('/').slice(-1)[0]
+
   if(!filing || !id || !hideConfirmModal || !triggerRefile) return null
 
   return (
@@ -15,7 +18,7 @@ const ModalConfirm = (props) => {
           <button onClick={(e)=>{
             e.preventDefault()
             hideConfirmModal()
-            triggerRefile(id, filing)
+            triggerRefile(id, filing, page)
           }}>Yes, I would like to resubmit.</button>
           <button className="usa-button usa-button-secondary"
             onClick={(e)=>{
