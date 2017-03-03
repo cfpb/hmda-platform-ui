@@ -22,6 +22,7 @@ export const PICK_SORT              = 'PICK_SORT'
 export const REQUEST_CSV            = 'REQUEST_CSV'
 
 export const SELECT_FILE            = 'SELECT_FILE'
+export const SELECT_NEW_FILE        = 'SELECT_NEW_FILE'
 export const REQUEST_UPLOAD         = 'REQUEST_UPLOAD'
 export const UPLOAD_START           = 'UPLOAD_START'
 export const UPLOAD_COMPLETE        = 'UPLOAD_COMPLETE'

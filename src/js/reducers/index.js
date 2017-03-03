@@ -12,6 +12,7 @@ import {
   RECEIVE_FILINGS,
   RECEIVE_SUBMISSION,
   SELECT_FILE,
+  SELECT_NEW_FILE,
   SHOW_CONFIRM,
   HIDE_CONFIRM,
   PICK_SORT,
@@ -36,19 +37,6 @@ import {
   REQUEST_PARSE_ERRORS,
   RECEIVE_PARSE_ERRORS
 } from '../constants'
-
-const defaultUpload = {
-  uploading: false,
-  file: null,
-  errors: []
-}
-
-const defaultConfirmation = {
-  showing: false,
-  code: 0,
-  id: null,
-  filing: null
-}
 
 const defaultFilings = {
   filings: [],
@@ -174,6 +162,14 @@ export const filingPeriod = (state = '2017', action) => {
 /*
  * Maintain data on the current upload
  */
+
+ const defaultUpload = {
+   uploading: false,
+   file: null,
+   newFile: null,
+   errors: []
+ }
+
 export const upload = (state = defaultUpload, action) => {
   switch (action.type) {
   case SELECT_FILE:
@@ -181,6 +177,11 @@ export const upload = (state = defaultUpload, action) => {
       ...state,
       file: action.file,
       errors: action.errors
+    }
+  case SELECT_NEW_FILE:
+    return {
+      ...state,
+      newFile: action.file
     }
   case REFRESH_STATE:
     return defaultUpload
@@ -192,6 +193,14 @@ export const upload = (state = defaultUpload, action) => {
 /*
  * Track confirmation modal for refiling
  */
+
+ const defaultConfirmation = {
+   showing: false,
+   code: 0,
+   id: null,
+   filing: null
+ }
+
 export const confirmation = (state = defaultConfirmation, action) => {
   switch (action.type) {
   case SHOW_CONFIRM:

@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import Upload from '../components/UploadForm.jsx'
 import {
   selectFile,
+  selectNewFile,
   requestUpload,
   createNewSubmission,
   showConfirm
@@ -50,13 +51,17 @@ export function mapDispatchToProps(dispatch) {
       dispatch(selectFile(acceptedFiles[0]))
     },
 
+    setNewFile: (acceptedFiles) => {
+      if(!acceptedFiles) return
+      dispatch(selectNewFile(acceptedFiles[0]))
+    },
+
     refileLink: (id, period) => {
       dispatch(createNewSubmission(id, period))
     },
 
-    showConfirmModal: (id, filing, code, acceptedFiles) => {
+    showConfirmModal: (id, filing, code) => {
       dispatch(showConfirm(id, filing, code))
-      dispatch(selectFile(acceptedFiles[0]))
     }
   }
 }

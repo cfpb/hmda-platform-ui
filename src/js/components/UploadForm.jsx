@@ -37,8 +37,12 @@ export const renderDropText = ({ code, errors, file }, dropzoneContent) => {
     if(errors.length > 0) {
       message = `${file.name} can not be uploaded.`
     }
+
+    if(code > 1) {
+      message = `Submission of ${file.name} currently in progess. You can drag another file to this area to re-upload.`
+    }
   }
-//  let upload = errors.length === 0 ? '' : <p>Can't upload</p>
+
   dropzoneContent.innerHTML = `<p>${message}</p>`
 }
 
@@ -65,19 +69,20 @@ export default class Upload extends Component {
         institutionId,
         filingPeriod,
         showConfirmModal,
-        setFile
+        setFile,
+        setNewFile
       } = this.props
 
       if(code > 1) {
-        showConfirmModal(institutionId, filingPeriod, code, acceptedFiles)
+        showConfirmModal(institutionId, filingPeriod, code)
+        setNewFile(acceptedFiles)
+      } else {
+        setFile(acceptedFiles)
       }
-
-      setFile(acceptedFiles)
     }
 
     const isUploadDisabled = (this.props.code > 1 || this.props.file === null || this.props.file.name === 'No file chosen' || this.props.errors.length !== 0) ? true : false
-    console.log('props')
-    console.log(this.props)
+
     return (
       <div>
         <div className="UploadForm">
@@ -117,6 +122,7 @@ export default class Upload extends Component {
 Upload.propTypes = {
   handleSubmit: PropTypes.func,
   setFile: PropTypes.func,
+  setNewFile: PropTypes.func,
   uploading: PropTypes.bool,
   file: PropTypes.object,
   code: PropTypes.number,

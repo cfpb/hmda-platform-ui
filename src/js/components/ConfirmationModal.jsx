@@ -2,7 +2,20 @@ import React from 'react'
 import RefileText from './RefileText.jsx'
 
 const ModalConfirm = (props) => {
-  const { code, filing, id, showing, hideConfirmModal, triggerRefile } = props
+  const {
+    code,
+    filing,
+    id,
+    showing,
+    file,
+    newFile,
+    hideConfirmModal,
+    triggerRefile
+  } = props
+
+  console.log('modal')
+  console.log(file)
+  console.log(newFile)
 
   // get the page
   const page = location.pathname.split('/').slice(-1)[0]
@@ -18,7 +31,7 @@ const ModalConfirm = (props) => {
           <button onClick={(e)=>{
             e.preventDefault()
             hideConfirmModal()
-            triggerRefile(id, filing, page)
+            triggerRefile(id, filing, page, newFile)
           }}>Yes, I would like to resubmit.</button>
           <button className="usa-button usa-button-secondary"
             onClick={(e)=>{
@@ -37,7 +50,9 @@ ModalConfirm.propTypes = {
   hideConfirmModal: React.PropTypes.func.isRequired,
   triggerRefile: React.PropTypes.func.isRequired,
   showing: React.PropTypes.bool,
-  code: React.PropTypes.number
+  code: React.PropTypes.number,
+  file: React.PropTypes.object,
+  newFile: React.PropTypes.object
 }
 
 ModalConfirm.defaultProps = {
