@@ -20,9 +20,6 @@ export const renderHeader = (edits, type) => {
 
   if (type === 'macro' ) {
     keyCells = edits[0]
-  } else if (type === 'rows' ) {
-    keyCells = { editId: edits.editId }
-    fieldCells = edits.fields
   } else {
     keyCells = edits.rows[0].row
     fieldCells = edits.rows[0].fields
@@ -47,9 +44,6 @@ export const renderBody = (edits, type) => {
     return edits.map((macro, i) => {
       return <EditsTableRow row={macro} key={i}/>
     })
-  }
-  if (type === 'rows') {
-    return <EditsTableRow row={{editId:edits.editId}} fields={edits.fields}/>
   }
   return edits.rows.map((row, i) => {
     return <EditsTableRow row={row.row} fields={row.fields} key={i}/>

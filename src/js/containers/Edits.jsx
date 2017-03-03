@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import EditsTableWrapper from '../components/EditsTableWrapper.jsx'
-import SortPicker from '../containers/SortPicker.jsx'
-import { fetchEditsByType, fetchEditsByRow, fetchCSVByType } from '../actions'
+import { fetchEditsByType, fetchCSVByType } from '../actions'
 
 export class EditsContainer extends Component {
   constructor(props) {
@@ -10,19 +9,12 @@ export class EditsContainer extends Component {
   }
 
   componentDidMount() {
-    if(!this.props.fetched) this.getEditsByGrouping()
-  }
-
-
-  getEditsByGrouping() {
-    const selectedFetch = this.props.groupByRow ? fetchEditsByRow : fetchEditsByType
-    this.props.dispatch(selectedFetch())
+    if(!this.props.fetched) this.props.dispatch(fetchEditsByType())
   }
 
   render() {
     return (
       <div className="EditsContainer">
-        <SortPicker/>
         <EditsTableWrapper {...this.props}/>
       </div>
     )
@@ -33,9 +25,7 @@ export function mapStateToProps(state) {
   const {
     isFetching,
     fetched,
-    groupByRow,
-    types,
-    rows
+    types
   } = state.app.edits
 
   const editTypeFromPath = state.routing.locationBeforeTransitions.pathname.split('/').slice(-1)[0]
@@ -43,9 +33,7 @@ export function mapStateToProps(state) {
   return {
     isFetching,
     fetched,
-    groupByRow,
     types,
-    rows,
     editTypeFromPath
   }
 }

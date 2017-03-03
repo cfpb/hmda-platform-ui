@@ -19,9 +19,7 @@ import {
   UPLOAD_COMPLETE,
   UPLOAD_ERROR,
   REQUEST_EDITS_BY_TYPE,
-  REQUEST_EDITS_BY_ROW,
   RECEIVE_EDITS_BY_TYPE,
-  RECEIVE_EDITS_BY_ROW,
   REQUEST_EDIT_POST,
   RECEIVE_EDIT_POST,
   REQUEST_IRS,
@@ -76,9 +74,7 @@ const defaultEdits = {
     validity: {edits: []},
     quality: {edits: [], verified: false},
     macro: {edits: []}
-  },
-  rows: [],
-  groupByRow: false
+  }
 }
 
 //empty action logger, temporary / for debugging
@@ -258,22 +254,10 @@ export const edits = (state = defaultEdits, action) => {
         ...state,
         isFetching: true
       }
-    case REQUEST_EDITS_BY_ROW:
-      return {
-        ...state,
-        isFetching: true
-      }
     case RECEIVE_EDITS_BY_TYPE:
       return {
         ...state,
         types: action.edits,
-        isFetching: false,
-        fetched: true
-      }
-    case RECEIVE_EDITS_BY_ROW:
-      return {
-        ...state,
-        rows: action.edits,
         isFetching: false,
         fetched: true
       }
@@ -295,12 +279,6 @@ export const edits = (state = defaultEdits, action) => {
       const clonedState = {...state}
       clonedState.types.quality.verified = action.checked
       return clonedState
-    }
-    case PICK_SORT: {
-      return {
-        ...state,
-        groupByRow: action.groupByRow
-      }
     }
     case REFRESH_STATE: {
       return defaultEdits

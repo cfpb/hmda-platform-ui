@@ -3,48 +3,20 @@ import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import EditsTable from './EditsTable.jsx'
 import QualityVerifier from '../containers/QualityVerifier.jsx'
 
-export const getEdits = (editObj, type, typeFromPath) => {
-  let edits
-  if(type === 'rows'){
-    edits = JSON.parse(JSON.stringify(editObj))
-    editObj.forEach((editOverview,i) => {
-      edits[i].edits = editOverview.edits.filter((edit)=>{
-        return (typeFromPath === 'quality' && edit.editId.slice(0,1) === 'Q') ||
-          (typeFromPath !== 'quality' && edit.editId.slice(0,1) !== 'Q')
-      })
-    })
-    edits = edits.filter((editOverview) => {
-      return editOverview.edits.length
-    })
-  }else{
-    edits = editObj.edits
-  }
-  return edits
+export const getEdits = (editObj) => {
+  return editObj.edits
 }
 
 export const filterByType = (type, typeFromPath) => {
-  if(type === 'rows' && (typeFromPath === 'quality' || typeFromPath === 'syntacticalvalidity')) {
-    return
-  }
   if(typeFromPath.indexOf(type) === -1) return true
 }
 
-export const getLabel = (type, typeFromPath) => {
-  let label
-  if(type === 'rows'){
-    label = typeFromPath === 'quality' ? 'quality' : 'syntactical or validity'
-  }else{
-    label = type
-  }
-  return label
-}
-
-export const renderTables = (edits, type, typeFromPath) => {
+export const renderTables = (edits, type) => {
   if(edits.length === 0) {
     return (
       <div className="usa-alert usa-alert-success">
         <div className="usa-alert-body">
-          <p className="usa-alert-text">No <strong>{getLabel(type, typeFromPath)}</strong> edits found.</p>
+          <p className="usa-alert-text">No <strong>{type}</strong> edits found.</p>
         </div>
       </div>
     )
@@ -60,22 +32,22 @@ export const renderTables = (edits, type, typeFromPath) => {
 }
 
 const EditsTableWrapper = (props) => {
-  const editsObj = props.groupByRow ? props.rows : props.types
+  const editsObj = props.types
 
   return (
     <div className="EditsContainerBody">
     {
       Object.keys(editsObj).map((type, i) => {
         if(filterByType(type, props.editTypeFromPath)) return null
-        const edits = getEdits(editsObj[type], type, props.editTypeFromPath)
+        const edits = getEdits(editsObj[type])
         return (
           <div className="EditsContainerEntry" key={i}>
             <EditsHeaderDescription
               count={edits.length}
-              type={type==='rows'?'rows'+props.editTypeFromPath:type}
+              type={type}
               onDownloadClick={props.onDownloadClick}
             />
-            {renderTables(edits, type, props.editTypeFromPath)}
+            {renderTables(edits, type)}
             {type === 'quality' ? <QualityVerifier/> : null}
             {type === 'syntactical' ? <hr /> : null}
           </div>

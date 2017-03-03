@@ -387,26 +387,6 @@ describe('actions', () => {
       })
   })
 
-  it('creates a thunk that will fetch edits by row', done => {
-    const store = mockStore({})
-
-    store.dispatch(actions.fetchEditsByRow())
-      .then(() => {
-        expect(store.getActions()).toEqual([
-          {type: types.REQUEST_EDITS_BY_ROW},
-          {
-            type: types.RECEIVE_EDITS_BY_ROW,
-            edits: {fakeEdits:1}
-          }
-        ])
-        done()
-      })
-      .catch(err => {
-        console.log(err)
-        done.fail()
-      })
-  })
-
   it('creates a thunk that will request edits and trigger a csv download', done => {
     const store = mockStore({})
 

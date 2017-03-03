@@ -153,43 +153,6 @@ describe('getText', () => {
     })
   })
 
-  // uses the qualityDesc
-  it('returns quality, by row, with 1 edit', () => {
-    const returned = getText('rowsquality', 1)
-    expect(returned).toEqual({
-      id: 'quality',
-      title: 'Row of Quality Edits',
-      desc: qualityDesc
-    })
-  })
-
-  it('returns quality, by row, with 0 edits', () => {
-    const returned = getText('rowsquality', 0)
-    expect(returned).toEqual({
-      id: 'quality',
-      title: 'Rows of Quality Edits',
-      desc: qualityDesc
-    })
-  })
-
-  const rowsSynValidDesc = 'Edits that check whether the loan/application register is in the correct format, whether the data covers the correct filing year, and whether there are valid values in each data field. The loan/application register cannot be filed until the filer corrects all syntactical edit errors and reuploads the updated loan/application register to the HMDA Platform.'
-  it('returns syntactical and validity, by row, with 1 edit', () => {
-    const returned = getText('rowssyntacticalvalidity', 1)
-    expect(returned).toEqual({
-      id: 'rowheader',
-      title: 'Row of Syntactical and Validity Edits',
-      desc: rowsSynValidDesc
-    })
-  })
-
-  it('returns syntactical and validity, by row, with 0 edits', () => {
-    const returned = getText('rowssyntacticalvalidity', 0)
-    expect(returned).toEqual({
-      id: 'rowheader',
-      title: 'Rows of Syntactical and Validity Edits',
-      desc: rowsSynValidDesc
-    })
-  })
 })
 
 describe('renderCSVLink', () => {
@@ -215,14 +178,4 @@ describe('renderCSVLink', () => {
     expect(rendered).toBe(null)
   })
 
-  it('renders NULL if grouped by row', () => {
-    const onDownloadClick = jest.fn()
-    const props = {
-      count: 0,
-      onDownloadClick: onDownloadClick,
-      type: 'rowssyntacticalvalidity'
-    }
-    const rendered = renderCSVLink(props)
-    expect(rendered).toBe(null)
-  })
 })

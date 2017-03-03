@@ -26,16 +26,6 @@ export const getText = (editType, count) => {
       title = count === 1 ? 'Macro Edit' : 'Macro Edits'
       desc = 'Edits that check whether the submitted loan/application register as a whole conforms to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all the values flagged by the macro quality edits in the HMDA Platform or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
       break
-    case 'rowsquality':
-      id = 'quality'
-      title = (count === 1 ? 'Row':'Rows') + ' of Quality Edits'
-      desc = 'Edits that check whether entries in the individual data fields or combinations of data fields conform to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all values flagged by quality edits in the HMDA Platform, or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
-      break
-    case 'rowssyntacticalvalidity':
-      id = 'rowheader'
-      title = (count === 1 ? 'Row':'Rows') + ' of Syntactical and Validity Edits'
-      desc = 'Edits that check whether the loan/application register is in the correct format, whether the data covers the correct filing year, and whether there are valid values in each data field. The loan/application register cannot be filed until the filer corrects all syntactical edit errors and reuploads the updated loan/application register to the HMDA Platform.'
-      break
     default:
       throw new Error('Unexpected edit type. Unable to create edit description')
   }
@@ -46,7 +36,6 @@ export const getText = (editType, count) => {
 export const renderCSVLink = ({ count, type, onDownloadClick }) => {
   if(count === 0) return null
   let linkText = type
-  if(linkText.slice(0,4) === 'rows') return null
 
   return (
     <p><a href="#" onClick={(e) => {

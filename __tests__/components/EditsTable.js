@@ -78,18 +78,6 @@ describe('renderHeader', () => {
     expect(rendered.props.children[1].props.children).toBe('Lien Status')
   })
 
-  it('renders header by row', () => {
-    const edits = {
-      description: types.syntactical.edits[0].description,
-      editId: types.syntactical.edits[0].edit,
-      fields: types.syntactical.edits[0].rows[0].fields
-    }
-    const rendered = renderHeader(edits, 'rows')
-    expect(rendered.type).toBe('tr')
-    expect(rendered.props.children[0].props.children).toBe('Edit ID')
-    expect(rendered.props.children[1].props.children).toBe('Agency Code')
-  })
-
   it('renders header with quality', () => {
     const edits = types.quality.edits[0]
     const rendered = renderHeader(edits, 'quality')
@@ -120,16 +108,6 @@ describe('renderBody', () => {
     const rendered = renderBody(edits, 'validity')
     expect(rendered.length).toEqual(1)
     expect(TestUtils.isElement(rendered[0])).toBe(true)
-  })
-
-  it('renders body by row', () => {
-    const edits = {
-      description: types.syntactical.edits[0].description,
-      editId: types.syntactical.edits[0].edit,
-      fields: types.syntactical.edits[0].rows[0].fields
-    }
-    const rendered = renderBody(edits, 'rows')
-    expect(TestUtils.isElement(rendered)).toBe(true)
   })
 
   it('renders body with quality', () => {
