@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import { fetchSubmission } from '../actions'
+import {
+  fetchSubmission,
+  fetchInstitution
+} from '../actions'
 import HomeLink from '../components/HomeLink.jsx'
 import Header from '../components/Header.jsx'
 import UserHeading from '../components/UserHeading.jsx'
@@ -63,9 +66,14 @@ class SubmissionContainer extends Component {
   }
 
   componentDidMount() {
+    const institution = {
+      id: this.props.params.institution
+    }
     if(!this.props.status && this.props.dispatch){
       this.props.dispatch(fetchSubmission())
     }
+
+    this.props.dispatch(fetchInstitution(institution, false))
   }
 
   render() {
@@ -93,7 +101,7 @@ class SubmissionContainer extends Component {
         <UserHeading
           period={params.filing}
           userName={user.profile.name}
-          institution={params.institution} />
+          institution={this.props.institution} />
         {code > 2 ? <RefileButton
           id={params.institution}
           filing={params.filing}
@@ -119,10 +127,13 @@ function mapStateToProps(state) {
 
   const user = state.oidc && state.oidc.user || null
 
+  const institution = state.app.institution
+
   return {
     isFetching,
     status,
-    user
+    user,
+    institution
   }
 }
 

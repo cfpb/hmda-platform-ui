@@ -8,7 +8,10 @@ import TestUtils from 'react-addons-test-utils'
 
 const data = {
   user: 'User1',
-  institution: "Wacky data",
+  institution: {
+    id: '1',
+    name: 'Wacky data'
+  },
   period: '2017'
 }
 
@@ -67,7 +70,7 @@ describe('UserHeading', () => {
     })
 
     it('passes through the institution appropriately as props', () => {
-      expect(heading.props.children.props.institution).toEqual("Wacky data")
+      expect(heading.props.children.props.institution).toEqual(data.institution)
     })
 
     it('renders correctly', () => {

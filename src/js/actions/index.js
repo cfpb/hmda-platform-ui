@@ -60,7 +60,7 @@ export function requestInstitution() {
 export function receiveInstitution(data) {
   return {
     type: types.RECEIVE_INSTITUTION,
-    institution: data
+    institution: data.institution
   }
 }
 
@@ -244,6 +244,7 @@ export function fetchIRS() {
     dispatch(requestIRS())
     return getIRS(latestSubmissionId)
       .then(json => {
+        if(!json) return
         dispatch(receiveIRS(json))
         dispatch(updateStatus(
           {
@@ -568,13 +569,14 @@ export function fetchEachInstitution(institutions) {
 /*
  * Fetch an institution via the api and dispatch an action with the results
  */
-export function fetchInstitution(institution) {
+export function fetchInstitution(institution, fetchFilings = true) {
   return dispatch => {
     dispatch(requestInstitution())
     return getInstitution(institution.id)
       .then(json => {
+        if(!json) return
         dispatch(receiveInstitution(json))
-        if(json && json.filings){
+        if(json.filings && fetchFilings){
           return dispatch(fetchEachFiling(json.filings))
         }
       })

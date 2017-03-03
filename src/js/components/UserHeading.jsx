@@ -11,7 +11,7 @@ const getText = (props) => {
 
   // logged in, submission pages
   if(props.institution) {
-    headingText = `${props.userName} filing on behalf of ${props.institution} for ${props.period}.`
+    headingText = `${props.userName} filing on behalf of ${props.institution.name} for ${props.period}.`
   }
 
   return headingText
@@ -28,7 +28,7 @@ const UserHeading = (props) => {
 UserHeading.propTypes = {
   userName: React.PropTypes.string,
   period: React.PropTypes.string.isRequired,
-  institution: React.PropTypes.string
+  institution: React.PropTypes.object
 }
 
 export default UserHeading

@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 import {
   REFRESH_STATE,
+  REQUEST_INSTITUTION,
+  RECEIVE_INSTITUTION,
   REQUEST_INSTITUTIONS,
   RECEIVE_INSTITUTIONS,
   CLEAR_FILINGS,
@@ -82,6 +84,32 @@ const defaultEdits = {
 //empty action logger, temporary / for debugging
 export const auth = (state = {}, action) => {
   return state
+}
+
+const defaultInstitution = {
+  isFetching: false,
+  id: '',
+  name: ''
+}
+
+export const institution = (state = defaultInstitution, action) => {
+  switch(action.type) {
+    case REQUEST_INSTITUTION:
+    return {
+      ...state,
+      isFetching: true
+    }
+
+    case RECEIVE_INSTITUTION:
+    return {
+      isFetching: false,
+      id: action.institution.id,
+      name: action.institution.name
+    }
+
+    default:
+    return state
+  }
 }
 
 /*
@@ -415,6 +443,7 @@ export const parseErrors = (state = defaultParseErrors, action) => {
 
 export default combineReducers({
   auth,
+  institution,
   institutions,
   filings,
   filingPeriod,
