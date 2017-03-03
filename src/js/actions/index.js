@@ -244,6 +244,7 @@ export function fetchIRS() {
     dispatch(requestIRS())
     return getIRS(latestSubmissionId)
       .then(json => {
+        if(!json) return
         dispatch(receiveIRS(json))
         dispatch(updateStatus(
           {
@@ -573,8 +574,9 @@ export function fetchInstitution(institution, fetchFilings = true) {
     dispatch(requestInstitution())
     return getInstitution(institution.id)
       .then(json => {
+        if(!json) return
         dispatch(receiveInstitution(json))
-        if(json && json.filings && fetchFilings){
+        if(json.filings && fetchFilings){
           return dispatch(fetchEachFiling(json.filings))
         }
       })
