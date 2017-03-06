@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { hideConfirm, createNewSubmission} from '../actions'
+import {
+  hideConfirm,
+  createNewSubmission,
+  selectFile
+} from '../actions'
 import ConfirmationModal from '../components/ConfirmationModal.jsx'
 
 class ConfirmationModalContainer extends Component {
@@ -15,9 +19,26 @@ class ConfirmationModalContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  const { id, filing, code, showing } = state.app.confirmation || {code: 0}
+  const {
+    id,
+    filing,
+    code,
+    showing
+  } = state.app.confirmation || { code: 0 }
 
-  return {id, filing, code, showing}
+  const {
+    file,
+    newFile
+  } = state.app.upload
+
+  return {
+    id,
+    filing,
+    code,
+    showing,
+    file,
+    newFile
+  }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -25,13 +46,22 @@ function mapDispatchToProps(dispatch) {
     dispatch(hideConfirm())
   }
 
-  const triggerRefile = (id, period) => {
-    dispatch(createNewSubmission(id, period)).then(()=>{
-      browserHistory.replace(`/${id}/${period}`)
-    })
+  const triggerRefile = (id, period, page = '', file) => {
+    if(page === 'upload') {
+      dispatch(selectFile(file))
+      dispatch(createNewSubmission(id, period, page))
+    } else {
+      dispatch(createNewSubmission(id, period)).then(()=>{
+        browserHistory.replace(`/${id}/${period}`)
+      })
+    }
+
   }
 
-  return {hideConfirmModal, triggerRefile}
+  return {
+    hideConfirmModal,
+    triggerRefile
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfirmationModalContainer)

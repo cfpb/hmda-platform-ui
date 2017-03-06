@@ -23,57 +23,93 @@ export const renderErrors = (errors) => {
   )
 }
 
+export const renderDropText = ({ code, errors, file }, dropzoneContent) => {
+  let message = 'Drag another LAR file to this area or click to select a LAR file to upload.'
+  let fileName = null
+
+  if(code > 1) {
+    message = 'Submission currently in progess. You can drag another file to this area to re-upload.'
+  }
+
+  if(file) {
+    message = `${file.name} is ready for upload.`
+    if(errors.length > 0) {
+      message = `${file.name} can not be uploaded.`
+    }
+
+    if(code > 1) {
+      message = `Submission of ${file.name} currently in progess. You can drag another file to this area to re-upload.`
+    }
+  }
+
+  dropzoneContent.innerHTML = `<p>${message}</p>`
+}
+
 export default class Upload extends Component {
   constructor(props) {
     super(props)
   }
 
   componentDidUpdate() {
-    let message = 'Drag another LAR file to this area or click to select a LAR file to upload.'
-    if (this.props.code > 1) {
-      message = 'Submission currently in progess. You have to click the "Refile" button to start again.'
-    }
-    let upload = this.props.errors.length === 0 ? 'Upload' : 'Can\'t upload'
-    this.dropzoneContent.innerHTML = `<p>${upload} "${this.props.file.name}".</p><p>${message}</p>`
+    renderDropText(this.props, this.dropzoneContent)
   }
 
   // keeps the info about the file after leaving /upload and coming back
   componentDidMount() {
-    let message = 'Drag another LAR file to this area or click to select a LAR file to upload.'
-    if (this.props.code > 1) {
-      message = 'Submission currently in progess. You have to click the "Refile" button to start again.'
-    }
-    let upload = this.props.errors.length === 0 ? 'Upload' : 'Can\'t upload'
-    if(this.props.file && 'name' in this.props.file) {
-      this.dropzoneContent.innerHTML = `<p>${upload} "${this.props.file.name}".</p><p>${message}</p>`
-    }
+    renderDropText(this.props, this.dropzoneContent)
   }
 
   render() {
+    // handle the onDrop to set the file and show confirmation modal
+    // function placed here to have access to this.props
+    const onDrop = (acceptedFiles) => {
+      const {
+        code,
+        institutionId,
+        filingPeriod,
+        showConfirmModal,
+        setFile,
+        setNewFile
+      } = this.props
+
+      if(code > 1) {
+        showConfirmModal(institutionId, filingPeriod, code)
+        setNewFile(acceptedFiles)
+      } else {
+        setFile(acceptedFiles)
+      }
+    }
+
     const isUploadDisabled = (this.props.code > 1 || this.props.file === null || this.props.file.name === 'No file chosen' || this.props.errors.length !== 0) ? true : false
-    const inputError = (this.props.errors.length === 0) ? '' : 'input-error'
-    // don't do anything if submission is in progress
-    const setFile = (this.props.code > 1) ? null : this.props.setFile
-    const dropzoneDisabled = (this.props.code > 1) ? 'dropzone-disabled' : ''
+
     return (
       <div>
         <div className="UploadForm">
           {renderErrors(this.props.errors)}
-          <form className="usa-form" encType="multipart/form-data" onSubmit={e => this.props.handleSubmit(e, this.props.file)}>
+          <form
+            className="usa-form"
+            encType="multipart/form-data"
+            onSubmit={e => this.props.handleSubmit(e, this.props.file)}>
             <div className="container-upload">
               <Dropzone
                 disablePreview={true}
-                onDrop={setFile}
+                onDrop={onDrop}
                 multiple={false}
-                className={`dropzone ${dropzoneDisabled}`}>
+                className="dropzone">
                 <div
                   ref={(node) => {this.dropzoneContent = node}}
                   className="usa-text-small">
-                  <p>Drag your LAR file to this area or click to select a LAR file to upload.</p>
                 </div>
               </Dropzone>
             </div>
-            <input disabled={isUploadDisabled} className="usa-button" id="uploadButton" name="uploadButton" type="submit" value="Upload"></input>
+            <input
+              disabled={isUploadDisabled}
+              className="usa-button"
+              id="uploadButton"
+              name="uploadButton"
+              type="submit"
+              value="Upload">
+            </input>
           </form>
           {renderValidationProgress(this.props)}
         </div>
@@ -85,10 +121,13 @@ export default class Upload extends Component {
 Upload.propTypes = {
   handleSubmit: PropTypes.func,
   setFile: PropTypes.func,
+  setNewFile: PropTypes.func,
   uploading: PropTypes.bool,
   file: PropTypes.object,
   code: PropTypes.number,
-  errors: PropTypes.array
+  errors: PropTypes.array,
+  institutionId: PropTypes.string,
+  filingPeriod: PropTypes.string
 }
 
 Upload.defaultProps = {

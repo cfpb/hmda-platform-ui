@@ -21,6 +21,7 @@ const defaultFilings = {
 const defaultUpload = {
   uploading: false,
   file: null,
+  newFile: null,
   errors: []
 }
 

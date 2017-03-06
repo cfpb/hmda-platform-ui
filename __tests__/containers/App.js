@@ -16,6 +16,9 @@ describe('AppContainer', () => {
         confirmation: {
           filing: "2017",
           id: "3"
+        },
+        upload: {
+          file: null
         }
       },
       oidc: {

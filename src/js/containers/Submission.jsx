@@ -31,7 +31,7 @@ const renderByCode = (code, page, message) => {
     toRender.push(<p>{message}</p>)
   }else{
     if(page === 'upload'){
-      toRender.push(<UploadForm code={code}/>)
+      toRender.push(<UploadForm/>)
       if(code === 5) {
         toRender.push(<RefileWarning/>)
         toRender.push(<ParseErrors/>)
@@ -102,11 +102,6 @@ class SubmissionContainer extends Component {
           period={params.filing}
           userName={user.profile.name}
           institution={this.props.institution} />
-        {code > 2 ? <RefileButton
-          id={params.institution}
-          filing={params.filing}
-          code={code}
-          class='float' /> : null}
         <EditsNav/>
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {

@@ -169,6 +169,13 @@ function checkErrors(file) {
   return errors
 }
 
+export function selectNewFile(file) {
+  return {
+    type: types.SELECT_NEW_FILE,
+    file
+  }
+}
+
 export function selectFile(file) {
   return {
     type: types.SELECT_FILE,
@@ -177,7 +184,7 @@ export function selectFile(file) {
   }
 }
 
-export function showConfirm(id, filing, code) {
+export function showConfirm(id, filing, code, file) {
   return {
     type: types.SHOW_CONFIRM,
     showing: true,
@@ -440,9 +447,12 @@ export function requestUpload(file) {
  */
 
 //
-export function createNewSubmission(id, period) {
+export function createNewSubmission(id, period, page = null) {
   return dispatch => {
-    dispatch(refreshState())
+    // only refresh the state when not trigged from the upload page
+    if(page === null) {
+      dispatch(refreshState())
+    }
     return dispatch(fetchNewSubmission(id, period))
   }
 }
