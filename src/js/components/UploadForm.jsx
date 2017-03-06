@@ -32,7 +32,6 @@ export const renderDropText = ({ code, errors, file }, dropzoneContent) => {
   }
 
   if(file) {
-    //fileName = file.name
     message = `${file.name} is ready for upload.`
     if(errors.length > 0) {
       message = `${file.name} can not be uploaded.`
