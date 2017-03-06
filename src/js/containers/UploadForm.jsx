@@ -9,8 +9,6 @@ import {
 } from '../actions'
 
 export function mapStateToProps(state) {
-  console.log('UploadForm container')
-  console.log(state)
   const {
     uploading,
     file,

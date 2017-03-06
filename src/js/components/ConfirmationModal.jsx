@@ -13,10 +13,6 @@ const ModalConfirm = (props) => {
     triggerRefile
   } = props
 
-  console.log('modal')
-  console.log(file)
-  console.log(newFile)
-
   // get the page
   const page = location.pathname.split('/').slice(-1)[0]
 

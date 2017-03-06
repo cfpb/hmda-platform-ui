@@ -19,8 +19,6 @@ class ConfirmationModalContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('mapStateToProps - ConfirmationModal')
-  console.log(state.app.confirmation)
   const {
     id,
     filing,
@@ -49,8 +47,6 @@ function mapDispatchToProps(dispatch) {
   }
 
   const triggerRefile = (id, period, page = '', file) => {
-    console.log('triggerRefile')
-    console.log(file)
     if(page === 'upload') {
       dispatch(selectFile(file))
       dispatch(createNewSubmission(id, period, page))
