@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/components/Institutions.jsx')
+jest.mock('../../src/js/containers/RefileButton.jsx')
 jest.mock('oidc-client')
 
 import Institutions, {
@@ -47,10 +48,6 @@ describe('Institutions', () => {
 
   it('creates the status button (renderButton) with correct content', () => {
     expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status-button').text).toEqual('View filing')
-  })
-
-  it('creates the refile button (renderRefile)', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'usa-button-secondary').length).toEqual(1)
   })
 
   it('creates the correct number of previous submissions', () => {

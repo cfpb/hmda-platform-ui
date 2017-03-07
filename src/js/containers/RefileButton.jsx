@@ -14,13 +14,18 @@ class RefileButtonContainer extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  console.log('RefileButton - mapStateToProps')
-  console.log(ownProps)
-  const id = state.app.institution.id || ownProps.id
-  const filing = state.app.filingPeriod || ownProps.filing
-  const code = state.app.submission.status.code || ownProps.code 
+  let id, filing, code
 
-  console.log({ id, filing, code })
+  id = state.app.institution.id
+  filing = state.app.filingPeriod
+  code = state.app.submission.status.code
+
+  if(ownProps) {
+    id = ownProps.id
+    filing = ownProps.filing
+    code = ownProps.code
+  }
+
   return {
     id,
     filing,
@@ -45,5 +50,6 @@ RefileButtonContainer.propTypes = {
 export default connect(mapStateToProps, mapDispatchToProps)(RefileButtonContainer)
 export {
   RefileButtonContainer,
-  mapDispatchToProps
+  mapDispatchToProps,
+  mapStateToProps
 }
