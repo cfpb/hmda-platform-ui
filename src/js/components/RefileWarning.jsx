@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
+import RefileButton from '../containers/RefileButton.jsx'
 
-const getText = (props) => {
+export const getText = (props) => {
   let textToRender = null
 
   if(props.syntacticalValidityEditsExist) {
@@ -17,6 +18,20 @@ const getText = (props) => {
   return textToRender
 }
 
+export const getButton = (props) => {
+  let button = null
+
+  if(props.syntacticalValidityEditsExist) {
+    button = <RefileButton />
+  }
+
+  if(props.code === 5) {
+    button = <RefileButton />
+  }
+
+  return button
+}
+
 
 const RefileWarning = (props) => {
   if (props.code > 8) return null
@@ -28,6 +43,7 @@ const RefileWarning = (props) => {
 
   return (
     <div className={`RefileWarning usa-alert ${alertClass}`}>
+      {getButton(props)}
       <div className="usa-alert-body">
         {getText(props)}
       </div>
