@@ -38,6 +38,12 @@ import {
   RECEIVE_PARSE_ERRORS
 } from '../constants'
 
+const defaultInstitution = {
+  isFetching: false,
+  id: '',
+  name: ''
+}
+
 const defaultFilings = {
   filings: [],
   isFetching: false,
@@ -54,6 +60,26 @@ const defaultSubmission = {
   isFetching: false,
 }
 
+const defaultUpload = {
+  uploading: false,
+  file: null,
+  newFile: null,
+  errors: []
+}
+
+const defaultConfirmation = {
+  showing: false,
+  code: 0,
+  id: null,
+  filing: null
+}
+
+const defaultParseErrors = {
+  isFetching: false,
+  transmittalSheetErrors: [],
+  larErrors: []
+}
+
 const defaultEdits = {
   isFetching: false,
   fetched: false,
@@ -65,16 +91,28 @@ const defaultEdits = {
   }
 }
 
+const defaultIRS = {
+  isFetching: false,
+  msas: [],
+  status: defaultSubmission.status
+}
+
+const defaultSummary = {
+  isFetching: false,
+  respondent: {},
+  file: {}
+}
+
+const defaultPagination = {
+  parseErrors: null
+}
+
+
 //empty action logger, temporary / for debugging
 export const auth = (state = {}, action) => {
   return state
 }
 
-const defaultInstitution = {
-  isFetching: false,
-  id: '',
-  name: ''
-}
 
 export const institution = (state = defaultInstitution, action) => {
   switch(action.type) {
@@ -95,6 +133,7 @@ export const institution = (state = defaultInstitution, action) => {
     return state
   }
 }
+
 
 /*
  * Set isFetching to true when institutions are being requested
@@ -117,6 +156,7 @@ export const institutions = (state = {}, action) => {
     return state
   }
 }
+
 
 /*
  * Populate a list with data on every filing period for each institution
@@ -147,6 +187,7 @@ export const filings = (state = defaultFilings, action) => {
   }
 }
 
+
 /*
  * Set the default current filing period
  */
@@ -159,17 +200,10 @@ export const filingPeriod = (state = '2017', action) => {
   }
 }
 
+
 /*
  * Maintain data on the current upload
  */
-
- const defaultUpload = {
-   uploading: false,
-   file: null,
-   newFile: null,
-   errors: []
- }
-
 export const upload = (state = defaultUpload, action) => {
   switch (action.type) {
   case SELECT_FILE:
@@ -190,17 +224,10 @@ export const upload = (state = defaultUpload, action) => {
   }
 }
 
+
 /*
  * Track confirmation modal for refiling
  */
-
- const defaultConfirmation = {
-   showing: false,
-   code: 0,
-   id: null,
-   filing: null
- }
-
 export const confirmation = (state = defaultConfirmation, action) => {
   switch (action.type) {
   case SHOW_CONFIRM:
@@ -219,6 +246,8 @@ export const confirmation = (state = defaultConfirmation, action) => {
     return state
   }
 }
+
+
 /*
  * Maintain the status of the current submission
  * Set isFetching to true when a request is made
@@ -247,6 +276,7 @@ export const submission = (state = defaultSubmission, action) => {
   }
 }
 
+
 export const status = (state = defaultStatus, action) => {
   switch(action.type) {
     case UPDATE_STATUS:
@@ -255,6 +285,7 @@ export const status = (state = defaultStatus, action) => {
       return state
   }
 }
+
 
 export const edits = (state = defaultEdits, action) => {
   switch (action.type) {
@@ -297,11 +328,7 @@ export const edits = (state = defaultEdits, action) => {
   }
 }
 
-const defaultIRS = {
-  isFetching: false,
-  msas: [],
-  status: defaultSubmission.status
-}
+
 
 export const irs = (state = defaultIRS, action) => {
   switch (action.type) {
@@ -375,11 +402,6 @@ export const signature = (state = defaultSignature, action) => {
   }
 }
 
-const defaultSummary = {
-  isFetching: false,
-  respondent: {},
-  file: {}
-}
 
 export const summary = (state = defaultSummary, action) => {
   switch (action.type) {
@@ -402,11 +424,6 @@ export const summary = (state = defaultSummary, action) => {
   }
 }
 
-const defaultParseErrors = {
-  isFetching: false,
-  transmittalSheetErrors: [],
-  larErrors: []
-}
 
 export const parseErrors = (state = defaultParseErrors, action) => {
   switch(action.type) {
@@ -428,6 +445,21 @@ export const parseErrors = (state = defaultParseErrors, action) => {
   }
 }
 
+
+export const pagination = (state = defaultPagination, action) => {
+  switch(action.type) {
+    case RECEIVE_PARSE_ERRORS:
+      return {
+        ...state,
+        parseErrors: action.pagination
+      }
+
+    default:
+      return state
+  }
+}
+
+
 export default combineReducers({
   auth,
   institution,
@@ -441,5 +473,6 @@ export default combineReducers({
   irs,
   signature,
   summary,
-  parseErrors
+  parseErrors,
+  pagination
 })

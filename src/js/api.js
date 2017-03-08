@@ -14,7 +14,7 @@ function createQueryString(params) {
   return qs
 }
 
-function sendFetch(options = {method: 'GET'}){
+export function sendFetch(options = {method: 'GET'}){
   var pathname = options.pathname
   var locationObj = pathname ? {} : parseLocation(location)
   // check if params exist and update pathname to add them

@@ -1,4 +1,5 @@
 import {
+  sendFetch,
   getInstitution,
   getInstitutions,
   getFiling,
@@ -233,6 +234,31 @@ export function receiveIRS(data) {
   }
 }
 
+export function getPaginationRequestAction(target) {
+  switch(target) {
+    case 'parseErrors':
+    return requestParseErrors()
+  }
+}
+
+export function getPaginationReceiveAction(target, data) {
+  switch(target) {
+    case 'parseErrors':
+    return receiveParseErrors(data)
+  }
+}
+
+export function fetchPage(target, pathname) {
+  return dispatch => {
+    dispatch(getPaginationRequestAction(target))
+    return sendFetch({pathname: pathname})
+      .then(json => {
+        dispatch(getPaginationReceiveAction(target, json))
+      })
+      .catch(err => console.error(err))
+  }
+}
+
 export function fetchIRS() {
   return dispatch => {
     dispatch(requestIRS())
@@ -357,7 +383,12 @@ export function receiveParseErrors(data) {
   return {
     type: types.RECEIVE_PARSE_ERRORS,
     transmittalSheetErrors: data.transmittalSheetErrors,
-    larErrors: data.larErrors
+    larErrors: data.larErrors,
+    pagination: {
+      count: data.count,
+      total: data.total,
+      _links: data._links
+    }
   }
 }
 
