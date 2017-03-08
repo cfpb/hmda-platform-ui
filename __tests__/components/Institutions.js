@@ -1,10 +1,12 @@
 jest.unmock('../../src/js/components/Institutions.jsx')
+jest.mock('../../src/js/containers/RefileButton.jsx')
 jest.mock('oidc-client')
 
 import Institutions, {
   renderTiming,
   renderStatusMessage,
-  renderButton,
+  renderViewButton,
+  renderRefileButton,
   renderPreviousSubmissions,
   getInstitutionFromFiling
 } from '../../src/js/components/Institutions.jsx'
@@ -41,16 +43,12 @@ describe('Institutions', () => {
     expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status').textContent).toEqual('Your submission has been validated and is ready to be signed.')
   })
 
-  it('creates the status button (renderButton)', () => {
+  it('creates the status button (renderViewButton)', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'status-button').length).toEqual(1)
   })
 
-  it('creates the status button (renderButton) with correct content', () => {
+  it('creates the status button (renderViewButton) with correct content', () => {
     expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status-button').text).toEqual('View filing')
-  })
-
-  it('creates the refile button (renderRefile)', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'usa-button-secondary').length).toEqual(1)
   })
 
   it('creates the correct number of previous submissions', () => {
@@ -109,10 +107,10 @@ describe('renderStatusMessage', () => {
   runByCode(11, 'Your submission has been somethinged. Thank you!')
 })
 
-describe('renderButton', () => {
+describe('renderViewButton', () => {
   const runByCode = (code, linkText) => {
     it('runs with code ' + code, () => {
-      const rendered = renderButton(code, 'a', 'b')
+      const rendered = renderViewButton(code, 'a', 'b')
       expect(rendered.props.children).toBe(linkText)
     })
   }
@@ -122,6 +120,31 @@ describe('renderButton', () => {
   runByCode(3, 'View filing')
   runByCode(4, 'File now')
   runByCode(123, 'File now')
+})
+
+describe('renderRefileButton', () => {
+  const filing = {
+    institutionId: '0',
+    period: '2017',
+    status: {
+      code: 3
+    }
+  }
+
+  let rendered = renderRefileButton({code: 1, message: 'created'}, filing)
+  expect(rendered).toBe(null)
+
+  rendered = renderRefileButton({code: 6, message: 'validated'}, filing)
+  expect(rendered).toBe(null)
+
+  rendered = renderRefileButton({code: 7, message: 'validated'}, filing)
+  expect(rendered).toBe(null)
+
+  rendered = renderRefileButton({code: 8, message: 'validated'}, filing)
+  expect(rendered).toBeDefined()
+
+  rendered = renderRefileButton({code: 5, message: 'validated'}, filing)
+  expect(rendered).toBeDefined()
 })
 
 describe('getInstitutionFromFiling', () => {

@@ -480,10 +480,7 @@ export function requestUpload(file) {
 //
 export function createNewSubmission(id, period, page = null) {
   return dispatch => {
-    // only refresh the state when not trigged from the upload page
-    if(page === null) {
-      dispatch(refreshState())
-    }
+    dispatch(refreshState())
     return dispatch(fetchNewSubmission(id, period))
   }
 }

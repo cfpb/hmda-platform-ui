@@ -92,7 +92,7 @@ export const renderStatusMessage = (submissionStatus) => {
   return <p className="status">{statusMessage}</p>
 }
 
-export const renderButton = (code, institutionId, period) => {
+export const renderViewButton = (code, institutionId, period) => {
   let buttonText
 
   switch (code) {
@@ -117,6 +117,18 @@ export const renderButton = (code, institutionId, period) => {
   }
 
   return <Link className="status-button usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
+}
+
+export const renderRefileButton = (latestSubmissionStatus, filing) => {
+  if(latestSubmissionStatus.code === 5 || latestSubmissionStatus.code > 7) {
+    return <RefileButton
+            id={filing.institutionId}
+            filing={filing.period}
+            code={filing.status.code}
+          />
+  } else {
+    return null
+  }
 }
 
 export const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, period) => {
@@ -207,18 +219,16 @@ export default class Institution extends Component {
 
                     {renderStatusMessage(latestSubmissionStatus)}
 
-                    {renderButton(
+                    {renderViewButton(
                       filing.status.code,
                       filing.institutionId,
                       filing.period
                     )}
 
-                    {latestSubmissionStatus ?
-                      <RefileButton
-                      id={filing.institutionId}
-                      filing={filing.period}
-                      code={filing.status.code} /> : null
-                    }
+                    {renderRefileButton(
+                      latestSubmissionStatus,
+                      filing
+                    )}
                   </div>
 
                   {renderPreviousSubmissions(
