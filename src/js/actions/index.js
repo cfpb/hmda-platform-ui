@@ -321,6 +321,7 @@ export function fetchSignature() {
     dispatch(requestSignature())
     return getSignature(latestSubmissionId)
       .then(json => {
+        if(!json) return
         dispatch(receiveSignature(json))
         dispatch(updateStatus(
           {
@@ -338,6 +339,7 @@ export function updateSignature(signed) {
     dispatch(requestSignaturePost())
     return postSignature(latestSubmissionId, signed)
       .then(json => {
+        if(!json) return
         dispatch(receiveSignaturePost(json))
         dispatch(updateStatus(
           {

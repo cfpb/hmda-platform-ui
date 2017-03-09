@@ -21,4 +21,11 @@ const Pagination = (props) => {
   )
 }
 
+Pagination.propTypes = {
+  pagination: PropTypes.object,
+  getPage: PropTypes.func,
+  getPreviousPage: PropTypes.func,
+  getNextPage: PropTypes.func
+}
+
 export default Pagination

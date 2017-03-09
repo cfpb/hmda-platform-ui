@@ -120,6 +120,7 @@ export const renderViewButton = (code, institutionId, period) => {
 }
 
 export const renderRefileButton = (latestSubmissionStatus, filing) => {
+  if(!latestSubmissionStatus) return null
   if(latestSubmissionStatus.code === 5 || latestSubmissionStatus.code > 7) {
     return <RefileButton
             id={filing.institutionId}
@@ -204,6 +205,7 @@ export default class Institution extends Component {
             const filing = filingObj.filing
             const latestSubmissionStatus = filingObj.submissions[0] && filingObj.submissions[0].status || null
             const institution = getInstitutionFromFiling(institutions, filing)
+
             if(!institution) return
             return (
               <div key={i} className="usa-grid-full">
