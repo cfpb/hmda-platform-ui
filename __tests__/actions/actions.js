@@ -9,6 +9,7 @@ import * as types from '../../src/js/constants'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import {
+  sendFetch,
   getInstitution,
   getFiling,
   getInstitutions,
@@ -28,6 +29,7 @@ const filingsObj = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))
 const IRSObj = JSON.parse(fs.readFileSync('./__tests__/json/irs.json'))
 const signatureObj = JSON.parse(fs.readFileSync('./__tests__/json/receipt.json'))
 
+sendFetch.mockImplementation((pathObj) => Promise.resolve({bargle:'foo'}))
 getInstitution.mockImplementation((id) => Promise.resolve(institutionsDetailObj[id]))
 getFiling.mockImplementation((id) => Promise.resolve({filing:{}}))
 getInstitutions.mockImplementation(() => Promise.resolve(institutionsObj))
@@ -91,6 +93,17 @@ const getEachInstitution = [
   {type:types.RECEIVE_FILINGS},
   {type:types.RECEIVE_FILINGS}
 ]
+
+const emptyParseErrors = {
+  type: types.RECEIVE_PARSE_ERRORS,
+  larErrors: undefined,
+  transmittalSheetErrors: undefined,
+  pagination: {
+    count: undefined,
+    total: undefined,
+    _links: undefined
+  }
+}
 
 describe('actions', () => {
   it('creates an action to update the status', () => {
@@ -421,5 +434,32 @@ describe('actions', () => {
       console.log(err)
       done.fail()
     })
+  })
+
+  it('gets the correct request actions', () => {
+    expect(actions.getPaginationRequestAction('parseErrors')).toEqual({type: types.REQUEST_PARSE_ERRORS})
+    expect(actions.getPaginationRequestAction('fake')).toEqual(undefined)
+  })
+
+  it('gets the correct receive actions', () => {
+    expect(actions.getPaginationReceiveAction('parseErrors', {})).toEqual(emptyParseErrors)
+    expect(actions.getPaginationReceiveAction('fake')).toEqual(undefined)
+  })
+
+  it('creates a thunk that will fetch a page by pathname and select sub actions', done => {
+    const store = mockStore({})
+
+    store.dispatch(actions.fetchPage('parseErrors', '/argle'))
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {type: types.REQUEST_PARSE_ERRORS},
+          emptyParseErrors
+        ])
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
   })
 })
