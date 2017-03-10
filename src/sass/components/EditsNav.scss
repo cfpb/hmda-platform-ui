@@ -1,9 +1,38 @@
 .EditsNav {
-  &.usa-nav-primary>li>span {
-    color: $color-gray-light;
-    display: inline-block;
-    font-weight: 700;
-    margin: 1.3rem 1.5rem 1.7rem;
-    text-transform: capitalize;
+  text-align: center;
+  ul {
+    li {
+      margin: 0 3em 1em;
+      text-align: center;
+    }
+    &.usa-nav-primary>li>a {
+      margin: 0;
+    }
+    &.usa-nav-primary>li>span {
+      color: $color-gray-light;
+      display: inline-block;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
   }
+
+  .step {
+    border: 1px solid $color-gray-light;
+    border-radius: 50%;
+    color: $color-gray-light;
+    height: 2em;
+    margin: 0 auto .5em;
+    padding: 3px;
+    text-align: center;
+    width: 2em;
+    &.active {
+      border-color: $color-base;
+      color: $color-base;
+    }
+    &.complete {
+      border-color: $color-green;
+      color: $color-green;
+    }
+  }
+
 }

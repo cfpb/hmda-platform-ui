@@ -1,6 +1,6 @@
 .usa-header {
-  border-bottom: 1px solid $color-gray-lightest;
-  margin-bottom: 2em;
+  background-color: $color-white;
+  border-bottom: 1px solid $color-gray-lighter;
 }
 
 .usa-navbar {
@@ -24,11 +24,6 @@
 .usa-header-basic .usa-logo {
   bottom: 0;
   position: relative;
-}
-
-.usa-banner-inner,
-.usa-nav-container {
-  max-width: none;
 }
 
 .usa-banner-inner {
