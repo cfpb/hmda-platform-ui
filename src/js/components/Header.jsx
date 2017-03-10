@@ -15,7 +15,7 @@ const Header = (props) => {
       <BannerUSA />
       <div className="usa-nav-container">
         <div className="usa-logo" id="logo">
-          <img src="/img/ffiec-logo.png" width="125px"/>
+          <img src="/img/ffiec-logo.png" width="90px"/>
         </div>
         <nav role="navigation" className="Header usa-nav usa-nav-left">
           <ul className="usa-nav-primary">
