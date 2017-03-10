@@ -23,14 +23,14 @@ describe('Parse errors', () => {
   })
 
   it('creates the correct number of rows', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(parseErrors, 'tr').length).toEqual(5)
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(parseErrors, 'tr').length).toEqual(10)
   })
 
-  it('creates the correct number of lists', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(parseErrors, 'ul').length).toEqual(4)
+  it('creates the correct number of cells', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(parseErrors, 'td').length).toEqual(16)
   })
 
   it('renders the header with the proper count', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(parseErrors, 'h2')[0].textContent).toEqual('45 Parsing Errors')
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(parseErrors, 'h2')[0].textContent).toEqual('45 Rows with Formatting Errors')
   })
 })
