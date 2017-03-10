@@ -1,7 +1,7 @@
 jest.unmock('../../src/js/reducers')
 
 import * as types from '../../src/js/constants'
-import { edits, institutions, confirmation, filings, submission, upload, status, irs, signature } from '../../src/js/reducers'
+import { pagination, edits, institutions, confirmation, filings, submission, upload, status, irs, signature } from '../../src/js/reducers'
 
 const typesArr = Object.keys(types)
   .filter( v => v !== '__esModule')
@@ -68,6 +68,31 @@ const defaultEdits = {
   }
 }
 
+const defaultPagination = {
+  parseErrors: null
+}
+
+describe('pagination reducer', () => {
+  it('should return the initial state on empty action', () => {
+    expect(
+      pagination(undefined, {})
+    ).toEqual(defaultPagination)
+  })
+
+  it('should positively update paging info on parse errors', () => {
+    expect(
+      pagination(defaultPagination, {type: types.RECEIVE_PARSE_ERRORS, pagination: 'parseErrorsPage'})
+    ).toEqual({parseErrors: 'parseErrorsPage'})
+  })
+
+  it('shouldn\'t modify state on an unknown action type', () => {
+    excludeTypes(types.RECEIVE_PARSE_ERRORS)
+      .forEach(v => expect(pagination({}, v))
+        .toEqual({})
+      )
+  })
+})
+
 describe('status reducer', () => {
   it('should return the initial state on empty action', () => {
     expect(
@@ -89,11 +114,13 @@ describe('confirmation reducer', () => {
       confirmation(undefined, {})
     ).toEqual(defaultConfirmation)
   })
+
   it('should positively set confirmation', () => {
     expect(
       confirmation(defaultConfirmation, {type: types.SHOW_CONFIRM, showing: true, id:'a', filing: 'b'})
     ).toEqual({showing: true, id: 'a', filing: 'b'})
   })
+
   it('should negatively set confirmation', () => {
     expect(
       confirmation({showing: true}, {type: types.HIDE_CONFIRM, showing: false})

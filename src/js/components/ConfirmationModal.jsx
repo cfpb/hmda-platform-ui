@@ -41,10 +41,10 @@ const ModalConfirm = (props) => {
 }
 
 ModalConfirm.propTypes = {
-  filing: React.PropTypes.string.isRequired,
-  id: React.PropTypes.string.isRequired,
-  hideConfirmModal: React.PropTypes.func.isRequired,
-  triggerRefile: React.PropTypes.func.isRequired,
+  filing: React.PropTypes.string,
+  id: React.PropTypes.string,
+  hideConfirmModal: React.PropTypes.func,
+  triggerRefile: React.PropTypes.func,
   showing: React.PropTypes.bool,
   code: React.PropTypes.number,
   file: React.PropTypes.object,

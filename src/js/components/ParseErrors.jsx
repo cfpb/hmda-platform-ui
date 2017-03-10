@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import Pagination from '../containers/Pagination.jsx'
 
 const renderErrorMessages = (messages) => {
   return (
@@ -46,15 +47,15 @@ const renderTSErrors = (transmittalSheetErrors) => {
 }
 
 const ParseErrors = (props) => {
-  const count = props.transmittalSheetErrors.length + props.larErrors.length
-  const errorText = count > 1 ? 'Errors' : 'Error'
+  const errorText = props.total > 1 ? 'Errors' : 'Error'
 
   return (
     <div className="ParseErrors usa-grid-full" id="parseErrors">
       <header>
-        <h2>{count} Parsing {errorText}</h2>
+        {props.total === null ? null : <h2>{props.total} Parsing {errorText}</h2>}
         <p className="usa-font-lead">There are errors that prevented your file from being validated. You must fix these errors and re-upload your file.</p>
       </header>
+     <Pagination target="parseErrors"/>
       <table width="100%">
         <thead>
           <tr>
@@ -69,6 +70,7 @@ const ParseErrors = (props) => {
           })}
         </tbody>
       </table>
+     <Pagination target="parseErrors"/>
     </div>
   )
 }

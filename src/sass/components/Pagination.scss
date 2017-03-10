@@ -1,0 +1,17 @@
+.PaginationControls {
+  display: table;
+  margin: 0 auto;
+
+  h4, button {
+    display: inline-block;
+    margin: 0;
+  }
+
+  div {
+    display: inline-block;
+    margin: 0 2em;
+  }
+  button:last-of-type {
+    margin-right: 2em; /* centering compensatation for narrower width */
+  }
+}

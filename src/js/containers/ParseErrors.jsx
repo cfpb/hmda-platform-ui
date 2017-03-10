@@ -28,10 +28,16 @@ function mapStateToProps(state) {
     larErrors: []
   }
 
+  const {
+    total
+  } = state.app.pagination.parseErrors || {
+    total: null
+  }
   return {
     isFetching,
     transmittalSheetErrors,
-    larErrors
+    larErrors,
+    total
   }
 }
 
