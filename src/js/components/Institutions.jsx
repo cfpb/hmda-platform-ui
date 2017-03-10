@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react'
 import {Link} from 'react-router'
-import UserHeading from './UserHeading.jsx'
 import Header from './Header.jsx'
 import LoadingIcon from './LoadingIcon.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
@@ -192,9 +191,6 @@ export default class Institution extends Component {
         pathname={this.props.location.pathname}
         userName={this.props.user.profile.name} />
       <div id="main-content" className="usa-grid">
-        <UserHeading
-          period="2017"
-          userName={this.props.user.profile.name} />
         <div className="usa-width-two-thirds">
           {this.props.isFetching || !this.props.filings ?
             <div className="usa-grid-full">

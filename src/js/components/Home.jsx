@@ -1,6 +1,5 @@
 import React from 'react'
 import Header from '../components/Header.jsx'
-import UserHeading from '../components/UserHeading.jsx'
 import { Link } from 'react-router'
 import { signinRedirect } from '../redirect.js'
 
@@ -8,13 +7,18 @@ const getLoginMessage = (userName) => {
   if(userName) return null
 
   return (
-    <div className="usa-alert usa-alert-error" role="alert">
-      <div className="usa-alert-body">
-        <h3 className="usa-alert-heading">The filing period has started.</h3>
-        <p className="usa-alert-text">Starting on January 1 and ending March 1 you can submit LAR file. <a href="#" onClick={(e) => {
-          e.preventDefault()
-          signinRedirect(true)
-        }}>Login</a> to get started.</p>
+    <div className="usa-grid">
+      <div className="usa-width-one-whole">
+        <div className="usa-alert usa-alert-error" role="alert">
+          <div className="usa-alert-body">
+            <h3 className="usa-alert-heading">The filing period has started.</h3>
+            <p className="usa-alert-text">Starting on January 1 and ending March 1 you can submit LAR file. <a href="#" onClick={(e) => {
+              e.preventDefault()
+              signinRedirect(true)
+            }}>Login</a> to get started.</p>
+          </div>
+        </div>
+        <hr />
       </div>
     </div>
   )
@@ -27,37 +31,20 @@ const Home = (props) => {
         pathname={props.location.pathname}
         userName={props.user.profile.name} />
       <div className="Home" id="main-content">
-        <div className="usa-grid">
-          <div className="usa-width-one-whole">
-            <Link
-              className="usa-button login-button"
-              to="/institutions">
-              {props.user.profile.name ? 'Begin Filing' : 'Login and Begin Filing'}
-            </Link>
-            <UserHeading
-              period={props.filingPeriod}
-              userName={props.user.profile.name} />
-
-            {getLoginMessage(props.user.profile.name)}
-
-            <div className="usa-alert usa-alert-info" role="alert">
-              <div className="usa-alert-body">
-                <h3 className="usa-alert-heading">Modified LAR files have been published.</h3>
-                <p className="usa-alert-text">You can now <a href="#">search for and view</a> the modified LAR files.</p>
-              </div>
-            </div>
-
-            <hr />
-          </div>
-        </div>
+        {getLoginMessage(props.user.profile.name)}
 
         <div className="usa-grid">
           <div className="usa-width-one-half">
             <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
+            <p>For resources to help you prepare your HMDA filing, please visit <a href="http://www.consumerfinance.gov/data-research/hmda/for-filers">Resources for HMDA filers</a>.</p>
             <h3>How to get started</h3>
             <p>Select the login button to begin the process for filing your HMDA data. Every user is required to register online for login credentials and establish an account prior to accessing the HMDA Platform.</p>
             <p>Once you have logged in, select the Institutions link above to access your institution(s). The HMDA Platform will then guide you through the filing process.</p>
-            <p>For resources to help you prepare your HMDA filing, please visit <a href="http://www.consumerfinance.gov/data-research/hmda/for-filers">Resources for HMDA filers</a>.</p>
+            <Link
+              className="usa-button"
+              to="/institutions">
+              {props.user.profile.name ? 'Begin Filing' : 'Login and Begin Filing'}
+            </Link>
           </div>
           <div className="usa-width-one-half">
             <h3>Top FAQs</h3>

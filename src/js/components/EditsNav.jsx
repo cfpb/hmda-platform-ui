@@ -81,6 +81,8 @@ const EditsNav = (props) => {
         })
       }
     </ul>
+    <hr className="line" />
+    <hr className="progress" width="50%" />
     <hr />
   </div>
 }

@@ -1,6 +1,7 @@
 .usa-header {
   background-color: $color-white;
   border-bottom: 1px solid $color-gray-lighter;
+  margin-bottom: 3em;
 }
 
 .usa-navbar {
@@ -67,6 +68,7 @@
     &.usa-button {
       margin: 0;
       padding: 1rem 2rem;
+      text-transform: uppercase;
       &:hover {
         color: $color-white;
         background-color: $color-primary-darker;
