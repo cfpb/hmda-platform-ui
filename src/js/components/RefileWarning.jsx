@@ -12,7 +12,7 @@ export const getText = (props) => {
   }
 
   if(props.code === 5) {
-    textToRender = <p className="usa-alert-text"><strong>Parsing</strong> errors require file resubmission.</p>
+    textToRender = <p className="usa-alert-text"><strong>Your file has formatting errors.</strong> Update your file and click the refile button or return to the <Link to="/institutions">Institutions</Link> page.</p>
   }
 
   return textToRender

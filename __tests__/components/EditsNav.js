@@ -1,7 +1,7 @@
 jest.unmock('../../src/js/components/EditsNav.jsx')
 
 import EditsNav,
-  { formatLink, styleSelectedPage, renderLinkOrText }
+  { styleSelectedPage, renderLinkOrText }
   from '../../src/js/components/EditsNav.jsx'
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
@@ -23,14 +23,6 @@ const getLinkCount = rendered => {
 
 describe('EditsNav', () => {
 
-  it('formats links when needed', () => {
-    expect(formatLink('abc123)(*')).toBe('abc')
-    expect(formatLink('Ab c')).toBe('Abc')
-    expect(formatLink('abc')).toBe('abc')
-    expect(formatLink('123')).toBe('')
-    expect(formatLink('')).toBe('')
-  })
-
   it('styles selected link with border', () => {
     expect(styleSelectedPage('abc','abc')).toEqual({borderBottom: '2px solid'})
     expect(styleSelectedPage('abc','def')).toEqual({borderBottom: 'none'})
@@ -38,8 +30,8 @@ describe('EditsNav', () => {
 
   it('chooses appropriate item to render', () => {
     expect(renderLinkOrText(baseProps, 'upload').type.displayName).toBe('Link')
-    expect(renderLinkOrText(baseProps, 'syntactical & validity').type.displayName).not.toBe('Link')
-    expect(renderLinkOrText({...baseProps, code: 8}, 'syntactical & validity').type.displayName).toBe('Link')
+    expect(renderLinkOrText(baseProps, 'syntactical & validity edits').type.displayName).not.toBe('Link')
+    expect(renderLinkOrText({...baseProps, code: 8}, 'syntactical & validity edits').type.displayName).toBe('Link')
   })
 
   it('renders with base props', () => {
@@ -78,4 +70,5 @@ describe('EditsNav', () => {
     expect(console.error).toHaveBeenCalledTimes(6)
   })
 
-})
+}
+)
