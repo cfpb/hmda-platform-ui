@@ -11,7 +11,7 @@ import TestUtils from 'react-addons-test-utils'
 const parseLocation = jest.fn(() => { return { id:'1', period: '2017', submission: 1 } })
 
 describe('Refile Warning', () => {
-  const parserText = 'Parsing errors require file resubmission.'
+  const parserText = 'Your file has formatting errors. Update your file and click the refile button or return to the Institutions page.'
   const refileText = 'Syntactical and validity edits require file resubmission.'
   const validateText = 'Quality and macro edits must be validated before continuing.'
 

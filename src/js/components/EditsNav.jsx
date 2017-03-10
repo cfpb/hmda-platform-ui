@@ -1,18 +1,28 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
-const editPages = ['upload', 'syntactical & validity', 'quality', 'macro', 'summary']
+const navNames = [
+  'upload',
+  'syntactical & validity edits',
+  'quality edits',
+  'macro quality edits',
+  'summary'
+]
 
-const formatLink = (link) => {
-  return link.replace(/[^a-zA-Z]/g,'')
+const navLinks = {
+  'upload': 'upload',
+  'syntactical & validity edits': 'syntacticalvalidity',
+  'quality edits': 'quality',
+  'macro quality edits': 'macro',
+  'summary': 'summary'
 }
 
 const styleSelectedPage = (selected, current) => {
-  if(selected === formatLink(current)) return {borderBottom: '2px solid'}
+  if(selected === current) return {borderBottom: '2px solid'}
   return {borderBottom: 'none'}
 }
 
-const renderLinkOrText = (props, linkTo) => {
+const renderLinkOrText = (props, name) => {
   const {
     page,
     base,
@@ -23,27 +33,27 @@ const renderLinkOrText = (props, linkTo) => {
   } = props
 
   // always render the upload as a link
-  if(linkTo === 'upload') return (
-    <Link className="usa-nav-link" style={styleSelectedPage(page, linkTo)}
-      to={`${base}/${linkTo}`}>{linkTo}</Link>
+  if(name === 'upload') return (
+    <Link className="usa-nav-link" style={styleSelectedPage(page, name)}
+      to={`${base}/${navLinks[name]}`}>{name}</Link>
   )
 
   // only render link when code > 7 (so it's finished validating)
   if(code > 7) {
-    if(syntacticalValidityEditsExist && editPages.indexOf(linkTo) > 1) return <span>{linkTo}</span>
-    if(!qualityVerified && editPages.indexOf(linkTo) > 2) return <span>{linkTo}</span>
-    if(!macroVerified && editPages.indexOf(linkTo) > 3) return <span>{linkTo}</span>
-    return <Link className="usa-nav-link" style={styleSelectedPage(page, linkTo)} to={`${base}/${formatLink(linkTo)}`}>{linkTo}</Link>
+    if(syntacticalValidityEditsExist && navNames.indexOf(name) > 1) return <span>{name}</span>
+    if(!qualityVerified && navNames.indexOf(name) > 2) return <span>{name}</span>
+    if(!macroVerified && navNames.indexOf(name) > 3) return <span>{name}</span>
+    return <Link className="usa-nav-link" style={styleSelectedPage(page, name)} to={`${base}/${navLinks[name]}`}>{name}</Link>
   } else {
-    return <span>{linkTo}</span>
+    return <span>{name}</span>
   }
 }
 
 const EditsNav = (props) => {
   return <ul className="EditsNav usa-nav-primary">
     {
-      editPages.map((page, i) => {
-        return <li key={i}>{renderLinkOrText(props, page)}</li>
+      navNames.map((pageObj, i) => {
+        return <li key={i}>{renderLinkOrText(props, pageObj)}</li>
       })
     }
   </ul>
@@ -60,4 +70,4 @@ EditsNav.propTypes = {
 
 export default EditsNav
 
-export { formatLink, styleSelectedPage, renderLinkOrText }
+export { styleSelectedPage, renderLinkOrText }

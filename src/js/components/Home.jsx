@@ -55,8 +55,8 @@ const Home = (props) => {
           <div className="usa-width-one-half">
             <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
             <h3>How to get started</h3>
-            <p>Select the Login button to begin the process for filing your HMDA data. The HMDA Platform will require every HMDA filer to register online for login credentials and establish an account prior to using the system.</p>
-            <p>Once you have logged in, you may upload your financial institution’s LAR. The HMDA Platform will then guide you through the filing process.</p>
+            <p>Select the login button to begin the process for filing your HMDA data. Every user is required to register online for login credentials and establish an account prior to accessing the HMDA Platform.</p>
+            <p>Once you have logged in, select the Institutions link above to access your institution(s). The HMDA Platform will then guide you through the filing process.</p>
             <p>For resources to help you prepare your HMDA filing, please visit <a href="http://www.consumerfinance.gov/data-research/hmda/for-filers">Resources for HMDA filers</a>.</p>
           </div>
           <div className="usa-width-one-half">
