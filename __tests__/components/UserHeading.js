@@ -50,7 +50,7 @@ describe('UserHeading', () => {
     })
 
     it('renders correctly', () => {
-      expect(headingNode.textContent).toEqual('Welcome to the 2017 HMDA filing, User1.')
+      expect(headingNode.textContent).toEqual('Welcome to the 2017 HMDA filing')
     })
   })
 
@@ -74,7 +74,7 @@ describe('UserHeading', () => {
     })
 
     it('renders correctly', () => {
-      expect(headingNode.textContent).toEqual('User1 filing on behalf of Wacky data for 2017.')
+      expect(headingNode.textContent).toEqual('Filing on behalf of Wacky data for 2017')
     })
   })
 

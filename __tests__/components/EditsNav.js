@@ -1,8 +1,9 @@
 jest.unmock('../../src/js/components/EditsNav.jsx')
 
-import EditsNav,
-  { styleSelectedPage, renderLinkOrText }
-  from '../../src/js/components/EditsNav.jsx'
+import EditsNav, {
+    styleSelectedPage,
+    renderLinkOrText
+  } from '../../src/js/components/EditsNav.jsx'
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 
@@ -16,7 +17,7 @@ const baseProps = {
 }
 
 const getLinkCount = rendered => {
-  return rendered.props.children.reduce((acc, child) => {
+  return rendered.props.children[0].props.children.reduce((acc, child) => {
       return acc + (+(child.props.children.type.displayName === 'Link'))
     }, 0)
 }
@@ -29,15 +30,15 @@ describe('EditsNav', () => {
   })
 
   it('chooses appropriate item to render', () => {
-    expect(renderLinkOrText(baseProps, 'upload').type.displayName).toBe('Link')
-    expect(renderLinkOrText(baseProps, 'syntactical & validity edits').type.displayName).not.toBe('Link')
-    expect(renderLinkOrText({...baseProps, code: 8}, 'syntactical & validity edits').type.displayName).toBe('Link')
+    expect(renderLinkOrText(baseProps, 'upload').props.children.type).toBe('span')
+    expect(renderLinkOrText(baseProps, 'syntactical & validity edits').props.children.type).not.toBe('a')
+    expect(renderLinkOrText({...baseProps, code: 8}, 'syntactical & validity edits').props.children.type.displayName).toBe('Link')
   })
 
   it('renders with base props', () => {
     const rendered = EditsNav(baseProps)
     expect(rendered).toBeDefined()
-    expect(getLinkCount(rendered)).toBe(1)
+    expect(getLinkCount(rendered)).toBe(0)
   })
 
   it('renders after upload', () => {
