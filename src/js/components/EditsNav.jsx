@@ -49,7 +49,7 @@ const renderLinkOrText = (props, name, i) => {
 
   // only render link when code > 7 (so it's finished validating)
   if(code > 7) {
-    toRender = <Link className="usa-nav-link" style={styleSelectedPage(page, name)} to={`${base}/${navLinks[name]}`}>{name}</Link>
+    toRender = <Link className="usa-nav-link" style={styleSelectedPage(page, navLinks[name])} to={`${base}/${navLinks[name]}`}>{name}</Link>
 
     if(syntacticalValidityEditsExist && navNames.indexOf(name) > 1) {
       toRender = <span>{name}</span>
@@ -66,7 +66,7 @@ const renderLinkOrText = (props, name, i) => {
 
   return (
     <li key={i}>
-      {renderStep(i)}
+      {/*renderStep(i)*/}
       {toRender}
     </li>
   )
@@ -81,9 +81,14 @@ const EditsNav = (props) => {
         })
       }
     </ul>
+    {/*
     <hr className="line" />
-    <hr className="progress" width="50%" />
-    <hr />
+
+    TODO: set the width of the progress <hr> based on submission status wait for https://github.com/cfpb/hmda-platform/issues/849
+
+    <hr className="progress" width="0" />
+    */}
+    <hr className="navBorder" />
   </div>
 }
 
