@@ -19,8 +19,12 @@ dd {
 }
 
 hr {
-  border-bottom-width: 0;
-  border-color: $color-gray-lightest;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid $color-gray-lighter;
+    margin: 1em 0;
+    padding: 0;
 }
 
 

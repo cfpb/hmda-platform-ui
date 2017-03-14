@@ -31,21 +31,21 @@ const renderByCode = (code, page, message) => {
     toRender.push(<p>{message}</p>)
   }else{
     if(page === 'upload'){
-      toRender.push(<UploadForm/>)
+      toRender.push(<UploadForm />)
       if(code === 5) {
-        toRender.push(<RefileWarning/>)
-        toRender.push(<ParseErrors/>)
+        toRender.push(<RefileWarning />)
+        toRender.push(<ParseErrors />)
       }
     }else if(['syntacticalvalidity','quality','macro'].indexOf(page) !== -1){
       if(code > 6){
-        if(code === 8) toRender.push(<RefileWarning/>)
-        toRender.push(<Edits/>)
+        if(code === 8) toRender.push(<RefileWarning />)
+        toRender.push(<Edits />)
       }
     }else if(page === 'summary'){
       if(code > 7){
-        toRender.push(<IRSReport/>)
-        toRender.push(<Summary/>)
-        toRender.push(<Signature/>)
+        toRender.push(<IRSReport />)
+        toRender.push(<Summary />)
+        toRender.push(<Signature />)
       }
     }
   }
@@ -54,7 +54,7 @@ const renderByCode = (code, page, message) => {
     toRender.push(<p>Something is wrong. <Link to='/institutions'>Return to institutions</Link>.</p>)
   }
 
-  toRender.push(<NavButton/>)
+  toRender.push(<NavButton />)
 
   return toRender
 }
@@ -89,20 +89,27 @@ class SubmissionContainer extends Component {
     const code = status && status.code
     const page = location.pathname.split('/').slice(-1)[0]
 
-    const toRender = code ? renderByCode(code, page, status.message) : [<LoadingIcon/>]
+    const toRender = code ? renderByCode(code, page, status.message) : [<LoadingIcon />]
 
 
     return (
     <div className="SubmissionContainer">
       <Header
         pathname={location.pathname}
-        userName={user.profile.name} />
+        userName={user.profile.name}
+      />
+      <div className="usa-grid">
+        <div className="usa-width-one-whole">
+          <UserHeading
+            period={params.filing}
+            institution={this.props.institution}
+          />
+        </div>
+        <div className="usa-width-one-whole">
+          <EditsNav />
+        </div>
+      </div>
       <div id="main-content" className="usa-grid">
-        <UserHeading
-          period={params.filing}
-          userName={user.profile.name}
-          institution={this.props.institution} />
-        <EditsNav/>
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>

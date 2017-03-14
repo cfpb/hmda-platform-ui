@@ -22,7 +22,12 @@ const styleSelectedPage = (selected, current) => {
   return {borderBottom: 'none'}
 }
 
-const renderLinkOrText = (props, name) => {
+const renderStep = (i) => {
+  return <div className="step">{i+1}</div>
+}
+
+const renderLinkOrText = (props, name, i) => {
+  let toRender
   const {
     page,
     base,
@@ -33,30 +38,58 @@ const renderLinkOrText = (props, name) => {
   } = props
 
   // always render the upload as a link
-  if(name === 'upload') return (
-    <Link className="usa-nav-link" style={styleSelectedPage(page, name)}
-      to={`${base}/${navLinks[name]}`}>{name}</Link>
-  )
+  if(name === 'upload') {
+    toRender = (
+      <Link
+        className="usa-nav-link"
+        style={styleSelectedPage(page, name)}
+        to={`${base}/${navLinks[name]}`}>{name}</Link>
+    )
+  }
 
   // only render link when code > 7 (so it's finished validating)
   if(code > 7) {
-    if(syntacticalValidityEditsExist && navNames.indexOf(name) > 1) return <span>{name}</span>
-    if(!qualityVerified && navNames.indexOf(name) > 2) return <span>{name}</span>
-    if(!macroVerified && navNames.indexOf(name) > 3) return <span>{name}</span>
-    return <Link className="usa-nav-link" style={styleSelectedPage(page, name)} to={`${base}/${navLinks[name]}`}>{name}</Link>
+    toRender = <Link className="usa-nav-link" style={styleSelectedPage(page, navLinks[name])} to={`${base}/${navLinks[name]}`}>{name}</Link>
+
+    if(syntacticalValidityEditsExist && navNames.indexOf(name) > 1) {
+      toRender = <span>{name}</span>
+    }
+    if(!qualityVerified && navNames.indexOf(name) > 2) {
+      toRender = <span>{name}</span>
+    }
+    if(!macroVerified && navNames.indexOf(name) > 3) {
+      toRender = <span>{name}</span>
+    }
   } else {
-    return <span>{name}</span>
+    toRender = <span>{name}</span>
   }
+
+  return (
+    <li key={i}>
+      {/*renderStep(i)*/}
+      {toRender}
+    </li>
+  )
 }
 
 const EditsNav = (props) => {
-  return <ul className="EditsNav usa-nav-primary">
-    {
-      navNames.map((pageObj, i) => {
-        return <li key={i}>{renderLinkOrText(props, pageObj)}</li>
-      })
-    }
-  </ul>
+  return <div className="EditsNav">
+    <ul className="usa-nav-primary">
+      {
+        navNames.map((pageObj, i) => {
+          return renderLinkOrText(props, pageObj, i)
+        })
+      }
+    </ul>
+    {/*
+    <hr className="line" />
+
+    TODO: set the width of the progress <hr> based on submission status wait for https://github.com/cfpb/hmda-platform/issues/849
+
+    <hr className="progress" width="0" />
+    */}
+    <hr className="navBorder" />
+  </div>
 }
 
 EditsNav.propTypes = {

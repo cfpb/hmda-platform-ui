@@ -1,8 +1,7 @@
-
-
 .usa-header {
-  border-bottom: 1px solid $color-gray-lightest;
-  margin-bottom: 2em;
+  background-color: $color-white;
+  border-bottom: 1px solid $color-gray-lighter;
+  margin-bottom: 3em;
 }
 
 .usa-navbar {
@@ -10,13 +9,13 @@
 }
 
 .usa-nav {
-  padding-top: .5rem;
+  padding-top: 0;
 }
 
 .usa-nav.usa-nav-left {
   display: inline-block;
   float: none;
-  padding-left: 4em;
+  padding-left: 3em;
 }
 
 .usa-logo {
@@ -26,11 +25,6 @@
 .usa-header-basic .usa-logo {
   bottom: 0;
   position: relative;
-}
-
-.usa-banner-inner,
-.usa-nav-container {
-  max-width: none;
 }
 
 .usa-banner-inner {
@@ -54,7 +48,7 @@
 }
 
 .usa-nav-primary>li {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin-left: 0;
 
   &.logout {
@@ -66,13 +60,15 @@
 
   &>a {
     color: $color-base;
-    margin: 1.3rem 1.5rem 1.7rem;
+    font-size: 1.3rem;
+    margin: 1.3rem 1.5rem 1rem;
     padding: 0;
-    text-transform: capitalize;
+    text-transform: uppercase;
 
     &.usa-button {
       margin: 0;
       padding: 1rem 2rem;
+      text-transform: uppercase;
       &:hover {
         color: $color-white;
         background-color: $color-primary-darker;
