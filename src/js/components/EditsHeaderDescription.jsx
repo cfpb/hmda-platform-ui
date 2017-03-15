@@ -9,12 +9,12 @@ export const getText = (editType, count) => {
     case 'syntactical':
       id = 'syntactical'
       title = count === 1 ? 'Syntactical Edit' : 'Syntactical Edits'
-      desc = 'Edits that check whether the loan/application register is in the correct format and whether the data covers the correct filing year. The loan/application register cannot be filed until the filer corrects all syntactical edit errors and reuploads the updated loan/application register to the HMDA Platform.'
+      desc = 'Syntactical edits check whether the loan/application register is in the correct format and whether the data covers the correct filing year. The loan/application register cannot be submitted until the filer corrects all syntactical edit errors and reuploads the updated loan/application register to the HMDA Platform.'
       break
     case 'validity':
       id = 'validity'
       title = count === 1 ? 'Validity Edit' : 'Validity Edits'
-      desc = 'Edits that check whether there are valid values in each data field. The loan/application register cannot be filed until the filer corrects all validity edit errors and reuploads the updated loan/application register to the HMDA Platform.'
+      desc = 'Validity edits check whether there are valid values in each data field. The data cannot be submitted until errors identified by the validity edits are corrected. The loan/application register cannot be submitted until the filer corrects all validity edit errors and reuploads the updated loan/application register to the HMDA Platform.'
       break
     case 'quality':
       id = 'quality'

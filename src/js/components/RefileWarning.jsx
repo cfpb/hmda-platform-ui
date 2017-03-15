@@ -6,7 +6,7 @@ export const getText = (props) => {
   let textToRender = null
 
   if(props.syntacticalValidityEditsExist) {
-    textToRender = <p className="usa-alert-text"><strong>Syntactical</strong> and <strong>validity</strong> edits require file resubmission.</p>
+    textToRender = <p className="usa-alert-text">Your file has <strong>syntactical and/or validity edits</strong>. Update your file and select the "Upload a new file" button, or return to the "Institutions" page.</p>
   } else {
     textToRender = <p className="usa-alert-text"><strong>Quality</strong> and <strong>macro</strong> edits must be validated before continuing.</p>
   }
