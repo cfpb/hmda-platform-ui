@@ -7,8 +7,8 @@ const showReceipt = (code, timestamp, receipt) => {
   return (
     <div className="usa-alert usa-alert-success">
       <div className="usa-alert-body">
-        <h3 className="usa-alert-heading">Submission signed.</h3>
-        <p className="usa-alert-text">You have signed your submission on <strong>{moment().utcOffset(-5).calendar(timestamp)}</strong>. Your receipt # is <strong>{receipt}</strong>.</p>
+        <h3 className="usa-alert-heading">HMDA data submitted</h3>
+        <p className="usa-alert-text">You have submitted your HMDA data on <strong>{moment(timestamp).format('MMMM Do, YYYY, h:mm:ss')}</strong>. Your receipt number is <strong>{receipt}</strong>.</p>
       </div>
     </div>
   )
@@ -47,7 +47,7 @@ const Signature = (props) => {
     <div className="Signature" id="signature">
       <header>
         <h2 className={headingClass}>Signature</h2>
-        <p className="usa-font-lead">To complete your submission first check the checkbox to certify accuracy and then click the button to sign.</p>
+        <p className="usa-font-lead">To complete your submission, select the checkbox to certify to the accuracy and completeness of the data submitted. Then, select the "Submit HMDA data" button to submit your data.</p>
       </header>
 
       {showWarning(props.status.code)}
@@ -68,7 +68,7 @@ const Signature = (props) => {
       <button
         className={buttonClass}
         onClick={e => props.onSignatureClick(props.checked)}>
-        Sign the submission
+        Submit HMDA data
       </button>
 
       {showReceipt(props.status.code, props.timestamp, props.receipt)}
