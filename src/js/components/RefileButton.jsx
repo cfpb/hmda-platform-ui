@@ -5,7 +5,7 @@ const RefileButton = (props) => {
     onClick={(e)=>{
       e.preventDefault()
       props.showConfirmModal(props.id, props.filing, props.code)
-    }}>Refile</a>
+    }}>Upload a new file</a>
 }
 
 RefileButton.propTypes = {
