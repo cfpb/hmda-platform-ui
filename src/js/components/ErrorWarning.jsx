@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 export function renderHeader(props) {
   if(props.headerText) return props.headerText
@@ -47,6 +47,12 @@ const ErrorWarning = (props) => {
       </div>
     </div>
   )
+}
+
+ErrorWarning.propTypes = {
+  error: PropTypes.object,
+  bodyText: PropTypes.string,
+  headerText: PropTypes.string
 }
 
 export default ErrorWarning
