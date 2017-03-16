@@ -10,6 +10,7 @@ import Header from '../components/Header.jsx'
 import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
 import Edits from './Edits.jsx'
+import ErrorWarning from '../components/ErrorWarning.jsx'
 import EditsNavComponent from '../components/EditsNav.jsx'
 import NavButtonComponent from '../components/NavButton.jsx'
 import RefileWarningComponent  from '../components/RefileWarning.jsx'
@@ -110,6 +111,7 @@ class SubmissionContainer extends Component {
         </div>
       </div>
       <div id="main-content" className="usa-grid">
+        {this.props.error ? <ErrorWarning error={this.props.error}/> : null }
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>
@@ -131,11 +133,14 @@ function mapStateToProps(state) {
 
   const institution = state.app.institution
 
+  const error = state.app.error
+
   return {
     isFetching,
     status,
     user,
-    institution
+    institution,
+    error
   }
 }
 

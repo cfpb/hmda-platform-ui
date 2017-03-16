@@ -32,11 +32,14 @@ export function mapStateToProps(state) {
 
   const user = state.oidc && state.oidc.user || null
 
+  const error = state.app.error
+
   return {
     isFetching,
     institutions,
     filings,
-    user
+    user,
+    error
   }
 }
 

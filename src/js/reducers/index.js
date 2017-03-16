@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import {
+  RECEIVE_ERROR,
   REFRESH_STATE,
   REQUEST_INSTITUTION,
   RECEIVE_INSTITUTION,
@@ -107,10 +108,26 @@ const defaultPagination = {
   parseErrors: null
 }
 
+const defaultError = null
+
 
 //empty action logger, temporary / for debugging
 export const auth = (state = {}, action) => {
   return state
+}
+
+
+export const error = (state = defaultError, action) => {
+  switch(action.type) {
+    case RECEIVE_ERROR:
+    return action.error
+
+    case REFRESH_STATE:
+    return defaultError
+
+    default:
+    return state
+  }
 }
 
 
@@ -474,5 +491,6 @@ export default combineReducers({
   signature,
   summary,
   parseErrors,
-  pagination
+  pagination,
+  error
 })

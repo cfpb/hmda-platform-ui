@@ -37,7 +37,7 @@ getLatestSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissi
 getSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissions[2]))
 getIRS.mockImplementation((id) => Promise.resolve(IRSObj))
 getSignature.mockImplementation((id) => Promise.resolve(signatureObj))
-postQuality.mockImplementation(() => Promise.resolve())
+postQuality.mockImplementation(() => Promise.resolve({}))
 getEdits.mockImplementation((id) => Promise.resolve({fakeEdits:1}))
 
 delete global.XMLHttpRequest
@@ -288,10 +288,15 @@ describe('actions', () => {
   it('creates a thunk that will send an http request for an institution by id', done => {
     const store = mockStore({filings: []})
 
-    store.dispatch(actions.fetchInstitution({id: 'bank0id'}, false))
+    store.dispatch(actions.fetchInstitution({id: '0'}, false))
       .then(() => {
         expect(store.getActions()).toEqual([
-          {type: types.REQUEST_INSTITUTION}
+          {type: types.REQUEST_INSTITUTION},
+          {type: types.RECEIVE_INSTITUTION, institution: {
+            id: '0',
+            name: 'Bank 0',
+            status: 'active'
+          }}
         ])
         done()
       })

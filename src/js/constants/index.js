@@ -1,3 +1,4 @@
+export const RECEIVE_ERROR          = 'RECEIVE_ERROR'
 export const REFRESH_STATE          = 'REFRESH_STATE'
 
 export const RECEIVE_AUTH_USER      = 'RECEIVE_AUTH_USER'

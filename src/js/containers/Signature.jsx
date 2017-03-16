@@ -39,12 +39,15 @@ export function mapStateToProps(state) {
     }
   }
 
+  const error = state.app.error
+
   return {
     isFetching,
     timestamp,
     receipt,
     status,
-    checked
+    checked,
+    error
   }
 }
 
