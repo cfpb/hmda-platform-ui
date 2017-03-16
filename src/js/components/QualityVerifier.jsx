@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
 const QualityVerifier = (props) => {
-  const verficationMessage = 'Quality edits verified. Incorrect or inaccurate data fields revealed by quality edits will need to be corrected and refiled.'
+  const verficationMessage = 'Quality edits have been verified.'
   const headingClass = props.verified ? 'text-green' : 'text-secondary'
 
   return (
@@ -17,7 +17,7 @@ const QualityVerifier = (props) => {
             onChange={e => {
               props.onVerify(e.target.checked)
             }}/>
-          <label htmlFor="qualityVerifier" className="max-width-100">I have verified the accuracy of all data fields referenced by quality edits.</label>
+          <label htmlFor="qualityVerifier" className="max-width-100">All data are accurate, no corrections required. I have verified the accuracy of all data fields referenced by the quality edits.</label>
         </li>
         <li>{props.verified?verficationMessage:null}</li>
       </ul>
