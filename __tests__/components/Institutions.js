@@ -48,7 +48,7 @@ describe('Institutions', () => {
   })
 
   it('creates the status button (renderViewButton) with correct content', () => {
-    expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status-button').text).toEqual('View filing')
+    expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status-button').text).toEqual('View current filing')
   })
 
   it('creates the correct number of previous submissions', () => {
@@ -115,11 +115,11 @@ describe('renderViewButton', () => {
     })
   }
 
-  runByCode(1, 'File now')
-  runByCode(2, 'View filing')
-  runByCode(3, 'View filing')
-  runByCode(4, 'File now')
-  runByCode(123, 'File now')
+  runByCode(1, 'Begin filing')
+  runByCode(2, 'View current filing')
+  runByCode(3, 'View current filing')
+  runByCode(4, 'Begin filing')
+  runByCode(123, 'Begin filing')
 })
 
 describe('renderRefileButton', () => {
