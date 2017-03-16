@@ -51,6 +51,11 @@ describe('ErrorWarning', () => {
     expect(rendered).toEqual('Sorry, an error has occurred.')
   })
 
+  it('renders correct header with provided text', () => {
+    const rendered = renderHeader({error: {httpStatus: 405}, headerText: 'hi'})
+    expect(rendered).toEqual('hi')
+  })
+
   it('renders correct body on 403', () => {
     const rendered = renderBody({error: {httpStatus: 403}})
     expect(rendered).toEqual('Please refresh the page to log in again.')
@@ -71,4 +76,8 @@ describe('ErrorWarning', () => {
     expect(rendered).toEqual('Please refresh the page. If this message persists, you will need to upload your file again.')
   })
 
+  it('renders correct body with provided text', () => {
+    const rendered = renderBody({error: {httpStatus: 405}, bodyText: 'hi'})
+    expect(rendered).toEqual('hi')
+  })
 })

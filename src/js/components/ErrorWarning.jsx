@@ -1,6 +1,8 @@
 import React from 'react'
 
 export function renderHeader(props) {
+  if(props.headerText) return props.headerText
+
   switch(props.error.httpStatus) {
     case 403:
     return 'You have been automatically logged out.'
@@ -17,6 +19,8 @@ export function renderHeader(props) {
 }
 
 export function renderBody(props) {
+  if(props.bodyText) return props.bodyText
+
   switch(props.error.httpStatus) {
     case 403:
     return 'Please refresh the page to log in again.'

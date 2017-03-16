@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import ErrorWarning from './ErrorWarning.jsx'
 import moment from 'moment'
 
 const showReceipt = (code, timestamp, receipt) => {
@@ -17,16 +18,12 @@ const showReceipt = (code, timestamp, receipt) => {
 const showWarning = (props) => {
   if(!props.error && props.status.code > 8) return null
 
-  if(props.error) {
-    return (
-      <div className="usa-alert usa-alert-error">
-        <div className="usa-alert-body">
-          <h3 className="usa-alert-heading">An error has occurred.</h3>
-          <p className="usa-alert-text">You cannot sign your submission if you have encountered an error in the filing process. Please refresh the page or try again later.</p>
-        </div>
-      </div>
-    )
-  }
+  if(props.error) return (
+    <ErrorWarning
+      error={props.error}
+      bodyText="You cannot sign your submission if you have encountered an error in the filing process. Please refresh the page or try again later."
+    />
+  )
 
   return (
     <div className="usa-alert usa-alert-warning">
