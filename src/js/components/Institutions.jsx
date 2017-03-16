@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import {Link} from 'react-router'
 import Header from './Header.jsx'
 import LoadingIcon from './LoadingIcon.jsx'
+import ErrorWarning from './ErrorWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 
@@ -191,6 +192,7 @@ export default class Institution extends Component {
         pathname={this.props.location.pathname}
         userName={this.props.user.profile.name} />
       <div id="main-content" className="usa-grid">
+        {this.props.error ? <ErrorWarning error={this.props.error}/> : null}
         <div className="usa-width-two-thirds">
           {this.props.isFetching || !this.props.filings ?
             <div className="usa-grid-full">

@@ -56,6 +56,7 @@ export function sendFetch(options = {method: 'GET'}){
         return response.text()
       }
       const json = response.json()
+      console.log('got api response for', url, json)
       return json
     })
 }

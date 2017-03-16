@@ -26,6 +26,12 @@ import fileSaver from 'file-saver'
 let latestSubmissionId
 let currentFilingPeriod
 
+export function hasHttpError(json) {
+  return !json || json.httpStatus > 399 ?
+    true :
+    false
+}
+
 export function refreshState() {
   return {
     type: types.REFRESH_STATE
@@ -134,11 +140,19 @@ export function receiveEditsByType(data) {
   }
 }
 
+export function receiveError(error) {
+  return {
+    type: types.RECEIVE_ERROR,
+    error: error
+  }
+}
+
 export function fetchVerifyQuality(checked) {
   return dispatch => {
     return postQuality(latestSubmissionId, checked)
       .then(json => {
-        dispatch(verifyQuality(checked))
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        return dispatch(verifyQuality(checked))
       })
       .catch(err => console.error(err))
   }
@@ -253,7 +267,8 @@ export function fetchPage(target, pathname) {
     dispatch(getPaginationRequestAction(target))
     return sendFetch({pathname: pathname})
       .then(json => {
-        dispatch(getPaginationReceiveAction(target, json))
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        return dispatch(getPaginationReceiveAction(target, json))
       })
       .catch(err => console.error(err))
   }
@@ -264,9 +279,9 @@ export function fetchIRS() {
     dispatch(requestIRS())
     return getIRS(latestSubmissionId)
       .then(json => {
-        if(!json) return
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
         dispatch(receiveIRS(json))
-        dispatch(updateStatus(
+        return dispatch(updateStatus(
           {
             code: json.status.code,
             message: json.status.message
@@ -321,9 +336,9 @@ export function fetchSignature() {
     dispatch(requestSignature())
     return getSignature(latestSubmissionId)
       .then(json => {
-        if(!json) return
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
         dispatch(receiveSignature(json))
-        dispatch(updateStatus(
+        return dispatch(updateStatus(
           {
             code: json.status.code,
             message: json.status.message
@@ -339,9 +354,9 @@ export function updateSignature(signed) {
     dispatch(requestSignaturePost())
     return postSignature(latestSubmissionId, signed)
       .then(json => {
-        if(!json) return
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
         dispatch(receiveSignaturePost(json))
-        dispatch(updateStatus(
+        return dispatch(updateStatus(
           {
             code: json.status.code,
             message: json.status.message
@@ -370,7 +385,10 @@ export function fetchSummary() {
   return dispatch => {
     dispatch(requestSummary())
     return getSummary(latestSubmissionId)
-      .then(json => dispatch(receiveSummary(json)))
+      .then(json => {
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        return dispatch(receiveSummary(json))
+      })
       .catch(err => console.error(err))
   }
 }
@@ -398,7 +416,10 @@ export function fetchParseErrors() {
   return dispatch => {
     dispatch(requestParseErrors())
     return getParseErrors(latestSubmissionId)
-      .then(json => dispatch(receiveParseErrors(json)))
+      .then(json => {
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        return dispatch(receiveParseErrors(json))
+      })
       .catch(err => console.error(err))
   }
 }
@@ -415,9 +436,11 @@ export function fetchCSV(institutionId, filing, submissionId) {
         format: 'csv'
       }
     })
-      .then(csv => {
-        fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${submissionId}-full-edit-report.csv`)
-      })
+    .then(csv => {
+      if(hasHttpError(csv)) throw new Error(JSON.stringify(dispatch(receiveError(csv))))
+      return fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${submissionId}-full-edit-report.csv`)
+    })
+    .catch(err => console.error(err))
   }
 }
 
@@ -431,9 +454,11 @@ export function fetchCSVByType(type) {
         format: 'csv'
       }
     })
-      .then(csv => {
-        fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${latestSubmissionId}-${type}-edit-report.csv`)
-      })
+    .then(csv => {
+      if(hasHttpError(csv)) throw new Error(JSON.stringify(dispatch(receiveError(csv))))
+      return fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${latestSubmissionId}-${type}-edit-report.csv`)
+    })
+    .catch(err => console.error(err))
   }
 }
 
@@ -496,6 +521,7 @@ export function fetchNewSubmission(id, period) {
     return createSubmission(id, period)
       .then(json => {
         return new Promise((resolve, reject) => {
+          if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
           dispatch(receiveSubmission(json))
           resolve()
         })
@@ -511,6 +537,7 @@ export function fetchSubmission() {
   return dispatch => {
     return getLatestSubmission()
       .then(json => {
+        if(!json || json.httpStatus === 500) throw new Error(JSON.stringify(dispatch(receiveError(json))))
         if(json.httpStatus === 404){
           const splitPath = json.path.split('/')
           return dispatch(fetchNewSubmission(splitPath[2], splitPath[4]))
@@ -525,7 +552,10 @@ export function fetchSubmission() {
 export function pollForProgress() {
   const poller = dispatch => {
     return getLatestSubmission()
-      .then(json => dispatch(receiveSubmission(json)))
+      .then(json => {
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        return dispatch(receiveSubmission(json))
+      })
       .then(json => {
         if(json.status.code < 8 && json.status.code !== 5){
           setTimeout(() => poller(dispatch), 500)
@@ -543,7 +573,10 @@ export function pollForProgress() {
 export function fetchProgress(id) {
   return dispatch => {
     return getSubmission(id)
-      .then(json => dispatch(receiveSubmission(json)))
+      .then(json => {
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        return dispatch(receiveSubmission(json))
+      })
       .catch(err => console.error(err))
   }
 }
@@ -556,7 +589,10 @@ export function fetchInstitutions() {
   return dispatch => {
     dispatch(requestInstitutions())
     return getInstitutions()
-      .then(json => dispatch(receiveInstitutions(json)))
+      .then(json => {
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        return dispatch(receiveInstitutions(json))
+      })
       .then(receiveAction => {
         dispatch(fetchEachInstitution(receiveAction.institutions))
       })
@@ -585,7 +621,7 @@ export function fetchInstitution(institution, fetchFilings = true) {
     dispatch(requestInstitution())
     return getInstitution(institution.id)
       .then(json => {
-        if(!json) return
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
         dispatch(receiveInstitution(json))
         if(json.filings && fetchFilings){
           return dispatch(fetchEachFiling(json.filings))
@@ -619,7 +655,10 @@ export function fetchFiling(filing) {
   return dispatch => {
     dispatch(requestFiling())
     return getFiling(filing.institutionId, filing.period)
-      .then(json => dispatch(receiveFiling(json)))
+      .then(json => {
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        return dispatch(receiveFiling(json))
+      })
       .catch(err => console.error(err))
   }
 }
@@ -629,7 +668,8 @@ export function fetchEditsByType() {
     dispatch(requestEditsByType())
     return getEdits({submission: latestSubmissionId})
       .then(json => {
-        dispatch(receiveEditsByType(json))
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        return dispatch(receiveEditsByType(json))
       })
       .catch(err => console.error(err))
   }
@@ -639,7 +679,10 @@ export function justifyUpdate(data) {
   return dispatch => {
     dispatch(requestEditPost())
     return postEdit(latestSubmissionId, data)
-      .then((responseData) => dispatch(receiveEditPost(responseData)))
+      .then((json) => {
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        return dispatch(receiveEditPost(json))
+      })
       .catch(err => console.error(err))
   }
 }
