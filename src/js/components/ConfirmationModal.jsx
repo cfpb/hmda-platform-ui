@@ -21,14 +21,14 @@ const ModalConfirm = (props) => {
   return (
     <div className={'confirmation-blurred-blocker'+ (showing ? ' showing-blurred-blocker' : '')}>
       <div className="confirmation-modal">
-        <h4>Refile</h4>
+        <h4>Upload a new file</h4>
         <div className="confirmation-contents">
           <RefileText code={code}/>
           <button onClick={(e)=>{
             e.preventDefault()
             hideConfirmModal()
             triggerRefile(id, filing, page, newFile)
-          }}>Yes, I would like to resubmit.</button>
+          }}>Yes, I would like to restart the filing process.</button>
           <button className="usa-button usa-button-secondary"
             onClick={(e)=>{
               e.preventDefault()

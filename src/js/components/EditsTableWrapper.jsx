@@ -16,7 +16,7 @@ export const renderTables = (edits, type) => {
     return (
       <div className="usa-alert usa-alert-success">
         <div className="usa-alert-body">
-          <p className="usa-alert-text">No <strong>{type}</strong> edits found.</p>
+          <p className="usa-alert-text">Your data did not trigger any <strong>{type}</strong> edits.</p>
         </div>
       </div>
     )

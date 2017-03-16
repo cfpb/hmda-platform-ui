@@ -6,8 +6,8 @@ const Summary = (props) => {
   return (
     <div className="Summary usa-grid-full" id="summary">
       <header>
-        <h2>Validation Summary</h2>
-        <p className="usa-font-lead">You have succesfully validated your file. Please review the respondent and file information below.</p>
+        <h2>HMDA Filing Summary</h2>
+        <p className="usa-font-lead">You have completed the verification process for your HMDA data. Please review the respondent and file information below from your HMDA file.</p>
       </header>
       <div className="info usa-grid-full">
         <div className="usa-width-one-half">

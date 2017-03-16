@@ -75,7 +75,7 @@ describe('getText', () => {
     }
   })
 
-  const syntacticalDesc = 'Edits that check whether the loan/application register is in the correct format and whether the data covers the correct filing year. The loan/application register cannot be filed until the filer corrects all syntactical edit errors and reuploads the updated loan/application register to the HMDA Platform.'
+  const syntacticalDesc = 'Syntactical edits check whether the loan/application register is in the correct format and whether the data covers the correct filing year. The loan/application register cannot be submitted until the filer corrects all syntactical edit errors and reuploads the updated loan/application register to the HMDA Platform.'
 
   it('returns syntactical with 1 edit', () => {
     const returned = getText('syntactical', 1)
@@ -95,7 +95,7 @@ describe('getText', () => {
     })
   })
 
-  const validityDesc = 'Edits that check whether there are valid values in each data field. The loan/application register cannot be filed until the filer corrects all validity edit errors and reuploads the updated loan/application register to the HMDA Platform.'
+  const validityDesc = 'Validity edits check whether there are valid values in each data field. The data cannot be submitted until errors identified by the validity edits are corrected. The loan/application register cannot be submitted until the filer corrects all validity edit errors and reuploads the updated loan/application register to the HMDA Platform.'
 
   it('returns validity with 1 edit', () => {
     const returned = getText('validity', 1)
@@ -115,7 +115,7 @@ describe('getText', () => {
     })
   })
 
-  const qualityDesc = 'Edits that check whether entries in the individual data fields or combinations of data fields conform to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all values flagged by quality edits in the HMDA Platform, or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
+  const qualityDesc = 'Quality edits check whether entries in the individual data fields or combinations of data fields conform to expected values. The loan/application register cannot be submitted until the filer either confirms the accuracy of all values flagged by quality edits in the HMDA Platform, or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
   it('returns quality with 1 edit', () => {
     const returned = getText('quality', 1)
     expect(returned).toEqual({
@@ -134,7 +134,7 @@ describe('getText', () => {
     })
   })
 
-  const macroDesc = 'Edits that check whether the submitted loan/application register as a whole conforms to expected values. The loan/application register cannot be filed until the filer either confirms the accuracy of all the values flagged by the macro quality edits in the HMDA Platform or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
+  const macroDesc = 'Macro quality edits check whether the submitted loan/application register as a whole conforms to expected values. The loan/application register cannot be submitted until the filer either confirms the accuracy of all the values flagged by the macro quality edits in the HMDA Platform or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
   it('returns macro with 1 edit', () => {
     const returned = getText('macro', 1)
     expect(returned).toEqual({

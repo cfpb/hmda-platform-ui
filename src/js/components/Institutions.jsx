@@ -97,22 +97,22 @@ export const renderViewButton = (code, institutionId, period) => {
   switch (code) {
     // not-started
     case 1:
-      buttonText = 'File now'
+      buttonText = 'Begin filing'
       break
     // in progress
     case 2:
-      buttonText = 'View filing'
+      buttonText = 'View current filing'
       break
     // completed
     case 3:
-      buttonText = 'View filing'
+      buttonText = 'View current filing'
       break
     // cancelled
     case 4:
-      buttonText = 'File now'
+      buttonText = 'Begin filing'
       break
     default:
-      buttonText = 'File now'
+      buttonText = 'Begin filing'
   }
 
   return <Link className="status-button usa-button" to={`/${institutionId}/${period}`}>{buttonText}</Link>
@@ -135,7 +135,7 @@ export const renderPreviousSubmissions = (submissions, onDownloadClick, institut
   if(!submissions.length) return
   return (
   <div className="previous-submissions">
-    <h5>Previous submissions for this filing</h5>
+    <h5>Filings for current filing period</h5>
 
     <ol reversed className="usa-text-small">
       {submissions.map((submission, i) => {
@@ -241,9 +241,10 @@ export default class Institution extends Component {
           })}
         </div>
         <div className="content usa-width-one-third">
-          <p>We can use this area as some help text and talk about the process or whatever else we need to mention.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec auctor nisl. Nam ut justo nec ligula aliquam pretium et at orci. Nulla pulvinar feugiat tellus, in sagittis sem sollicitudin at. Nunc nec libero at elit consectetur elementum eu at nisl.</p>
-          <p>Curabitur molestie felis massa, vel semper nulla maximus nec. Quisque feugiat nulla nec urna tristique varius. Ut vulputate felis mi, non elementum lacus tempor ut. Etiam tempus porta arcu non venenatis. Vivamus nec tellus eleifend, pulvinar sapien sed, posuere leo.</p>
+          <p>The Institutions page provides a summary of institutions for which you are authorized to file HMDA data. The filing status is displayed under the institution name.</p>
+          <p>Select the "Begin filing" button to begin your HMDA filing. Your work will be saved as you progress through the various edit categories. If you need to complete the filing at a later time, logout of the HMDA Platform prior to reviewing the next category of edits. When you are ready to continue with the filing process, login and select the "View Current Filing" button for your institution.</p>
+          <p>If you already started or submitted a HMDA filing and need to upload a new HMDA file, select the "Upload a new file" button. You will restart the process beginning with file format analysis. Any previously completed filings will not be overridden until all edits have been cleared and/or verified and the HMDA file has been submitted.</p>
+          <p>The edit report for previous submissions can be downloaded in csv format. Please note that an edit report will not be available if the HMDA file did not have any outstanding quality edits or macro quality edits.</p>
         </div>
       </div>
     </div>

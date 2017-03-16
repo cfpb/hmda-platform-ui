@@ -12,7 +12,7 @@ const parseLocation = jest.fn(() => { return { id:'1', period: '2017', submissio
 
 describe('Refile Warning', () => {
   const parserText = 'Your file has formatting errors. Update your file and click the refile button or return to the Institutions page.'
-  const refileText = 'Syntactical and validity edits require file resubmission.'
+  const refileText = 'Your file has syntactical and/or validity edits. Update your file and select the "Upload a new file" button, or return to the "Institutions" page.'
   const validateText = 'Quality and macro edits must be validated before continuing.'
 
   it('renders the correct elements for status code 5 and calls function on click', () => {

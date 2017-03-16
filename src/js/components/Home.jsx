@@ -65,24 +65,31 @@ const Home = (props) => {
 
         <div className="usa-grid">
           <hr />
-          <div className="usa-width-one-third">
+          <div className="usa-width-one-fourth">
             <h4>1003 Regulation C</h4>
             <ul className="usa-unstyled-list">
               <li><a href="http://www.consumerfinance.gov/eregulations/1003">Home Mortgage Disclosure</a></li>
             </ul>
           </div>
 
-          <div className="usa-width-one-third">
+          <div className="usa-width-one-fourth">
             <h4>Tools</h4>
             <ul className="usa-unstyled-list">
               <li><a href="https://github.com/cfpb/hmda-platform-tools">File Format Verification Tool</a></li>
             </ul>
           </div>
 
-          <div className="usa-width-one-third">
+          <div className="usa-width-one-fourth">
             <h4>FFIEC</h4>
             <ul className="usa-unstyled-list">
               <li><a href="https://www.ffiec.gov/hmda/">HMDA</a></li>
+            </ul>
+          </div>
+
+          <div className="usa-width-one-fourth">
+            <h4>Data Publication</h4>
+            <ul className="usa-unstyled-list">
+              <li><a href="#">Modified LAR</a></li>
             </ul>
           </div>
         </div>
