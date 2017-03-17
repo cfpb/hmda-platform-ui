@@ -244,7 +244,8 @@ export function requestIRS() {
 export function receiveIRS(data) {
   return {
     type: types.RECEIVE_IRS,
-    msas: data.msas
+    msas: data.msas,
+    totals: data.totals
   }
 }
 

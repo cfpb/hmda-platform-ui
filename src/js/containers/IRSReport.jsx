@@ -20,10 +20,12 @@ export class IRSReportContainer extends Component {
 export function mapStateToProps(state) {
   const {
     isFetching,
-    msas
+    msas,
+    totals
   } = state.app.irs || {
     isFetching: true,
-    msas: []
+    msas: [],
+    totals: {}
   }
 
   const {
@@ -38,6 +40,7 @@ export function mapStateToProps(state) {
   return {
     isFetching,
     msas,
+    totals,
     status
   }
 }

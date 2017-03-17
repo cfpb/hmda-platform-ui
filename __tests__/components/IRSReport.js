@@ -17,7 +17,10 @@ describe('IRS report', () => {
   const onIRSClick = jest.fn()
   const irsReport = TestUtils.renderIntoDocument(
     <Wrapper>
-      <IRSReport msas={irsJSON.msas} receipt={irsJSON.receipt} timestamp={irsJSON.timestamp} status={status} />
+      <IRSReport
+        msas={irsJSON.msas}
+        totals={irsJSON.totals}
+      />
     </Wrapper>
   )
   const irsReportNode = ReactDOM.findDOMNode(irsReport)
@@ -27,6 +30,6 @@ describe('IRS report', () => {
   })
 
   it('creates the correct number of rows', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'tr').length).toEqual(4)
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'tr').length).toEqual(5)
   })
 })
