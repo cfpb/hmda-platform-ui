@@ -32,5 +32,19 @@
       "homeImprovement": 0,
       "refinance": 5
     }
-  ]
+  ],
+  "totals": {
+    "homeImprovement": 1,
+    "multiFamily": 0,
+    "lars": 200,
+    "FSA": 0,
+    "FHA": 0,
+    "amount": 59285,
+    "oneToFourFamily": 200,
+    "refinance": 72,
+    "MFD": 0,
+    "conv": 200,
+    "homePurchase": 127,
+    "VA": 0
+  }
 }

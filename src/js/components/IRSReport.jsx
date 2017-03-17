@@ -2,11 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
 
 const IRSReport = (props) => {
-  console.log('IRSReport')
-  console.log(props)
   if (!props.msas) return null
-  const isChecked = props.status.code > 10 ? true : false
-  const isDisabled = props.status.code > 9 ? false : true
 
   return (
     <div className="IRSReport" id="irs">
@@ -60,7 +56,7 @@ const IRSReport = (props) => {
             </tr>
           })}
           <tr className="totals">
-            <td align="center" colSpan={2}><strong>Total</strong></td>
+            <td className="center" colSpan={2}><strong>Total</strong></td>
             <td>{props.totals.lars}</td>
             <td>{props.totals.amount}</td>
             <td>{props.totals.conv}</td>

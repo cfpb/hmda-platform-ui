@@ -133,7 +133,8 @@ describe('actions', () => {
     const data = IRSObj
     expect(actions.receiveIRS(data)).toEqual({
       type: types.RECEIVE_IRS,
-      msas: data.msas
+      msas: data.msas,
+      totals: data.totals
     })
   })
 
