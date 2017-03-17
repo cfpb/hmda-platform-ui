@@ -125,6 +125,9 @@ export const error = (state = defaultError, action) => {
     case REFRESH_STATE:
     return defaultError
 
+    case '@@router/LOCATION_CHANGE':
+    return defaultError
+
     default:
     return state
   }
