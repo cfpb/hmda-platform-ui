@@ -3,8 +3,6 @@ import moment from 'moment'
 
 const IRSReport = (props) => {
   if (!props.msas) return null
-  const isChecked = props.status.code > 10 ? true : false
-  const isDisabled = props.status.code > 9 ? false : true
 
   return (
     <div className="IRSReport" id="irs">
@@ -41,11 +39,37 @@ const IRSReport = (props) => {
         <tbody>
           {props.msas.map((msa, i) => {
             return <tr key={i}>
-              {Object.keys(msa).map((data, i) => {
-                return <td key={i}>{msa[data]}</td>
-              })}
+              <td>{msa.id}</td>
+              <td>{msa.id}</td>
+              <td>{msa.totalLars}</td>
+              <td>{msa.totalAmount}</td>
+              <td>{msa.conv}</td>
+              <td>{msa.FHA}</td>
+              <td>{msa.VA}</td>
+              <td>{msa.FSA}</td>
+              <td>{msa.oneToFourFamily}</td>
+              <td>{msa.MFD}</td>
+              <td>{msa.multiFamily}</td>
+              <td>{msa.homePurchase}</td>
+              <td>{msa.homeImprovement}</td>
+              <td>{msa.refinance}</td>
             </tr>
           })}
+          <tr className="totals">
+            <td className="center" colSpan={2}><strong>Total</strong></td>
+            <td>{props.totals.lars}</td>
+            <td>{props.totals.amount}</td>
+            <td>{props.totals.conv}</td>
+            <td>{props.totals.FHA}</td>
+            <td>{props.totals.VA}</td>
+            <td>{props.totals.FSA}</td>
+            <td>{props.totals.oneToFourFamily}</td>
+            <td>{props.totals.MFD}</td>
+            <td>{props.totals.multiFamily}</td>
+            <td>{props.totals.homePurchase}</td>
+            <td>{props.totals.homeImprovement}</td>
+            <td>{props.totals.refinance}</td>
+          </tr>
         </tbody>
       </table>
 
@@ -56,14 +80,8 @@ const IRSReport = (props) => {
 
 IRSReport.propTypes = {
   msas: PropTypes.array,
+  totals: PropTypes.object,
   status: PropTypes.object
-}
-
-IRSReport.defaultProps = {
-  msas: [],
-  status: {
-    code: null
-  }
 }
 
 export default IRSReport

@@ -95,7 +95,7 @@ const defaultEdits = {
 const defaultIRS = {
   isFetching: false,
   msas: [],
-  status: defaultSubmission.status
+  totals: {}
 }
 
 const defaultSummary = {
@@ -360,7 +360,8 @@ export const irs = (state = defaultIRS, action) => {
       return {
         ...state,
         isFetching: false,
-        msas: action.msas
+        msas: action.msas,
+        totals: action.totals
       }
 
     default:
