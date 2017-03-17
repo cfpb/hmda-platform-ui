@@ -24,6 +24,7 @@ describe('Institutions', () => {
     <Wrapper>
       <Institutions
         institutions={institutionsJSON.institutions}
+        filingPeriod={2017}
         filings={[filingJSON]}
         user={{profile: {name: 'someone'}}}
         location={{pathname: '/institutions'}} />
@@ -39,6 +40,9 @@ describe('Institutions', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'status').length).toEqual(1)
   })
 
+  it('creates header based on filing period', () => {
+    expect(TestUtils.findRenderedDOMComponentWithTag(institutions, 'h3').textContent).toEqual('Filing Period 2017')
+  })
   it('creates the status (renderStatus) with correct content', () => {
     expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status').textContent).toEqual('Your submission has been validated and is ready to be signed.')
   })
@@ -53,6 +57,19 @@ describe('Institutions', () => {
 
   it('creates the correct number of previous submissions', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'edit-report').length).toEqual(4)
+  })
+
+  it('doesn\'t render a subheader without a filing period', () => {
+    const institutions = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Institutions
+          institutions={institutionsJSON.institutions}
+          filings={[filingJSON]}
+          user={{profile: {name: 'someone'}}}
+          location={{pathname: '/institutions'}} />
+      </Wrapper>
+    )
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'h3').length).toEqual(0)
   })
 })
 

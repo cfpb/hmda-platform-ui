@@ -34,8 +34,11 @@ export function mapStateToProps(state) {
 
   const error = state.app.error
 
+  const { filingPeriod } = state.app
+
   return {
     isFetching,
+    filingPeriod,
     institutions,
     filings,
     user,
