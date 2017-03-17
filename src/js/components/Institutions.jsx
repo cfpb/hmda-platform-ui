@@ -193,56 +193,61 @@ export default class Institution extends Component {
         userName={this.props.user.profile.name} />
       <div id="main-content" className="usa-grid">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null}
-        <div className="usa-width-two-thirds">
+        <div className="usa-width-one-half">
+          <div className="InstitutionsHeader">
+            <h2>Institutions</h2>
+            {this.props.filingPeriod ? <h3>Filing Period {this.props.filingPeriod}</h3> : null}
+          </div>
           {this.props.isFetching || !this.props.filings ?
             <div className="usa-grid-full">
               <LoadingIcon/>
             </div>
           :
             this.props.filings.map((filingObj, i) => {
-            const filing = filingObj.filing
-            const latestSubmissionStatus = filingObj.submissions[0] && filingObj.submissions[0].status || null
-            const institution = getInstitutionFromFiling(institutions, filing)
+              const filing = filingObj.filing
+              const latestSubmissionStatus = filingObj.submissions[0] && filingObj.submissions[0].status || null
+              const institution = getInstitutionFromFiling(institutions, filing)
 
-            if(!institution) return
-            return (
-              <div key={i} className="usa-grid-full">
-                <div className="institution">
-                  <div className="current-status">
-                    {renderTiming(
-                      latestSubmissionStatus,
-                      filing.start,
-                      filing.end
-                    )}
+              if(!institution) return
+              return (
+                <div key={i} className="usa-grid-full">
+                  <div className="institution">
+                    <div className="current-status">
+                      {renderTiming(
+                        latestSubmissionStatus,
+                        filing.start,
+                        filing.end
+                      )}
 
-                    <h2>{institution.name} - {institution.id}</h2>
+                      <h2>{institution.name} - {institution.id}</h2>
 
-                    {renderStatusMessage(latestSubmissionStatus)}
+                      {renderStatusMessage(latestSubmissionStatus)}
 
-                    {renderViewButton(
-                      filing.status.code,
-                      filing.institutionId,
+                      {renderViewButton(
+                        filing.status.code,
+                        filing.institutionId,
+                        filing.period
+                      )}
+
+                      {renderRefileButton(
+                        latestSubmissionStatus,
+                        filing
+                      )}
+                    </div>
+
+                    {renderPreviousSubmissions(
+                      filingObj.submissions,
+                      this.props.onDownloadClick,
+                      institution.id,
                       filing.period
                     )}
-
-                    {renderRefileButton(
-                      latestSubmissionStatus,
-                      filing
-                    )}
                   </div>
-
-                  {renderPreviousSubmissions(
-                    filingObj.submissions,
-                    this.props.onDownloadClick,
-                    institution.id,
-                    filing.period
-                  )}
                 </div>
-              </div>
-            )
-          })}
+              )
+            })
+          }
         </div>
-        <div className="content usa-width-one-third">
+        <div className="content usa-width-one-half">
           <p>The Institutions page provides a summary of institutions for which you are authorized to file HMDA data. The filing status is displayed under the institution name.</p>
           <p>Select the "Begin filing" button to begin your HMDA filing. Your work will be saved as you progress through the various edit categories. If you need to complete the filing at a later time, logout of the HMDA Platform prior to reviewing the next category of edits. When you are ready to continue with the filing process, login and select the "View Current Filing" button for your institution.</p>
           <p>If you already started or submitted a HMDA filing and need to upload a new HMDA file, select the "Upload a new file" button. You will restart the process beginning with file format analysis. Any previously completed filings will not be overridden until all edits have been cleared and/or verified and the HMDA file has been submitted.</p>
