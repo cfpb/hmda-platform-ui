@@ -31,8 +31,8 @@ describe('ErrorWarning', () => {
     expect(nullNode).toBe(null)
   })
 
-  it('renders correct header on 403', () => {
-    const rendered = renderHeader({error: {httpStatus: 403}})
+  it('renders correct header on 401', () => {
+    const rendered = renderHeader({error: {httpStatus: 401}})
     expect(rendered).toEqual('You have been automatically logged out.')
   })
 
@@ -56,8 +56,8 @@ describe('ErrorWarning', () => {
     expect(rendered).toEqual('hi')
   })
 
-  it('renders correct body on 403', () => {
-    const rendered = renderBody({error: {httpStatus: 403}})
+  it('renders correct body on 401', () => {
+    const rendered = renderBody({error: {httpStatus: 401}})
     expect(rendered).toEqual('Please refresh the page to log in again.')
   })
 

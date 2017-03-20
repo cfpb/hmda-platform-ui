@@ -123,6 +123,12 @@ describe('actions', () => {
     })
   })
 
+ it('creates an action to signal a request for submission', () => {
+    expect(actions.requestSubmission()).toEqual({
+      type: types.REQUEST_SUBMISSION
+    })
+  })
+
   it('creates an action to signal a request for the IRS report', () => {
     expect(actions.requestIRS()).toEqual({
       type: types.REQUEST_IRS

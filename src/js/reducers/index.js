@@ -11,6 +11,7 @@ import {
   REQUEST_FILING,
   RECEIVE_FILING,
   RECEIVE_FILINGS,
+  REQUEST_SUBMISSION,
   RECEIVE_SUBMISSION,
   SELECT_FILE,
   SELECT_NEW_FILE,
@@ -123,6 +124,9 @@ export const error = (state = defaultError, action) => {
     return action.error
 
     case REFRESH_STATE:
+    return defaultError
+
+    case '@@router/LOCATION_CHANGE':
     return defaultError
 
     default:
@@ -280,6 +284,11 @@ export const submission = (state = defaultSubmission, action) => {
         isFetching: false,
         id: action.id,
         status: action.status
+      }
+    case REQUEST_SUBMISSION:
+      return {
+        ...state,
+        isFetching: true
       }
     case UPDATE_STATUS:
       return {
