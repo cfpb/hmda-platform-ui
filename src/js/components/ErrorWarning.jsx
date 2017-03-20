@@ -4,7 +4,7 @@ export function renderHeader(props) {
   if(props.headerText) return props.headerText
 
   switch(props.error.httpStatus) {
-    case 403:
+    case 401:
     return 'You have been automatically logged out.'
 
     case 404:
@@ -22,7 +22,7 @@ export function renderBody(props) {
   if(props.bodyText) return props.bodyText
 
   switch(props.error.httpStatus) {
-    case 403:
+    case 401:
     return 'Please refresh the page to log in again.'
 
     case 404:
