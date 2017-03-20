@@ -122,6 +122,7 @@ Upload.propTypes = {
   handleSubmit: PropTypes.func,
   setFile: PropTypes.func,
   setNewFile: PropTypes.func,
+  showConfirmModal: PropTypes.func,
   uploading: PropTypes.bool,
   file: PropTypes.object,
   code: PropTypes.number,

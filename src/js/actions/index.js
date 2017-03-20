@@ -113,6 +113,12 @@ export function updateFilingPeriod(filingPeriod) {
   }
 }
 
+export function requestSubmission() {
+  return {
+    type: types.REQUEST_SUBMISSION
+  }
+}
+
 export function receiveSubmission(data) {
   latestSubmissionId = data.id.sequenceNumber
 
@@ -519,6 +525,7 @@ export function createNewSubmission(id, period, page = null) {
 
 export function fetchNewSubmission(id, period) {
   return dispatch => {
+    dispatch(requestSubmission())
     return createSubmission(id, period)
       .then(json => {
         return new Promise((resolve, reject) => {
@@ -536,6 +543,7 @@ export function fetchNewSubmission(id, period) {
  */
 export function fetchSubmission() {
   return dispatch => {
+    dispatch(requestSubmission())
     return getLatestSubmission()
       .then(json => {
         if(!json || json.httpStatus === 500) throw new Error(JSON.stringify(dispatch(receiveError(json))))

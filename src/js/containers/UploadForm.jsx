@@ -54,10 +54,6 @@ export function mapDispatchToProps(dispatch) {
       dispatch(selectNewFile(acceptedFiles[0]))
     },
 
-    refileLink: (id, period) => {
-      dispatch(createNewSubmission(id, period))
-    },
-
     showConfirmModal: (id, filing, code) => {
       dispatch(showConfirm(id, filing, code))
     }

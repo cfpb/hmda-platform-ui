@@ -83,6 +83,7 @@ class SubmissionContainer extends Component {
 
     if(!this.props.isFetching &&
       (!this.props.status || this.props.status.code === 0)){
+      console.log('FETCHING FROM SUB')
       this.props.dispatch(fetchSubmission())
     }
 
