@@ -26,7 +26,7 @@ const getIndicator = (code, type) => {
 }
 
 const getUploadStatus = (code) => {
-  if(code <= 2) return <li>{getIndicator(code, 'upload')} Uploading ... </li>
+  if(code <= 2) return <li>{getIndicator(code, 'upload')} Uploading ...</li>
   return <li>{getIndicator(code, 'upload')} Upload complete</li>
 }
 
@@ -35,7 +35,7 @@ const getParsingStatus = (code) => {
   if(code < 4) textClass = 'text-gray-light'
   if(code <= 4) return <li className={textClass}>{getIndicator(code, 'parse')} Analyzing file format ...</li>
   if(code === 5) return <li className={textClass}>{getIndicator(code, 'parse')} File format analysis complete with errors</li>
-  return <li>{getIndicator(code, 'parse')} Parsing complete</li>
+  return <li>{getIndicator(code, 'parse')} File format analysis complete</li>
 }
 
 const getValidationStatus = (code) => {
@@ -43,7 +43,7 @@ const getValidationStatus = (code) => {
 
   if(code < 7) textClass = 'text-gray-light'
   if(code === 5) return <li className={textClass}>{getIndicator(code, 'validate')} Edit verification process will not run due to parsing errors</li>
-  if(code <= 7) return <li className={textClass}>{getIndicator(code, 'validate')} Verifying edits...</li>
+  if(code <= 7) return <li className={textClass}>{getIndicator(code, 'validate')} Verifying edits ...</li>
   return <li>{getIndicator(code, 'validate')} Edit verification complete</li>
 }
 
