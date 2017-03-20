@@ -9,7 +9,7 @@ import TestUtils from 'react-addons-test-utils'
 const fs = require('fs')
 const signJSON = JSON.parse(fs.readFileSync('./__tests__/json/receipt.json'))
 const status = {
-  code: 10,
+  code: 9,
   message: ''
 }
 
@@ -18,7 +18,14 @@ describe('Signature component', () => {
   const onSignatureCheck = jest.fn()
   const signature = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Signature checked={false} receipt={signJSON.receipt} timestamp={signJSON.timestamp} status={status} onSignatureClick={onSignatureClick} onSignatureCheck={onSignatureCheck}/>
+      <Signature
+        checked={false}
+        receipt={signJSON.receipt}
+        timestamp={signJSON.timestamp}
+        status={status}
+        onSignatureClick={onSignatureClick}
+        onSignatureCheck={onSignatureCheck}
+      />
     </Wrapper>
   )
   const signatureNode = ReactDOM.findDOMNode(signature)
@@ -59,7 +66,14 @@ describe('Signature component', () => {
  // button enabled
   const buttonEnabled = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Signature checked={true} receipt={signJSON.receipt} timestamp={signJSON.timestamp} status={status} onSignatureClick={onSignatureClick} onSignatureCheck={onSignatureCheck}/>
+      <Signature
+        checked={true}
+        receipt={signJSON.receipt}
+        timestamp={signJSON.timestamp}
+        status={status}
+        onSignatureClick={onSignatureClick}
+        onSignatureCheck={onSignatureCheck}
+      />
     </Wrapper>
   )
   const buttonEnabledNode = ReactDOM.findDOMNode(buttonEnabled)
@@ -78,12 +92,19 @@ describe('Signature component', () => {
 
   // checkbox checked and status is signed
   const statusSigned = {
-    code: 11,
+    code: 10,
     message: ''
   }
   const signatureSigned = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Signature checked={true} receipt={signJSON.receipt} timestamp={signJSON.timestamp} status={statusSigned} onSignatureClick={onSignatureClick} onSignatureCheck={onSignatureCheck}/>
+      <Signature
+        checked={true}
+        receipt={signJSON.receipt}
+        timestamp={signJSON.timestamp}
+        status={statusSigned}
+        onSignatureClick={onSignatureClick}
+        onSignatureCheck={onSignatureCheck}
+      />
     </Wrapper>
   )
   const signatureSignedNode = ReactDOM.findDOMNode(signatureSigned)
@@ -112,7 +133,14 @@ describe('Signature component', () => {
   }
   const signatureWithEdits = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Signature checked={true} receipt={signJSON.receipt} timestamp={signJSON.timestamp} status={statusEdits} onSignatureClick={onSignatureClick} onSignatureCheck={onSignatureCheck}/>
+      <Signature
+        checked={true}
+        receipt={signJSON.receipt}
+        timestamp={signJSON.timestamp}
+        status={statusEdits}
+        onSignatureClick={onSignatureClick}
+        onSignatureCheck={onSignatureCheck}
+      />
     </Wrapper>
   )
   const signatureWithEditsNode = ReactDOM.findDOMNode(signatureWithEdits)

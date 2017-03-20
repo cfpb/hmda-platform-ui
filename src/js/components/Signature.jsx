@@ -3,7 +3,7 @@ import ErrorWarning from './ErrorWarning.jsx'
 import moment from 'moment'
 
 const showReceipt = (code, timestamp, receipt) => {
-  if(code !== 11) return null;
+  if(code !== 10) return null;
 
   return (
     <div className="usa-alert usa-alert-success">
@@ -36,16 +36,16 @@ const showWarning = (props) => {
 }
 
 const Signature = (props) => {
-  // if code greater than 8 (validated) and not 11 (signed), enable the checkbox
-  let isDisabled = (props.status.code > 8 && props.status.code !== 11) ? false : true
+  // if code greater than 8 (validated) and not 10 (signed), enable the checkbox
+  let isDisabled = (props.status.code > 8 && props.status.code !== 10) ? false : true
 
   let buttonClass = 'usa-button-disabled'
   // if the checkbox is checked remove disabled from button
   if(props.checked) {
     buttonClass = ''
   }
-  // if code is 11 (signed), disable button again
-  if(props.status.code === 11) {
+  // if code is 10 (signed), disable button again
+  if(props.status.code === 10) {
     buttonClass = 'usa-button-disabled'
   }
 
@@ -55,7 +55,7 @@ const Signature = (props) => {
     buttonClass = 'usa-button-disabled'
   }
 
-  const headingClass = props.status.code === 11 && !props.error ? 'text-green' : 'text-secondary'
+  const headingClass = props.status.code === 10 && !props.error ? 'text-green' : 'text-secondary'
 
   return (
     <div className="Signature" id="signature">
