@@ -323,9 +323,14 @@ describe('submission reducer', () => {
       .toEqual(defaultSubmission)
   })
 
+  it('handles REQUEST_SUBMISSION', () => {
+    expect(submission({a:2},{type:'REQUEST_SUBMISSION'}))
+      .toEqual({a:2, isFetching: true})
+  })
+
   it('shouldn\'t modify state on an unknown action type', () => {
     excludeTypes(types.RECEIVE_SUBMISSION, types.UPLOAD_COMPLETE,
-      types.UPLOAD_ERROR, types.REFRESH_STATE)
+      types.UPLOAD_ERROR, types.REFRESH_STATE, types.REQUEST_SUBMISSION)
       .forEach(v => expect(submission({}, v))
         .toEqual({})
       )
