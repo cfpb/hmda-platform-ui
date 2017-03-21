@@ -554,6 +554,7 @@ export function fetchSubmission() {
 
 export function pollForProgress() {
   const poller = dispatch => {
+    if(!location.pathname.match('/upload')) return
     return getLatestSubmission()
       .then(json => {
         if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
