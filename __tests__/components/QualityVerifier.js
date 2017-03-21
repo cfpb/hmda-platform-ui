@@ -23,9 +23,7 @@ describe('QualityVerifier component', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithTag(qualityVerifier, 'input').length).toEqual(1)
   })
 
-  it('renders the verification message', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(qualityVerifier, 'li')[1].innerHTML.slice(0,7)).toEqual('Quality')
-  })
+  expect(TestUtils.scryRenderedDOMComponentsWithClass(qualityVerifier, 'usa-alert').length).toEqual(1)
 
   it('calls the function on change', () => {
     var checkbox = TestUtils.findRenderedDOMComponentWithTag(qualityVerifier, 'input')
@@ -48,6 +46,6 @@ describe('QualityVerifier component', () => {
       </Wrapper>
     )
     const verifierNode = ReactDOM.findDOMNode(qualityVerifier)
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(qualityVerifier, 'li')[1].innerHTML).toEqual('')
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(qualityVerifier, 'usa-alert').length).toEqual(0)
   })
 })

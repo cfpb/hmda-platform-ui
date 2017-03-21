@@ -1,7 +1,20 @@
 import React, { Component, PropTypes } from 'react'
 
+export const renderVerified = (verified) => {
+  if(verified) {
+    return (
+      <div className="usa-alert usa-alert-success">
+        <div className="usa-alert-body">
+          <p className="usa-alert-text">Quality edits have been verified.</p>
+        </div>
+      </div>
+    )
+  }
+
+  return null
+}
+
 const QualityVerifier = (props) => {
-  const verficationMessage = 'Quality edits have been verified.'
   const headingClass = props.verified ? 'text-green' : 'text-secondary'
 
   return (
@@ -19,8 +32,8 @@ const QualityVerifier = (props) => {
             }}/>
           <label htmlFor="qualityVerifier" className="max-width-100">All data are accurate, no corrections required. I have verified the accuracy of all data fields referenced by the quality edits.</label>
         </li>
-        <li>{props.verified?verficationMessage:null}</li>
       </ul>
+      {renderVerified(props.verified)}
     </div>
   )
 }
