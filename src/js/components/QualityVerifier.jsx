@@ -15,7 +15,6 @@ export const renderVerified = (verified) => {
 }
 
 const QualityVerifier = (props) => {
-  const verficationMessage = 'Quality edits have been verified.'
   const headingClass = props.verified ? 'text-green' : 'text-secondary'
 
   return (
