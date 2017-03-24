@@ -5,7 +5,8 @@ import {
   selectNewFile,
   requestUpload,
   createNewSubmission,
-  showConfirm
+  showConfirm,
+  pollForProgress
 } from '../actions'
 
 export function mapStateToProps(state) {
@@ -56,6 +57,10 @@ export function mapDispatchToProps(dispatch) {
 
     showConfirmModal: (id, filing, code) => {
       dispatch(showConfirm(id, filing, code))
+    },
+
+    pollSubmission: () => {
+      dispatch(pollForProgress())
     }
   }
 }
