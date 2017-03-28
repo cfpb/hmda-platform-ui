@@ -6,7 +6,6 @@ export const formatHeader = (text) => {
   if (text === 'rowId') return 'Row ID'
   if (text === 'edit') return 'Edit ID'
   if (text === 'editId') return 'Edit ID'
-  if (text === 'justifications') return 'Justifications'
   if (text === 'description') return 'Description'
   return text
 }
@@ -29,7 +28,9 @@ export const renderHeader = (edits, type) => {
   const cellWidth = `${100/numOfCells}%`
 
   Object.keys(keyCells).forEach((field) => {
-    cells.push(<th key={++cellCount} width={cellWidth}>{formatHeader(field)}</th>)
+    if(field !== 'justifications') {
+      cells.push(<th key={++cellCount} width={cellWidth}>{formatHeader(field)}</th>)
+    }
   })
 
   Object.keys(fieldCells).forEach((field) => {
