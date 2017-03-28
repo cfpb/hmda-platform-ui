@@ -554,6 +554,7 @@ export function fetchSubmission() {
 
 export function pollForProgress() {
   const poller = dispatch => {
+    if(!location.pathname.match('/upload')) return
     return getLatestSubmission()
       .then(json => {
         if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
@@ -561,7 +562,7 @@ export function pollForProgress() {
       })
       .then(json => {
         if(json.status.code < 8 && json.status.code !== 5){
-          setTimeout(() => poller(dispatch), 500)
+          setTimeout(() => poller(dispatch), 1000)
         }
       })
       .catch(err => console.error(err))

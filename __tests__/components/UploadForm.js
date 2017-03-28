@@ -14,6 +14,8 @@ import TestUtils from 'react-addons-test-utils'
 describe('submitform', function(){
   const handleSubmit = jest.fn()
   const setFile = jest.fn()
+  const pollSubmission = jest.fn()
+  const poll2 = jest.fn()
 
   // use ReactDOM.render instead to be able to test componentDidUpdate
   const node = document.createElement('div')
@@ -21,6 +23,7 @@ describe('submitform', function(){
       <Wrapper>
         <UploadForm
           handleSubmit={handleSubmit}
+          pollSubmission={pollSubmission}
           setFile={setFile}
           uploading={true}
           file={{size:108}}
@@ -40,6 +43,10 @@ describe('submitform', function(){
     expect(input.value).toEqual('')
   })
 
+  it('calls the poll', () => {
+    expect(pollSubmission).toBeCalled()
+  })
+
   it('submits the form', function(){
     TestUtils.Simulate.submit(
       TestUtils.findRenderedDOMComponentWithTag(form, 'form')
@@ -51,7 +58,9 @@ describe('submitform', function(){
   const form2 = ReactDOM.render(
       <Wrapper>
         <UploadForm
+          pollSubmission={poll2}
           handleSubmit={handleSubmit}
+          code={1}
           setFile={setFile}
           uploading={true}
           file={{size:200}}
@@ -62,6 +71,10 @@ describe('submitform', function(){
   it('expects the file input to be empty', () => {
     const input = TestUtils.scryRenderedDOMComponentsWithTag(form2, 'input')[0]
     expect(input.value).toEqual('')
+  })
+
+  it('does not call the poll', () => {
+    expect(poll2).not.toBeCalled()
   })
 })
 

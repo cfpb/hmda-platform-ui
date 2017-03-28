@@ -38,7 +38,7 @@ const renderByCode = (code, page, message) => {
         toRender.push(<ParseErrors />)
       }
     }else if(['syntacticalvalidity','quality','macro'].indexOf(page) !== -1){
-      if(code > 6){
+      if(code > 7){
         if(code === 8) toRender.push(<RefileWarning />)
         toRender.push(<Edits />)
       }
@@ -74,6 +74,7 @@ class SubmissionContainer extends Component {
       this.props.dispatch(fetchSubmission())
     }
 
+    // for institution name in header
     this.props.dispatch(fetchInstitution(institution, false))
   }
 
