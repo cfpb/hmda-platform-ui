@@ -10,6 +10,7 @@ import useScroll from 'react-router-scroll/lib/useScroll';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import createOidcMiddleware, { createUserManager, OidcProvider, reducer } from 'redux-oidc'
 import oidc from 'oidc-client'
+import fetch from 'isomorphic-fetch'
 
 import AppContainer from './containers/App.jsx'
 import oidcCallback from './containers/oidcCallback.jsx'
@@ -22,45 +23,51 @@ import userManager from './UserManager.js'
 
 import appReducer from './reducers'
 
-oidc.Log.logger = console
+fetch('/env.json').then(json => {
+  Object.keys(json).forEach(key => window.HMDA_ENV[key] = json[key])
 
-const oidcMiddleware = createOidcMiddleware(userManager, () => false, false, '/oidc-callback')
-const loggerMiddleware = createLogger()
+  oidc.Log.logger = console
 
-const store = createStore(
-  combineReducers(
-    {
-      app: appReducer,
-      routing: routerReducer,
-      oidc: reducer
-    }
-  ),
-  applyMiddleware(thunkMiddleware, oidcMiddleware, loggerMiddleware)
-)
+  const oidcMiddleware = createOidcMiddleware(userManager, () => false, false, '/oidc-callback')
+  const loggerMiddleware = createLogger()
 
-const history = syncHistoryWithStore(browserHistory, store)
+  const store = createStore(
+    combineReducers(
+      {
+        app: appReducer,
+        routing: routerReducer,
+        oidc: reducer
+      }
+    ),
+    applyMiddleware(thunkMiddleware, oidcMiddleware, loggerMiddleware)
+  )
 
-history.listen((location) => {
-  console.log(JSON.parse(localStorage.getItem('hmdaHistory')))
-  console.log(`The current URL is ${location.pathname}${location.search}${location.hash}`)
-  localStorage.setItem('hmdaHistory', JSON.stringify(location))
+  const history = syncHistoryWithStore(browserHistory, store)
+
+  history.listen((location) => {
+    console.log(JSON.parse(localStorage.getItem('hmdaHistory')))
+    console.log(`The current URL is ${location.pathname}${location.search}${location.hash}`)
+    localStorage.setItem('hmdaHistory', JSON.stringify(location))
+  })
+
+  render(
+    <Provider store={store}>
+      <OidcProvider store={store} userManager={userManager}>
+        <Router
+          history={history}
+          render={applyRouterMiddleware(useScroll())}>
+          <Route path="/" component={AppContainer}>
+            <IndexRoute component={HomeContainer}/>
+            <Route path="/oidc-callback" component={oidcCallback}/>
+            <Route path="/institutions" component={InstitutionContainer}/>
+            <Route path="/:institution/:filing" component={SubmissionRouter}/>
+            <Route path="/:institution/:filing/*" component={SubmissionContainer}/>
+          </Route>
+        </Router>
+      </OidcProvider>
+    </Provider>,
+    document.getElementById('app')
+  );
 })
+.catch(err => console.error('Error fetching connection information', err))
 
-render(
-  <Provider store={store}>
-    <OidcProvider store={store} userManager={userManager}>
-      <Router
-        history={history}
-        render={applyRouterMiddleware(useScroll())}>
-        <Route path="/" component={AppContainer}>
-          <IndexRoute component={HomeContainer}/>
-          <Route path="/oidc-callback" component={oidcCallback}/>
-          <Route path="/institutions" component={InstitutionContainer}/>
-          <Route path="/:institution/:filing" component={SubmissionRouter}/>
-          <Route path="/:institution/:filing/*" component={SubmissionContainer}/>
-        </Route>
-      </Router>
-    </OidcProvider>
-  </Provider>,
-  document.getElementById('app')
-);

@@ -1,7 +1,7 @@
 import { createUserManager } from 'redux-oidc'
 
-const keycloak = process.env.KEYCLOAK_URL
-const app = process.env.APP_URL
+const keycloak = window.HMDA_ENV.KEYCLOAK_URL
+const app = window.HMDA_ENV.APP_URL
 
 const userManager = createUserManager({
   authority: keycloak,

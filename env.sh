@@ -1,8 +1,9 @@
 #!/bin/bash
-envvars=( 'NVM_DIR' 'GOPATH' 'oi' )
+envvars=( 'APP_URL' 'HMDA_API' 'KEYCLOAK_URL' )
 len=$(expr ${#envvars[@]} - 1)
 
 echo '{' > dist/env.json
+
 for envvar in "${envvars[@]}"
 do
   eval curr=\$$envvar
@@ -16,4 +17,5 @@ do
 
   echo "$line" >> dist/env.json
 done
+
 echo '}' >> dist/env.json
