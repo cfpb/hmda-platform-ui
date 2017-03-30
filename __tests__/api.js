@@ -26,7 +26,8 @@ describe('parse location', () => {
 })
 
 describe('make url from location object', () => {
-  process.env.HMDA_API = 'servername'
+  window.HMDA_ENV = {}
+  window.HMDA_ENV.HMDA_API = 'servername'
   it('should make a plain url from environment variable', () => {
     expect(
       api.makeUrl({})
