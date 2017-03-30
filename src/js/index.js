@@ -19,15 +19,21 @@ import InstitutionContainer from './containers/Institutions.jsx'
 import SubmissionContainer from './containers/Submission.jsx'
 import SubmissionRouter from './containers/SubmissionRouter.jsx'
 import LoginContainer from './containers/Login.jsx'
-import userManager from './UserManager.js'
+import UserManager from './UserManager.js'
+import { setUserManager } from './redirect.js'
 
 import appReducer from './reducers'
 
-fetch('/env.json').then(json => {
-  Object.keys(json).forEach(key => window.HMDA_ENV[key] = json[key])
+fetch('/env.json').then(res => {
+  console.log(res)
+  return res.json()
+}).then(envJson => {
+  window.HMDA_ENV = {}
+  Object.keys(envJson).forEach(key => window.HMDA_ENV[key] = envJson[key])
 
   oidc.Log.logger = console
-
+  const userManager = UserManager()
+  setUserManager(userManager)
   const oidcMiddleware = createOidcMiddleware(userManager, () => false, false, '/oidc-callback')
   const loggerMiddleware = createLogger()
 
