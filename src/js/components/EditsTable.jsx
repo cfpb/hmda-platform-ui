@@ -28,9 +28,7 @@ export const renderHeader = (edits, type) => {
   const cellWidth = `${100/numOfCells}%`
 
   Object.keys(keyCells).forEach((field) => {
-    if(field !== 'justifications') {
-      cells.push(<th key={++cellCount} width={cellWidth}>{formatHeader(field)}</th>)
-    }
+    cells.push(<th key={++cellCount} width={cellWidth}>{formatHeader(field)}</th>)
   })
 
   Object.keys(fieldCells).forEach((field) => {
