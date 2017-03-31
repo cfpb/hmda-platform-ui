@@ -144,6 +144,16 @@ export function postQuality(submission, verified){
   })
 }
 
+export function postMacro(submission, verified){
+  return sendFetch({
+    submission: submission,
+    suffix: '/edits/macro',
+    method: 'POST',
+    body: {verified: verified}
+  })
+}
+
+
 export function getIRS(submission){
   return sendFetch({submission:submission, suffix:'/irs'})
 }

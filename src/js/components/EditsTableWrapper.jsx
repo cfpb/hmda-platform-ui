@@ -2,6 +2,7 @@ import React from 'react'
 import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import EditsTable from './EditsTable.jsx'
 import QualityVerifier from '../containers/QualityVerifier.jsx'
+import MacroVerifier from '../containers/MacroVerifier.jsx'
 
 export const getEdits = (editObj) => {
   return editObj.edits
@@ -49,6 +50,7 @@ const EditsTableWrapper = (props) => {
             />
             {renderTables(edits, type)}
             {type === 'quality' ? <QualityVerifier/> : null}
+            {type === 'macro' ? <MacroVerifier/> : null}
             {type === 'syntactical' ? <hr /> : null}
           </div>
         )
