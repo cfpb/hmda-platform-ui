@@ -3,7 +3,7 @@ MAINTAINER Wyatt Pearsall<Wyatt.Pearsall@cfpb.gov>
 ARG SKIP_JS_BUILD
 
 RUN if [ -z ${SKIP_JS_BUILD+x} ]; then echo "Installing JS deps" && apt-get update && \
-    apt-get install -y curl g++ git make && \
+    apt-get install -y curl && \
     curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
     apt-get install -y nodejs; fi && mkdir -p /usr/src/app
 
