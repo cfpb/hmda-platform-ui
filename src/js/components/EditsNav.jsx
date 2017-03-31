@@ -72,8 +72,8 @@ const renderLinkOrText = (props, name, i) => {
   if(navLinks[name] === 'macro' && code > 7) navClass = 'active'
   if(navLinks[name] === 'macro' && macroVerified) navClass = 'complete'
 
-  if(navLinks[name] === 'summary' && code > 9) navClass = 'active'
-  if(navLinks[name] === 'summary' && code === 11) navClass = 'complete'
+  if(navLinks[name] === 'summary' && (!syntacticalValidityEditsExist && qualityVerified && macroVerified)) navClass = 'active'
+  if(navLinks[name] === 'summary' && code === 10) navClass = 'complete'
 
   if(navLinks[name] === page) navClass = 'current'
 
@@ -91,8 +91,8 @@ const EditsNav = (props) => {
   if(props.syntacticalValidityEditsExist) progress = '30%'
   if(!props.syntacticalValidityEditsExist) progress = '50%'
   if(props.macroVerified) progress = '70%'
-  if(props.code === 11) progress = '100%'
-  
+  if(props.code === 10) progress = '100%'
+
   return <div className="EditsNav">
     <ul className="usa-nav-primary">
       {
