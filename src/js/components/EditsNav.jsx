@@ -17,17 +17,14 @@ const navLinks = {
   'summary': 'summary'
 }
 
-const styleSelectedPage = (selected, current) => {
-  if(selected === current) return {borderBottom: '2px solid'}
-  return {borderBottom: 'none'}
-}
-
 const renderStep = (i) => {
   return <div className="step">{i+1}</div>
 }
 
 const renderLinkOrText = (props, name, i) => {
+
   let toRender
+  let navClass
   const {
     page,
     base,
@@ -42,14 +39,13 @@ const renderLinkOrText = (props, name, i) => {
     toRender = (
       <Link
         className="usa-nav-link"
-        style={styleSelectedPage(page, name)}
         to={`${base}/${navLinks[name]}`}>{name}</Link>
     )
   }
 
   // only render link when code > 7 (so it's finished validating)
   if(code > 7) {
-    toRender = <Link className="usa-nav-link" style={styleSelectedPage(page, navLinks[name])} to={`${base}/${navLinks[name]}`}>{name}</Link>
+    toRender = <Link className="usa-nav-link"  to={`${base}/${navLinks[name]}`}>{name}</Link>
 
     if(syntacticalValidityEditsExist && navNames.indexOf(name) > 1) {
       toRender = <span>{name}</span>
@@ -64,15 +60,39 @@ const renderLinkOrText = (props, name, i) => {
     toRender = <span>{name}</span>
   }
 
+  if(navLinks[name] === 'upload') navClass = 'active'
+  if(navLinks[name] === 'upload' && code > 3) navClass = 'complete'
+
+  if(navLinks[name] === 'syntacticalvalidity' && code > 7) navClass = 'active'
+  if(navLinks[name] === 'syntacticalvalidity' && !syntacticalValidityEditsExist) navClass = 'complete'
+
+  if(navLinks[name] === 'quality' && code > 7) navClass = 'active'
+  if(navLinks[name] === 'quality' && qualityVerified) navClass = 'complete'
+
+  if(navLinks[name] === 'macro' && code > 7) navClass = 'active'
+  if(navLinks[name] === 'macro' && macroVerified) navClass = 'complete'
+
+  if(navLinks[name] === 'summary' && code > 9) navClass = 'active'
+  if(navLinks[name] === 'summary' && code === 11) navClass = 'complete'
+
+  if(navLinks[name] === page) navClass = 'current'
+
   return (
-    <li key={i}>
-      {/*renderStep(i)*/}
+    <li className={navClass} key={i}>
+      {renderStep(i)}
       {toRender}
     </li>
   )
 }
 
 const EditsNav = (props) => {
+  let progress = '0%'
+  if(props.code > 2) progress = '10%'
+  if(props.syntacticalValidityEditsExist) progress = '30%'
+  if(!props.syntacticalValidityEditsExist) progress = '50%'
+  if(props.macroVerified) progress = '70%'
+  if(props.code === 11) progress = '100%'
+  
   return <div className="EditsNav">
     <ul className="usa-nav-primary">
       {
@@ -81,14 +101,8 @@ const EditsNav = (props) => {
         })
       }
     </ul>
-    {/*
     <hr className="line" />
-
-    TODO: set the width of the progress <hr> based on submission status wait for https://github.com/cfpb/hmda-platform/issues/849
-
-    <hr className="progress" width="0" />
-    */}
-    <hr className="navBorder" />
+    <hr className="progress" width={progress} />
   </div>
 }
 
@@ -103,4 +117,4 @@ EditsNav.propTypes = {
 
 export default EditsNav
 
-export { styleSelectedPage, renderLinkOrText }
+export { renderLinkOrText }
