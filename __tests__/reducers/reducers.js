@@ -195,7 +195,7 @@ describe('signature reducer', () => {
   })
 
   it('shouldn\'t modify state on an unknown action type', () => {
-    excludeTypes(types.RECEIVE_SIGNATURE, types.REQUEST_SIGNATURE, types.REQUEST_SIGNATURE_POST, types.RECEIVE_SIGNATURE_POST, types.CHECK_SIGNATURE)
+    excludeTypes(types.RECEIVE_SIGNATURE, types.REQUEST_SIGNATURE, types.REQUEST_SIGNATURE_POST, types.RECEIVE_SIGNATURE_POST, types.CHECK_SIGNATURE, types.REFRESH_STATE)
       .forEach(v => expect(signature({}, v))
         .toEqual({})
       )
@@ -391,36 +391,6 @@ describe('edits reducer', () => {
     )).toEqual({types: 'EDITS', fetched: true, isFetching: false})
   })
 
-  it('handles RECEIVE_EDIT_POST', () => {
-    expect(
-      edits({types:{
-       macro: {
-         edits:[
-           {edit:'1',
-            justifications:'oh'
-           },
-           {edit:'2',
-            justifications:'dear'
-           }
-         ]}}},
-      {type: types.RECEIVE_EDIT_POST,
-       data:{
-         edit:'2',
-         justifications: 'my'
-      }
-      }
-    )).toEqual({types:{
-       macro: {
-         edits:[
-           {edit:'1',
-            justifications:'oh'
-           },
-           {edit:'2',
-            justifications:'my'
-           }
-         ]}}})
-  })
-
   it('handles VERIFY_QUALITY', () => {
     expect(
        edits({types:{quality:{verified:false}}},
@@ -446,7 +416,7 @@ describe('edits reducer', () => {
   it('shouldn\'t modify state on an unknown action type', () => {
     excludeTypes(
         types.VERIFY_QUALITY,
-        types.RECEIVE_EDIT_POST,
+        types.VERIFY_MACRO,
         types.RECEIVE_EDITS_BY_TYPE,
         types.REQUEST_EDITS_BY_TYPE,
         types.REFRESH_STATE)
