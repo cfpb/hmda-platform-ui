@@ -428,6 +428,9 @@ export const signature = (state = defaultSignature, action) => {
         checked: action.checked
       }
 
+    case REFRESH_STATE:
+      return defaultSignature
+
     default:
       return state
   }
