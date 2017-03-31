@@ -9,13 +9,11 @@ export const RECEIVE_INSTITUTIONS   = 'RECEIVE_INSTITUTIONS'
 export const REQUEST_INSTITUTION    = 'REQUEST_INSTITUTION'
 export const RECEIVE_INSTITUTION    = 'RECEIVE_INSTITUTION'
 
-export const REQUEST_EDIT_POST      = 'REQUEST_EDIT_POST'
-export const RECEIVE_EDIT_POST      = 'RECEIVE_EDIT_POST'
-
 export const UPDATE_FILING_PERIOD   = 'UPDATE_FILING_PERIOD'
 export const CLEAR_FILINGS          = 'CLEAR_FILINGS'
 
 export const VERIFY_QUALITY         = 'VERIFY_QUALITY'
+export const VERIFY_MACRO           = 'VERIFY_MACRO'
 
 export const SHOW_CONFIRM           = 'SHOW_CONFIRM'
 export const HIDE_CONFIRM           = 'HIDE_CONFIRM'

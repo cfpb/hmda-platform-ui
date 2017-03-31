@@ -57,6 +57,7 @@ export default class Upload extends Component {
   // keeps the info about the file after leaving /upload and coming back
   componentDidMount() {
     renderDropText(this.props, this.dropzoneContent)
+      if(this.props.code > 2) this.props.pollSubmission()
   }
 
   render() {
@@ -123,6 +124,7 @@ Upload.propTypes = {
   setFile: PropTypes.func,
   setNewFile: PropTypes.func,
   showConfirmModal: PropTypes.func,
+  pollSubmission: PropTypes.func,
   uploading: PropTypes.bool,
   file: PropTypes.object,
   code: PropTypes.number,

@@ -6,7 +6,6 @@ export const formatHeader = (text) => {
   if (text === 'rowId') return 'Row ID'
   if (text === 'edit') return 'Edit ID'
   if (text === 'editId') return 'Edit ID'
-  if (text === 'justifications') return 'Justifications'
   if (text === 'description') return 'Description'
   return text
 }
