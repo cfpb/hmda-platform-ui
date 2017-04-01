@@ -9,13 +9,11 @@ import {
   createSubmission,
   getUploadUrl,
   getEdits,
-  postEdit,
   getIRS,
   getSignature,
   postSignature,
   getSummary,
-  postQuality,
-  postMacro,
+  postVerify,
   setAccessToken,
   getAccessToken,
   getParseErrors,
@@ -148,12 +146,15 @@ export function receiveError(error) {
   }
 }
 
-export function fetchVerifyQuality(checked) {
+export function fetchVerify(type, checked) {
   return dispatch => {
-    return postQuality(latestSubmissionId, checked)
+    return postVerify(latestSubmissionId, type, checked)
       .then(json => {
         if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
-        dispatch(verifyQuality(checked))
+
+        if(type === 'quality') dispatch(verifyQuality(checked))
+        else dispatch(verifyMacro(checked))
+
         return dispatch(updateStatus(
           {
             code: json.status.code,
@@ -165,22 +166,6 @@ export function fetchVerifyQuality(checked) {
   }
 }
 
-export function fetchVerifyMacro(checked) {
-  return dispatch => {
-    return postMacro(latestSubmissionId, checked)
-      .then(json => {
-        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
-        dispatch(verifyMacro(checked))
-        return dispatch(updateStatus(
-          {
-            code: json.status.code,
-            message: json.status.message
-          }
-        ))
-      })
-      .catch(err => console.error(err))
-  }
-}
 
 export function verifyQuality(checked) {
   return {

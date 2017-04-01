@@ -326,20 +326,6 @@ export const edits = (state = defaultEdits, action) => {
         isFetching: false,
         fetched: true
       }
-    /*case RECEIVE_EDIT_POST: {
-      const clonedState = {...state}
-      const edits = []
-      state.types.macro.edits.forEach((edit) => {
-        if(edit.edit !== action.data.edit) edits.push(edit)
-        else edits.push({
-          ...edit,
-          justifications: action.data.justifications
-        })
-      })
-
-      clonedState.types.macro.edits = edits
-      return clonedState
-    }*/
     case VERIFY_QUALITY: {
       const clonedState = {...state}
       clonedState.types.quality.verified = action.checked

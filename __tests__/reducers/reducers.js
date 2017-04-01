@@ -406,6 +406,21 @@ describe('edits reducer', () => {
     )).toEqual({types:{quality:{verified:true}}})
   })
 
+  it('handles VERIFY_MACRO', () => {
+    expect(
+       edits({types:{macro: {verified:false}}},
+      {type: types.VERIFY_MACRO, checked: true}
+    )).toEqual({types:{macro:{verified:true}}})
+    expect(
+       edits({types:{macro:{verified:true}}},
+      {type: types.VERIFY_MACRO, checked: false}
+    )).toEqual({types:{macro:{verified:false}}})
+    expect(
+       edits({types:{macro:{verified:true}}},
+      {type: types.VERIFY_MACRO, checked: true}
+    )).toEqual({types:{macro:{verified:true}}})
+  })
+
   it('handles REFRESH_STATE', () => {
     expect(
        edits({},
