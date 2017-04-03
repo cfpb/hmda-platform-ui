@@ -126,19 +126,10 @@ export function getEdits(pathObj){
   return sendFetch(pathObj)
 }
 
-export function postEdit(submission, data){
+export function postVerify(submission, type, verified){
   return sendFetch({
     submission: submission,
-    suffix: '/edits/macro',
-    method: 'POST',
-    body: data
-  })
-}
-
-export function postQuality(submission, verified){
-  return sendFetch({
-    submission: submission,
-    suffix: '/edits/quality',
+    suffix: `/edits/${type}`,
     method: 'POST',
     body: {verified: verified}
   })

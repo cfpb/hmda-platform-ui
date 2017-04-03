@@ -9,12 +9,11 @@ import {
   createSubmission,
   getUploadUrl,
   getEdits,
-  postEdit,
   getIRS,
   getSignature,
   postSignature,
   getSummary,
-  postQuality,
+  postVerify,
   setAccessToken,
   getAccessToken,
   getParseErrors,
@@ -68,12 +67,6 @@ export function receiveInstitution(data) {
   return {
     type: types.RECEIVE_INSTITUTION,
     institution: data.institution
-  }
-}
-
-export function requestEditPost() {
-  return {
-    type: types.REQUEST_EDIT_POST
   }
 }
 
@@ -153,20 +146,37 @@ export function receiveError(error) {
   }
 }
 
-export function fetchVerifyQuality(checked) {
+export function fetchVerify(type, checked) {
   return dispatch => {
-    return postQuality(latestSubmissionId, checked)
+    return postVerify(latestSubmissionId, type, checked)
       .then(json => {
         if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
-        return dispatch(verifyQuality(checked))
+
+        if(type === 'quality') dispatch(verifyQuality(checked))
+        else dispatch(verifyMacro(checked))
+
+        return dispatch(updateStatus(
+          {
+            code: json.status.code,
+            message: json.status.message
+          }
+        ))
       })
       .catch(err => console.error(err))
   }
 }
 
+
 export function verifyQuality(checked) {
   return {
     type: types.VERIFY_QUALITY,
+    checked: checked
+  }
+}
+
+export function verifyMacro(checked) {
+  return {
+    type: types.VERIFY_MACRO,
     checked: checked
   }
 }
@@ -674,18 +684,6 @@ export function fetchEditsByType() {
       .then(json => {
         if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
         return dispatch(receiveEditsByType(json))
-      })
-      .catch(err => console.error(err))
-  }
-}
-
-export function justifyUpdate(data) {
-  return dispatch => {
-    dispatch(requestEditPost())
-    return postEdit(latestSubmissionId, data)
-      .then((json) => {
-        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
-        return dispatch(receiveEditPost(json))
       })
       .catch(err => console.error(err))
   }

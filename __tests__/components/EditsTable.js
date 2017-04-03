@@ -50,9 +50,6 @@ describe('formatHeader', () => {
     header = formatHeader('editId')
     expect(header).toBe('Edit ID')
 
-    header = formatHeader('justifications')
-    expect(header).toBe('Justifications')
-
     header = formatHeader('description')
     expect(header).toBe('Description')
 
@@ -91,7 +88,6 @@ describe('renderHeader', () => {
     const rendered = renderHeader(edits, 'macro')
     expect(rendered.type).toBe('tr')
     expect(rendered.props.children[0].props.children).toBe('Edit ID')
-    expect(rendered.props.children[1].props.children).toBe('Justifications')
   })
 })
 
