@@ -29,6 +29,8 @@ describe('Verifier component', () => {
 
   expect(TestUtils.scryRenderedDOMComponentsWithClass(verifier, 'usa-alert').length).toEqual(1)
 
+  expect(TestUtils.scryRenderedDOMComponentsWithTag(verifier, 'h2')[0].textContent).toEqual('Verify macro edits')
+
   it('calls the function on change', () => {
     var checkbox = TestUtils.findRenderedDOMComponentWithTag(verifier, 'input')
     expect(checkbox.checked).toBeTruthy()
@@ -55,5 +57,6 @@ describe('Verifier component', () => {
     )
     const verifierNode = ReactDOM.findDOMNode(verifier)
     expect(TestUtils.scryRenderedDOMComponentsWithClass(verifier, 'usa-alert').length).toEqual(0)
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(verifier, 'h2')[0].textContent).toEqual('Verify quality edits')
   })
 })

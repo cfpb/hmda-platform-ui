@@ -3,17 +3,45 @@ jest.unmock('../../src/js/containers/Verifier.jsx')
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import Wrapper from '../Wrapper.js'
-import Connected, { VerifierContainer, mapStateToProps, mapDispatchToProps } from '../../src/js/containers/Verifier.jsx'
+import Connected, {
+  VerifierContainer,
+  mapStateToProps,
+  mapDispatchToProps
+} from '../../src/js/containers/Verifier.jsx'
 
-const defaultQuality = {app:{edits:{types:{quality:{verified:true}}}}}
-const defaultMacro = {app:{edits:{types:{macro:{verified:true}}}}}
+const defaultQuality = {
+  app: {
+    edits: {
+      types: {
+        quality: {
+          verified:true
+        }
+      }
+    }
+  }
+}
+const defaultMacro = {
+  app: {
+    edits: {
+      types: {
+        macro: {
+          verified:true
+        }
+      }
+    }
+  }
+}
 
 describe('Verifier Container', () => {
   it('renders the unwrapped component', () => {
     const err = console.error
     console.error = jest.fn()
     const rendered = TestUtils.renderIntoDocument(
-      <VerifierContainer type='quality' verified={true} onVerify={jest.fn()}/>
+      <VerifierContainer
+        type='quality'
+        verified={true}
+        onVerify={jest.fn()}
+      />
     )
 
     expect(rendered).toBeDefined()
@@ -24,7 +52,7 @@ describe('Verifier Container', () => {
     )
 
     expect(rendered).toBeDefined()
-    expect(console.error).toHaveBeenCalledTimes(5)
+    expect(console.error).toHaveBeenCalledTimes(6)
     console.error = err
   })
 
@@ -57,7 +85,9 @@ describe('Verifier Container', () => {
     const err = console.error
     console.error = jest.fn()
     const qualityVerifier = TestUtils.renderIntoDocument(
-      <Wrapper store={defaultQuality}><Connected type="quality"/></Wrapper>
+      <Wrapper store={defaultQuality}>
+        <Connected type="quality"/>
+      </Wrapper>
     )
 
     expect(qualityVerifier).toBeDefined()
@@ -69,7 +99,9 @@ describe('Verifier Container', () => {
     const err = console.error
     console.error = jest.fn()
     const macroVerifier = TestUtils.renderIntoDocument(
-      <Wrapper store={defaultMacro}><Connected type="macro"/></Wrapper>
+      <Wrapper store={defaultMacro}>
+        <Connected type="macro"/>
+      </Wrapper>
     )
 
     expect(macroVerifier).toBeDefined()

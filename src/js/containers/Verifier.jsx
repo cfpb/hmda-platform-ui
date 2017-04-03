@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchVerify } from '../actions'
-import QualityVerifier from '../components/QualityVerifier.jsx'
-import MacroVerifier from '../components/MacroVerifier.jsx'
+import Verifier from '../components/Verifier.jsx'
 
 class VerifierContainer extends Component {
   constructor(props) {
@@ -10,9 +9,7 @@ class VerifierContainer extends Component {
   }
 
   render() {
-    return this.props.type === 'quality'
-    ? <QualityVerifier {...this.props} />
-    : <MacroVerifier {...this.props} />
+    return <Verifier {...this.props} />
   }
 }
 
