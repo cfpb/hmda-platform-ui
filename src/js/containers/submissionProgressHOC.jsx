@@ -14,7 +14,8 @@ function mapStateToProps(state) {
     fetched
   } = state.app.edits
 
-  let syntacticalValidityEditsExist = false
+  // default these values to act like edits exist
+  let syntacticalValidityEditsExist = true
   let qualityVerified = false
   let macroVerified = false
   if(code === 8) {
@@ -25,10 +26,6 @@ function mapStateToProps(state) {
     macroVerified = types.macro.verified || types.macro.edits.length === 0
   }
 
-  console.log('HOC')
-  console.log(syntacticalValidityEditsExist)
-  console.log(qualityVerified)
-  console.log(macroVerified)
   return {
     page,
     base,
