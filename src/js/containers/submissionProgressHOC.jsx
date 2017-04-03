@@ -14,11 +14,21 @@ function mapStateToProps(state) {
     fetched
   } = state.app.edits
 
-  const syntacticalValidityEditsExist = !fetched || types.syntactical.edits.length !== 0 ||
-    types.validity.edits.length !== 0
-  const qualityVerified = types.quality.verified || types.quality.edits.length === 0
-  const macroVerified = types.macro.verified || types.macro.edits.length === 0
+  let syntacticalValidityEditsExist = false
+  let qualityVerified = false
+  let macroVerified = false
+  if(code === 8) {
+    syntacticalValidityEditsExist = !fetched ||
+      types.syntactical.edits.length !== 0 ||
+      types.validity.edits.length !== 0
+    qualityVerified = types.quality.verified || types.quality.edits.length === 0
+    macroVerified = types.macro.verified || types.macro.edits.length === 0
+  }
 
+  console.log('HOC')
+  console.log(syntacticalValidityEditsExist)
+  console.log(qualityVerified)
+  console.log(macroVerified)
   return {
     page,
     base,

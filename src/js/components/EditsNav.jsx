@@ -22,9 +22,7 @@ const renderStep = (i) => {
 }
 
 const renderLinkOrText = (props, name, i) => {
-
   let toRender
-  let navClass
   const {
     page,
     base,
@@ -60,26 +58,43 @@ const renderLinkOrText = (props, name, i) => {
     toRender = <span>{name}</span>
   }
 
+  let step = i + 1
+  let navClass
   if(navLinks[name] === 'upload') navClass = 'active'
-  if(navLinks[name] === 'upload' && code > 3) navClass = 'complete'
+  if(navLinks[name] === 'upload' && code > 3) {
+    navClass = 'complete'
+    step = <img src="/img/correct8.png" />
+  }
 
   if(navLinks[name] === 'syntacticalvalidity' && code > 7) navClass = 'active'
-  if(navLinks[name] === 'syntacticalvalidity' && !syntacticalValidityEditsExist) navClass = 'complete'
+  if(navLinks[name] === 'syntacticalvalidity' && !syntacticalValidityEditsExist) {
+    navClass = 'complete'
+    step = <img src="/img/correct8.png" />
+  }
 
   if(navLinks[name] === 'quality' && code > 7) navClass = 'active'
-  if(navLinks[name] === 'quality' && qualityVerified) navClass = 'complete'
+  if(navLinks[name] === 'quality' && qualityVerified) {
+    navClass = 'complete'
+    step = <img src="/img/correct8.png" />
+  }
 
   if(navLinks[name] === 'macro' && code > 7) navClass = 'active'
-  if(navLinks[name] === 'macro' && macroVerified) navClass = 'complete'
+  if(navLinks[name] === 'macro' && macroVerified) {
+    navClass = 'complete'
+    step = <img src="/img/correct8.png" />
+  }
 
   if(navLinks[name] === 'summary' && (!syntacticalValidityEditsExist && qualityVerified && macroVerified)) navClass = 'active'
-  if(navLinks[name] === 'summary' && code === 10) navClass = 'complete'
+  if(navLinks[name] === 'summary' && code === 10) {
+    navClass = 'complete'
+    step = <img src="/img/correct8.png" />
+  }
 
   if(navLinks[name] === page) navClass = 'current'
 
   return (
     <li className={navClass} key={i}>
-      {renderStep(i)}
+      <div className="step">{step}</div>
       {toRender}
     </li>
   )
@@ -88,8 +103,8 @@ const renderLinkOrText = (props, name, i) => {
 const EditsNav = (props) => {
   let progress = '0%'
   if(props.code > 2) progress = '10%'
-  if(props.syntacticalValidityEditsExist) progress = '30%'
-  if(!props.syntacticalValidityEditsExist) progress = '50%'
+  if(props.syntacticalValidityEditsExist && props.code > 7) progress = '30%'
+  if(!props.syntacticalValidityEditsExist && props.code > 7) progress = '50%'
   if(props.macroVerified) progress = '70%'
   if(props.code === 10) progress = '100%'
 
