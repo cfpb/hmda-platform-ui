@@ -17,10 +17,6 @@ const navLinks = {
   'summary': 'summary'
 }
 
-const renderStep = (i) => {
-  return <div className="step">{i+1}</div>
-}
-
 const renderLinkOrText = (props, name, i) => {
   let toRender
   const {
@@ -60,35 +56,38 @@ const renderLinkOrText = (props, name, i) => {
 
   let step = i + 1
   let navClass
-  if(navLinks[name] === 'upload') navClass = 'active'
-  if(navLinks[name] === 'upload' && code > 3) {
-    navClass = 'complete'
-    step = <img src="/img/correct8.png" />
+
+  // when rendering the upload link its always active
+  // but if code is greater than 7 (validating) its complete
+  if(navLinks[name] === 'upload') {
+    navClass = 'active'
+    if(code > 7) {
+      navClass = 'complete'
+    }
+  } else if(code > 7) { // for other links, if code is greater than 7 they are active
+    navClass = 'active'
   }
 
-  if(navLinks[name] === 'syntacticalvalidity' && code > 7) navClass = 'active'
   if(navLinks[name] === 'syntacticalvalidity' && !syntacticalValidityEditsExist) {
     navClass = 'complete'
-    step = <img src="/img/correct8.png" />
   }
 
-  if(navLinks[name] === 'quality' && code > 7) navClass = 'active'
   if(navLinks[name] === 'quality' && qualityVerified) {
     navClass = 'complete'
-    step = <img src="/img/correct8.png" />
   }
 
-  if(navLinks[name] === 'macro' && code > 7) navClass = 'active'
   if(navLinks[name] === 'macro' && macroVerified) {
     navClass = 'complete'
-    step = <img src="/img/correct8.png" />
   }
 
-  if(navLinks[name] === 'summary' && (!syntacticalValidityEditsExist && qualityVerified && macroVerified)) navClass = 'active'
-  if(navLinks[name] === 'summary' && code === 10) {
-    navClass = 'complete'
-    step = <img src="/img/correct8.png" />
+  if(navLinks[name] === 'summary') {
+    if(code < 9) {
+      navClass = ''
+    }
   }
+
+  if(code === 10) navClass = 'complete'
+  if(navClass === 'complete') step = <img src="/img/correct8.png" />
 
   if(navLinks[name] === page) navClass = 'current'
 
