@@ -25,7 +25,6 @@ import { setUserManager } from './redirect.js'
 import appReducer from './reducers'
 
 fetch('/env.json').then(res => {
-  console.log(res)
   return res.json()
 }).then(envJson => {
   window.HMDA_ENV = {}
