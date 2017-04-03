@@ -588,6 +588,9 @@ export function pollForProgress() {
       .then(json => {
         if(json.status.code < 8 && json.status.code !== 5){
           setTimeout(() => poller(dispatch), 1000)
+        } else {
+          console.log('fetching edits after polling for progress')
+          return dispatch(fetchEditsByType())
         }
       })
       .catch(err => console.error(err))
