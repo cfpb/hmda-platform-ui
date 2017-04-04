@@ -27,46 +27,42 @@ const getNavClass = (name, props) => {
     macroVerified
   } = props
 
-  if(code > 7) {
-    navClass = 'active'
-
-    if(syntacticalValidityEditsExist && navNames.indexOf(name) > 1) {
-      navClass = ''
-    } else {
-      navClass = 'complete'
-    }
-    if(!qualityVerified && navNames.indexOf(name) > 2) {
-      navClass = ''
-    } else {
-      navClass = 'complete'
-    }
-    if(!macroVerified && navNames.indexOf(name) > 3) {
-      navClass = ''
-    } else {
-      navClass = 'complete'
-    }
-  } else {
-    navClass = ''
+  switch(name) {
+    case 'upload':
+      navClass = 'active'
+      if(code > 7) navClass = 'complete'
+      break
+    case 'syntacticalvalidity':
+      if(code > 7) {
+        navClass = 'active'
+        if(!syntacticalValidityEditsExist) navClass = 'complete'
+      }
+      break
+    case 'quality':
+      if(code > 7) {
+        if(!syntacticalValidityEditsExist) {
+          navClass = 'active'
+          if(qualityVerified) navClass = 'complete'
+        }
+      }
+      break
+    case 'macro':
+      if(code > 7) {
+        if(!syntacticalValidityEditsExist && qualityVerified) {
+          navClass = 'active'
+          if(macroVerified) navClass = 'complete'
+        }
+      }
+      break
+    case 'summary':
+      if(code > 7) {
+        if(!syntacticalValidityEditsExist && qualityVerified && macroVerified) navClass = 'active'
+      }
   }
 
-  // when rendering the upload link its always active
-  // but if code is greater than 7 (validating) its complete
-  /*if(name === 'upload') {
-    navClass = 'active'
-    if(code > 7) {
-      navClass = 'complete'
-    }
-  }
-
-
-  //
-  if(name === 'summary') {
-    if(code < 9) {
-      navClass = ''
-    }
-  }*/
-
+  // catch all if signed
   if(code === 10) navClass = 'complete'
+  // add current class if page matches the name
   if(name === page) navClass = `${navClass} current`
 
   return navClass
@@ -81,8 +77,8 @@ const getProgressWidth = (props) => {
   } = props
   let progressWidth = '0%'
 
-  if(code > 2) progressWidth = '10%'
-  if(!syntacticalValidityEditsExist && code > 7) progressWidth = '30%'
+  if(code > 5) progressWidth = '10%'
+  if(code > 7 && !syntacticalValidityEditsExist) progressWidth = '30%'
   if(qualityVerified) progressWidth = '50%'
   if(macroVerified) progressWidth = '70%'
   if(code === 10) progressWidth = '100%'
