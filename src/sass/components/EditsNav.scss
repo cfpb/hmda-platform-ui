@@ -1,7 +1,7 @@
 .EditsNav {
   position: relative;
   text-align: center;
-  ul {
+  ul.usa-nav-primary {
     li {
       width: 20%;
       text-align: center;
@@ -29,20 +29,31 @@
           border-color: $color-base;
           color: $color-white;
         }
+        a {
+          border-bottom: 2px solid $color-base;
+        }
       }
       &.complete {
         .step {
           background-color: $color-green;
+          background-image: url('/img/correct8.png');
+          background-position: 6px;
+          background-repeat: no-repeat;
           border-color: $color-green;
           color: $color-white;
         }
+        &.current {
+          .step {
+            background-color: $color-base;
+            border-color: $color-base;
+          }
+        }
       }
     }
-    &.usa-nav-primary>li>a {
+    a {
       margin: 0 0 -10px;
-      padding-bottom: 10px;
     }
-    &.usa-nav-primary>li>span {
+    span {
       color: $color-gray-light;
       display: inline-block;
       font-weight: 700;

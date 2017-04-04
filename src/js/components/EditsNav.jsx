@@ -17,6 +17,79 @@ const navLinks = {
   'summary': 'summary'
 }
 
+const getNavClass = (name, props) => {
+  let navClass
+  const {
+    code,
+    page,
+    syntacticalValidityEditsExist,
+    qualityVerified,
+    macroVerified
+  } = props
+
+  if(code > 7) {
+    navClass = 'active'
+
+    if(syntacticalValidityEditsExist && navNames.indexOf(name) > 1) {
+      navClass = ''
+    } else {
+      navClass = 'complete'
+    }
+    if(!qualityVerified && navNames.indexOf(name) > 2) {
+      navClass = ''
+    } else {
+      navClass = 'complete'
+    }
+    if(!macroVerified && navNames.indexOf(name) > 3) {
+      navClass = ''
+    } else {
+      navClass = 'complete'
+    }
+  } else {
+    navClass = ''
+  }
+
+  // when rendering the upload link its always active
+  // but if code is greater than 7 (validating) its complete
+  /*if(name === 'upload') {
+    navClass = 'active'
+    if(code > 7) {
+      navClass = 'complete'
+    }
+  }
+
+
+  //
+  if(name === 'summary') {
+    if(code < 9) {
+      navClass = ''
+    }
+  }*/
+
+  if(code === 10) navClass = 'complete'
+  if(name === page) navClass = `${navClass} current`
+
+  return navClass
+}
+
+const getProgressWidth = (props) => {
+  const {
+    code,
+    syntacticalValidityEditsExist,
+    qualityVerified,
+    macroVerified
+  } = props
+  let progressWidth = '0%'
+
+  if(code > 2) progressWidth = '10%'
+  if(!syntacticalValidityEditsExist && code > 7) progressWidth = '30%'
+  if(qualityVerified) progressWidth = '50%'
+  if(macroVerified) progressWidth = '70%'
+  if(code === 10) progressWidth = '100%'
+
+  return progressWidth
+}
+
 const renderLinkOrText = (props, name, i) => {
   let toRender
   const {
@@ -54,42 +127,10 @@ const renderLinkOrText = (props, name, i) => {
     toRender = <span>{name}</span>
   }
 
-  let step = i + 1
-  let navClass
+  const navClass = getNavClass(navLinks[name], props)
 
-  // when rendering the upload link its always active
-  // but if code is greater than 7 (validating) its complete
-  if(navLinks[name] === 'upload') {
-    navClass = 'active'
-    if(code > 7) {
-      navClass = 'complete'
-    }
-  } else if(code > 7) { // for other links, if code is greater than 7 they are active
-    navClass = 'active'
-  }
-
-  if(navLinks[name] === 'syntacticalvalidity' && !syntacticalValidityEditsExist) {
-    navClass = 'complete'
-  }
-
-  if(navLinks[name] === 'quality' && qualityVerified) {
-    navClass = 'complete'
-  }
-
-  if(navLinks[name] === 'macro' && macroVerified) {
-    navClass = 'complete'
-  }
-
-  if(navLinks[name] === 'summary') {
-    if(code < 9) {
-      navClass = ''
-    }
-  }
-
-  if(code === 10) navClass = 'complete'
-  if(navClass === 'complete') step = <img src="/img/correct8.png" />
-
-  if(navLinks[name] === page) navClass = 'current'
+  let step
+  if(navClass !== 'complete' && navClass !== 'complete current') step = i + 1
 
   return (
     <li className={navClass} key={i}>
@@ -100,13 +141,6 @@ const renderLinkOrText = (props, name, i) => {
 }
 
 const EditsNav = (props) => {
-  let progress = '0%'
-  if(props.code > 2) progress = '10%'
-  if(props.syntacticalValidityEditsExist && props.code > 7) progress = '30%'
-  if(!props.syntacticalValidityEditsExist && props.code > 7) progress = '50%'
-  if(props.macroVerified) progress = '70%'
-  if(props.code === 10) progress = '100%'
-
   return <div className="EditsNav">
     <ul className="usa-nav-primary">
       {
@@ -116,7 +150,7 @@ const EditsNav = (props) => {
       }
     </ul>
     <hr className="line" />
-    <hr className="progress" width={progress} />
+    <hr className="progress" width={getProgressWidth(props)} />
   </div>
 }
 
