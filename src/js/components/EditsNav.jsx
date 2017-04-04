@@ -18,7 +18,7 @@ const navLinks = {
 }
 
 const getNavClass = (name, props) => {
-  let navClass
+  let navClass = ''
   const {
     code,
     page,
@@ -79,8 +79,8 @@ const getProgressWidth = (props) => {
 
   if(code > 5) progressWidth = '10%'
   if(code > 7 && !syntacticalValidityEditsExist) progressWidth = '30%'
-  if(qualityVerified) progressWidth = '50%'
-  if(macroVerified) progressWidth = '70%'
+  if(!syntacticalValidityEditsExist && qualityVerified) progressWidth = '50%'
+  if(!syntacticalValidityEditsExist && qualityVerified && macroVerified) progressWidth = '70%'
   if(code === 10) progressWidth = '100%'
 
   return progressWidth
@@ -161,4 +161,8 @@ EditsNav.propTypes = {
 
 export default EditsNav
 
-export { renderLinkOrText }
+export {
+  renderLinkOrText,
+  getProgressWidth,
+  getNavClass
+}
