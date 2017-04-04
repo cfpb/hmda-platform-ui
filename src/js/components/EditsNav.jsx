@@ -75,12 +75,12 @@ const getProgressWidth = (props) => {
     qualityVerified,
     macroVerified
   } = props
-  let progressWidth = '0%'
+  let progressWidth = '10%'
 
-  if(code > 5) progressWidth = '10%'
-  if(code > 7 && !syntacticalValidityEditsExist) progressWidth = '30%'
-  if(!syntacticalValidityEditsExist && qualityVerified) progressWidth = '50%'
-  if(!syntacticalValidityEditsExist && qualityVerified && macroVerified) progressWidth = '70%'
+  if(code > 5) progressWidth = '30%'
+  if(code > 7 && !syntacticalValidityEditsExist) progressWidth = '50%'
+  if(!syntacticalValidityEditsExist && qualityVerified) progressWidth = '70%'
+  if(!syntacticalValidityEditsExist && qualityVerified && macroVerified) progressWidth = '90%'
   if(code === 10) progressWidth = '100%'
 
   return progressWidth

@@ -34,11 +34,11 @@ describe('EditsNav', () => {
   })
 
   it('renders the correct progress width', () => {
-    expect(getProgressWidth(baseProps)).toEqual('0%')
-    expect(getProgressWidth({...baseProps, code: 6})).toEqual('10%')
-    expect(getProgressWidth({...baseProps, code: 8, syntacticalValidityEditsExist: false})).toEqual('30%')
-    expect(getProgressWidth({...baseProps, code: 8, syntacticalValidityEditsExist: false, qualityVerified: true})).toEqual('50%')
-    expect(getProgressWidth({...baseProps, code: 8, syntacticalValidityEditsExist: false, qualityVerified: true, macroVerified: true})).toEqual('70%')
+    expect(getProgressWidth(baseProps)).toEqual('10%')
+    expect(getProgressWidth({...baseProps, code: 6})).toEqual('30%')
+    expect(getProgressWidth({...baseProps, code: 8, syntacticalValidityEditsExist: false})).toEqual('50%')
+    expect(getProgressWidth({...baseProps, code: 8, syntacticalValidityEditsExist: false, qualityVerified: true})).toEqual('70%')
+    expect(getProgressWidth({...baseProps, code: 8, syntacticalValidityEditsExist: false, qualityVerified: true, macroVerified: true})).toEqual('90%')
     expect(getProgressWidth({...baseProps, code: 10})).toEqual('100%')
   })
 
