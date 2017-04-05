@@ -363,6 +363,15 @@ describe('actions', () => {
             status: submission.status,
             start: submission.start,
             end: submission.end
+          },
+          {
+            "type": "REQUEST_EDITS_BY_TYPE"
+          },
+          {
+            "edits": {
+              "fakeEdits": 1
+            },
+            "type": "RECEIVE_EDITS_BY_TYPE"
           }
         ])
 

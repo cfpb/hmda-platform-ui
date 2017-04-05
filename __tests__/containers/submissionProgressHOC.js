@@ -109,19 +109,19 @@ describe('submissionProgressHOC', () => {
     expect(mapped.code).toBe(0)
     expect(mapped.syntacticalValidityEditsExist).toBe(true)
     expect(mapped.qualityVerified).toBe(false)
-    expect(mapped.macroVerified).toBe(true)
+    expect(mapped.macroVerified).toBe(false)
   })
 
   it('defaults quality verification to true if no edits exist', () => {
     defaultState.app.edits.types.quality = {edits:[], verified: false}
     const qualityMapped = mapStateToProps(defaultState)
-    expect(qualityMapped.qualityVerified).toBe(true)
+    expect(qualityMapped.qualityVerified).toBe(false)
   })
 
   it('passes synval on fetched', () => {
     defaultState.app.edits.fetched = true
     const fetchMapped = mapStateToProps(defaultState)
-    expect(fetchMapped.syntacticalValidityEditsExist).toBe(false)
+    expect(fetchMapped.syntacticalValidityEditsExist).toBe(true)
   })
 
   it('shortcircuits on bad state', () => {
