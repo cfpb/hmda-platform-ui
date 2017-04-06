@@ -23,35 +23,3 @@ describe('Edits Table', () => {
     expect(tableNode).toBeDefined()
   })
 })
-
-describe('renderCell', () => {
-  it('renders the correct content', () => {
-    const cell = {
-      cell: 'Transmittal Sheet',
-      field: 'rowId',
-      keyField: 'Transmittal Sheet'
-    }
-    const rendered = renderCell(cell)
-    expect(rendered).toBe('Transmittal Sheet')
-  })
-
-  it('renders with the justification', () => {
-    const cell = {
-      cell: 'Transmittal Sheet',
-      field: 'justifications',
-      keyField: 'Transmittal Sheet'
-    }
-    const rendered = renderCell(cell)
-    expect(TestUtils.isElement(rendered)).toBe(true)
-  })
-
-  it('renders the correct content with field = "verified"', () => {
-    const cell = {
-      cell: 'Transmittal Sheet',
-      field: 'verified',
-      keyField: 'Transmittal Sheet'
-    }
-    const rendered = renderCell(cell)
-    expect(rendered).toBe('veriholder')
-  })
-})

@@ -19,7 +19,7 @@ import {
   getIRS,
   getSignature,
   postSignature,
-  postQuality,
+  postVerify,
   getEdits
 } from '../../src/js/api.js'
 
@@ -37,7 +37,7 @@ getLatestSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissi
 getSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissions[2]))
 getIRS.mockImplementation((id) => Promise.resolve(IRSObj))
 getSignature.mockImplementation((id) => Promise.resolve(signatureObj))
-postQuality.mockImplementation(() => Promise.resolve({}))
+postVerify.mockImplementation(() => Promise.resolve({}))
 getEdits.mockImplementation((id) => Promise.resolve({fakeEdits:1}))
 
 delete global.XMLHttpRequest
@@ -271,10 +271,20 @@ describe('actions', () => {
 
   it('creates a thunk that will post to the quality endpoint', () => {
     const store = mockStore({})
-    store.dispatch(actions.fetchVerifyQuality(true))
+    store.dispatch(actions.fetchVerify('quality', true))
       .then(() => {
         expect(store.getActions()).toEqual([
           {type: types.VERIFY_QUALITY, checked: true}
+          ])
+      })
+  })
+
+  it('creates a thunk that will post to the macro endpoint', () => {
+    const store = mockStore({})
+    store.dispatch(actions.fetchVerify('macro', true))
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {type: types.VERIFY_MACRO, checked: true}
           ])
       })
   })
@@ -353,6 +363,15 @@ describe('actions', () => {
             status: submission.status,
             start: submission.start,
             end: submission.end
+          },
+          {
+            "type": "REQUEST_EDITS_BY_TYPE"
+          },
+          {
+            "edits": {
+              "fakeEdits": 1
+            },
+            "type": "RECEIVE_EDITS_BY_TYPE"
           }
         ])
 

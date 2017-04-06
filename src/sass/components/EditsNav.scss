@@ -1,52 +1,64 @@
 .EditsNav {
   position: relative;
   text-align: center;
-  ul {
+  ul.usa-nav-primary {
     li {
       width: 20%;
       text-align: center;
       margin-bottom: 2em;
+      .step {
+        background-color: $color-white;
+        border: 1px solid $color-gray-light;
+        border-radius: 50%;
+        color: $color-gray-light;
+        height: 2em;
+        margin: 0 auto .5em;
+        padding: 3px;
+        text-align: center;
+        width: 2em;
+      }
+      &.active {
+        .step {
+          border-color: $color-base;
+          color: $color-base;
+        }
+      }
+      &.current {
+        .step {
+          background-color: $color-base;
+          border-color: $color-base;
+          color: $color-white;
+        }
+        a {
+          border-bottom: 2px solid $color-base;
+        }
+      }
+      &.complete {
+        .step {
+          background-color: $color-green;
+          background-image: url('/img/correct8.png');
+          background-position: 6px;
+          background-repeat: no-repeat;
+          border-color: $color-green;
+          color: $color-white;
+        }
+        &.current {
+          .step {
+            background-color: $color-base;
+            border-color: $color-base;
+          }
+        }
+      }
     }
-    &.usa-nav-primary>li>a {
+    a {
       margin: 0 0 -10px;
-      padding-bottom: 10px;
     }
-    &.usa-nav-primary>li>span {
+    span {
       color: $color-gray-light;
       display: inline-block;
       font-weight: 700;
       text-transform: uppercase;
     }
-  }
-
-  .step {
-    background-color: $color-white;
-    border: 1px solid $color-gray-light;
-    border-radius: 50%;
-    color: $color-gray-light;
-    height: 2em;
-    margin: 0 auto .5em;
-    padding: 3px;
-    text-align: center;
-    width: 2em;
-    &.active {
-      border-color: $color-base;
-      color: $color-base;
-    }
-    &.complete {
-      border-color: $color-green;
-      color: $color-green;
-    }
-  }
-
-  hr.navBorder {
-    border-top-width: 2px;
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 13px;
-    z-index: -1;
   }
 
   hr.line,

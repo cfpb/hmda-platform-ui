@@ -3,7 +3,7 @@ jest.unmock('../../src/js/containers/submissionProgressHOC.jsx')
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
-import submissionProgressHOC, { verifyMacro, mapStateToProps } from '../../src/js/containers/submissionProgressHOC.jsx'
+import submissionProgressHOC, { mapStateToProps } from '../../src/js/containers/submissionProgressHOC.jsx'
 import Wrapper from '../Wrapper.js'
 
 const defaultState = {
@@ -109,43 +109,19 @@ describe('submissionProgressHOC', () => {
     expect(mapped.code).toBe(0)
     expect(mapped.syntacticalValidityEditsExist).toBe(true)
     expect(mapped.qualityVerified).toBe(false)
-    expect(mapped.macroVerified).toBe(true)
-  })
-
-  it('verifies macro when all true', () => {
-    expect(verifyMacro(macro1)).toBe(true)
-  })
-
-  it('verifies macro when all false', () => {
-    expect(verifyMacro(macroFalse)).toBe(false)
-  })
-
-  it('verifies macro when mixed', () => {
-    expect(verifyMacro(macro2)).toBe(true)
-  })
-
-  it('verifies macro when empty', () => {
-    expect(verifyMacro(macro0)).toBe(true)
-  })
-
-  it('verifies nested macro when all are true', () => {
-    expect(verifyMacro(macroNestedT)).toBe(true)
-  })
-
-  it('verifies nested macro when mixed', () => {
-    expect(verifyMacro(macroNestedF)).toBe(false)
+    expect(mapped.macroVerified).toBe(false)
   })
 
   it('defaults quality verification to true if no edits exist', () => {
     defaultState.app.edits.types.quality = {edits:[], verified: false}
     const qualityMapped = mapStateToProps(defaultState)
-    expect(qualityMapped.qualityVerified).toBe(true)
+    expect(qualityMapped.qualityVerified).toBe(false)
   })
 
   it('passes synval on fetched', () => {
     defaultState.app.edits.fetched = true
     const fetchMapped = mapStateToProps(defaultState)
-    expect(fetchMapped.syntacticalValidityEditsExist).toBe(false)
+    expect(fetchMapped.syntacticalValidityEditsExist).toBe(true)
   })
 
   it('shortcircuits on bad state', () => {

@@ -23,8 +23,6 @@ import {
   UPLOAD_ERROR,
   REQUEST_EDITS_BY_TYPE,
   RECEIVE_EDITS_BY_TYPE,
-  REQUEST_EDIT_POST,
-  RECEIVE_EDIT_POST,
   REQUEST_IRS,
   RECEIVE_IRS,
   REQUEST_SIGNATURE,
@@ -34,6 +32,7 @@ import {
   REQUEST_SUMMARY,
   RECEIVE_SUMMARY,
   VERIFY_QUALITY,
+  VERIFY_MACRO,
   UPDATE_STATUS,
   CHECK_SIGNATURE,
   REQUEST_PARSE_ERRORS,
@@ -327,23 +326,14 @@ export const edits = (state = defaultEdits, action) => {
         isFetching: false,
         fetched: true
       }
-    case RECEIVE_EDIT_POST: {
-      const clonedState = {...state}
-      const edits = []
-      state.types.macro.edits.forEach((edit) => {
-        if(edit.edit !== action.data.edit) edits.push(edit)
-        else edits.push({
-          ...edit,
-          justifications: action.data.justifications
-        })
-      })
-
-      clonedState.types.macro.edits = edits
-      return clonedState
-    }
     case VERIFY_QUALITY: {
       const clonedState = {...state}
       clonedState.types.quality.verified = action.checked
+      return clonedState
+    }
+    case VERIFY_MACRO: {
+      const clonedState = {...state}
+      clonedState.types.macro.verified = action.checked
       return clonedState
     }
     case REFRESH_STATE: {
@@ -423,6 +413,9 @@ export const signature = (state = defaultSignature, action) => {
         isFetching: false,
         checked: action.checked
       }
+
+    case REFRESH_STATE:
+      return defaultSignature
 
     default:
       return state

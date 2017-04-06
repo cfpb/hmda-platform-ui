@@ -1,7 +1,7 @@
 import React from 'react'
 import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import EditsTable from './EditsTable.jsx'
-import QualityVerifier from '../containers/QualityVerifier.jsx'
+import Verifier from '../containers/Verifier.jsx'
 
 export const getEdits = (editObj) => {
   return editObj.edits
@@ -48,7 +48,7 @@ const EditsTableWrapper = (props) => {
               onDownloadClick={props.onDownloadClick}
             />
             {renderTables(edits, type)}
-            {type === 'quality' ? <QualityVerifier/> : null}
+            {(type === 'quality' || type === 'macro') ? <Verifier type={type}/> : null}
             {type === 'syntactical' ? <hr /> : null}
           </div>
         )
