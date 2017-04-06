@@ -14,7 +14,7 @@ export const getText = (props) => {
   }
 
   if(props.code === 5) {
-    textToRender = <p className="usa-alert-text"><strong>Your file has formatting errors.</strong> Update your file and click the refile button or return to the <Link to="/institutions">Institutions</Link> page.</p>
+    textToRender = <div><p className="usa-alert-text"><strong>Your file has formatting errors.</strong></p><p className="usa-alert-text">Update your file and click the refile button or return to the <Link to="/institutions">Institutions</Link> page.</p></div>
   }
 
   return textToRender
@@ -23,6 +23,8 @@ export const getText = (props) => {
 const RefileWarning = (props) => {
   if (props.code > 8) return null
   if (props.page === 'syntacticalvalidity' && !props.syntacticalValidityEditsExist) return null
+  if (props.page === 'quality' && props.qualityVerified) return null
+  if (props.page === 'macro' && props.macroVerified) return null
 
   let alertClass = 'usa-alert-error'
   if(!props.syntacticalValidityEditsExist && props.code !== 5) {
