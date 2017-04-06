@@ -1,7 +1,13 @@
-import userManager from './UserManager'
 import { browserHistory } from 'react-router'
 
+let userManager = null
+
+const setUserManager = manager => {
+  userManager = manager
+}
+
 const signinRedirect = (force) => {
+  if(!userManager) return console.error('userManager needs to be set on app initialization')
   if((!force && location.pathname === '/') || location.pathname === '/oidc-callback') return
   localStorage.setItem('hmdaPageBeforeSignin', location.pathname)
   userManager.signinRedirect()
@@ -17,6 +23,7 @@ const restorePage = () => {
 }
 
 const logout = () => {
+ if(!userManager) return console.error('userManager needs to be set on app initialization')
  browserHistory.push('/')
  userManager.signoutRedirect()
 }
@@ -24,5 +31,6 @@ const logout = () => {
 export {
   signinRedirect,
   restorePage,
-  logout
+  logout,
+  setUserManager
 }
