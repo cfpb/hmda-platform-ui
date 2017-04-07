@@ -21,8 +21,10 @@ import {
   UPLOAD_PROGRESS,
   UPLOAD_COMPLETE,
   UPLOAD_ERROR,
-  REQUEST_EDITS_BY_TYPE,
-  RECEIVE_EDITS_BY_TYPE,
+  REQUEST_EDITS,
+  RECEIVE_EDITS,
+  REQUEST_EDIT,
+  RECEIVE_EDIT,
   REQUEST_IRS,
   RECEIVE_IRS,
   REQUEST_SIGNATURE,
@@ -89,7 +91,8 @@ const defaultEdits = {
     validity: {edits: []},
     quality: {edits: [], verified: false},
     macro: {edits: [], verified: false}
-  }
+  },
+  rows: {}
 }
 
 const defaultIRS = {
@@ -104,9 +107,7 @@ const defaultSummary = {
   file: {}
 }
 
-const defaultPagination = {
-  parseErrors: null
-}
+const defaultPagination = {}
 
 const defaultError = null
 
@@ -314,17 +315,40 @@ export const status = (state = defaultStatus, action) => {
 
 export const edits = (state = defaultEdits, action) => {
   switch (action.type) {
-    case REQUEST_EDITS_BY_TYPE:
+    case REQUEST_EDITS:
       return {
         ...state,
         isFetching: true
       }
-    case RECEIVE_EDITS_BY_TYPE:
+    case RECEIVE_EDITS:
       return {
         ...state,
         types: action.edits,
         isFetching: false,
         fetched: true
+      }
+    case REQUEST_EDIT:
+      return {
+        ...state,
+        rows: {
+          ...state.rows,
+          [action.edit]: {
+            ...state.rows[action.edit],
+            isFetching: true
+          }
+        }
+      }
+    case RECEIVE_EDIT:
+      return {
+        ...state,
+        rows: {
+          ...state.rows,
+          [action.edit]: {
+            ...state.rows[action.edit],
+            isFetching: false,
+            rows: action.rows
+          }
+        }
       }
     case VERIFY_QUALITY: {
       const clonedState = {...state}
@@ -472,6 +496,11 @@ export const pagination = (state = defaultPagination, action) => {
       return {
         ...state,
         parseErrors: action.pagination
+      }
+    case RECEIVE_EDIT:
+      return {
+        ...state,
+        [action.edit]: action.pagination
       }
 
     default:

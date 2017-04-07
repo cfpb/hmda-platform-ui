@@ -126,6 +126,11 @@ export function getEdits(pathObj){
   return sendFetch(pathObj)
 }
 
+export function getEdit(pathObj){
+  pathObj.suffix = pathObj.suffix ? pathObj.suffix : `/edits/${pathObj.edit}`
+  return sendFetch(pathObj)
+}
+
 export function postVerify(submission, type, verified){
   return sendFetch({
     submission: submission,

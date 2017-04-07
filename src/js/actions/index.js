@@ -9,6 +9,7 @@ import {
   createSubmission,
   getUploadUrl,
   getEdits,
+  getEdit,
   getIRS,
   getSignature,
   postSignature,
@@ -126,16 +127,36 @@ export function requestCSV() {
     type: types.REQUEST_CSV
   }
 }
-export function requestEditsByType() {
+
+export function requestEdits() {
     return {
-      type: types.REQUEST_EDITS_BY_TYPE
+      type: types.REQUEST_EDITS
     }
 }
 
-export function receiveEditsByType(data) {
+export function receiveEdits(data) {
   return {
-    type: types.RECEIVE_EDITS_BY_TYPE,
+    type: types.RECEIVE_EDITS,
     edits: data
+  }
+}
+
+export function requestEdit() {
+    return {
+      type: types.REQUEST_EDIT
+    }
+}
+
+export function receiveEdit(data) {
+  return {
+    type: types.RECEIVE_EDIT,
+    edit: data.edit,
+    rows: data.rows,
+    pagination: {
+      count: data.count,
+      total: data.total,
+      _links: data._links
+    }
   }
 }
 
@@ -268,14 +289,18 @@ export function receiveIRS(data) {
 export function getPaginationRequestAction(target) {
   switch(target) {
     case 'parseErrors':
-    return requestParseErrors()
+      return requestParseErrors()
+    default:
+      return requestEdit()
   }
 }
 
 export function getPaginationReceiveAction(target, data) {
   switch(target) {
     case 'parseErrors':
-    return receiveParseErrors(data)
+      return receiveParseErrors(data)
+    default:
+      return receiveEdit(data)
   }
 }
 
@@ -574,7 +599,7 @@ export function pollForProgress() {
         if(json.status.code < 8 && json.status.code !== 5){
           setTimeout(() => poller(dispatch), 1000)
         } else {
-          return dispatch(fetchEditsByType())
+          return dispatch(fetchEdits())
         }
       })
       .catch(err => console.error(err))
@@ -679,14 +704,34 @@ export function fetchFiling(filing) {
   }
 }
 
-export function fetchEditsByType() {
+export function fetchEdits() {
   return dispatch => {
-    dispatch(requestEditsByType())
+    dispatch(requestEdits())
     return getEdits({submission: latestSubmissionId})
       .then(json => {
         if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
-        return dispatch(receiveEditsByType(json))
+        dispatch(receiveEdits(json))
+        dispatch(fetchEachEdit(json))
+        return json
       })
       .catch(err => console.error(err))
+  }
+}
+
+export function fetchEachEdit(editTypes) {
+  return dispatch => {
+    Object.keys(editTypes).forEach(key => {
+      if(key !== 'status'){
+        editTypes[key].edits.forEach(edit => {
+           dispatch(requestEdit())
+           getEdit({submission: latestSubmissionId, edit: edit.edit})
+             .then(json => {
+               if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+               dispatch(receiveEdit(json))
+             })
+             .catch(err => console.error(err))
+        })
+      }
+    })
   }
 }
