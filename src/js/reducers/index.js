@@ -88,7 +88,7 @@ const defaultEdits = {
     syntactical: {edits: []},
     validity: {edits: []},
     quality: {edits: [], verified: false},
-    macro: {edits: []}
+    macro: {edits: [], verified: false}
   }
 }
 

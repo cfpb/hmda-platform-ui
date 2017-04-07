@@ -1,7 +1,20 @@
 .RefileWarning {
   margin-bottom: 2em;
-  .usa-button {
-    float: right;
-    margin: -.25em 0 0 0;
+
+  .usa-alert-body {
+    display: block;
+    position: relative;
+
+    div {
+      margin-right: 140px;
+    }
+  }
+
+  .RefileButton {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-right: 0;
+    transform: translate(0, -50%);
   }
 }

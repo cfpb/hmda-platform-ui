@@ -18,8 +18,8 @@ const defaultState = {
       types: {
         syntactical: {edits: []},
         validity: {edits: []},
-        quality: {edits: [{}], verified: false},
-        macro: {edits: []}
+        quality: {edits: [], verified: false},
+        macro: {edits: [], verified: false}
       }
     },
     submission: {
@@ -29,58 +29,6 @@ const defaultState = {
     }
   }
 }
-
-const macro1 = [
-{
-  justifications: [
-    {verified: true}
-  ]
-}
-]
-
-const macro0 = []
-
-const macro2 = [
-{
-  justifications: [
-    {verified: true},
-    {verified: false}
-  ]
-}
-]
-
-const macroNestedT = [
-{
-  justifications: [
-  {verified: true},
-  {verified: false}
-  ]
-},
-{justifications: [
-  {verified:true}
-]
-}
-]
-
-const macroNestedF = [
-{
-  justifications: [
-  {verified: true},
-  {verified: false}
-  ]
-},
-{justifications: [
-  {verified:false}
-]
-}
-]
-const macroFalse = [
-{
-  justifications: [
-    {verified: false}
-  ]
-}
-]
 
 describe('submissionProgressHOC', () => {
 
@@ -121,7 +69,7 @@ describe('submissionProgressHOC', () => {
   it('passes synval on fetched', () => {
     defaultState.app.edits.fetched = true
     const fetchMapped = mapStateToProps(defaultState)
-    expect(fetchMapped.syntacticalValidityEditsExist).toBe(true)
+    expect(fetchMapped.syntacticalValidityEditsExist).toBe(false)
   })
 
   it('shortcircuits on bad state', () => {

@@ -1,8 +1,12 @@
 .EditsContainerEntry {
-  margin-bottom: 3em;
+  margin: 2em 0 3em;
+
+  &:last-of-type {
+    margin-bottom: 2em;
+  }
 
   hr {
-    margin-top: 3em;
+    margin-top: 2em;
   }
 }
 .EditsTable {

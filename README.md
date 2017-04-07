@@ -28,7 +28,7 @@ _All pages, expect the home page, require authentication._
 
 ## Dependencies
 
-We use npm to manage front-end dependencies. You should have [npm installed](https://nodejs.org/en/).
+We use npm and yarn to manage front-end dependencies. You should have [npm installed](https://nodejs.org/en/) as well as [yarn](https://yarnpkg.com/lang/en/docs/install/).
 
 See the [package.json](https://github.com/cfpb/hmda-platform-ui/blob/master/package.json) file for application dependencies.
 
@@ -37,7 +37,7 @@ See the [package.json](https://github.com/cfpb/hmda-platform-ui/blob/master/pack
 ``` shell
 $ git clone git@github.com:cfpb/hmda-platform-ui.git
 $ cd hmda-platform-ui
-$ npm install
+$ yarn
 ```
 
 ## Building and viewing

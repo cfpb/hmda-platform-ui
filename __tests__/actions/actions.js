@@ -37,7 +37,7 @@ getLatestSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissi
 getSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissions[2]))
 getIRS.mockImplementation((id) => Promise.resolve(IRSObj))
 getSignature.mockImplementation((id) => Promise.resolve(signatureObj))
-postVerify.mockImplementation(() => Promise.resolve({}))
+postVerify.mockImplementation(() => Promise.resolve({status: {code: 8, message: 'postverify'}}))
 getEdits.mockImplementation((id) => Promise.resolve({fakeEdits:1}))
 
 delete global.XMLHttpRequest
@@ -274,7 +274,8 @@ describe('actions', () => {
     store.dispatch(actions.fetchVerify('quality', true))
       .then(() => {
         expect(store.getActions()).toEqual([
-          {type: types.VERIFY_QUALITY, checked: true}
+          {type: types.VERIFY_QUALITY, checked: true},
+          {type: types.UPDATE_STATUS, status: {code: 8, message: 'postverify'}}
           ])
       })
   })
@@ -284,7 +285,8 @@ describe('actions', () => {
     store.dispatch(actions.fetchVerify('macro', true))
       .then(() => {
         expect(store.getActions()).toEqual([
-          {type: types.VERIFY_MACRO, checked: true}
+          {type: types.VERIFY_MACRO, checked: true},
+          {type: types.UPDATE_STATUS, status: {code: 8, message: 'postverify'}}
           ])
       })
   })
