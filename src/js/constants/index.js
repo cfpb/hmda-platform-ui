@@ -31,12 +31,14 @@ export const REQUEST_FILING         = 'REQUEST_FILING'
 export const RECEIVE_FILING         = 'RECEIVE_FILING'
 export const RECEIVE_FILINGS        = 'RECEIVE_FILINGS'
 
-
 export const REQUEST_SUBMISSION     = 'REQUEST_SUBMISSION'
 export const RECEIVE_SUBMISSION     = 'RECEIVE_SUBMISSION'
 
-export const REQUEST_EDITS_BY_TYPE  = 'REQUEST_EDITS_BY_TYPE'
-export const RECEIVE_EDITS_BY_TYPE  = 'RECEIVE_EDITS_BY_TYPE'
+export const REQUEST_EDITS          = 'REQUEST_EDITS'
+export const RECEIVE_EDITS          = 'RECEIVE_EDITS'
+
+export const REQUEST_EDIT          = 'REQUEST_EDIT'
+export const RECEIVE_EDIT          = 'RECEIVE_EDIT'
 
 export const REQUEST_IRS            = 'REQUEST_IRS'
 export const RECEIVE_IRS            = 'RECEIVE_IRS'

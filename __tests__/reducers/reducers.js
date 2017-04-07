@@ -65,12 +65,11 @@ const defaultEdits = {
     validity: {edits: []},
     quality: {edits: [], verified: false},
     macro: {edits: [], verified: false}
-  }
+  },
+  rows: {}
 }
 
-const defaultPagination = {
-  parseErrors: null
-}
+const defaultPagination = {}
 
 const defaultError = null
 
@@ -375,17 +374,17 @@ describe('edits reducer', () => {
     ).toEqual(defaultEdits)
   })
 
-  it('handles REQUEST_EDITS_BY_TYPE', () => {
+  it('handles REQUEST_EDITS', () => {
     expect(
       edits({},
-      {type: types.REQUEST_EDITS_BY_TYPE}
+      {type: types.REQUEST_EDITS}
     )).toEqual({isFetching: true})
   })
 
-  it('handles RECEIVE_EDITS_BY_TYPE', () => {
+  it('handles RECEIVE_EDITS', () => {
     expect(
       edits({},
-      {type: types.RECEIVE_EDITS_BY_TYPE,
+      {type: types.RECEIVE_EDITS,
        edits:'EDITS'
       }
     )).toEqual({types: 'EDITS', fetched: true, isFetching: false})
@@ -432,8 +431,10 @@ describe('edits reducer', () => {
     excludeTypes(
         types.VERIFY_QUALITY,
         types.VERIFY_MACRO,
-        types.RECEIVE_EDITS_BY_TYPE,
-        types.REQUEST_EDITS_BY_TYPE,
+        types.RECEIVE_EDITS,
+        types.REQUEST_EDITS,
+        types.RECEIVE_EDIT,
+        types.REQUEST_EDIT,
         types.REFRESH_STATE)
       .forEach(v => expect(edits({}, v))
         .toEqual({})

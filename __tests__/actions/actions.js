@@ -367,13 +367,13 @@ describe('actions', () => {
             end: submission.end
           },
           {
-            "type": "REQUEST_EDITS_BY_TYPE"
+            "type": "REQUEST_EDITS"
           },
           {
             "edits": {
               "fakeEdits": 1
             },
-            "type": "RECEIVE_EDITS_BY_TYPE"
+            "type": "RECEIVE_EDITS"
           }
         ])
 
@@ -423,12 +423,12 @@ describe('actions', () => {
   it('creates a thunk that will fetch edits by type', done => {
     const store = mockStore({})
 
-    store.dispatch(actions.fetchEditsByType())
+    store.dispatch(actions.fetchEdits())
       .then(() => {
         expect(store.getActions()).toEqual([
-          {type: types.REQUEST_EDITS_BY_TYPE},
+          {type: types.REQUEST_EDITS},
           {
-            type: types.RECEIVE_EDITS_BY_TYPE,
+            type: types.RECEIVE_EDITS,
             edits: {fakeEdits:1}
           }
         ])
@@ -478,12 +478,20 @@ describe('actions', () => {
 
   it('gets the correct request actions', () => {
     expect(actions.getPaginationRequestAction('parseErrors')).toEqual({type: types.REQUEST_PARSE_ERRORS})
-    expect(actions.getPaginationRequestAction('fake')).toEqual(undefined)
+    expect(actions.getPaginationRequestAction('q021')).toEqual({type: types.REQUEST_EDIT})
   })
 
   it('gets the correct receive actions', () => {
     expect(actions.getPaginationReceiveAction('parseErrors', {})).toEqual(emptyParseErrors)
-    expect(actions.getPaginationReceiveAction('fake')).toEqual(undefined)
+    expect(actions.getPaginationReceiveAction('q021', {})).toEqual({
+      type: types.RECEIVE_EDIT,
+      edit: undefined,
+      pagination: {
+        _links: undefined,
+        count: undefined,
+        total: undefined
+      }
+    })
   })
 
   it('creates a thunk that will fetch a page by pathname and select sub actions', done => {

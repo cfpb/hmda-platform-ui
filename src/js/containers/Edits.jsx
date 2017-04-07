@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import EditsTableWrapper from '../components/EditsTableWrapper.jsx'
-import { fetchEditsByType, fetchCSVByType } from '../actions'
+import { fetchEdits, fetchCSVByType } from '../actions'
 
 export class EditsContainer extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ export class EditsContainer extends Component {
   }
 
   componentDidMount() {
-    if(!this.props.fetched) this.props.dispatch(fetchEditsByType())
+    if(!this.props.fetched && !this.props.isFetching) this.props.dispatch(fetchEdits())
   }
 
   render() {
@@ -25,16 +25,22 @@ export function mapStateToProps(state) {
   const {
     isFetching,
     fetched,
-    types
+    types,
+    rows
   } = state.app.edits
 
   const editTypeFromPath = state.routing.locationBeforeTransitions.pathname.split('/').slice(-1)[0]
+  const {
+    pagination
+  } = state.app
 
   return {
     isFetching,
     fetched,
     types,
-    editTypeFromPath
+    rows,
+    editTypeFromPath,
+    pagination
   }
 }
 

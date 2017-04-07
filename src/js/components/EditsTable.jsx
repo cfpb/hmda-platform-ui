@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
-
+import Pagination from '../containers/Pagination.jsx'
+import LoadingIcon from './LoadingIcon.jsx'
 import EditsTableRow from './EditsTableRow.jsx'
 
 export const formatHeader = (text) => {
@@ -10,19 +11,15 @@ export const formatHeader = (text) => {
   return text
 }
 
-export const renderHeader = (edits, type) => {
+export const renderHeader = (edits, rows, type) => {
   let row
   let cellCount = 0
-  let keyCells
-  let fieldCells = {}
   const cells = []
 
-  if (type === 'macro' ) {
-    keyCells = edits[0]
-  } else {
-    keyCells = edits.rows[0].row
-    fieldCells = edits.rows[0].fields
-  }
+  let keyCells = rows[0].row
+  const fieldCells = rows[0].fields
+
+  if(type === 'macro') keyCells = {}
 
   const numOfCells = Object.keys(keyCells).length + Object.keys(fieldCells).length
   const cellWidth = `${100/numOfCells}%`
@@ -38,39 +35,22 @@ export const renderHeader = (edits, type) => {
   return <tr>{cells}</tr>
 }
 
-export const renderBody = (edits, type) => {
-  if (type === 'macro') {
-    return edits.map((macro, i) => {
-      return <EditsTableRow row={macro} key={i}/>
-    })
-  }
-  return edits.rows.map((row, i) => {
-    return <EditsTableRow row={row.row} fields={row.fields} key={i}/>
+export const renderBody = (edits, rows, type) => {
+  return rows.map((row, i) => {
+    return <EditsTableRow row={type === 'macro' ? {} : row.row} fields={row.fields} key={i}/>
   })
 }
 
-export const renderTableCaption = (edits) => {
-  let name
-  let description
-  let length
-
-  if(edits.edit) {
-    name = edits.edit
-    description = edits.description
-    length = edits.rows.length
-  } else if(edits.rowId) {
-    name = edits.rowId
-    length = edits.edits.length
-  }
-
+export const renderTableCaption = (edit, rowObj, pagination) => {
+  const name = edit.edit
   if(!name) return null
 
-  const editText = length === 1 ? 'edit' : 'edits'
+  const description = edit.description
+  const length = pagination[name].total
 
-  let captionHeader = `${length} ${name} ${editText} found.`
-  if(edits.rowId && name !== 'Transmittal Sheet'){
-    captionHeader = `${length} ${editText} found in row ${name}.`
-  }
+
+  const editText = length === 1 ? 'edit' : 'edits'
+  const captionHeader = `${length} ${name} ${editText} found.`
 
   return (
     <caption>
@@ -80,36 +60,33 @@ export const renderTableCaption = (edits) => {
   )
 }
 
-export const makeTables = (props) => {
-  const edits = props.edits
+export const makeTable = (props) => {
+  const edit = props.edit
+  const rowObj = props.rows[edit.edit]
 
-  const makeTable = (edit, i) => {
-    return (
-    <table width="100%" key={i}>
-      {i === 0 ? renderTableCaption(edits):null}
-      <thead>
-        {renderHeader(edit, props.type)}
-      </thead>
-      <tbody>
-        {renderBody(edit, props.type)}
-      </tbody>
-    </table>
-    )
-  }
+  if(!rowObj || rowObj.isFetching) return <LoadingIcon/>
 
-  if(edits.rowId){
-    return edits.edits.map(makeTable)
-  }
-  return makeTable(edits, 0)
+  return (
+  <table width="100%">
+    {renderTableCaption(edit, rowObj, props.pagination)}
+    <thead>
+      {renderHeader(edit, rowObj.rows, props.type)}
+    </thead>
+    <tbody>
+      {renderBody(edit, rowObj.rows, props.type)}
+    </tbody>
+  </table>
+  )
 }
 
 
 const EditsTable = (props) => {
-  if (!props.edits) return null
+  if (!props.edit) return null
 
   return (
     <div className="EditsTable">
-      {makeTables(props)}
+      {makeTable(props)}
+      <Pagination target={props.edit.edit}/>
     </div>
   )
 }
