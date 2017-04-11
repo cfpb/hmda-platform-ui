@@ -10,13 +10,11 @@ import EditsHeaderDescription, {
 } from '../../src/js/components/EditsHeaderDescription.jsx'
 
 describe('EditsHeaderDescription', function() {
-  const onDownloadClick = jest.fn()
   const header = TestUtils.renderIntoDocument(
     <Wrapper>
       <EditsHeaderDescription
         type="syntactical"
         count={1}
-        onDownloadClick={onDownloadClick}
       />
     </Wrapper>
   )
@@ -31,12 +29,6 @@ describe('EditsHeaderDescription', function() {
     expect(header.props.children.props.count).toEqual(1)
   })
 
-  it('calls the download function on click', () => {
-    const link = TestUtils.scryRenderedDOMComponentsWithTag(header, 'a')[0]
-    TestUtils.Simulate.click(link)
-    expect(onDownloadClick).toBeCalled()
-  })
-
   it('render the text-secondary class', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(header, 'text-secondary').length).toBe(1)
     expect(TestUtils.scryRenderedDOMComponentsWithClass(header, 'text-green').length).toBe(0)
@@ -47,7 +39,6 @@ describe('EditsHeaderDescription', function() {
       <EditsHeaderDescription
         type="syntactical"
         count={0}
-        onDownloadClick={onDownloadClick}
       />
     </Wrapper>
   )
@@ -151,31 +142,6 @@ describe('getText', () => {
       title: 'Macro Edits',
       desc: macroDesc
     })
-  })
-
-})
-
-describe('renderCSVLink', () => {
-  it('render the correct text for the link for syntactical', () => {
-    const onDownloadClick = jest.fn()
-    const props = {
-      count: 2,
-      onDownloadClick: onDownloadClick,
-      type: 'syntactical'
-    }
-    const rendered = renderCSVLink(props)
-    expect(rendered.props.children.props.children[1]).toBe('syntactical')
-  })
-
-  it('renders NULL if count is 0', () => {
-    const onDownloadClick = jest.fn()
-    const props = {
-      count: 0,
-      onDownloadClick: onDownloadClick,
-      type: 'syntactical'
-    }
-    const rendered = renderCSVLink(props)
-    expect(rendered).toBe(null)
   })
 
 })

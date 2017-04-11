@@ -33,18 +33,6 @@ export const getText = (editType, count) => {
   return {id, title, desc}
 }
 
-export const renderCSVLink = ({ count, type, onDownloadClick }) => {
-  if(count === 0) return null
-  let linkText = type
-
-  return (
-    <p><a href="#" onClick={(e) => {
-      e.preventDefault()
-      onDownloadClick(type)
-    }}>Download {linkText} edits (CSV)</a></p>
-  )
-}
-
 const EditsHeaderDescription = (props) => {
   const { type, count } = props
   const { id, title, desc } = getText(type, count)
@@ -54,15 +42,13 @@ const EditsHeaderDescription = (props) => {
     <header className="EditsHeaderDescription" id={id}>
       <h2 className={headingClass}>{count} {title}</h2>
       <p className="usa-font-lead">{desc}</p>
-      {renderCSVLink(props)}
     </header>
   )
 }
 
 EditsHeaderDescription.propTypes = {
   type: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired,
-  onDownloadClick: PropTypes.func.isRequired
+  count: PropTypes.number.isRequired
 }
 
 export default EditsHeaderDescription

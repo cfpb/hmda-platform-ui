@@ -20,7 +20,8 @@ import {
   getSignature,
   postSignature,
   postVerify,
-  getEdits
+  getEdits,
+  getCSV
 } from '../../src/js/api.js'
 
 const institutionsDetailObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions-detail.json'))
@@ -39,6 +40,7 @@ getIRS.mockImplementation((id) => Promise.resolve(IRSObj))
 getSignature.mockImplementation((id) => Promise.resolve(signatureObj))
 postVerify.mockImplementation(() => Promise.resolve({status: {code: 8, message: 'postverify'}}))
 getEdits.mockImplementation((id) => Promise.resolve({fakeEdits:1}))
+getCSV.mockImplementation((id) => Promise.resolve('a,b,c'))
 
 delete global.XMLHttpRequest
 const xhrMock = {
@@ -439,6 +441,7 @@ describe('actions', () => {
         done.fail()
       })
   })
+
 
   it('creates a thunk that will request edits and trigger a csv download', done => {
     const store = mockStore({})
