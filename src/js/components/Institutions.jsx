@@ -134,8 +134,7 @@ export const renderRefileButton = (latestSubmissionStatus, filing) => {
 
 export const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, period) => {
   if(!submissions.length) return
-  let previousSubmissions = submissions
-  previousSubmissions.shift()
+  const previousSubmissions = submissions.slice(1)
   if(!previousSubmissions.length) return
   return (
   <div className="previous-submissions">
