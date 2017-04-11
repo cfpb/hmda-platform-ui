@@ -350,8 +350,19 @@ describe('actions', () => {
   })
 
   it('does not poll on pages other than upload', () => {
-    expect(actions.pollForProgress()()).toBe(undefined)
+    const store = mockStore({submission: {}})
+    store.dispatch(actions.pollForProgress({polling: true})).then(() => {
+      expect(store.getActions()).toEqual([])
+    })
   })
+
+  it('does not poll when polling is set to false', () => {
+    const store = mockStore({submission: {}})
+    store.dispatch(actions.pollForProgress({polling: false})).then(() => {
+      expect(store.getActions()).toEqual([])
+    })
+  })
+
   it('creates a thunk that will poll for updated status codes in the latest submission', done => {
     const store = mockStore({submission: {}})
     const submission = filingsObj.submissions[2]
@@ -359,7 +370,7 @@ describe('actions', () => {
     delete global.location
     global.location = {pathname: '/upload'}
 
-    store.dispatch(actions.pollForProgress()).then(() => {
+    store.dispatch(actions.pollForProgress({polling: true})).then(() => {
         expect(store.getActions()).toEqual([
           {
             type: types.RECEIVE_SUBMISSION,
