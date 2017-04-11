@@ -24,11 +24,11 @@ export const renderErrors = (errors) => {
 }
 
 export const renderDropText = ({ code, errors, file }, dropzoneContent) => {
-  let message = 'Drag another LAR file to this area or click to select a LAR file to upload.'
+  let message = 'Drag your LAR file into this area, or click in this box to select a LAR file to upload.'
   let fileName = null
 
   if(code > 1) {
-    message = 'Submission currently in progess. You can drag another file to this area to re-upload.'
+    message = 'Drag another LAR file to this area, or click in the box to select a LAR file to upload.'
   }
 
   if(file) {
@@ -38,7 +38,7 @@ export const renderDropText = ({ code, errors, file }, dropzoneContent) => {
     }
 
     if(code > 1) {
-      message = `Submission of ${file.name} currently in progess. You can drag another file to this area to re-upload.`
+      message = `Submission of ${file.name} currently in progess. You can drag another LAR file to this area, or click in the box to select a LAR file to upload..`
     }
   }
 
