@@ -165,7 +165,7 @@ export const renderPreviousSubmissions = (submissions, onDownloadClick, institut
         // other statuses contain no edits
         return (
           <li className="edit-report" key={i}>
-            <strong>{submission.status.message}</strong> on {date} with no edits.
+            <strong>{submission.status.message}</strong> on {date}.
           </li>
         )
 
