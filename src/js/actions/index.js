@@ -481,8 +481,9 @@ export function fetchCSV(institutionId, filing, submissionId) {
 /*
  * Wire upload together with xhr so progress can be tracked
  */
-export function requestUpload(file) {
+export function fetchUpload(file) {
   return dispatch => {
+    dispatch(uploadStart())
     var data = new FormData()
     data.append('file', file)
 
@@ -511,7 +512,6 @@ export function requestUpload(file) {
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.send(data);
 
-    dispatch(uploadStart())
     return Promise.resolve()
   }
 }

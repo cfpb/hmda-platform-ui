@@ -358,8 +358,21 @@ describe('upload reducer', () => {
     )).toEqual(defaultUpload)
   })
 
+  it('handles UPLOAD_START', () => {
+    expect(
+       upload({},
+      {type: types.UPLOAD_START}
+    )).toEqual({uploading: true})
+  })
+
+  it('handles UPLOAD_COMPLETE', () => {
+    expect(
+       upload({},
+      {type: types.UPLOAD_COMPLETE}
+    )).toEqual({uploading: false})
+  })
   it('shouldn\'t modify state on an unknown action type', () => {
-    excludeTypes(types.SELECT_FILE, types.UPLOAD_PROGRESS, types.REFRESH_STATE)
+    excludeTypes(types.SELECT_FILE, types.REFRESH_STATE, types.UPLOAD_START, types.UPLOAD_COMPLETE)
       .forEach(v => expect(upload({}, v))
         .toEqual({})
       )

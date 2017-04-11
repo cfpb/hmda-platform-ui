@@ -3,7 +3,7 @@ import Upload from '../components/UploadForm.jsx'
 import {
   selectFile,
   selectNewFile,
-  requestUpload,
+  fetchUpload,
   createNewSubmission,
   showConfirm,
   pollForProgress
@@ -41,7 +41,7 @@ export function mapDispatchToProps(dispatch) {
     handleSubmit: (e, file) => {
       e.preventDefault()
       if(file){
-        dispatch(requestUpload(file))
+        dispatch(fetchUpload(file))
       }
     },
 

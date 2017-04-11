@@ -329,7 +329,7 @@ describe('actions', () => {
 
   it('creates a thunk that will kick off a file upload', done => {
     const store = mockStore({upload: {}})
-    store.dispatch(actions.requestUpload({name: 'afile'}))
+    store.dispatch(actions.fetchUpload({name: 'afile'}))
       .then(() => {
         expect(store.getActions()).toEqual([
           {

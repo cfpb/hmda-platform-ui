@@ -18,6 +18,7 @@ import {
   SHOW_CONFIRM,
   HIDE_CONFIRM,
   PICK_SORT,
+  UPLOAD_START,
   UPLOAD_PROGRESS,
   UPLOAD_COMPLETE,
   UPLOAD_ERROR,
@@ -237,6 +238,16 @@ export const upload = (state = defaultUpload, action) => {
     return {
       ...state,
       newFile: action.file
+    }
+  case UPLOAD_START:
+    return {
+      ...state,
+      uploading: true
+    }
+  case UPLOAD_COMPLETE:
+    return {
+      ...state,
+      uploading: false
     }
   case REFRESH_STATE:
     return defaultUpload
