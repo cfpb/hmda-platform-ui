@@ -131,6 +131,11 @@ export function getEdit(pathObj){
   return sendFetch(pathObj)
 }
 
+export function getCSV(pathObj){
+  pathObj.suffix = pathObj.suffix ? pathObj.suffix : '/edits/csv'
+  pathObj.params = {format: 'csv'}
+  return sendFetch(pathObj)
+}
 export function postVerify(submission, type, verified){
   return sendFetch({
     submission: submission,

@@ -10,6 +10,7 @@ import {
   getUploadUrl,
   getEdits,
   getEdit,
+  getCSV,
   getIRS,
   getSignature,
   postSignature,
@@ -464,35 +465,14 @@ export function fetchParseErrors() {
 export function fetchCSV(institutionId, filing, submissionId) {
   return dispatch => {
     dispatch(requestCSV())
-    return getEdits({
+    return getCSV({
       id: institutionId,
       filing: filing,
-      submission: submissionId,
-      params: {
-        format: 'csv'
-      }
+      submission: submissionId
     })
     .then(csv => {
       if(hasHttpError(csv)) throw new Error(JSON.stringify(dispatch(receiveError(csv))))
       return fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${submissionId}-full-edit-report.csv`)
-    })
-    .catch(err => console.error(err))
-  }
-}
-
-export function fetchCSVByType(type) {
-  return dispatch => {
-    dispatch(requestCSV())
-    return getEdits({
-      suffix: `/edits/${type}`,
-      submission: latestSubmissionId,
-      params: {
-        format: 'csv'
-      }
-    })
-    .then(csv => {
-      if(hasHttpError(csv)) throw new Error(JSON.stringify(dispatch(receiveError(csv))))
-      return fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${latestSubmissionId}-${type}-edit-report.csv`)
     })
     .catch(err => console.error(err))
   }
@@ -722,7 +702,7 @@ export function fetchEachEdit(editTypes) {
   return dispatch => {
     Object.keys(editTypes).forEach(key => {
       if(key !== 'status'){
-        editTypes[key].edits.forEach(edit => {
+        editTypes[key].edits && editTypes[key].edits.forEach(edit => {
            dispatch(requestEdit())
            getEdit({submission: latestSubmissionId, edit: edit.edit})
              .then(json => {

@@ -10,7 +10,6 @@ export const makeEntry = (props, type) => {
     <EditsHeaderDescription
       count={edits.length}
       type={type}
-      onDownloadClick={props.onDownloadClick}
     />
     {renderTables(props, edits, type)}
   </div>

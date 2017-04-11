@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import EditsTableWrapper from '../components/EditsTableWrapper.jsx'
-import { fetchEdits, fetchCSVByType } from '../actions'
+import { fetchEdits } from '../actions'
 
 export class EditsContainer extends Component {
   constructor(props) {
@@ -44,14 +44,4 @@ export function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    // triggered by a edit type download click
-    onDownloadClick: (type) => {
-      dispatch(fetchCSVByType(type))
-    },
-    dispatch
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditsContainer)
+export default connect(mapStateToProps)(EditsContainer)
