@@ -134,12 +134,15 @@ export const renderRefileButton = (latestSubmissionStatus, filing) => {
 
 export const renderPreviousSubmissions = (submissions, onDownloadClick, institutionId, period) => {
   if(!submissions.length) return
+  let previousSubmissions = submissions
+  previousSubmissions.shift()
+  if(!previousSubmissions.length) return
   return (
   <div className="previous-submissions">
-    <h5>Filings for current filing period</h5>
+    <h5>Previous filings for current filing period</h5>
 
     <ol reversed className="usa-text-small">
-      {submissions.map((submission, i) => {
+      {previousSubmissions.map((submission, i) => {
         // render the end date if it was signed
         const date = (submission.status.code === 11) ? moment(submission.end).utcOffset(-5).format('MMMM Do, YYYY') : moment(submission.start).utcOffset(-5).format('MMMM Do, YYYY')
 
