@@ -56,7 +56,7 @@ describe('Institutions', () => {
   })
 
   it('creates the correct number of previous submissions', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'edit-report').length).toEqual(4)
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'edit-report').length).toEqual(3)
   })
 
   it('doesn\'t render a subheader without a filing period', () => {
