@@ -6,15 +6,15 @@ export const getText = (props) => {
   let textToRender = null
 
   if(props.syntacticalValidityEditsExist) {
-    textToRender = <div><p className="usa-alert-text">Your file has <strong>syntactical and/or validity edits</strong>.</p><p className="usa-alert-text">Update your file and select the "Upload a new file" button, or return to the "Institutions" page.</p></div>
+    textToRender = <p className="usa-alert-text">Your file has <strong>syntactical and/or validity edits</strong>. Please update your file and select the "Upload a new file" button.</p>
   } else if(!props.qualityVerified && props.page === 'quality') {
-    textToRender = <div><p className="usa-alert-text">You must verify the <strong>quality edits</strong> listed below and select the check box to confirm the accuracy of the data.</p><p className="usa-alert-text">If any of the data need to be corrected, please update your file and select the "Upload a new file" button. You will need to begin the filing process again.</p></div>
+    textToRender = <p className="usa-alert-text">Your file has <strong>quality edits</strong>. You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and select the "Upload a new file" button.</p>
   } else if(!props.macroVerified && props.page === 'macro') {
-    textToRender = <div><p className="usa-alert-text">You must verify the <strong>macro quality edits</strong> listed below and select the check box to confirm the accuracy of the data.</p><p className="usa-alert-text">If any of the data need to be corrected, please update your file and select the "Upload a new file" button. You will need to begin the filing process again.</p></div>
+    textToRender = <p className="usa-alert-text">Your file has <strong>macro quality edits</strong>. You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and select the "Upload a new file" button.</p>
   }
 
   if(props.code === 5) {
-    textToRender = <div><p className="usa-alert-text"><strong>Your file has formatting errors.</strong></p><p className="usa-alert-text">Update your file and click the refile button or return to the <Link to="/institutions">Institutions</Link> page.</p></div>
+    textToRender = <p className="usa-alert-text">Your file has <strong>formatting errors</strong>. Please update your file and click the "Upload a new file" button.</p>
   }
 
   return textToRender
