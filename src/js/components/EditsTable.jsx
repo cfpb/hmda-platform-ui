@@ -67,7 +67,7 @@ export const makeTable = (props) => {
   if(!rowObj || rowObj.isFetching) return <LoadingIcon/>
 
   return (
-  <table width="100%">
+  <table id={props.edit.edit} width="100%">
     {renderTableCaption(edit, rowObj, props.pagination)}
     <thead>
       {renderHeader(edit, rowObj.rows, props.type)}
@@ -86,7 +86,7 @@ const EditsTable = (props) => {
   return (
     <div className="EditsTable">
       {makeTable(props)}
-      <Pagination target={props.edit.edit}/>
+      <Pagination target={props.edit.edit} />
     </div>
   )
 }
