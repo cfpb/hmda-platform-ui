@@ -31,6 +31,16 @@ describe('Edits Table', () => {
     expect(tableNode).toBeDefined()
   })
 
+  const editsTableMacro = TestUtils.renderIntoDocument(
+    <Wrapper><EditsTable edits={types.macro.edits[0]} type='macro'/></Wrapper>
+  )
+
+  const macroNode = ReactDOM.findDOMNode(editsTableMacro)
+
+  it('renders the table', () => {
+    expect(macroNode).toBeDefined()
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(editsTableMacro, 'table').length).toBe(0)
+  })
   const editsTableNoEdits = TestUtils.renderIntoDocument(
     <Wrapper><EditsTable type='syntactical'/></Wrapper>
   )
@@ -84,12 +94,6 @@ describe('renderHeader', () => {
     expect(rendered.props.children[1].props.children).toBe('Agency Code')
   })
 
-  it('renders header with macro', () => {
-    const edits = types.macro.edits
-    const rendered = renderHeader(edits, rows, 'macro')
-    expect(rendered.type).toBe('tr')
-    expect(rendered.props.children[0].props.children).toBe('Agency Code')
-  })
 })
 
 describe('renderBody', () => {
@@ -123,11 +127,17 @@ describe('renderBody', () => {
 })
 
 describe('renderTableCaption', () => {
-  it('renders the caption with a description', () => {
+  it('renders the syntactical caption with a description', () => {
     const edits = types.syntactical.edits[0]
-    const rendered = renderTableCaption(edits, {rows: rows}, {S020:{total:3}})
+    const rendered = renderTableCaption(edits, {rows: rows}, 'syntactical', {S020:{total:3}})
     expect(rendered.type).toBe('caption')
     expect(rendered.props.children[0].props.children).toBe('3 S020 edits found.')
+  })
+
+  it('renders the macro caption as a div', () => {
+    const edits = types.macro.edits[0]
+    const rendered = renderTableCaption(edits, {rows: rows}, 'macro', {Q008: {total:1}})
+    expect(rendered.type).toBe('div')
   })
 
   it('returns null without a name', () => {
