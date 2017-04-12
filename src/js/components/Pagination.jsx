@@ -3,6 +3,8 @@ import React, { Component, PropTypes } from 'react'
 const Pagination = (props) => {
   const page = props.pagination
   if(!page) return null
+  // we've decided that 20 is the default for pagination
+  if(page.total < 21) return null
   const firstPage = page._links.self === page._links.first
   const lastPage = page._links.self === page._links.last
 
