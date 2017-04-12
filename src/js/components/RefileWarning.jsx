@@ -8,9 +8,9 @@ export const getText = (props) => {
   if(props.syntacticalValidityEditsExist) {
     textToRender = <div><p className="usa-alert-text">Your file has <strong>syntactical and/or validity edits</strong>.</p><p className="usa-alert-text">Update your file and select the "Upload a new file" button, or return to the "Institutions" page.</p></div>
   } else if(!props.qualityVerified && props.page === 'quality') {
-    textToRender = <div><p className="usa-alert-text">You must verify the quality edits listed below and select the check box to confirm the accuracy of the data.</p><p className="usa-alert-text">If any of the data need to be corrected, please update your file and select the "Upload a new file" button. You will need to begin the filing process again.</p></div>
+    textToRender = <div><p className="usa-alert-text">You must verify the <strong>quality edits</strong> listed below and select the check box to confirm the accuracy of the data.</p><p className="usa-alert-text">If any of the data need to be corrected, please update your file and select the "Upload a new file" button. You will need to begin the filing process again.</p></div>
   } else if(!props.macroVerified && props.page === 'macro') {
-    textToRender = <div><p className="usa-alert-text">You must verify the macro quality edits listed below and select the check box to confirm the accuracy of the data.</p><p className="usa-alert-text">If any of the data need to be corrected, please update your file and select the "Upload a new file" button. You will need to begin the filing process again.</p></div>
+    textToRender = <div><p className="usa-alert-text">You must verify the <strong>macro quality edits</strong> listed below and select the check box to confirm the accuracy of the data.</p><p className="usa-alert-text">If any of the data need to be corrected, please update your file and select the "Upload a new file" button. You will need to begin the filing process again.</p></div>
   }
 
   if(props.code === 5) {

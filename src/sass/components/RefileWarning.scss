@@ -1,12 +1,23 @@
 .RefileWarning {
-  margin-bottom: 2em;
+  margin-top: 4em;
+  margin-bottom: 4em;
 
   .usa-alert-body {
     display: block;
     position: relative;
+    padding: 0.75em;
 
     div {
-      margin-right: 140px;
+      font-size: 1.6rem;
+      margin-right: 10em;
+    }
+
+    p:first-of-type {
+      margin-bottom: 0.25em;
+    }
+
+    strong {
+      font-size: 2rem;
     }
   }
 
@@ -14,7 +25,7 @@
     position: absolute;
     top: 50%;
     right: 0;
-    margin-right: 0;
+    margin-right: 0.75em;
     transform: translate(0, -50%);
   }
 }
