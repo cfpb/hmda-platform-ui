@@ -6,10 +6,16 @@
     display: block;
     position: relative;
   }
-
+ 
   .usa-alert-text {
     font-size: 1em;
-    max-width: 70rem;
+    p {
+      margin: 0;
+    }
+
+    a {
+      font-weight: bold;
+    }
   }
 
   .RefileButton {
@@ -18,4 +24,11 @@
     right: 0;
     transform: translate(0, -50%);
   }
+
+  &.usa-alert-error {
+    .usa-alert-text {
+      max-width: 70rem;
+    }
+  }
 }
+

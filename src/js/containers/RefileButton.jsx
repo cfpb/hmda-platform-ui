@@ -20,10 +20,10 @@ function mapStateToProps(state, ownProps) {
   filing = state.app.filingPeriod
   code = state.app.submission.status.code
 
-  if(ownProps && Object.keys(ownProps).length != 0) {
-    id = ownProps.id
-    filing = ownProps.filing
-    code = ownProps.code
+  if(ownProps) {
+    if(ownProps.id) id = ownProps.id
+    if(ownProps.filing) filing = ownProps.filing
+    if(ownProps.code) code = ownProps.code
   }
 
   return {
