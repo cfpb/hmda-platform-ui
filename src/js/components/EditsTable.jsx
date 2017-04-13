@@ -77,7 +77,7 @@ export const makeTable = (props) => {
   return (
     type === 'macro'
     ? renderTableCaption(edit, rowObj, type, props.pagination)
-    : <table id={props.edit.edit} width="100%">
+    : <table width="100%">
         {renderTableCaption(edit, rowObj, type, props.pagination)}
         <thead>
           {renderHeader(edit, rowObj.rows, type)}
@@ -94,7 +94,7 @@ const EditsTable = (props) => {
   if (!props.edit) return null
 
   return (
-    <div className="EditsTable">
+    <div className="EditsTable" id={props.edit.edit}>
       {makeTable(props)}
       {props.type === 'macro' ? null : <Pagination target={props.edit.edit}/>}
     </div>
