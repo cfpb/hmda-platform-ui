@@ -75,17 +75,17 @@ export const makeTable = (props) => {
   if(!rowObj || rowObj.isFetching) return <LoadingIcon/>
 
   return (
-  type === 'macro'
-  ? renderTableCaption(edit, rowObj, type, props.pagination)
-  : <table width="100%">
-      {renderTableCaption(edit, rowObj, type, props.pagination)}
-      <thead>
-        {renderHeader(edit, rowObj.rows, type)}
-      </thead>
-      <tbody>
-        {renderBody(edit, rowObj.rows, type)}
-      </tbody>
-    </table>
+    type === 'macro'
+    ? renderTableCaption(edit, rowObj, type, props.pagination)
+    : <table width="100%">
+        {renderTableCaption(edit, rowObj, type, props.pagination)}
+        <thead>
+          {renderHeader(edit, rowObj.rows, type)}
+        </thead>
+        <tbody>
+          {renderBody(edit, rowObj.rows, type)}
+        </tbody>
+      </table>
   )
 }
 
@@ -94,7 +94,7 @@ const EditsTable = (props) => {
   if (!props.edit) return null
 
   return (
-    <div className="EditsTable">
+    <div className="EditsTable" id={props.edit.edit}>
       {makeTable(props)}
       {props.type === 'macro' ? null : <Pagination target={props.edit.edit}/>}
     </div>

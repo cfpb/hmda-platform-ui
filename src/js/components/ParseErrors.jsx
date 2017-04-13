@@ -27,7 +27,7 @@ const renderTSErrors = (transmittalSheetErrors) => {
 const renderLarErrors= (larErrors) => {
   if(larErrors.length === 0) return null
   return (
-    <table className="margin-bottom-0" width="100%">
+    <table className="margin-bottom-0" id="parseErrors" width="100%">
       <caption>
         <h3>LAR Errors</h3>
         <p>Formatting errors in loan application records, arranged by row.</p>
