@@ -26,6 +26,7 @@ import fileSaver from 'file-saver'
 
 let latestSubmissionId
 let currentFilingPeriod
+const pollObj = {polling: false}
 
 export function hasHttpError(json) {
   return !json || json.httpStatus > 399 ?
@@ -223,6 +224,7 @@ function checkErrors(file) {
 }
 
 export function selectNewFile(file) {
+  pollObj.polling = false
   return {
     type: types.SELECT_NEW_FILE,
     file
@@ -230,6 +232,7 @@ export function selectNewFile(file) {
 }
 
 export function selectFile(file) {
+  pollObj.polling = false
   return {
     type: types.SELECT_FILE,
     file,
@@ -481,8 +484,9 @@ export function fetchCSV(institutionId, filing, submissionId) {
 /*
  * Wire upload together with xhr so progress can be tracked
  */
-export function requestUpload(file) {
+export function fetchUpload(file) {
   return dispatch => {
+    dispatch(uploadStart())
     var data = new FormData()
     data.append('file', file)
 
@@ -501,8 +505,8 @@ export function requestUpload(file) {
       }
 
       dispatch(uploadComplete(e))
-
-      dispatch(pollForProgress())
+      pollObj.polling = true
+      dispatch(pollForProgress(pollObj))
     })
 
     xhr.open('POST', getUploadUrl(latestSubmissionId));
@@ -511,7 +515,6 @@ export function requestUpload(file) {
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.send(data);
 
-    dispatch(uploadStart())
     return Promise.resolve()
   }
 }
@@ -567,9 +570,10 @@ export function fetchSubmission() {
   }
 }
 
-export function pollForProgress() {
+export function pollForProgress(pollObj = {}) {
   const poller = dispatch => {
-    if(!location.pathname.match('/upload')) return
+    if(!pollObj.polling) return Promise.resolve()
+    if(!location.pathname.match('/upload')) return Promise.resolve()
     return getLatestSubmission()
       .then(json => {
         if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))

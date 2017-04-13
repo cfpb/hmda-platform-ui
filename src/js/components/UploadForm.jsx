@@ -3,7 +3,7 @@ import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
 
 export const renderValidationProgress = (props) => {
-  if(props.code === 1) return null
+  if(props.code === 1 && !props.uploading) return null
   return <ValidationProgress code={props.code} />
 }
 

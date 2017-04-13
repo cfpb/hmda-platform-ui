@@ -5,7 +5,7 @@ const getIndicator = (code, type) => {
 
   switch(type) {
     case 'upload':
-      if(code === 2) indicator = <span className="progress progress-running"></span>
+      if(code <= 2) indicator = <span className="progress progress-running"></span>
       if(code >= 3) {
         indicator = <span className="progress progress-success"></span>
       }

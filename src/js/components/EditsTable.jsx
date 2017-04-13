@@ -19,8 +19,6 @@ export const renderHeader = (edits, rows, type) => {
   let keyCells = rows[0].row
   const fieldCells = rows[0].fields
 
-  if(type === 'macro') keyCells = {}
-
   const numOfCells = Object.keys(keyCells).length + Object.keys(fieldCells).length
   const cellWidth = `${100/numOfCells}%`
 
@@ -37,11 +35,11 @@ export const renderHeader = (edits, rows, type) => {
 
 export const renderBody = (edits, rows, type) => {
   return rows.map((row, i) => {
-    return <EditsTableRow row={type === 'macro' ? {} : row.row} fields={row.fields} key={i}/>
+    return <EditsTableRow row={row.row} fields={row.fields} key={i}/>
   })
 }
 
-export const renderTableCaption = (edit, rowObj, pagination) => {
+export const renderTableCaption = (edit, rowObj, type, pagination) => {
   const name = edit.edit
   if(!name) return null
 
@@ -52,8 +50,17 @@ export const renderTableCaption = (edit, rowObj, pagination) => {
   const editText = length === 1 ? 'edit' : 'edits'
   const captionHeader = `${length} ${name} ${editText} found.`
 
+  if(type === 'macro') {
+    return (
+      <div className="caption">
+        <h3>{captionHeader}</h3>
+        {description ? <p className="usa-font-lead">{description}</p>:null}
+      </div>
+    )
+  }
+
   return (
-    <caption>
+    <caption className="caption">
       <h3>{captionHeader}</h3>
       {description ? <p className="usa-font-lead">{description}</p>:null}
     </caption>
@@ -62,20 +69,23 @@ export const renderTableCaption = (edit, rowObj, pagination) => {
 
 export const makeTable = (props) => {
   const edit = props.edit
+  const type = props.type
   const rowObj = props.rows[edit.edit]
 
   if(!rowObj || rowObj.isFetching) return <LoadingIcon/>
 
   return (
-  <table id={props.edit.edit} width="100%">
-    {renderTableCaption(edit, rowObj, props.pagination)}
-    <thead>
-      {renderHeader(edit, rowObj.rows, props.type)}
-    </thead>
-    <tbody>
-      {renderBody(edit, rowObj.rows, props.type)}
-    </tbody>
-  </table>
+    type === 'macro'
+    ? renderTableCaption(edit, rowObj, type, props.pagination)
+    : <table id={props.edit.edit} width="100%">
+        {renderTableCaption(edit, rowObj, type, props.pagination)}
+        <thead>
+          {renderHeader(edit, rowObj.rows, type)}
+        </thead>
+        <tbody>
+          {renderBody(edit, rowObj.rows, type)}
+        </tbody>
+      </table>
   )
 }
 
@@ -86,7 +96,7 @@ const EditsTable = (props) => {
   return (
     <div className="EditsTable">
       {makeTable(props)}
-      <Pagination target={props.edit.edit} />
+      {props.type === 'macro' ? null : <Pagination target={props.edit.edit}/>}
     </div>
   )
 }
