@@ -83,4 +83,36 @@ describe('Pagination component', () => {
     const emptyNode = ReactDOM.findDOMNode(emptyPagination)
     expect(emptyNode).toEqual(null)
   })
+
+  it('does NOT render when total count is < 21', () => {
+    const pageObjSmall = {
+      total: 15,
+      count: 20,
+      _links: {
+        self: '?page=1',
+        prev: '?page=1',
+        last: '?page=5',
+        next: '?page=2',
+        first: '?page=1',
+        href: '/thehref{rel}'
+      }
+    }
+
+    const smallPagination = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Pagination
+          pagination={pageObjSmall}
+          getPage={getPage}
+          getPreviousPage={getPreviousPage}
+          getNextPage={getNextPage}
+        />
+      </Wrapper>
+    )
+
+    const smallPaginationNode = ReactDOM.findDOMNode(smallPagination)
+    expect(smallPaginationNode).toEqual(null)
+  })
+
+
+
 })
