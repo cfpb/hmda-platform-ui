@@ -76,8 +76,10 @@ describe('Pagination Container', () => {
     const dispatch = jest.fn()
     const scrollToTarget = jest.fn()
     document.getElementById = jest.fn(() => {return {offsetTop: 12}})
-    window.scrollTo = jest.fn()
     const mapped = mapDispatchToProps(dispatch, {})
+
+    delete window.scrollTo
+    window.scrollTo = jest.fn()
 
     mapped.getPage()
     mapped.getPage(pageObj)
