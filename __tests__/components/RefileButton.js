@@ -16,9 +16,24 @@ describe('RefileButton', () => {
     })
 
     expect(rendered).toBeDefined()
+    expect(rendered.props.className).not.toBe('')
     rendered.props.onClick({preventDefault: jest.fn()})
     expect(showConfirmModal).toBeCalled()
     expect(showConfirmModal.mock.calls[0][0]).toBe('a')
+  })
+
+  it('can be overrided as a link', () => {
+    const showConfirmModal = jest.fn()
+    const rendered = RefileButton({
+      showConfirmModal: showConfirmModal,
+      id: 'a',
+      filing: 'b',
+      code: 3,
+      isLink: true
+    })
+
+    expect(rendered).toBeDefined()
+    expect(rendered.props.className).toBe('')
   })
 
   it('fails to render without provided props', () => {
