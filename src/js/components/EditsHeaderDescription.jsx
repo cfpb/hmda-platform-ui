@@ -36,11 +36,10 @@ export const getText = (editType, count) => {
 const EditsHeaderDescription = (props) => {
   const { type, count } = props
   const { id, title, desc } = getText(type, count)
-  const headingClass = count === 0 ? 'text-green' : 'text-secondary'
 
   return (
     <header className="EditsHeaderDescription" id={id}>
-      <h2 className={headingClass}>{count} {title}</h2>
+      <h2>{count} {title}</h2>
       <p className="usa-font-lead">{desc}</p>
     </header>
   )
