@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { browserHistory } from 'react-router'
 import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import LoadingIcon from './LoadingIcon.jsx'
@@ -49,6 +49,22 @@ const EditsTableWrapper = (props) => {
       {(type === 'quality' || type === 'macro') ? <Verifier type={type}/> : null}
       <hr/>
     </div>
+}
+
+EditsTableWrapper.propTypes = {
+  // from /containers/Edits
+  fetched: PropTypes.bool,
+  isFetching: PropTypes.bool,
+  pagination: PropTypes.object,
+  rows: PropTypes.object,
+  types: PropTypes.object,
+  // from /containers/submissionProgressHOC
+  page: PropTypes.string,
+  base: PropTypes.string,
+  code: PropTypes.number,
+  syntacticalValidityEditsExist: PropTypes.bool,
+  qualityVerified: PropTypes.bool,
+  macroVerified: PropTypes.bool
 }
 
 export default EditsTableWrapper
