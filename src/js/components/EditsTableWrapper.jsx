@@ -1,4 +1,5 @@
 import React from 'react'
+import { browserHistory } from 'react-router'
 import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import LoadingIcon from './LoadingIcon.jsx'
 import EditsTable from './EditsTable.jsx'
@@ -32,7 +33,14 @@ export const renderTables = (props, edits, type) => {
 }
 
 const EditsTableWrapper = (props) => {
-  const type = props.editTypeFromPath
+  const type = props.page
+  if(props.fetched &&
+    (type === 'macro' || type === 'quality') &&
+    props.syntacticalValidityEditsExist) {
+      setTimeout(()=>browserHistory.replace(props.base + '/syntacticalvalidity'),0)
+      return null
+  }
+
   return props.isFetching
   ? <LoadingIcon/>
   : <div className="EditsContainerBody">

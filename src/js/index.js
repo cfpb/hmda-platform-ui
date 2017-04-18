@@ -34,7 +34,7 @@ fetch('/env.json').then(res => {
   const userManager = UserManager()
   setUserManager(userManager)
   const oidcMiddleware = createOidcMiddleware(userManager, () => false, false, '/oidc-callback')
-  const loggerMiddleware = createLogger()
+  const loggerMiddleware = createLogger({collapsed: true})
 
   const store = createStore(
     combineReducers(
@@ -66,7 +66,7 @@ fetch('/env.json').then(res => {
             <Route path="/oidc-callback" component={oidcCallback}/>
             <Route path="/institutions" component={InstitutionContainer}/>
             <Route path="/:institution/:filing" component={SubmissionRouter}/>
-            <Route path="/:institution/:filing/*" component={SubmissionContainer}/>
+            <Route path="/:institution/:filing/*" component={SubmissionRouter}/>
           </Route>
         </Router>
       </OidcProvider>

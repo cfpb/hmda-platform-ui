@@ -19,10 +19,10 @@ const types = {
 describe('EditsTableWrapper', () => {
   const onDownloadClick = jest.fn()
 
-  it('renders 4 children if type is quality and typeFromPath is quality', () => {
+  it('renders 4 children if type is quality and page is quality', () => {
     const rendered = EditsTableWrapper({
       onDownloadClick: onDownloadClick,
-      editTypeFromPath: 'quality',
+      page: 'quality',
       pagination: {},
       rows: {
         S020: {
