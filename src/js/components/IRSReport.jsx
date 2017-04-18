@@ -40,7 +40,7 @@ const IRSReport = (props) => {
           {props.msas.map((msa, i) => {
             return <tr key={i}>
               <td>{msa.id}</td>
-              <td>{msa.id}</td>
+              <td>{msa.name}</td>
               <td>{msa.totalLars}</td>
               <td>{msa.totalAmount}</td>
               <td>{msa.conv}</td>
