@@ -75,4 +75,3 @@ fetch('/env.json').then(res => {
   );
 })
 .catch(err => console.error('Error fetching connection information', err))
-
