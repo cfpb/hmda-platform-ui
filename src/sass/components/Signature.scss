@@ -1,11 +1,16 @@
 .Signature {
   margin-bottom: 5em;
 
-  .usa-alert-success {
-    margin-top: 1em;
+  h2 {
+    margin-top: 0;
   }
 
-  .usa-alert-warning {
-    margin-top: 0;
+  .usa-font-lead {
+    margin-top: .5em;
+    margin-bottom: 0;
+  }
+
+  .usa-alert {
+    margin-top: 1em;
   }
 }

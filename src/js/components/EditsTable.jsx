@@ -54,15 +54,15 @@ export const renderTableCaption = (edit, rowObj, type, pagination) => {
     return (
       <div className="caption">
         <h3>{captionHeader}</h3>
-        {description ? <p className="usa-font-lead">{description}</p>:null}
+        {description ? <p>{description}</p>:null}
       </div>
     )
   }
 
   return (
-    <caption className="caption">
+    <caption>
       <h3>{captionHeader}</h3>
-      {description ? <p className="usa-font-lead">{description}</p>:null}
+      {description ? <p>{description}</p>:null}
     </caption>
   )
 }

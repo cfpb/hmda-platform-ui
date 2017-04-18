@@ -28,25 +28,6 @@ describe('EditsHeaderDescription', function() {
     expect(header.props.children.props.type).toEqual('syntactical')
     expect(header.props.children.props.count).toEqual(1)
   })
-
-  it('render the text-secondary class', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(header, 'text-secondary').length).toBe(1)
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(header, 'text-green').length).toBe(0)
-  })
-
-  const headerNoEdits = TestUtils.renderIntoDocument(
-    <Wrapper>
-      <EditsHeaderDescription
-        type="syntactical"
-        count={0}
-      />
-    </Wrapper>
-  )
-
-  it('render the text-green class', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(headerNoEdits, 'text-secondary').length).toBe(0)
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(headerNoEdits, 'text-green').length).toBe(1)
-  })
 })
 
 describe('getText', () => {

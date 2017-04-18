@@ -15,11 +15,10 @@ export const renderVerified = (verified, type) => {
 }
 
 const Verifier = (props) => {
-  const headingClass = props.verified ? 'text-green' : 'text-secondary'
-
   return (
     <div className="Verifier">
-      <h2 className={headingClass}>Verify {props.type} edits</h2>
+      <hr />
+      <h2>Verify {props.type} edits</h2>
       <p className="usa-font-lead">In order to continue you must verify all {props.type} edits.</p>
       <ul className="usa-unstyled-list">
         <li>
