@@ -52,13 +52,14 @@ export class SubmissionRouter extends Component {
 
     if(code < 8 || splat === 'upload' ) return this.replaceHistory('upload')
 
-    if(code < 10) {
+    if(code === 8) {
       if(editTypes.includes(splat)) {
         return this.forceUpdate()
       }
       return this.replaceHistory('syntacticalvalidity')
     }
 
+    if(splat) return this.forceUpdate()
     return this.replaceHistory('summary')
   }
 
