@@ -9,8 +9,8 @@ import HomeLink from '../components/HomeLink.jsx'
 import Header from '../components/Header.jsx'
 import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
-import Edits from './Edits.jsx'
 import ErrorWarning from '../components/ErrorWarning.jsx'
+import EditsContainer from './Edits.jsx'
 import EditsNavComponent from '../components/EditsNav.jsx'
 import NavButtonComponent from '../components/NavButton.jsx'
 import RefileWarningComponent  from '../components/RefileWarning.jsx'
@@ -22,6 +22,7 @@ import RefileButton from '../containers/RefileButton.jsx'
 import ParseErrors from './ParseErrors.jsx'
 import LoadingIcon from '../components/LoadingIcon.jsx'
 
+const Edits = submissionProgressHOC(EditsContainer)
 const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
 const RefileWarning = submissionProgressHOC(RefileWarningComponent)

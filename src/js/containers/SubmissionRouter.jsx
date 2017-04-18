@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
+import SubmissionContainer from './Submission.jsx'
 import { fetchSubmission } from '../actions'
+
+const editTypes = ['syntacticalvalidity', 'quality', 'macro']
 
 export class SubmissionRouter extends Component {
   constructor(props) {
@@ -9,20 +12,34 @@ export class SubmissionRouter extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchSubmission())
-      .then((json) => {
-        this.route(this.props)
-      })
+    this.renderChildren = false
+    if(!this.props.status || this.props.status.code === 0) {
+      this.props.dispatch(fetchSubmission())
+        .then((json) => {
+          this.route()
+        })
+    } else {
+      this.route()
+    }
   }
 
-  route(props) {
-    if(!props.user) return null
-    if(!props.status) return null
+  replaceHistory(splat) {
+    const { institution, filing } = this.props.params
+    return browserHistory.replace(
+      `/${institution}/${filing}/${splat}`
+    )
+  }
 
-    const status = props.status
+  route() {
+    if(!this.props.user) return null
+    if(!this.props.status) return null
+
+
+    const status = this.props.status
     const code = status.code
-    const pathname= props.pathname
+    const splat = this.props.params.splat
 
+    this.renderChildren = true
   // status codes can be found at https://github.com/cfpb/hmda-platform/blob/master/Documents/submission-status.md
 
     if(code === -1){
@@ -33,15 +50,28 @@ export class SubmissionRouter extends Component {
       )
     }
 
-    if(code < 8) return browserHistory.replace(pathname + '/upload')
+    if(code < 8 || splat === 'upload' ) return this.replaceHistory('upload')
 
-    if(code < 10) return browserHistory.replace(pathname + '/syntacticalvalidity')
+    if(code === 8) {
+      if(editTypes.includes(splat)) {
+        return this.forceUpdate()
+      }
+      return this.replaceHistory('syntacticalvalidity')
+    }
 
-    return browserHistory.replace(pathname + '/summary')
+    if(splat) return this.forceUpdate()
+    return this.replaceHistory('summary')
   }
 
   render() {
-    return null
+    if(!this.props.status || this.props.status.code === 0) return null
+    if(!this.renderChildren) return null
+    if(!this.props.params.splat) {
+      setTimeout(()=>this.replaceHistory('upload'),0)
+      return null
+    }
+
+    return <SubmissionContainer {...this.props}/>
   }
 }
 
@@ -53,17 +83,13 @@ export function mapStateToProps(state, ownProps) {
   }
 
   const user = state.oidc && state.oidc.user || null
-  const pathname = ownProps.location.pathname
+  const params = ownProps.params
 
   return {
     status,
     user,
-    pathname
+    params
   }
-}
-
-SubmissionRouter.propTypes = {
-  dispatch: PropTypes.func.isRequired
 }
 
 SubmissionRouter.defaultProps = {
@@ -71,4 +97,4 @@ SubmissionRouter.defaultProps = {
   status: null
 }
 
-export default connect(mapStateToProps)(SubmissionRouter)
+export default connect(mapStateToProps, dispatch => {return {dispatch}})(SubmissionRouter)

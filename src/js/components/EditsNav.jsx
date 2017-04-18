@@ -54,14 +54,11 @@ const getNavClass = (name, props) => {
         }
       }
       break
-    case 'summary':
-      if(code > 7) {
-        if(!syntacticalValidityEditsExist && qualityVerified && macroVerified) navClass = 'active'
-      }
   }
 
-  // catch all if signed
-  if(code === 10) navClass = 'complete'
+  // catch all if validated
+  if(code > 8) navClass = 'complete'
+  if(code === 9 && name === 'summary') navClass = 'active'
   // add current class if page matches the name
   if(name === page) navClass = `${navClass} current`
 
@@ -109,15 +106,16 @@ const renderLinkOrText = (props, name, i) => {
   // only render link when code > 7 (so it's finished validating)
   if(code > 7) {
     toRender = <Link className="usa-nav-link"  to={`${base}/${navLinks[name]}`}>{name}</Link>
-
-    if(syntacticalValidityEditsExist && navNames.indexOf(name) > 1) {
-      toRender = <span>{name}</span>
-    }
-    if(!qualityVerified && navNames.indexOf(name) > 2) {
-      toRender = <span>{name}</span>
-    }
-    if(!macroVerified && navNames.indexOf(name) > 3) {
-      toRender = <span>{name}</span>
+    if(code < 9) {
+      if(syntacticalValidityEditsExist && navNames.indexOf(name) > 1) {
+        toRender = <span>{name}</span>
+      }
+      if(!qualityVerified && navNames.indexOf(name) > 2) {
+        toRender = <span>{name}</span>
+      }
+      if(!macroVerified && navNames.indexOf(name) > 3) {
+        toRender = <span>{name}</span>
+      }
     }
   } else {
     toRender = <span>{name}</span>

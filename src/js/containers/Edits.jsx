@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import EditsTableWrapper from '../components/EditsTableWrapper.jsx'
+import submissionProgressHOC from './submissionProgressHOC.jsx'
+import Wrapper from '../components/EditsTableWrapper.jsx'
 import { fetchEdits } from '../actions'
+
+const EditsTableWrapper = submissionProgressHOC(Wrapper)
 
 export class EditsContainer extends Component {
   constructor(props) {
@@ -29,7 +32,6 @@ export function mapStateToProps(state) {
     rows
   } = state.app.edits
 
-  const editTypeFromPath = state.routing.locationBeforeTransitions.pathname.split('/').slice(-1)[0]
   const {
     pagination
   } = state.app
@@ -39,7 +41,6 @@ export function mapStateToProps(state) {
     fetched,
     types,
     rows,
-    editTypeFromPath,
     pagination
   }
 }
