@@ -200,52 +200,55 @@ export default class Institution extends Component {
             <h2>Institutions</h2>
             {this.props.filingPeriod ? <h3>Filing Period {this.props.filingPeriod}</h3> : null}
           </div>
-          {this.props.isFetching || !this.props.filings ?
+          {this.props.isFetching ?
             <div className="usa-grid-full">
               <LoadingIcon/>
             </div>
-          :
-            this.props.filings.map((filingObj, i) => {
-              const filing = filingObj.filing
-              const latestSubmissionStatus = filingObj.submissions[0] && filingObj.submissions[0].status || null
-              const institution = getInstitutionFromFiling(institutions, filing)
+          : !this.props.filings ?
+            <div className="usa-grid-full">
+              <p>There is a problem with your filing. Please contact <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.</p>
+            </div>
+            : this.props.filings.map((filingObj, i) => {
+                const filing = filingObj.filing
+                const latestSubmissionStatus = filingObj.submissions[0] && filingObj.submissions[0].status || null
+                const institution = getInstitutionFromFiling(institutions, filing)
 
-              if(!institution) return
-              return (
-                <div key={i} className="usa-grid-full">
-                  <div className="institution">
-                    <div className="current-status">
-                      {renderTiming(
-                        latestSubmissionStatus,
-                        filing.start,
-                        filing.end
-                      )}
+                if(!institution) return
+                return (
+                  <div key={i} className="usa-grid-full">
+                    <div className="institution">
+                      <div className="current-status">
+                        {renderTiming(
+                          latestSubmissionStatus,
+                          filing.start,
+                          filing.end
+                        )}
 
-                      <h2>{institution.name} - {institution.id}</h2>
+                        <h2>{institution.name} - {institution.id}</h2>
 
-                      {renderStatusMessage(latestSubmissionStatus)}
+                        {renderStatusMessage(latestSubmissionStatus)}
 
-                      {renderViewButton(
-                        filing.status.code,
-                        filing.institutionId,
+                        {renderViewButton(
+                          filing.status.code,
+                          filing.institutionId,
+                          filing.period
+                        )}
+
+                        {renderRefileButton(
+                          latestSubmissionStatus,
+                          filing
+                        )}
+                      </div>
+
+                      {renderPreviousSubmissions(
+                        filingObj.submissions,
+                        this.props.onDownloadClick,
+                        institution.id,
                         filing.period
                       )}
-
-                      {renderRefileButton(
-                        latestSubmissionStatus,
-                        filing
-                      )}
                     </div>
-
-                    {renderPreviousSubmissions(
-                      filingObj.submissions,
-                      this.props.onDownloadClick,
-                      institution.id,
-                      filing.period
-                    )}
                   </div>
-                </div>
-              )
+                )
             })
           }
         </div>

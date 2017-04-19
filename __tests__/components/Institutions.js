@@ -71,6 +71,20 @@ describe('Institutions', () => {
     )
     expect(TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'h3').length).toEqual(0)
   })
+
+  it('renders a placeholder without filings', () => {
+    const institutions = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Institutions
+          institutions={institutionsJSON.institutions}
+          filingPeriod={2017}
+          filings={null}
+          user={{profile: {name: 'someone'}}}
+          location={{pathname: '/institutions'}} />
+      </Wrapper>
+    )
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'p')[1].textContent).toEqual('There is a problem with your filing. Please contact HMDA Help.')
+  })
 })
 
 
