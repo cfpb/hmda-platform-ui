@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 const Login = (props) => {
   return (
@@ -6,6 +6,10 @@ const Login = (props) => {
       <h2>Welcome to HMDA Filing, please <a href="#" onClick={props.redirect}>login here</a></h2>
     </div>
   )
+}
+
+Login.propTypes = {
+  redirect: PropTypes.func
 }
 
 export default Login

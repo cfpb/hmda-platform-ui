@@ -44,4 +44,14 @@ const RefileWarning = (props) => {
   )
 }
 
+RefileWarning.propTypes = {
+  // from /containers/submissionProgressHOC
+  page: PropTypes.string,
+  base: PropTypes.string,
+  code: PropTypes.number,
+  syntacticalValidityEditsExist: PropTypes.bool,
+  qualityVerified: PropTypes.bool,
+  macroVerified: PropTypes.bool
+}
+
 export default RefileWarning

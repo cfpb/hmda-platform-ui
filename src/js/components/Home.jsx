@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Header from '../components/Header.jsx'
 import { Link } from 'react-router'
 import { signinRedirect } from '../redirect.js'
@@ -106,8 +106,13 @@ const Home = (props) => {
   )
 }
 
-Home.defaultProps = {
-  user: {profile: {name: null}}
+Home.propTypes = {
+  // from /containers/Home.jsx
+  user: PropTypes.object,
+  filingPeriod: PropTypes.string,
+  // from router (index.js)
+  location: PropTypes.object
+  // there are more props available but they are not used
 }
 
 export default Home

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 const buttonClass='RefileButton usa-button usa-button-secondary usa-text-small'
 
@@ -7,7 +7,7 @@ const RefileButton = (props) => {
     onClick={(e)=>{
       e.preventDefault()
       props.showConfirmModal(props.id, props.filing, props.code)
-    }}>Upload a new file</a>
+    }}>upload a new file</a>
 }
 
 RefileButton.propTypes = {
@@ -15,7 +15,7 @@ RefileButton.propTypes = {
   id: React.PropTypes.string.isRequired,
   filing: React.PropTypes.string.isRequired,
   code: React.PropTypes.number.isRequired,
-  isButton: React.PropTypes.bool
+  isLink: React.PropTypes.bool
 }
 
 export default RefileButton
