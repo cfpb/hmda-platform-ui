@@ -15,7 +15,7 @@ RefileButton.propTypes = {
   id: React.PropTypes.string.isRequired,
   filing: React.PropTypes.string.isRequired,
   code: React.PropTypes.number.isRequired,
-  isButton: React.PropTypes.bool
+  isLink: React.PropTypes.bool
 }
 
 export default RefileButton
