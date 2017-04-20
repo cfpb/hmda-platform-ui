@@ -73,7 +73,7 @@ const Home = (props) => {
                 <li><a href="http://www.consumerfinance.gov/eregulations/1003">1003 Regulation C - Home Mortgage Disclosure</a></li>
                 <li><a href="http://www.consumerfinance.gov/data-research/hmda/for-filers">Help preparing your HMDA filing</a></li>
                 <li><a href="https://github.com/cfpb/hmda-platform-tools">File Format Verification Tool</a></li>
-                <li><a href="https://www.ffiec.gov/hmda/">FFIEC/HMDA</a></li>
+                <li><a href="https://www.ffiec.gov/hmda/">FFIEC - HMDA</a></li>
                 <li><a href="#">Modified LAR</a></li>
               </ul>
             </div>

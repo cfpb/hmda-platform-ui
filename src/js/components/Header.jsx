@@ -23,16 +23,6 @@ const Header = (props) => {
               aria-label="Home">HMDA Filing</Link>
           </em>
         </div>
-        <nav role="navigation" className="Header usa-nav usa-nav-left">
-          <ul className="usa-nav-primary">
-            <li>
-              <Link className="usa-nav-link" style={styleSelectedPage(page, '')} to={'/'}>Home</Link>
-            </li>
-            <li>
-              <Link className="usa-nav-link" style={styleSelectedPage(page, 'institutions')} to={'/institutions'}>Institutions</Link>
-            </li>
-          </ul>
-        </nav>
         <nav role="navigation" className="Header usa-nav">
           <ul className="usa-nav-primary">
             {props.userName
@@ -47,6 +37,16 @@ const Header = (props) => {
                 signinRedirect(true)
               }}>Login</a></li>
             }
+          </ul>
+        </nav>
+        <nav role="navigation" className="Header usa-nav">
+          <ul className="usa-nav-primary">
+            <li>
+              <Link className="usa-nav-link" style={styleSelectedPage(page, '')} to={'/'}>Home</Link>
+            </li>
+            <li>
+              <Link className="usa-nav-link" style={styleSelectedPage(page, 'institutions')} to={'/institutions'}>Institutions</Link>
+            </li>
           </ul>
         </nav>
       </div>
