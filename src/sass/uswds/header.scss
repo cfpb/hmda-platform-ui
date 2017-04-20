@@ -77,6 +77,9 @@
         color: $color-white;
         background-color: $color-primary-darker;
       }
+      &.usa-button-outline:hover {
+        color: $color-white
+      }
     }
   }
 
