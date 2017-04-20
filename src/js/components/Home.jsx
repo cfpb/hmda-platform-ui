@@ -24,32 +24,45 @@ const getLoginMessage = (userName) => {
   )
 }
 
+const renderLoggedInHero = () => {
+  return (
+    <section className="usa-hero">
+      <div className="usa-grid">
+        <div className="usa-width-one-whole">
+          <h2>View your institutions</h2>
+          <p className="usa-font-lead">The institutions page provides a summary of institutions for which you are authorized to file HMDA data. The filing status is displayed under the institution name.</p>
+          <Link to={'/institutions'} className="usa-button">Back to Your Institutions</Link>
+        </div>
+      </div>
+    </section>
+  )
+  //
+}
+
+const renderLoggedOutHero = () => {
+  return (
+    <section className="usa-hero">
+      <div className="usa-grid">
+        <div className="usa-width-one-whole">
+          <h2>Get started filing your HMDA data</h2>
+          <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
+          <Link to={'/institutions'} className="usa-button">Get Started Filing</Link>
+          <p className="usa-text-small">Every user is required to register online for login credentials and establish an account prior to accessing the HMDA Platform.</p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 const Home = (props) => {
+  const renderHero = props.user.profile.name ? renderLoggedInHero() : renderLoggedOutHero()
   return (
     <div>
       <Header
         pathname={props.location.pathname}
         userName={props.user.profile.name} />
       <div className="Home" id="main-content">
-        {/*getLoginMessage(props.user.profile.name)*/}
-        <section className="usa-hero">
-          <div className="usa-grid">
-            <div className="usa-width-one-whole">
-              <h2>Get started filing your HMDA data</h2>
-              <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
-              <a href="#"
-                className="usa-button"
-                onClick={(e) => {
-                  e.preventDefault()
-                  signinRedirect(true)
-                }}>
-                {props.user.profile.name ? 'Begin Filing' : 'Get Started Filing'}
-              </a>
-              <p className="usa-text-small">Every user is required to register online for login credentials and establish an account prior to accessing the HMDA Platform.</p>
-            </div>
-          </div>
-        </section>
-
+        {renderHero}
         <div className="usa-grid">
           <div className="usa-width-seven-twelfths">
             <div className="faqs">

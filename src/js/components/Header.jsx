@@ -8,11 +8,20 @@ export const styleSelectedPage = (selected, current) => {
   return {}
 }
 
-export const renderInstitutionLink = (props) => {
+export const renderLoggedInNav = (props) => {
   if(!props.userName) return null
-  return <li>
-    <Link className="usa-button usa-button-outline" to={'/institutions'}>Institutions</Link>
-  </li>
+  return (
+    <nav role="navigation" className="Header usa-nav">
+      <ul className="usa-nav-primary">
+        <li>
+          <Link className="usa-nav-link" style={styleSelectedPage(page, '')} to={'/'}>Home</Link>
+        </li>
+        <li>
+          <Link className="usa-button usa-button-outline" to={'/institutions'}>Institutions</Link>
+        </li>
+      </ul>
+    </nav>
+  )
 }
 
 const Header = (props) => {
@@ -31,28 +40,25 @@ const Header = (props) => {
           </em>
         </div>
         <nav role="navigation" className="Header usa-nav">
-          <ul className="usa-nav-primary">
-            {props.userName
-            ?
-              <li className="logout">{props.userName} - <a className="usa-nav-link" href="#" onClick={(e) => {
-               e.preventDefault()
-               logout()
-             }}>Logout</a></li>
-            :
-              <li><a className="usa-button" href="#" onClick={(e) => {
-                e.preventDefault()
-                signinRedirect(true)
-              }}>Login</a></li>
-            }
-          </ul>
-        </nav>
-        <nav role="navigation" className="Header usa-nav">
+          {props.userName
+          ?
           <ul className="usa-nav-primary">
             <li>
               <Link className="usa-nav-link" style={styleSelectedPage(page, '')} to={'/'}>Home</Link>
             </li>
-            {renderInstitutionLink(props)}
+            <li>
+              <Link className="usa-button usa-button-outline" to={'/institutions'}>Institutions</Link>
+            </li>
+            <li className="logout">{props.userName} - <a className="usa-nav-link" href="#" onClick={(e) => {
+               e.preventDefault()
+               logout()
+             }}>Logout</a></li>
           </ul>
+          :
+          <ul className="usa-nav-primary">
+            <li><Link to={'/institutions'} className="usa-button">Login</Link></li>
+          </ul>
+          }
         </nav>
       </div>
     </header>
