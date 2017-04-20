@@ -8,6 +8,13 @@ export const styleSelectedPage = (selected, current) => {
   return {}
 }
 
+export const renderInstitutionLink = (props) => {
+  if(!props.userName) return null
+  return <li>
+    <Link className="usa-button usa-button-outline" to={'/institutions'}>Institutions</Link>
+  </li>
+}
+
 const Header = (props) => {
   const page = props.pathname.split('/').slice(-1)[0]
   return (
@@ -44,9 +51,7 @@ const Header = (props) => {
             <li>
               <Link className="usa-nav-link" style={styleSelectedPage(page, '')} to={'/'}>Home</Link>
             </li>
-            <li>
-              <Link className="usa-nav-link" style={styleSelectedPage(page, 'institutions')} to={'/institutions'}>Institutions</Link>
-            </li>
+            {renderInstitutionLink(props)}
           </ul>
         </nav>
       </div>
