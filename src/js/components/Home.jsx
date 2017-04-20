@@ -37,11 +37,14 @@ const Home = (props) => {
             <div className="usa-width-one-whole">
               <h2>Get started filing your HMDA data</h2>
               <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
-              <Link
+              <a href="#"
                 className="usa-button"
-                to="/institutions">
+                onClick={(e) => {
+                  e.preventDefault()
+                  signinRedirect(true)
+                }}>
                 {props.user.profile.name ? 'Begin Filing' : 'Get Started Filing'}
-              </Link>
+              </a>
               <p className="usa-text-small">Every user is required to register online for login credentials and establish an account prior to accessing the HMDA Platform.</p>
             </div>
           </div>

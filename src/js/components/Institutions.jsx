@@ -189,11 +189,11 @@ export default class Institution extends Component {
     const institutions = this.props.institutions
     const makeNewSubmission = this.props.makeNewSubmission
     return (
-    <div className="Institutions">
+    <div>
       <Header
         pathname={this.props.location.pathname}
         userName={this.props.user.profile.name} />
-      <div id="main-content" className="usa-grid">
+      <div id="main-content" className="usa-grid Institutions">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null}
         <div className="usa-width-one-half">
           <div className="InstitutionsHeader">
