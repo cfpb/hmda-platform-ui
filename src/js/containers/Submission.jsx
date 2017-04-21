@@ -97,10 +97,7 @@ class SubmissionContainer extends Component {
 
     return (
     <div>
-      <Header
-        pathname={location.pathname}
-        userName={user.profile.name}
-      />
+      <Header userName={user.profile.name} />
       <div className="usa-grid SubmissionContainer">
         <div className="usa-width-one-whole">
           <UserHeading
