@@ -29,9 +29,9 @@ const renderLoggedInHero = () => {
     <section className="usa-hero">
       <div className="usa-grid">
         <div className="usa-width-one-whole">
-          <h2>View your institutions</h2>
-          <p className="usa-font-lead">The institutions page provides a summary of institutions for which you are authorized to file HMDA data. The filing status is displayed under the institution name.</p>
-          <Link to={'/institutions'} className="usa-button">Back to Your Institutions</Link>
+          <h2>Thanks for logging in!</h2>
+          <p className="usa-font-lead">The place to get started is the institutions page. This page provides a summary of institutions for which you are authorized to file HMDA data, along with the current filing status, access to previous submission data (CSV), and the ability to continue filing or start over.</p>
+          <Link to={'/institutions'} className="usa-button">View Your Institutions</Link>
         </div>
       </div>
     </section>
