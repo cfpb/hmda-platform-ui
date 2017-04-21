@@ -25,7 +25,7 @@ const Header = (props) => {
               <Link className="usa-nav-link" to={'/'}>Home</Link>
             </li>
             <li>
-              <Link className="usa-button usa-button-outline" to={'/institutions'}>Institutions</Link>
+              <Link className="usa-button usa-button-outline" to={'/institutions'}>My Institutions</Link>
             </li>
             <li className="logout">{props.userName} - <a className="usa-nav-link" href="#" onClick={(e) => {
                e.preventDefault()
