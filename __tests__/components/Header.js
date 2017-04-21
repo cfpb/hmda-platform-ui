@@ -1,7 +1,7 @@
 jest.unmock('../../src/js/components/Header.jsx')
 jest.mock('oidc-client')
 
-import Header, { styleSelectedPage } from '../../src/js/components/Header.jsx'
+import Header from '../../src/js/components/Header.jsx'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -37,17 +37,4 @@ describe('Header', () => {
   it('render the login link', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(headerNoUser, 'usa-button').length).toBe(1)
   })
-})
-
-describe('styleSelectedPage', () => {
-  it('returns the correct style', () => {
-    const returned = styleSelectedPage('upload', 'upload')
-    expect(returned).toEqual({"borderBottom": "2px solid"})
-  })
-
-  it('returns an empty object', () => {
-    const returned = styleSelectedPage('upload', 'notupload')
-    expect(returned).toEqual({})
-  })
-
 })
