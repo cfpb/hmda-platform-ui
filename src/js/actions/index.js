@@ -1,5 +1,4 @@
 import {
-  sendFetch,
   getInstitution,
   getInstitutions,
   getFiling,
@@ -7,7 +6,6 @@ import {
   getSubmission,
   getLatestSubmission,
   createSubmission,
-  getUploadUrl,
   getEdits,
   getEdit,
   getCSV,
@@ -16,11 +14,12 @@ import {
   postSignature,
   getSummary,
   postVerify,
-  setAccessToken,
-  getAccessToken,
   getParseErrors,
   getEditsOfType
-} from '../api'
+} from '../api/api'
+import fetch from '../api/fetch'
+import getUploadUrl from '../api/getUploadUrl'
+import * as AccessToken from '../api/AccessToken'
 import * as types from '../constants'
 import fileSaver from 'file-saver'
 
@@ -311,7 +310,7 @@ export function getPaginationReceiveAction(target, data) {
 export function fetchPage(target, pathname) {
   return dispatch => {
     dispatch(getPaginationRequestAction(target))
-    return sendFetch({pathname: pathname})
+    return fetch({pathname: pathname})
       .then(json => {
         if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
         return dispatch(getPaginationReceiveAction(target, json))
@@ -367,7 +366,7 @@ export function receiveSignaturePost(data) {
 export function checkSignature(checked) {
   return {
     type: types.CHECK_SIGNATURE,
-    checked: checked.checked
+    checked: checked
   }
 }
 
@@ -511,7 +510,7 @@ export function fetchUpload(file) {
 
     xhr.open('POST', getUploadUrl(latestSubmissionId));
     xhr.setRequestHeader('Cache-Control', 'no-cache');
-    xhr.setRequestHeader('Authorization', 'Bearer ' + getAccessToken());
+    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get());
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.send(data);
 

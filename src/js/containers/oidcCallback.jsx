@@ -2,7 +2,7 @@ import React from 'react'
 import { CallbackComponent } from 'redux-oidc'
 import { connect } from 'react-redux'
 import { setAccessToken } from '../api'
-import { restorePage } from '../redirect'
+import { restorePage } from '../utils/redirect'
 
 export class oidcCallback extends React.Component {
 

@@ -1,5 +1,5 @@
 jest.unmock('../../src/js/containers/App.jsx')
-jest.mock('../../src/js/redirect.js', () => {})
+jest.mock('../../src/js/utils/redirect.js', () => {})
 
 import React from 'react'
 import ReactDOM from 'react-dom'

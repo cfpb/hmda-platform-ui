@@ -19,8 +19,8 @@ import InstitutionContainer from './containers/Institutions.jsx'
 import SubmissionContainer from './containers/Submission.jsx'
 import SubmissionRouter from './containers/SubmissionRouter.jsx'
 import LoginContainer from './containers/Login.jsx'
-import UserManager from './UserManager.js'
-import { setUserManager } from './redirect.js'
+import UserManager from './utils/UserManager.js'
+import { setUserManager } from './utils/redirect.js'
 
 import appReducer from './reducers'
 

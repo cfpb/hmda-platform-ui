@@ -1,6 +1,8 @@
 jest.unmock('../../src/js/actions')
 jest.unmock('../../src/js/constants')
-jest.mock('../../src/js/api')
+jest.mock('../../src/js/api/api')
+jest.mock('../../src/js/api/fetch')
+jest.mock('../../src/js/api/getUploadUrl')
 jest.mock('file-saver')
 
 import fs from 'fs'
@@ -9,7 +11,6 @@ import * as types from '../../src/js/constants'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import {
-  sendFetch,
   getInstitution,
   getFiling,
   getInstitutions,
@@ -22,7 +23,8 @@ import {
   postVerify,
   getEdits,
   getCSV
-} from '../../src/js/api.js'
+} from '../../src/js/api/api.js'
+import fetch from '../../src/js/api/fetch.js'
 
 const institutionsDetailObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions-detail.json'))
 const institutionsObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions.json'))
@@ -30,7 +32,7 @@ const filingsObj = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))
 const IRSObj = JSON.parse(fs.readFileSync('./__tests__/json/irs.json'))
 const signatureObj = JSON.parse(fs.readFileSync('./__tests__/json/receipt.json'))
 
-sendFetch.mockImplementation((pathObj) => Promise.resolve({bargle:'foo'}))
+fetch.mockImplementation((pathObj) => Promise.resolve({bargle:'foo'}))
 getInstitution.mockImplementation((id) => Promise.resolve(institutionsDetailObj[id]))
 getFiling.mockImplementation((id) => Promise.resolve({filing:{}}))
 getInstitutions.mockImplementation(() => Promise.resolve(institutionsObj))
@@ -153,7 +155,7 @@ describe('actions', () => {
   })
 
   it('creates an action to signal a signature checkbox', () => {
-    expect(actions.checkSignature({checked: true})).toEqual({
+    expect(actions.checkSignature(true)).toEqual({
       type: types.CHECK_SIGNATURE,
       checked: true
     })
