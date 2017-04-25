@@ -225,8 +225,7 @@ export default class Institution extends Component {
                         )}
 
                         <h2>{institution.name} - {institution.id}</h2>
-
-                        {renderStatusMessage(latestSubmissionStatus)}
+                        <p className="status">{latestSubmissionStatus.description}</p>
 
                         {renderViewButton(
                           filing.status.code,
