@@ -24,73 +24,76 @@ const getLoginMessage = (userName) => {
   )
 }
 
+const renderLoggedInHero = () => {
+  return (
+    <section className="usa-hero">
+      <div className="usa-grid">
+        <div className="usa-width-one-whole">
+          <h2>Thanks for logging in!</h2>
+          <p className="usa-font-lead">The place to get started is the institutions page. This page provides a summary of institutions for which you are authorized to file HMDA data, along with the current filing status, access to previous submission data (CSV), and the ability to continue filing or start over.</p>
+          <Link to={'/institutions'} className="usa-button">View Your Institutions</Link>
+        </div>
+      </div>
+    </section>
+  )
+  //
+}
+
+const renderLoggedOutHero = () => {
+  return (
+    <section className="usa-hero">
+      <div className="usa-grid">
+        <div className="usa-width-one-whole">
+          <h2>Get started filing your HMDA data</h2>
+          <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
+          <Link to={'/institutions'} className="usa-button">Get Started Filing</Link>
+          <p className="usa-text-small">Every user is required to register online for login credentials and establish an account prior to accessing the HMDA Platform.</p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 const Home = (props) => {
+  const renderHero = props.user.profile.name ? renderLoggedInHero() : renderLoggedOutHero()
+  
   return (
     <div>
       <Header
         pathname={props.location.pathname}
         userName={props.user.profile.name} />
       <div className="Home" id="main-content">
-        {getLoginMessage(props.user.profile.name)}
-
+        {renderHero}
         <div className="usa-grid">
-          <div className="usa-width-one-half">
-            <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
-            <p>For resources to help you prepare your HMDA filing, please visit <a href="http://www.consumerfinance.gov/data-research/hmda/for-filers">Resources for HMDA filers</a>.</p>
-            <h3>How to get started</h3>
-            <p>Select the login button to begin the process for filing your HMDA data. Every user is required to register online for login credentials and establish an account prior to accessing the HMDA Platform.</p>
-            <p>Once you have logged in, select the Institutions link above to access your institution(s). The HMDA Platform will then guide you through the filing process.</p>
-            <Link
-              className="usa-button"
-              to="/institutions">
-              {props.user.profile.name ? 'Begin Filing' : 'Login and Begin Filing'}
-            </Link>
+          <div className="usa-width-seven-twelfths">
+            <div className="faqs">
+              <h3>Top FAQs</h3>
+              <dl>
+                <dt>What type of browser do I need in order to use the CFPB’s HMDA Platform?</dt>
+                <dd>We recommend that HMDA filers use a modern browser, such as the latest version of Google Chrome or Mozilla Firefox, Internet Explorer 11, Microsoft Edge, or other modern browsers.</dd>
+                <dt>What is the deadline for submitting my HMDA data?</dt>
+                <dd>The deadline for submitting HMDA data is March 1 following the calendar year for which data are collected and recorded. For example, for data collected in 2017, the deadline for submitting HMDA data is March 1, 2018.</dd>
+                <dt>Can my financial institution have multiple user accounts?</dt>
+                <dd>Each financial institution may have multiple users. Also, a user may be authorized by more than one financial institution to file HMDA data on those institutions’ behalf, provided that under Regulation C, each such institution is a HMDA filer.</dd>
+                <dt>Will I be able to manually enter my LAR into the HMDA Platform?</dt>
+                <dd>The HMDA Platform only accepts a pipe delimited text file containing your LAR. Any modifications to the data must be updated in the file and uploaded to the HMDA Platform. This must be a single file as the HMDA Platform will not allow users to combine multiple files.</dd>
+                <dt>Is there another tool for me to confirm that my LAR is in the correct format?</dt>
+                <dd>Filers who wish to confirm that their LAR is formatted in the required pipe delimited text file format may use the <a href="https://github.com/cfpb/hmda-platform-tools">File Format Verification Tool</a>. This tool will conduct the same initial checks that the HMDA Platform performs, and provides a convenient test mechanism for filers.</dd>
+              </dl>
+            </div>
           </div>
-          <div className="usa-width-one-half">
-            <h3>Top FAQs</h3>
-            <dl>
-              <dt>What type of browser do I need in order to use the CFPB’s HMDA Platform?</dt>
-              <dd>We recommend that HMDA filers use a modern browser, such as the latest version of Google Chrome or Mozilla Firefox, Internet Explorer 11, Microsoft Edge, or other modern browsers.</dd>
-              <dt>What is the deadline for submitting my HMDA data?</dt>
-              <dd>The deadline for submitting HMDA data is March 1 following the calendar year for which data are collected and recorded. For example, for data collected in 2017, the deadline for submitting HMDA data is March 1, 2018.</dd>
-              <dt>Can my financial institution have multiple user accounts?</dt>
-              <dd>Each financial institution may have multiple users. Also, a user may be authorized by more than one financial institution to file HMDA data on those institutions’ behalf, provided that under Regulation C, each such institution is a HMDA filer.</dd>
-              <dt>Will I be able to manually enter my LAR into the HMDA Platform?</dt>
-              <dd>The HMDA Platform only accepts a pipe delimited text file containing your LAR. Any modifications to the data must be updated in the file and uploaded to the HMDA Platform. This must be a single file as the HMDA Platform will not allow users to combine multiple files.</dd>
-              <dt>Is there another tool for me to confirm that my LAR is in the correct format?</dt>
-              <dd>Filers who wish to confirm that their LAR is formatted in the required pipe delimited text file format may use the <a href="https://github.com/cfpb/hmda-platform-tools">File Format Verification Tool</a>. This tool will conduct the same initial checks that the HMDA Platform performs, and provides a convenient test mechanism for filers.</dd>
-            </dl>
-          </div>
-        </div>
+          <div className="usa-width-five-twelfths">
+            <div className="resources">
+              <h3>Resources</h3>
 
-        <div className="usa-grid">
-          <hr />
-          <div className="usa-width-one-fourth">
-            <h4>1003 Regulation C</h4>
-            <ul className="usa-unstyled-list">
-              <li><a href="http://www.consumerfinance.gov/eregulations/1003">Home Mortgage Disclosure</a></li>
-            </ul>
-          </div>
-
-          <div className="usa-width-one-fourth">
-            <h4>Tools</h4>
-            <ul className="usa-unstyled-list">
-              <li><a href="https://github.com/cfpb/hmda-platform-tools">File Format Verification Tool</a></li>
-            </ul>
-          </div>
-
-          <div className="usa-width-one-fourth">
-            <h4>FFIEC</h4>
-            <ul className="usa-unstyled-list">
-              <li><a href="https://www.ffiec.gov/hmda/">HMDA</a></li>
-            </ul>
-          </div>
-
-          <div className="usa-width-one-fourth">
-            <h4>Data Publication</h4>
-            <ul className="usa-unstyled-list">
-              <li><a href="#">Modified LAR</a></li>
-            </ul>
+              <ul>
+                <li><a href="http://www.consumerfinance.gov/eregulations/1003">1003 Regulation C - Home Mortgage Disclosure</a></li>
+                <li><a href="http://www.consumerfinance.gov/data-research/hmda/for-filers">Help preparing your HMDA filing</a></li>
+                <li><a href="https://github.com/cfpb/hmda-platform-tools">File Format Verification Tool</a></li>
+                <li><a href="https://www.ffiec.gov/hmda/">FFIEC - HMDA</a></li>
+                <li><a href="#">Modified LAR</a></li>
+              </ul>
+            </div>
           </div>
         </div>
 

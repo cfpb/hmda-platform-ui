@@ -96,12 +96,11 @@ class SubmissionContainer extends Component {
 
 
     return (
-    <div className="SubmissionContainer">
+    <div>
       <Header
         pathname={location.pathname}
-        userName={user.profile.name}
-      />
-      <div className="usa-grid">
+        userName={user.profile.name} />
+      <div className="usa-grid SubmissionContainer">
         <div className="usa-width-one-whole">
           <UserHeading
             period={params.filing}
