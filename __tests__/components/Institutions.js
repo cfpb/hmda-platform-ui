@@ -88,15 +88,18 @@ describe('Institutions', () => {
 
 
 describe('renderTiming', () => {
-  const getMessageClass = comp => comp.props.children[0].props.children.props.className
   const getTime = comp => comp.props.children[1].props.children
 
   const runByCode = (code, className, timeText) => {
     it('runs with code ' + code, () => {
       const rendered = renderTiming({code: code}, 123, 234)
-      expect(!!getMessageClass(rendered).match(className)).toBe(true)
-      expect(getTime(rendered)).toBe(timeText)
-      expect(getTime(renderTiming({code: code}))).toBe(code === 1?'Submission is created but not started':undefined)
+      expect(rendered.props.children[0].props.children.props.className).toEqual(className + ' text-uppercase')
+
+      if(code === 1) {
+        expect(rendered.props.children[1]).toBe(null)
+      } else {
+        expect(rendered.props.children[1].props.children).toEqual(timeText)
+      }
     })
   }
 
@@ -104,13 +107,13 @@ describe('renderTiming', () => {
     expect(renderTiming({})).toBe(undefined)
   })
 
-  runByCode(-1, 'text-secondary', 'Submission failed 47 years ago')
-  runByCode(1, 'text-secondary', 'Submission is created but not started')
-  runByCode(2, 'text-primary', 'Started 47 years ago')
-  runByCode(5, 'text-secondary', 'Started 47 years ago')
-  runByCode(6, 'text-primary', 'Started 47 years ago')
-  runByCode(8, 'text-secondary', 'Started 47 years ago')
-  runByCode(11, 'text-green', 'Completed December 31st')
+  runByCode(-1, 'text-secondary', [ 'Submission failed ', '47 years ago' ])
+  runByCode(1, 'text-secondary', undefined)
+  runByCode(2, 'text-primary', ["Started ", "47 years ago"])
+  runByCode(5, 'text-secondary', ["Started ", "47 years ago"])
+  runByCode(6, 'text-primary', ["Started ", "47 years ago"])
+  runByCode(8, 'text-secondary', ["Started ", "47 years ago"])
+  runByCode(11, 'text-green', [ 'Completed ', 'December 31st' ])
 })
 
 describe('renderViewButton', () => {
