@@ -1,7 +1,7 @@
 jest.unmock('../../src/js/components/Header.jsx')
 jest.mock('oidc-client')
 
-import Header from '../../src/js/components/Header.jsx'
+import Header, { addActiveClass } from '../../src/js/components/Header.jsx'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -22,8 +22,8 @@ describe('Header', () => {
     expect(headerNode).toBeDefined()
   })
 
-  it('render the logout link', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(header, 'logout').length).toBe(1)
+  it('render the institutions link', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(header, 'nav-institutions').length).toBe(1)
   })
 
   const headerNoUser = TestUtils.renderIntoDocument(
@@ -34,7 +34,19 @@ describe('Header', () => {
     </Wrapper>
   )
 
-  it('render the login link', () => {
+  it('renders the login link', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(headerNoUser, 'usa-button').length).toBe(1)
+  })
+
+  describe('addActiveClass', () => {
+    it('returns the correct style', () => {
+      const returned = addActiveClass('upload', 'upload')
+      expect(returned).toEqual('active')
+    })
+
+    it('returns null', () => {
+      const returned = addActiveClass('upload', 'notupload')
+      expect(returned).toEqual(null)
+    })
   })
 })

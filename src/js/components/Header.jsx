@@ -12,7 +12,7 @@ const Header = (props) => {
   const page = props.pathname.split('/').slice(-1)[0]
 
   return (
-    <header className="usa-header usa-header-basic" role="banner">
+    <header className="Header usa-header usa-header-basic" role="banner">
       <BannerUSA />
       <div className="usa-nav-container">
         <div className="usa-logo" id="logo">
@@ -24,7 +24,7 @@ const Header = (props) => {
               aria-label="Home">HMDA Filing</Link>
           </em>
         </div>
-        <nav role="navigation" className="Header usa-nav">
+        <nav role="navigation" className="usa-nav">
           {props.userName
           ?
           <ul className="usa-nav-primary">
@@ -41,7 +41,7 @@ const Header = (props) => {
           </ul>
           :
           <ul className="usa-nav-primary">
-            <li><Link to={'/institutions'} className="usa-button">Login</Link></li>
+            <li><Link to="/institutions" className="usa-button">Login</Link></li>
           </ul>
           }
         </nav>

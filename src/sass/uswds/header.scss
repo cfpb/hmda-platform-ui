@@ -54,7 +54,7 @@
   font-size: 1.3rem;
   margin-left: 0;
 
-  &.logout {
+  &.nav-institutions {
     margin-left: 3em;
     &>a.usa-nav-link{
       margin-left: 0;
@@ -67,6 +67,10 @@
     margin: 1.3rem 1.5rem 1rem;
     padding: 0;
     text-transform: uppercase;
+
+    &.active {
+      border-bottom: 2px solid;
+    }
 
     &.usa-button {
       color: $color-white;
