@@ -3,7 +3,14 @@ import { Link } from 'react-router'
 import { signinRedirect, logout } from '../redirect.js'
 import BannerUSA from './BannerUSA.jsx'
 
+export const addActiveClass = (selected, current) => {
+  if(selected === current) return 'active'
+  return null
+}
+
 const Header = (props) => {
+  const page = props.pathname.split('/').slice(-1)[0]
+
   return (
     <header className="usa-header usa-header-basic" role="banner">
       <BannerUSA />
@@ -21,13 +28,13 @@ const Header = (props) => {
           {props.userName
           ?
           <ul className="usa-nav-primary">
-            <li>
-              <Link className="usa-nav-link" to={'/'}>Home</Link>
+            <li>{props.userName}</li>
+            <li className="nav-institutions">
+              <Link
+                className={`usa-nav-link ${addActiveClass(page, 'institutions')}`}
+                to="/institutions">My Institutions</Link>
             </li>
-            <li>
-              <Link className="usa-button usa-button-outline" to={'/institutions'}>My Institutions</Link>
-            </li>
-            <li className="logout">{props.userName} - <a className="usa-nav-link" href="#" onClick={(e) => {
+            <li><a className="usa-nav-link" href="#" onClick={(e) => {
                e.preventDefault()
                logout()
              }}>Logout</a></li>
@@ -44,7 +51,8 @@ const Header = (props) => {
 }
 
 Header.propTypes = {
-  userName: React.PropTypes.string
+  userName: React.PropTypes.string,
+  pathname: React.PropTypes.string
 }
 
 export default Header

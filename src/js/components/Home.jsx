@@ -56,9 +56,12 @@ const renderLoggedOutHero = () => {
 
 const Home = (props) => {
   const renderHero = props.user.profile.name ? renderLoggedInHero() : renderLoggedOutHero()
+  
   return (
     <div>
-      <Header userName={props.user.profile.name} />
+      <Header
+        pathname={props.location.pathname}
+        userName={props.user.profile.name} />
       <div className="Home" id="main-content">
         {renderHero}
         <div className="usa-grid">
