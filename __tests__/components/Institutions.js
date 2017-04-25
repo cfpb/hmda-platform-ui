@@ -4,7 +4,6 @@ jest.mock('oidc-client')
 
 import Institutions, {
   renderTiming,
-  renderStatusMessage,
   renderViewButton,
   renderRefileButton,
   renderPreviousSubmissions,
@@ -112,30 +111,6 @@ describe('renderTiming', () => {
   runByCode(6, 'text-primary', 'Started 47 years ago')
   runByCode(8, 'text-secondary', 'Started 47 years ago')
   runByCode(11, 'text-green', 'Completed December 31st')
-})
-
-describe('renderStatusMessage', () => {
-  const runByCode = (code, message) => {
-    it('runs with code ' + code, () => {
-      const rendered = renderStatusMessage({code: code, message: 'somethinged'})
-      expect(rendered.props.children).toBe(message)
-    })
-  }
-
-  it('fails on no status', () => {
-    expect(renderStatusMessage()).toBe(undefined)
-  })
-
-  it('remains empty on an unknown code', () => {
-    expect(renderStatusMessage({}).props.children).toBe(undefined)
-  })
-
-  runByCode(1, 'A submission has been created and is ready for a file upload.')
-  runByCode(2, 'Your file is currently being processed.')
-  runByCode(5, 'Your file failed to parse and will need to be fixed and re-submitted.')
-  runByCode(8, 'Your submission has been somethinged.')
-  runByCode(9, 'Your submission has been somethinged and is ready to be signed.')
-  runByCode(11, 'Your submission has been somethinged. Thank you!')
 })
 
 describe('renderViewButton', () => {

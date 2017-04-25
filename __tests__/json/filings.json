@@ -18,7 +18,8 @@
     },
     "status": {
       "code": 9,
-      "message": "validated"
+      "message": "validated",
+      "description": "Your submission has been validated and is ready to be signed."
     },
     "start": 1482169555559,
     "end": 0
