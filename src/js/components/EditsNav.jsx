@@ -121,10 +121,15 @@ const renderLinkOrText = (props, name, i) => {
     toRender = <span>{name}</span>
   }
 
-  const navClass = getNavClass(navLinks[name], props)
+  let navClass = getNavClass(navLinks[name], props)
 
   let step
   if(navClass !== 'complete' && navClass !== 'complete current') step = i + 1
+
+  // add syntacticalvalidity class to syntacticalvalidity li
+  // used to target this link for fixing the nav at smaller screensizes
+  // used in sass/components/EditsNav.scss
+  if(navLinks[name] === 'syntacticalvalidity') navClass = `${navClass} syntacticalvalidity`
 
   return (
     <li className={navClass} key={i}>
