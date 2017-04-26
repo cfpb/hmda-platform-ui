@@ -10,18 +10,17 @@ export const renderTiming = (submissionStatus, start, end) => {
   if(!submissionStatus || !submissionStatus.code) return
 
   let messageClass
-  let timing
+  let timing = null
 
   // submission created
   if(submissionStatus.code === 1) {
     messageClass = 'text-secondary'
-    timing = 'Submission is created but not started'
   }
 
   // any submission status but created or signed
   if(submissionStatus.code > 1) {
     messageClass = 'text-primary'
-    if(start) timing = `Started ${moment(start).utcOffset(-5).fromNow()}`
+    if(start) timing = <p>Started {moment(start).utcOffset(-5).fromNow()}</p>
   }
 
   // if its parsed with errors or validated with errors
@@ -32,64 +31,21 @@ export const renderTiming = (submissionStatus, start, end) => {
   // signed (completed)
   if(submissionStatus.code === 11) {
     messageClass = 'text-green'
-    if(end) timing = `Completed ${moment(end).utcOffset(-5).format('MMMM Do')}`
+    if(end) timing = <p>Completed {moment(end).utcOffset(-5).format('MMMM Do')}</p>
   }
 
   // failed submission
   if(submissionStatus.code === -1) {
     messageClass = 'text-secondary'
-    if(start) timing = `Submission failed ${moment(start).utcOffset(-5).fromNow()}`
+    if(start) timing = <p>Submission failed {moment(start).utcOffset(-5).fromNow()}</p>
   }
 
   return (
     <div className="timing usa-text-small">
       <p><strong className={`${messageClass} text-uppercase`}>{submissionStatus.message}</strong></p>
-      <p>{timing}</p>
+      {timing}
     </div>
   )
-}
-
-export const renderStatusMessage = (submissionStatus) => {
-  if (!submissionStatus) return
-
-  let statusMessage
-  const { code, message } = submissionStatus
-
-  // created
-  if(code === 1) {
-    statusMessage = 'A submission has been created and is ready for a file upload.'
-  }
-
-  // in progress
-  if(code > 1 && code < 8) {
-    statusMessage = 'Your file is currently being processed.'
-  }
-
-  // failed parser
-  if(code === 5) {
-    statusMessage = 'Your file failed to parse and will need to be fixed and re-submitted.'
-  }
-
-  // has edits
-  if(code === 8) {
-    statusMessage = `Your submission has been ${message}.`
-  }
-
-  // validated
-  if(code === 9) {
-    statusMessage = `Your submission has been ${message} and is ready to be signed.`
-  }
-
-  // signed
-  if(code === 11) {
-    statusMessage = `Your submission has been ${message}. Thank you!`
-  }
-
-  if(code === 0) {
-    statusMessage = 'You are ready to begin the submission process.'
-  }
-
-  return <p className="status">{statusMessage}</p>
 }
 
 export const renderViewButton = (code, institutionId, period) => {
@@ -225,8 +181,7 @@ export default class Institution extends Component {
                         )}
 
                         <h2>{institution.name} - {institution.id}</h2>
-
-                        {renderStatusMessage(latestSubmissionStatus)}
+                        <p className="status">{latestSubmissionStatus.description}</p>
 
                         {renderViewButton(
                           filing.status.code,
