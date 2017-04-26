@@ -6,6 +6,13 @@
     margin-top: .5em;
     margin-bottom: 0;
   }
+
+  .irs-table-wrapper {
+    max-width: $site-max-width;
+    @media screen and (max-width: ($site-max-width - 1)) {
+      overflow-x: auto;
+    }
+  }
   thead th,
   tbody td {
     font-size: .75em;
