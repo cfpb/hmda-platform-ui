@@ -1,0 +1,19 @@
+.usa-hero {
+  background-color: $color-gray-lightest;
+  background-image: none;
+  padding-top: 8em;
+  padding-bottom: 8em;
+
+  h2 {
+    margin: 0;
+  }
+  p {
+    margin-bottom: 0;
+    &.usa-font-lead {
+      margin-top: 0;
+    }
+  }
+  .usa-button {
+    margin-top: 2em;
+  }
+}

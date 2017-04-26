@@ -1,7 +1,6 @@
 .usa-header {
   background-color: $color-white;
   border-bottom: 1px solid $color-gray-lighter;
-  margin-bottom: 3em;
 }
 
 .usa-navbar {
@@ -24,17 +23,21 @@
 
 .usa-header-basic .usa-logo {
   bottom: 0;
+  font-weight: bold;
+  margin-top: 3px;
   position: relative;
 }
 
 .usa-banner-inner {
   padding-top: .25em;
   padding-bottom: .25em;
+  max-width: 100%;
 }
 
 .usa-nav-container {
   padding-top: .5em;
   padding-bottom: .5em;
+  max-width: 100%;
 }
 
 .usa-nav-secondary-links {
@@ -51,7 +54,7 @@
   font-size: 1.3rem;
   margin-left: 0;
 
-  &.logout {
+  &.nav-institutions {
     margin-left: 3em;
     &>a.usa-nav-link{
       margin-left: 0;
@@ -65,6 +68,10 @@
     padding: 0;
     text-transform: uppercase;
 
+    &.active {
+      border-bottom: 2px solid;
+    }
+
     &.usa-button {
       color: $color-white;
       margin: 0;
@@ -73,6 +80,9 @@
       &:hover {
         color: $color-white;
         background-color: $color-primary-darker;
+      }
+      &.usa-button-outline:hover {
+        color: $color-white
       }
     }
   }

@@ -30,7 +30,7 @@ export class AppContainer extends Component {
               <nav className="usa-footer-nav usa-width-one-half">
                 <ul className="usa-unstyled-list">
                   <li className="usa-footer-primary-content">
-                    <a className="usa-footer-primary-link" href="https://www.ffiec.gov/">FFIEC</a>
+                    <a className="usa-footer-primary-link" href="https://www.ffiec.gov/"><img src="/img/ffiec-logo.png" width="100px"/></a>
                   </li>
                 </ul>
               </nav>
