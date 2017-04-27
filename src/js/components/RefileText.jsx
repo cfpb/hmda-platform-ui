@@ -4,8 +4,8 @@ export const getStatus = (code) => {
   let status
 
   if(code > 7) {
-    status = 'is in progress.'
-    if(code === 11) status = 'has already been submitted.'
+    status = 'is in progress'
+    if(code === 11) status = 'has already been submitted'
   }
 
   const message = status ? <p>The HMDA data for this filing year <strong>{status}</strong>.</p> : null
