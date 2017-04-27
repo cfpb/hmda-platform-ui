@@ -123,8 +123,8 @@ const renderLinkOrText = (props, name, i) => {
 
   let navClass = getNavClass(navLinks[name], props)
 
-  let step
-  if(navClass !== 'complete' && navClass !== 'complete current') step = i + 1
+  const step = i + 1
+  //if(navClass !== 'complete' && navClass !== 'complete current') step = i + 1
 
   // add syntacticalvalidity class to syntacticalvalidity li
   // used to target this link for fixing the nav at smaller screensizes
@@ -133,7 +133,6 @@ const renderLinkOrText = (props, name, i) => {
 
   return (
     <li className={navClass} key={i}>
-      <div className="step">{step}</div>
       {toRender}
     </li>
   )

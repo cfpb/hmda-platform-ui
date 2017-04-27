@@ -1,82 +1,39 @@
 .EditsNav {
+  padding: 1em 3rem;
   position: relative;
-  text-align: center;
   ul.usa-nav-primary {
     li {
-      width: 20%;
-      text-align: center;
-      margin-bottom: 2em;
 
-      // the edits nav breaks down at 948 and below because the "syntactical and validity edits" gets broken into 2 lines
-      @media screen and (max-width: 948px) {
-        position: relative;
-        top: -20px;
-        &.syntacticalvalidity {
-          top: 0;
+      a {
+        margin: 0 1.5rem 1rem;
+      }
+      &:first-child {
+        a {
+          margin-left: 0;
         }
       }
-      .step {
-        background-color: $color-white;
-        border: 1px solid $color-gray-light;
-        border-radius: 50%;
+      span {
         color: $color-gray-light;
-        height: 2em;
-        margin: 0 auto .5em;
-        padding: 3px;
-        text-align: center;
-        width: 2em;
-      }
-      &.active {
-        .step {
-          border-color: $color-base;
-          color: $color-base;
-        }
+        display: inline-block;
+        font-weight: 700;
+        margin: 0 1.5rem 1rem;
+        text-transform: uppercase;
       }
       &.current {
-        .step {
-          background-color: $color-base;
-          border-color: $color-base;
-          color: $color-white;
-        }
         a {
           border-bottom: 2px solid $color-base;
         }
       }
-      &.complete {
-        .step {
-          background-color: $color-green;
-          background-image: url('/img/correct8.png');
-          background-position: 6px;
-          background-repeat: no-repeat;
-          border-color: $color-green;
-          color: $color-white;
-        }
-        &.current {
-          .step {
-            background-color: $color-base;
-            border-color: $color-base;
-          }
-        }
-      }
-    }
-    a {
-      margin: 0 0 -10px;
-    }
-    span {
-      color: $color-gray-light;
-      display: inline-block;
-      font-weight: 700;
-      text-transform: uppercase;
     }
   }
 
   hr.line,
   hr.progress {
-    border-top: 2px solid $color-gray-lighter;
+    border-top: 1px solid $color-gray-lighter;
     left: 0;
     position: absolute;
     right: 0;
-    top: -5px;
+    top: -1em;
     z-index: -1;
   }
 

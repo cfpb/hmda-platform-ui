@@ -100,18 +100,12 @@ class SubmissionContainer extends Component {
       <Header
         pathname={location.pathname}
         userName={user.profile.name} />
-      <div className="usa-grid SubmissionContainer">
-        <div className="usa-width-one-whole">
-          <UserHeading
-            period={params.filing}
-            institution={this.props.institution}
-          />
-        </div>
-        <div className="usa-width-one-whole">
-          <EditsNav />
-        </div>
-      </div>
-      <div id="main-content" className="usa-grid">
+      <UserHeading
+        period={params.filing}
+        institution={this.props.institution}
+      />
+      <EditsNav />
+      <div id="main-content" className="usa-grid SubmissionContainer">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null }
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
