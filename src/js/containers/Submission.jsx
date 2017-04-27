@@ -100,11 +100,11 @@ class SubmissionContainer extends Component {
       <Header
         pathname={location.pathname}
         userName={user.profile.name} />
+      <EditsNav />
       <UserHeading
         period={params.filing}
         institution={this.props.institution}
       />
-      <EditsNav />
       <div id="main-content" className="usa-grid SubmissionContainer">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null }
         <div className="usa-width-one-whole">

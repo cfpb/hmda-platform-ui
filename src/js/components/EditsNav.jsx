@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 
 const navNames = [
@@ -138,18 +138,51 @@ const renderLinkOrText = (props, name, i) => {
   )
 }
 
-const EditsNav = (props) => {
-  return <div className="EditsNav">
-    <ul className="usa-nav-primary">
-      {
-        navNames.map((pageObj, i) => {
-          return renderLinkOrText(props, pageObj, i)
-        })
-      }
-    </ul>
-    <hr className="line" />
-    <hr className="progress" width={getProgressWidth(props)} />
-  </div>
+export default class EditsNav extends Component {
+  constructor(props) {
+    super(props)
+    this.handleScroll = this.handleScroll.bind(this)
+    this.state = { fixed: false }
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount')
+    console.log(this.editNav)
+    window.addEventListener('scroll', this.handleScroll)
+
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  handleScroll() {
+    //console.log(window.getBoundingClientRect().top)
+    console.log(this.editNav.getBoundingClientRect().top)
+    if(this.editNav.getBoundingClientRect().top <= 0) {
+      this.setState({'fixed': true})
+    } else {
+      this.setState({'fixed': false})
+    }
+    console.log(this.state.fixed)
+  }
+
+  render() {
+    let fixed = this.state.fixed ? { position: "fixed", top: 0, width: "100%", zIndex: 1000 } : null
+    return (
+      <div ref={(el) => {this.editNav = el}} className="EditsNav" style={fixed}>
+        <ul className="usa-nav-primary">
+          {
+            navNames.map((pageObj, i) => {
+              return renderLinkOrText(this.props, pageObj, i)
+            })
+          }
+        </ul>
+        <hr className="line" />
+        <hr className="progress" width={getProgressWidth(this.props)} />
+      </div>
+    )
+  }
 }
 
 EditsNav.propTypes = {
@@ -160,8 +193,6 @@ EditsNav.propTypes = {
   qualityVerified: React.PropTypes.bool.isRequired,
   macroVerified: React.PropTypes.bool.isRequired
 }
-
-export default EditsNav
 
 export {
   renderLinkOrText,
