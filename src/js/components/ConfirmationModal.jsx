@@ -21,7 +21,6 @@ const ModalConfirm = (props) => {
   return (
     <div className={'confirmation-blurred-blocker'+ (showing ? ' showing-blurred-blocker' : '')}>
       <div className="confirmation-modal">
-        <h4>Upload a new file?</h4>
         <div className="confirmation-contents">
           <RefileText code={code}/>
           <button onClick={(e)=>{
