@@ -15,6 +15,13 @@
 
   .confirmation-contents {
     padding: .5em 2em 1.5em;
+
+    a {
+      color: $color-gray;
+      &:hover {
+        color: $color-gray-warm-dark;
+      }
+    }
   }
 }
 
