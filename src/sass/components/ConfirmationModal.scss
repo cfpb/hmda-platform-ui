@@ -1,10 +1,10 @@
 .confirmation-modal {
-  position: fixed;
+  background: $color-white;
   left: 50%;
+  position: fixed;
   top: 50%;
   transform: translate(-50%,-50%);
   z-index: 9003;
-  background: $color-white;
 
   h4 {
     background: $color-gray-lightest;

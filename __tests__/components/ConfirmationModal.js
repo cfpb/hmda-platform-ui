@@ -28,8 +28,12 @@ describe('Confirmation Modal', () => {
     expect(confirmNode).toBeDefined()
   })
 
-  it('renders 2 buttons', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(confirm, 'button').length).toEqual(2)
+  it('renders 1 button', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(confirm, 'button').length).toEqual(1)
+  })
+
+  it('renders 1 link', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(confirm, 'a').length).toEqual(1)
   })
 
   it('renders WITHOUT the showing-blurred-blocker class', () => {
@@ -44,9 +48,9 @@ describe('Confirmation Modal', () => {
   })
 
   it('calls hideConfirmModal', () => {
-    const noButton = TestUtils.scryRenderedDOMComponentsWithTag(confirm, 'button')[1]
+    const noLink = TestUtils.scryRenderedDOMComponentsWithTag(confirm, 'a')[0]
 
-    TestUtils.Simulate.click(noButton)
+    TestUtils.Simulate.click(noLink)
     expect(hideConfirmModal).toBeCalled()
   })
 
