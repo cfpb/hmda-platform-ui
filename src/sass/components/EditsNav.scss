@@ -4,6 +4,14 @@
   padding: 1em 3rem;
   position: relative;
   text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  &.EditsNav-fixed {
+    position: fixed;
+  }
+
   ul.usa-nav-primary {
     li {
       margin: 0 1em;

@@ -142,14 +142,17 @@ export default class EditsNav extends Component {
   constructor(props) {
     super(props)
     this.handleScroll = this.handleScroll.bind(this)
-    this.state = { fixed: false }
+    this.state = {
+      fixed: false,
+      height: 0
+    }
   }
 
   componentDidMount() {
-    console.log('componentDidMount')
-    console.log(this.editNav)
     window.addEventListener('scroll', this.handleScroll)
-
+    this.setState({
+      height: document.getElementById('header').clientHeight
+    })
   }
 
   componentWillUnmount() {
@@ -157,20 +160,17 @@ export default class EditsNav extends Component {
   }
 
   handleScroll() {
-    //console.log(window.getBoundingClientRect().top)
-    console.log(this.editNav.getBoundingClientRect().top)
-    if(this.editNav.getBoundingClientRect().top <= 0) {
+    if(document.body.scrollTop >= this.state.height) {
       this.setState({'fixed': true})
     } else {
       this.setState({'fixed': false})
     }
-    console.log(this.state.fixed)
   }
 
   render() {
-    let fixed = this.state.fixed ? { position: "fixed", top: 0, width: "100%", zIndex: 1000 } : null
+    let fixedClass = this.state.fixed ? "EditsNav-fixed" : null
     return (
-      <div ref={(el) => {this.editNav = el}} className="EditsNav" style={fixed}>
+      <div ref={(el) => {this.editNav = el}} className={`EditsNav ${fixedClass}`}>
         <ul className="usa-nav-primary">
           {
             navNames.map((pageObj, i) => {

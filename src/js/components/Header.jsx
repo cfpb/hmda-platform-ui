@@ -12,7 +12,7 @@ const Header = (props) => {
   const page = props.pathname.split('/').slice(-1)[0]
 
   return (
-    <header className="Header usa-header usa-header-basic" role="banner">
+    <header className="Header usa-header usa-header-basic" id="header" role="banner">
       <BannerUSA />
       <div className="usa-nav-container">
         <div className="usa-logo" id="logo">
