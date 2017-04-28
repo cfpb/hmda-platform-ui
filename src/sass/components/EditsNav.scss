@@ -1,7 +1,7 @@
 .EditsNav {
-  background: $color-white;
   border-bottom: 1px solid $color-gray-lighter;
-  padding: 1em 3rem;
+  background: $color-white;
+  padding-bottom: 1em;
   position: relative;
   text-align: center;
   top: 0;
@@ -10,6 +10,10 @@
 
   &.EditsNav-fixed {
     position: fixed;
+  }
+
+  .nav-wrapper {
+    padding-top: 1em;
   }
 
   ul.usa-nav-primary {

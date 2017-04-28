@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
+import UserHeading from '../components/UserHeading.jsx'
 
 const navNames = [
   'upload',
@@ -168,16 +169,22 @@ export default class EditsNav extends Component {
   }
 
   render() {
-    let fixedClass = this.state.fixed ? "EditsNav-fixed" : null
+    let fixedClass = this.state.fixed ? "EditsNav-fixed" : ''
     return (
-      <div ref={(el) => {this.editNav = el}} className={`EditsNav ${fixedClass}`}>
-        <ul className="usa-nav-primary">
-          {
-            navNames.map((pageObj, i) => {
-              return renderLinkOrText(this.props, pageObj, i)
-            })
-          }
-        </ul>
+      <div className={`EditsNav ${fixedClass}`}>
+        <UserHeading
+          period={this.props.period}
+          institution={this.props.institution}
+        />
+        <div className="nav-wrapper">
+          <ul className="usa-nav-primary">
+            {
+              navNames.map((pageObj, i) => {
+                return renderLinkOrText(this.props, pageObj, i)
+              })
+            }
+          </ul>
+        </div>
         <hr className="line" />
         <hr className="progress" width={getProgressWidth(this.props)} />
       </div>
@@ -191,7 +198,9 @@ EditsNav.propTypes = {
   code: React.PropTypes.number.isRequired,
   syntacticalValidityEditsExist: React.PropTypes.bool.isRequired,
   qualityVerified: React.PropTypes.bool.isRequired,
-  macroVerified: React.PropTypes.bool.isRequired
+  macroVerified: React.PropTypes.bool.isRequired,
+  period: React.PropTypes.string.isRequired,
+  institution: React.PropTypes.object
 }
 
 export {
