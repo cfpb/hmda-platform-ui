@@ -1,9 +1,7 @@
 .EditsNav {
-  border-bottom: 1px solid $color-gray-lighter;
-  background: $color-primary-darkest;
-  padding-bottom: 1em;
+  background: $color-base;
+  padding-bottom: .5em;
   position: relative;
-  text-align: center;
   top: 0;
   width: 100%;
   z-index: 1000;
@@ -13,32 +11,25 @@
   }
 
   .nav-wrapper {
-    padding-top: 1em;
+    padding-top: .5em;
   }
 
   ul.usa-nav-primary {
     li {
-      margin: 0 1em;
-      a,
-      span {
-        margin: 0 1.5rem;
+      &:first-child {
+        margin-left: 3rem;
       }
       a {
         color: $color-white;
         &:hover {
-          color: $color-gray-cool-light;
-        }
-      }
-      &:last-child {
-        a,
-        span {
-          margin-right: 0;
+          color: $color-gray-lightest;
         }
       }
       span {
-        color: $color-cool-blue-lighter;
+        color: $color-gray-light;
         display: inline-block;
         font-weight: 700;
+        margin: 1.3rem 1.5rem 1rem;
         text-transform: uppercase;
       }
       &.current {
@@ -56,7 +47,6 @@
     position: absolute;
     right: 0;
     top: -1em;
-    z-index: -1;
   }
 
   hr.progress {
