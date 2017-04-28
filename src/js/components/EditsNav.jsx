@@ -200,9 +200,9 @@ export default class EditsNav extends Component {
                 })
               }
             </ul>
+            <hr className="line" />
+            <hr className="progress" width={getProgressWidth(this.props)} />
           </div>
-          <hr className="line" />
-          <hr className="progress" width={getProgressWidth(this.props)} />
           <RefileWarning />
         </div>
       </div>

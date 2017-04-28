@@ -1,5 +1,5 @@
 .EditsNav {
-  background: $color-base;
+  background: $color-white;
   position: relative;
   top: 0;
   width: 100%;
@@ -11,6 +11,7 @@
 
   .nav-wrapper {
     padding: .5em 0;
+    position: relative;
   }
 
   ul.usa-nav-primary {
@@ -19,9 +20,9 @@
         margin-left: 3rem;
       }
       a {
-        color: $color-white;
+        color: $color-base;
         &:hover {
-          color: $color-gray-lightest;
+          color: $color-primary;
         }
       }
       span {
@@ -45,7 +46,7 @@
     left: 0;
     position: absolute;
     right: 0;
-    top: -1em;
+    bottom: -1.1em;
   }
 
   hr.progress {
