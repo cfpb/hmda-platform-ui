@@ -99,15 +99,6 @@ const renderLinkOrText = (props, name, i) => {
     macroVerified
   } = props
 
-  // always render the upload as a link
-  if(name === 'upload') {
-    toRender = (
-      <Link
-        className="usa-nav-link"
-        to={`${base}/${navLinks[name]}`}>{name}</Link>
-    )
-  }
-
   // only render link when code > 7 (so it's finished validating)
   if(code > 7) {
     toRender = <Link className="usa-nav-link"  to={`${base}/${navLinks[name]}`}>{name}</Link>
@@ -124,6 +115,15 @@ const renderLinkOrText = (props, name, i) => {
     }
   } else {
     toRender = <span>{name}</span>
+  }
+
+  // always render the upload as a link
+  if(name === 'upload') {
+    toRender = (
+      <Link
+        className="usa-nav-link"
+        to={`${base}/${navLinks[name]}`}>{name}</Link>
+    )
   }
 
   let navClass = getNavClass(navLinks[name], props)
