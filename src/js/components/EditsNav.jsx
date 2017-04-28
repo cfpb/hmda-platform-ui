@@ -145,14 +145,16 @@ export default class EditsNav extends Component {
     this.handleScroll = this.handleScroll.bind(this)
     this.state = {
       fixed: false,
-      height: 0
+      headerHeight: 0,
+      editsNavHeight: 0
     }
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
     this.setState({
-      height: document.getElementById('header').clientHeight
+      headerHeight: document.getElementById('header').clientHeight,
+      editsNavHeight: document.getElementById('editsNav').clientHeight
     })
   }
 
@@ -161,7 +163,7 @@ export default class EditsNav extends Component {
   }
 
   handleScroll() {
-    if(document.body.scrollTop >= this.state.height) {
+    if(document.body.scrollTop >= this.state.headerHeight) {
       this.setState({'fixed': true})
     } else {
       this.setState({'fixed': false})
@@ -169,24 +171,27 @@ export default class EditsNav extends Component {
   }
 
   render() {
-    let fixedClass = this.state.fixed ? "EditsNav-fixed" : ''
+    const wrapperHeight = {height: `${this.state.editsNavHeight}px`}
+    const fixedClass = this.state.fixed ? "EditsNav-fixed" : ''
     return (
-      <div className={`EditsNav ${fixedClass}`}>
-        <UserHeading
-          period={this.props.period}
-          institution={this.props.institution}
-        />
-        <div className="nav-wrapper">
-          <ul className="usa-nav-primary">
-            {
-              navNames.map((pageObj, i) => {
-                return renderLinkOrText(this.props, pageObj, i)
-              })
-            }
-          </ul>
+      <div style={wrapperHeight}>
+        <div className={`EditsNav ${fixedClass}`} id="editsNav">
+          <UserHeading
+            period={this.props.period}
+            institution={this.props.institution}
+          />
+          <div className="nav-wrapper">
+            <ul className="usa-nav-primary">
+              {
+                navNames.map((pageObj, i) => {
+                  return renderLinkOrText(this.props, pageObj, i)
+                })
+              }
+            </ul>
+          </div>
+          <hr className="line" />
+          <hr className="progress" width={getProgressWidth(this.props)} />
         </div>
-        <hr className="line" />
-        <hr className="progress" width={getProgressWidth(this.props)} />
       </div>
     )
   }

@@ -1,6 +1,6 @@
 .EditsNav {
   border-bottom: 1px solid $color-gray-lighter;
-  background: $color-white;
+  background: $color-primary-darkest;
   padding-bottom: 1em;
   position: relative;
   text-align: center;
@@ -23,6 +23,12 @@
       span {
         margin: 0 1.5rem;
       }
+      a {
+        color: $color-white;
+        &:hover {
+          color: $color-gray-cool-light;
+        }
+      }
       &:last-child {
         a,
         span {
@@ -30,14 +36,14 @@
         }
       }
       span {
-        color: $color-gray-light;
+        color: $color-cool-blue-lighter;
         display: inline-block;
         font-weight: 700;
         text-transform: uppercase;
       }
       &.current {
         a {
-          border-bottom: 2px solid $color-base;
+          border-bottom: 2px solid;
         }
       }
     }
