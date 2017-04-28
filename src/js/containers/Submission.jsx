@@ -12,7 +12,6 @@ import ErrorWarning from '../components/ErrorWarning.jsx'
 import EditsContainer from './Edits.jsx'
 import EditsNavComponent from '../components/EditsNav.jsx'
 import NavButtonComponent from '../components/NavButton.jsx'
-import RefileWarningComponent  from '../components/RefileWarning.jsx'
 import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
 import IRSReport from './IRSReport.jsx'
 import Signature from './Signature.jsx'
@@ -24,7 +23,6 @@ import LoadingIcon from '../components/LoadingIcon.jsx'
 const Edits = submissionProgressHOC(EditsContainer)
 const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
-const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
 const renderByCode = (code, page, message) => {
   const toRender = []
@@ -34,12 +32,12 @@ const renderByCode = (code, page, message) => {
     if(page === 'upload'){
       toRender.push(<UploadForm />)
       if(code === 5) {
-        toRender.push(<RefileWarning />)
+        //toRender.push(<RefileWarning />)
         toRender.push(<ParseErrors />)
       }
     }else if(['syntacticalvalidity','quality','macro'].indexOf(page) !== -1){
       if(code > 7){
-        if(code === 8) toRender.push(<RefileWarning />)
+        //if(code === 8) toRender.push(<RefileWarning />)
         toRender.push(<Edits />)
       }
     }else if(page === 'summary'){

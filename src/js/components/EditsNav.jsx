@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import UserHeading from '../components/UserHeading.jsx'
+import RefileWarningComponent  from '../components/RefileWarning.jsx'
+import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
+
+const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
 const navNames = [
   'upload',
@@ -158,6 +162,14 @@ export default class EditsNav extends Component {
     })
   }
 
+  componentDidUpdate() {
+    if(this.state.editsNavHeight !== document.getElementById('editsNav').clientHeight) {
+      this.setState({
+        editsNavHeight: document.getElementById('editsNav').clientHeight
+      })
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
   }
@@ -191,6 +203,7 @@ export default class EditsNav extends Component {
           </div>
           <hr className="line" />
           <hr className="progress" width={getProgressWidth(this.props)} />
+          <RefileWarning />
         </div>
       </div>
     )
