@@ -21,11 +21,11 @@ export function mapStateToProps(state) {
   const {
     isFetching,
     msas,
-    totals
+    summary
   } = state.app.irs || {
     isFetching: true,
     msas: [],
-    totals: {}
+    summary: {}
   }
 
   const {
@@ -40,7 +40,7 @@ export function mapStateToProps(state) {
   return {
     isFetching,
     msas,
-    totals,
+    summary,
     status
   }
 }

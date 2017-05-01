@@ -286,7 +286,7 @@ export function receiveIRS(data) {
   return {
     type: types.RECEIVE_IRS,
     msas: data.msas,
-    totals: data.totals
+    summary: data.summary
   }
 }
 

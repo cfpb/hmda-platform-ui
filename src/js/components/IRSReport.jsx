@@ -58,18 +58,18 @@ const IRSReport = (props) => {
             })}
             <tr className="totals">
               <td className="center" colSpan={2}><strong>Total</strong></td>
-              <td>{props.totals.lars}</td>
-              <td>{props.totals.amount}</td>
-              <td>{props.totals.conv}</td>
-              <td>{props.totals.FHA}</td>
-              <td>{props.totals.VA}</td>
-              <td>{props.totals.FSA}</td>
-              <td>{props.totals.oneToFourFamily}</td>
-              <td>{props.totals.MFD}</td>
-              <td>{props.totals.multiFamily}</td>
-              <td>{props.totals.homePurchase}</td>
-              <td>{props.totals.homeImprovement}</td>
-              <td>{props.totals.refinance}</td>
+              <td>{props.summary.lars}</td>
+              <td>{props.summary.amount}</td>
+              <td>{props.summary.conv}</td>
+              <td>{props.summary.FHA}</td>
+              <td>{props.summary.VA}</td>
+              <td>{props.summary.FSA}</td>
+              <td>{props.summary.oneToFourFamily}</td>
+              <td>{props.summary.MFD}</td>
+              <td>{props.summary.multiFamily}</td>
+              <td>{props.summary.homePurchase}</td>
+              <td>{props.summary.homeImprovement}</td>
+              <td>{props.summary.refinance}</td>
             </tr>
           </tbody>
         </table>
@@ -82,7 +82,7 @@ const IRSReport = (props) => {
 
 IRSReport.propTypes = {
   msas: PropTypes.array,
-  totals: PropTypes.object,
+  summary: PropTypes.object,
   status: PropTypes.object
 }
 
