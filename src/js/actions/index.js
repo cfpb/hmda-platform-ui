@@ -286,7 +286,12 @@ export function receiveIRS(data) {
   return {
     type: types.RECEIVE_IRS,
     msas: data.msas,
-    summary: data.summary
+    summary: data.summary,
+    pagination: {
+      count: data.count,
+      total: data.total,
+      _links: data._links
+    }
   }
 }
 
@@ -294,6 +299,8 @@ export function getPaginationRequestAction(target) {
   switch(target) {
     case 'parseErrors':
       return requestParseErrors()
+    case 'irs':
+      return requestIRS()
     default:
       return requestEdit()
   }
@@ -303,6 +310,8 @@ export function getPaginationReceiveAction(target, data) {
   switch(target) {
     case 'parseErrors':
       return receiveParseErrors(data)
+    case 'irs':
+      return receiveIRS(data)
     default:
       return receiveEdit(data)
   }

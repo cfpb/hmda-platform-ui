@@ -513,6 +513,11 @@ export const pagination = (state = defaultPagination, action) => {
         ...state,
         [action.edit]: action.pagination
       }
+    case RECEIVE_IRS:
+      return {
+        ...state,
+        irs: action.pagination
+      }
 
     default:
       return state
