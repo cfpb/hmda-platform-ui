@@ -54,7 +54,7 @@ const defaultSignature = {
 const defaultIRS = {
   isFetching: false,
   msas: [],
-  totals: {}
+  summary: {}
 }
 
 const defaultEdits = {
