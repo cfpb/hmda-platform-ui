@@ -4,6 +4,7 @@ import moment from 'moment'
 
 const IRSReport = (props) => {
   if (!props.msas) return null
+  if (props.msas.length === 0) return null
 
   return (
     <div className="IRSReport">
@@ -43,34 +44,34 @@ const IRSReport = (props) => {
               return <tr key={i}>
                 <td>{msa.id}</td>
                 <td>{msa.name}</td>
-                <td>{msa.totalLars}</td>
-                <td>{msa.totalAmount}</td>
-                <td>{msa.conv}</td>
-                <td>{msa.FHA}</td>
-                <td>{msa.VA}</td>
-                <td>{msa.FSA}</td>
-                <td>{msa.oneToFourFamily}</td>
-                <td>{msa.MFD}</td>
-                <td>{msa.multiFamily}</td>
-                <td>{msa.homePurchase}</td>
-                <td>{msa.homeImprovement}</td>
-                <td>{msa.refinance}</td>
+                <td>{msa.totalLars.toLocaleString()}</td>
+                <td>{msa.totalAmount.toLocaleString()}</td>
+                <td>{msa.conv.toLocaleString()}</td>
+                <td>{msa.FHA.toLocaleString()}</td>
+                <td>{msa.VA.toLocaleString()}</td>
+                <td>{msa.FSA.toLocaleString()}</td>
+                <td>{msa.oneToFourFamily.toLocaleString()}</td>
+                <td>{msa.MFD.toLocaleString()}</td>
+                <td>{msa.multiFamily.toLocaleString()}</td>
+                <td>{msa.homePurchase.toLocaleString()}</td>
+                <td>{msa.homeImprovement.toLocaleString()}</td>
+                <td>{msa.refinance.toLocaleString()}</td>
               </tr>
             })}
             <tr className="totals">
               <td className="center" colSpan={2}><strong>Total</strong></td>
-              <td>{props.summary.lars}</td>
-              <td>{props.summary.amount}</td>
-              <td>{props.summary.conv}</td>
-              <td>{props.summary.FHA}</td>
-              <td>{props.summary.VA}</td>
-              <td>{props.summary.FSA}</td>
-              <td>{props.summary.oneToFourFamily}</td>
-              <td>{props.summary.MFD}</td>
-              <td>{props.summary.multiFamily}</td>
-              <td>{props.summary.homePurchase}</td>
-              <td>{props.summary.homeImprovement}</td>
-              <td>{props.summary.refinance}</td>
+              <td>{props.summary.lars.toLocaleString()}</td>
+              <td>{props.summary.amount.toLocaleString()}</td>
+              <td>{props.summary.conv.toLocaleString()}</td>
+              <td>{props.summary.FHA.toLocaleString()}</td>
+              <td>{props.summary.VA.toLocaleString()}</td>
+              <td>{props.summary.FSA.toLocaleString()}</td>
+              <td>{props.summary.oneToFourFamily.toLocaleString()}</td>
+              <td>{props.summary.MFD.toLocaleString()}</td>
+              <td>{props.summary.multiFamily.toLocaleString()}</td>
+              <td>{props.summary.homePurchase.toLocaleString()}</td>
+              <td>{props.summary.homeImprovement.toLocaleString()}</td>
+              <td>{props.summary.refinance.toLocaleString()}</td>
             </tr>
           </tbody>
         </table>
