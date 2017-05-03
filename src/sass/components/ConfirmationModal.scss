@@ -1,20 +1,34 @@
 .confirmation-modal {
-  position: fixed;
+  background: $color-white;
   left: 50%;
+  position: fixed;
   top: 50%;
   transform: translate(-50%,-50%);
   z-index: 9003;
-  background: $color-white;
-
-  h4 {
-    background: $color-gray-lightest;
-    border-bottom: 1px solid $color-gray-light;
-    margin: 0;
-    padding: 1em 2em;
-  }
 
   .confirmation-contents {
-    padding: .5em 2em 1.5em;
+    padding: 2em;
+
+    p {
+      margin-top: 0;
+      &:not(.usa-font-lead) {
+        margin-bottom: 0;
+      }
+    }
+    a {
+      color: $color-gray;
+      &:hover {
+        color: $color-gray-warm-dark;
+      }
+
+      @media screen and (max-width: 931px) {
+        display: block;
+        margin-top: 1em;
+      }
+    }
+    button {
+      margin-right: 2em;
+    }
   }
 }
 
