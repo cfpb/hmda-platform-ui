@@ -1,5 +1,7 @@
 jest.unmock('../../src/js/components/IRSReport.jsx')
 
+jest.mock('../../src/js/containers/Pagination.jsx')
+
 import IRSReport from '../../src/js/components/IRSReport.jsx'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
@@ -19,7 +21,7 @@ describe('IRS report', () => {
     <Wrapper>
       <IRSReport
         msas={irsJSON.msas}
-        totals={irsJSON.totals}
+        summary={irsJSON.summary}
       />
     </Wrapper>
   )

@@ -1,17 +1,19 @@
 import React, { Component, PropTypes } from 'react'
+import Pagination from '../containers/Pagination.jsx'
 import moment from 'moment'
 
 const IRSReport = (props) => {
   if (!props.msas) return null
+  if (props.msas.length === 0) return null
 
   return (
-    <div className="IRSReport" id="irs">
+    <div className="IRSReport">
       <header>
         <h2>Institution Register Summary</h2>
         <p className="usa-font-lead">Please review your summarized HMDA data below. If the data are incorrect, please update your file and select the "Update a new file" button. You will need to begin the filing process again.</p>
       </header>
 
-      <div className="irs-table-wrapper">
+      <div className="irs-table-wrapper" id="irs">
         <table width="100%">
           <thead>
             <tr>
@@ -42,39 +44,39 @@ const IRSReport = (props) => {
               return <tr key={i}>
                 <td>{msa.id}</td>
                 <td>{msa.name}</td>
-                <td>{msa.totalLars}</td>
-                <td>{msa.totalAmount}</td>
-                <td>{msa.conv}</td>
-                <td>{msa.FHA}</td>
-                <td>{msa.VA}</td>
-                <td>{msa.FSA}</td>
-                <td>{msa.oneToFourFamily}</td>
-                <td>{msa.MFD}</td>
-                <td>{msa.multiFamily}</td>
-                <td>{msa.homePurchase}</td>
-                <td>{msa.homeImprovement}</td>
-                <td>{msa.refinance}</td>
+                <td>{msa.totalLars.toLocaleString()}</td>
+                <td>{msa.totalAmount.toLocaleString()}</td>
+                <td>{msa.conv.toLocaleString()}</td>
+                <td>{msa.FHA.toLocaleString()}</td>
+                <td>{msa.VA.toLocaleString()}</td>
+                <td>{msa.FSA.toLocaleString()}</td>
+                <td>{msa.oneToFourFamily.toLocaleString()}</td>
+                <td>{msa.MFD.toLocaleString()}</td>
+                <td>{msa.multiFamily.toLocaleString()}</td>
+                <td>{msa.homePurchase.toLocaleString()}</td>
+                <td>{msa.homeImprovement.toLocaleString()}</td>
+                <td>{msa.refinance.toLocaleString()}</td>
               </tr>
             })}
             <tr className="totals">
               <td className="center" colSpan={2}><strong>Total</strong></td>
-              <td>{props.totals.lars}</td>
-              <td>{props.totals.amount}</td>
-              <td>{props.totals.conv}</td>
-              <td>{props.totals.FHA}</td>
-              <td>{props.totals.VA}</td>
-              <td>{props.totals.FSA}</td>
-              <td>{props.totals.oneToFourFamily}</td>
-              <td>{props.totals.MFD}</td>
-              <td>{props.totals.multiFamily}</td>
-              <td>{props.totals.homePurchase}</td>
-              <td>{props.totals.homeImprovement}</td>
-              <td>{props.totals.refinance}</td>
+              <td>{props.summary.lars.toLocaleString()}</td>
+              <td>{props.summary.amount.toLocaleString()}</td>
+              <td>{props.summary.conv.toLocaleString()}</td>
+              <td>{props.summary.FHA.toLocaleString()}</td>
+              <td>{props.summary.VA.toLocaleString()}</td>
+              <td>{props.summary.FSA.toLocaleString()}</td>
+              <td>{props.summary.oneToFourFamily.toLocaleString()}</td>
+              <td>{props.summary.MFD.toLocaleString()}</td>
+              <td>{props.summary.multiFamily.toLocaleString()}</td>
+              <td>{props.summary.homePurchase.toLocaleString()}</td>
+              <td>{props.summary.homeImprovement.toLocaleString()}</td>
+              <td>{props.summary.refinance.toLocaleString()}</td>
             </tr>
           </tbody>
         </table>
       </div>
-
+      <Pagination target="irs" />
       <hr />
     </div>
   )
@@ -82,7 +84,7 @@ const IRSReport = (props) => {
 
 IRSReport.propTypes = {
   msas: PropTypes.array,
-  totals: PropTypes.object,
+  summary: PropTypes.object,
   status: PropTypes.object
 }
 
