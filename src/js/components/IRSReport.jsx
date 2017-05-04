@@ -2,6 +2,23 @@ import React, { Component, PropTypes } from 'react'
 import Pagination from '../containers/Pagination.jsx'
 import moment from 'moment'
 
+const tableData = [
+  { th: 'MSA/MD', td: 'id'},
+  { th: 'MSA/MD Name', td: 'name'},
+  { th: 'Total LARs', td: 'totalLars',},
+  { th: 'Total Amt. (in thousands)', td: 'totalAmount'},
+  { th: 'CONV', td: 'conv'},
+  { th: 'FHA', td: 'FHA'},
+  { th: 'VA', td: 'VA'},
+  { th: 'FSA/RHS', td: 'FSA'},
+  { th: '1-4 Family', td: 'oneToFourFamily'},
+  { th: 'MFD', td: 'MFD'},
+  { th: 'Multi-Family', td: 'multiFamily'},
+  { th: 'Home Purchase', td: 'homePurchase'},
+  { th: 'Home Improvement', td: 'homeImprovement'},
+  { th: 'Refinance', td: 'refinance'}
+]
+
 const IRSReport = (props) => {
   if (!props.msas) return null
   if (props.msas.length === 0) return null
@@ -23,55 +40,24 @@ const IRSReport = (props) => {
               <th colSpan="3">Loan Purpose</th>
             </tr>
             <tr>
-              <th>MSA/MD</th>
-              <th>MSA/MD Name</th>
-              <th>Total LARs</th>
-              <th>Total Amt. <span>(in thousands)</span></th>
-              <th>CONV</th>
-              <th>FHA</th>
-              <th>VA</th>
-              <th>FSA/RHS</th>
-              <th>1-4 Family</th>
-              <th>MFD</th>
-              <th>Multi-Family</th>
-              <th>Home Purchase</th>
-              <th>Home Improvement</th>
-              <th>Refinance</th>
+              {tableData.map(data => {
+                return <th>{data.th}</th>
+              })}
             </tr>
           </thead>
           <tbody>
             {props.msas.map((msa, i) => {
               return <tr key={i}>
-                <td>{msa.id}</td>
-                <td>{msa.name}</td>
-                <td>{msa.totalLars.toLocaleString()}</td>
-                <td>{msa.totalAmount.toLocaleString()}</td>
-                <td>{msa.conv.toLocaleString()}</td>
-                <td>{msa.FHA.toLocaleString()}</td>
-                <td>{msa.VA.toLocaleString()}</td>
-                <td>{msa.FSA.toLocaleString()}</td>
-                <td>{msa.oneToFourFamily.toLocaleString()}</td>
-                <td>{msa.MFD.toLocaleString()}</td>
-                <td>{msa.multiFamily.toLocaleString()}</td>
-                <td>{msa.homePurchase.toLocaleString()}</td>
-                <td>{msa.homeImprovement.toLocaleString()}</td>
-                <td>{msa.refinance.toLocaleString()}</td>
+                {tableData.map(data => {
+                  return <td>{msa[data.td]}</td>
+                })}
               </tr>
             })}
             <tr className="totals">
               <td className="center" colSpan={2}><strong>Total</strong></td>
-              <td>{props.summary.lars.toLocaleString()}</td>
-              <td>{props.summary.amount.toLocaleString()}</td>
-              <td>{props.summary.conv.toLocaleString()}</td>
-              <td>{props.summary.FHA.toLocaleString()}</td>
-              <td>{props.summary.VA.toLocaleString()}</td>
-              <td>{props.summary.FSA.toLocaleString()}</td>
-              <td>{props.summary.oneToFourFamily.toLocaleString()}</td>
-              <td>{props.summary.MFD.toLocaleString()}</td>
-              <td>{props.summary.multiFamily.toLocaleString()}</td>
-              <td>{props.summary.homePurchase.toLocaleString()}</td>
-              <td>{props.summary.homeImprovement.toLocaleString()}</td>
-              <td>{props.summary.refinance.toLocaleString()}</td>
+              {tableData.slice(2).map(data => {
+                return <td>{props[data.td]}</td>
+              })}
             </tr>
           </tbody>
         </table>
