@@ -2,7 +2,10 @@
   margin: 0;
   .usa-alert-body {
     display: block;
+    margin: 0 auto;
+    padding: 0 3rem;
     position: relative;
+    max-width: 1040px;
   }
 
   .usa-alert-text {
