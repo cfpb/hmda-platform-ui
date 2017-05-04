@@ -10,14 +10,21 @@
   }
 
   .nav-wrapper {
+    background: $color-gray-lightest;
     padding: .5em 0;
     position: relative;
+    text-align: center;
   }
 
   ul.usa-nav-primary {
     li {
-      &:first-child {
-        margin-left: 3rem;
+      &:after {
+        content: "\2219"
+      }
+      &:last-child {
+        &:after {
+          content: ""
+        }
       }
       a {
         color: $color-base;
