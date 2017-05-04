@@ -22,7 +22,7 @@ const navLinks = {
   'summary': 'summary'
 }
 
-const getNavClass = (name, props) => {
+export const getNavClass = (name, props) => {
   let navClass = ''
   const {
     code,
@@ -70,7 +70,7 @@ const getNavClass = (name, props) => {
   return navClass
 }
 
-const getProgressWidth = (props) => {
+export const getProgressWidth = (props) => {
   const {
     code,
     syntacticalValidityEditsExist,
@@ -88,7 +88,7 @@ const getProgressWidth = (props) => {
   return progressWidth
 }
 
-const renderLinkOrText = (props, name, i) => {
+export const renderLinkOrText = (props, name, i) => {
   let toRender
   const {
     page,
@@ -211,10 +211,4 @@ EditsNav.propTypes = {
   macroVerified: React.PropTypes.bool.isRequired,
   period: React.PropTypes.string.isRequired,
   institution: React.PropTypes.object
-}
-
-export {
-  renderLinkOrText,
-  getProgressWidth,
-  getNavClass
 }
