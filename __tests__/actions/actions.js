@@ -142,7 +142,12 @@ describe('actions', () => {
     expect(actions.receiveIRS(data)).toEqual({
       type: types.RECEIVE_IRS,
       msas: data.msas,
-      totals: data.totals
+      summary: data.summary,
+      pagination: {
+        _links: undefined,
+        count: undefined,
+        total: undefined
+      }
     })
   })
 

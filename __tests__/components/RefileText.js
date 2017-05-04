@@ -31,11 +31,11 @@ describe('getStaus', () => {
 
   it('returns as "in progess" if code > 7', () => {
     const rendered = getStatus(8)
-    expect(rendered.props.children[1].props.children).toBe('is in progress.')
+    expect(rendered.props.children[1].props.children).toBe('is in progress')
   })
 
-  it('returns as "has already been submitted" if code === 11', () => {
-    const rendered = getStatus(11)
-    expect(rendered.props.children[1].props.children).toBe('has already been submitted.')
+  it('returns as "has already been submitted" if code === 10', () => {
+    const rendered = getStatus(10)
+    expect(rendered.props.children[1].props.children).toBe('has already been submitted')
   })
 })
