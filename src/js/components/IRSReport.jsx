@@ -34,29 +34,31 @@ const IRSReport = (props) => {
         <table width="100%">
           <thead>
             <tr>
-              <th colSpan="4"></th>
-              <th colSpan="4">Loan Type</th>
-              <th colSpan="3">Property Type</th>
-              <th colSpan="3">Loan Purpose</th>
+              <th colSpan={4}></th>
+              <th colSpan={4}>Loan Type</th>
+              <th colSpan={3}>Property Type</th>
+              <th colSpan={3}>Loan Purpose</th>
             </tr>
             <tr>
-              {tableData.map(data => {
-                return <th>{data.th}</th>
+              {tableData.map((data, i) => {
+                return <th key={i}>{data.th}</th>
               })}
             </tr>
           </thead>
           <tbody>
             {props.msas.map((msa, i) => {
               return <tr key={i}>
-                {tableData.map(data => {
-                  return <td>{msa[data.td]}</td>
+                {tableData.map((data, i) => {
+                  return <td key={i}>{msa[data.td]}</td>
                 })}
               </tr>
             })}
             <tr className="totals">
               <td className="center" colSpan={2}><strong>Total</strong></td>
-              {tableData.slice(2).map(data => {
-                return <td>{props[data.td]}</td>
+              <td>{props.summary.lars}</td>
+              <td>{props.summary.amount}</td>
+              {tableData.slice(4).map((data, i) => {
+                return <td key={i}>{props.summary[data.td]}</td>
               })}
             </tr>
           </tbody>

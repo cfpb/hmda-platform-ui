@@ -17,9 +17,10 @@
   tbody td {
     font-size: .75em;
     padding: 1em;
+    border-width: 1px;
   }
-  table tr.totals td {
-    border-top-width: 3px;
+  .totals td{
+    background-color: $color-gray-lightest;
   }
   td.center {
     text-align: center;
