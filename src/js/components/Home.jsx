@@ -3,27 +3,6 @@ import Header from '../components/Header.jsx'
 import { Link } from 'react-router'
 import { signinRedirect } from '../redirect.js'
 
-const getLoginMessage = (userName) => {
-  if(userName) return null
-
-  return (
-    <div className="usa-grid">
-      <div className="usa-width-one-whole">
-        <div className="usa-alert usa-alert-error" role="alert">
-          <div className="usa-alert-body">
-            <h3 className="usa-alert-heading">The filing period has started.</h3>
-            <p className="usa-alert-text">Starting on January 1 and ending March 1 you can submit LAR file. <a href="#" onClick={(e) => {
-              e.preventDefault()
-              signinRedirect(true)
-            }}>Login</a> to get started.</p>
-          </div>
-        </div>
-        <hr />
-      </div>
-    </div>
-  )
-}
-
 const renderLoggedInHero = () => {
   return (
     <section className="usa-hero">
@@ -56,7 +35,7 @@ const renderLoggedOutHero = () => {
 
 const Home = (props) => {
   const renderHero = props.user.profile.name ? renderLoggedInHero() : renderLoggedOutHero()
-  
+
   return (
     <div>
       <Header
