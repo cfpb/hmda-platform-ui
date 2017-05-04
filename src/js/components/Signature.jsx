@@ -55,12 +55,10 @@ const Signature = (props) => {
     buttonClass = 'usa-button-disabled'
   }
 
-  const headingClass = props.status.code === 10 && !props.error ? 'text-green' : 'text-secondary'
-
   return (
     <div className="Signature" id="signature">
       <header>
-        <h2 className={headingClass}>Signature</h2>
+        <h2>Signature</h2>
         <p className="usa-font-lead">To complete your submission, select the checkbox to certify to the accuracy and completeness of the data submitted. Then, select the "Submit HMDA data" button to submit your data.</p>
       </header>
 
