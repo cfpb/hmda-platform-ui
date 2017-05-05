@@ -24,7 +24,7 @@ import {
   getEdits,
   getCSV
 } from '../../src/js/api/api.js'
-import fetch from '../../src/js/api/fetch.js'
+import { fetch } from '../../src/js/api/fetch.js'
 
 const institutionsDetailObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions-detail.json'))
 const institutionsObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions.json'))

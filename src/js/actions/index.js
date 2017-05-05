@@ -17,7 +17,7 @@ import {
   getParseErrors,
   getEditsOfType
 } from '../api/api'
-import fetch from '../api/fetch'
+import { fetch } from '../api/fetch'
 import getUploadUrl from '../api/getUploadUrl'
 import * as AccessToken from '../api/AccessToken'
 import * as types from '../constants'
