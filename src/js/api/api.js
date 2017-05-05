@@ -1,4 +1,4 @@
-import fetch from './fetch.js'
+import { fetch } from './fetch.js'
 
 export function getInstitutions(){
   return fetch({pathname: '/institutions'})
@@ -43,6 +43,7 @@ export function getCSV(pathObj){
   pathObj.params = {format: 'csv'}
   return fetch(pathObj)
 }
+
 export function postVerify(submission, type, verified){
   return fetch({
     submission: submission,
