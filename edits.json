@@ -1,0 +1,744 @@
+{
+  "S010": {
+    "description": "The first row of a submission must be the transmittal sheet record and any subsequent row the Loan/Application Registers (LARs).",
+    "fields": {
+      "friendly": "Record Identifier",
+      "name": "recordIdentifier"
+    }
+  },
+  "S011": {
+    "description": "A submission must contain a transmittal sheet and at least one loan/application register (LAR)",
+    "fields": {
+      "friendly": "Record Identifier",
+      "name": "recordIdentifier"
+    }
+  },
+  "S020A": {
+    "description": "Agency Code must be populated with the values 1, 2, 3, 5, 7 or 9.",
+    "fields": {
+      "friendly": "Agency Code",
+      "name": "agencyCode"
+    }
+  },
+  "S020B": {
+    "description": "The Agency Code provided on both the Transmittal Sheet and the Loan/Application Record must be the same and they must also be the same Agency Code on record with the National Information Center.",
+    "fields": {
+      "friendly": "Agency Code",
+      "name": "agencyCode"
+    }
+  },
+  "S025": {
+    "description": "The Respondent-ID and Agency Code provided on both the Transmittal Sheet and the Loan/Application Records must be the same and they must also be the same as the Respondent Identifier and Agency Code on record with the National Information Center.",
+    "fields": {
+      "friendly": "Control Number",
+      "name": "controlNumber"
+    }
+  },
+  "S040": {
+    "description": "Loan/application number must not be the same as any other loan/application number on the current filing.",
+    "fields": {
+      "friendly": "Application/Loan Number",
+      "name": "applicationLoanNumber"
+    }
+  },
+  "S100": {
+    "description": "Activity year must be populated with the year in which you are filing",
+    "fields": {
+      "friendly": "Activity Year",
+      "name": "activityYear"
+    }
+  },
+  "S028": {
+    "description": "Timestamp must be in the format CCYYMMDDHHMM and numeric. CCYY must be populated with the filing year. MM must have a value of 01 to 12, DD must have a value of 01 to 31, HH must have a value of 00 to 23 and MM must have a value of 00 to 59.",
+    "fields": {
+      "friendly": "Timestamp",
+      "name": "timestamp"
+    }
+  },
+  "S205": {
+    "description": "Loan application number must be populated for all loan/application records.",
+    "fields": {
+      "friendly": "Application/Loan Number",
+      "name": "applicationLoanNumber"
+    }
+  },
+  "V105": {
+    "description": "The transmittal sheet must contain the institution's name and mailing address.",
+    "fields": {
+      "friendly": "Respondent Mailing Address",
+      "name": "respondentMailingAddress"
+    }
+  },
+  "V140": {
+    "description": "Respondent state should contain the valid FIPS state code for the loan / application and must contain the FIPS code for one of the 50 states, the District of Columbia or Puerto Rico.",
+    "fields": {
+      "friendly": "Respondent State Code",
+      "name": "respondentStateCode"
+    }
+  },
+  "V145": {
+    "description": "Respondent ZIP Code must be in the proper five-digit (NNNNN) or nine-digit format (NNNNN-NNNN).",
+    "fields": {
+      "friendly": "Respondent Zip Code",
+      "name": "respondentZipCode"
+    }
+  },
+  "V155": {
+    "description": "The transmittal sheet must contain the email address for the institution's contact. The email address field cannot be blank and the email address must be in the proper email address format.",
+    "fields": {
+      "friendly": "Respondent E-mail Address",
+      "name": "respondentEmailAddress"
+    }
+  },
+  "V108": {
+    "description": "Parent name cannot be the same as the Respondent Name.",
+    "fields": {
+      "friendly": "Parent Name",
+      "name": "parentName"
+    }
+  },
+  "V110": {
+    "description": "Parent information must be provided on the transmittal sheet if the respondent is a type of institution that must have a parent (i.e. mortgage banking subsidiary (MBS) or a nondepository institution that has an affiliation with a depository institution).",
+    "fields": {
+      "friendly": "Parent Mailing Address",
+      "name": "parentMailingAddress"
+    }
+  },
+  "V111": {
+    "description": "Parent state must populated with a valid, two-letter state abbreviation.",
+    "fields": {
+      "friendly": "Parent State Code",
+      "name": "parentStateCode"
+    }
+  },
+  "V112": {
+    "description": "Parent Zip Code must be in the proper five-digit (NNNNN) or nine-digit format (NNNNN-NNNN).",
+    "fields": {
+      "friendly": "Parent Zip Code",
+      "name": "parentZipCode"
+    }
+  },
+  "V150": {
+    "description": "The Respondent Name cannot be the same as the Contact Person's Name.",
+    "fields": {
+      "friendly": "Institution Name",
+      "name": "institutionName"
+    }
+  },
+  "V115": {
+    "description": "A contact person must be provided on the transmittal sheet.",
+    "fields": {
+      "friendly": "Contact Name",
+      "name": "contactName"
+    }
+  },
+  "V125": {
+    "description": "Contact Person's Phone Number must be in the proper ten-digit phone number format (NNN-NN-NNNN).",
+    "fields": {
+      "friendly": "Contact Telephone Number",
+      "name": "contactTelephoneNumber"
+    }
+  },
+  "V135": {
+    "description": "Contact Person's Facsimile Number must be in the proper ten-digit phone number format (NNN-NN-NNNN).",
+    "fields": {
+      "friendly": "Fax Number",
+      "name": "faxNumber"
+    }
+  },
+  "V125": {
+    "description": "Tax ID must be in the proper format (NN-NNNNNNN) and cannot be populated with all 0's (00-0000000) or all 9's (99-9999999).",
+    "fields": {
+      "friendly": "Tax Identification Number",
+      "name": "taxIdentificationNumber"
+    }
+  },
+  "V210": {
+    "description": "Date Application Received must be in the proper format YYYYMMDD or be populated with NA. If a date is entered, CCYY must start with either 19 or 20. MM must have a value of 01 to 12 and DD must have a value of 01 to 31.",
+    "fields": {
+      "friendly": "Date Application Received",
+      "name": "dateApplicationReceived"
+    }
+  },
+  "V215": {
+    "description": "For purchased loans, Date Application Received should be populated with NA.",
+    "fields": {
+      "friendly": "Date Application Received",
+      "name": "dateApplicationReceived"
+    }
+  },
+  "V262": {
+    "description": "If the Date Application Received is NA, the loan record must indicate that the loan is a purchased loan by your institution.",
+    "fields": {
+      "friendly": "Action Taken - Type",
+      "name": "actionTakenType"
+    }
+  },
+  "V220": {
+    "description": "Loan Type must be populated with the values 1, 2, 3, or 4.",
+    "fields": {
+      "friendly": "Loan Type",
+      "name": "loanType"
+    }
+  },
+  "V400": {
+    "description": "Property Type must be populated with the values 1, 2, or 3.",
+    "fields": {
+      "friendly": "Property Type",
+      "name": "propertyType"
+    }
+  },
+  "V225": {
+    "description": "Loan Purpose must be populated with the values 1, 2, or 3.",
+    "fields": {
+      "friendly": "Loan Purpose",
+      "name": "loanPurpose"
+    }
+  },
+  "V410": {
+    "description": "If a loan is not secured by a lien then it has to be a home improvement loan.",
+    "fields": {
+      "friendly": "Loan Purpose",
+      "name": "loanPurpose"
+    }
+  },
+  "V230": {
+    "description": "Owner Occupancy must be populated with the values 1, 2, or 3.",
+    "fields": {
+      "friendly": "Occupancy",
+      "name": "occupancy"
+    }
+  },
+  "V250": {
+    "description": "Loan amount must not be blank and have a value greater than zero.",
+    "fields": {
+      "friendly": "Loan Amount",
+      "name": "loanAmount"
+    }
+  },
+  "V415": {
+    "description": "Preapproval must be populated with the values 1, 2, or 3.",
+    "fields": {
+      "friendly": "Preapproval",
+      "name": "preapproval"
+    }
+  },
+  "V425": {
+    "description": "Preapprovals must be populated with the code for Not Applicable for all home purchase loans purchased by your institution.",
+    "fields": {
+      "friendly": "Preapproval",
+      "name": "preapproval"
+    }
+  },
+  "V430": {
+    "description": "Preapprovals must be populated with the code for Not Applicable for all home improvement loans and refinances.",
+    "fields": {
+      "friendly": "Preapproval",
+      "name": "preapproval"
+    }
+  },
+  "V435": {
+    "description": "The preapproval requested flag must be indicated for any preapproval requests denied or approved but not accepted.",
+    "fields": {
+      "friendly": "Preapproval",
+      "name": "preapproval"
+    }
+  },
+  "V255": {
+    "description": "Type of Action Taken must be populated with the values 1, 2, 3, 4, 5, 6, 7, or 8.",
+    "fields": {
+      "friendly": "Action Taken - Type",
+      "name": "actionTakenType"
+    }
+  },
+  "V440": {
+    "description": "If the preapproval requested flag is indicated for a loan, the loan cannot be a purchased loan by your institution.",
+    "fields": {
+      "friendly": "Action Taken - Type",
+      "name": "actionTakenType"
+    }
+  },
+  "V445": {
+    "description": "If the preapproval not requested flag is indicated, the loan record cannot indicate that the loan was a preapproval request denied or a preapproval request approved but not accepted and the loan cannot be a purchased loan by your institution.",
+    "fields": {
+      "friendly": "Action Taken – Type",
+      "name": "actionTakenType"
+    }
+  },
+  "V447": {
+    "description": "When the Not Applicable flag is populated for a loan, the record cannot indicate that it is a denied preapproval request or an approved but not accepted application.",
+    "fields": {
+      "friendly": "Action Taken – Type",
+      "name": "actionTakenType"
+    }
+  },
+  "V265": {
+    "description": "Date of Action must be in the proper format YYYYMMDD or be populated with NA. If a date is entered, YYYY must be populated with the filing year. MM must have a value of 01 to 12 and DD must have a value of 01 to 31.",
+    "fields": {
+      "friendly": "Action Taken - Date",
+      "name": "actionTakenDate"
+    }
+  },
+  "V275": {
+    "description": "Date of Action must be later than the Date Application Received when Date of Application is not populated with NA.",
+    "fields": {
+      "friendly": "Action Taken - Date",
+      "name": "actionTakenDate"
+    }
+  },
+  "V450": {
+    "description": "Applicant Ethnicity must be populated with the values 1, 2, 3, or 4.",
+    "fields": {
+      "friendly": "Applicant Ethnicity",
+      "name": "applicantEthnicity"
+    }
+  },
+  "V460": {
+    "description": "Co-applicant Ethnicity must be populated with the values 1, 2, 3, 4 or 5.",
+    "fields": {
+      "friendly": "Co-Applicant Ethnicity",
+      "name": "coApplicantEthnicity"
+    }
+  },
+  "V463": {
+    "description": "If Co-applicant Sex and/or Co-applicant Race indicate that there is no co-applicant, Co-applicant Ethnicity must also indicate that there is no co-applicant",
+    "fields": {
+      "friendly": "Co-Applicant Ethnicity",
+      "name": "coApplicantEthnicity"
+    }
+  },
+  "V317": {
+    "description": "If Co-applicant Sex and/or Co-applicant Ethnicity indicate that there is no co-applicant, the first field for Co-applicant Race (Co-Applicant Race: 1) must also indicate that there is no co-applicant",
+    "fields": {
+      "friendly": "Co-Applicant Race",
+      "name": "coApplicantRace"
+    }
+  },
+  "V455": {
+    "description": "If an Applicant Ethnicity is indicated or included as not provided, the first field for Applicant Race (Applicant Race: 1) cannot be populated with the code for not applicable.",
+    "fields": {
+      "friendly": "Applicant Race",
+      "name": "applicantRace"
+    }
+  },
+  "V465": {
+    "description": "If Co-Applicant Ethnicity is indicated or included as not provided, the first field for Applicant Race (Applicant Race: 1) cannot be populated with the codes for not applicable or no co-applicant.",
+    "fields": {
+      "friendly": "Co-Applicant Race",
+      "name": "coApplicantRace"
+    }
+  },
+  "V310": {
+    "description": "Applicant Race: 1 must be populated with the values 1, 2, 3, 4, 5, 6 or 7.",
+    "fields": {
+      "friendly": "Applicant Race",
+      "name": "applicantRace"
+    }
+  },
+  "V470": {
+    "description": "If the first Applicant Race field is populated with one of the valid race values, the remaining applicant race fields should also be populated with a valid race or should not contain any additional race information",
+    "fields": {
+      "friendly": "Applicant Race",
+      "name": "applicantRace"
+    }
+  },
+  "V475": {
+    "description": "If the applicant does not provide race or the applicant is an entity and therefore populated with the code for not applicable, the remaining applicant race fields should be blank",
+    "fields": {
+      "friendly": "Applicant Race",
+      "name": "applicantRace"
+    }
+  },
+  "V480": {
+    "description": "When more than one applicant race is designated, there cannot be duplicate race choices in the various Applicant Race fields.",
+    "fields": {
+      "friendly": "Applicant Race",
+      "name": "applicantRace"
+    }
+  },
+  "V315": {
+    "description": "Co-applicant Race: 1 must be populated with the values 1, 2, 3, 4, 5, 6, 7 or 8.",
+    "fields": {
+      "friendly": "Co-Applicant Race",
+      "name": "coApplicantRace"
+    }
+  },
+  "V485": {
+    "description": "If the first Co-Applicant Race field is populated with one of the valid co-applicant race values, the remaining co-applicant race fields should also be populated with a valid race choice in order or should not contain any additional race information and should be blank",
+    "fields": {
+      "friendly": "Co-Applicant Race",
+      "name": "coApplicantRace"
+    }
+  },
+  "V490": {
+    "description": "If the co-applicant does not provide race or the co-applicant indicates that race is not applicable or there is no co-applicant, the remaining Co-Applicant Race fields should be blank",
+    "fields": {
+      "friendly": "Co-Applicant Race",
+      "name": "coApplicantRace"
+    }
+  },
+  "V495": {
+    "description": "When more than one co-applicant race is designated, there cannot be duplicate race choices in the various Co-Applicant Race fields.",
+    "fields": {
+      "friendly": "Co-Applicant Race",
+      "name": "coApplicantRace"
+    }
+  },
+  "V320": {
+    "description": "Applicant Sex must be populated with the values 1, 2, 3 or 4.",
+    "fields": {
+      "friendly": "Applicant Sex",
+      "name": "applicantSex"
+    }
+  },
+  "V325": {
+    "description": "Co-applicant Sex must be populated with the values 1, 2, 3, 4 or 5.",
+    "fields": {
+      "friendly": "Co-Applicant Sex",
+      "name": "coApplicantSex"
+    }
+  },
+  "V326": {
+    "description": "If Co-applicant Ethnicity and/or Co-applicant Race indicate that there is no co-applicant, Co-applicant Sex must also indicate that there is no co-applicant",
+    "fields": {
+      "friendly": "Co-Applicant Sex",
+      "name": "coApplicantSex"
+    }
+  },
+  "V330": {
+    "description": "Income must either contain a dollar value (be > 0) or be populated with \"NA\". It cannot be zero, missing, negative or blank.",
+    "fields": {
+      "friendly": "Income",
+      "name": "income"
+    }
+  },
+  "V335": {
+    "description": "If a multifamily loan, there should be no income reported. Therefore income should be populated with \"NA\".",
+    "fields": {
+      "friendly": "Income",
+      "name": "income"
+    }
+  },
+  "V338": {
+    "description": "If the applicant is not a natural person (i.e. an entity) and there is no co-applicant, the loan record must not contain a value for income. Income should be populated with \"NA\".",
+    "fields": {
+      "friendly": "Income",
+      "name": "income"
+    }
+  },
+  "V340": {
+    "description": "Type of Purchaser must be populated with the values 0, 1, 2, 3, 4, 5, 6, 7, 8 or 9.",
+    "fields": {
+      "friendly": "Type of Purchaser",
+      "name": "typeofPurchaser"
+    }
+  },
+  "V347": {
+    "description": "If the loan record contains a purchaser (Type of Purchaser not equal to 0), the loan can either be an origination or a loan purchased by your institution.",
+    "fields": {
+      "friendly": "Type of Purchaser",
+      "name": "typeofPurchaser"
+    }
+  },
+  "V375": {
+    "description": "When Ginnie Mae is the purchaser, the loan must be an FHA-insured (Federal Housing Administration) loan, a VA-guaranteed (Veterans Administration) loan or a FSA/RHS-guaranteed (Farm Service Agency or Rural Housing Service) loan.",
+    "fields": {
+      "friendly": "Type of Purchaser",
+      "name": "typeofPurchaser"
+    }
+  },
+  "V260": {
+    "description": "If a denial reason is reported, the loan must either be a denied application by your institution or a denied preapproval request.",
+    "fields": {
+      "friendly": "Action Taken - Type",
+      "name": "actionTakenType"
+    }
+  },
+  "V360": {
+    "description": "The three denial reason fields cannot contain the same values. Denial reasons should be unique for each denial reason field.",
+    "fields": {
+      "friendly": "Reasons for Denial",
+      "name": "reasonsforDenial"
+    }
+  },
+  "V385": {
+    "description": "If the financial institution is supervised by the Office of the Comptroller of the Currency (OCC) and the loan application was denied or the preapproval request was denied, the first denial reason (Denial Reason: 1) must be populated with 1, 2, 3, 4, 5, 6, 7, 8 or 9. The subsequent denial reason fields must be populated with either blank or with 1, 2, 3, 4, 5, 6, 7, 8 or 9.",
+    "fields": {
+      "friendly": "Reasons for Denial",
+      "name": "reasonsforDenial"
+    }
+  },
+  "V500": {
+    "description": "Rate Spread must be populated with a number in the proper format (NN.NN) or \"NA\". Rate spread must have a value and cannot be left blank.",
+    "fields": {
+      "friendly": "Rate Spread",
+      "name": "rateSpread"
+    }
+  },
+  "V505": {
+    "description": "If the action on the loan record is not originated, Rate Spread must be populated with \"NA\".",
+    "fields": {
+      "friendly": "Rate Spread",
+      "name": "rateSpread"
+    }
+  },
+  "V570": {
+    "description": "Rate Spread must be populated with a value between 1.5% and 99.99% if the loan is secured by a first lien.",
+    "fields": {
+      "friendly": "Rate Spread",
+      "name": "rateSpread"
+    }
+  },
+  "V575": {
+    "description": "Rate Spread must be populated with a value between 3.5% and 99.99% if the loan is secured by a subordinate lien.",
+    "fields": {
+      "friendly": "Rate Spread",
+      "name": "rateSpread"
+    }
+  },
+  "V520": {
+    "description": "If the loan is not secured by a lien, rate spread must be populated with \"NA\".",
+    "fields": {
+      "friendly": "Rate Spread",
+      "name": "rateSpread"
+    }
+  },
+  "V540": {
+    "description": "The loan cannot be a HOEPA loan If the loan is not an origination or a purchased loan.",
+    "fields": {
+      "friendly": "HOEPA Status",
+      "name": "hOEPAStatus"
+    }
+  },
+  "V525": {
+    "description": "HOEPA Status must be populated with the values 1 or 2.",
+    "fields": {
+      "friendly": "HOEPA Status",
+      "name": "hOEPAStatus"
+    }
+  },
+  "V535": {
+    "description": "If the borrower is a non-natural person, the loan cannot be a HOEPA loan.",
+    "fields": {
+      "friendly": "HOEPA Status",
+      "name": "hOEPAStatus"
+    }
+  },
+  "V545": {
+    "description": "If the loan is not secured by a lien, the loan cannot be a HOEPA loan.",
+    "fields": {
+      "friendly": "HOEPA Status",
+      "name": "hOEPAStatus"
+    }
+  },
+  "V550": {
+    "description": "Lien Status must be populated with the values 1, 2, 3, or 4.",
+    "fields": {
+      "friendly": "Lien Status",
+      "name": "lienStatus"
+    }
+  },
+  "V555": {
+    "description": "If the loan is a home purchase loan or a refinancing, the loan must be secured by a first lien, a subordinate lien or could be a purchased loan where lien status is not applicable.",
+    "fields": {
+      "friendly": "Lien Status",
+      "name": "lienStatus"
+    }
+  },
+  "V560": {
+    "description": "If the loan is not a purchased loan, lien status must be populated with the value 1, 2 or 3.",
+    "fields": {
+      "friendly": "Lien Status",
+      "name": "lienStatus"
+    }
+  },
+  "V565": {
+    "description": "If the loan is a purchased loan, lien status is not applicable and must be populated with the code for not applicable.",
+    "fields": {
+      "friendly": "Lien Status",
+      "name": "lienStatus"
+    }
+  },
+  "Q033": {
+    "description": "Parent information should be provided on the transmittal sheet for banks, savings associations and independent mortgage companies if the institution is known to have  a parent per public data sources such as the National Information Center, the Mortgage Call Reports, the Bank Call Reports and other public data files.",
+    "fields": {
+      "friendly": "Parent Mailing Address",
+      "name": "parentMailingAddress"
+    }
+  },
+  "Q020": {
+    "description": "Parent address cannot be the same as the institution address.",
+    "fields": {
+      "friendly": "Institution Mailing Address",
+      "name": "institutionMailingAddress"
+    }
+  },
+  "Q012A": {
+    "description": "Tax ID should be reported as the same tax ID reported in the prior year's filing.",
+    "fields": {
+      "friendly": "Tax Identification Number",
+      "name": "taxIdentificationNumber"
+    }
+  },
+  "Q014": {
+    "description": "If Applicant Income is not populated with NA, applicant income should be less than $3 million.",
+    "fields": {
+      "friendly": "Income",
+      "name": "income"
+    }
+  },
+  "Q027": {
+    "description": "If a one-to-four family or a manufactured home loan is not a purchased loan, the applicant income should not be populated with \"NA\".",
+    "fields": {
+      "friendly": "Income",
+      "name": "income"
+    }
+  },
+  "Q067": {
+    "description": "If both the applicant and the co-applicant are non natural persons, income should be populated as \"NA\" on the loan record.",
+    "fields": {
+      "friendly": "Income",
+      "name": "income"
+    }
+  },
+  "Q003": {
+    "description": "",
+    "fields": {
+      "friendly": "Loan Amount",
+      "name": "loanAmount"
+    }
+  },
+  "Q004": {
+    "description": "",
+    "fields": {
+      "friendly": "Loan Amount",
+      "name": "loanAmount"
+    }
+  },
+  "Q005": {
+    "description": "",
+    "fields": {
+      "friendly": "Loan Amount",
+      "name": "loanAmount"
+    }
+  },
+  "Q013": {
+    "description": "Multifamily loan amounts should be between $100,000 and $10 million.",
+    "fields": {
+      "friendly": "Loan Amount",
+      "name": "loanAmount"
+    }
+  },
+  "Q025": {
+    "description": "Home purchase loans of 1 to 4 family homes loan amounts should be more than $10k.",
+    "fields": {
+      "friendly": "Loan Amount",
+      "name": "loanAmount"
+    }
+  },
+  "Q032": {
+    "description": "Originated loans should not have the same Date of Action Taken and Date Application Received.",
+    "fields": {
+      "friendly": "Action Taken Date",
+      "name": "actionTakenDate"
+    }
+  },
+  "Q068": {
+    "description": "Loans should not have a non-natural person for both the applicant and the co-applicant. Please confirm this is correct and that this should not be one non-natural person as the applicant and no co-applicant in the co-applicant fields.",
+    "fields": {
+      "friendly": "Co-Applicant Ethnicity,",
+      "name": "coApplicantEthnicity"
+    }
+  },
+  "Q039": {
+    "description": "Rate spread should be provided for originated HOEPA loans.",
+    "fields": {
+      "friendly": "Rate Spread",
+      "name": "rateSpread"
+    }
+  },
+  "Q040": {
+    "description": "Rate spread should be NA if the loan is a first lien or subordinate loan purchased by FannieMae/FreddieMac/GinnieMae/FarmerMac.",
+    "fields": {
+      "friendly": "Rate Spread",
+      "name": "rateSpread"
+    }
+  },
+  "Q044": {
+    "description": "Originated, first lien loans with a rate spread above 6.5% should be classified as HOEPA loans.",
+    "fields": {
+      "friendly": "HOEPA",
+      "name": "hOEPA"
+    }
+  },
+  "Q045": {
+    "description": "Originated, subordinate lien loans with a rate spread above 8.5% should be classified as HOEPA loans.",
+    "fields": {
+      "friendly": "HOEPA",
+      "name": "hOEPA"
+    }
+  },
+  "Q046": {
+    "description": "Home purchase loans should not be HOEPA loans.",
+    "fields": {
+      "friendly": "HOEPA",
+      "name": "hOEPA"
+    }
+  },
+  "Q052": {
+    "description": "Mulitfamily loans should not be HOEPA loans.",
+    "fields": {
+      "friendly": "HOEPA",
+      "name": "hOEPA"
+    }
+  },
+  "Q064": {
+    "description": "Loans purchased by Fannie and Freddie should not be HOEPA loans.",
+    "fields": {
+      "friendly": "HOEPA",
+      "name": "hOEPA"
+    }
+  },
+  "Q059": {
+    "description": "Multifamily loans should not be classified as backed by FHA, VA or FSA/RHS.",
+    "fields": {
+      "friendly": "Property Type",
+      "name": "propertyType"
+    }
+  },
+  "Q010": {
+    "description": "Loan originations in a lender's portfolio should be equal to or more than 20% of all non-preapproval requested loans",
+    "fields": {
+      "friendly": "Action Taken – Type",
+      "name": "actionTakenType"
+    }
+  },
+  "Q016": {
+    "description": "No more than 20% of a lender's volume of loans should have income less than $10,000",
+    "fields": {
+      "friendly": "Total Number of Loan Applications",
+      "name": "totalNumberofLoanApplications"
+    }
+  },
+  "V280": {
+    "description": "MSA/MD must be a valid Metropolitan Statistical Area or Metropolitan Division as defined by the Census Bureau and OMB or be populated with \"NA\".",
+    "fields": {
+      "friendly": "MSA/MD Number",
+      "name": "mSAMDNumber"
+    }
+  },
+  "V290": {
+    "description": "When State Code is populated with a FIPS code, state, county and MSA/MD must be populated with a valid combination of state, county and MSA/MD codes.",
+    "fields": {
+      "friendly": "MSA/MD,State,County Codes",
+      "name": "mSAMDStateCountyCodes"
+    }
+  },
+  "Q029A": {
+    "description": "If the reported state/county combination (when county is small and reported tract equals NA), or state/county/census tract combination is valid then the MSA/MD should not = NA.",
+    "fields": {
+      "friendly": "MSA/MD,State,County,Census Tract",
+      "name": "mSAMDStateCountyCensusTract"
+    }
+  }
+]
