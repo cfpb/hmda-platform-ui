@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { signinRedirect } from '../redirect'
+import { signinRedirect } from '../utils/redirect'
 import ConfirmationModal from './ConfirmationModal.jsx'
 
 export class AppContainer extends Component {

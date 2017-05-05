@@ -1,5 +1,4 @@
 import {
-  sendFetch,
   getInstitution,
   getInstitutions,
   getFiling,
@@ -7,7 +6,6 @@ import {
   getSubmission,
   getLatestSubmission,
   createSubmission,
-  getUploadUrl,
   getEdits,
   getEdit,
   getCSV,
@@ -16,11 +14,12 @@ import {
   postSignature,
   getSummary,
   postVerify,
-  setAccessToken,
-  getAccessToken,
   getParseErrors,
   getEditsOfType
-} from '../api'
+} from '../api/api'
+import { fetch } from '../api/fetch'
+import getUploadUrl from '../api/getUploadUrl'
+import * as AccessToken from '../api/AccessToken'
 import * as types from '../constants'
 import fileSaver from 'file-saver'
 
@@ -32,6 +31,21 @@ export function hasHttpError(json) {
   return !json || json.httpStatus > 399 ?
     true :
     false
+}
+
+export function checkErrors(file) {
+  const errors = []
+  if(file && file.size !== undefined && file.name !== undefined) {
+    if(file.size === 0) {
+      errors.push('The file you uploaded does not contain any data. Please check your file and re-upload.')
+    }
+    if(file.name.split('.').slice(-1)[0].toLowerCase() !== 'txt') {
+      errors.push('The file you uploaded is not a text file (.txt). Please check your file and re-upload.')
+    }
+  } else {
+    errors.push('Your file was not uploaded. Please try again.')
+  }
+  return errors
 }
 
 export function refreshState() {
@@ -70,13 +84,6 @@ export function receiveInstitution(data) {
   return {
     type: types.RECEIVE_INSTITUTION,
     institution: data.institution
-  }
-}
-
-export function receiveEditPost(data) {
-  return {
-    type: types.RECEIVE_EDIT_POST,
-    data: data
   }
 }
 
@@ -210,19 +217,6 @@ export function clearFilings() {
   }
 }
 
-function checkErrors(file) {
-  const errors = []
-  if(file) {
-    if(file.size === 0) {
-      errors.push('The file you uploaded does not contain any data. Please check your file and re-upload.')
-    }
-    if(file.name.split('.').slice(-1)[0] !== 'txt') {
-      errors.push('The file you uploaded is not a text file (.txt). Please check your file and re-upload.')
-    }
-  }
-  return errors
-}
-
 export function selectNewFile(file) {
   pollObj.polling = false
   return {
@@ -320,7 +314,7 @@ export function getPaginationReceiveAction(target, data) {
 export function fetchPage(target, pathname) {
   return dispatch => {
     dispatch(getPaginationRequestAction(target))
-    return sendFetch({pathname: pathname})
+    return fetch({pathname: pathname})
       .then(json => {
         if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
         return dispatch(getPaginationReceiveAction(target, json))
@@ -376,7 +370,7 @@ export function receiveSignaturePost(data) {
 export function checkSignature(checked) {
   return {
     type: types.CHECK_SIGNATURE,
-    checked: checked.checked
+    checked: checked
   }
 }
 
@@ -520,7 +514,7 @@ export function fetchUpload(file) {
 
     xhr.open('POST', getUploadUrl(latestSubmissionId));
     xhr.setRequestHeader('Cache-Control', 'no-cache');
-    xhr.setRequestHeader('Authorization', 'Bearer ' + getAccessToken());
+    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get());
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.send(data);
 

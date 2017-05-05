@@ -6,9 +6,13 @@ const setUserManager = manager => {
   userManager = manager
 }
 
+const getUserManager = () => {
+  return userManager
+}
+
 const signinRedirect = (force) => {
   if(!userManager) return console.error('userManager needs to be set on app initialization')
-  if((!force && location.pathname === '/') || location.pathname === '/oidc-callback') return
+  if((!force && location.pathname === '/') || location.pathname === '/oidc-callback') return false
   localStorage.setItem('hmdaPageBeforeSignin', location.pathname)
   userManager.signinRedirect()
   return true
@@ -32,5 +36,6 @@ export {
   signinRedirect,
   restorePage,
   logout,
-  setUserManager
+  setUserManager,
+  getUserManager
 }

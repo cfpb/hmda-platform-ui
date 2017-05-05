@@ -1,14 +1,14 @@
 import React from 'react'
 import { CallbackComponent } from 'redux-oidc'
 import { connect } from 'react-redux'
-import { setAccessToken } from '../api'
-import { restorePage } from '../redirect'
+import { set } from '../api/AccessToken.js'
+import { restorePage } from '../utils/redirect'
 
 export class oidcCallback extends React.Component {
 
   successCallback(user) {
     console.log('success from oidccb', user)
-    setAccessToken(user.access_token)
+    set(user.access_token)
     restorePage()
   }
 

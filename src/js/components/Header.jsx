@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import { signinRedirect, logout } from '../redirect.js'
+import { signinRedirect, logout } from '../utils/redirect.js'
 import BannerUSA from './BannerUSA.jsx'
 
 export const addActiveClass = (selected, current) => {
