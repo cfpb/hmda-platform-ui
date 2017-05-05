@@ -110,6 +110,22 @@ const emptyParseErrors = {
 }
 
 describe('actions', () => {
+  it('checks for http errors', () => {
+    expect(actions.hasHttpError()).toBe(true)
+    expect(actions.hasHttpError({httpStatus: 401})).toBe(true)
+    expect(actions.hasHttpError({})).toBe(false)
+    expect(actions.hasHttpError({httpStatus: 200})).toBe(false)
+  })
+
+  it('checks for file upload errors', () => {
+    expect(actions.checkErrors()).toEqual(['Your file was not uploaded. Please try again.'])
+    expect(actions.checkErrors({size: 123})).toEqual(['Your file was not uploaded. Please try again.'])
+    expect(actions.checkErrors({name: 'arg.txt'})).toEqual(['Your file was not uploaded. Please try again.'])
+    expect(actions.checkErrors({name: 'arg.txt', size: 0})).toEqual(['The file you uploaded does not contain any data. Please check your file and re-upload.'])
+    expect(actions.checkErrors({size: 123, name: 'bad'})).toEqual(['The file you uploaded is not a text file (.txt). Please check your file and re-upload.'])
+    expect(actions.checkErrors({size: 0, name: 'bad'})).toEqual(['The file you uploaded does not contain any data. Please check your file and re-upload.', 'The file you uploaded is not a text file (.txt). Please check your file and re-upload.'])
+  })
+
   it('creates an action to update the status', () => {
     const status = {
       code: 10,
@@ -133,6 +149,60 @@ describe('actions', () => {
     })
   })
 
+ it('creates an action to signal a request for a CSV', () => {
+    expect(actions.requestCSV()).toEqual({
+      type: types.REQUEST_CSV
+    })
+  })
+
+  it('creates an action to signal a request for edits', () => {
+    expect(actions.requestEdits()).toEqual({
+      type: types.REQUEST_EDITS
+    })
+  })
+
+  it('creates an action to signal that edits have been acquired', () => {
+    const data = {a:1}
+    expect(actions.receiveEdits(data)).toEqual({
+      type: types.RECEIVE_EDITS,
+      edits: data
+    })
+  })
+
+  it('creates an action to signal a request for an edit', () => {
+    expect(actions.requestEdit()).toEqual({
+      type: types.REQUEST_EDIT
+    })
+  })
+
+  it('creates an action to signal that an edit has been acquired', () => {
+    const data = {
+      edit: 'a',
+      rows: 'b',
+      count: 1,
+      total: 2,
+      _links: 'c'
+    }
+
+    expect(actions.receiveEdit(data)).toEqual({
+      type: types.RECEIVE_EDIT,
+      edit: 'a',
+      rows: 'b',
+      pagination: {
+        count: 1,
+        total: 2,
+        _links: 'c'
+      }
+    })
+  })
+
+  it('creates an action to signal receiving an error', () => {
+    expect(actions.receiveError('b')).toEqual({
+      type: types.RECEIVE_ERROR,
+      error: 'b'
+    })
+  })
+
   it('creates an action to signal a request for the IRS report', () => {
     expect(actions.requestIRS()).toEqual({
       type: types.REQUEST_IRS
@@ -153,6 +223,7 @@ describe('actions', () => {
       type: types.REQUEST_SIGNATURE
     })
   })
+
 
   it('creates an action to signal a signature checkbox', () => {
     expect(actions.checkSignature(true)).toEqual({
@@ -248,6 +319,23 @@ describe('actions', () => {
     })
   })
 
+  it('creates an action to signal a new filing has been acquired', () => {
+    const data = {
+      filing: {a:1}
+    }
+
+    expect(actions.receiveFiling(data)).toEqual({
+      type: types.RECEIVE_FILING,
+      filing: data
+    })
+  })
+
+  it('creates an action to signal all filings have been acquired', () => {
+    expect(actions.receiveFilings()).toEqual({
+      type: types.RECEIVE_FILINGS
+    })
+  })
+
   it('creates an action to signal current submission data has been received', () => {
     const data = {
       id: {
@@ -273,6 +361,12 @@ describe('actions', () => {
     })
   })
 
+  it('creates an action to signal macro has been verified', () => {
+    expect(actions.verifyMacro(true)).toEqual({
+      type: types.VERIFY_MACRO,
+      checked: true
+    })
+  })
   it('creates a thunk that will post to the quality endpoint', () => {
     const store = mockStore({})
     store.dispatch(actions.fetchVerify('quality', true))

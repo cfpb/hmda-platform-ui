@@ -33,6 +33,21 @@ export function hasHttpError(json) {
     false
 }
 
+export function checkErrors(file) {
+  const errors = []
+  if(file && file.size !== undefined && file.name !== undefined) {
+    if(file.size === 0) {
+      errors.push('The file you uploaded does not contain any data. Please check your file and re-upload.')
+    }
+    if(file.name.split('.').slice(-1)[0].toLowerCase() !== 'txt') {
+      errors.push('The file you uploaded is not a text file (.txt). Please check your file and re-upload.')
+    }
+  } else {
+    errors.push('Your file was not uploaded. Please try again.')
+  }
+  return errors
+}
+
 export function refreshState() {
   return {
     type: types.REFRESH_STATE
@@ -69,13 +84,6 @@ export function receiveInstitution(data) {
   return {
     type: types.RECEIVE_INSTITUTION,
     institution: data.institution
-  }
-}
-
-export function receiveEditPost(data) {
-  return {
-    type: types.RECEIVE_EDIT_POST,
-    data: data
   }
 }
 
@@ -207,19 +215,6 @@ export function clearFilings() {
   return {
     type: types.CLEAR_FILINGS
   }
-}
-
-function checkErrors(file) {
-  const errors = []
-  if(file) {
-    if(file.size === 0) {
-      errors.push('The file you uploaded does not contain any data. Please check your file and re-upload.')
-    }
-    if(file.name.split('.').slice(-1)[0] !== 'txt') {
-      errors.push('The file you uploaded is not a text file (.txt). Please check your file and re-upload.')
-    }
-  }
-  return errors
 }
 
 export function selectNewFile(file) {
