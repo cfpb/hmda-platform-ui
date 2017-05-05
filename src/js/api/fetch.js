@@ -1,10 +1,10 @@
-import fetch from 'isomorphic-fetch'
+import isomorphicFetch from 'isomorphic-fetch'
 import createQueryString from './createQueryString.js'
 import parseLocation from './parseLocation.js'
 import makeUrl from './makeUrl.js'
 import * as AccessToken from './AccessToken.js'
 
-export default function(options = {method: 'GET'}){
+export function fetch(options = {method: 'GET'}){
   const accessToken = AccessToken.get()
   const pathname = options.pathname
   const locationObj = pathname ? {} : parseLocation(location)
@@ -40,14 +40,11 @@ export default function(options = {method: 'GET'}){
     headers: headers
   }
 
-  console.log('fetching from', url, 'with options', fetchOptions)
-  return fetch(url, fetchOptions)
+  return isomorphicFetch(url, fetchOptions)
     .then(response => {
       if(options.params && options.params.format === 'csv') {
         return response.text()
       }
-      const json = response.json()
-      console.log('got api response for', url, json)
-      return json
+      return response.json()
     })
 }
