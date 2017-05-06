@@ -148,9 +148,12 @@ export default class EditsNav extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
+    const header = document.getElementById('header')
+    const editsNav = document.getElementById('editsNav')
+    if(!header || !editsNav) return
     this.setState({
-      headerHeight: document.getElementById('header').clientHeight,
-      editsNavHeight: document.getElementById('editsNav').clientHeight
+      headerHeight: header.clientHeight,
+      editsNavHeight: editsNav.clientHeight
     })
   }
 

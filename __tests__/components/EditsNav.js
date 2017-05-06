@@ -1,6 +1,7 @@
 jest.unmock('../../src/js/components/EditsNav.jsx')
-jest.mock('../../src/js/components/RefileWarning.jsx')
-jest.mock('../../src/js/components/UserHeading.jsx')
+jest.mock('../../src/js/components/UserHeading.jsx', () => jest.fn(() => null))
+jest.mock('../../src/js/components/RefileWarning.jsx', () => jest.fn(() => null))
+jest.mock('../../src/js/containers/submissionProgressHOC.jsx', () => jest.fn((comp) => comp))
 
 import EditsNav, {
   renderLinkOrText,
@@ -22,9 +23,7 @@ const baseProps = {
 }
 
 const getLinkCount = rendered => {
-  return rendered.props.children[0].props.children.reduce((acc, child) => {
-      return acc + (+(child.props.children[1].type.displayName === 'Link'))
-    }, 0)
+  return TestUtils.scryRenderedDOMComponentsWithClass(rendered, 'usa-nav-link').length
 }
 
 describe('EditsNav', () => {
@@ -69,7 +68,7 @@ describe('EditsNav', () => {
     )
     const renderedNode = ReactDOM.findDOMNode(rendered)
     expect(renderedNode).toBeDefined()
-    expect(getLinkCount(rendered)).toBe(0)
+    expect(getLinkCount(rendered)).toBe(1)
   })
 
   /*
