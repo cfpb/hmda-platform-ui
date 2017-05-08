@@ -71,8 +71,6 @@ describe('EditsNav', () => {
     expect(getLinkCount(rendered)).toBe(1)
   })
 
-  /*
-
   it('renders after upload', () => {
     const rendered = TestUtils.renderIntoDocument(
       <Wrapper>
@@ -88,7 +86,6 @@ describe('EditsNav', () => {
         />
       </Wrapper>
     )
-    expect(rendered).toBeDefined()
     expect(getLinkCount(rendered)).toBe(2)
   })
 
@@ -107,7 +104,6 @@ describe('EditsNav', () => {
         />
       </Wrapper>
     )
-    expect(rendered).toBeDefined()
     expect(getLinkCount(rendered)).toBe(3)
   })
 
@@ -126,7 +122,6 @@ describe('EditsNav', () => {
         />
       </Wrapper>
     )
-    expect(rendered).toBeDefined()
     expect(getLinkCount(rendered)).toBe(4)
   })
 
@@ -145,15 +140,14 @@ describe('EditsNav', () => {
         />
       </Wrapper>
     )
-    expect(rendered).toBeDefined()
     expect(getLinkCount(rendered)).toBe(5)
   })
 
   it('warns without provided props', () => {
     console.error = jest.fn()
     const rendered = TestUtils.renderIntoDocument(<EditsNav/>)
-    expect(console.error).toHaveBeenCalledTimes(6)
-  })*/
+    expect(console.error).toHaveBeenCalledTimes(7)
+  })
 
 }
 )
