@@ -1,6 +1,8 @@
 jest.unmock('../../src/js/actions')
 jest.unmock('../../src/js/constants')
-jest.mock('../../src/js/api')
+jest.mock('../../src/js/api/api')
+jest.mock('../../src/js/api/fetch')
+jest.mock('../../src/js/api/getUploadUrl')
 jest.mock('file-saver')
 
 import fs from 'fs'
@@ -9,7 +11,6 @@ import * as types from '../../src/js/constants'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import {
-  sendFetch,
   getInstitution,
   getFiling,
   getInstitutions,
@@ -22,7 +23,8 @@ import {
   postVerify,
   getEdits,
   getCSV
-} from '../../src/js/api.js'
+} from '../../src/js/api/api.js'
+import { fetch } from '../../src/js/api/fetch.js'
 
 const institutionsDetailObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions-detail.json'))
 const institutionsObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions.json'))
@@ -30,7 +32,7 @@ const filingsObj = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))
 const IRSObj = JSON.parse(fs.readFileSync('./__tests__/json/irs.json'))
 const signatureObj = JSON.parse(fs.readFileSync('./__tests__/json/receipt.json'))
 
-sendFetch.mockImplementation((pathObj) => Promise.resolve({bargle:'foo'}))
+fetch.mockImplementation((pathObj) => Promise.resolve({bargle:'foo'}))
 getInstitution.mockImplementation((id) => Promise.resolve(institutionsDetailObj[id]))
 getFiling.mockImplementation((id) => Promise.resolve({filing:{}}))
 getInstitutions.mockImplementation(() => Promise.resolve(institutionsObj))
@@ -108,6 +110,22 @@ const emptyParseErrors = {
 }
 
 describe('actions', () => {
+  it('checks for http errors', () => {
+    expect(actions.hasHttpError()).toBe(true)
+    expect(actions.hasHttpError({httpStatus: 401})).toBe(true)
+    expect(actions.hasHttpError({})).toBe(false)
+    expect(actions.hasHttpError({httpStatus: 200})).toBe(false)
+  })
+
+  it('checks for file upload errors', () => {
+    expect(actions.checkErrors()).toEqual(['Your file was not uploaded. Please try again.'])
+    expect(actions.checkErrors({size: 123})).toEqual(['Your file was not uploaded. Please try again.'])
+    expect(actions.checkErrors({name: 'arg.txt'})).toEqual(['Your file was not uploaded. Please try again.'])
+    expect(actions.checkErrors({name: 'arg.txt', size: 0})).toEqual(['The file you uploaded does not contain any data. Please check your file and re-upload.'])
+    expect(actions.checkErrors({size: 123, name: 'bad'})).toEqual(['The file you uploaded is not a text file (.txt). Please check your file and re-upload.'])
+    expect(actions.checkErrors({size: 0, name: 'bad'})).toEqual(['The file you uploaded does not contain any data. Please check your file and re-upload.', 'The file you uploaded is not a text file (.txt). Please check your file and re-upload.'])
+  })
+
   it('creates an action to update the status', () => {
     const status = {
       code: 10,
@@ -128,6 +146,60 @@ describe('actions', () => {
  it('creates an action to signal a request for submission', () => {
     expect(actions.requestSubmission()).toEqual({
       type: types.REQUEST_SUBMISSION
+    })
+  })
+
+ it('creates an action to signal a request for a CSV', () => {
+    expect(actions.requestCSV()).toEqual({
+      type: types.REQUEST_CSV
+    })
+  })
+
+  it('creates an action to signal a request for edits', () => {
+    expect(actions.requestEdits()).toEqual({
+      type: types.REQUEST_EDITS
+    })
+  })
+
+  it('creates an action to signal that edits have been acquired', () => {
+    const data = {a:1}
+    expect(actions.receiveEdits(data)).toEqual({
+      type: types.RECEIVE_EDITS,
+      edits: data
+    })
+  })
+
+  it('creates an action to signal a request for an edit', () => {
+    expect(actions.requestEdit()).toEqual({
+      type: types.REQUEST_EDIT
+    })
+  })
+
+  it('creates an action to signal that an edit has been acquired', () => {
+    const data = {
+      edit: 'a',
+      rows: 'b',
+      count: 1,
+      total: 2,
+      _links: 'c'
+    }
+
+    expect(actions.receiveEdit(data)).toEqual({
+      type: types.RECEIVE_EDIT,
+      edit: 'a',
+      rows: 'b',
+      pagination: {
+        count: 1,
+        total: 2,
+        _links: 'c'
+      }
+    })
+  })
+
+  it('creates an action to signal receiving an error', () => {
+    expect(actions.receiveError('b')).toEqual({
+      type: types.RECEIVE_ERROR,
+      error: 'b'
     })
   })
 
@@ -157,8 +229,9 @@ describe('actions', () => {
     })
   })
 
+
   it('creates an action to signal a signature checkbox', () => {
-    expect(actions.checkSignature({checked: true})).toEqual({
+    expect(actions.checkSignature(true)).toEqual({
       type: types.CHECK_SIGNATURE,
       checked: true
     })
@@ -251,6 +324,23 @@ describe('actions', () => {
     })
   })
 
+  it('creates an action to signal a new filing has been acquired', () => {
+    const data = {
+      filing: {a:1}
+    }
+
+    expect(actions.receiveFiling(data)).toEqual({
+      type: types.RECEIVE_FILING,
+      filing: data
+    })
+  })
+
+  it('creates an action to signal all filings have been acquired', () => {
+    expect(actions.receiveFilings()).toEqual({
+      type: types.RECEIVE_FILINGS
+    })
+  })
+
   it('creates an action to signal current submission data has been received', () => {
     const data = {
       id: {
@@ -276,6 +366,12 @@ describe('actions', () => {
     })
   })
 
+  it('creates an action to signal macro has been verified', () => {
+    expect(actions.verifyMacro(true)).toEqual({
+      type: types.VERIFY_MACRO,
+      checked: true
+    })
+  })
   it('creates a thunk that will post to the quality endpoint', () => {
     const store = mockStore({})
     store.dispatch(actions.fetchVerify('quality', true))

@@ -54,10 +54,10 @@ export function mapStateToProps(state) {
 export function mapDispatchToProps(dispatch) {
   return {
     onSignatureClick: (signed) => {
-      dispatch(updateSignature({signed: signed}))
+      dispatch(updateSignature(signed))
     },
     onSignatureCheck: (checked) => {
-      dispatch(checkSignature({checked: checked}))
+      dispatch(checkSignature(checked))
     },
     dispatch
   }

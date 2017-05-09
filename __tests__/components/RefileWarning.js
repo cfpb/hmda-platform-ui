@@ -1,6 +1,6 @@
 jest.unmock('../../src/js/components/RefileWarning.jsx')
 jest.mock('../../src/js/containers/RefileButton.jsx')
-jest.mock('../../src/js/api')
+jest.mock('../../src/js/api/api')
 
 import RefileWarning from '../../src/js/components/RefileWarning.jsx'
 import Wrapper from '../Wrapper.js'

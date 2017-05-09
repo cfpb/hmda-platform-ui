@@ -17,10 +17,10 @@ const IRSReport = (props) => {
         <table width="100%">
           <thead>
             <tr>
-              <th colSpan="4"></th>
-              <th colSpan="4">Loan Type</th>
-              <th colSpan="3">Property Type</th>
-              <th colSpan="3">Loan Purpose</th>
+              <th colSpan={4}></th>
+              <th colSpan={4}>Loan Type</th>
+              <th colSpan={3}>Property Type</th>
+              <th colSpan={3}>Loan Purpose</th>
             </tr>
             <tr>
               <th>MSA/MD</th>
