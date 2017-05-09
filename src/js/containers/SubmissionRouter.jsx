@@ -60,7 +60,7 @@ export class SubmissionRouter extends Component {
     }
 
     if(splat) return this.forceUpdate()
-    return this.replaceHistory('summary')
+    return this.replaceHistory('confirmation')
   }
 
   render() {
