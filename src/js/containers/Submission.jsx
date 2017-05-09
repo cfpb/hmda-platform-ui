@@ -43,7 +43,7 @@ const renderByCode = (code, page, message) => {
         if(code === 8) toRender.push(<RefileWarning />)
         toRender.push(<Edits />)
       }
-    }else if(page === 'summary'){
+    }else if(page === 'confirmation'){
       if(code > 7){
         toRender.push(<IRSReport />)
         toRender.push(<Summary />)

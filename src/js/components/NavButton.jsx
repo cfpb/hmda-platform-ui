@@ -28,7 +28,7 @@ const NavButton = (props) => {
       if(code < 8 || syntacticalValidityEditsExist || !qualityVerified) className = 'usa-button-disabled'
       break
     case 'macro':
-      suffix = 'summary'
+      suffix = 'confirmation'
       if(code < 8 || syntacticalValidityEditsExist || !qualityVerified || !macroVerified) className = 'usa-button-disabled'
       break
     default:
@@ -36,7 +36,7 @@ const NavButton = (props) => {
   }
 
   let displayName = (suffix === 'syntacticalvalidity') ? '' : suffix
-  displayName = (suffix !== 'summary') ? `${displayName} Edits` : displayName
+  displayName = (suffix !== 'confirmation') ? `${displayName} Edits` : displayName
 
   return <Link
     className={`NavButton usa-button ${className}`}

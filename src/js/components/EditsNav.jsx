@@ -6,7 +6,7 @@ const navNames = [
   'syntactical & validity edits',
   'quality edits',
   'macro quality edits',
-  'summary'
+  'confirmation'
 ]
 
 const navLinks = {
@@ -14,7 +14,7 @@ const navLinks = {
   'syntactical & validity edits': 'syntacticalvalidity',
   'quality edits': 'quality',
   'macro quality edits': 'macro',
-  'summary': 'summary'
+  'confirmation': 'confirmation'
 }
 
 const getNavClass = (name, props) => {
@@ -58,7 +58,7 @@ const getNavClass = (name, props) => {
 
   // catch all if validated
   if(code > 8) navClass = 'complete'
-  if(code === 9 && name === 'summary') navClass = 'active'
+  if(code === 9 && name === 'confirmation') navClass = 'active'
   // add current class if page matches the name
   if(name === page) navClass = `${navClass} current`
 
