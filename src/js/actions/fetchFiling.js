@@ -1,3 +1,5 @@
+import requestFiling from './requestFiling.js'
+
 export default function fetchFiling(filing) {
   return dispatch => {
     dispatch(requestFiling())
