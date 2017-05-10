@@ -7,6 +7,7 @@ import {
 } from '../actions'
 import HomeLink from '../components/HomeLink.jsx'
 import Header from '../components/Header.jsx'
+import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
 import ErrorWarning from '../components/ErrorWarning.jsx'
 import EditsContainer from './Edits.jsx'
@@ -97,6 +98,10 @@ class SubmissionContainer extends Component {
       <Header
         pathname={location.pathname}
         userName={user.profile.name} />
+      <UserHeading
+        period={params.filing}
+        institution={this.props.institution}
+      />
       <EditsNav
         period={params.filing}
         institution={this.props.institution}

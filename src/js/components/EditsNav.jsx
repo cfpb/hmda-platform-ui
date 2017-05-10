@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
-import UserHeading from '../components/UserHeading.jsx'
 import RefileWarningComponent  from '../components/RefileWarning.jsx'
 import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
 
@@ -149,10 +148,11 @@ export default class EditsNav extends Component {
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
     const header = document.getElementById('header')
+    const userHeading = document.getElementById('userHeading')
     const editsNav = document.getElementById('editsNav')
-    if(!header || !editsNav) return
+    if(!header || !userHeading || !editsNav) return
     this.setState({
-      headerHeight: header.clientHeight,
+      headerHeight: header.clientHeight + userHeading.clientHeight,
       editsNavHeight: editsNav.clientHeight
     })
   }
@@ -183,10 +183,6 @@ export default class EditsNav extends Component {
     return (
       <div style={wrapperHeight}>
         <div className={`EditsNav ${fixedClass}`} id="editsNav">
-          <UserHeading
-            period={this.props.period}
-            institution={this.props.institution}
-          />
           <div className="nav-wrapper">
             <ul className="usa-nav-primary">
               {
@@ -211,7 +207,5 @@ EditsNav.propTypes = {
   code: React.PropTypes.number.isRequired,
   syntacticalValidityEditsExist: React.PropTypes.bool.isRequired,
   qualityVerified: React.PropTypes.bool.isRequired,
-  macroVerified: React.PropTypes.bool.isRequired,
-  period: React.PropTypes.string.isRequired,
-  institution: React.PropTypes.object
+  macroVerified: React.PropTypes.bool.isRequired
 }
