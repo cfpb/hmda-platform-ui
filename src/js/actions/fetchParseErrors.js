@@ -1,5 +1,5 @@
 // downloading the csv edit reports, no reducer required
-export function fetchCSV(institutionId, filing, submissionId) {
+export default function fetchCSV(institutionId, filing, submissionId) {
   return dispatch => {
     dispatch(requestCSV())
     return getCSV({

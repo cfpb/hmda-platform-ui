@@ -1,4 +1,4 @@
-export function fetchNewSubmission(id, period) {
+export default function fetchNewSubmission(id, period) {
   return dispatch => {
     dispatch(requestSubmission())
     return createSubmission(id, period)

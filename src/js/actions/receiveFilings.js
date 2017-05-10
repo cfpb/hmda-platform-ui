@@ -1,4 +1,4 @@
-export function receiveFilings() {
+export default function receiveFilings() {
   return {
     type: types.RECEIVE_FILINGS
   }

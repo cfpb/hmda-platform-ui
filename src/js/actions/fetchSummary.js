@@ -1,4 +1,4 @@
-export function fetchSummary() {
+export default function fetchSummary() {
   return dispatch => {
     dispatch(requestSummary())
     return getSummary(latestSubmissionId)

@@ -1,4 +1,4 @@
-export function fetchFiling(filing) {
+export default function fetchFiling(filing) {
   return dispatch => {
     dispatch(requestFiling())
     return getFiling(filing.institutionId, filing.period)

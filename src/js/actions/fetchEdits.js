@@ -1,4 +1,4 @@
-export function fetchEdits() {
+export default function fetchEdits() {
   return dispatch => {
     dispatch(requestEdits())
     return getEdits({submission: latestSubmissionId})

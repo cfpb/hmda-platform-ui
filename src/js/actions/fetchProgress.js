@@ -1,4 +1,4 @@
-export function fetchProgress(id) {
+export default function fetchProgress(id) {
   return dispatch => {
     return getSubmission(id)
       .then(json => {

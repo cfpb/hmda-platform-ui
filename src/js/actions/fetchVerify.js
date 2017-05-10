@@ -1,4 +1,4 @@
-export function fetchVerify(type, checked) {
+export default function fetchVerify(type, checked) {
   return dispatch => {
     return postVerify(latestSubmissionId, type, checked)
       .then(json => {

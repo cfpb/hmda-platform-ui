@@ -1,4 +1,4 @@
-export function selectFile(file) {
+export default function selectFile(file) {
   pollObj.polling = false
   return {
     type: types.SELECT_FILE,

@@ -1,4 +1,4 @@
-export function requestIRS() {
+export default function requestIRS() {
   return {
     type: types.REQUEST_IRS
   }

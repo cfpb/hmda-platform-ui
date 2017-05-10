@@ -1,4 +1,4 @@
-export function updateSignature(signed) {
+export default function updateSignature(signed) {
   return dispatch => {
     dispatch(requestSignaturePost())
     return postSignature(latestSubmissionId, signed)

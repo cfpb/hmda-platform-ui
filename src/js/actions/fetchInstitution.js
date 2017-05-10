@@ -1,4 +1,4 @@
-export function fetchInstitution(institution, fetchFilings = true) {
+export default function fetchInstitution(institution, fetchFilings = true) {
   return dispatch => {
     dispatch(requestInstitution())
     return getInstitution(institution.id)

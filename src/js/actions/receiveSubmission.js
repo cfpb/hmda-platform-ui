@@ -1,4 +1,4 @@
-export function receiveSubmission(data) {
+export default function receiveSubmission(data) {
   latestSubmissionId = data.id.sequenceNumber
 
   return {

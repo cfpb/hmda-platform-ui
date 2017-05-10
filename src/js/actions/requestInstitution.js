@@ -1,4 +1,4 @@
-export function requestInstitution() {
+export default function requestInstitution() {
   return {
     type: types.REQUEST_INSTITUTION
   }

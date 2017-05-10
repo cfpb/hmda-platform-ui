@@ -1,4 +1,4 @@
-export function receiveEdit(data) {
+export default function receiveEdit(data) {
   return {
     type: types.RECEIVE_EDIT,
     edit: data.edit,

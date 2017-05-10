@@ -1,4 +1,4 @@
-export function fetchPage(target, pathname) {
+export default function fetchPage(target, pathname) {
   return dispatch => {
     dispatch(getPaginationRequestAction(target))
     return fetch({pathname: pathname})

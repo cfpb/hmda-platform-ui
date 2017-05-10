@@ -1,4 +1,4 @@
-export function receiveParseErrors(data) {
+export default function receiveParseErrors(data) {
   return {
     type: types.RECEIVE_PARSE_ERRORS,
     transmittalSheetErrors: data.transmittalSheetErrors,

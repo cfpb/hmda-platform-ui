@@ -1,4 +1,4 @@
-export function fetchEachFiling(filings) {
+export default function fetchEachFiling(filings) {
   return dispatch => {
     dispatch(clearFilings())
     return Promise.all(

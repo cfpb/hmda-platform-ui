@@ -1,4 +1,4 @@
-export function fetchSubmission() {
+export default function fetchSubmission() {
   return dispatch => {
     dispatch(requestSubmission())
     return getLatestSubmission()

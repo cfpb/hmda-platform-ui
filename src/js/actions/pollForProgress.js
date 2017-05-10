@@ -1,4 +1,4 @@
-export function pollForProgress(pollObj = {}) {
+export default function pollForProgress(pollObj = {}) {
   const poller = dispatch => {
     if(!pollObj.polling) return Promise.resolve()
     if(!location.pathname.match('/upload')) return Promise.resolve()

@@ -1,4 +1,4 @@
-export function fetchEachEdit(editTypes) {
+export default function fetchEachEdit(editTypes) {
   return dispatch => {
     Object.keys(editTypes).forEach(key => {
       if(key !== 'status'){

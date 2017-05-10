@@ -1,4 +1,4 @@
-export function fetchEachInstitution(institutions) {
+export default function fetchEachInstitution(institutions) {
   return dispatch => {
     return Promise.all(
       institutions.map( institution => {

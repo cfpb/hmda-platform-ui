@@ -1,4 +1,4 @@
-export function getPaginationRequestAction(target) {
+export default function getPaginationRequestAction(target) {
   switch(target) {
     case 'parseErrors':
       return requestParseErrors()

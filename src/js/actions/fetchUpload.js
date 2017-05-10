@@ -1,4 +1,4 @@
-export function fetchUpload(file) {
+export default function fetchUpload(file) {
   return dispatch => {
     dispatch(uploadStart())
     var data = new FormData()

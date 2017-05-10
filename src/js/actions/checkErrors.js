@@ -1,4 +1,4 @@
-export function checkErrors(file) {
+export default function checkErrors(file) {
   const errors = []
   if(file && file.size !== undefined && file.name !== undefined) {
     if(file.size === 0) {

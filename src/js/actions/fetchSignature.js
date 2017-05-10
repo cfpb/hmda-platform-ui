@@ -1,4 +1,4 @@
-export function fetchSignature() {
+export default function fetchSignature() {
   return dispatch => {
     dispatch(requestSignature())
     return getSignature(latestSubmissionId)

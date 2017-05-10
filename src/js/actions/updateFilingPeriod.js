@@ -1,4 +1,4 @@
-export function updateFilingPeriod(filingPeriod) {
+export default function updateFilingPeriod(filingPeriod) {
   filingPeriod = filingPeriod + ''
   currentFilingPeriod = filingPeriod
 

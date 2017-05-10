@@ -1,4 +1,4 @@
-export function receiveSummary(data) {
+export default function receiveSummary(data) {
   return {
     type: types.RECEIVE_SUMMARY,
     respondent: data.respondent,

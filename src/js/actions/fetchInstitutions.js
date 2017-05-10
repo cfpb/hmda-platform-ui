@@ -1,4 +1,4 @@
-export function fetchInstitutions() {
+export default function fetchInstitutions() {
   return dispatch => {
     dispatch(requestInstitutions())
     return getInstitutions()
