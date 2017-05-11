@@ -146,7 +146,7 @@ describe('EditsNav', () => {
   it('warns without provided props', () => {
     console.error = jest.fn()
     const rendered = TestUtils.renderIntoDocument(<EditsNav/>)
-    expect(console.error).toHaveBeenCalledTimes(7)
+    expect(console.error).toHaveBeenCalledTimes(6)
   })
 
 }
