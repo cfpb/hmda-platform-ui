@@ -2,7 +2,7 @@ import requestEdit from './requestEdit.js'
 import receiveEdit from './receiveEdit.js'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
-import { getEdit } from '../api/api'
+import { getEdit } from '../api/api.js'
 import { getId } from './Submission.js'
 
 export default function fetchEachEdit(editTypes) {

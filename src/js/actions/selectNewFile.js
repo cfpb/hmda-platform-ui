@@ -1,5 +1,8 @@
+import * as types from '../constants'
+import * as Poller from './Poller.js'
+
 export default function selectNewFile(file) {
-  pollObj.polling = false
+  Poller.set(false)
   return {
     type: types.SELECT_NEW_FILE,
     file

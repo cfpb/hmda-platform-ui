@@ -1,6 +1,14 @@
+import updateStatus from './updateStatus.js'
+import verifyMacro from './verifyMacro.js'
+import verifyQuality from './verifyQuality.js'
+import receiveError from './receiveError.js'
+import hasHttpError from './hasHttpError.js'
+import { getId } from './Submission.js'
+import { postVerify } from '../api/api.js'
+
 export default function fetchVerify(type, checked) {
   return dispatch => {
-    return postVerify(latestSubmissionId, type, checked)
+    return postVerify(getId(), type, checked)
       .then(json => {
         if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
 

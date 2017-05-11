@@ -1,3 +1,5 @@
+import * as types from '../constants'
+
 export default function receiveEdit(data) {
   return {
     type: types.RECEIVE_EDIT,

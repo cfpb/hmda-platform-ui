@@ -1,3 +1,13 @@
+import * as AccessToken from '../api/AccessToken.js'
+import { getId } from './Submission.js'
+import * as Poller from './Poller.js'
+import getUploadUrl from '../api/getUploadUrl.js'
+import pollForProgress from './pollForProgress.js'
+import uploadComplete from './uploadComplete.js'
+import uploadError from './uploadError.js'
+import updateStatus from './updateStatus.js'
+import uploadStart from './uploadStart.js'
+
 export default function fetchUpload(file) {
   return dispatch => {
     dispatch(uploadStart())
@@ -19,11 +29,11 @@ export default function fetchUpload(file) {
       }
 
       dispatch(uploadComplete(e))
-      pollObj.polling = true
-      dispatch(pollForProgress(pollObj))
+      Poller.set(true)
+      dispatch(pollForProgress())
     })
 
-    xhr.open('POST', getUploadUrl(latestSubmissionId));
+    xhr.open('POST', getUploadUrl(getId()));
     xhr.setRequestHeader('Cache-Control', 'no-cache');
     xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get());
     xhr.setRequestHeader('Accept', 'application/json');

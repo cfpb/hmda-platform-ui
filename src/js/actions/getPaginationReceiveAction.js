@@ -1,3 +1,7 @@
+import receiveEdit from './receiveEdit.js'
+import receiveIRS from './receiveIRS.js'
+import receiveParseErrors from './receiveParseErrors.js'
+
 export default function getPaginationReceiveAction(target, data) {
   switch(target) {
     case 'parseErrors':

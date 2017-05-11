@@ -4,7 +4,7 @@ import receiveError from './receiveError.js'
 import receiveEdits from './receiveEdits.js'
 import fetchEachEdit from './fetchEachEdit.js'
 import { getId } from './Submission.js'
-import getEdits from '../api/api.js'
+import { getEdits } from '../api/api.js'
 
 export default function fetchEdits() {
   return dispatch => {

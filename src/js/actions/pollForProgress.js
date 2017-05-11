@@ -1,6 +1,13 @@
-export default function pollForProgress(pollObj = {}) {
+import fetchEdits from './fetchEdits.js'
+import receiveSubmission from './receiveSubmission.js'
+import receiveError from './receiveError.js'
+import hasHttpError from './hasHttpError.js'
+import * as Poller from './Poller.js'
+import getLatestSubmission from '../api/api.js'
+
+export default function pollForProgress() {
   const poller = dispatch => {
-    if(!pollObj.polling) return Promise.resolve()
+    if(!Poller.get()) return Promise.resolve()
     if(!location.pathname.match('/upload')) return Promise.resolve()
     return getLatestSubmission()
       .then(json => {
