@@ -5,7 +5,7 @@ import requestParseErrors from './requestParseErrors.js'
 import { getId } from './Submission.js'
 import { getParseErrors } from '../api/api.js'
 
-export function fetchParseErrors() {
+export default function fetchParseErrors() {
   return dispatch => {
     dispatch(requestParseErrors())
     return getParseErrors(getId())

@@ -5,7 +5,7 @@ import { getId } from './Submission.js'
 import requestIRS from './requestIRS.js'
 import { getIRS } from '../api/api.js'
 
-export function fetchIRS() {
+export default function fetchIRS() {
   return dispatch => {
     dispatch(requestIRS())
     return getIRS(getId())
