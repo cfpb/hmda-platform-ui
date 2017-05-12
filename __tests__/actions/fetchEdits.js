@@ -5,7 +5,7 @@ import fetchEdits from '../../src/js/actions/fetchEdits.js'
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import getEdits from '../../src/js/api/api/getEdits.js'
+import { getEdits } from '../../src/js/api/api.js'
 
 getEdits.mockImplementation((id) => Promise.resolve({fakeEdits:1}))
 const mockStore = configureMockStore([thunk])

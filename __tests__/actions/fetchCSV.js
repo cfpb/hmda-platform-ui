@@ -6,7 +6,7 @@ import fetchCSV from '../../src/js/actions/fetchCSV.js'
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import getCSV from '../../src/js/api/api/getCSV.js'
+import { getCSV } from '../../src/js/api/api.js'
 
 getCSV.mockImplementation((id) => Promise.resolve('a,b,c'))
 const mockStore = configureMockStore([thunk])

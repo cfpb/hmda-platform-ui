@@ -5,8 +5,7 @@ import fetchInstitutions from '../../src/js/actions/fetchInstitutions.js'
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import getInstitutions from '../../src/js/api/api/getInstitutions.js'
-import getInstitution from '../../src/js/api/api/getInstitution.js'
+import { getInstitutions, getInstitution } from '../../src/js/api/api.js'
 import fs from 'fs'
 
 const institutionsDetailObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions-detail.json'))

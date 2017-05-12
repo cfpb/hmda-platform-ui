@@ -4,7 +4,7 @@ import * as types from '../../src/js/constants'
 import fetchVerify from '../../src/js/actions/fetchVerify.js'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import postVerify from '../../src/js/api/api/postVerify.js'
+import { postVerify } from '../../src/js/api/api.js'
 
 postVerify.mockImplementation(() => Promise.resolve({status: {code: 8, message: 'postverify'}}))
 const mockStore = configureMockStore([thunk])

@@ -6,7 +6,7 @@ import fs from 'fs'
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import getInstitution from '../../src/js/api/api/getInstitution'
+import { getInstitution } from '../../src/js/api/api.js'
 
 const institutionsDetailObj = JSON.parse(fs.readFileSync('./__tests__/json/institutions-detail.json'))
 getInstitution.mockImplementation((id) => Promise.resolve(institutionsDetailObj[id]))
