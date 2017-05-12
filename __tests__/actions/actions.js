@@ -108,142 +108,24 @@ const emptyParseErrors = {
     _links: undefined
   }
 }
-  it('creates an action to update the filing period', () => {
-    expect(updateFilingPeriod('123')).toEqual({
-      type: types.UPDATE_FILING_PERIOD,
-      filingPeriod: '123'
-    })
-  })
+ 
 
-  it('creates an action to signal a request for institutions', () => {
-    expect(requestInstitutions()).toEqual({
-      type: types.REQUEST_INSTITUTIONS
-    })
-  })
+  
 
-  it('creates an action to signal new institutions have been acquired', () => {
-    const data = {
-      institutions: [1]
-    }
+  
 
-    expect(receiveInstitutions(data)).toEqual({
-      type: types.RECEIVE_INSTITUTIONS,
-      institutions: data.institutions
-    })
-  })
+  
 
-  it('creates an action to signal a request for an institution', () => {
-    expect(requestInstitution()).toEqual({
-      type: types.REQUEST_INSTITUTION
-    })
-  })
+  
 
-  it('creates an action to signal a new institution has been acquired', () => {
-    const data = {
-      institution: {a:1}
-    }
+  
 
-    expect(receiveInstitution(data)).toEqual({
-      type: types.RECEIVE_INSTITUTION,
-      institution: data.institution
-    })
-  })
+  
 
-  it('creates an action to signal file selection', () => {
-    const file = {size:42, name: 'test.txt'}
+  
 
-    expect(selectFile(file)).toEqual({
-      type: types.SELECT_FILE,
-      file,
-      errors: []
-    })
-  })
-
-  it('creates an action to signal the start of the file upload', () => {
-    expect(uploadStart()).toEqual({
-      type: types.UPLOAD_START
-    })
-  })
-
-  it('creates an action to signal completion of the file upload', () => {
-    const event = {}
-
-    expect(uploadComplete(event)).toEqual({
-      type: types.UPLOAD_COMPLETE,
-      xhrLoadEvent: event
-    })
-  })
-
-  it('creates an action to signal an error during the file upload', () => {
-    expect(uploadError()).toEqual({
-      type: types.UPLOAD_ERROR
-    })
-  })
-
-  it('creates an action to signal a request for the relevant filing', () => {
-    expect(requestFiling()).toEqual({
-      type: types.REQUEST_FILING
-    })
-  })
-
-  it('creates an action to signal a new filing has been acquired', () => {
-    const data = {
-      filing: {a:1}
-    }
-
-    expect(receiveFiling(data)).toEqual({
-      type: types.RECEIVE_FILING,
-      filing: data
-    })
-  })
-
-  it('creates an action to signal all filings have been acquired', () => {
-    expect(receiveFilings()).toEqual({
-      type: types.RECEIVE_FILINGS
-    })
-  })
-
-  it('creates an action to signal current submission data has been received', () => {
-    const data = {
-      id: {
-        sequenceNumber: 2
-      }
-    }
-    expect(receiveSubmission(data)).toEqual({
-      type: types.RECEIVE_SUBMISSION,
-      ...data
-    })
-  })
-
-  it('creates an action to signal that stored filings should be cleared', () => {
-    expect(clearFilings()).toEqual({
-      type: types.CLEAR_FILINGS
-    })
-  })
-
-  it('creates an action to signal quality has been verified', () => {
-    expect(verifyQuality(true)).toEqual({
-      type: types.VERIFY_QUALITY,
-      checked: true
-    })
-  })
-
-  it('creates an action to signal macro has been verified', () => {
-    expect(verifyMacro(true)).toEqual({
-      type: types.VERIFY_MACRO,
-      checked: true
-    })
-  })
-  it('creates a thunk that will post to the quality endpoint', () => {
-    const store = mockStore({})
-    store.dispatch(fetchVerify('quality', true))
-      .then(() => {
-        expect(store.getActions()).toEqual([
-          {type: types.VERIFY_QUALITY, checked: true},
-          {type: types.UPDATE_STATUS, status: {code: 8, message: 'postverify'}}
-          ])
-      })
-  })
+  
+  
 
   it('creates a thunk that will post to the macro endpoint', () => {
     const store = mockStore({})

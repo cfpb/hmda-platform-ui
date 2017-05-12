@@ -3,10 +3,14 @@ import * as types from '../../src/js/constants'
 import receiveFiling from '../../src/js/actions/receiveFiling.js'
 
 describe('receiveFiling', () => {
-  it('checks for http errors', () => {
-    expect(receiveFiling()).toBe(true)
-    expect(receiveFiling({httpStatus: 401})).toBe(true)
-    expect(receiveFiling({})).toBe(false)
-    expect(receiveFiling({httpStatus: 200})).toBe(false)
+  it('creates an action to signal a new filing has been acquired', () => {
+    const data = {
+      filing: {a:1}
+    }
+
+    expect(receiveFiling(data)).toEqual({
+      type: types.RECEIVE_FILING,
+      filing: data
+    })
   })
 })

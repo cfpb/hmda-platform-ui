@@ -3,10 +3,13 @@ import * as types from '../../src/js/constants'
 import selectFile from '../../src/js/actions/selectFile.js'
 
 describe('selectFile', () => {
-  it('checks for http errors', () => {
-    expect(selectFile()).toBe(true)
-    expect(selectFile({httpStatus: 401})).toBe(true)
-    expect(selectFile({})).toBe(false)
-    expect(selectFile({httpStatus: 200})).toBe(false)
+  it('creates an action to signal file selection', () => {
+    const file = {size:42, name: 'test.txt'}
+
+    expect(selectFile(file)).toEqual({
+      type: types.SELECT_FILE,
+      file,
+      errors: []
+    })
   })
 })

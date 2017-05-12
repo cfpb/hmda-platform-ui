@@ -3,10 +3,9 @@ import * as types from '../../src/js/constants'
 import requestInstitution from '../../src/js/actions/requestInstitution.js'
 
 describe('requestInstitution', () => {
-  it('checks for http errors', () => {
-    expect(requestInstitution()).toBe(true)
-    expect(requestInstitution({httpStatus: 401})).toBe(true)
-    expect(requestInstitution({})).toBe(false)
-    expect(requestInstitution({httpStatus: 200})).toBe(false)
+  it('creates an action to signal a request for an institution', () => {
+    expect(requestInstitution()).toEqual({
+      type: types.REQUEST_INSTITUTION
+    })
   })
 })

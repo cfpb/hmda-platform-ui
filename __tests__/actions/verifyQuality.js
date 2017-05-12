@@ -3,10 +3,10 @@ import * as types from '../../src/js/constants'
 import verifyQuality from '../../src/js/actions/verifyQuality.js'
 
 describe('verifyQuality', () => {
-  it('checks for http errors', () => {
-    expect(verifyQuality()).toBe(true)
-    expect(verifyQuality({httpStatus: 401})).toBe(true)
-    expect(verifyQuality({})).toBe(false)
-    expect(verifyQuality({httpStatus: 200})).toBe(false)
+  it('creates an action to signal quality has been verified', () => {
+    expect(verifyQuality(true)).toEqual({
+      type: types.VERIFY_QUALITY,
+      checked: true
+    })
   })
 })

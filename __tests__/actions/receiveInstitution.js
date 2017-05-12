@@ -3,10 +3,14 @@ import * as types from '../../src/js/constants'
 import receiveInstitution from '../../src/js/actions/receiveInstitution.js'
 
 describe('receiveInstitution', () => {
-  it('checks for http errors', () => {
-    expect(receiveInstitution()).toBe(true)
-    expect(receiveInstitution({httpStatus: 401})).toBe(true)
-    expect(receiveInstitution({})).toBe(false)
-    expect(receiveInstitution({httpStatus: 200})).toBe(false)
+  it('creates an action to signal a new institution has been acquired', () => {
+    const data = {
+      institution: {a:1}
+    }
+
+    expect(receiveInstitution(data)).toEqual({
+      type: types.RECEIVE_INSTITUTION,
+      institution: data.institution
+    })
   })
 })
