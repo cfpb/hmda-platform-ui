@@ -1,22 +1,18 @@
-import fileSaver from 'file-saver'
+import receiveParseErrors from './receiveParseErrors.js'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
-import requestCSV from './requestCSV.js'
-import { getCSV } from '../api/api.js'
+import requestParseErrors from './requestParseErrors.js'
+import { getId } from './Submission.js'
+import { getParseErrors } from '../api/api.js'
 
-// downloading the csv edit reports, no reducer required
-export default function fetchCSV(institutionId, filing, submissionId) {
+export function fetchParseErrors() {
   return dispatch => {
-    dispatch(requestCSV())
-    return getCSV({
-      id: institutionId,
-      filing: filing,
-      submission: submissionId
-    })
-    .then(csv => {
-      if(hasHttpError(csv)) throw new Error(JSON.stringify(dispatch(receiveError(csv))))
-      return fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${submissionId}-full-edit-report.csv`)
-    })
-    .catch(err => console.error(err))
+    dispatch(requestParseErrors())
+    return getParseErrors(getId())
+      .then(json => {
+        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        return dispatch(receiveParseErrors(json))
+      })
+      .catch(err => console.error(err))
   }
 }

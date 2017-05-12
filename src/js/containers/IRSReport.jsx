@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchIRS } from '../actions'
+import fetchIRS from '../actions/fetchIRS.js'
 import IRSReport from '../components/IRSReport.jsx'
 
 export class IRSReportContainer extends Component {

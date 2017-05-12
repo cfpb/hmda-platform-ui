@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchSummary } from '../actions'
+import fetchSummary from '../actions/fetchSummary.js'
 import Summary from '../components/Summary.jsx'
 
 export class SummaryContainer extends Component {

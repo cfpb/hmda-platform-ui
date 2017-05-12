@@ -1,13 +1,11 @@
 import { connect } from 'react-redux'
 import Upload from '../components/UploadForm.jsx'
-import {
-  selectFile,
-  selectNewFile,
-  fetchUpload,
-  createNewSubmission,
-  showConfirm,
-  pollForProgress
-} from '../actions'
+import selectFile from '../actions/selectFile.js'
+import selectNewFile from '../actions/selectNewFile.js'
+import fetchUpload from '../actions/fetchUpload.js'
+import createNewSubmission from '../actions/createNewSubmission.js'
+import showConfirm from '../actions/showConfirm.js'
+import pollForProgress from '../actions/pollForProgress.js'
 
 export function mapStateToProps(state) {
   const {

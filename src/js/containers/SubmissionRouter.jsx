@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import SubmissionContainer from './Submission.jsx'
-import { fetchSubmission } from '../actions'
+import fetchSubmission from '../actions/fetchSubmission.js'
 
 const editTypes = ['syntacticalvalidity', 'quality', 'macro']
 

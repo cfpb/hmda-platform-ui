@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import submissionProgressHOC from './submissionProgressHOC.jsx'
 import Wrapper from '../components/EditsTableWrapper.jsx'
-import { fetchEdits } from '../actions'
+import fetchEdits from '../actions/fetchEdits.js'
 
 const EditsTableWrapper = submissionProgressHOC(Wrapper)
 

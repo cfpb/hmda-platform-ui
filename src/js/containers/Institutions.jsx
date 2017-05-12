@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { updateFilingPeriod, fetchInstitutions, createNewSubmission, fetchCSV } from '../actions'
+import updateFilingPeriod from '../actions/updateFilingPeriod.js'
+import fetchInstitutions from '../actions/fetchInstitutions.js'
+import createNewSubmission from '../actions/createNewSubmission.js'
+import fetchCSV from '../actions/fetchCSV.js'
 import Institutions from '../components/Institutions.jsx'
 
 export class InstitutionContainer extends Component {

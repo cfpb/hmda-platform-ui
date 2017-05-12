@@ -109,13 +109,7 @@ const emptyParseErrors = {
   }
 }
 
-describe('actions', () => {
-  it('checks for http errors', () => {
-    expect(actions.hasHttpError()).toBe(true)
-    expect(actions.hasHttpError({httpStatus: 401})).toBe(true)
-    expect(actions.hasHttpError({})).toBe(false)
-    expect(actions.hasHttpError({httpStatus: 200})).toBe(false)
-  })
+
 
   it('checks for file upload errors', () => {
     expect(actions.checkErrors()).toEqual(['Your file was not uploaded. Please try again.'])
