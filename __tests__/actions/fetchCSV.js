@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/fetchCSV.js')
+import * as types from '../../src/js/constants'
 import fetchCSV from '../../src/js/actions/fetchCSV.js'
 
 describe('fetchCSV', () => {

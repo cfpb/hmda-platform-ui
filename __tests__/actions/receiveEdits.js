@@ -1,10 +1,13 @@
+jest.unmock('../../src/js/actions/receiveEdits.js')
+import * as types from '../../src/js/constants'
 import receiveEdits from '../../src/js/actions/receiveEdits.js'
 
 describe('receiveEdits', () => {
-  it('checks for http errors', () => {
-    expect(receiveEdits()).toBe(true)
-    expect(receiveEdits({httpStatus: 401})).toBe(true)
-    expect(receiveEdits({})).toBe(false)
-    expect(receiveEdits({httpStatus: 200})).toBe(false)
+  it('creates an action to signal that edits have been acquired', () => {
+    const data = {a:1}
+    expect(receiveEdits(data)).toEqual({
+      type: types.RECEIVE_EDITS,
+      edits: data
+    })
   })
 })

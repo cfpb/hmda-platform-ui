@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/verifyMacro.js')
+import * as types from '../../src/js/constants'
 import verifyMacro from '../../src/js/actions/verifyMacro.js'
 
 describe('verifyMacro', () => {

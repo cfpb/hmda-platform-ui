@@ -108,147 +108,15 @@ const emptyParseErrors = {
     _links: undefined
   }
 }
-
-
-
-  it('checks for file upload errors', () => {
-    expect(actions.checkErrors()).toEqual(['Your file was not uploaded. Please try again.'])
-    expect(actions.checkErrors({size: 123})).toEqual(['Your file was not uploaded. Please try again.'])
-    expect(actions.checkErrors({name: 'arg.txt'})).toEqual(['Your file was not uploaded. Please try again.'])
-    expect(actions.checkErrors({name: 'arg.txt', size: 0})).toEqual(['The file you uploaded does not contain any data. Please check your file and re-upload.'])
-    expect(actions.checkErrors({size: 123, name: 'bad'})).toEqual(['The file you uploaded is not a text file (.txt). Please check your file and re-upload.'])
-    expect(actions.checkErrors({size: 0, name: 'bad'})).toEqual(['The file you uploaded does not contain any data. Please check your file and re-upload.', 'The file you uploaded is not a text file (.txt). Please check your file and re-upload.'])
-  })
-
-  it('creates an action to update the status', () => {
-    const status = {
-      code: 10,
-      message: ''
-    }
-    expect(actions.updateStatus(status)).toEqual({
-      type: types.UPDATE_STATUS,
-      status: status
-    })
-  })
-
-  it('creates an action to refresh the state', () => {
-    expect(actions.refreshState()).toEqual({
-      type: types.REFRESH_STATE
-    })
-  })
-
- it('creates an action to signal a request for submission', () => {
-    expect(actions.requestSubmission()).toEqual({
-      type: types.REQUEST_SUBMISSION
-    })
-  })
-
- it('creates an action to signal a request for a CSV', () => {
-    expect(actions.requestCSV()).toEqual({
-      type: types.REQUEST_CSV
-    })
-  })
-
-  it('creates an action to signal a request for edits', () => {
-    expect(actions.requestEdits()).toEqual({
-      type: types.REQUEST_EDITS
-    })
-  })
-
-  it('creates an action to signal that edits have been acquired', () => {
-    const data = {a:1}
-    expect(actions.receiveEdits(data)).toEqual({
-      type: types.RECEIVE_EDITS,
-      edits: data
-    })
-  })
-
-  it('creates an action to signal a request for an edit', () => {
-    expect(actions.requestEdit()).toEqual({
-      type: types.REQUEST_EDIT
-    })
-  })
-
-  it('creates an action to signal that an edit has been acquired', () => {
-    const data = {
-      edit: 'a',
-      rows: 'b',
-      count: 1,
-      total: 2,
-      _links: 'c'
-    }
-
-    expect(actions.receiveEdit(data)).toEqual({
-      type: types.RECEIVE_EDIT,
-      edit: 'a',
-      rows: 'b',
-      pagination: {
-        count: 1,
-        total: 2,
-        _links: 'c'
-      }
-    })
-  })
-
-  it('creates an action to signal receiving an error', () => {
-    expect(actions.receiveError('b')).toEqual({
-      type: types.RECEIVE_ERROR,
-      error: 'b'
-    })
-  })
-
-  it('creates an action to signal a request for the IRS report', () => {
-    expect(actions.requestIRS()).toEqual({
-      type: types.REQUEST_IRS
-    })
-  })
-
-  it('creates an action to signal the IRS report data has been acquired', () => {
-    const data = IRSObj
-    expect(actions.receiveIRS(data)).toEqual({
-      type: types.RECEIVE_IRS,
-      msas: data.msas,
-      summary: data.summary,
-      pagination: {
-        _links: undefined,
-        count: undefined,
-        total: undefined
-      }
-    })
-  })
-
-  it('creates an action to signal a request for the signature', () => {
-    expect(actions.requestSignature()).toEqual({
-      type: types.REQUEST_SIGNATURE
-    })
-  })
-
-
-  it('creates an action to signal a signature checkbox', () => {
-    expect(actions.checkSignature(true)).toEqual({
-      type: types.CHECK_SIGNATURE,
-      checked: true
-    })
-  })
-
-  it('creates an action to signal the signature data has been acquired', () => {
-    const data = signatureObj
-    expect(actions.receiveSignature(data)).toEqual({
-      type: types.RECEIVE_SIGNATURE,
-      timestamp: data.timestamp,
-      receipt: data.receipt
-    })
-  })
-
   it('creates an action to update the filing period', () => {
-    expect(actions.updateFilingPeriod('123')).toEqual({
+    expect(updateFilingPeriod('123')).toEqual({
       type: types.UPDATE_FILING_PERIOD,
       filingPeriod: '123'
     })
   })
 
   it('creates an action to signal a request for institutions', () => {
-    expect(actions.requestInstitutions()).toEqual({
+    expect(requestInstitutions()).toEqual({
       type: types.REQUEST_INSTITUTIONS
     })
   })
@@ -258,14 +126,14 @@ const emptyParseErrors = {
       institutions: [1]
     }
 
-    expect(actions.receiveInstitutions(data)).toEqual({
+    expect(receiveInstitutions(data)).toEqual({
       type: types.RECEIVE_INSTITUTIONS,
       institutions: data.institutions
     })
   })
 
   it('creates an action to signal a request for an institution', () => {
-    expect(actions.requestInstitution()).toEqual({
+    expect(requestInstitution()).toEqual({
       type: types.REQUEST_INSTITUTION
     })
   })
@@ -275,7 +143,7 @@ const emptyParseErrors = {
       institution: {a:1}
     }
 
-    expect(actions.receiveInstitution(data)).toEqual({
+    expect(receiveInstitution(data)).toEqual({
       type: types.RECEIVE_INSTITUTION,
       institution: data.institution
     })
@@ -284,7 +152,7 @@ const emptyParseErrors = {
   it('creates an action to signal file selection', () => {
     const file = {size:42, name: 'test.txt'}
 
-    expect(actions.selectFile(file)).toEqual({
+    expect(selectFile(file)).toEqual({
       type: types.SELECT_FILE,
       file,
       errors: []
@@ -292,7 +160,7 @@ const emptyParseErrors = {
   })
 
   it('creates an action to signal the start of the file upload', () => {
-    expect(actions.uploadStart()).toEqual({
+    expect(uploadStart()).toEqual({
       type: types.UPLOAD_START
     })
   })
@@ -300,20 +168,20 @@ const emptyParseErrors = {
   it('creates an action to signal completion of the file upload', () => {
     const event = {}
 
-    expect(actions.uploadComplete(event)).toEqual({
+    expect(uploadComplete(event)).toEqual({
       type: types.UPLOAD_COMPLETE,
       xhrLoadEvent: event
     })
   })
 
   it('creates an action to signal an error during the file upload', () => {
-    expect(actions.uploadError()).toEqual({
+    expect(uploadError()).toEqual({
       type: types.UPLOAD_ERROR
     })
   })
 
   it('creates an action to signal a request for the relevant filing', () => {
-    expect(actions.requestFiling()).toEqual({
+    expect(requestFiling()).toEqual({
       type: types.REQUEST_FILING
     })
   })
@@ -323,14 +191,14 @@ const emptyParseErrors = {
       filing: {a:1}
     }
 
-    expect(actions.receiveFiling(data)).toEqual({
+    expect(receiveFiling(data)).toEqual({
       type: types.RECEIVE_FILING,
       filing: data
     })
   })
 
   it('creates an action to signal all filings have been acquired', () => {
-    expect(actions.receiveFilings()).toEqual({
+    expect(receiveFilings()).toEqual({
       type: types.RECEIVE_FILINGS
     })
   })
@@ -341,34 +209,34 @@ const emptyParseErrors = {
         sequenceNumber: 2
       }
     }
-    expect(actions.receiveSubmission(data)).toEqual({
+    expect(receiveSubmission(data)).toEqual({
       type: types.RECEIVE_SUBMISSION,
       ...data
     })
   })
 
   it('creates an action to signal that stored filings should be cleared', () => {
-    expect(actions.clearFilings()).toEqual({
+    expect(clearFilings()).toEqual({
       type: types.CLEAR_FILINGS
     })
   })
 
   it('creates an action to signal quality has been verified', () => {
-    expect(actions.verifyQuality(true)).toEqual({
+    expect(verifyQuality(true)).toEqual({
       type: types.VERIFY_QUALITY,
       checked: true
     })
   })
 
   it('creates an action to signal macro has been verified', () => {
-    expect(actions.verifyMacro(true)).toEqual({
+    expect(verifyMacro(true)).toEqual({
       type: types.VERIFY_MACRO,
       checked: true
     })
   })
   it('creates a thunk that will post to the quality endpoint', () => {
     const store = mockStore({})
-    store.dispatch(actions.fetchVerify('quality', true))
+    store.dispatch(fetchVerify('quality', true))
       .then(() => {
         expect(store.getActions()).toEqual([
           {type: types.VERIFY_QUALITY, checked: true},
@@ -379,7 +247,7 @@ const emptyParseErrors = {
 
   it('creates a thunk that will post to the macro endpoint', () => {
     const store = mockStore({})
-    store.dispatch(actions.fetchVerify('macro', true))
+    store.dispatch(fetchVerify('macro', true))
       .then(() => {
         expect(store.getActions()).toEqual([
           {type: types.VERIFY_MACRO, checked: true},
@@ -389,13 +257,13 @@ const emptyParseErrors = {
   })
 
   it('creates an action to signal display of the refile confirmation modal', () => {
-    expect(actions.showConfirm('a','b')).toEqual({
+    expect(showConfirm('a','b')).toEqual({
       type: types.SHOW_CONFIRM,
       showing: true,
       id: 'a',
       filing: 'b'
     })
-    expect(actions.hideConfirm()).toEqual({
+    expect(hideConfirm()).toEqual({
       type: types.HIDE_CONFIRM,
       showing: false
     })
@@ -404,7 +272,7 @@ const emptyParseErrors = {
   it('creates a thunk that will send an http request for an institution by id', done => {
     const store = mockStore({filings: []})
 
-    store.dispatch(actions.fetchInstitution({id: '0'}, false))
+    store.dispatch(fetchInstitution({id: '0'}, false))
       .then(() => {
         expect(store.getActions()).toEqual([
           {type: types.REQUEST_INSTITUTION},
@@ -424,7 +292,7 @@ const emptyParseErrors = {
 
   it('creates a thunk that will kick off a file upload', done => {
     const store = mockStore({upload: {}})
-    store.dispatch(actions.fetchUpload({name: 'afile'}))
+    store.dispatch(fetchUpload({name: 'afile'}))
       .then(() => {
         expect(store.getActions()).toEqual([
           {
@@ -446,14 +314,14 @@ const emptyParseErrors = {
 
   it('does not poll on pages other than upload', () => {
     const store = mockStore({submission: {}})
-    store.dispatch(actions.pollForProgress({polling: true})).then(() => {
+    store.dispatch(pollForProgress({polling: true})).then(() => {
       expect(store.getActions()).toEqual([])
     })
   })
 
   it('does not poll when polling is set to false', () => {
     const store = mockStore({submission: {}})
-    store.dispatch(actions.pollForProgress({polling: false})).then(() => {
+    store.dispatch(pollForProgress({polling: false})).then(() => {
       expect(store.getActions()).toEqual([])
     })
   })
@@ -465,7 +333,7 @@ const emptyParseErrors = {
     delete global.location
     global.location = {pathname: '/upload'}
 
-    store.dispatch(actions.pollForProgress({polling: true})).then(() => {
+    store.dispatch(pollForProgress({polling: true})).then(() => {
         expect(store.getActions()).toEqual([
           {
             type: types.RECEIVE_SUBMISSION,
@@ -496,7 +364,7 @@ const emptyParseErrors = {
   it('creates a thunk that will clear current filings and fetch each institution', done => {
     const store = mockStore({})
 
-    store.dispatch(actions.fetchEachInstitution(institutionsObj.institutions))
+    store.dispatch(fetchEachInstitution(institutionsObj.institutions))
       .then(() => {
         expect(store.getActions()).toEqual([...getEachInstitution])
         done()
@@ -510,7 +378,7 @@ const emptyParseErrors = {
   it('creates a thunk that will fetch all institutions, looping over institution data to individually request filing info', done => {
     const store = mockStore({})
 
-    store.dispatch(actions.fetchInstitutions())
+    store.dispatch(fetchInstitutions())
       .then(() => {
         expect(store.getActions()).toEqual([
           {type: types.REQUEST_INSTITUTIONS},
@@ -531,7 +399,7 @@ const emptyParseErrors = {
   it('creates a thunk that will fetch edits by type', done => {
     const store = mockStore({})
 
-    store.dispatch(actions.fetchEdits())
+    store.dispatch(fetchEdits())
       .then(() => {
         expect(store.getActions()).toEqual([
           {type: types.REQUEST_EDITS},
@@ -552,7 +420,7 @@ const emptyParseErrors = {
   it('creates a thunk that will request edits and trigger a csv download', done => {
     const store = mockStore({})
 
-    store.dispatch(actions.fetchCSV())
+    store.dispatch(fetchCSV())
       .then(() => {
         expect(store.getActions()).toEqual([
           {type: types.REQUEST_CSV}
@@ -571,7 +439,7 @@ const emptyParseErrors = {
 
     window.navigator.__defineGetter__('userAgent', () => 'MSIE ')
 
-    store.dispatch(actions.fetchCSV())
+    store.dispatch(fetchCSV())
     .then(() => {
       expect(store.getActions()).toEqual([
         {type: types.REQUEST_CSV}
@@ -586,13 +454,13 @@ const emptyParseErrors = {
   })
 
   it('gets the correct request actions', () => {
-    expect(actions.getPaginationRequestAction('parseErrors')).toEqual({type: types.REQUEST_PARSE_ERRORS})
-    expect(actions.getPaginationRequestAction('q021')).toEqual({type: types.REQUEST_EDIT})
+    expect(getPaginationRequestAction('parseErrors')).toEqual({type: types.REQUEST_PARSE_ERRORS})
+    expect(getPaginationRequestAction('q021')).toEqual({type: types.REQUEST_EDIT})
   })
 
   it('gets the correct receive actions', () => {
-    expect(actions.getPaginationReceiveAction('parseErrors', {})).toEqual(emptyParseErrors)
-    expect(actions.getPaginationReceiveAction('q021', {})).toEqual({
+    expect(getPaginationReceiveAction('parseErrors', {})).toEqual(emptyParseErrors)
+    expect(getPaginationReceiveAction('q021', {})).toEqual({
       type: types.RECEIVE_EDIT,
       edit: undefined,
       pagination: {
@@ -606,7 +474,7 @@ const emptyParseErrors = {
   it('creates a thunk that will fetch a page by pathname and select sub actions', done => {
     const store = mockStore({})
 
-    store.dispatch(actions.fetchPage('parseErrors', '/argle'))
+    store.dispatch(fetchPage('parseErrors', '/argle'))
       .then(() => {
         expect(store.getActions()).toEqual([
           {type: types.REQUEST_PARSE_ERRORS},

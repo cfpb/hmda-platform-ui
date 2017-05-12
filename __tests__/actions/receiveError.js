@@ -1,10 +1,12 @@
+jest.unmock('../../src/js/actions/receiveError.js')
+import * as types from '../../src/js/constants'
 import receiveError from '../../src/js/actions/receiveError.js'
 
 describe('receiveError', () => {
-  it('checks for http errors', () => {
-    expect(receiveError()).toBe(true)
-    expect(receiveError({httpStatus: 401})).toBe(true)
-    expect(receiveError({})).toBe(false)
-    expect(receiveError({httpStatus: 200})).toBe(false)
+ it('creates an action to signal receiving an error', () => {
+    expect(receiveError('b')).toEqual({
+      type: types.RECEIVE_ERROR,
+      error: 'b'
+    })
   })
 })

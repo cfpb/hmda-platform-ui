@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/receiveSummary.js')
+import * as types from '../../src/js/constants'
 import receiveSummary from '../../src/js/actions/receiveSummary.js'
 
 describe('receiveSummary', () => {

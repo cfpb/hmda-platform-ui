@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/verifyQuality.js')
+import * as types from '../../src/js/constants'
 import verifyQuality from '../../src/js/actions/verifyQuality.js'
 
 describe('verifyQuality', () => {

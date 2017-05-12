@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/hideConfirm.js')
+import * as types from '../../src/js/constants'
 import hideConfirm from '../../src/js/actions/hideConfirm.js'
 
 describe('hideConfirm', () => {

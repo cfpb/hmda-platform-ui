@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/selectNewFile.js')
+import * as types from '../../src/js/constants'
 import selectNewFile from '../../src/js/actions/selectNewFile.js'
 
 describe('selectNewFile', () => {

@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/fetchProgress.js')
+import * as types from '../../src/js/constants'
 import fetchProgress from '../../src/js/actions/fetchProgress.js'
 
 describe('fetchProgress', () => {

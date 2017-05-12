@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/getPaginationReceiveAction.js')
+import * as types from '../../src/js/constants'
 import getPaginationReceiveAction from '../../src/js/actions/getPaginationReceiveAction.js'
 
 describe('getPaginationReceiveAction', () => {

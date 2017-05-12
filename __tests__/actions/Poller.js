@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/Poller.js')
+import * as types from '../../src/js/constants'
 import Poller from '../../src/js/actions/Poller.js'
 
 describe('Poller', () => {

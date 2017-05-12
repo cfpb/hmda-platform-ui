@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/receiveSignaturePost.js')
+import * as types from '../../src/js/constants'
 import receiveSignaturePost from '../../src/js/actions/receiveSignaturePost.js'
 
 describe('receiveSignaturePost', () => {

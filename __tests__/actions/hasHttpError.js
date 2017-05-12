@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/hasHttpError.js')
+import * as types from '../../src/js/constants'
 import hasHttpError from '../../src/js/actions/hasHttpError.js'
 
 describe('hasHttpError', () => {

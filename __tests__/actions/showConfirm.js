@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/showConfirm.js')
+import * as types from '../../src/js/constants'
 import showConfirm from '../../src/js/actions/showConfirm.js'
 
 describe('showConfirm', () => {

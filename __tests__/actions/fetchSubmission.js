@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/fetchSubmission.js')
+import * as types from '../../src/js/constants'
 import fetchSubmission from '../../src/js/actions/fetchSubmission.js'
 
 describe('fetchSubmission', () => {

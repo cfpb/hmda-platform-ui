@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/clearFilings.js')
+import * as types from '../../src/js/constants'
 import clearFilings from '../../src/js/actions/clearFilings.js'
 
 describe('clearFilings', () => {

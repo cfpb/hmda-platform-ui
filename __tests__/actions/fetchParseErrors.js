@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/fetchParseErrors.js')
+import * as types from '../../src/js/constants'
 import fetchParseErrors from '../../src/js/actions/fetchParseErrors.js'
 
 describe('fetchParseErrors', () => {

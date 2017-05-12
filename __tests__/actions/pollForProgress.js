@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/pollForProgress.js')
+import * as types from '../../src/js/constants'
 import pollForProgress from '../../src/js/actions/pollForProgress.js'
 
 describe('pollForProgress', () => {

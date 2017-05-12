@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/fetchEachEdit.js')
+import * as types from '../../src/js/constants'
 import fetchEachEdit from '../../src/js/actions/fetchEachEdit.js'
 
 describe('fetchEachEdit', () => {

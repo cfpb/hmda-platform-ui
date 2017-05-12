@@ -1,10 +1,11 @@
+jest.unmock('../../src/js/actions/requestEdits.js')
+import * as types from '../../src/js/constants'
 import requestEdits from '../../src/js/actions/requestEdits.js'
 
 describe('requestEdits', () => {
-  it('checks for http errors', () => {
-    expect(requestEdits()).toBe(true)
-    expect(requestEdits({httpStatus: 401})).toBe(true)
-    expect(requestEdits({})).toBe(false)
-    expect(requestEdits({httpStatus: 200})).toBe(false)
+  it('creates an action to signal a request for edits', () => {
+    expect(requestEdits()).toEqual({
+      type: types.REQUEST_EDITS
+    })
   })
 })

@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/updateFilingPeriod.js')
+import * as types from '../../src/js/constants'
 import updateFilingPeriod from '../../src/js/actions/updateFilingPeriod.js'
 
 describe('updateFilingPeriod', () => {

@@ -1,10 +1,11 @@
+jest.unmock('../../src/js/actions/requestCSV.js')
+import * as types from '../../src/js/constants'
 import requestCSV from '../../src/js/actions/requestCSV.js'
 
 describe('requestCSV', () => {
-  it('checks for http errors', () => {
-    expect(requestCSV()).toBe(true)
-    expect(requestCSV({httpStatus: 401})).toBe(true)
-    expect(requestCSV({})).toBe(false)
-    expect(requestCSV({httpStatus: 200})).toBe(false)
+  it('creates an action to signal a request for a CSV', () => {
+    expect(requestCSV()).toEqual({
+      type: types.REQUEST_CSV
+    })
   })
 })

@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/fetchEachFiling.js')
+import * as types from '../../src/js/constants'
 import fetchEachFiling from '../../src/js/actions/fetchEachFiling.js'
 
 describe('fetchEachFiling', () => {

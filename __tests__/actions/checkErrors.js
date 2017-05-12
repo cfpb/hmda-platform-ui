@@ -1,3 +1,5 @@
+jest.unmock('../../src/js/actions/checkErrors.js')
+import * as types from '../../src/js/constants'
 import checkErrors from '../../src/js/actions/checkErrors.js'
 
 describe('checkErrors', () => {
