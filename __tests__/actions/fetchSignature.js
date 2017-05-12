@@ -2,6 +2,13 @@ jest.unmock('../../src/js/actions/fetchSignature.js')
 import * as types from '../../src/js/constants'
 import fetchSignature from '../../src/js/actions/fetchSignature.js'
 
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import postVerify from '../../src/js/api/api'
+
+postVerify.mockImplementation(() => Promise.resolve({status: {code: 8, message: 'postverify'}}))
+const mockStore = configureMockStore([thunk])
+
 describe('fetchSignature', () => {
   it('checks for http errors', () => {
     expect(fetchSignature()).toBe(true)

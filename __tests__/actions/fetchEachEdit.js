@@ -2,6 +2,13 @@ jest.unmock('../../src/js/actions/fetchEachEdit.js')
 import * as types from '../../src/js/constants'
 import fetchEachEdit from '../../src/js/actions/fetchEachEdit.js'
 
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import postVerify from '../../src/js/api/api'
+
+postVerify.mockImplementation(() => Promise.resolve({status: {code: 8, message: 'postverify'}}))
+const mockStore = configureMockStore([thunk])
+
 describe('fetchEachEdit', () => {
   it('checks for http errors', () => {
     expect(fetchEachEdit()).toBe(true)
