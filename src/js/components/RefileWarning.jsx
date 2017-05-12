@@ -26,7 +26,7 @@ const RefileWarning = (props) => {
   if (props.page === 'quality' && props.qualityVerified) return null
   if (props.page === 'macro' && props.macroVerified) return null
   if (props.page === 'upload' && props.code !== 5) return null
-  if (props.page === 'summary') return null
+  if (props.page === 'confirmation') return null
 
   let alertClass = 'usa-alert-error'
   if(!props.syntacticalValidityEditsExist && props.code !== 5) {
