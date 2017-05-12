@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/fetchInstitution.js')
+jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import fetchInstitution from '../../src/js/actions/fetchInstitution.js'
 import fs from 'fs'

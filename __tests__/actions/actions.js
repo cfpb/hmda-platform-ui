@@ -1,5 +1,6 @@
 jest.unmock('../../src/js/actions')
 jest.unmock('../../src/js/constants')
+jest.unmock('../../src/js/constants')
 jest.mock('../../src/js/api/api')
 jest.mock('../../src/js/api/fetch')
 jest.mock('../../src/js/api/getUploadUrl')

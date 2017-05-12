@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/requestCSV.js')
+jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import requestCSV from '../../src/js/actions/requestCSV.js'
 

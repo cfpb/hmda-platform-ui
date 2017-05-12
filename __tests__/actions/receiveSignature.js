@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/receiveSignature.js')
+jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import receiveSignature from '../../src/js/actions/receiveSignature.js'
 import fs from 'fs'

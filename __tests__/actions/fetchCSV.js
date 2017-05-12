@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/fetchCSV.js')
+jest.unmock('../../src/js/constants')
 jest.mock('file-saver')
 import * as types from '../../src/js/constants'
 import fetchCSV from '../../src/js/actions/fetchCSV.js'

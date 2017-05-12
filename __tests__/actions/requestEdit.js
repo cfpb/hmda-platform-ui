@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/requestEdit.js')
+jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import requestEdit from '../../src/js/actions/requestEdit.js'
 

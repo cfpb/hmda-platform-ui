@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/getPaginationReceiveAction.js')
+jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import getPaginationReceiveAction from '../../src/js/actions/getPaginationReceiveAction.js'
 

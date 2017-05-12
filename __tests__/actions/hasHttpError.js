@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/hasHttpError.js')
+jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import hasHttpError from '../../src/js/actions/hasHttpError.js'
 

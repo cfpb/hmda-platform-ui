@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/uploadError.js')
+jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import uploadError from '../../src/js/actions/uploadError.js'
 

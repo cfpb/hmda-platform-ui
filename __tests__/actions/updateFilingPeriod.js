@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/updateFilingPeriod.js')
+jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import updateFilingPeriod from '../../src/js/actions/updateFilingPeriod.js'
 

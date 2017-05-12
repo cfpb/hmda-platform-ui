@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/fetchProgress.js')
+jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import fetchProgress from '../../src/js/actions/fetchProgress.js'
 

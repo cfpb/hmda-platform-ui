@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/requestSubmission.js')
+jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import requestSubmission from '../../src/js/actions/requestSubmission.js'
 

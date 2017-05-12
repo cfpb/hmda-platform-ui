@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/receiveInstitution.js')
+jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import receiveInstitution from '../../src/js/actions/receiveInstitution.js'
 

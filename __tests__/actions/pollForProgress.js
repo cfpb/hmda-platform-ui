@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/pollForProgress.js')
+jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import pollForProgress from '../../src/js/actions/pollForProgress.js'
 import configureMockStore from 'redux-mock-store'

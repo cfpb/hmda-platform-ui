@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/actions/selectFile.js')
+jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import selectFile from '../../src/js/actions/selectFile.js'
 
