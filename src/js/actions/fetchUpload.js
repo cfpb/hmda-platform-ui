@@ -30,7 +30,7 @@ export default function fetchUpload(file) {
 
       dispatch(uploadComplete(e))
       Poller.set(true)
-      dispatch(pollForProgress())
+      dispatch(pollForProgress(Poller.get()))
     })
 
     xhr.open('POST', getUploadUrl(getId()));

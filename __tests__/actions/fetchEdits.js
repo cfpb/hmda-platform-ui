@@ -4,16 +4,29 @@ import fetchEdits from '../../src/js/actions/fetchEdits.js'
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import postVerify from '../../src/js/api/api'
+import getEdits from '../../src/js/api/api/getEdits.js'
 
-postVerify.mockImplementation(() => Promise.resolve({status: {code: 8, message: 'postverify'}}))
+getEdits.mockImplementation((id) => Promise.resolve({fakeEdits:1}))
 const mockStore = configureMockStore([thunk])
 
 describe('fetchEdits', () => {
-  it('checks for http errors', () => {
-    expect(fetchEdits()).toBe(true)
-    expect(fetchEdits({httpStatus: 401})).toBe(true)
-    expect(fetchEdits({})).toBe(false)
-    expect(fetchEdits({httpStatus: 200})).toBe(false)
+  it('creates a thunk that will fetch edits by type', done => {
+    const store = mockStore({})
+
+    store.dispatch(fetchEdits())
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {type: types.REQUEST_EDITS},
+          {
+            type: types.RECEIVE_EDITS,
+            edits: {fakeEdits:1}
+          }
+        ])
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
   })
 })

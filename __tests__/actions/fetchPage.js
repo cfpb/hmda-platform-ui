@@ -4,16 +4,37 @@ import fetchPage from '../../src/js/actions/fetchPage.js'
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import postVerify from '../../src/js/api/api'
+import { fetch } from '../../src/js/api/fetch.js'
 
-postVerify.mockImplementation(() => Promise.resolve({status: {code: 8, message: 'postverify'}}))
+fetch.mockImplementation((pathObj) => Promise.resolve({bargle:'foo'}))
 const mockStore = configureMockStore([thunk])
 
+const emptyParseErrors = {
+  type: types.RECEIVE_PARSE_ERRORS,
+  larErrors: undefined,
+  transmittalSheetErrors: undefined,
+  pagination: {
+    count: undefined,
+    total: undefined,
+    _links: undefined
+  }
+}
+
 describe('fetchPage', () => {
-  it('checks for http errors', () => {
-    expect(fetchPage()).toBe(true)
-    expect(fetchPage({httpStatus: 401})).toBe(true)
-    expect(fetchPage({})).toBe(false)
-    expect(fetchPage({httpStatus: 200})).toBe(false)
+  it('creates a thunk that will fetch a page by pathname and select sub actions', done => {
+    const store = mockStore({})
+
+    store.dispatch(fetchPage('parseErrors', '/argle'))
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {type: types.REQUEST_PARSE_ERRORS},
+          emptyParseErrors
+        ])
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
   })
 })

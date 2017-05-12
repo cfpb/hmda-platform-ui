@@ -1,19 +1,52 @@
 jest.unmock('../../src/js/actions/fetchCSV.js')
+jest.mock('file-saver')
 import * as types from '../../src/js/constants'
 import fetchCSV from '../../src/js/actions/fetchCSV.js'
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import postVerify from '../../src/js/api/api'
+import getCSV from '../../src/js/api/api/getCSV.js'
 
-postVerify.mockImplementation(() => Promise.resolve({status: {code: 8, message: 'postverify'}}))
+getCSV.mockImplementation((id) => Promise.resolve('a,b,c'))
 const mockStore = configureMockStore([thunk])
 
+delete window.Blob
+window.Blob = jest.fn(() => {})
+
 describe('fetchCSV', () => {
-  it('checks for http errors', () => {
-    expect(fetchCSV()).toBe(true)
-    expect(fetchCSV({httpStatus: 401})).toBe(true)
-    expect(fetchCSV({})).toBe(false)
-    expect(fetchCSV({httpStatus: 200})).toBe(false)
+  it('creates a thunk that will request edits and trigger a csv download', done => {
+    const store = mockStore({})
+
+    store.dispatch(fetchCSV())
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {type: types.REQUEST_CSV}
+        ])
+        expect(window.Blob.mock.calls.length).toBe(1)
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
+  })
+
+  it('creates a thunk that will request edits and trigger a csv download when IE is detected', done => {
+    const store = mockStore({})
+
+    window.navigator.__defineGetter__('userAgent', () => 'MSIE ')
+
+    store.dispatch(fetchCSV())
+    .then(() => {
+      expect(store.getActions()).toEqual([
+        {type: types.REQUEST_CSV}
+      ])
+      expect(window.Blob.mock.calls.length).toBe(2)
+      done()
+    })
+    .catch(err => {
+      console.log(err)
+      done.fail()
+    })
   })
 })
