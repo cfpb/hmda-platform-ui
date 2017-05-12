@@ -14,6 +14,7 @@ describe('Verifier component', () => {
         verified={true}
         onVerify={onVerify}
         type='macro'
+        code={1}
       />
     </Wrapper>
   )
@@ -52,11 +53,28 @@ describe('Verifier component', () => {
           verified={false}
           onVerify={onVerify}
           type='quality'
+          code={1}
         />
       </Wrapper>
     )
     const verifierNode = ReactDOM.findDOMNode(verifier)
     expect(TestUtils.scryRenderedDOMComponentsWithClass(verifier, 'usa-alert').length).toEqual(0)
     expect(TestUtils.scryRenderedDOMComponentsWithTag(verifier, 'h2')[0].textContent).toEqual('Verify quality edits')
+  })
+
+  it('does renders as disabled after signature', () => {
+    const verifier = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Verifier
+          verified={false}
+          onVerify={onVerify}
+          type='quality'
+          code={10}
+        />
+      </Wrapper>
+    )
+
+    const input = TestUtils.findRenderedDOMComponentWithTag(verifier, 'input')
+    expect(ReactDOM.findDOMNode(input).hasAttribute('disabled')).toBe(true)
   })
 })
