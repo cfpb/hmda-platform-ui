@@ -1,6 +1,6 @@
 import * as types from '../constants'
 
-export function requestSignature() {
+export default function requestSignature() {
   return {
     type: types.REQUEST_SIGNATURE
   }

@@ -1,6 +1,6 @@
 import * as types from '../constants'
 
-export function receiveIRS(data) {
+export default function receiveIRS(data) {
   return {
     type: types.RECEIVE_IRS,
     msas: data.msas,
