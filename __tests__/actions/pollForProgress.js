@@ -1,14 +1,16 @@
+jest.mock('../../src/js/api/api')
 jest.unmock('../../src/js/actions/pollForProgress.js')
 jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import pollForProgress from '../../src/js/actions/pollForProgress.js'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import { getLatestSubmission } from '../../src/js/api/api.js'
+import { getLatestSubmission, getEdits } from '../../src/js/api/api.js'
 import fs from 'fs'
 
 const filingsObj = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))
 getLatestSubmission.mockImplementation(() => Promise.resolve(filingsObj.submissions[2]))
+getEdits.mockImplementation((id) => Promise.resolve({fakeEdits:1}))
 const mockStore = configureMockStore([thunk])
 
 describe('pollForProgress', () => {

@@ -1,3 +1,4 @@
+jest.mock('../../src/js/api/api')
 jest.unmock('../../src/js/actions/fetchCSV.js')
 jest.unmock('../../src/js/constants')
 jest.mock('file-saver')

@@ -1,3 +1,5 @@
+jest.mock('../../src/js/api/api')
+jest.mock('../../src/js/api/api')
 jest.unmock('../../src/js/actions/fetchInstitutions.js')
 jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'

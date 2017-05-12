@@ -2,7 +2,7 @@ import fetchEdits from './fetchEdits.js'
 import receiveSubmission from './receiveSubmission.js'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
-import getLatestSubmission from '../api/api.js'
+import { getLatestSubmission } from '../api/api.js'
 
 export default function pollForProgress(polling) {
   const poller = dispatch => {
