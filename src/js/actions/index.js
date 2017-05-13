@@ -424,16 +424,28 @@ export function receiveSummary(data) {
   }
 }
 
+let summaryPollTimeout
+
 export function fetchSummary() {
   return dispatch => {
     dispatch(requestSummary())
-    return getSummary(latestSubmissionId)
+    const summaryPoller = () => {
+      getSummary(latestSubmissionId)
       .then(json => {
-        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        if(hasHttpError(json)) return summaryPollTimeout = setTimeout(summaryPoller, 1000)
         return dispatch(receiveSummary(json))
       })
       .catch(err => console.error(err))
+    }
+    summaryPoller()
   }
+}
+
+export function cancelSummaryFetch() {
+   clearTimeout(summaryPollTimeout)
+   return {
+     type: types.CANCEL_SUMMARY_FETCH
+   }
 }
 
 export function requestParseErrors() {
