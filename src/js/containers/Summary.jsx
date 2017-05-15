@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchSummary, cancelSummaryFetch } from '../actions'
+import { fetchSummary } from '../actions'
 import Summary from '../components/Summary.jsx'
 
 export class SummaryContainer extends Component {
@@ -10,10 +10,6 @@ export class SummaryContainer extends Component {
 
   componentDidMount() {
     this.props.dispatch(fetchSummary())
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(cancelSummaryFetch())
   }
 
   render() {
