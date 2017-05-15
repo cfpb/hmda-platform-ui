@@ -1,0 +1,45 @@
+export const signature = (state = defaultSignature, action) => {
+  switch (action.type) {
+
+    case REQUEST_SIGNATURE:
+      return {
+        ...state,
+        isFetching: true
+      }
+
+    case RECEIVE_SIGNATURE:
+      return {
+        ...state,
+        isFetching: false,
+        timestamp: action.timestamp,
+        receipt: action.receipt
+      }
+
+    case REQUEST_SIGNATURE_POST:
+      return {
+        ...state,
+        isFetching: true
+      }
+
+    case RECEIVE_SIGNATURE_POST:
+      return {
+        ...state,
+        isFetching: false,
+        timestamp: action.timestamp,
+        receipt: action.receipt
+      }
+
+    case CHECK_SIGNATURE:
+      return {
+        ...state,
+        isFetching: false,
+        checked: action.checked
+      }
+
+    case REFRESH_STATE:
+      return defaultSignature
+
+    default:
+      return state
+  }
+}
