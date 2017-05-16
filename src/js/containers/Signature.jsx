@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchSignature, updateSignature, checkSignature } from '../actions'
+import fetchSignature from '../actions/fetchSignature.js'
+import updateSignature from '../actions/updateSignature.js'
+import checkSignature from '../actions/checkSignature.js'
 import Signature from '../components/Signature.jsx'
 
 export class SignatureContainer extends Component {

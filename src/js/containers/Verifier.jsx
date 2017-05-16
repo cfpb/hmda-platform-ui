@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchVerify } from '../actions'
+import fetchVerify from '../actions/fetchVerify.js'
 import Verifier from '../components/Verifier.jsx'
 
 class VerifierContainer extends Component {

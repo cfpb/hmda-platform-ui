@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import RefileButton from '../components/RefileButton.jsx'
-import { showConfirm } from '../actions'
+import showConfirm from '../actions/showConfirm.js'
 
 class RefileButtonContainer extends Component {
   constructor(props) {

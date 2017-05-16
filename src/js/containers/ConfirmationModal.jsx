@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import {
-  hideConfirm,
-  createNewSubmission,
-  selectFile
-} from '../actions'
+import hideConfirm from '../actions/hideConfirm.js'
+import createNewSubmission from '../actions/createNewSubmission.js'
+import selectFile from '../actions/selectFile.js'
 import ConfirmationModal from '../components/ConfirmationModal.jsx'
 
 class ConfirmationModalContainer extends Component {

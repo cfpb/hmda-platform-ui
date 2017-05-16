@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchParseErrors } from '../actions'
+import fetchParseErrors from '../actions/fetchParseErrors.js'
 import ParseErrors from '../components/ParseErrors.jsx'
 
 class ParseErrorsContainer extends Component {

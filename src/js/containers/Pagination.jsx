@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchPage } from '../actions'
+import fetchPage from '../actions/fetchPage.js'
 import Pagination from '../components/Pagination.jsx'
 
 class PaginationContainer extends Component {

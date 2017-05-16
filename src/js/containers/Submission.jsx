@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import {
-  fetchSubmission,
-  fetchInstitution
-} from '../actions'
+import fetchSubmission from '../actions/fetchSubmission.js'
+import fetchInstitution from '../actions/fetchInstitution.js'
 import HomeLink from '../components/HomeLink.jsx'
 import Header from '../components/Header.jsx'
 import UserHeading from '../components/UserHeading.jsx'
