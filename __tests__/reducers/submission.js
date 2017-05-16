@@ -5,7 +5,10 @@ import submission from '../../src/js/reducers/submission.js'
 
 const defaultSubmission = {
   id: null,
-  status: defaultStatus,
+  status: {
+    code: 0,
+    message: ''
+  },
   isFetching: false
 }
 
@@ -47,8 +50,8 @@ describe('submission reducer', () => {
   })
 
   it('shouldn\'t modify state on an unknown action type', () => {
-    excludeTypes(types.RECEIVE_SUBMISSION, types.UPLOAD_COMPLETE,
-      types.UPLOAD_ERROR, types.REFRESH_STATE, types.REQUEST_SUBMISSION)
+    excludeTypes(types.RECEIVE_SUBMISSION, types.UPDATE_STATUS,
+      types.REFRESH_STATE, types.REQUEST_SUBMISSION)
       .forEach(v => expect(submission({}, v))
         .toEqual({})
       )

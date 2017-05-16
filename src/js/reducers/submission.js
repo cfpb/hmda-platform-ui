@@ -33,7 +33,7 @@ export default (state = defaultSubmission, action) => {
     case UPDATE_STATUS:
       return {
         ...state,
-        status: status(state.status, action)
+        status: action.status
       }
     case REFRESH_STATE:
       return defaultSubmission

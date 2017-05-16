@@ -12,10 +12,10 @@ import irs from './irs.js'
 import signature from './signature.js'
 import summary from './summary.js'
 import parseErrors from './parseErrors.js'
-import pagination from './pagination'
+import pagination from './pagination.js'
 import error from './error.js'
 
-export default ({
+export default combineReducers({
   institution,
   institutions,
   filings,
