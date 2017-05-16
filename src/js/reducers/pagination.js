@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { RECEIVE_PARSE_ERRORS,RECEIVE_EDIT,RECEIVE_IRS } from '../constants'
 
 const defaultPagination = {}
 

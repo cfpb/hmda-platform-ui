@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { REQUEST_INSTITUTIONS,RECEIVE_INSTITUTIONS } from '../constants'
 /*
  * Set isFetching to true when institutions are being requested
  * Set isFetching to false and populate the institutions key

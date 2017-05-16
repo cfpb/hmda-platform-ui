@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { REQUEST_PARSE_ERRORS,RECEIVE_PARSE_ERRORS } from '../constants'
 
 const defaultParseErrors = {
   isFetching: false,

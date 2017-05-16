@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { REQUEST_INSTITUTION,RECEIVE_INSTITUTION } from '../constants'
 const defaultInstitution = {
   isFetching: false,
   id: '',

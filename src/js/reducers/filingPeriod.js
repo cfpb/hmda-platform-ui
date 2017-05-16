@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { UPDATE_FILING_PERIOD } from '../constants'
 /*
  * Set the default current filing period
  */

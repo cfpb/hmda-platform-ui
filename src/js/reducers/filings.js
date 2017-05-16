@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { REQUEST_FILING,RECEIVE_FILING,CLEAR_FILINGS,RECEIVE_FILINGS } from '../constants'
 
 const defaultFilings = {
   filings: [],

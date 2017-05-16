@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { RECEIVE_SUBMISSION,REQUEST_SUBMISSION,UPDATE_STATUS,REFRESH_STATE } from '../constants'
 
 const defaultSubmission = {
   id: null,

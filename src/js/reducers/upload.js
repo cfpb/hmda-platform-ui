@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { SELECT_FILE,SELECT_NEW_FILE,UPLOAD_START,UPLOAD_COMPLETE,REFRESH_STATE } from '../constants'
 
 const defaultUpload = {
   uploading: false,

@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { REQUEST_EDITS,RECEIVE_EDITS,REQUEST_EDIT,RECEIVE_EDIT,VERIFY_QUALITY,VERIFY_MACRO,REFRESH_STATE } from '../constants'
 
 const defaultEdits = {
   isFetching: false,

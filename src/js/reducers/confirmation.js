@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { SHOW_CONFIRM,HIDE_CONFIRM } from '../constants'
 
 const defaultConfirmation = {
   showing: false,

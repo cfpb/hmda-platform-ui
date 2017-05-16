@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { REQUEST_SIGNATURE,RECEIVE_SIGNATURE,REQUEST_SIGNATURE_POST,RECEIVE_SIGNATURE_POST,CHECK_SIGNATURE,REFRESH_STATE } from '../constants'
 
 const defaultSignature = {
   isFetching: false,

@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { RECEIVE_ERROR,REFRESH_STATE } from '../constants'
 
 const defaultError = null
 

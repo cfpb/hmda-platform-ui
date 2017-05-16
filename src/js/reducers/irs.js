@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { REQUEST_IRS,RECEIVE_IRS } from '../constants'
 
 const defaultIRS = {
   isFetching: false,

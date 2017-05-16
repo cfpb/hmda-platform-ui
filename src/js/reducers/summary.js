@@ -1,4 +1,4 @@
-import * as types from '../constants'
+import { REQUEST_SUMMARY,RECEIVE_SUMMARY } from '../constants'
 
 const defaultSummary = {
   isFetching: false,
