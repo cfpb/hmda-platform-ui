@@ -1,4 +1,12 @@
-export const irs = (state = defaultIRS, action) => {
+import * as types from '../constants'
+
+const defaultIRS = {
+  isFetching: false,
+  msas: [],
+  summary: {}
+}
+
+export default (state = defaultIRS, action) => {
   switch (action.type) {
 
     case REQUEST_IRS:

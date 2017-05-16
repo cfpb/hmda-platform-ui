@@ -1,4 +1,12 @@
-export const summary = (state = defaultSummary, action) => {
+import * as types from '../constants'
+
+const defaultSummary = {
+  isFetching: false,
+  respondent: {},
+  file: {}
+}
+
+export default (state = defaultSummary, action) => {
   switch (action.type) {
     case REQUEST_SUMMARY:
       return {

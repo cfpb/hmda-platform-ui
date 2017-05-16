@@ -1,7 +1,16 @@
+import * as types from '../constants'
+
+const defaultUpload = {
+  uploading: false,
+  file: null,
+  newFile: null,
+  errors: []
+}
+
 /*
  * Maintain data on the current upload
  */
-export const upload = (state = defaultUpload, action) => {
+export default (state = defaultUpload, action) => {
   switch (action.type) {
   case SELECT_FILE:
     return {

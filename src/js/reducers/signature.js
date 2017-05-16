@@ -1,4 +1,17 @@
-export const signature = (state = defaultSignature, action) => {
+import * as types from '../constants'
+
+const defaultSignature = {
+  isFetching: false,
+  timestamp: null,
+  receipt: null,
+  status: {
+    code: 0,
+    message: ''
+  },
+  checked: false
+}
+
+export default (state = defaultSignature, action) => {
   switch (action.type) {
 
     case REQUEST_SIGNATURE:

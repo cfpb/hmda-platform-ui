@@ -1,9 +1,16 @@
+import * as types from '../constants'
+
+const defaultFilings = {
+  filings: [],
+  isFetching: false,
+}
+
 /*
  * Populate a list with data on every filing period for each institution
  * When an filing data for an institution is received, it is added to the list
  * When clear filings is dispatched, empty the list
  */
-export const filings = (state = defaultFilings, action) => {
+export default (state = defaultFilings, action) => {
   switch (action.type) {
   case REQUEST_FILING:
     return {

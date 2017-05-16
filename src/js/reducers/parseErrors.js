@@ -1,4 +1,12 @@
-export const parseErrors = (state = defaultParseErrors, action) => {
+import * as types from '../constants'
+
+const defaultParseErrors = {
+  isFetching: false,
+  transmittalSheetErrors: [],
+  larErrors: []
+}
+
+export default (state = defaultParseErrors, action) => {
   switch(action.type) {
     case REQUEST_PARSE_ERRORS:
       return {

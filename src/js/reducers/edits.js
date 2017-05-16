@@ -1,4 +1,18 @@
-export const edits = (state = defaultEdits, action) => {
+import * as types from '../constants'
+
+const defaultEdits = {
+  isFetching: false,
+  fetched: false,
+  types: {
+    syntactical: {edits: []},
+    validity: {edits: []},
+    quality: {edits: [], verified: false},
+    macro: {edits: [], verified: false}
+  },
+  rows: {}
+}
+
+export default (state = defaultEdits, action) => {
   switch (action.type) {
     case REQUEST_EDITS:
       return {

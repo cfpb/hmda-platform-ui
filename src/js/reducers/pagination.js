@@ -1,4 +1,8 @@
-export const pagination = (state = defaultPagination, action) => {
+import * as types from '../constants'
+
+const defaultPagination = {}
+
+export default (state = defaultPagination, action) => {
   switch(action.type) {
     case RECEIVE_PARSE_ERRORS:
       return {

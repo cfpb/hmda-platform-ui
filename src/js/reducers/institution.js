@@ -1,10 +1,11 @@
+import * as types from '../constants'
 const defaultInstitution = {
   isFetching: false,
   id: '',
   name: ''
 }
 
-export const institution = (state = defaultInstitution, action) => {
+export default (state = defaultInstitution, action) => {
   switch(action.type) {
     case REQUEST_INSTITUTION:
     return {

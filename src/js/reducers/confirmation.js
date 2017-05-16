@@ -1,7 +1,16 @@
+import * as types from '../constants'
+
+const defaultConfirmation = {
+  showing: false,
+  code: 0,
+  id: null,
+  filing: null
+}
+
 /*
  * Track confirmation modal for refiling
  */
-export const confirmation = (state = defaultConfirmation, action) => {
+export default (state = defaultConfirmation, action) => {
   switch (action.type) {
   case SHOW_CONFIRM:
     return {

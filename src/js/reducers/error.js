@@ -1,4 +1,8 @@
-export const error = (state = defaultError, action) => {
+import * as types from '../constants'
+
+const defaultError = null
+
+export default (state = defaultError, action) => {
   switch(action.type) {
     case RECEIVE_ERROR:
     return action.error
