@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import fetchIRS from '../actions/fetchIRS.js'
+import cancelIRSFetch from '../actions/cancelIRSFetch.js'
 import IRSReport from '../components/IRSReport.jsx'
 
 export class IRSReportContainer extends Component {
@@ -10,6 +11,10 @@ export class IRSReportContainer extends Component {
 
   componentDidMount() {
     this.props.dispatch(fetchIRS())
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(cancelIRSFetch())
   }
 
   render() {

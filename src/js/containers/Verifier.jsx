@@ -24,9 +24,12 @@ function mapStateToProps(state, ownProps) {
     ? (types[type].verified || types[type].edits.length === 0)
     : false
 
+  const code = state.app.submission.status.code
+
   return {
     type,
-    verified
+    verified,
+    code
   }
 }
 

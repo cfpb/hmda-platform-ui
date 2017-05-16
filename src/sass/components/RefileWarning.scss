@@ -1,12 +1,13 @@
 .RefileWarning {
-  margin-top: 2em;
-  margin-bottom: 2em;
-
+  margin: 0;
   .usa-alert-body {
     display: block;
+    margin: 0 auto;
+    padding: 0 3rem;
     position: relative;
+    max-width: 1040px;
   }
- 
+
   .usa-alert-text {
     font-size: 1em;
     p {
@@ -31,4 +32,3 @@
     }
   }
 }
-

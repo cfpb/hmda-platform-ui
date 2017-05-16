@@ -15,6 +15,8 @@ export const renderVerified = (verified, type) => {
 }
 
 const Verifier = (props) => {
+  const disabled = props.code === 10 ? true : false
+
   return (
     <div className="Verifier">
       <hr />
@@ -26,6 +28,7 @@ const Verifier = (props) => {
             name={`${props.type}Verifier`}
             type="checkbox"
             checked={props.verified}
+            disabled={disabled}
             onChange={e => {
               props.onVerify(e.target.checked)
             }}/>
@@ -40,7 +43,8 @@ const Verifier = (props) => {
 Verifier.propTypes = {
   type: PropTypes.string.isRequired,
   verified: PropTypes.bool.isRequired,
-  onVerify: PropTypes.func.isRequired
+  onVerify: PropTypes.func.isRequired,
+  code: PropTypes.number
 }
 
 export default Verifier

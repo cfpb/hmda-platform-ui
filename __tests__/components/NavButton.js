@@ -59,9 +59,9 @@ describe('NavButton', () => {
 
   it('renders with macro page', () => {
     const rendered = NavButton({...baseProps, page: 'macro'})
-    expect(rendered.props.to).toBe('a/b/summary')
+    expect(rendered.props.to).toBe('a/b/confirmation')
     expect(rendered.props.className).toBe(disabled)
-    expect(rendered.props.children).toBe('Review summary')
+    expect(rendered.props.children).toBe('Review confirmation')
 
     const enabledButton = NavButton({...baseProps, page: 'macro', code: 8, syntacticalValidityEditsExist: false, qualityVerified: true, macroVerified: true})
     expect(enabledButton.props.className).toBe(enabled)
