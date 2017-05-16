@@ -1,3 +1,4 @@
+jest.unmock('../../src/js/reducers/excludeTypes.js')
 import * as types from '../../src/js/constants'
 
 const typesArr = Object.keys(types)

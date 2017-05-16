@@ -1,3 +1,4 @@
+jest.unmock('../../src/js/reducers/signature.js')
 import * as types from '../../src/js/constants'
 import excludeTypes from './excludeTypes.js'
 import signature from '../../src/js/reducers/signature.js'

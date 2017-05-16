@@ -1,3 +1,4 @@
+jest.unmock('../../src/js/reducers/submission.js')
 import * as types from '../../src/js/constants'
 import excludeTypes from './excludeTypes.js'
 import submission from '../../src/js/reducers/submission.js'

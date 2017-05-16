@@ -1,3 +1,4 @@
+jest.unmock('../../src/js/reducers/pagination.js')
 import * as types from '../../src/js/constants'
 import excludeTypes from './excludeTypes.js'
 import pagination from '../../src/js/reducers/pagination.js'

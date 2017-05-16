@@ -1,3 +1,4 @@
+jest.unmock('../../src/js/reducers/filings.js')
 import * as types from '../../src/js/constants'
 import excludeTypes from './excludeTypes.js'
 import filings from '../../src/js/reducers/filings.js'

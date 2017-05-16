@@ -1,3 +1,4 @@
+jest.unmock('../../src/js/reducers/upload.js')
 import * as types from '../../src/js/constants'
 import excludeTypes from './excludeTypes.js'
 import upload from '../../src/js/reducers/upload.js'

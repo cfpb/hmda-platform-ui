@@ -1,3 +1,4 @@
+jest.unmock('../../src/js/reducers/error.js')
 import * as types from '../../src/js/constants'
 import excludeTypes from './excludeTypes.js'
 import error from '../../src/js/reducers/error.js'

@@ -1,3 +1,4 @@
+jest.unmock('../../src/js/reducers/confirmation.js')
 import * as types from '../../src/js/constants'
 import excludeTypes from './excludeTypes.js'
 import confirmation from '../../src/js/reducers/confirmation.js'
