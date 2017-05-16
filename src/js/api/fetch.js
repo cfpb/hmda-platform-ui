@@ -3,6 +3,7 @@ import createQueryString from './createQueryString.js'
 import parseLocation from './parseLocation.js'
 import makeUrl from './makeUrl.js'
 import * as AccessToken from './AccessToken.js'
+import { signinRedirect } from '../utils/redirect.js'
 
 export function fetch(options = {method: 'GET'}){
   const accessToken = AccessToken.get()
@@ -42,6 +43,7 @@ export function fetch(options = {method: 'GET'}){
 
   return isomorphicFetch(url, fetchOptions)
     .then(response => {
+      if(response.status === 401) signinRedirect()
       if(options.params && options.params.format === 'csv') {
         return response.text()
       }
