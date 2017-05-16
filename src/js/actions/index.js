@@ -323,16 +323,28 @@ export function fetchPage(target, pathname) {
   }
 }
 
+let IRSPollTimeout
+
 export function fetchIRS() {
   return dispatch => {
     dispatch(requestIRS())
-    return getIRS(latestSubmissionId)
+    const IRSPoller = () => {
+      return getIRS(latestSubmissionId)
       .then(json => {
-        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        if(hasHttpError(json)) return IRSPollTimeout = setTimeout(IRSPoller, 1000)
         return dispatch(receiveIRS(json))
       })
       .catch(err => console.error(err))
+    }
+    return IRSPoller()
   }
+}
+
+export function cancelIRSFetch() {
+   clearTimeout(IRSPollTimeout)
+   return {
+     type: types.CANCEL_IRS_FETCH
+   }
 }
 
 /*
