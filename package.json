@@ -74,7 +74,8 @@
       ".*": "<rootDir>/node_modules/babel-jest"
     },
     "testPathIgnorePatterns": [
-      "<rootDir>/__tests__/Wrapper.js"
+      "<rootDir>/__tests__/Wrapper.js",
+      "<rootDir>/__tests__/reducers/excludeTypes.js"
     ],
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
