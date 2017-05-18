@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { signinRedirect } from '../utils/redirect'
 import ConfirmationModal from './ConfirmationModal.jsx'
+import BrowserBlocker from '../components/BrowserBlocker.jsx'
+import browser from 'detect-browser'
 
 export class AppContainer extends Component {
   constructor(props) {
@@ -15,6 +17,8 @@ export class AppContainer extends Component {
   render() {
     if(!this.props.user || !this.props.user.profile.name){
       if(signinRedirect()) return
+        console.log(browser)
+      if(browser.name === 'ie' && browser.version) return <BrowserBlocker/>
     }
     return (
       <div className="AppContainer">

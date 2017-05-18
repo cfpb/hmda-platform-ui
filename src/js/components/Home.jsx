@@ -48,8 +48,6 @@ const Home = (props) => {
             <div className="faqs">
               <h3>Top FAQs</h3>
               <dl>
-                <dt>What type of browser do I need in order to use the CFPB’s HMDA Platform?</dt>
-                <dd>We recommend that HMDA filers use a modern browser, such as the latest version of Google Chrome or Mozilla Firefox, Internet Explorer 11, Microsoft Edge, or other modern browsers.</dd>
                 <dt>What is the deadline for submitting my HMDA data?</dt>
                 <dd>The deadline for submitting HMDA data is March 1 following the calendar year for which data are collected and recorded. For example, for data collected in 2017, the deadline for submitting HMDA data is March 1, 2018.</dd>
                 <dt>Can my financial institution have multiple user accounts?</dt>
