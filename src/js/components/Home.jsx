@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import Header from '../components/Header.jsx'
 import { Link } from 'react-router'
 import { signinRedirect } from '../utils/redirect.js'
 
@@ -38,9 +37,6 @@ const Home = (props) => {
 
   return (
     <div>
-      <Header
-        pathname={props.location.pathname}
-        userName={props.user.profile.name} />
       <div className="Home" id="main-content">
         {renderHero}
         <div className="usa-grid">
@@ -90,8 +86,6 @@ Home.propTypes = {
   // from /containers/Home.jsx
   user: PropTypes.object,
   filingPeriod: PropTypes.string,
-  // from router (index.js)
-  location: PropTypes.object
   // there are more props available but they are not used
 }
 

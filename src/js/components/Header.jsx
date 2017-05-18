@@ -10,7 +10,7 @@ export const addActiveClass = (selected, current) => {
 
 const Header = (props) => {
   const page = props.pathname.split('/').slice(-1)[0]
-
+console.log(page, props.user)
   return (
     <header className="Header usa-header usa-header-basic" id="header" role="banner">
       <BannerUSA />
@@ -25,10 +25,10 @@ const Header = (props) => {
           </em>
         </div>
         <nav role="navigation" className="usa-nav">
-          {props.userName
+          {props.user
           ?
           <ul className="usa-nav-primary">
-            <li>{props.userName}</li>
+            <li>{props.user.profile.name}</li>
             <li className="nav-institutions">
               <Link
                 className={`usa-nav-link ${addActiveClass(page, 'institutions')}`}
@@ -51,7 +51,7 @@ const Header = (props) => {
 }
 
 Header.propTypes = {
-  userName: React.PropTypes.string,
+  user: React.PropTypes.object,
   pathname: React.PropTypes.string
 }
 
