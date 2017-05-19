@@ -11,7 +11,7 @@ describe('Header', () => {
   const header = TestUtils.renderIntoDocument(
     <Wrapper>
       <Header
-        userName='Some One'
+        user={{profile:{name:'Some One'}}}
         pathname='/0/2017/upload'
       />
     </Wrapper>

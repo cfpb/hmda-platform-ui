@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/containers/App.jsx')
+jest.mock('../../src/js/components/Header.jsx', () => jest.fn(() => null))
 jest.mock('../../src/js/utils/redirect.js', () => {})
 
 import React from 'react'
@@ -29,7 +30,7 @@ describe('AppContainer', () => {
         }
       }
     }}>
-      <AppContainer><p>hey</p></AppContainer>
+      <AppContainer location={{}}><p>hey</p></AppContainer>
     </Wrapper>
   )
 

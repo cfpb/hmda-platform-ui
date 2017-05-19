@@ -218,13 +218,11 @@ export default class Institution extends Component {
 Institution.defaultProps = {
   filings: [],
   institutions: [],
-  user: {profile: {name:null}}
 }
 
 Institution.propTypes = {
   params: PropTypes.object,
   filings: PropTypes.array,
-  user: PropTypes.object,
   institutions: PropTypes.array,
   makeNewSubmission: PropTypes.func,
   onDownloadClick: PropTypes.func

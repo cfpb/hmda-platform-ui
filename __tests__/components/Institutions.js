@@ -78,11 +78,10 @@ describe('Institutions', () => {
           institutions={institutionsJSON.institutions}
           filingPeriod={2017}
           filings={null}
-          user={{profile: {name: 'someone'}}}
           location={{pathname: '/institutions'}} />
       </Wrapper>
     )
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'p')[1].textContent).toEqual('There is a problem with your filing. Please contact HMDA Help.')
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'p')[0].textContent).toEqual('There is a problem with your filing. Please contact HMDA Help.')
   })
 })
 

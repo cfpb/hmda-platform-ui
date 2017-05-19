@@ -33,8 +33,6 @@ export function mapStateToProps(state) {
     isFetching
   } = state.app.filings
 
-  const user = state.oidc && state.oidc.user || null
-
   const error = state.app.error
 
   const { filingPeriod } = state.app
@@ -44,7 +42,6 @@ export function mapStateToProps(state) {
     filingPeriod,
     institutions,
     filings,
-    user,
     error
   }
 }
@@ -62,10 +59,6 @@ function mapDispatchToProps(dispatch) {
     },
     dispatch
   }
-}
-
-InstitutionContainer.defaultProps = {
-  user: null
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InstitutionContainer)
