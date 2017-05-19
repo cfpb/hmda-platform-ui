@@ -17,5 +17,6 @@ export default function fetchIRS() {
         })
         .catch(err => console.error(err))
     }
+    poller()
   }
 }
