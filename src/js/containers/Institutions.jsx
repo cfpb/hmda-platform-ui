@@ -18,7 +18,6 @@ export class InstitutionContainer extends Component {
   }
 
   render() {
-    if(!this.props.user) return null
     return <Institutions {...this.props} />
   }
 }

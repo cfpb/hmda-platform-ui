@@ -17,7 +17,7 @@ export class AppContainer extends Component {
 
   render() {
     if(!this.props.user || !this.props.user.profile.name){
-      if(signinRedirect(1)) return null
+      if(signinRedirect()) return null
     }
 
     return (
@@ -29,7 +29,7 @@ export class AppContainer extends Component {
         {
           this.props.location.pathname === '/oidc-callback' ?
             this.props.children :
-            browser.name === 'ie' && +browser.version.split('.')[0] < 11 ?
+            (browser.name === 'ie' && +browser.version.split('.')[0] < 11) ?
               <BrowserBlocker/> :
               this.props.children
         }
