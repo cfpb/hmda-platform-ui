@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react'
 import {Link} from 'react-router'
-import Header from './Header.jsx'
 import LoadingIcon from './LoadingIcon.jsx'
 import ErrorWarning from './ErrorWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
@@ -146,9 +145,6 @@ export default class Institution extends Component {
     const makeNewSubmission = this.props.makeNewSubmission
     return (
     <div>
-      <Header
-        pathname={this.props.location.pathname}
-        userName={this.props.user.profile.name} />
       <div id="main-content" className="usa-grid Institutions">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null}
         <div className="usa-width-one-half">

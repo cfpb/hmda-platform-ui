@@ -17,9 +17,9 @@ export class AppContainer extends Component {
 
   render() {
     if(!this.props.user || !this.props.user.profile.name){
-      if(signinRedirect()) return
-      console.log(this.props.user, browser)
+      if(signinRedirect(1)) return null
     }
+
     return (
       <div className="AppContainer">
         <a className="usa-skipnav" href="#main-content">Skip to main content</a>
@@ -27,9 +27,11 @@ export class AppContainer extends Component {
           pathname={this.props.location.pathname}
           user={this.props.user} />
         {
-          browser.name && browser.version ?
-            <BrowserBlocker/> :
-            this.props.children
+          this.props.location.pathname === '/oidc-callback' ?
+            this.props.children :
+            browser.name === 'ie' && +browser.version.split('.')[0] < 11 ?
+              <BrowserBlocker/> :
+              this.props.children
         }
 
         <footer className="usa-footer usa-footer-slim" role="contentinfo">

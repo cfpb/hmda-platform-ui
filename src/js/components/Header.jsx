@@ -10,7 +10,7 @@ export const addActiveClass = (selected, current) => {
 
 const Header = (props) => {
   const page = props.pathname.split('/').slice(-1)[0]
-console.log(page, props.user)
+
   return (
     <header className="Header usa-header usa-header-basic" id="header" role="banner">
       <BannerUSA />

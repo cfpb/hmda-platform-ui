@@ -5,7 +5,8 @@ const BrowserBlocker = (props) => {
   return (
     <div className="BrowserBlocker usa-alert usa-alert-error">
       <div className="usa-alert-body">
-        <h3 className="usa-alert-heading">Sorry, your browser is out of date.</h3>
+        <h2 className="usa-alert-heading">Sorry, your browser is out of date.</h2>
+        <hr/>
         <p className="usa-alert-text">To file HMDA data securely, please use one of the modern browsers listed below:</p>
         <ul>
           <li><a href="https://www.google.com/chrome/browser/desktop/">Chrome</a></li>
