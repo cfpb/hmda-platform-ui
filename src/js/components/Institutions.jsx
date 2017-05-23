@@ -5,7 +5,7 @@ import ErrorWarning from './ErrorWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 
-export const renderTiming = (submissionStatus, start, end) => {
+export const renderStatus = (submissionStatus, start, end) => {
   if(!submissionStatus || !submissionStatus.code) return
 
   let messageClass
@@ -19,7 +19,7 @@ export const renderTiming = (submissionStatus, start, end) => {
   // any submission status but created or signed
   if(submissionStatus.code > 1) {
     messageClass = 'text-primary'
-    if(start) timing = <p>Started {moment(start).utcOffset(-5).fromNow()}</p>
+    if(start) timing = `Started ${moment(start).utcOffset(-5).fromNow()}`
   }
 
   // if its parsed with errors or validated with errors
@@ -28,21 +28,22 @@ export const renderTiming = (submissionStatus, start, end) => {
   }
 
   // signed (completed)
-  if(submissionStatus.code === 11) {
+  if(submissionStatus.code === 10) {
     messageClass = 'text-green'
-    if(end) timing = <p>Completed {moment(end).utcOffset(-5).format('MMMM Do')}</p>
+    if(end) timing = `Completed ${moment(end).utcOffset(-5).format('MMMM Do')}`
   }
 
   // failed submission
   if(submissionStatus.code === -1) {
     messageClass = 'text-secondary'
-    if(start) timing = <p>Submission failed {moment(start).utcOffset(-5).fromNow()}</p>
+    if(start) timing = `Submission failed ${moment(start).utcOffset(-5).fromNow()}`
   }
 
   return (
-    <div className="timing usa-text-small">
+    <div className="status">
       <p><strong className={`${messageClass} text-uppercase`}>{submissionStatus.message}</strong></p>
-      {timing}
+      <p className="timing usa-text-small">{timing}</p>
+      <p>{submissionStatus.description}</p>
     </div>
   )
 }
@@ -61,7 +62,7 @@ export const renderViewButton = (code, institutionId, period) => {
       break
     // completed
     case 3:
-      buttonText = 'View current filing'
+      buttonText = 'View completed filing'
       break
     // cancelled
     case 4:
@@ -93,7 +94,7 @@ export const renderPreviousSubmissions = (submissions, onDownloadClick, institut
   if(!previousSubmissions.length) return
   return (
   <div className="previous-submissions">
-    <h5>Previous filings for current filing period</h5>
+    <h4>Previous filings for current filing period</h4>
 
     <ol reversed className="usa-text-small">
       {previousSubmissions.map((submission, i) => {
@@ -144,71 +145,67 @@ export default class Institution extends Component {
     const institutions = this.props.institutions
     const makeNewSubmission = this.props.makeNewSubmission
     return (
-    <div>
-      <div id="main-content" className="usa-grid Institutions">
-        {this.props.error ? <ErrorWarning error={this.props.error}/> : null}
-        <div className="usa-width-one-half">
-          <div className="InstitutionsHeader">
-            <h2>Institutions</h2>
-            {this.props.filingPeriod ? <h3>Filing Period {this.props.filingPeriod}</h3> : null}
+    <div id="main-content" className="usa-grid Institutions">
+      {this.props.error ? <ErrorWarning error={this.props.error}/> : null}
+      <div className="usa-width-one-half">
+        <div className="InstitutionsHeader">
+          <h1>Institutions</h1>
+          {this.props.filingPeriod ? <h2>Filing Period {this.props.filingPeriod}</h2> : null}
+        </div>
+        {this.props.isFetching ?
+          <div className="usa-grid-full">
+            <LoadingIcon/>
           </div>
-          {this.props.isFetching ?
-            <div className="usa-grid-full">
-              <LoadingIcon/>
-            </div>
-          : !this.props.filings ?
-            <div className="usa-grid-full">
-              <p>There is a problem with your filing. Please contact <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.</p>
-            </div>
-            : this.props.filings.map((filingObj, i) => {
-                const filing = filingObj.filing
-                const latestSubmissionStatus = filingObj.submissions[0] && filingObj.submissions[0].status || null
-                const institution = getInstitutionFromFiling(institutions, filing)
+        : !this.props.filings ?
+          <div className="usa-grid-full">
+            <p>There is a problem with your filing. Please contact <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.</p>
+          </div>
+          : this.props.filings.map((filingObj, i) => {
+              const filing = filingObj.filing
+              const latestSubmissionStatus = filingObj.submissions[0] && filingObj.submissions[0].status || null
+              const institution = getInstitutionFromFiling(institutions, filing)
 
-                if(!institution) return
-                return (
-                  <div key={i} className="usa-grid-full">
-                    <div className="institution">
-                      <div className="current-status">
-                        {renderTiming(
-                          latestSubmissionStatus,
-                          filing.start,
-                          filing.end
-                        )}
+              if(!institution) return
+              return (
+                <div key={i} className="usa-grid-full">
+                  <div className="institution">
+                    <div className="current-status">
+                      <h3>{institution.name} - {institution.id}</h3>
+                      {renderStatus(
+                        latestSubmissionStatus,
+                        filing.start,
+                        filing.end
+                      )}
 
-                        <h2>{institution.name} - {institution.id}</h2>
-                        <p className="status">{latestSubmissionStatus.description}</p>
-
-                        {renderViewButton(
-                          filing.status.code,
-                          filing.institutionId,
-                          filing.period
-                        )}
-
-                        {renderRefileButton(
-                          latestSubmissionStatus,
-                          filing
-                        )}
-                      </div>
-
-                      {renderPreviousSubmissions(
-                        filingObj.submissions,
-                        this.props.onDownloadClick,
-                        institution.id,
+                      {renderViewButton(
+                        filing.status.code,
+                        filing.institutionId,
                         filing.period
                       )}
+
+                      {renderRefileButton(
+                        latestSubmissionStatus,
+                        filing
+                      )}
                     </div>
+
+                    {renderPreviousSubmissions(
+                      filingObj.submissions,
+                      this.props.onDownloadClick,
+                      institution.id,
+                      filing.period
+                    )}
                   </div>
-                )
-            })
-          }
-        </div>
-        <div className="content usa-width-one-half">
-          <p>The Institutions page provides a summary of institutions for which you are authorized to file HMDA data. The filing status is displayed under the institution name.</p>
-          <p>Select the "Begin filing" button to begin your HMDA filing. Your work will be saved as you progress through the various edit categories. If you need to complete the filing at a later time, logout of the HMDA Platform prior to reviewing the next category of edits. When you are ready to continue with the filing process, login and select the "View Current Filing" button for your institution.</p>
-          <p>If you already started or submitted a HMDA filing and need to upload a new HMDA file, select the "Upload a new file" button. You will restart the process beginning with file format analysis. Any previously completed filings will not be overridden until all edits have been cleared and/or verified and the HMDA file has been submitted.</p>
-          <p>The edit report for previous submissions can be downloaded in csv format. Please note that an edit report will not be available if the HMDA file did not have any outstanding quality edits or macro quality edits.</p>
-        </div>
+                </div>
+              )
+          })
+        }
+      </div>
+      <div className="content usa-width-one-half">
+        <p>The Institutions page provides a summary of institutions for which you are authorized to file HMDA data. The filing status is displayed under the institution name.</p>
+        <p>Select the "Begin filing" button to begin your HMDA filing. Your work will be saved as you progress through the various edit categories. If you need to complete the filing at a later time, logout of the HMDA Platform prior to reviewing the next category of edits. When you are ready to continue with the filing process, login and select the "View Current Filing" button for your institution.</p>
+        <p>If you already started or submitted a HMDA filing and need to upload a new HMDA file, select the "Upload a new file" button. You will restart the process beginning with file format analysis. Any previously completed filings will not be overridden until all edits have been cleared and/or verified and the HMDA file has been submitted.</p>
+        <p>The edit report for previous submissions can be downloaded in csv format. Please note that an edit report will not be available if the HMDA file did not have any outstanding quality edits or macro quality edits.</p>
       </div>
     </div>
     )
