@@ -12,8 +12,6 @@ const getUserManager = () => {
 
 const signinRedirect = (force) => {
   if(!userManager) return console.error('userManager needs to be set on app initialization')
-  if(location.pathname === '/oidc-callback') return false
-  if(!force && location.pathname === '/') return false
   console.log('signinRedirect triggered, saving page:', location.pathname)
   localStorage.setItem('hmdaPageBeforeSignin', location.pathname)
   userManager.signinRedirect()
