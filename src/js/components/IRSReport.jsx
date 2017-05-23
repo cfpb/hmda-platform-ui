@@ -13,51 +13,33 @@ const IRSReport = (props) => {
         <p className="usa-font-lead">Please review your summarized HMDA data below. If the data are incorrect, please update your file and select the "Update a new file" button. You will need to begin the filing process again.</p>
       </header>
 
-      <div className="irs-table-wrapper" id="irs">
-        <table width="100%">
+      <div className="irs-table-wrapper" id="irs" >
+        <table width="100%" summary="Your summarized HMDA data grouped by MSA/MD">
           <thead>
             <tr>
-              <th colSpan={4}></th>
-              <th colSpan={4}>Loan Type</th>
-              <th colSpan={3}>Property Type</th>
-              <th colSpan={3}>Loan Purpose</th>
+              <td colSpan={4}></td>
+              <th scope="colgroup" id="loan-type" colSpan={4}>Loan Type</th>
+              <th scope="colgroup" id="property-type" colSpan={3}>Property Type</th>
+              <th scope="colgroup" id="loan-purpose" colSpan={3}>Loan Purpose</th>
             </tr>
             <tr>
-              <th>MSA/MD</th>
-              <th>MSA/MD Name</th>
-              <th>Total LARs</th>
-              <th>Total Amt. <span>(in thousands)</span></th>
-              <th>CONV</th>
-              <th>FHA</th>
-              <th>VA</th>
-              <th>FSA/RHS</th>
-              <th>1-4 Family</th>
-              <th>MFD</th>
-              <th>Multi-Family</th>
-              <th>Home Purchase</th>
-              <th>Home Improvement</th>
-              <th>Refinance</th>
+              <th scope="col" id="msa-md">MSA/MD</th>
+              <th scope="col" id="msa-md-name">MSA/MD Name</th>
+              <th scope="col" id="total-lars">Total LARs</th>
+              <th scope="col" id="total-amt">Total Amt. <span>(in thousands)</span></th>
+              <th scope="col" id="conv">CONV</th>
+              <th scope="col" id="fha">FHA</th>
+              <th scope="col" id="va">VA</th>
+              <th scope="col" id="fsa-rhs">FSA/RHS</th>
+              <th scope="col" id="family">1-4 Family</th>
+              <th scope="col" id="mfd">MFD</th>
+              <th scope="col" id="multi-family">Multi-Family</th>
+              <th scope="col" id="home-purchase">Home Purchase</th>
+              <th scope="col" id="home-improvement">Home Improvement</th>
+              <th scope="col" id="refinance">Refinance</th>
             </tr>
           </thead>
-          <tbody>
-            {props.msas.map((msa, i) => {
-              return <tr key={i}>
-                <td>{msa.id}</td>
-                <td>{msa.name}</td>
-                <td>{msa.totalLars.toLocaleString()}</td>
-                <td>{msa.totalAmount.toLocaleString()}</td>
-                <td>{msa.conv.toLocaleString()}</td>
-                <td>{msa.FHA.toLocaleString()}</td>
-                <td>{msa.VA.toLocaleString()}</td>
-                <td>{msa.FSA.toLocaleString()}</td>
-                <td>{msa.oneToFourFamily.toLocaleString()}</td>
-                <td>{msa.MFD.toLocaleString()}</td>
-                <td>{msa.multiFamily.toLocaleString()}</td>
-                <td>{msa.homePurchase.toLocaleString()}</td>
-                <td>{msa.homeImprovement.toLocaleString()}</td>
-                <td>{msa.refinance.toLocaleString()}</td>
-              </tr>
-            })}
+          <tfoot>
             <tr className="totals">
               <td className="center" colSpan={2}><strong>Total</strong></td>
               <td>{props.summary.lars.toLocaleString()}</td>
@@ -73,6 +55,26 @@ const IRSReport = (props) => {
               <td>{props.summary.homeImprovement.toLocaleString()}</td>
               <td>{props.summary.refinance.toLocaleString()}</td>
             </tr>
+          </tfoot>
+          <tbody>
+            {props.msas.map((msa, i) => {
+              return <tr key={i}>
+                <td headers="msa-md">{msa.id}</td>
+                <td headers="msa-md-name">{msa.name}</td>
+                <td headers="total-lars">{msa.totalLars.toLocaleString()}</td>
+                <td headers="total-amt">{msa.totalAmount.toLocaleString()}</td>
+                <td headers="loan-type conv">{msa.conv.toLocaleString()}</td>
+                <td headers="loan-type fha">{msa.FHA.toLocaleString()}</td>
+                <td headers="loan-type va">{msa.VA.toLocaleString()}</td>
+                <td headers="loan-type fsa-rhs">{msa.FSA.toLocaleString()}</td>
+                <td headers="property-type family">{msa.oneToFourFamily.toLocaleString()}</td>
+                <td headers="property-type mfd">{msa.MFD.toLocaleString()}</td>
+                <td headers="property-type multi-family">{msa.multiFamily.toLocaleString()}</td>
+                <td headers="loan-purpose home-purchase">{msa.homePurchase.toLocaleString()}</td>
+                <td headers="loan-purpose home-improvement">{msa.homeImprovement.toLocaleString()}</td>
+                <td headers="loan-purpose refinance">{msa.refinance.toLocaleString()}</td>
+              </tr>
+            })}
           </tbody>
         </table>
       </div>
