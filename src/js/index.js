@@ -29,7 +29,7 @@ fetch('/env.json').then(res => {
   window.HMDA_ENV = {}
   Object.keys(envJson).forEach(key => window.HMDA_ENV[key] = envJson[key])
 
-  oidc.Log.logger = console
+  //oidc.Log.logger = console
   const userManager = UserManager()
   setUserManager(userManager)
   const oidcMiddleware = createOidcMiddleware(userManager, () => false, false, '/oidc-callback')

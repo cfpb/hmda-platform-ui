@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { signinRedirect } from '../utils/redirect'
 import ConfirmationModal from './ConfirmationModal.jsx'
+import Header from '../components/Header.jsx'
+import BrowserBlocker from '../components/BrowserBlocker.jsx'
+import browser from 'detect-browser'
 
 export class AppContainer extends Component {
   constructor(props) {
@@ -14,12 +17,22 @@ export class AppContainer extends Component {
 
   render() {
     if(!this.props.user || !this.props.user.profile.name){
-      if(signinRedirect()) return
+      if(signinRedirect()) return null
     }
+
     return (
       <div className="AppContainer">
         <a className="usa-skipnav" href="#main-content">Skip to main content</a>
-        {this.props.children}
+        <Header
+          pathname={this.props.location.pathname}
+          user={this.props.user} />
+        {
+          this.props.location.pathname === '/oidc-callback' ?
+            this.props.children :
+            (browser.name === 'ie' && +browser.version.split('.')[0] < 11) ?
+              <BrowserBlocker/> :
+              this.props.children
+        }
 
         <footer className="usa-footer usa-footer-slim" role="contentinfo">
           <div className="usa-grid usa-footer-return-to-top">
