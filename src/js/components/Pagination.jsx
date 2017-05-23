@@ -14,7 +14,7 @@ const Pagination = (props) => {
         className={ firstPage ? 'usa-button-disabled' : '' }
         onClick={ e => { if(!firstPage) props.getPreviousPage(page) }}
       >Previous</button>
-      <div>Page <h4>{page._links.self.substr(page._links.self.indexOf('=')+1)}</h4> of {Math.ceil(page.total/20)}</div>
+      <div>Page <strong>{page._links.self.substr(page._links.self.indexOf('=')+1)}</strong> of {Math.ceil(page.total/20)}</div>
       <button
         className={ lastPage ? 'usa-button-disabled' : '' }
         onClick={ e => { if(!lastPage) props.getNextPage(page) }}
