@@ -43,7 +43,7 @@ export const renderStatus = (submissionStatus, start, end) => {
     <div className="status">
       <p><strong className={`${messageClass} text-uppercase`}>{submissionStatus.message}</strong></p>
       <p className="timing usa-text-small">{timing}</p>
-      <p>{submissionStatus.description}</p>
+      <p className="status-desc">{submissionStatus.description}</p>
     </div>
   )
 }
