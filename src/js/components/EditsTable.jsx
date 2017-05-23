@@ -77,7 +77,7 @@ export const makeTable = (props) => {
   return (
     type === 'macro'
     ? renderTableCaption(edit, rowObj, type, props.pagination)
-    : <table width="100%">
+    : <table width="100%" summary={`Report for edit ${edit.edit} - ${edit.description}`}>
         {renderTableCaption(edit, rowObj, type, props.pagination)}
         <thead>
           {renderHeader(edit, rowObj.rows, type)}
