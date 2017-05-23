@@ -1,25 +1,34 @@
 jest.unmock('../../src/js/containers/App.jsx')
 jest.mock('../../src/js/components/Header.jsx', () => jest.fn(() => null))
-jest.mock('../../src/js/utils/redirect.js', () => {})
-
+jest.mock('../../src/js/containers/ConfirmationModal.jsx')
+jest.mock('detect-browser', () => {return {name: 'ie', version: '9.0.0'}})
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
-import AppContainer from '../../src/js/containers/App.jsx'
+import ConnectedAppContainer, {AppContainer, mapStateToProps } from '../../src/js/containers/App.jsx'
+import * as AccessToken from '../../src/js/api/AccessToken.js'
+import * as redirect from '../../src/js/utils/redirect.js'
 import Wrapper from '../Wrapper.js'
+import browser from 'detect-browser'
 
+const set = jest.fn()
+const get = jest.fn()
+AccessToken.get = get
+AccessToken.set = set
+
+const signinRedirect = jest.fn()
+redirect.signinRedirect = signinRedirect
 
 describe('AppContainer', () => {
   console.error = jest.fn()
   const wrappedContainer = TestUtils.renderIntoDocument(
     <Wrapper store={{
       app:{
-        confirmation: {
-          filing: "2017",
-          id: "3"
-        },
         upload: {
           file: null
+        },
+        user: {
+          expired: false
         }
       },
       oidc: {
@@ -30,7 +39,7 @@ describe('AppContainer', () => {
         }
       }
     }}>
-      <AppContainer location={{}}><p>hey</p></AppContainer>
+      <ConnectedAppContainer location={{}}><p>hey</p></ConnectedAppContainer>
     </Wrapper>
   )
 
@@ -40,5 +49,114 @@ describe('AppContainer', () => {
     expect(containerNode).toBeDefined()
     expect(containerNode.firstChild.textContent).toEqual('Skip to main content')
     expect(console.error).not.toBeCalled()
+  })
+
+  it('maps state to props correctly', () => {
+    expect(mapStateToProps({oidc:1, app: {user: {expired:2}}})).toEqual({
+      oidc:1,
+      expired:2
+    })
+  })
+
+  it('sets accesstoken when needed', () => {
+    const container = TestUtils.renderIntoDocument(
+    <Wrapper store={{}}>
+      <AppContainer
+        oidc={{user:{access_token:1}}}
+        location={{pathname: '/fake'}}
+        expired={false}
+      />
+    </Wrapper>
+    )
+    expect(set.mock.calls.length).toBe(4)
+    expect(get.mock.calls.length).toBe(4)
+  })
+
+  it('short circuits token set with no user', () => {
+    const container = TestUtils.renderIntoDocument(
+    <Wrapper store={{}}>
+      <AppContainer
+        oidc={{user:null}}
+        location={{pathname: '/fake'}}
+        expired={false}
+      />
+    </Wrapper>
+    )
+    expect(set.mock.calls.length).toBe(4)
+    expect(get.mock.calls.length).toBe(4)
+    expect(ReactDOM.findDOMNode(container)).toBe(null)
+  })
+
+  it('short circuits token set with no user, when user not needed', () => {
+    const container = TestUtils.renderIntoDocument(
+    <Wrapper store={{}}>
+      <AppContainer
+        oidc={{user:null}}
+        location={{pathname: '/'}}
+        expired={false}
+      />
+    </Wrapper>
+    )
+    expect(set.mock.calls.length).toBe(4)
+    expect(get.mock.calls.length).toBe(4)
+    expect(ReactDOM.findDOMNode(container)).not.toBe(null)
+  })
+
+  it('does not call signinRedirect if not expired', () => {
+    AccessToken.get = () => true
+
+    const container = TestUtils.renderIntoDocument(
+    <Wrapper store={{}}>
+      <AppContainer
+        oidc={{user:{access_token:1}}}
+        location={{pathname: '/fake'}}
+        expired={false}
+      />
+    </Wrapper>
+    )
+    expect(set.mock.calls.length).toBe(4)
+    expect(signinRedirect).not.toBeCalled()
+  })
+
+  it('does not call signinRedirect if page does not need user', () => {
+    const container = TestUtils.renderIntoDocument(
+    <Wrapper store={{}}>
+      <AppContainer
+        oidc={{user:{access_token:1}}}
+        location={{pathname: '/'}}
+        expired={true}
+      />
+    </Wrapper>
+    )
+
+    expect(signinRedirect).not.toBeCalled()
+
+    const c2 = TestUtils.renderIntoDocument(
+      <Wrapper store={{}}>
+        <AppContainer
+          oidc={{user:{access_token:1}}}
+          location={{pathname: '/oidc-callback'}}
+          expired={true}
+        />
+      </Wrapper>
+    )
+
+    expect(signinRedirect).not.toBeCalled()
+  })
+
+  browser.name = 'qwe'
+  it('redirects when needed user is expired', () => {
+    const container = TestUtils.renderIntoDocument(
+    <Wrapper store={{}}>
+      <AppContainer
+        oidc={{user:{access_token:1}}}
+        location={{pathname: '/fake'}}
+        expired={true}
+      />
+    </Wrapper>
+    )
+
+    expect(signinRedirect).toBeCalled()
+    expect(ReactDOM.findDOMNode(container)).toBe(null)
   })
 })

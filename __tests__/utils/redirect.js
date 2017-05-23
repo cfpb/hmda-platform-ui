@@ -27,7 +27,7 @@ describe('redirect', () => {
     expect(console.error.mock.calls.length).toBe(1)
   })
 
-  it('calls redir but short circuits based pathname', () => {
+  it('calls redir', () => {
     const um = jest.fn()
     const ls = jest.fn()
 
@@ -37,19 +37,17 @@ describe('redirect', () => {
     window.localStorage = {setItem: ls}
     window.location = {pathname: '/'}
 
-    expect(signinRedirect(1)).toBe(true)
-    expect(signinRedirect(0)).toBe(false)
+    expect(signinRedirect()).toBe(undefined)
 
     expect(um.mock.calls.length).toBe(1)
     expect(ls.mock.calls.length).toBe(1)
 
 
     window.location = {pathname: '/oidc-callback'}
-    expect(signinRedirect()).toBe(false)
+    expect(signinRedirect()).toBe(undefined)
 
     window.location = {pathname: '/fake'}
-    expect(signinRedirect()).toBe(true)
-    expect(signinRedirect(1)).toBe(true)
+    expect(signinRedirect()).toBe(undefined)
 
     expect(um.mock.calls.length).toBe(3)
     expect(ls.mock.calls.length).toBe(3)
