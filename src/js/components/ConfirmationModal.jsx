@@ -4,7 +4,7 @@ import RefileText from './RefileText.jsx'
 const ModalConfirm = (props) => {
   const {
     code,
-    filing,
+    filingPeriod,
     id,
     showing,
     file,
@@ -16,7 +16,7 @@ const ModalConfirm = (props) => {
   // get the page
   const page = location.pathname.split('/').slice(-1)[0]
 
-  if(!filing || !id || !hideConfirmModal || !triggerRefile) return null
+  if(!filingPeriod || !id || !hideConfirmModal || !triggerRefile) return null
 
   return (
     <div className={'confirmation-blurred-blocker'+ (showing ? ' showing-blurred-blocker' : '')}>
@@ -26,7 +26,7 @@ const ModalConfirm = (props) => {
           <button onClick={(e)=>{
             e.preventDefault()
             hideConfirmModal()
-            triggerRefile(id, filing, page, newFile)
+            triggerRefile(id, filingPeriod, page, newFile)
           }}>Yes, restart the filing process.</button>
           <a href="#"
             className="usa-text-small"
@@ -41,7 +41,7 @@ const ModalConfirm = (props) => {
 }
 
 ModalConfirm.propTypes = {
-  filing: React.PropTypes.string,
+  filingPeriod: React.PropTypes.string,
   id: React.PropTypes.string,
   hideConfirmModal: React.PropTypes.func,
   triggerRefile: React.PropTypes.func,

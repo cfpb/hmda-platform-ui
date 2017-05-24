@@ -1,11 +1,8 @@
 import * as types from '../constants'
 
-export default function showConfirm(id, filing, code, file) {
+export default function showConfirm() {
   return {
     type: types.SHOW_CONFIRM,
-    showing: true,
-    id,
-    filing,
-    code
+    showing: true
   }
 }
