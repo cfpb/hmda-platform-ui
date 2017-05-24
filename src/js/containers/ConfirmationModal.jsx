@@ -44,8 +44,9 @@ export function mapDispatchToProps(dispatch) {
 
   const triggerRefile = (id, period, page = '', file) => {
     if(page === 'upload') {
+      dispatch(createNewSubmission(id, period))
       dispatch(selectFile(file))
-      return dispatch(createNewSubmission(id, period))
+      return Promise.resolve()
     } else {
       return dispatch(createNewSubmission(id, period)).then(()=>{
         browserHistory.replace(`/${id}/${period}`)
