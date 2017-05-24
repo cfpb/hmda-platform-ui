@@ -5,7 +5,7 @@ const UserHeading = (props) => {
 
   return (
     <div className="UserHeading" id="userHeading">
-      <h2>Filing on behalf of {props.institution.name} for {props.period}</h2>
+      <h1>Filing on behalf of {props.institution.name} for {props.period}</h1>
     </div>
   )
 }

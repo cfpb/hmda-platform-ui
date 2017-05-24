@@ -45,7 +45,7 @@ describe('Pagination component', () => {
   })
 
   it('renders the current page', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'h4')[0].textContent).toEqual('1')
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'strong')[0].textContent).toEqual('1')
   })
 
   it('renders the pagenav text', () => {
