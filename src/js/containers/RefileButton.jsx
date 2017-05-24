@@ -13,43 +13,16 @@ class RefileButtonContainer extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  let id, filing, code
-
-  id = state.app.institution.id
-  filing = state.app.filingPeriod
-  code = state.app.submission.status.code
-
-  if(ownProps) {
-    if(ownProps.id) id = ownProps.id
-    if(ownProps.filing) filing = ownProps.filing
-    if(ownProps.code) code = ownProps.code
-  }
-
-  return {
-    id,
-    filing,
-    code
-  }
-}
-
 function mapDispatchToProps(dispatch) {
-  const showConfirmModal = (id, filing, code) => {
-    dispatch(showConfirm(id, filing, code))
+  const showConfirmModal = () => {
+    dispatch(showConfirm())
   }
 
   return { showConfirmModal }
 }
 
-RefileButtonContainer.propTypes = {
-  id: React.PropTypes.string,
-  filing: React.PropTypes.string,
-  code: React.PropTypes.number
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(RefileButtonContainer)
+export default connect(null, mapDispatchToProps)(RefileButtonContainer)
 export {
   RefileButtonContainer,
-  mapDispatchToProps,
-  mapStateToProps
+  mapDispatchToProps
 }

@@ -66,15 +66,13 @@ export default class Upload extends Component {
     const onDrop = (acceptedFiles) => {
       const {
         code,
-        institutionId,
-        filingPeriod,
         showConfirmModal,
         setFile,
         setNewFile
       } = this.props
 
       if(code > 1) {
-        showConfirmModal(institutionId, filingPeriod, code)
+        showConfirmModal()
         setNewFile(acceptedFiles)
       } else {
         setFile(acceptedFiles)
@@ -128,9 +126,7 @@ Upload.propTypes = {
   uploading: PropTypes.bool,
   file: PropTypes.object,
   code: PropTypes.number,
-  errors: PropTypes.array,
-  institutionId: PropTypes.string,
-  filingPeriod: PropTypes.string
+  errors: PropTypes.array
 }
 
 Upload.defaultProps = {
