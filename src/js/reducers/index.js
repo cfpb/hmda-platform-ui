@@ -14,6 +14,7 @@ import summary from './summary.js'
 import parseErrors from './parseErrors.js'
 import pagination from './pagination.js'
 import error from './error.js'
+import user from './user.js'
 
 export default combineReducers({
   institution,
@@ -29,5 +30,6 @@ export default combineReducers({
   summary,
   parseErrors,
   pagination,
-  error
+  error,
+  user
 })

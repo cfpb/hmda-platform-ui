@@ -75,7 +75,6 @@ class SubmissionContainer extends Component {
   }
 
   render() {
-    if(!this.props.user) return null
     if(!this.props.location) return null
 
     if(!this.props.isFetching &&
@@ -83,7 +82,7 @@ class SubmissionContainer extends Component {
       this.props.dispatch(fetchSubmission())
     }
 
-    const { status, params, user, location } = this.props
+    const { status, params, location } = this.props
     const code = status && status.code
     const page = location.pathname.split('/').slice(-1)[0]
 
@@ -120,8 +119,6 @@ function mapStateToProps(state) {
     status
   } = state.app.submission
 
-  const user = state.oidc && state.oidc.user || null
-
   const institution = state.app.institution
 
   const error = state.app.error
@@ -129,7 +126,6 @@ function mapStateToProps(state) {
   return {
     isFetching,
     status,
-    user,
     institution,
     error
   }

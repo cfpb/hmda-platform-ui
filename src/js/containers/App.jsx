@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { signinRedirect } from '../utils/redirect'
 import ConfirmationModal from './ConfirmationModal.jsx'
+import * as AccessToken from '../api/AccessToken.js'
 import Header from '../components/Header.jsx'
 import BrowserBlocker from '../components/BrowserBlocker.jsx'
 import browser from 'detect-browser'
@@ -12,12 +13,26 @@ export class AppContainer extends Component {
   }
 
   componentWillMount() {
-    if(!this.props.user || !this.props.user.profile.name) signinRedirect()
+    if(this.props.oidc.user && !AccessToken.get()){
+      AccessToken.set(this.props.oidc.user.access_token)
+    }
   }
 
   render() {
-    if(!this.props.user || !this.props.user.profile.name){
-      if(signinRedirect()) return null
+    const needUser =  this.props.location.pathname !== '/oidc-callback' &&
+      this.props.location.pathname !== '/'
+
+    if(this.props.expired) {
+      if(needUser){
+         signinRedirect()
+         return null
+      }
+    }
+
+    if(this.props.oidc.user){
+      if(!AccessToken.get()) AccessToken.set(this.props.oidc.user.access_token)
+    }else{
+      if(needUser) return null
     }
 
     return (
@@ -25,7 +40,7 @@ export class AppContainer extends Component {
         <a className="usa-skipnav" href="#main-content">Skip to main content</a>
         <Header
           pathname={this.props.location.pathname}
-          user={this.props.user} />
+          user={this.props.oidc.user} />
         {
           this.props.location.pathname === '/oidc-callback' ?
             this.props.children :
@@ -63,14 +78,12 @@ export class AppContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const {
-    user
-  } = state.oidc || {
-    user: null
-  }
+  const { oidc } = state
+  const { expired } = state.app.user
 
   return {
-    user
+    oidc,
+    expired
   }
 }
 

@@ -31,7 +31,6 @@ export class SubmissionRouter extends Component {
   }
 
   route() {
-    if(!this.props.user) return null
     if(!this.props.status) return null
 
 
@@ -82,18 +81,15 @@ export function mapStateToProps(state, ownProps) {
     status: null
   }
 
-  const user = state.oidc && state.oidc.user || null
   const params = ownProps.params
 
   return {
     status,
-    user,
     params
   }
 }
 
 SubmissionRouter.defaultProps = {
-  user: null,
   status: null
 }
 
