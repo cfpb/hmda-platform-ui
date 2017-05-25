@@ -53,7 +53,7 @@ describe('Edits Table', () => {
 describe('formatHeader', () => {
   it('returns the correct text', () => {
     let header = formatHeader('rowId')
-    expect(header).toBe('Row ID')
+    expect(header).toBe('Loan/Application Number')
 
     header = formatHeader('edit')
     expect(header).toBe('Edit ID')
@@ -74,7 +74,7 @@ describe('renderHeader', () => {
     const edits = types.syntactical.edits[0]
     const rendered = renderHeader(edits, rows, 'syntactical')
     expect(rendered.type).toBe('tr')
-    expect(rendered.props.children[0].props.children).toBe('Row ID')
+    expect(rendered.props.children[0].props.children).toBe('Loan/Application Number')
     expect(rendered.props.children[1].props.children).toBe('Agency Code')
   })
 
@@ -82,7 +82,7 @@ describe('renderHeader', () => {
     const edits = types.validity.edits[0]
     const rendered = renderHeader(edits, rows, 'validity')
     expect(rendered.type).toBe('tr')
-    expect(rendered.props.children[0].props.children).toBe('Row ID')
+    expect(rendered.props.children[0].props.children).toBe('Loan/Application Number')
     expect(rendered.props.children[1].props.children).toBe('Agency Code')
   })
 
@@ -90,7 +90,7 @@ describe('renderHeader', () => {
     const edits = types.quality.edits[0]
     const rendered = renderHeader(edits, rows, 'quality')
     expect(rendered.type).toBe('tr')
-    expect(rendered.props.children[0].props.children).toBe('Row ID')
+    expect(rendered.props.children[0].props.children).toBe('Loan/Application Number')
     expect(rendered.props.children[1].props.children).toBe('Agency Code')
   })
 

@@ -4,7 +4,7 @@ import LoadingIcon from './LoadingIcon.jsx'
 import EditsTableRow from './EditsTableRow.jsx'
 
 export const formatHeader = (text) => {
-  if (text === 'rowId') return 'Row ID'
+  if (text === 'rowId') return 'Loan/Application Number'
   if (text === 'edit') return 'Edit ID'
   if (text === 'editId') return 'Edit ID'
   if (text === 'description') return 'Description'
