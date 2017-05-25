@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react'
 
 const EditsTableCell = props => {
-  return <td>{props.cell}</td>
+  let cellContent = props.cell
+  if(props.cell === '') cellContent = <em>(blank)</em>
+  return <td>{cellContent}</td>
 }
 
 EditsTableCell.propTypes = {
