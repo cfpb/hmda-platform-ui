@@ -48,4 +48,17 @@ describe('Summary', () => {
 
     expect(rendered).toBe(null)
   })
+
+  it('does not uppercase agency that does not exist', () => {
+    delete summaryJSON.respondent.agency
+    const summary = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Summary
+          respondent={summaryJSON.respondent}
+          file={summaryJSON.file}
+        />
+      </Wrapper>
+    )
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(summary, 'dd')[3].innerHTML).toBe('')
+  })
 })
