@@ -24,9 +24,6 @@ describe('AppContainer', () => {
   const wrappedContainer = TestUtils.renderIntoDocument(
     <Wrapper store={{
       app:{
-        upload: {
-          file: null
-        },
         user: {
           expired: false
         }

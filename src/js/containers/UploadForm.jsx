@@ -18,19 +18,13 @@ export function mapStateToProps(state) {
     errors: []
   }
 
-  const institutionId = state.app.institution.id
-
   const code = state.app.submission.status.code
-
-  const filingPeriod = state.app.filingPeriod || null
 
   return {
     uploading,
     file,
-    filingPeriod,
     errors,
-    code,
-    institutionId
+    code
   }
 }
 
@@ -53,8 +47,8 @@ export function mapDispatchToProps(dispatch) {
       dispatch(selectNewFile(acceptedFiles[0]))
     },
 
-    showConfirmModal: (id, filing, code) => {
-      dispatch(showConfirm(id, filing, code))
+    showConfirmModal: () => {
+      dispatch(showConfirm())
     },
 
     pollSubmission: () => {

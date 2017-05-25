@@ -6,7 +6,7 @@ import createNewSubmission from '../actions/createNewSubmission.js'
 import selectFile from '../actions/selectFile.js'
 import ConfirmationModal from '../components/ConfirmationModal.jsx'
 
-class ConfirmationModalContainer extends Component {
+export class ConfirmationModalContainer extends Component {
   constructor(props) {
       super(props)
   }
@@ -16,13 +16,11 @@ class ConfirmationModalContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const {
-    id,
-    filing,
-    code,
-    showing
-  } = state.app.confirmation || { code: 0 }
+export function mapStateToProps(state) {
+  const { showing } = state.app.confirmation
+  const { id } = state.app.institution
+  const { filingPeriod } = state.app
+  const { code } = state.app.submission.status
 
   const {
     file,
@@ -31,7 +29,7 @@ function mapStateToProps(state) {
 
   return {
     id,
-    filing,
+    filingPeriod,
     code,
     showing,
     file,
@@ -39,7 +37,7 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   const hideConfirmModal = () => {
     dispatch(hideConfirm())
   }
@@ -48,8 +46,9 @@ function mapDispatchToProps(dispatch) {
     if(page === 'upload') {
       dispatch(createNewSubmission(id, period))
       dispatch(selectFile(file))
+      return Promise.resolve()
     } else {
-      dispatch(createNewSubmission(id, period)).then(()=>{
+      return dispatch(createNewSubmission(id, period)).then(()=>{
         browserHistory.replace(`/${id}/${period}`)
       })
     }
