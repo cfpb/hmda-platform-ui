@@ -9,11 +9,15 @@
     padding: 1em;
   }
 
+  h3 {
+    margin-top: 0;
+  }
+
   .previous-submissions {
     border: 1px solid $color-gray-lightest;
     padding: 1em;
 
-    h5 {
+    h4 {
       margin-top: 0;
     }
 
@@ -23,22 +27,16 @@
     }
   }
 
-  h2 {
-    margin-bottom: 0;
-    margin-top: 0;
-  }
   .status {
     margin-top: .5em;
     margin-bottom: .5em;
-  }
-  .timing {
-    color: $color-gray;
+
     p {
       margin: 0;
     }
-    strong {
-      text-transform: uppercase;
-    }
+  }
+  .timing {
+    color: $color-gray;
   }
 }
 
@@ -54,11 +52,11 @@
 .InstitutionsHeader {
   margin: 0;
 
-  h2 {
+  h1 {
     margin: 0;
   }
 
-  h3 {
+  h2 {
     margin: 0.5em 0 1em;
   }
 }

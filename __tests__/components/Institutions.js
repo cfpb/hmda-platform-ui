@@ -3,7 +3,7 @@ jest.mock('../../src/js/containers/RefileButton.jsx')
 jest.mock('oidc-client')
 
 import Institutions, {
-  renderTiming,
+  renderStatus,
   renderViewButton,
   renderRefileButton,
   renderPreviousSubmissions,
@@ -40,10 +40,10 @@ describe('Institutions', () => {
   })
 
   it('creates header based on filing period', () => {
-    expect(TestUtils.findRenderedDOMComponentWithTag(institutions, 'h3').textContent).toEqual('Filing Period 2017')
+    expect(TestUtils.findRenderedDOMComponentWithTag(institutions, 'h2').textContent).toEqual('Filing Period 2017')
   })
   it('creates the status (renderStatus) with correct content', () => {
-    expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status').textContent).toEqual('Your submission has been validated and is ready to be signed.')
+    expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status-desc').textContent).toEqual('Your submission has been validated and is ready to be signed.')
   })
 
   it('creates the status button (renderViewButton)', () => {
@@ -51,7 +51,7 @@ describe('Institutions', () => {
   })
 
   it('creates the status button (renderViewButton) with correct content', () => {
-    expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status-button').text).toEqual('View current filing')
+    expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status-button').text).toEqual('View completed filing')
   })
 
   it('creates the correct number of previous submissions', () => {
@@ -68,7 +68,7 @@ describe('Institutions', () => {
           location={{pathname: '/institutions'}} />
       </Wrapper>
     )
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'h3').length).toEqual(0)
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'h2').length).toEqual(0)
   })
 
   it('renders a placeholder without filings', () => {
@@ -86,33 +86,28 @@ describe('Institutions', () => {
 })
 
 
-describe('renderTiming', () => {
+describe('renderStatus', () => {
   const getTime = comp => comp.props.children[1].props.children
 
   const runByCode = (code, className, timeText) => {
     it('runs with code ' + code, () => {
-      const rendered = renderTiming({code: code}, 123, 234)
+      const rendered = renderStatus({code: code}, 123, 234)
       expect(rendered.props.children[0].props.children.props.className).toEqual(className + ' text-uppercase')
-
-      if(code === 1) {
-        expect(rendered.props.children[1]).toBe(null)
-      } else {
-        expect(rendered.props.children[1].props.children).toEqual(timeText)
-      }
+      expect(rendered.props.children[1].props.children).toEqual(timeText)
     })
   }
 
   it('fails on no code', () => {
-    expect(renderTiming({})).toBe(undefined)
+    expect(renderStatus({})).toBe(undefined)
   })
 
-  runByCode(-1, 'text-secondary', [ 'Submission failed ', '47 years ago' ])
-  runByCode(1, 'text-secondary', undefined)
-  runByCode(2, 'text-primary', ["Started ", "47 years ago"])
-  runByCode(5, 'text-secondary', ["Started ", "47 years ago"])
-  runByCode(6, 'text-primary', ["Started ", "47 years ago"])
-  runByCode(8, 'text-secondary', ["Started ", "47 years ago"])
-  runByCode(11, 'text-green', [ 'Completed ', 'December 31st' ])
+  runByCode(-1, 'text-secondary', 'Submission failed 47 years ago')
+  runByCode(1, 'text-secondary', null)
+  runByCode(2, 'text-primary', "Started 47 years ago")
+  runByCode(5, 'text-secondary', "Started 47 years ago")
+  runByCode(6, 'text-primary', "Started 47 years ago")
+  runByCode(8, 'text-secondary', "Started 47 years ago")
+  runByCode(10, 'text-green', 'Completed December 31st')
 })
 
 describe('renderViewButton', () => {
@@ -125,7 +120,7 @@ describe('renderViewButton', () => {
 
   runByCode(1, 'Begin filing')
   runByCode(2, 'View current filing')
-  runByCode(3, 'View current filing')
+  runByCode(3, 'View completed filing')
   runByCode(4, 'Begin filing')
   runByCode(123, 'Begin filing')
 })
