@@ -20,7 +20,7 @@ const Summary = (props) => {
             <dt>Tax ID:</dt>
             <dd>{props.respondent.taxId}</dd>
             <dt>Agency:</dt>
-            <dd>{props.respondent.agency.toUpperCase()}</dd>
+            <dd className="text-uppercase">{props.respondent.agency}</dd>
             <dt>Contact Name:</dt>
             <dd>{props.respondent.contact && props.respondent.contact.name}</dd>
             <dt>Phone:</dt>

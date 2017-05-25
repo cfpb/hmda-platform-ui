@@ -48,4 +48,8 @@ describe('Summary', () => {
 
     expect(rendered).toBe(null)
   })
+
+  it('uppercases agency via className', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(summary, 'dd')[3].className).toBe('text-uppercase')
+  })
 })
