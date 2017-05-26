@@ -82,6 +82,8 @@ export const renderRefileButton = (latestSubmissionStatus, filing) => {
             id={filing.institutionId}
             filing={filing.period}
             code={latestSubmissionStatus.code}
+            isLink={true}
+            isSmall={true}
           />
   } else {
     return null
