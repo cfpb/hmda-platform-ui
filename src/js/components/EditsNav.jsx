@@ -21,52 +21,8 @@ const navLinks = {
   'confirmation': 'confirmation'
 }
 
-export const getNavClass = (name, props) => {
-  let navClass = ''
-  const {
-    code,
-    page,
-    syntacticalValidityEditsExist,
-    qualityVerified,
-    macroVerified
-  } = props
-
-  switch(name) {
-    case 'upload':
-      navClass = 'active'
-      if(code > 7) navClass = 'complete'
-      break
-    case 'syntacticalvalidity':
-      if(code > 7) {
-        navClass = 'active'
-        if(!syntacticalValidityEditsExist) navClass = 'complete'
-      }
-      break
-    case 'quality':
-      if(code > 7) {
-        if(!syntacticalValidityEditsExist) {
-          navClass = 'active'
-          if(qualityVerified) navClass = 'complete'
-        }
-      }
-      break
-    case 'macro':
-      if(code > 7) {
-        if(!syntacticalValidityEditsExist && qualityVerified) {
-          navClass = 'active'
-          if(macroVerified) navClass = 'complete'
-        }
-      }
-      break
-  }
-
-  // catch all if validated
-  if(code > 8) navClass = 'complete'
-  if(code === 9 && name === 'confirmation') navClass = 'active'
-  // add current class if page matches the name
-  if(name === page) navClass = `${navClass} current`
-
-  return navClass
+export const getNavClass = (name, page) => {
+  return name === page ? 'current' : ''
 }
 
 export const getProgressWidth = (props) => {
@@ -125,7 +81,7 @@ export const renderLinkOrText = (props, name, i) => {
     )
   }
 
-  let navClass = getNavClass(navLinks[name], props)
+  let navClass = getNavClass(navLinks[name], page)
 
   return (
     <li className={navClass} key={i}>
