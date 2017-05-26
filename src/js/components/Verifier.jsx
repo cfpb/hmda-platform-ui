@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react'
 export const renderVerified = (verified, type) => {
   if(verified) {
     return (
-      <div className="usa-alert usa-alert-success">
+      <div className="animated-alert usa-alert usa-alert-success">
         <div className="usa-alert-body">
           <p className="usa-alert-text"><span>{type}</span> edits have been verified.</p>
         </div>
