@@ -8,9 +8,9 @@ export const getText = (props) => {
   if(props.syntacticalValidityEditsExist) {
     textToRender = <div className="usa-alert-text"><p>Your file has <strong>syntactical and/or validity edits</strong>.</p><p>Please update your file and select the "Upload a new file" button.</p></div>
   } else if(!props.qualityVerified && props.page === 'quality') {
-    textToRender = <div className="usa-alert-text"><p>Your file has <strong>quality edits</strong>.</p><p>You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and <RefileButton isLink={true}/>.</p></div>
+    textToRender = <div className="usa-alert-text"><p>Your file has <strong>quality edits</strong>.</p><p>You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and <RefileButton isLink={true} isLower={true} />.</p></div>
   } else if(!props.macroVerified && props.page === 'macro') {
-    textToRender = <div className="usa-alert-text"><p>Your file has <strong>macro quality edits</strong>.</p><p>You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and <RefileButton isLink={true}/>.</p></div>
+    textToRender = <div className="usa-alert-text"><p>Your file has <strong>macro quality edits</strong>.</p><p>You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and <RefileButton isLink={true} isLower={true} />.</p></div>
   }
 
   if(props.code === 5) {
