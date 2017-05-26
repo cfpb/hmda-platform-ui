@@ -1,8 +1,10 @@
 .confirmation-modal {
+  transition: top 0.2s;
+  box-shadow: 0 1px 2px 0 #212121, 0 8px 8px -6px #212121;
   background: $color-white;
   left: 50%;
   position: fixed;
-  top: 50%;
+  top: 40%;
   transform: translate(-50%,-50%);
   z-index: 9003;
 
@@ -33,17 +35,22 @@
 }
 
 .confirmation-blurred-blocker {
-  background: rgba(255,255,255,0);
-  display: none;
+  background: rgba(0,0,0,0.6);
+  opacity: 0;
+  visibility: hidden;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 9002;
+  transition: visibility 0.2s, opacity 0.2s;
 }
 
 div.showing-blurred-blocker {
-  background: rgba(0,0,0,0.6);
-  display:block;
+  visibility: visible;
+  opacity: 1;
+  .confirmation-modal {
+    top: 50%;
+  }
 }
