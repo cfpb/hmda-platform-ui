@@ -31,6 +31,6 @@ describe('Parse errors', () => {
   })
 
   it('renders the header with the proper count', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(parseErrors, 'h2')[0].textContent).toEqual('45 Rows with Formatting Errors')
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(parseErrors, 'h2')[0].textContent).toEqual('47 Rows with Formatting Errors')
   })
 })

@@ -1,8 +1,6 @@
 jest.unmock('../../src/js/containers/ConfirmationModal.jsx')
 jest.mock('react-router')
 
-
-
 import React from 'react'
 import * as reactRouter from 'react-router'
 import TestUtils from 'react-addons-test-utils'
@@ -88,11 +86,14 @@ describe('ConfirmationModal Container', () => {
 
     expect(dispatch.mock.calls.length).toBe(1)
 
-    mapped.triggerRefile('a', 'b', 'upload')
+    mapped.triggerRefile('a', 'b', 'upload', {})
     expect(dispatch.mock.calls.length).toBe(3)
 
-    mapped.hideConfirmModal()
+    mapped.triggerRefile('a', 'b', 'upload', null)
     expect(dispatch.mock.calls.length).toBe(4)
+
+    mapped.hideConfirmModal()
+    expect(dispatch.mock.calls.length).toBe(5)
   })
 
   it('throws on bad state', () => {
