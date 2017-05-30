@@ -17,6 +17,12 @@ import Summary from './Summary.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import ParseErrors from './ParseErrors.jsx'
 import LoadingIcon from '../components/LoadingIcon.jsx'
+import {
+  UNINITIALIZED,
+  FAILED,
+  PARSED_WITH_ERRORS,
+  VALIDATING
+} from '../constants/statusCodes.js'
 
 const Edits = submissionProgressHOC(EditsContainer)
 const EditsNav = submissionProgressHOC(EditsNavComponent)
@@ -24,22 +30,20 @@ const NavButton = submissionProgressHOC(NavButtonComponent)
 
 const renderByCode = (code, page, message) => {
   const toRender = []
-  if(code === -1) {
+  if(code === FAILED) {
     toRender.push(<p>{message}</p>)
   }else{
     if(page === 'upload'){
       toRender.push(<UploadForm />)
-      if(code === 5) {
-        //toRender.push(<RefileWarning />)
+      if(code === PARSED_WITH_ERRORS) {
         toRender.push(<ParseErrors />)
       }
     }else if(['syntacticalvalidity','quality','macro'].indexOf(page) !== -1){
-      if(code > 7){
-        //if(code === 8) toRender.push(<RefileWarning />)
+      if(code > VALIDATING){
         toRender.push(<Edits />)
       }
     }else if(page === 'confirmation'){
-      if(code > 7){
+      if(code > VALIDATING){
         toRender.push(<IRSReport />)
         toRender.push(<Summary />)
         toRender.push(<Signature />)
@@ -78,7 +82,7 @@ class SubmissionContainer extends Component {
     if(!this.props.location) return null
 
     if(!this.props.isFetching &&
-      (!this.props.status || this.props.status.code === 0)){
+      (!this.props.status || this.props.status.code === UNINITIALIZED)){
       this.props.dispatch(fetchSubmission())
     }
 

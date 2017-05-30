@@ -9,3 +9,4 @@ export const VALIDATED_WITH_ERRORS = 8
 export const VALIDATED             = 9
 export const SIGNED                = 10
 export const FAILED                = -1
+export const UNINITIALIZED         = 0

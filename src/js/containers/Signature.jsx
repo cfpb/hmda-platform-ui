@@ -34,12 +34,7 @@ export function mapStateToProps(state) {
 
   const {
     status
-  } = state.app.submission || {
-    status: {
-      code: 12,
-      message: ''
-    }
-  }
+  } = state.app.submission
 
   const error = state.app.error
 

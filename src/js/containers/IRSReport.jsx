@@ -35,12 +35,7 @@ export function mapStateToProps(state) {
 
   const {
     status
-  } = state.app.submission || {
-    status: {
-      code: 10,
-      message: ''
-    }
-  }
+  } = state.app.submission
 
   return {
     isFetching,
