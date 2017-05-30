@@ -29,11 +29,8 @@ const getLinkCount = rendered => {
 describe('EditsNav', () => {
 
   it('render the correct class for the navigation', () => {
-    expect(getNavClass('c',baseProps)).toEqual(' current')
+    expect(getNavClass('c',baseProps.page)).toEqual('current')
     expect(getNavClass('abc','def')).toEqual('')
-    expect(getNavClass('quality',{...baseProps, syntacticalValidityEditsExist: false, code: 8})).toEqual('active')
-    expect(getNavClass('quality',{...baseProps, syntacticalValidityEditsExist: false, code: 8, qualityVerified: true})).toEqual('complete')
-    expect(getNavClass('macro',{...baseProps, syntacticalValidityEditsExist: false, code: 8, qualityVerified: true, macroVerified: true})).toEqual('complete')
   })
 
   it('renders the correct progress width', () => {
