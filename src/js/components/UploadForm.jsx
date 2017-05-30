@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
+import { UPLOADING } from '../constants/statusCodes.js'
 
 export const renderValidationProgress = (props) => {
-  if(props.code === 1 && !props.uploading) return null
+  if(props.code < UPLOADING && !props.uploading) return null
   return <ValidationProgress code={props.code} />
 }
 
@@ -27,7 +28,7 @@ export const renderDropText = ({ code, errors, file }, dropzoneContent) => {
   let message = 'Drag your LAR file into this area, or click in this box to select a LAR file to upload.'
   let fileName = null
 
-  if(code > 1) {
+  if(code >= UPLOADING) {
     message = 'Drag another LAR file to this area, or click in the box to select a LAR file to upload.'
   }
 
@@ -37,7 +38,7 @@ export const renderDropText = ({ code, errors, file }, dropzoneContent) => {
       message = `${file.name} can not be uploaded.`
     }
 
-    if(code > 1) {
+    if(code >= UPLOADING) {
       message = `Submission of ${file.name} currently in progess. You can drag another LAR file to this area, or click in the box to select a LAR file to upload..`
     }
   }
@@ -57,7 +58,7 @@ export default class Upload extends Component {
   // keeps the info about the file after leaving /upload and coming back
   componentDidMount() {
     renderDropText(this.props, this.dropzoneContent)
-      if(this.props.code > 2) this.props.pollSubmission()
+      if(this.props.code > UPLOADING) this.props.pollSubmission()
   }
 
   render() {
@@ -71,7 +72,7 @@ export default class Upload extends Component {
         setNewFile
       } = this.props
 
-      if(code > 1) {
+      if(code >= UPLOADING) {
         showConfirmModal()
         setNewFile(acceptedFiles)
       } else {
@@ -79,7 +80,7 @@ export default class Upload extends Component {
       }
     }
 
-    const isUploadDisabled = (this.props.code > 1 || this.props.file === null || this.props.file.name === 'No file chosen' || this.props.errors.length !== 0) ? true : false
+    const isUploadDisabled = (this.props.code >= UPLOADING || this.props.file === null || this.props.file.name === 'No file chosen' || this.props.errors.length !== 0) ? true : false
 
     return (
       <div>

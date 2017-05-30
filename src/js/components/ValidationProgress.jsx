@@ -1,24 +1,25 @@
 import React, { PropTypes } from 'react'
+import * as STATUS from '../constants/statusCodes.js'
 
 const getIndicator = (code, type) => {
   let indicator = <span className="progress"></span>
 
   switch(type) {
     case 'upload':
-      if(code <= 2) indicator = <span className="progress progress-running"></span>
-      if(code >= 3) {
+      if(code <= STATUS.UPLOADING) indicator = <span className="progress progress-running"></span>
+      if(code >= STATUS.UPLOADED) {
         indicator = <span className="progress progress-success"></span>
       }
       break;
     case 'parse':
-      if(code === 4) indicator = <span className="progress progress-running"></span>
-      if(code === 5) indicator = <span className="progress progress-error"></span>
-      if(code >= 6) indicator = <span className="progress progress-success"></span>
+      if(code === STATUS.PARSING) indicator = <span className="progress progress-running"></span>
+      if(code === STATUS.PARSED_WITH_ERRORS) indicator = <span className="progress progress-error"></span>
+      if(code >= STATUS.PARSED) indicator = <span className="progress progress-success"></span>
       break;
     case 'validate':
-      if(code === 7) indicator = <span className="progress progress-running"></span>
-      if(code === 8) indicator = <span className="progress progress-error"></span>
-      if(code >= 9) indicator = <span className="progress progress-success"></span>
+      if(code === STATUS.VALIDATING) indicator = <span className="progress progress-running"></span>
+      if(code === STATUS.VALIDATED_WITH_ERRORS) indicator = <span className="progress progress-error"></span>
+      if(code >= STATUS.VALIDATED) indicator = <span className="progress progress-success"></span>
       break;
   }
 
@@ -26,24 +27,24 @@ const getIndicator = (code, type) => {
 }
 
 const getUploadStatus = (code) => {
-  if(code <= 2) return <li>{getIndicator(code, 'upload')} Uploading ...</li>
+  if(code <= STATUS.UPLOADING) return <li>{getIndicator(code, 'upload')} Uploading ...</li>
   return <li>{getIndicator(code, 'upload')} Upload complete</li>
 }
 
 const getParsingStatus = (code) => {
   let textClass = ''
-  if(code < 4) textClass = 'text-gray-light'
-  if(code <= 4) return <li className={textClass}>{getIndicator(code, 'parse')} Analyzing file format ...</li>
-  if(code === 5) return <li className={textClass}>{getIndicator(code, 'parse')} File format analysis complete with errors</li>
+  if(code < STATUS.PARSING) textClass = 'text-gray-light'
+  if(code <= STATUS.PARSING) return <li className={textClass}>{getIndicator(code, 'parse')} Analyzing file format ...</li>
+  if(code === STATUS.PARSED_WITH_ERRORS) return <li className={textClass}>{getIndicator(code, 'parse')} File format analysis complete with errors</li>
   return <li>{getIndicator(code, 'parse')} File format analysis complete</li>
 }
 
 const getValidationStatus = (code) => {
   let textClass = ''
 
-  if(code < 7) textClass = 'text-gray-light'
-  if(code === 5) return <li className={textClass}>{getIndicator(code, 'validate')} Edit verification process will not run due to parsing errors</li>
-  if(code <= 7) return <li className={textClass}>{getIndicator(code, 'validate')} Verifying edits ...</li>
+  if(code < STATUS.VALIDATING) textClass = 'text-gray-light'
+  if(code === STATUS.PARSED_WITH_ERRORS) return <li className={textClass}>{getIndicator(code, 'validate')} Edit verification process will not run due to parsing errors</li>
+  if(code <= STATUS.VALIDATING) return <li className={textClass}>{getIndicator(code, 'validate')} Verifying edits ...</li>
   return <li>{getIndicator(code, 'validate')} Edit verification complete</li>
 }
 

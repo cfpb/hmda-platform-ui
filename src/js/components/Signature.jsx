@@ -1,9 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import ErrorWarning from './ErrorWarning.jsx'
 import moment from 'moment'
+import {
+  VALIDATED_WITH_ERRORS,
+  SIGNED
+} from '../constants/statusCodes.js'
 
 const showReceipt = (code, timestamp, receipt) => {
-  if(code !== 10) return null;
+  if(code !== SIGNED) return null;
 
   return (
     <div className="usa-alert usa-alert-success">
@@ -16,7 +20,7 @@ const showReceipt = (code, timestamp, receipt) => {
 }
 
 const showWarning = (props) => {
-  if(!props.error && props.status.code > 8) return null
+  if(!props.error && props.status.code > VALIDATED_WITH_ERRORS) return null
 
   if(props.error) return (
     <ErrorWarning
@@ -36,16 +40,16 @@ const showWarning = (props) => {
 }
 
 const Signature = (props) => {
-  // if code greater than 8 (validated) and not 10 (signed), enable the checkbox
-  let isDisabled = (props.status.code > 8 && props.status.code !== 10) ? false : true
+  let isDisabled = (props.status.code > VALIDATED_WITH_ERRORS &&
+                    props.status.code !== SIGNED) ? false : true
 
   let buttonClass = 'usa-button-disabled'
   // if the checkbox is checked remove disabled from button
   if(props.checked) {
     buttonClass = ''
   }
-  // if code is 10 (signed), disable button again
-  if(props.status.code === 10) {
+  // if signed, disable button again
+  if(props.status.code === SIGNED) {
     buttonClass = 'usa-button-disabled'
   }
 
