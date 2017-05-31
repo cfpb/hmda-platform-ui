@@ -40,7 +40,7 @@ const Home = (props) => {
       <div className="Home" id="main-content">
         {renderHero}
         <div className="usa-grid">
-          <div className="usa-width-seven-twelfths">
+          <div className="usa-width-one-whole">
             <div className="faqs">
               <h2>Top FAQs</h2>
               <dl>
@@ -53,19 +53,6 @@ const Home = (props) => {
                 <dt>Is there another tool for me to confirm that my LAR is in the correct format?</dt>
                 <dd>Filers who wish to confirm that their LAR is formatted in the required pipe delimited text file format may use the <a href="https://github.com/cfpb/hmda-platform-tools">File Format Verification Tool</a>. This tool will conduct the same initial checks that the HMDA Platform performs, and provides a convenient test mechanism for filers.</dd>
               </dl>
-            </div>
-          </div>
-          <div className="usa-width-five-twelfths">
-            <div className="resources">
-              <h2>Resources</h2>
-
-              <ul>
-                <li><a href="http://www.consumerfinance.gov/eregulations/1003">1003 Regulation C - Home Mortgage Disclosure</a></li>
-                <li><a href="http://www.consumerfinance.gov/data-research/hmda/for-filers">Help preparing your HMDA filing</a></li>
-                <li><a href="https://github.com/cfpb/hmda-platform-tools">File Format Verification Tool</a></li>
-                <li><a href="https://www.ffiec.gov/hmda/">FFIEC - HMDA</a></li>
-                <li><a href="#">Modified LAR</a></li>
-              </ul>
             </div>
           </div>
         </div>

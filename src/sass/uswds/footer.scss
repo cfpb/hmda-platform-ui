@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  margin: 0 0 120px;
+  margin: 0 0 350px;
 }
 
 .usa-footer {
@@ -13,4 +13,11 @@ body {
   left: 0;
   bottom: 0;
   width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  .usa-footer-slim .usa-footer-primary-section {
+    padding-top: 2em;
+    padding-bottom: 2em;
+  }
 }
