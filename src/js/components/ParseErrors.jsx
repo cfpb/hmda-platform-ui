@@ -55,12 +55,13 @@ const renderLarErrors= (larErrors) => {
 }
 
 const ParseErrors = (props) => {
-  const errorText = props.total > 1 ? 'Rows' : 'Row'
+  const total = props.total + props.transmittalSheetErrors.length
+  const errorText = total > 1 ? 'Rows' : 'Row'
 
   return (
     <div className="ParseErrors usa-grid-full" id="parseErrors">
       <header>
-        {props.total === null ? null : <h2>{props.total} {errorText} with Formatting Errors</h2>}
+        {total === null ? null : <h2>{total} {errorText} with Formatting Errors</h2>}
         <p className="usa-font-lead">The uploaded file is not formatted according to the requirements specified in the <a target="_blank" href="https://www.consumerfinance.gov/data-research/hmda/static/for-filers/2017/2017-HMDA-FIG.pdf">Filing Instructions Guide for data collected in 2017</a>.</p>
       </header>
       {renderTSErrors(props.transmittalSheetErrors)}
@@ -71,6 +72,7 @@ const ParseErrors = (props) => {
 }
 
 ParseErrors.propTypes = {
+  total: PropTypes.number,
   transmittalSheetErrors: PropTypes.array,
   larErrors: PropTypes.array
 }
