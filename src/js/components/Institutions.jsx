@@ -202,6 +202,12 @@ export default class Institution extends Component {
               )
           })
         }
+
+        <div className="usa-alert usa-alert-info">
+          <div className="usa-alert-body">
+            <p className="usa-alert-text">If you are planning to file on behalf of more than one financial institution, contact <a href="mailto:hmdahelp@cfpb.gov">hmdahelp@cfpb.gov</a></p>
+          </div>
+        </div>
       </div>
       <div className="content usa-width-one-half">
         <p>The Institutions page provides a summary of institutions for which you are authorized to file HMDA data. The filing status is displayed under the institution name.</p>
