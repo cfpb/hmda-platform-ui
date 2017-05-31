@@ -67,7 +67,7 @@ export class SubmissionRouter extends Component {
   }
 
   render() {
-    if(!this.props.status || this.props.status.code === UNINITIALIZED) return null
+    if(this.props.status.code === UNINITIALIZED) return null
     if(!this.renderChildren) return null
     if(!this.props.params.splat) {
       setTimeout(()=>this.replaceHistory('upload'),0)
@@ -79,22 +79,14 @@ export class SubmissionRouter extends Component {
 }
 
 export function mapStateToProps(state, ownProps) {
-  const {
-    status
-  } = state.app.submission || {
-    status: null
-  }
+  const { status } = state.app.submission
 
-  const params = ownProps.params
+  const { params } = ownProps
 
   return {
     status,
     params
   }
-}
-
-SubmissionRouter.defaultProps = {
-  status: null
 }
 
 export default connect(mapStateToProps, dispatch => {return {dispatch}})(SubmissionRouter)

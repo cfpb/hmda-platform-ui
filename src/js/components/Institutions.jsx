@@ -214,11 +214,6 @@ export default class Institution extends Component {
   }
 }
 
-Institution.defaultProps = {
-  filings: [],
-  institutions: [],
-}
-
 Institution.propTypes = {
   params: PropTypes.object,
   filings: PropTypes.array,

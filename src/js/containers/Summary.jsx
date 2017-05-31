@@ -22,11 +22,7 @@ export function mapStateToProps(state) {
     isFetching,
     respondent,
     file
-  } = state.app.summary || {
-    isFetching: true,
-    respondent: {},
-    file: {}
-  }
+  } = state.app.summary
 
   return {
     isFetching,

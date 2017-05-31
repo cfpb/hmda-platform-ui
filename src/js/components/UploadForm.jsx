@@ -49,22 +49,9 @@ export const renderDropText = ({ code, errors, file }, dropzoneContent) => {
 export default class Upload extends Component {
   constructor(props) {
     super(props)
-  }
 
-  componentDidUpdate() {
-    renderDropText(this.props, this.dropzoneContent)
-  }
-
-  // keeps the info about the file after leaving /upload and coming back
-  componentDidMount() {
-    renderDropText(this.props, this.dropzoneContent)
-      if(this.props.code > UPLOADING) this.props.pollSubmission()
-  }
-
-  render() {
     // handle the onDrop to set the file and show confirmation modal
-    // function placed here to have access to this.props
-    const onDrop = (acceptedFiles) => {
+    this.onDrop = acceptedFiles => {
       const {
         code,
         showConfirmModal,
@@ -79,8 +66,20 @@ export default class Upload extends Component {
         setFile(acceptedFiles)
       }
     }
+  }
 
-    const isUploadDisabled = (this.props.code >= UPLOADING || this.props.file === null || this.props.file.name === 'No file chosen' || this.props.errors.length !== 0) ? true : false
+  componentDidUpdate() {
+    renderDropText(this.props, this.dropzoneContent)
+  }
+
+  // keeps the info about the file after leaving /upload and coming back
+  componentDidMount() {
+    renderDropText(this.props, this.dropzoneContent)
+      if(this.props.code > UPLOADING) this.props.pollSubmission()
+  }
+
+  render() {
+    const isUploadDisabled = (this.props.code >= UPLOADING || this.props.file === null || this.props.errors.length !== 0) ? true : false
 
     return (
       <div>
@@ -93,7 +92,7 @@ export default class Upload extends Component {
             <div className="container-upload">
               <Dropzone
                 disablePreview={true}
-                onDrop={onDrop}
+                onDrop={this.onDrop}
                 multiple={false}
                 className="dropzone">
                 <div
@@ -128,11 +127,4 @@ Upload.propTypes = {
   file: PropTypes.object,
   code: PropTypes.number,
   errors: PropTypes.array
-}
-
-Upload.defaultProps = {
-  file: {
-    name: 'No file chosen'
-  },
-  errors: []
 }

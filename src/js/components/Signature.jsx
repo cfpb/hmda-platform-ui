@@ -101,11 +101,4 @@ Signature.propTypes = {
   onSignatureCheck: PropTypes.func.isRequired
 }
 
-Signature.defaultProps = {
-  status: {
-    code: null
-  },
-  checked: null
-}
-
 export default Signature

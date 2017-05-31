@@ -25,12 +25,7 @@ export function mapStateToProps(state) {
     timestamp,
     receipt,
     checked
-  } = state.app.signature || {
-    isFetching: true,
-    timestamp: null,
-    receipt: null,
-    checked: false
-  }
+  } = state.app.signature
 
   const {
     status

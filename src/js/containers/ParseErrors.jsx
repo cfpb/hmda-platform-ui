@@ -22,17 +22,12 @@ function mapStateToProps(state) {
     isFetching,
     transmittalSheetErrors,
     larErrors
-  } = state.app.parseErrors || {
-    isFetching: true,
-    transmittalSheetErrors: [],
-    larErrors: []
-  }
+  } = state.app.parseErrors
 
   const {
     total
-  } = state.app.pagination.parseErrors || {
-    total: null
-  }
+  } = state.app.pagination.parseErrors
+
   return {
     isFetching,
     transmittalSheetErrors,
