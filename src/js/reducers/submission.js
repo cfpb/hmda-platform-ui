@@ -1,9 +1,10 @@
 import { RECEIVE_SUBMISSION,REQUEST_SUBMISSION,UPDATE_STATUS,REFRESH_STATE } from '../constants'
+import { UNINITIALIZED } from '../constants/statusCodes.js'
 
 const defaultSubmission = {
   id: null,
   status: {
-    code: 0,
+    code: UNINITIALIZED,
     message: ''
   },
   isFetching: false,
