@@ -1,0 +1,14 @@
+.BannerDeadline {
+  @include h5();
+  background-color: $color-primary-alt-lightest;
+  margin: 0;
+  padding: 1em 3rem;
+
+  &.warning {
+    background-color: $color-gold-lightest;
+  }
+
+  &.error {
+    background-color: $color-secondary-lightest;
+  }
+}

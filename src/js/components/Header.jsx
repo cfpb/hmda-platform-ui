@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { signinRedirect, logout } from '../utils/redirect.js'
 import BannerUSA from './BannerUSA.jsx'
+import BannerDeadline from '../containers/BannerDeadline.jsx'
 
 export const addActiveClass = (selected, current) => {
   if(selected === current) return 'active'
@@ -14,6 +15,7 @@ const Header = (props) => {
   return (
     <header className="Header usa-header usa-header-basic" id="header" role="banner">
       <BannerUSA />
+      <BannerDeadline />
       <div className="usa-nav-container">
         <div className="usa-logo" id="logo">
           <em className="usa-logo-text">
