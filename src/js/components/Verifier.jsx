@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { SIGNED } from '../constants/statusCodes.js'
 
 export const renderVerified = (verified, type) => {
   if(verified) {
@@ -15,7 +16,7 @@ export const renderVerified = (verified, type) => {
 }
 
 const Verifier = (props) => {
-  const disabled = props.code === 10 ? true : false
+  const disabled = props.code === SIGNED ? true : false
 
   return (
     <div className="Verifier">

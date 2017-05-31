@@ -2,6 +2,12 @@ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import RefileWarningComponent  from '../components/RefileWarning.jsx'
 import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
+import {
+  PARSED_WITH_ERRORS,
+  VALIDATING,
+  VALIDATED,
+  SIGNED
+} from '../constants/statusCodes.js'
 
 const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
@@ -34,11 +40,19 @@ export const getProgressWidth = (props) => {
   } = props
   let progressWidth = '10%'
 
-  if(code > 5) progressWidth = '30%'
-  if(code > 7 && !syntacticalValidityEditsExist) progressWidth = '50%'
-  if(!syntacticalValidityEditsExist && qualityVerified) progressWidth = '70%'
-  if(!syntacticalValidityEditsExist && qualityVerified && macroVerified) progressWidth = '90%'
-  if(code === 10) progressWidth = '100%'
+  if(code > PARSED_WITH_ERRORS) progressWidth = '30%'
+  if(code > VALIDATING){
+    if(!syntacticalValidityEditsExist){
+      progressWidth = '50%'
+      if(qualityVerified){
+        progressWidth = '70%'
+        if(macroVerified){
+          progressWidth = '90%'
+        }
+      }
+    }
+  }
+  if(code === SIGNED) progressWidth = '100%'
 
   return progressWidth
 }
@@ -55,9 +69,9 @@ export const renderLinkOrText = (props, name, i) => {
   } = props
 
   // only render link when code > 7 (so it's finished validating)
-  if(code > 7) {
+  if(code > VALIDATING) {
     toRender = <Link className="usa-nav-link"  to={`${base}/${navLinks[name]}`}>{name}</Link>
-    if(code < 9) {
+    if(code < VALIDATED) {
       if(syntacticalValidityEditsExist && navNames.indexOf(name) > 1) {
         toRender = <span>{name}</span>
       }
@@ -135,7 +149,7 @@ export default class EditsNav extends Component {
 
   render() {
     const wrapperHeight = {height: `${this.state.editsNavHeight}px`}
-    const fixedClass = this.state.fixed ? "EditsNav-fixed" : ''
+    const fixedClass = this.state.fixed ? 'EditsNav-fixed' : ''
     return (
       <div style={wrapperHeight}>
         <div className={`EditsNav ${fixedClass}`} id="editsNav">

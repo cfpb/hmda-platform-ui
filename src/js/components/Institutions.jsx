@@ -4,37 +4,36 @@ import LoadingIcon from './LoadingIcon.jsx'
 import ErrorWarning from './ErrorWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
+import * as STATUS from '../constants/statusCodes.js'
 
 export const renderStatus = (submissionStatus, start, end) => {
   if(!submissionStatus || !submissionStatus.code) return
 
+  const statusCode = submissionStatus.code
   let messageClass
   let timing = null
 
-  // submission created
-  if(submissionStatus.code === 1) {
+  if(statusCode === STATUS.CREATED) {
     messageClass = 'text-secondary'
   }
 
-  // any submission status but created or signed
-  if(submissionStatus.code > 1) {
+  if(statusCode > STATUS.CREATED) {
     messageClass = 'text-primary'
     if(start) timing = `Started ${moment(start).utcOffset(-5).fromNow()}`
   }
 
-  // if its parsed with errors or validated with errors
-  if(submissionStatus.code === 5 || submissionStatus.code === 8) {
-    messageClass = 'text-secondary'
+  if(statusCode === STATUS.PARSED_WITH_ERRORS ||
+     statusCode === STATUS.VALIDATED_WITH_ERRORS) {
+       messageClass = 'text-secondary'
   }
 
-  // signed (completed)
-  if(submissionStatus.code === 10) {
+  if(statusCode === STATUS.SIGNED) {
     messageClass = 'text-green'
     if(end) timing = `Completed ${moment(end).utcOffset(-5).format('MMMM Do')}`
   }
 
   // failed submission
-  if(submissionStatus.code === -1) {
+  if(statusCode === STATUS.FAILED) {
     messageClass = 'text-secondary'
     if(start) timing = `Submission failed ${moment(start).utcOffset(-5).fromNow()}`
   }
@@ -77,7 +76,8 @@ export const renderViewButton = (code, institutionId, period) => {
 
 export const renderRefileButton = (latestSubmissionStatus, filing) => {
   if(!latestSubmissionStatus) return null
-  if(latestSubmissionStatus.code === 5 || latestSubmissionStatus.code > 7) {
+  if(latestSubmissionStatus.code === STATUS.PARSED_WITH_ERRORS ||
+     latestSubmissionStatus.code > STATUS.VALIDATING) {
     return <RefileButton
             id={filing.institutionId}
             filing={filing.period}
@@ -101,10 +101,10 @@ export const renderPreviousSubmissions = (submissions, onDownloadClick, institut
     <ol reversed className="usa-text-small">
       {previousSubmissions.map((submission, i) => {
         // render the end date if it was signed
-        const date = (submission.status.code === 11) ? moment(submission.end).utcOffset(-5).format('MMMM Do, YYYY') : moment(submission.start).utcOffset(-5).format('MMMM Do, YYYY')
+        const date = (submission.status.code === STATUS.SIGNED) ? moment(submission.end).utcOffset(-5).format('MMMM Do, YYYY') : moment(submission.start).utcOffset(-5).format('MMMM Do, YYYY')
 
         // render a link if validted with errors
-        if(submission.status.code === 8) {
+        if(submission.status.code === STATUS.VALIDATED_WITH_ERRORS) {
           return (
             <li className="edit-report" key={i}>
                <strong>{submission.status.message}</strong> on {date}.{'\u00a0'}
@@ -212,11 +212,6 @@ export default class Institution extends Component {
     </div>
     )
   }
-}
-
-Institution.defaultProps = {
-  filings: [],
-  institutions: [],
 }
 
 Institution.propTypes = {

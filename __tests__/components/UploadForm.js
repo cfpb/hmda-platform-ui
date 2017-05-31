@@ -64,6 +64,7 @@ describe('submitform', function(){
           setFile={setFile}
           uploading={true}
           file={{size:200}}
+          errors={[]}
         />
       </Wrapper>, node)
   const form2Node = ReactDOM.findDOMNode(form2)

@@ -1,15 +1,16 @@
 import React from 'react'
+import { VALIDATING, SIGNED } from '../constants/statusCodes.js'
 
 export const getStatus = (code) => {
   let status
   let appendComplete = null
 
-  if(code > 7) {
+  if(code > VALIDATING) {
     status = 'is in progress'
-    if(code === 10) status = 'has already been submitted'
+    if(code === SIGNED) status = 'has already been submitted'
   }
 
-  if(code === 10) {
+  if(code === SIGNED) {
     appendComplete = ' and your new HMDA file will not be submitted until you clear and/or verify all edits and submit the data'
   }
 

@@ -27,20 +27,11 @@ export function mapStateToProps(state) {
     isFetching,
     msas,
     summary
-  } = state.app.irs || {
-    isFetching: true,
-    msas: [],
-    summary: {}
-  }
+  } = state.app.irs
 
   const {
     status
-  } = state.app.submission || {
-    status: {
-      code: 10,
-      message: ''
-    }
-  }
+  } = state.app.submission
 
   return {
     isFetching,

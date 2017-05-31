@@ -25,21 +25,11 @@ export function mapStateToProps(state) {
     timestamp,
     receipt,
     checked
-  } = state.app.signature || {
-    isFetching: true,
-    timestamp: null,
-    receipt: null,
-    checked: false
-  }
+  } = state.app.signature
 
   const {
     status
-  } = state.app.submission || {
-    status: {
-      code: 12,
-      message: ''
-    }
-  }
+  } = state.app.submission
 
   const error = state.app.error
 

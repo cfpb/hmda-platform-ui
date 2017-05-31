@@ -14,8 +14,4 @@ EditsTableCell.propTypes = {
   ])
 }
 
-EditsTableCell.defaultProps = {
-  cell: ''
-}
-
 export default EditsTableCell
