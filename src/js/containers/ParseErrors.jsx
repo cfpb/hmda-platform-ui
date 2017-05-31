@@ -31,7 +31,7 @@ function mapStateToProps(state) {
   const {
     total
   } = state.app.pagination.parseErrors || {
-    total: null
+    total: 0
   }
   return {
     isFetching,

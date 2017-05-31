@@ -43,7 +43,7 @@ export function mapDispatchToProps(dispatch) {
   }
 
   const triggerRefile = (id, period, page = '', file) => {
-    if(page === 'upload') {
+    if(page === 'upload' && file) {
       dispatch(createNewSubmission(id, period))
       dispatch(selectFile(file))
       return Promise.resolve()
