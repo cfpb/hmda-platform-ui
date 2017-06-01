@@ -12,11 +12,7 @@ export function mapStateToProps(state) {
     uploading,
     file,
     errors
-  } = state.app.upload || {
-    uploading: false,
-    file: null,
-    errors: []
-  }
+  } = state.app.upload
 
   const code = state.app.submission.status.code
 

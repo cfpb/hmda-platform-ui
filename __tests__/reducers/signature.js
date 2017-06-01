@@ -7,10 +7,6 @@ const defaultSignature = {
   isFetching: false,
   timestamp: null,
   receipt: null,
-  status: {
-    code: 0,
-    message: ''
-  },
   checked: false
 }
 

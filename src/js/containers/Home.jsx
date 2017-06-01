@@ -16,7 +16,7 @@ export class HomeContainer extends Component {
 
 export function mapStateToProps(state) {
   return {
-    user: state.oidc.user || { profile: { name: null } },
+    user: state.oidc.user,
     filingPeriod: state.app.filingPeriod
   }
 }

@@ -51,9 +51,4 @@ ModalConfirm.propTypes = {
   newFile: React.PropTypes.object
 }
 
-ModalConfirm.defaultProps = {
-  showing: false,
-  code: 0
-}
-
 export default ModalConfirm

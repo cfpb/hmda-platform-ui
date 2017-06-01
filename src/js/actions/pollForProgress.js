@@ -3,6 +3,7 @@ import receiveSubmission from './receiveSubmission.js'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
 import { getLatestSubmission } from '../api/api.js'
+import { PARSED_WITH_ERRORS, VALIDATED_WITH_ERRORS } from '../constants/statusCodes.js'
 
 export default function pollForProgress(polling) {
   const poller = dispatch => {
@@ -14,8 +15,9 @@ export default function pollForProgress(polling) {
         return dispatch(receiveSubmission(json))
       })
       .then(json => {
-        if(json.status.code < 8 && json.status.code !== 5){
-          setTimeout(() => poller(dispatch), 1000)
+        if(json.status.code < VALIDATED_WITH_ERRORS &&
+           json.status.code !== PARSED_WITH_ERRORS){
+             setTimeout(() => poller(dispatch), 1000)
         } else {
           return dispatch(fetchEdits())
         }

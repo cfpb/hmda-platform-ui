@@ -3,6 +3,11 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import SubmissionContainer from './Submission.jsx'
 import fetchSubmission from '../actions/fetchSubmission.js'
+import {
+  UNINITIALIZED,
+  VALIDATED_WITH_ERRORS,
+  FAILED
+} from '../constants/statusCodes.js'
 
 const editTypes = ['syntacticalvalidity', 'quality', 'macro']
 
@@ -13,7 +18,7 @@ export class SubmissionRouter extends Component {
 
   componentDidMount() {
     this.renderChildren = false
-    if(!this.props.status || this.props.status.code === 0) {
+    if(!this.props.status || this.props.status.code === UNINITIALIZED) {
       this.props.dispatch(fetchSubmission())
         .then((json) => {
           this.route()
@@ -39,9 +44,8 @@ export class SubmissionRouter extends Component {
     const splat = this.props.params.splat
 
     this.renderChildren = true
-  // status codes can be found at https://github.com/cfpb/hmda-platform/blob/master/Documents/submission-status.md
 
-    if(code === -1){
+    if(code === FAILED){
       return (
       <div className="SubmissionContainer">
         <p>{status.message}</p>
@@ -49,9 +53,9 @@ export class SubmissionRouter extends Component {
       )
     }
 
-    if(code < 8 || splat === 'upload' ) return this.replaceHistory('upload')
+    if(code < VALIDATED_WITH_ERRORS || splat === 'upload' ) return this.replaceHistory('upload')
 
-    if(code === 8) {
+    if(code === VALIDATED_WITH_ERRORS) {
       if(editTypes.includes(splat)) {
         return this.forceUpdate()
       }
@@ -63,7 +67,7 @@ export class SubmissionRouter extends Component {
   }
 
   render() {
-    if(!this.props.status || this.props.status.code === 0) return null
+    if(this.props.status.code === UNINITIALIZED) return null
     if(!this.renderChildren) return null
     if(!this.props.params.splat) {
       setTimeout(()=>this.replaceHistory('upload'),0)
@@ -75,22 +79,14 @@ export class SubmissionRouter extends Component {
 }
 
 export function mapStateToProps(state, ownProps) {
-  const {
-    status
-  } = state.app.submission || {
-    status: null
-  }
+  const { status } = state.app.submission
 
-  const params = ownProps.params
+  const { params } = ownProps
 
   return {
     status,
     params
   }
-}
-
-SubmissionRouter.defaultProps = {
-  status: null
 }
 
 export default connect(mapStateToProps, dispatch => {return {dispatch}})(SubmissionRouter)

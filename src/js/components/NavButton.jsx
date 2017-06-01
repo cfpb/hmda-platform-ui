@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
+import { VALIDATED_WITH_ERRORS } from '../constants/statusCodes.js'
 
 const NavButton = (props) => {
   const {
@@ -17,19 +18,19 @@ const NavButton = (props) => {
   switch (page) {
     case 'upload':
       suffix = 'syntacticalvalidity'
-      if(code < 8) className = 'usa-button-disabled'
+      if(code < VALIDATED_WITH_ERRORS) className = 'usa-button-disabled'
       break
     case 'syntacticalvalidity':
       suffix = 'quality'
-      if(code < 8 || syntacticalValidityEditsExist) className = 'usa-button-disabled'
+      if(code < VALIDATED_WITH_ERRORS || syntacticalValidityEditsExist) className = 'usa-button-disabled'
       break
     case 'quality':
       suffix = 'macro'
-      if(code < 8 || syntacticalValidityEditsExist || !qualityVerified) className = 'usa-button-disabled'
+      if(code < VALIDATED_WITH_ERRORS || syntacticalValidityEditsExist || !qualityVerified) className = 'usa-button-disabled'
       break
     case 'macro':
       suffix = 'confirmation'
-      if(code < 8 || syntacticalValidityEditsExist || !qualityVerified || !macroVerified) className = 'usa-button-disabled'
+      if(code < VALIDATED_WITH_ERRORS || syntacticalValidityEditsExist || !qualityVerified || !macroVerified) className = 'usa-button-disabled'
       break
     default:
       return null
