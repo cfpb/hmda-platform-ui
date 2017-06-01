@@ -1,5 +1,6 @@
 jest.unmock('../../src/js/components/Header.jsx')
 jest.mock('oidc-client')
+jest.mock('../../src/js/containers/BannerDeadline.jsx', () => jest.fn(() => null))
 
 import Header, { addActiveClass } from '../../src/js/components/Header.jsx'
 import Wrapper from '../Wrapper.js'
