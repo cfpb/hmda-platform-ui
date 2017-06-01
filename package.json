@@ -52,7 +52,7 @@
     "jest-cli": "18.1.0",
     "minifyify": "7.3.4",
     "mkdirp": "0.5.1",
-    "node-sass": "3.13.0",
+    "node-sass": "^4.5.3",
     "nodemon": "1.11.0",
     "react-addons-test-utils": "15.4.0",
     "react-dom": "15.4.0",
