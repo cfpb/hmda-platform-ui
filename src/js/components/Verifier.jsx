@@ -16,31 +16,39 @@ export const renderVerified = (verified, type) => {
 }
 
 const Verifier = (props) => {
-  const disabled = props.code === SIGNED || props.noEditsExist ? true : false
-  const verifyMessage = 'All data are accurate, no corrections required. I have verified the accuracy of all data fields referenced by the ${props.type} edits.'
-  const noEditMessage = 'No ${props.type} edits present. No verification required.'
+  const disabled = props.code === SIGNED ? true : false
 
   return (
     <div className="Verifier">
       <hr />
-      <h2>Verify {props.type} edits</h2>
-      <p className="usa-font-lead">In order to continue you must verify all {props.type} edits.</p>
-      <ul className="usa-unstyled-list">
-        <li>
-          <input id={`${props.type}Verifier`}
-            name={`${props.type}Verifier`}
-            type="checkbox"
-            checked={props.noEditsExist || props.verified}
-            disabled={disabled}
-            onChange={e => {
-              props.onVerify(e.target.checked)
-            }}/>
-          <label htmlFor={`${props.type}Verifier`} className="max-width-100">
-            {props.noEditsExist ? noEditMessage : verifyMessage}
-          </label>
-        </li>
-      </ul>
-      {renderVerified(props.verified, props.type)}
+      {props.noEditsExist
+      ?
+       <div>
+         <h2>No verification required</h2>
+         <p className="usa-font-lead">No {props.type} edits were found. You may continue on to the next section.</p>
+       </div>
+      :
+        <div>
+          <h2>Verify {props.type} edits</h2>
+          <p className="usa-font-lead">In order to continue you must verify all {props.type} edits.</p>
+          <ul className="usa-unstyled-list">
+            <li>
+              <input id={`${props.type}Verifier`}
+                name={`${props.type}Verifier`}
+                type="checkbox"
+                checked={props.noEditsExist || props.verified}
+                disabled={disabled}
+                onChange={e => {
+                  props.onVerify(e.target.checked)
+                }}/>
+              <label htmlFor={`${props.type}Verifier`} className="max-width-100">
+                All data are accurate, no corrections required. I have verified the accuracy of all data fields referenced by the {props.type} edits.
+              </label>
+            </li>
+          </ul>
+          {renderVerified(props.verified, props.type)}
+          </div>
+      }
     </div>
   )
 }
