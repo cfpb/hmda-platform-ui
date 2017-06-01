@@ -16,7 +16,7 @@
     "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html && html-minifier --collapse-whitespace ./src/silent_renew.html -o ./dist/silent_renew.html",
     "img": "imagemin ./src/img/* -o ./dist/img && cp -r ./node_modules/uswds/dist/img ./dist",
     "env": "./env.sh",
-    "postinstall": "npm run clean && npm run build && npm run renew",
+    "postinstall": "npm run clean && npm rebuild node-sass && npm run build && npm run renew",
     "watch:js": "nodemon --exitcrash -e js,jsx -w src/js -i src/js/utils/silent_renew.js -x 'npm run js'",
     "watch:renew": "nodemon --exitcrash -w src/js/silent_renew.js -x 'npm run renew'",
     "watch:tests": "nodemon --exitcrash -e js -w __tests__ -x 'jest --coverage -o'",
