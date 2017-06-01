@@ -7,7 +7,7 @@ export const withinAWeekOfDeadline = (today, filingPeriod) => {
     return false
   }
 
-  if(moment(today).isBetween(`${filingPeriod}-${dates.ONE_WEEK}`, `${filingPeriod}-${dates.DEADLINE}`, 'day', '[]')) {
+  if(moment(today).isBetween(`${filingPeriod}-${dates.ONE_WEEK_TO_FILE}`, `${filingPeriod}-${dates.FILING_DEADLINE}`, 'day', '[]')) {
     return true
   }
   return false
@@ -17,7 +17,7 @@ const BannerDeadline = (props) => {
   const today = moment().format('YYYY-MM-DD')
 
   // render if within the filing period (1/1/<filingPeriod> to 3/1/<filingPeriod>)
-  if(moment(today).isBetween(`${props.filingPeriod}-${dates.START}`, `${props.filingPeriod}-${dates.DEADLINE}`, 'day', '[]')) {
+  if(moment(today).isBetween(`${props.filingPeriod}-${dates.FILING_START}`, `${props.filingPeriod}-${dates.FILING_DEADLINE}`, 'day', '[]')) {
 
     let alertClass = 'usa-alert-info'
     // warn if its within a week of the deadline
