@@ -14,7 +14,8 @@ const defaultQuality = {
     edits: {
       types: {
         quality: {
-          verified:true
+          verified:true,
+          edits: []
         }
       }
     },
@@ -30,7 +31,8 @@ const defaultMacro = {
     edits: {
       types: {
         macro: {
-          verified:true
+          verified:true,
+          edits: []
         }
       }
     },
@@ -51,6 +53,7 @@ describe('Verifier Container', () => {
         type='quality'
         verified={true}
         onVerify={jest.fn()}
+        noEditsExist={true}
       />
     )
 
@@ -62,20 +65,20 @@ describe('Verifier Container', () => {
     )
 
     expect(rendered).toBeDefined()
-    expect(console.error).toHaveBeenCalledTimes(6)
+    expect(console.error).toHaveBeenCalledTimes(7)
     console.error = err
   })
 
   it('maps state to props with proper defaults for quality', () => {
-    expect(mapStateToProps(defaultQuality, {type: 'quality'})).toEqual({type: 'quality', verified: true, code: 1})
+    expect(mapStateToProps(defaultQuality, {type: 'quality'})).toEqual({noEditsExist: true, type: 'quality', verified: true, code: 1})
   })
 
   it('maps state to props with proper defaults for macro', () => {
-    expect(mapStateToProps(defaultMacro, {type: 'macro'})).toEqual({type: 'macro', verified: true, code: 1})
+    expect(mapStateToProps(defaultMacro, {type: 'macro'})).toEqual({noEditsExist: true, type: 'macro', verified: true, code: 1})
   })
 
-  it('sets verified to false if no edit types are present', () => {
-    expect(mapStateToProps({app:{edits:{}, submission: { status: {}}}}, {type: 'macro'})).toEqual({type: 'macro', verified:false})
+  it('sets noEditsExist to false if edits exist', () => {
+    expect(mapStateToProps({app:{edits:{types:{macro:{edits: ['a']}}}, submission: { status: {}}}}, {type: 'macro'})).toEqual({noEditsExist: false, type: 'macro', verified:false, code: undefined})
   })
 
   it('maps dispatch appropriately', () => {

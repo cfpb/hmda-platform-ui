@@ -48,6 +48,12 @@ describe('renderTables', () => {
     expect(rendered.props.className).toBe('usa-alert usa-alert-success')
   })
 
+  it('render the success message with verification note if NO edits and q/m', () => {
+    const rendered = renderTables({}, [], 'quality')
+    expect(rendered.props.className).toBe('usa-alert usa-alert-success')
+    expect(rendered.props.children.props.children.props.children[3]).toBe(', no verification is required.')
+  })
+
   it('render the tables with edits (syntactical)', () => {
     const rendered = renderTables({}, types.syntactical.edits, 'syntactical')
     expect(rendered.length).toBe(2)
