@@ -12,7 +12,7 @@ const getUserManager = () => {
 
 const signinRedirect = () => {
   if(!userManager) return console.error('userManager needs to be set on app initialization')
-  console.log('signinRedirect triggered, saving page:', location.pathname)
+  if(process.env.NODE_ENV !== 'production') console.log('signinRedirect triggered, saving page:', location.pathname)
   localStorage.setItem('hmdaPageBeforeSignin', location.pathname)
   userManager.signinRedirect()
 }
@@ -21,7 +21,7 @@ const signinRedirect = () => {
 const restorePage = () => {
   const restored = localStorage.getItem('hmdaPageBeforeSignin')
   localStorage.removeItem('hmdaPageBeforeSignin')
-  console.log('restoring page to', restored)
+  if(process.env.NODE_ENV !== 'production') console.log('restoring page to', restored)
   browserHistory.replace(restored)
 }
 

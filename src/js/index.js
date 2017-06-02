@@ -29,13 +29,18 @@ fetch('/env.json').then(res => {
   window.HMDA_ENV = {}
   Object.keys(envJson).forEach(key => window.HMDA_ENV[key] = envJson[key])
 
-  oidc.Log.logger = console
   const userManager = UserManager()
   setUserManager(userManager)
   window.userManager = userManager
-  console.log(userManager, userManager.getUser)
+
   const oidcMiddleware = createOidcMiddleware(userManager, () => true, false, '/oidc-callback')
   const loggerMiddleware = createLogger({collapsed: true})
+  const middleware = [thunkMiddleware, oidcMiddleware]
+
+  if(process.env.NODE_ENV !== 'production'){
+    oidc.Log.logger = console
+    middleware.push(loggerMiddleware)
+  }
 
   const store = createStore(
     combineReducers(
@@ -45,14 +50,16 @@ fetch('/env.json').then(res => {
         oidc: reducer
       }
     ),
-    applyMiddleware(thunkMiddleware, oidcMiddleware, loggerMiddleware)
+    applyMiddleware(...middleware)
   )
 
   const history = syncHistoryWithStore(browserHistory, store)
 
   history.listen((location) => {
-    console.log(JSON.parse(localStorage.getItem('hmdaHistory')))
-    console.log(`The current URL is ${location.pathname}${location.search}${location.hash}`)
+    if(process.env.NODE_ENV !== 'production'){
+      console.log(JSON.parse(localStorage.getItem('hmdaHistory')))
+      console.log(`The current URL is ${location.pathname}${location.search}${location.hash}`)
+    }
     localStorage.setItem('hmdaHistory', JSON.stringify(location))
   })
 
