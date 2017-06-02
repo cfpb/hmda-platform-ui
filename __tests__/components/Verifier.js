@@ -94,5 +94,6 @@ describe('Verifier component', () => {
 
     const input = TestUtils.scryRenderedDOMComponentsWithTag(verifier, 'input')
     expect(input.length).toBe(0)
+    expect(verifier.props.children.key).toBe(null)
   })
 })
