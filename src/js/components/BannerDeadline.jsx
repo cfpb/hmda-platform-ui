@@ -13,22 +13,28 @@ export const withinAWeekOfDeadline = (today, filingPeriod) => {
   return false
 }
 
+export const getClass = (today, year) => {
+  let alertClass = 'usa-alert-info'
+  // warn if its within a week of the deadline
+  if(withinAWeekOfDeadline(today, year)) {
+    alertClass = 'usa-alert-warning'
+  }
+
+  return alertClass
+}
+
 const BannerDeadline = (props) => {
   const today = moment().format('YYYY-MM-DD')
+  // filing in year after the filing period
+  // eg, filing in 2018 for 2017
+  const filingPeriodPlusOne = parseInt(props.filingPeriod, 10)+1
 
   // render if within the filing period (1/1/<filingPeriod> to 3/1/<filingPeriod>)
-  if(moment(today).isBetween(`${props.filingPeriod}-${dates.FILING_START}`, `${props.filingPeriod}-${dates.FILING_DEADLINE}`, 'day', '[]')) {
-
-    let alertClass = 'usa-alert-info'
-    // warn if its within a week of the deadline
-    if(withinAWeekOfDeadline(today, props.filingPeriod)) {
-      alertClass = 'usa-alert-warning'
-    }
-
+  if(moment(today).isBetween(`${filingPeriodPlusOne}-${dates.FILING_START}`, `${filingPeriodPlusOne}-${dates.FILING_DEADLINE}`, 'day', '[]')) {
     return (
-      <div className={`BannerDeadline usa-alert ${alertClass}`}>
+      <div className={`BannerDeadline usa-alert ${getClass(today, filingPeriodPlusOne)}`}>
         <div className="usa-alert-body">
-          <p className="usa-alert-text">March 1st, {parseInt(props.filingPeriod, 10)+1} is the deadline to submit HMDA data for the {props.filingPeriod} filing period.</p>
+          <p className="usa-alert-text">March 1st, {filingPeriodPlusOne} is the deadline to submit HMDA data for the {props.filingPeriod} filing period.</p>
         </div>
       </div>
     )

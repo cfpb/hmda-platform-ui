@@ -5,7 +5,8 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 import Wrapper from '../Wrapper.js'
 import BannerDeadline, {
-  withinAWeekOfDeadline
+  withinAWeekOfDeadline,
+  getClass
 } from '../../src/js/components/BannerDeadline.jsx'
 
 describe('BannerDeadline', function() {
@@ -53,5 +54,27 @@ describe('withinAWeekOfDeadline', () => {
 
   it('LEAP YEAR', () => {
     expect(withinAWeekOfDeadline('2017-03-02', '2017')).toBeFalsy()
+  })
+})
+
+describe('getClass', () => {
+  it('returns alert-warning', () => {
+    expect(getClass('2017-02-21', '2017')).toBe('usa-alert-warning')
+  })
+  it('returns alert-warning', () => {
+    expect(getClass('2017-03-01', '2017')).toBe('usa-alert-warning')
+  })
+  it('returns alert-warning', () => {
+    expect(getClass('2017-02-28', '2017')).toBe('usa-alert-warning')
+  })
+  it('returns alert-info', () => {
+    expect(getClass('2017-02-20', '2017')).toBe('usa-alert-info')
+  })
+  it('returns alert-info', () => {
+    expect(getClass('2017-03-02', '2017')).toBe('usa-alert-info')
+  })
+
+  it('LEAP YEAR', () => {
+    expect(getClass('2017-03-02', '2017')).toBe('usa-alert-info')
   })
 })
