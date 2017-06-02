@@ -15,6 +15,7 @@ describe('Verifier component', () => {
         onVerify={onVerify}
         type='macro'
         code={1}
+        noEditsExist={false}
       />
     </Wrapper>
   )
@@ -62,7 +63,7 @@ describe('Verifier component', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithTag(verifier, 'h2')[0].textContent).toEqual('Verify quality edits')
   })
 
-  it('does renders as disabled after signature', () => {
+  it('renders as disabled after signature', () => {
     const verifier = TestUtils.renderIntoDocument(
       <Wrapper>
         <Verifier
@@ -76,5 +77,23 @@ describe('Verifier component', () => {
 
     const input = TestUtils.findRenderedDOMComponentWithTag(verifier, 'input')
     expect(ReactDOM.findDOMNode(input).hasAttribute('disabled')).toBe(true)
+  })
+
+  it('renders the no verification message without edits', () => {
+    const verifier = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <Verifier
+          verified={false}
+          onVerify={onVerify}
+          type='quality'
+          code={10}
+          noEditsExist={true}
+        />
+      </Wrapper>
+    )
+
+    const input = TestUtils.scryRenderedDOMComponentsWithTag(verifier, 'input')
+    expect(input.length).toBe(0)
+    expect(verifier.props.children.key).toBe(null)
   })
 })

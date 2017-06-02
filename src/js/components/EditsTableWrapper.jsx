@@ -18,10 +18,11 @@ export const makeEntry = (props, type) => {
 
 export const renderTables = (props, edits, type) => {
   if(edits.length === 0) {
+    const verificationMsg = (type === 'quality' || type === 'macro') ? ', no verification is required.' : '.'
     return (
       <div className="usa-alert usa-alert-success">
         <div className="usa-alert-body">
-          <p className="usa-alert-text">Your data did not trigger any <strong>{type}</strong> edits.</p>
+          <p className="usa-alert-text">Your data did not trigger any <strong>{type}</strong> edits{verificationMsg}</p>
         </div>
       </div>
     )

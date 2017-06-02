@@ -7,7 +7,6 @@ import { restorePage } from '../utils/redirect'
 export class oidcCallback extends React.Component {
 
   successCallback(user) {
-    console.log('success from oidccb', user)
     set(user.access_token)
     restorePage()
   }

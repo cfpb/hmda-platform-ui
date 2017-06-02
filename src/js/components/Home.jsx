@@ -33,7 +33,7 @@ const renderLoggedOutHero = () => {
 }
 
 const Home = (props) => {
-  const renderHero = props.user.profile.name ? renderLoggedInHero() : renderLoggedOutHero()
+  const renderHero = (props.user && props.user.profile.name) ? renderLoggedInHero() : renderLoggedOutHero()
 
   return (
     <div>

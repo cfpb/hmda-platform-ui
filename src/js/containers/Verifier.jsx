@@ -20,15 +20,18 @@ function mapStateToProps(state, ownProps) {
 
   const type = ownProps.type
 
-  const verified = types && types[type].verified !== undefined
-    ? (types[type].verified || types[type].edits.length === 0)
+  const verified = types[type].verified !== undefined
+    ? types[type].verified
     : false
+
+  const noEditsExist = !types[type].edits.length
 
   const code = state.app.submission.status.code
 
   return {
     type,
     verified,
+    noEditsExist,
     code
   }
 }
@@ -43,6 +46,7 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 VerifierContainer.propTypes = {
   verified: React.PropTypes.bool.isRequired,
+  noEditsExist: React.PropTypes.bool.isRequired,
   type: React.PropTypes.string.isRequired,
   onVerify: React.PropTypes.func.isRequired
 }
