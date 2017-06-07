@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import fetchParseErrors from '../actions/fetchParseErrors.js'
 import ParseErrors from '../components/ParseErrors.jsx'
 
-class ParseErrorsContainer extends Component {
+export class ParseErrorsContainer extends Component {
   constructor(props) {
     super(props)
   }
@@ -17,16 +17,16 @@ class ParseErrorsContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const {
     isFetching,
     transmittalSheetErrors,
     larErrors
   } = state.app.parseErrors
 
-  const {
-    total
-  } = state.app.pagination.parseErrors
+  const total = state.app.pagination.parseErrors ?
+    state.app.pagination.parseErrors.total :
+    null
 
   return {
     isFetching,
