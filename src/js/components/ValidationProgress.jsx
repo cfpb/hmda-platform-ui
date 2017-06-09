@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as STATUS from '../constants/statusCodes.js'
 
-const getFill = props => {
+export const getFill = props => {
   let fillWidth = 0
   let className = 'progressFill'
 
@@ -16,7 +16,7 @@ const getFill = props => {
   return <div className={className} style={{width:fillWidth+'%'}}></div>
 }
 
-const getText = props => {
+export const getText = props => {
   let text = 'Uploading...'
   if(props.code >= STATUS.PARSING) text = 'Analyzing file format...'
   if(props.code === STATUS.PARSED_WITH_ERRORS) text = 'Invalid file format'
@@ -31,7 +31,7 @@ const getText = props => {
   )
 }
 
-const getIndicator = props => {
+export const getIndicator = props => {
   let className = 'progressIndicator'
   if(props.code === STATUS.PARSED_WITH_ERRORS) className += ' error'
   else if(props.code > STATUS.VALIDATING) className += ' complete'
