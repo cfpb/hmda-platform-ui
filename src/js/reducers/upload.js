@@ -1,7 +1,8 @@
-import { SELECT_FILE,SELECT_NEW_FILE,UPLOAD_START,UPLOAD_COMPLETE,REFRESH_STATE } from '../constants'
+import { SELECT_FILE,SELECT_NEW_FILE,UPLOAD_START,UPLOAD_PROGRESS,UPLOAD_COMPLETE,REFRESH_STATE } from '../constants'
 
 const defaultUpload = {
   uploading: false,
+  percentUploaded: 0,
   file: null,
   newFile: null,
   errors: []
@@ -28,10 +29,17 @@ export default (state = defaultUpload, action) => {
       ...state,
       uploading: true
     }
+  case UPLOAD_PROGRESS:
+    if(!state.uploading) return state
+    return {
+      ...state,
+      percentUploaded: action.percentUploaded
+    }
   case UPLOAD_COMPLETE:
     return {
       ...state,
-      uploading: false
+      uploading: false,
+      percentUploaded: 100
     }
   case REFRESH_STATE:
     return defaultUpload

@@ -1,33 +1,19 @@
 .ValidationProgress {
-  border-top: 1px solid $color-gray-lightest;
-  margin-top: 1em;
   padding-top: 1em;
   .usa-button {
     margin-top: .5em;
   }
-  .usa-unstyled-list>li {
-    margin-bottom: .5em;
+
+  .progressTotal {
+    background-color: $color-gray-lightest;
+    width: 100%;
+    height: 0.2em;
   }
 
-  // circles as indicators
-  .progress {
-    background-color: $color-gray-light;
-    border-radius: 50%;
-    display: inline-block;
-    height: 10px;
-    margin-right: .25em;
-    width: 10px;
-
-    &.progress-running {
-      background-color: $color-gold-light;
-    }
-
-    &.progress-success {
-      background-color: $color-green;
-    }
-
-    &.progress-error {
-      background-color: $color-secondary;
-    }
+  .progressFill {
+    background-color: $color-primary;
+    height: 1em;
+    margin-top: -0.6em;
+    transition: width 0.3s;
   }
 }
