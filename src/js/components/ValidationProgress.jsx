@@ -20,12 +20,16 @@ export const getText = props => {
   let text = 'Uploading...'
   if(props.code >= STATUS.PARSING) text = 'Analyzing file format...'
   if(props.code === STATUS.PARSED_WITH_ERRORS) text = 'Invalid file format'
-  if(props.code === STATUS.VALIDATING) text = 'Verifying edits...'
-  if(props.code > STATUS.VALIDATING) text = 'Edit verification complete'
+  if(props.code === STATUS.VALIDATING) text = 'Validating edits...'
+  if(props.code > STATUS.VALIDATING) text = 'Edit validation complete'
 
   return (
     <div className="progressText">
       <span>{text}</span>
+      {props.code === STATUS.VALIDATED_WITH_ERRORS ?
+        <strong>Edits found, review required.</strong> :
+        null
+      }
       {getIndicator(props)}
     </div>
   )
