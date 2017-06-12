@@ -27,20 +27,13 @@ function mapDispatchToProps(dispatch, ownProps) {
     },
     getNextPage: (pagination) => {
       if(!pagination) return
-      scrollToTarget(ownProps.target)
       dispatch(fetchPage(ownProps.target, makePathname(pagination, pagination._links.next)))
     },
     getPreviousPage: (pagination) => {
       if(!pagination) return
-      scrollToTarget(ownProps.target)
       dispatch(fetchPage(ownProps.target, makePathname(pagination, pagination._links.prev)))
     }
   }
-}
-
-function scrollToTarget(target) {
-  const top = document.getElementById(target).offsetTop
-  window.scrollTo(0, top)
 }
 
 function makePathname(pagination, querystring) {
@@ -53,6 +46,5 @@ export {
   PaginationContainer,
   mapStateToProps,
   mapDispatchToProps,
-  makePathname,
-  scrollToTarget
+  makePathname
 }

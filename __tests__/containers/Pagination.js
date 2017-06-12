@@ -7,8 +7,7 @@ import Connected, {
   PaginationContainer,
   mapStateToProps,
   mapDispatchToProps,
-  makePathname,
-  scrollToTarget
+  makePathname
 } from '../../src/js/containers/Pagination.jsx'
 
 const defaultPagination = {
@@ -74,12 +73,9 @@ describe('Pagination Container', () => {
 
   it('makes proper paging fns', () => {
     const dispatch = jest.fn()
-    const scrollToTarget = jest.fn()
     document.getElementById = jest.fn(() => {return {offsetTop: 12}})
     const mapped = mapDispatchToProps(dispatch, {})
 
-    delete window.scrollTo
-    window.scrollTo = jest.fn()
 
     mapped.getPage()
     mapped.getPage(pageObj)
@@ -93,8 +89,6 @@ describe('Pagination Container', () => {
     mapped.getNextPage(pageObj)
 
     expect(dispatch).toHaveBeenCalledTimes(3)
-    expect(window.scrollTo).toHaveBeenCalledTimes(2)
-    expect(window.scrollTo).toHaveBeenCalledWith(0, 12)
   })
 
   it('renders the connected component', () => {
