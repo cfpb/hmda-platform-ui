@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {Link} from 'react-router'
 import LoadingIcon from './LoadingIcon.jsx'
 import ErrorWarning from './ErrorWarning.jsx'
@@ -147,7 +148,7 @@ export default class Institution extends Component {
     const institutions = this.props.institutions
     const makeNewSubmission = this.props.makeNewSubmission
     return (
-    <div id="main-content" className="usa-grid Institutions">
+    <main id="main-content" className="usa-grid Institutions">
       {this.props.error ? <ErrorWarning error={this.props.error}/> : null}
       <div className="usa-width-one-half">
         <div className="InstitutionsHeader">
@@ -209,13 +210,13 @@ export default class Institution extends Component {
           </div>
         </div>
       </div>
-      <div className="content usa-width-one-half">
+      <aside className="usa-width-one-half">
         <p>The Institutions page provides a summary of institutions for which you are authorized to file HMDA data. The filing status is displayed under the institution name.</p>
-        <p>Select the "Begin filing" button to begin your HMDA filing. Your work will be saved as you progress through the various edit categories. If you need to complete the filing at a later time, logout of the HMDA Platform prior to reviewing the next category of edits. When you are ready to continue with the filing process, login and select the "View Current Filing" button for your institution.</p>
-        <p>If you already started or submitted a HMDA filing and need to upload a new HMDA file, select the "Upload a new file" button. You will restart the process beginning with file format analysis. Any previously completed filings will not be overridden until all edits have been cleared and/or verified and the HMDA file has been submitted.</p>
+        <p>Select the &quot;Begin filing&quot; button to begin your HMDA filing. Your work will be saved as you progress through the various edit categories. If you need to complete the filing at a later time, logout of the HMDA Platform prior to reviewing the next category of edits. When you are ready to continue with the filing process, login and select the &quot;View Current Filing&quot; button for your institution.</p>
+        <p>If you already started or submitted a HMDA filing and need to upload a new HMDA file, select the &quot;Upload a new file&quot; button. You will restart the process beginning with file format analysis. Any previously completed filings will not be overridden until all edits have been cleared and/or verified and the HMDA file has been submitted.</p>
         <p>The edit report for previous submissions can be downloaded in csv format. Please note that an edit report will not be available if the HMDA file did not have any outstanding quality edits or macro quality edits.</p>
-      </div>
-    </div>
+      </aside>
+    </main>
     )
   }
 }

@@ -1,59 +1,61 @@
-.institution {
-  margin-bottom: 3em;
+.Institutions {
+  .institution {
+    margin-bottom: 3em;
 
-  .current-status {
-    background-color: $color-gray-lightest;
-    padding: 1em;
-  }
+    .current-status {
+      background-color: $color-gray-lightest;
+      padding: 1em;
+    }
 
-  h3 {
-    margin-top: 0;
-  }
-
-  .previous-submissions {
-    border: 1px solid $color-gray-lightest;
-    padding: 1em;
-
-    h4 {
+    h3 {
       margin-top: 0;
     }
 
-    ol {
-      margin-bottom: 0;
-      padding-left: 1.5em;
+    .previous-submissions {
+      border: 1px solid $color-gray-lightest;
+      padding: 1em;
+
+      h4 {
+        margin-top: 0;
+      }
+
+      ol {
+        margin-bottom: 0;
+        padding-left: 1.5em;
+      }
+    }
+
+    .status {
+      margin-top: .5em;
+      margin-bottom: .5em;
+
+      p {
+        margin: 0;
+      }
+    }
+    .timing {
+      color: $color-gray;
     }
   }
 
-  .status {
-    margin-top: .5em;
-    margin-bottom: .5em;
+  aside {
+    padding-right: 1em;
+    padding-left: 1em;
+  }
 
-    p {
+  .edit-report:first-letter {
+    text-transform: capitalize;
+  }
+
+  .InstitutionsHeader {
+    margin: 0;
+
+    h1 {
       margin: 0;
     }
-  }
-  .timing {
-    color: $color-gray;
-  }
-}
 
-.content {
-  padding-right: 1em;
-  padding-left: 1em;
-}
-
-.edit-report:first-letter {
-  text-transform: capitalize;
-}
-
-.InstitutionsHeader {
-  margin: 0;
-
-  h1 {
-    margin: 0;
-  }
-
-  h2 {
-    margin: 0.5em 0 1em;
+    h2 {
+      margin: 0.5em 0 1em;
+    }
   }
 }
