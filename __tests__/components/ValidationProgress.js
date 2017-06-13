@@ -51,7 +51,7 @@ describe('ValidationProgress', () => {
     expect(getText({code: 5}).props.children[0].props.children).toBe('Invalid file format')
     expect(getText({code: 7}).props.children[0].props.children).toBe('Validating edits...')
     expect(getText({code: 8}).props.children[0].props.children).toBe('Edit validation complete')
-    expect(getText({code: 8}).props.children[1].props.children).toBe('Edits found, review required.')
+    expect(getText({code: 8}).props.children[1].props.children).toBe('Edits found, review required')
     expect(getText({code: 9}).props.children[0].props.children).toBe('Edit validation complete')
   })
 
