@@ -27,7 +27,7 @@ export const getText = props => {
     <div className="progressText">
       <span>{text}</span>
       {props.code === STATUS.VALIDATED_WITH_ERRORS ?
-        <strong>Edits found, review required.</strong> :
+        <strong>Edits found, review required</strong> :
         null
       }
       {getIndicator(props)}
