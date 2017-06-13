@@ -57,8 +57,9 @@
 
   .progressText {
     margin-top: 1em;
+    line-height: 1.5em;
     strong {
-      margin-left: 0.4em;
+      display:block;
     }
   }
 
