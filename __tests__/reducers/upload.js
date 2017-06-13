@@ -5,6 +5,7 @@ import upload from '../../src/js/reducers/upload.js'
 
 const defaultUpload = {
   uploading: false,
+  percentUploaded: 0,
   file: null,
   newFile: null,
   errors: []
@@ -38,14 +39,25 @@ describe('upload reducer', () => {
     )).toEqual({uploading: true})
   })
 
+  it('handles UPLOAD_PROGRESS', () => {
+    expect(
+      upload({},
+      {type: types.UPLOAD_PROGRESS, percentUploaded: 22}
+    )).toEqual({})
+    expect(
+      upload({uploading: true},
+      {type: types.UPLOAD_PROGRESS, percentUploaded: 22}
+    )).toEqual({uploading: true, percentUploaded: 22})
+  })
+
   it('handles UPLOAD_COMPLETE', () => {
     expect(
        upload({},
       {type: types.UPLOAD_COMPLETE}
-    )).toEqual({uploading: false})
+    )).toEqual({uploading: false, percentUploaded: 100})
   })
   it('shouldn\'t modify state on an unknown action type', () => {
-    excludeTypes(types.SELECT_FILE, types.REFRESH_STATE, types.UPLOAD_START, types.UPLOAD_COMPLETE)
+    excludeTypes(types.UPLOAD_PROGRESS, types.SELECT_FILE, types.REFRESH_STATE, types.UPLOAD_START, types.UPLOAD_COMPLETE)
       .forEach(v => expect(upload({}, v))
         .toEqual({})
       )

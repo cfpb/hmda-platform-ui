@@ -10,6 +10,7 @@ import pollForProgress from '../actions/pollForProgress.js'
 export function mapStateToProps(state) {
   const {
     uploading,
+    percentUploaded,
     file,
     errors
   } = state.app.upload
@@ -18,6 +19,7 @@ export function mapStateToProps(state) {
 
   return {
     uploading,
+    percentUploaded,
     file,
     errors,
     code
