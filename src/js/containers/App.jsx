@@ -41,6 +41,7 @@ export class AppContainer extends Component {
         <Header
           pathname={this.props.location.pathname}
           user={this.props.oidc.user} />
+        <ConfirmationModal/>
         {
           this.props.location.pathname === '/oidc-callback' ?
             this.props.children :
@@ -48,7 +49,6 @@ export class AppContainer extends Component {
               <BrowserBlocker/> :
               this.props.children
         }
-
         <footer className="usa-footer usa-footer-slim" role="contentinfo">
           <div className="usa-grid usa-footer-return-to-top">
             <a href="#">Return to top</a>
@@ -85,7 +85,6 @@ export class AppContainer extends Component {
             </div>
           </div>
         </footer>
-        <ConfirmationModal/>
       </div>
     )
   }

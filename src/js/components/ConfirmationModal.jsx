@@ -1,54 +1,90 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import RefileText from './RefileText.jsx'
 
-const ModalConfirm = (props) => {
-  const {
-    code,
-    filingPeriod,
-    id,
-    showing,
-    file,
-    newFile,
-    hideConfirmModal,
-    triggerRefile
-  } = props
+let _focusButton = function() {
+  return this.confirmButton.focus()
+}
 
-  // get the page
-  const page = location.pathname.split('/').slice(-1)[0]
+let _focusLink = function() {
+  return this.hideLink.focus()
+}
 
-  if(!filingPeriod || !id || !hideConfirmModal || !triggerRefile) return null
+export function _focusIfShowing() {
+  //wait for visibility animation
+  if(this.props.showing){
+    setTimeout(_focusButton, 201)
+  }
+}
 
-  return (
-    <div className={'confirmation-blurred-blocker'+ (showing ? ' showing-blurred-blocker' : '')}>
-      <div className="confirmation-modal">
-        <div className="confirmation-contents">
-          <RefileText code={code}/>
-          <button onClick={(e)=>{
-            e.preventDefault()
-            hideConfirmModal()
-            triggerRefile(id, filingPeriod, page, newFile)
-          }}>Yes, restart the filing process.</button>
-          <a href="#"
-            className="usa-text-small"
-            onClick={(e)=>{
-              e.preventDefault()
-              hideConfirmModal()
-            }}>No, take me back.</a>
+export default class ModalConfirm extends Component {
+
+  componentDidMount() {
+    this.componentDidUpdate = _focusIfShowing.bind(this)
+    _focusButton = _focusButton.bind(this)
+    _focusLink = _focusLink.bind(this)
+  }
+
+  render() {
+    const {
+      code,
+      filingPeriod,
+      id,
+      showing,
+      file,
+      newFile,
+      hideConfirmModal,
+      triggerRefile
+    } = this.props
+
+    // get the page
+    const page = location.pathname.split('/').slice(-1)[0]
+
+    if(!filingPeriod || !id || !hideConfirmModal || !triggerRefile) return null
+
+    return (
+      <div className={'confirmation-blurred-blocker'+ (showing ? ' showing-blurred-blocker' : '')}>
+        <div className="confirmation-modal">
+          <div className="confirmation-contents">
+            <RefileText code={code}/>
+            <button
+              tabIndex={showing ? 0 : -1 }
+              onClick={(e)=>{
+                e.preventDefault()
+                hideConfirmModal()
+                triggerRefile(id, filingPeriod, page, newFile)
+              }}
+              onBlur={e => {
+                e.preventDefault()
+                return _focusLink()}}
+              ref={button => this.confirmButton = button}
+            >Yes, restart the filing process.</button>
+            <a href="#"
+              tabIndex={showing ? 0 : -1 }
+              className="usa-text-small"
+              onClick={(e)=>{
+                e.preventDefault()
+                hideConfirmModal()
+              }}
+              onBlur={e => {
+                e.preventDefault()
+                _focusButton()}}
+              ref={a => this.hideLink = a}
+            >No, take me back.</a>
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 ModalConfirm.propTypes = {
-  filingPeriod: React.PropTypes.string,
-  id: React.PropTypes.string,
-  hideConfirmModal: React.PropTypes.func,
-  triggerRefile: React.PropTypes.func,
-  showing: React.PropTypes.bool,
-  code: React.PropTypes.number,
-  file: React.PropTypes.object,
-  newFile: React.PropTypes.object
+  filingPeriod: PropTypes.string,
+  id: PropTypes.string,
+  hideConfirmModal: PropTypes.func,
+  triggerRefile: PropTypes.func,
+  showing: PropTypes.bool,
+  code: PropTypes.number,
+  file: PropTypes.object,
+  newFile: PropTypes.object
 }
-
-export default ModalConfirm
