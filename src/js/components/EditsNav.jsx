@@ -96,9 +96,11 @@ export const renderLinkOrText = (props, name, i) => {
   }
 
   let navClass = getNavClass(navLinks[name], page)
-
+  let step
+  if(navClass !== 'complete' && navClass !== 'complete current') step = i + 1
   return (
     <li className={navClass} key={i}>
+      <div className="step">{step}</div>
       {toRender}
     </li>
   )
