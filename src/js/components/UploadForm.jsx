@@ -5,7 +5,7 @@ import { UPLOADING } from '../constants/statusCodes.js'
 
 export const renderValidationProgress = (props) => {
   if(props.code < UPLOADING && !props.uploading) return null
-  return <ValidationProgress code={props.code} />
+  return <ValidationProgress code={props.code} percentUploaded={props.percentUploaded}/>
 }
 
 export const renderErrors = (errors) => {
