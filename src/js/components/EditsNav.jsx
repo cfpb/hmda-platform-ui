@@ -31,32 +31,6 @@ export const getNavClass = (name, page) => {
   return name === page ? 'current' : ''
 }
 
-export const getProgressWidth = (props) => {
-  const {
-    code,
-    syntacticalValidityEditsExist,
-    qualityVerified,
-    macroVerified
-  } = props
-  let progressWidth = '10%'
-
-  if(code > PARSED_WITH_ERRORS) progressWidth = '30%'
-  if(code > VALIDATING){
-    if(!syntacticalValidityEditsExist){
-      progressWidth = '50%'
-      if(qualityVerified){
-        progressWidth = '70%'
-        if(macroVerified){
-          progressWidth = '90%'
-        }
-      }
-    }
-  }
-  if(code === SIGNED) progressWidth = '100%'
-
-  return progressWidth
-}
-
 export const renderLinkOrText = (props, name, i) => {
   let toRender
   const {
@@ -163,8 +137,7 @@ export default class EditsNav extends Component {
                 })
               }
             </ul>
-            <hr className="line" />
-            <hr className="progress" width={getProgressWidth(this.props)} />
+            <hr />
           </div>
           <RefileWarning />
         </div>

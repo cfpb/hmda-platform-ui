@@ -5,7 +5,6 @@ jest.mock('../../src/js/containers/submissionProgressHOC.jsx', () => jest.fn((co
 
 import EditsNav, {
   renderLinkOrText,
-  getProgressWidth,
   getNavClass
 } from '../../src/js/components/EditsNav.jsx'
 import Wrapper from '../Wrapper.js'
@@ -31,15 +30,6 @@ describe('EditsNav', () => {
   it('render the correct class for the navigation', () => {
     expect(getNavClass('c',baseProps.page)).toEqual('current')
     expect(getNavClass('abc','def')).toEqual('')
-  })
-
-  it('renders the correct progress width', () => {
-    expect(getProgressWidth(baseProps)).toEqual('10%')
-    expect(getProgressWidth({...baseProps, code: 6})).toEqual('30%')
-    expect(getProgressWidth({...baseProps, code: 8, syntacticalValidityEditsExist: false})).toEqual('50%')
-    expect(getProgressWidth({...baseProps, code: 8, syntacticalValidityEditsExist: false, qualityVerified: true})).toEqual('70%')
-    expect(getProgressWidth({...baseProps, code: 8, syntacticalValidityEditsExist: false, qualityVerified: true, macroVerified: true})).toEqual('90%')
-    expect(getProgressWidth({...baseProps, code: 10})).toEqual('100%')
   })
 
   it('chooses appropriate item to render', () => {
