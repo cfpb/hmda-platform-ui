@@ -1,22 +1,24 @@
 .EditsNav {
   background: $color-white;
+  padding: 1em 0;
   position: relative;
+  text-align: center;
   top: 0;
   width: 100%;
   z-index: 1000;
+
+  hr {
+    margin-top: 0;
+  }
 
   &.EditsNav-fixed {
     position: fixed;
   }
 
-  .nav-wrapper {
-    padding: .5em 0;
-    position: relative;
-    text-align: center;
-  }
-
   ul.usa-nav-primary {
     li {
+      vertical-align: top;
+      width: 20%;
       a {
         color: $color-base;
         &:hover {
@@ -32,6 +34,7 @@
         text-transform: uppercase;
       }
       .step {
+        background-color: $color-white;
         border: 2px solid $color-gray-light;
         border-radius: 50%;
         color: $color-gray-light;
@@ -69,17 +72,14 @@
     }
   }
 
-  hr.line,
-  hr.progress {
+  hr.nav-bg {
     border-top: 1px solid $color-gray-lighter;
     left: 0;
+    margin: 1em auto;
     position: absolute;
     right: 0;
-    bottom: -1.1em;
+    top: 16px;
+    width: 80%;
+    z-index: -1;
   }
-
-  hr.progress {
-    border-top-color: $color-green;
-  }
-
 }
