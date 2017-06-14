@@ -115,7 +115,7 @@ export const renderLinkOrText = (props, name, i) => {
   let navClass = getNavClass(navLinks[name], props)
   let step
   if(navClass !== 'complete' && navClass !== 'complete current') step = i + 1
-  
+
   return (
     <li className={navClass} key={i}>
       <div className="step">{step}</div>
@@ -173,16 +173,15 @@ export default class EditsNav extends Component {
     return (
       <div style={wrapperHeight}>
         <div className={`EditsNav ${fixedClass}`} id="editsNav">
-          <div className="nav-wrapper">
-            <ul className="usa-nav-primary">
-              {
-                navNames.map((pageObj, i) => {
-                  return renderLinkOrText(this.props, pageObj, i)
-                })
-              }
-            </ul>
-            <hr />
-          </div>
+          <ul className="usa-nav-primary">
+            {
+              navNames.map((pageObj, i) => {
+                return renderLinkOrText(this.props, pageObj, i)
+              })
+            }
+          </ul>
+          <hr className="nav-bg" />
+          <hr />
           <RefileWarning />
         </div>
       </div>
