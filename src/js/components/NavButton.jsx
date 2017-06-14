@@ -1,17 +1,16 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { VALIDATED_WITH_ERRORS } from '../constants/statusCodes.js'
 
-const NavButton = (props) => {
-  const {
-    page,
-    base,
-    code,
-    syntacticalValidityEditsExist,
-    qualityVerified,
-    macroVerified
-  } = props
-
+const NavButton = ({
+  page,
+  base,
+  code,
+  syntacticalValidityEditsExist,
+  qualityVerified,
+  macroVerified
+}) => {
   let className
   let suffix
 
@@ -41,6 +40,7 @@ const NavButton = (props) => {
 
   return <Link
     className={`NavButton usa-button ${className}`}
+    tabIndex={className === 'usa-button-disabled' ? -1 : 0}
     to={`${base}/${suffix}`}>
       {`Review ${displayName}`}
     </Link>
@@ -48,12 +48,12 @@ const NavButton = (props) => {
 }
 
 NavButton.propTypes = {
-  page: React.PropTypes.string,
-  base: React.PropTypes.string,
-  code: React.PropTypes.number,
-  syntacticalValidityEditsExist: React.PropTypes.bool,
-  qualityVerified: React.PropTypes.bool,
-  macroVerified: React.PropTypes.bool
+  page: PropTypes.string,
+  base: PropTypes.string,
+  code: PropTypes.number,
+  syntacticalValidityEditsExist: PropTypes.bool,
+  qualityVerified: PropTypes.bool,
+  macroVerified: PropTypes.bool
 }
 
 export default NavButton
