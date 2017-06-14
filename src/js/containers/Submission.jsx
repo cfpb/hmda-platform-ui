@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import fetchSubmission from '../actions/fetchSubmission.js'
@@ -104,14 +105,14 @@ class SubmissionContainer extends Component {
         institution={this.props.institution}
       />
 
-      <div id="main-content" className="usa-grid SubmissionContainer">
+      <main id="main-content" className="usa-grid SubmissionContainer">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null }
         <div className="usa-width-one-whole">
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>
           })}
         </div>
-      </div>
+      </main>
     </div>
     )
   }
