@@ -44,7 +44,7 @@ export default class ModalConfirm extends Component {
 
     return (
       <div className={'confirmation-blurred-blocker'+ (showing ? ' showing-blurred-blocker' : '')}>
-        <div className="confirmation-modal">
+        <div role="dialog" className="confirmation-modal">
           <div className="confirmation-contents">
             <RefileText code={code}/>
             <button
