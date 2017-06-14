@@ -17,14 +17,6 @@
 
   ul.usa-nav-primary {
     li {
-      &:after {
-        content: "\2219"
-      }
-      &:last-child {
-        &:after {
-          content: ""
-        }
-      }
       a {
         color: $color-base;
         &:hover {
