@@ -22,18 +22,48 @@
         &:hover {
           color: $color-primary;
         }
-        margin: 1.3rem 1.5rem 1rem;
+        margin: .5rem 1.5rem 1rem;
       }
       span {
         color: $color-gray-light;
         display: inline-block;
         font-weight: 700;
-        margin: 1.3rem 1.5rem 1rem;
+        margin: .5rem 1.5rem 1rem;
         text-transform: uppercase;
       }
+      .step {
+        border: 2px solid $color-gray-light;
+        border-radius: 50%;
+        color: $color-gray-light;
+        font-weight: 700;
+        height: 30px;
+        margin: 0 auto;
+        padding: 3px;
+        width: 30px;
+      }
+      &.active {
+        .step {
+          border-color: $color-base;
+          color: $color-base;
+        }
+      }
+      &.complete {
+        .step {
+          background-color: $color-base;
+          background-image: url("/img/correct8.png");
+          background-position: center;
+          background-repeat: no-repeat;
+          border-color: $color-base;
+        }
+      }
       &.current {
+        .step {
+          background-color: $color-primary;
+          border-color: $color-primary;
+          color: $color-white;
+        }
         a {
-          border-bottom: 2px solid;
+          color: $color-primary;
         }
       }
     }

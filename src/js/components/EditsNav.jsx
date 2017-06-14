@@ -5,8 +5,8 @@ import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
 import {
   PARSED_WITH_ERRORS,
   VALIDATING,
-  VALIDATED,
-  SIGNED
+  VALIDATED_WITH_ERRORS,
+  VALIDATED
 } from '../constants/statusCodes.js'
 
 const RefileWarning = submissionProgressHOC(RefileWarningComponent)
@@ -27,8 +27,51 @@ const navLinks = {
   'confirmation': 'confirmation'
 }
 
-export const getNavClass = (name, page) => {
-  return name === page ? 'current' : ''
+export const getNavClass = (name, props) => {
+  let navClass = ''
+  const {
+    code,
+    page,
+    syntacticalValidityEditsExist,
+    qualityVerified,
+    macroVerified
+  } = props
+
+  switch(name) {
+    case 'upload':
+      navClass = 'active'
+      if(code > VALIDATING) navClass = 'complete'
+      break
+    case 'syntacticalvalidity':
+      if(code > VALIDATING) {
+        navClass = 'active'
+        if(!syntacticalValidityEditsExist) navClass = 'complete'
+      }
+      break
+    case 'quality':
+      if(code > VALIDATING) {
+        if(!syntacticalValidityEditsExist) {
+          navClass = 'active'
+          if(qualityVerified) navClass = 'complete'
+        }
+      }
+      break
+    case 'macro':
+      if(code > VALIDATING) {
+        if(!syntacticalValidityEditsExist && qualityVerified) {
+          navClass = 'active'
+          if(macroVerified) navClass = 'complete'
+        }
+      }
+      break
+  }
+
+  // catch all if validated
+  if(code > VALIDATED_WITH_ERRORS) navClass = 'complete'
+  if(code === VALIDATED && name === 'confirmation') navClass = 'active'
+  // add current class if page matches the name
+  if(name === page) navClass = `${navClass} current`
+  return navClass
 }
 
 export const renderLinkOrText = (props, name, i) => {
@@ -42,7 +85,7 @@ export const renderLinkOrText = (props, name, i) => {
     macroVerified
   } = props
 
-  // only render link when code > 7 (so it's finished validating)
+  // only render link when code > VALIDATING (so it's finished validating)
   if(code > VALIDATING) {
     toRender = <Link className="usa-nav-link"  to={`${base}/${navLinks[name]}`}>{name}</Link>
     if(code < VALIDATED) {
@@ -69,9 +112,10 @@ export const renderLinkOrText = (props, name, i) => {
     )
   }
 
-  let navClass = getNavClass(navLinks[name], page)
+  let navClass = getNavClass(navLinks[name], props)
   let step
   if(navClass !== 'complete' && navClass !== 'complete current') step = i + 1
+  
   return (
     <li className={navClass} key={i}>
       <div className="step">{step}</div>
