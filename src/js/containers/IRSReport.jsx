@@ -23,6 +23,11 @@ export class IRSReportContainer extends Component {
 }
 
 export function mapStateToProps(state) {
+  console.log('IRS')
+  //console.log(state)
+  console.log(state.app.pagination)
+  console.log(state.app.irs)
+  //console.log(state.app.pagination.irs._links.self === state.app.pagination.irs._links.last)
   const {
     isFetching,
     msas,
@@ -33,11 +38,14 @@ export function mapStateToProps(state) {
     status
   } = state.app.submission
 
+  const renderFooter = (state.app.pagination.irs._links.self === state.app.pagination.irs.last)
+
   return {
     isFetching,
     msas,
     summary,
-    status
+    status,
+    renderFooter
   }
 }
 

@@ -3,6 +3,8 @@ import Pagination from '../containers/Pagination.jsx'
 import moment from 'moment'
 
 const IRSReport = (props) => {
+  console.log('IRSReport component')
+  console.log(props)
   if (!props.msas) return null
   if (props.msas.length === 0) return null
 
@@ -87,7 +89,8 @@ const IRSReport = (props) => {
 IRSReport.propTypes = {
   msas: PropTypes.array,
   summary: PropTypes.object,
-  status: PropTypes.object
+  status: PropTypes.object,
+  renderFooter: PropTypes.bool
 }
 
 export default IRSReport
