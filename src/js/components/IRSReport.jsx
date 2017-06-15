@@ -2,9 +2,30 @@ import React, { Component, PropTypes } from 'react'
 import Pagination from '../containers/Pagination.jsx'
 import moment from 'moment'
 
+const renderTotals = (props) => {
+  if(props.renderTotals) return (
+    <tfoot>
+      <tr className="totals">
+        <td className="center" colSpan={2}><strong>Total</strong></td>
+        <td>{props.summary.lars.toLocaleString()}</td>
+        <td>{props.summary.amount.toLocaleString()}</td>
+        <td>{props.summary.conv.toLocaleString()}</td>
+        <td>{props.summary.FHA.toLocaleString()}</td>
+        <td>{props.summary.VA.toLocaleString()}</td>
+        <td>{props.summary.FSA.toLocaleString()}</td>
+        <td>{props.summary.oneToFourFamily.toLocaleString()}</td>
+        <td>{props.summary.MFD.toLocaleString()}</td>
+        <td>{props.summary.multiFamily.toLocaleString()}</td>
+        <td>{props.summary.homePurchase.toLocaleString()}</td>
+        <td>{props.summary.homeImprovement.toLocaleString()}</td>
+        <td>{props.summary.refinance.toLocaleString()}</td>
+      </tr>
+    </tfoot>
+  )
+
+  return null
+}
 const IRSReport = (props) => {
-  console.log('IRSReport component')
-  console.log(props)
   if (!props.msas) return null
   if (props.msas.length === 0) return null
 
@@ -41,23 +62,7 @@ const IRSReport = (props) => {
               <th scope="col" id="refinance">Refinance</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr className="totals">
-              <td className="center" colSpan={2}><strong>Total</strong></td>
-              <td>{props.summary.lars.toLocaleString()}</td>
-              <td>{props.summary.amount.toLocaleString()}</td>
-              <td>{props.summary.conv.toLocaleString()}</td>
-              <td>{props.summary.FHA.toLocaleString()}</td>
-              <td>{props.summary.VA.toLocaleString()}</td>
-              <td>{props.summary.FSA.toLocaleString()}</td>
-              <td>{props.summary.oneToFourFamily.toLocaleString()}</td>
-              <td>{props.summary.MFD.toLocaleString()}</td>
-              <td>{props.summary.multiFamily.toLocaleString()}</td>
-              <td>{props.summary.homePurchase.toLocaleString()}</td>
-              <td>{props.summary.homeImprovement.toLocaleString()}</td>
-              <td>{props.summary.refinance.toLocaleString()}</td>
-            </tr>
-          </tfoot>
+          {renderTotals(props)}
           <tbody>
             {props.msas.map((msa, i) => {
               return <tr key={i}>
@@ -90,7 +95,7 @@ IRSReport.propTypes = {
   msas: PropTypes.array,
   summary: PropTypes.object,
   status: PropTypes.object,
-  renderFooter: PropTypes.bool
+  renderTotals: PropTypes.bool
 }
 
 export default IRSReport
