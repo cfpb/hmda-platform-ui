@@ -15,13 +15,14 @@ const status = {
   message: ''
 }
 
+
 describe('IRS report', () => {
-  const onIRSClick = jest.fn()
   const irsReport = TestUtils.renderIntoDocument(
     <Wrapper>
       <IRSReport
         msas={irsJSON.msas}
         summary={irsJSON.summary}
+        renderTotals={false}
       />
     </Wrapper>
   )
@@ -32,6 +33,20 @@ describe('IRS report', () => {
   })
 
   it('creates the correct number of rows', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'tr').length).toEqual(5)
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'tr').length).toEqual(4)
+  })
+
+  const withTotals = TestUtils.renderIntoDocument(
+    <Wrapper>
+      <IRSReport
+        msas={irsJSON.msas}
+        summary={irsJSON.summary}
+        renderTotals={true}
+      />
+    </Wrapper>
+  )
+
+  it('creates the correct number of rows with totals', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(withTotals, 'tr').length).toEqual(5)
   })
 })

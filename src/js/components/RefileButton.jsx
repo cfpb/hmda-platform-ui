@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const RefileButton = (props) => {
   let refileStyle = 'RefileButton usa-button usa-button-secondary usa-text-small'
@@ -12,7 +13,7 @@ const RefileButton = (props) => {
     }
   }
 
-  return <a className={refileStyle}
+  return <a href="#" className={refileStyle}
     onClick={(e)=>{
       e.preventDefault()
       props.showConfirmModal()
@@ -20,10 +21,10 @@ const RefileButton = (props) => {
 }
 
 RefileButton.propTypes = {
-  showConfirmModal: React.PropTypes.func.isRequired,
-  isLink: React.PropTypes.bool,
-  isLower: React.PropTypes.bool,
-  isSmall: React.PropTypes.bool
+  showConfirmModal: PropTypes.func.isRequired,
+  isLink: PropTypes.bool,
+  isLower: PropTypes.bool,
+  isSmall: PropTypes.bool
 }
 
 export default RefileButton

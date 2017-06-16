@@ -1,12 +1,12 @@
 .EditsContainerEntry {
   margin: 2em 0;
 
-  &:first-of-type {
-    margin-top: 0;
-  }
-
   &:last-of-type {
     margin-top: 6em;
+  }
+
+  &:first-of-type {
+    margin-top: 0;
   }
 
   hr {

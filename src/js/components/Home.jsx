@@ -37,7 +37,7 @@ const Home = (props) => {
 
   return (
     <div>
-      <div className="Home" id="main-content">
+      <main className="Home" id="main-content">
         {renderHero}
         <div className="usa-grid">
           <div className="usa-width-one-whole">
@@ -64,7 +64,7 @@ const Home = (props) => {
             <p className="usa-text-small">According to the Paperwork Reduction Act of 1995, an agency may not conduct or sponsor, and, not withstanding any other provision of law, a person is not required to respond to a collection of information unless it displays a valid OMB control number. The OMB control number for this collection is 3170-0008. The time required to complete this information collection is estimated to average between 7,700 hours and 77 hours per response depending on the size of the institution, per response. The obligation to respond to this collection of information is mandatory per the Home Mortgage Disclosure Act 12 U.S.C. 2801-2810 as implemented by CFPB’S Regulation C 12 CFR part 1003. Comments regarding this collection of information, including the estimated response time, suggestions for improving the usefulness of the information, or suggestions for reducing the burden to respond to this collection should be submitted to the Bureau at the Consumer Financial Protection Bureau (Attention: PRA Office), 1700 G Street NW, Washington, DC 20552, or by email to PRA@cfpb.gov. The other agencies collecting information under this regulation maintain OMB Control numbers for their collections as follows: Office of the Comptroller of the Currency (1557–0159), the Federal Deposit Insurance Corporation (3064–0046), the Federal Reserve System (7100–0247), the Department of Housing and Urban Development (HUD) (2502–0529), the National Credit Union Administration (3133–0166).</p>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   )
 }

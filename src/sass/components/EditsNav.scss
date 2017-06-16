@@ -1,62 +1,85 @@
 .EditsNav {
   background: $color-white;
+  padding: 1em 0;
   position: relative;
+  text-align: center;
   top: 0;
   width: 100%;
   z-index: 1000;
+
+  hr {
+    margin-top: 0;
+  }
 
   &.EditsNav-fixed {
     position: fixed;
   }
 
-  .nav-wrapper {
-    padding: .5em 0;
-    position: relative;
-    text-align: center;
-  }
-
   ul.usa-nav-primary {
     li {
-      &:after {
-        content: "\2219"
-      }
-      &:last-child {
-        &:after {
-          content: ""
-        }
-      }
+      vertical-align: top;
+      width: 20%;
       a {
         color: $color-base;
         &:hover {
           color: $color-primary;
         }
-        margin: 1.3rem 1.5rem 1rem;
+        margin: .5rem 1.5rem 1rem;
       }
       span {
         color: $color-gray-light;
+        display: inline-block;
         font-weight: 700;
-        margin: 1.3rem 1.5rem 1rem;
+        margin: .5rem 1.5rem 1rem;
         text-transform: uppercase;
       }
+      .step {
+        background-color: $color-white;
+        border: 2px solid $color-gray-light;
+        border-radius: 50%;
+        color: $color-gray-light;
+        font-weight: 700;
+        height: 30px;
+        margin: 0 auto;
+        padding: 3px;
+        width: 30px;
+      }
+      &.active {
+        .step {
+          border-color: $color-base;
+          color: $color-base;
+        }
+      }
+      &.complete {
+        .step {
+          background-color: $color-base;
+          background-image: url("/img/correct8.png");
+          background-position: center;
+          background-repeat: no-repeat;
+          border-color: $color-base;
+        }
+      }
       &.current {
+        .step {
+          background-color: $color-primary;
+          border-color: $color-primary;
+          color: $color-white;
+        }
         a {
-          border-bottom: 2px solid;
+          color: $color-primary;
         }
       }
     }
   }
 
-  hr.line,
-  hr.progress {
+  hr.nav-bg {
     border-top: 1px solid $color-gray-lighter;
     left: 0;
+    margin: 1em auto;
     position: absolute;
     right: 0;
-    bottom: -1.1em;
+    top: 16px;
+    width: 80%;
+    z-index: -1;
   }
-
-  hr.progress {
-    border-top-color: $color-green;
-  }
-
 }
