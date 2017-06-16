@@ -33,11 +33,16 @@ export function mapStateToProps(state) {
     status
   } = state.app.submission
 
+  const renderTotals = state.app.pagination.irs ?
+  (state.app.pagination.irs._links.self === state.app.pagination.irs._links.last) :
+  null
+
   return {
     isFetching,
     msas,
     summary,
-    status
+    status,
+    renderTotals
   }
 }
 
