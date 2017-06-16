@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
 import { UPLOADING } from '../constants/statusCodes.js'
@@ -24,7 +25,7 @@ export const renderErrors = (errors) => {
   )
 }
 
-export const renderDropText = ({ code, errors, file }, dropzoneContent) => {
+export const getDropzoneText = ({ code, errors, file }) => {
   let message = 'Drag your LAR file into this area, or click in this box to select a LAR file to upload.'
   let fileName = null
 
@@ -43,7 +44,7 @@ export const renderDropText = ({ code, errors, file }, dropzoneContent) => {
     }
   }
 
-  dropzoneContent.innerHTML = `<p>${message}</p>`
+  return <button onClick={e=>e.preventDefault()}>{message}</button>
 }
 
 export default class Upload extends Component {
@@ -68,18 +69,14 @@ export default class Upload extends Component {
     }
   }
 
-  componentDidUpdate() {
-    renderDropText(this.props, this.dropzoneContent)
-  }
-
   // keeps the info about the file after leaving /upload and coming back
   componentDidMount() {
-    renderDropText(this.props, this.dropzoneContent)
-      if(this.props.code > UPLOADING) this.props.pollSubmission()
+    if(this.props.code > UPLOADING) this.props.pollSubmission()
   }
 
   render() {
     const isUploadDisabled = (this.props.code >= UPLOADING || this.props.file === null || this.props.errors.length !== 0) ? true : false
+    const dropzoneText = getDropzoneText(this.props)
 
     return (
       <div>
@@ -88,16 +85,16 @@ export default class Upload extends Component {
           <form
             className="usa-form"
             encType="multipart/form-data"
-            onSubmit={e => this.props.handleSubmit(e, this.props.file)}>
+            onSubmit={e => {
+              this.props.handleSubmit(e, this.props.file)}}>
             <div className="container-upload">
               <Dropzone
                 disablePreview={true}
                 onDrop={this.onDrop}
                 multiple={false}
                 className="dropzone">
-                <div
-                  ref={(node) => {this.dropzoneContent = node}}
-                  className="usa-text-small">
+                <div className="usa-text-small">
+                  {dropzoneText}
                 </div>
               </Dropzone>
             </div>
