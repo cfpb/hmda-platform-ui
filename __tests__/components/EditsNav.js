@@ -5,7 +5,6 @@ jest.mock('../../src/js/containers/submissionProgressHOC.jsx', () => jest.fn((co
 
 import EditsNav, {
   renderLinkOrText,
-  getProgressWidth,
   getNavClass
 } from '../../src/js/components/EditsNav.jsx'
 import Wrapper from '../Wrapper.js'
@@ -14,7 +13,7 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
 const baseProps = {
-  page: 'c',
+  page: 'upload',
   base: 'a/b',
   code: 1,
   syntacticalValidityEditsExist: true,
@@ -28,24 +27,41 @@ const getLinkCount = rendered => {
 
 describe('EditsNav', () => {
 
-  it('render the correct class for the navigation', () => {
-    expect(getNavClass('c',baseProps.page)).toEqual('current')
-    expect(getNavClass('abc','def')).toEqual('')
+  it('render the correct class for the upload link', () => {
+    expect(getNavClass('upload', baseProps)).toEqual('active current')
+    expect(getNavClass('upload', {...baseProps, code: 7})).toEqual('active current')
+    expect(getNavClass('upload', {...baseProps, code: 8})).toEqual('complete current')
+    expect(getNavClass('syntacticalvalidity', {...baseProps, code: 8})).toEqual('active')
   })
 
-  it('renders the correct progress width', () => {
-    expect(getProgressWidth(baseProps)).toEqual('10%')
-    expect(getProgressWidth({...baseProps, code: 6})).toEqual('30%')
-    expect(getProgressWidth({...baseProps, code: 8, syntacticalValidityEditsExist: false})).toEqual('50%')
-    expect(getProgressWidth({...baseProps, code: 8, syntacticalValidityEditsExist: false, qualityVerified: true})).toEqual('70%')
-    expect(getProgressWidth({...baseProps, code: 8, syntacticalValidityEditsExist: false, qualityVerified: true, macroVerified: true})).toEqual('90%')
-    expect(getProgressWidth({...baseProps, code: 10})).toEqual('100%')
+  it('render the correct class for the syntacticalvalidity link', () => {
+    expect(getNavClass('syntacticalvalidity', {...baseProps, page: 'syntacticalvalidity'})).toEqual(' current')
+    expect(getNavClass('syntacticalvalidity', {...baseProps, page: 'syntacticalvalidity', code: 7})).toEqual(' current')
+    expect(getNavClass('syntacticalvalidity', {...baseProps, page: 'syntacticalvalidity', code: 8})).toEqual('active current')
+  })
+
+  it('render the correct class for the quality link', () => {
+    expect(getNavClass('quality', {...baseProps, page: 'quality'})).toEqual(' current')
+    expect(getNavClass('quality', {...baseProps, page: 'quality', code: 7, syntacticalValidityEditsExist: false})).toEqual(' current')
+    expect(getNavClass('quality', {...baseProps, page: 'quality', code: 8, syntacticalValidityEditsExist: false})).toEqual('active current')
+  })
+
+  it('render the correct class for the macro link', () => {
+    expect(getNavClass('macro', {...baseProps, page: 'macro'})).toEqual(' current')
+    expect(getNavClass('macro', {...baseProps, page: 'macro', code: 7, syntacticalValidityEditsExist: false})).toEqual(' current')
+    expect(getNavClass('macro', {...baseProps, page: 'macro', code: 8, syntacticalValidityEditsExist: false, qualityVerified: true})).toEqual('active current')
+  })
+
+  it('render the correct class for the confirmation link', () => {
+    expect(getNavClass('confirmation', {...baseProps, page: 'confirmation'})).toEqual(' current')
+    expect(getNavClass('confirmation', {...baseProps, page: 'confirmation', code: 7, syntacticalValidityEditsExist: false})).toEqual(' current')
+    expect(getNavClass('confirmation', {...baseProps, page: 'confirmation', code: 9, syntacticalValidityEditsExist: false, qualityVerified: true, macroVerified: true})).toEqual('active current')
   })
 
   it('chooses appropriate item to render', () => {
-    expect(renderLinkOrText(baseProps, 'upload', 1).props.children.type.displayName).toBe('Link')
-    expect(renderLinkOrText(baseProps, 'syntactical & validity edits', 1).props.children.type.displayName).not.toBe('Link')
-    expect(renderLinkOrText({...baseProps, code: 8}, 'syntactical & validity edits', 1).props.children.type.displayName).toBe('Link')
+    expect(renderLinkOrText(baseProps, 'upload', 1).props.children[1].type.displayName).toBe('Link')
+    expect(renderLinkOrText(baseProps, 'syntactical & validity edits', 1).props.children[1].type.displayName).not.toBe('Link')
+    expect(renderLinkOrText({...baseProps, code: 8}, 'syntactical & validity edits', 1).props.children[1].type.displayName).toBe('Link')
   })
 
   it('renders with base props', () => {
