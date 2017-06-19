@@ -174,16 +174,14 @@ export default class EditsNav extends Component {
     return (
       <div style={wrapperHeight}>
         <div className={`EditsNav ${fixedClass}`} id="editsNav">
-          <div className="NavContainer">
-            <ul className="usa-nav-primary">
-              {
-                navNames.map((pageObj, i) => {
-                  return renderLinkOrText(this.props, pageObj, i)
-                })
-              }
-            </ul>
-            <hr className="nav-bg" />
-          </div>
+          <ul className="usa-nav-primary">
+            {
+              navNames.map((pageObj, i) => {
+                return renderLinkOrText(this.props, pageObj, i)
+              })
+            }
+          </ul>
+          <hr className="nav-bg" />
           <RefileWarning />
         </div>
       </div>

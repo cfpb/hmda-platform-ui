@@ -1,5 +1,6 @@
 .EditsNav {
   background: $color-white;
+  border-bottom: 1px solid $color-gray-lighter;
   padding: 1em 0 0 0;
   position: relative;
   text-align: center;
@@ -9,11 +10,6 @@
 
   &.EditsNav-fixed {
     position: fixed;
-    border: 0;
-  }
-
-  .NavContainer {
-    border-bottom: 1px solid $color-gray-lighter;
   }
 
   ul.usa-nav-primary {
