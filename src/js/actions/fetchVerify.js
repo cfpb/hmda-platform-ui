@@ -10,17 +10,19 @@ export default function fetchVerify(type, checked) {
   return dispatch => {
     return postVerify(getId(), type, checked)
       .then(json => {
-        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+        return hasHttpError(json).then(hasError => {
+          if(hasError) throw new Error(JSON.stringify(dispatch(receiveError(json))))
 
-        if(type === 'quality') dispatch(verifyQuality(checked))
-        else dispatch(verifyMacro(checked))
+          if(type === 'quality') dispatch(verifyQuality(checked))
+          else dispatch(verifyMacro(checked))
 
-        return dispatch(updateStatus(
-          {
-            code: json.status.code,
-            message: json.status.message
-          }
-        ))
+          return dispatch(updateStatus(
+            {
+              code: json.status.code,
+              message: json.status.message
+            }
+          ))
+        })
       })
       .catch(err => console.error(err))
   }

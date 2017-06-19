@@ -10,11 +10,13 @@ export default function fetchInstitution(institution, fetchFilings = true) {
     dispatch(requestInstitution())
     return getInstitution(institution.id)
       .then(json => {
-        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
-        dispatch(receiveInstitution(json))
-        if(json.filings && fetchFilings){
-          return dispatch(fetchEachFiling(json.filings))
-        }
+        return hasHttpError(json).then(hasError => {
+          if(hasError) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+          dispatch(receiveInstitution(json))
+          if(json.filings && fetchFilings){
+            return dispatch(fetchEachFiling(json.filings))
+          }
+        })
       })
       .catch(err => console.error(err))
   }

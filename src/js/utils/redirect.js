@@ -13,8 +13,12 @@ const getUserManager = () => {
 const signinRedirect = () => {
   if(!userManager) return console.error('userManager needs to be set on app initialization')
   if(process.env.NODE_ENV !== 'production') console.log('signinRedirect triggered, saving page:', location.pathname)
-  localStorage.setItem('hmdaPageBeforeSignin', location.pathname)
-  userManager.signinRedirect()
+//  localStorage.setItem('hmdaPageBeforeSignin', location.pathname)
+//  userManager.signinRedirect()
+  userManager.signinSilent()
+  userManager.signinSilentCallback().then(arg => {
+    console.log('SIGNING IN SILENTLY')
+  })
 }
 
 
