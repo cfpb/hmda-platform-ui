@@ -7,12 +7,13 @@
   width: 100%;
   z-index: 1000;
 
-  hr {
-    margin: 0;
-  }
-
   &.EditsNav-fixed {
     position: fixed;
+    border: 0;
+  }
+
+  .NavContainer {
+    border-bottom: 1px solid $color-gray-lighter;
   }
 
   ul.usa-nav-primary {
