@@ -1,6 +1,5 @@
 .EditsNav {
   background: $color-white;
-  border-bottom: 1px solid $color-gray-lighter;
   padding: 1em 0 0 0;
   position: relative;
   text-align: center;
@@ -13,6 +12,8 @@
   }
 
   ul.usa-nav-primary {
+    border-bottom: 1px solid $color-gray-lighter;
+    display: block;
     li {
       vertical-align: top;
       width: 20%;
