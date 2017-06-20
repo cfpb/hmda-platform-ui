@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import HomeComponent from '../components/Home.jsx'
+import InstitutionsContainer from '../containers/Institutions.jsx'
 
 export class HomeContainer extends Component {
   constructor(props) {
@@ -10,7 +11,8 @@ export class HomeContainer extends Component {
 
 
   render() {
-    return <HomeComponent {...this.props} />
+    if(this.props.user === null) return <HomeComponent {...this.props} />
+    return <InstitutionsContainer />
   }
 }
 
