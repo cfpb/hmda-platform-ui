@@ -1,21 +1,19 @@
 .EditsNav {
   background: $color-white;
-  padding: 1em 0;
+  padding: 1em 0 0 0;
   position: relative;
   text-align: center;
   top: 0;
   width: 100%;
   z-index: 1000;
 
-  hr {
-    margin-top: 0;
-  }
-
   &.EditsNav-fixed {
     position: fixed;
   }
 
   ul.usa-nav-primary {
+    border-bottom: 1px solid $color-gray-lighter;
+    display: block;
     li {
       vertical-align: top;
       width: 20%;
