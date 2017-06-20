@@ -23,10 +23,6 @@ describe('Header', () => {
     expect(headerNode).toBeDefined()
   })
 
-  it('render the institutions link', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(header, 'nav-institutions').length).toBe(1)
-  })
-
   const headerNoUser = TestUtils.renderIntoDocument(
     <Wrapper>
       <Header
