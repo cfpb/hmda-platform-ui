@@ -9,6 +9,7 @@
 
 .RefileWarning {
   animation: 0.3s ease-out 0s 1 animateWarningHeader;
+  border-top: 1px solid $color-gray-light;
   margin: 0;
   text-align: left;
 
