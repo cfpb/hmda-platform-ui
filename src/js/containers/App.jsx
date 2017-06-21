@@ -36,7 +36,7 @@ export class AppContainer extends Component {
 
   render() {
 
-    if(!this.props.oidc.user && this._userNeeded(this.props)) return null
+    if(this.props.expired || !this.props.oidc.user && this._userNeeded(this.props)) return null
 
     return (
       <div className="AppContainer">

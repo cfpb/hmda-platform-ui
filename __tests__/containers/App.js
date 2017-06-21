@@ -12,8 +12,6 @@ import Wrapper from '../Wrapper.js'
 import browser from 'detect-browser'
 
 const set = jest.fn()
-const get = jest.fn()
-AccessToken.get = get
 AccessToken.set = set
 
 const signinRedirect = jest.fn()
@@ -65,8 +63,7 @@ describe('AppContainer', () => {
       />
     </Wrapper>
     )
-    expect(set.mock.calls.length).toBe(4)
-    expect(get.mock.calls.length).toBe(4)
+    expect(set.mock.calls.length).toBe(2)
   })
 
   it('short circuits token set with no user', () => {
@@ -79,9 +76,9 @@ describe('AppContainer', () => {
       />
     </Wrapper>
     )
-    expect(set.mock.calls.length).toBe(4)
-    expect(get.mock.calls.length).toBe(4)
+    expect(set.mock.calls.length).toBe(2)
     expect(ReactDOM.findDOMNode(container)).toBe(null)
+    expect(signinRedirect).toHaveBeenCalled()
   })
 
   it('short circuits token set with no user, when user not needed', () => {
@@ -94,13 +91,13 @@ describe('AppContainer', () => {
       />
     </Wrapper>
     )
-    expect(set.mock.calls.length).toBe(4)
-    expect(get.mock.calls.length).toBe(4)
+    expect(set.mock.calls.length).toBe(2)
     expect(ReactDOM.findDOMNode(container)).not.toBe(null)
   })
 
   it('does not call signinRedirect if not expired', () => {
-    AccessToken.get = () => true
+    const signinRedirect = jest.fn()
+    redirect.signinRedirect = signinRedirect
 
     const container = TestUtils.renderIntoDocument(
     <Wrapper store={{}}>
@@ -111,31 +108,22 @@ describe('AppContainer', () => {
       />
     </Wrapper>
     )
-    expect(set.mock.calls.length).toBe(4)
+    expect(set.mock.calls.length).toBe(3)
     expect(signinRedirect).not.toBeCalled()
   })
 
   it('does not call signinRedirect if page does not need user', () => {
+    const signinRedirect = jest.fn()
+    redirect.signinRedirect = signinRedirect
+
     const container = TestUtils.renderIntoDocument(
     <Wrapper store={{}}>
       <AppContainer
         oidc={{user:{access_token:1}}}
         location={{pathname: '/'}}
-        expired={true}
+        expired={false}
       />
     </Wrapper>
-    )
-
-    expect(signinRedirect).not.toBeCalled()
-
-    const c2 = TestUtils.renderIntoDocument(
-      <Wrapper store={{}}>
-        <AppContainer
-          oidc={{user:{access_token:1}}}
-          location={{pathname: '/oidc-callback'}}
-          expired={true}
-        />
-      </Wrapper>
     )
 
     expect(signinRedirect).not.toBeCalled()
@@ -143,6 +131,9 @@ describe('AppContainer', () => {
 
   browser.name = 'qwe'
   it('redirects when needed user is expired', () => {
+    const signinRedirect = jest.fn()
+    redirect.signinRedirect = signinRedirect
+
     const container = TestUtils.renderIntoDocument(
     <Wrapper store={{}}>
       <AppContainer
