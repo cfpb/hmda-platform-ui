@@ -12,28 +12,31 @@ export class AppContainer extends Component {
       super(props)
   }
 
-  componentWillMount() {
-    if(this.props.oidc.user && !AccessToken.get()){
-      AccessToken.set(this.props.oidc.user.access_token)
+  _userNeeded(props) {
+    return props.location.pathname !== '/oidc-callback' &&
+      props.location.pathname !== '/'
+  }
+
+  _setOrRedirect(props) {
+    if(props.expired) return signinRedirect()
+    if(props.oidc.user){
+      AccessToken.set(props.oidc.user.access_token)
+    }else{
+      if(this._userNeeded(props)) signinRedirect()
     }
   }
 
+  componentWillMount() {
+    this._setOrRedirect(this.props)
+  }
+
+  componentWillUpdate(nextProps) {
+    this._setOrRedirect(nextProps)
+  }
+
   render() {
-    const needUser =  this.props.location.pathname !== '/oidc-callback' &&
-      this.props.location.pathname !== '/'
 
-    if(this.props.expired) {
-      if(needUser){
-         signinRedirect()
-         return null
-      }
-    }
-
-    if(this.props.oidc.user){
-      if(!AccessToken.get()) AccessToken.set(this.props.oidc.user.access_token)
-    }else{
-      if(needUser) return null
-    }
+    if(!this.props.oidc.user && this._userNeeded(this.props)) return null
 
     return (
       <div className="AppContainer">

@@ -4,7 +4,7 @@ const defaultUser = {
 
 export default (state = defaultUser, action) => {
   switch (action.type) {
-    case 'redux-oidc/USER_EXPIRED':
+    case 'redux-oidc/SILENT_RENEW_ERROR':
     return {
       ...state,
       expired: true
