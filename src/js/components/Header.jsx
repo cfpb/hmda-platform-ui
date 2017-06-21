@@ -31,11 +31,6 @@ const Header = (props) => {
           ?
           <ul className="usa-nav-primary">
             <li>{props.user.profile.name}</li>
-            <li className="nav-institutions">
-              <Link
-                className={`usa-nav-link ${addActiveClass(page, 'institutions')}`}
-                to="/institutions">My Institutions</Link>
-            </li>
             <li><a className="usa-nav-link" href="#" onClick={(e) => {
                e.preventDefault()
                logout()
