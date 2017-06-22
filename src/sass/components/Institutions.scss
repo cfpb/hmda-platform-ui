@@ -31,10 +31,14 @@
 
       p {
         margin: 0;
+        &:first-letter {
+          text-transform: capitalize;
+        }
+        &.timing {
+          color: $color-gray;
+          margin-bottom: .5em;
+        }
       }
-    }
-    .timing {
-      color: $color-gray;
     }
   }
 

@@ -7,7 +7,7 @@ import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 import * as STATUS from '../constants/statusCodes.js'
 
-export const renderStatus = (submissionStatus, start, end) => {
+export const renderStatus = (institutionId, period, submission, onDownloadClick, submissionStatus, start, end) => {
   if(!submissionStatus || !submissionStatus.code) return
 
   const statusCode = submissionStatus.code
@@ -41,7 +41,16 @@ export const renderStatus = (submissionStatus, start, end) => {
 
   return (
     <div className="status">
-      <p><strong className={`${messageClass} text-uppercase`}>{submissionStatus.message}</strong></p>
+      <p><strong className={messageClass}>{submissionStatus.message}</strong> - <a href="#"
+       onClick={(e) => {
+         e.preventDefault()
+         onDownloadClick(
+           institutionId,
+           period,
+           submission.id.sequenceNumber
+         )
+       }
+     }>Download edit report</a></p>
       <p className="timing usa-text-small">{timing}</p>
       <p className="status-desc">{submissionStatus.description}</p>
     </div>
@@ -175,6 +184,10 @@ export default class Institution extends Component {
                     <div className="current-status">
                       <h3>{institution.name} - {institution.id}</h3>
                       {renderStatus(
+                        institution.id,
+                        filing.period,
+                        filingObj.submissions[0],
+                        this.props.onDownloadClick,
                         latestSubmissionStatus,
                         filing.start,
                         filing.end
