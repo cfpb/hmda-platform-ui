@@ -67,6 +67,20 @@ export const renderTableCaption = (edit, rowObj, type, pagination) => {
   )
 }
 
+export const renderTable = (edit, rowObj, type, pagination) => {
+  return (
+    <table width="100%" summary={`Report for edit ${edit.edit} - ${edit.description}`}>
+      {renderTableCaption(edit, rowObj, type, pagination)}
+      <thead>
+        {renderHeader(edit, rowObj.rows, type)}
+      </thead>
+      <tbody>
+        {renderBody(edit, rowObj.rows, type)}
+      </tbody>
+    </table>
+  )
+}
+
 export const makeTable = (props) => {
   const edit = props.edit
   const type = props.type
@@ -77,15 +91,7 @@ export const makeTable = (props) => {
   return (
     type === 'macro'
     ? renderTableCaption(edit, rowObj, type, props.pagination)
-    : <table width="100%" summary={`Report for edit ${edit.edit} - ${edit.description}`}>
-        {renderTableCaption(edit, rowObj, type, props.pagination)}
-        <thead>
-          {renderHeader(edit, rowObj.rows, type)}
-        </thead>
-        <tbody>
-          {renderBody(edit, rowObj.rows, type)}
-        </tbody>
-      </table>
+    : renderTable(edit, rowObj, type, props.pagination)
   )
 }
 
@@ -100,6 +106,7 @@ const EditsTable = (props) => {
     </div>
   )
 }
+
 
 EditsTable.propTypes = {
   edits: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),

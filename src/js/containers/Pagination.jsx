@@ -24,6 +24,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function moveAndFetch(dispatch, target, pagination, link, slideLeft){
+  console.log(target, pagination, link, slideLeft)
   if(slideLeft) dispatch(paginationSlideLeft(target))
   else dispatch(paginationSlideRight(target))
   setTimeout(() => dispatch(paginationSettle(target)), 300)

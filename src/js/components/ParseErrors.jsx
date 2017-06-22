@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Pagination from '../containers/Pagination.jsx'
+import PaginationSlider from './PaginationSlider.jsx'
 
 const renderTSErrors = ({transmittalSheetErrors}) => {
   if(transmittalSheetErrors.length === 0) return null
@@ -25,52 +26,14 @@ const renderTSErrors = ({transmittalSheetErrors}) => {
   )
 }
 
-const makeTable = (className, pagination) => {
 
-  const rows = []
-  for(var i=0; i<pagination.count; i++) {
-    rows.push(0)
-  }
-
-  return (
-    <table className={className}>
-      <thead>
-        <tr>
-          <th>&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
-      {rows.map((v, i) => {
-        return (
-          <tr key={i}>
-            <td>&nbsp;</td>
-          </tr>
-        )
-     })}
-      </tbody>
-    </table>
-  )
-}
 
 const renderLarErrors= ({larErrors, ...props}) => {
   if(larErrors.length === 0) return null
 
-  let prevClass = 'PaginationPrev'
-  let centerClass = 'PaginationTarget'
-  let nextClass = 'PaginationNext'
-
-  if(props.paginationSlide === 'left'){
-    centerClass += ' slideLeft'
-    nextClass += ' slideLeft'
-  }else if(props.paginationSlide === 'right'){
-    prevClass += ' slideRight'
-    centerClass += ' slideRight'
-  }
-
   return (
-    <div className="PaginationTargetWrapper">
-      {makeTable(prevClass, props.pagination)}
-      <table className={centerClass} id="parseErrors" width="100%">
+    <PaginationSlider {...props}>
+      <table id="parseErrors" width="100%">
         <caption>
           <h3>LAR Errors</h3>
           <p>Formatting errors in loan application records, arranged by row.</p>
@@ -94,8 +57,7 @@ const renderLarErrors= ({larErrors, ...props}) => {
           })}
         </tbody>
       </table>
-      {makeTable(nextClass, props.pagination)}
-    </div>
+    </PaginationSlider>
   )
 }
 
