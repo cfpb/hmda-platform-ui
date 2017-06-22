@@ -14,6 +14,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
+
 const fs = require('fs')
 const filingJSON = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))
 const institutionsJSON = JSON.parse(fs.readFileSync('./__tests__/json/institutions.json'))
@@ -43,7 +44,7 @@ describe('Institutions', () => {
     expect(TestUtils.findRenderedDOMComponentWithTag(institutions, 'h2').textContent).toEqual('Filing Period 2017')
   })
   it('creates the status (renderStatus) with correct content', () => {
-    expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status-desc').textContent).toEqual('Your submission has been validated and is ready to be signed.')
+    expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status-desc').textContent).toEqual('Current filing status is validated. Your submission has been validated and is ready to be signed.')
   })
 
   it('creates the status button (renderViewButton)', () => {
@@ -85,15 +86,14 @@ describe('Institutions', () => {
   })
 })
 
-
 describe('renderStatus', () => {
   const getTime = comp => comp.props.children[1].props.children
+  const onDownloadClick = jest.fn()
 
-  const runByCode = (code, className, timeText) => {
+  const runByCode = (code, className) => {
     it('runs with code ' + code, () => {
-      const rendered = renderStatus({code: code}, 123, 234)
-      expect(rendered.props.children[0].props.children.props.className).toEqual(className + ' text-uppercase')
-      expect(rendered.props.children[1].props.children).toEqual(timeText)
+      const rendered = renderStatus('1234', '2017', {id: {sequenceNumber: 2}}, onDownloadClick, {code: code}, 123, 234)
+      expect(rendered.props.children[0].props.children[1].props.className).toEqual(className)
     })
   }
 
@@ -101,13 +101,13 @@ describe('renderStatus', () => {
     expect(renderStatus({})).toBe(undefined)
   })
 
-  runByCode(-1, 'text-secondary', 'Submission failed 47 years ago')
-  runByCode(1, 'text-secondary', null)
-  runByCode(2, 'text-primary', "Started 47 years ago")
-  runByCode(5, 'text-secondary', "Started 47 years ago")
-  runByCode(6, 'text-primary', "Started 47 years ago")
-  runByCode(8, 'text-secondary', "Started 47 years ago")
-  runByCode(10, 'text-green', 'Completed December 31st')
+  runByCode(-1, 'text-secondary')
+  runByCode(1, 'text-secondary')
+  runByCode(2, 'text-primary')
+  runByCode(5, 'text-secondary')
+  runByCode(6, 'text-primary')
+  runByCode(8, 'text-secondary')
+  runByCode(10, 'text-green')
 })
 
 describe('renderViewButton', () => {

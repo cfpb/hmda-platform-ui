@@ -7,12 +7,11 @@ import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 import * as STATUS from '../constants/statusCodes.js'
 
-export const renderStatus = (submissionStatus, start, end) => {
+export const renderStatus = (institutionId, period, submission, onDownloadClick, submissionStatus) => {
   if(!submissionStatus || !submissionStatus.code) return
 
   const statusCode = submissionStatus.code
   let messageClass
-  let timing = null
 
   if(statusCode === STATUS.CREATED) {
     messageClass = 'text-secondary'
@@ -20,7 +19,6 @@ export const renderStatus = (submissionStatus, start, end) => {
 
   if(statusCode > STATUS.CREATED) {
     messageClass = 'text-primary'
-    if(start) timing = `Started ${moment(start).utcOffset(-5).fromNow()}`
   }
 
   if(statusCode === STATUS.PARSED_WITH_ERRORS ||
@@ -30,20 +28,26 @@ export const renderStatus = (submissionStatus, start, end) => {
 
   if(statusCode === STATUS.SIGNED) {
     messageClass = 'text-green'
-    if(end) timing = `Completed ${moment(end).utcOffset(-5).format('MMMM Do')}`
   }
 
   // failed submission
   if(statusCode === STATUS.FAILED) {
     messageClass = 'text-secondary'
-    if(start) timing = `Submission failed ${moment(start).utcOffset(-5).fromNow()}`
   }
 
   return (
     <div className="status">
-      <p><strong className={`${messageClass} text-uppercase`}>{submissionStatus.message}</strong></p>
-      <p className="timing usa-text-small">{timing}</p>
-      <p className="status-desc">{submissionStatus.description}</p>
+      <p className="status-desc">Current filing status is <strong className={messageClass}>{submissionStatus.message}</strong>. {submissionStatus.description}</p>
+      <p className="usa-text-small"><a href="#"
+        onClick={(e) => {
+         e.preventDefault()
+         onDownloadClick(
+           institutionId,
+           period,
+           submission.id.sequenceNumber
+         )
+       }
+     }>Download edit report</a></p>
     </div>
   )
 }
@@ -175,9 +179,11 @@ export default class Institution extends Component {
                     <div className="current-status">
                       <h3>{institution.name} - {institution.id}</h3>
                       {renderStatus(
-                        latestSubmissionStatus,
-                        filing.start,
-                        filing.end
+                        institution.id,
+                        filing.period,
+                        filingObj.submissions[0],
+                        this.props.onDownloadClick,
+                        latestSubmissionStatus
                       )}
 
                       {renderViewButton(
