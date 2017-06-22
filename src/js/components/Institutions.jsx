@@ -6,6 +6,7 @@ import ErrorWarning from './ErrorWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 import * as STATUS from '../constants/statusCodes.js'
+import 'uswds'
 
 export const renderStatus = (institutionId, period, submission, onDownloadClick, submissionStatus) => {
   if(!submissionStatus || !submissionStatus.code) return
@@ -101,41 +102,46 @@ export const renderPreviousSubmissions = (submissions, onDownloadClick, institut
   if(!previousSubmissions.length) return
   return (
   <div className="previous-submissions">
-    <h4>Previous filings for current filing period</h4>
+    <ul className="usa-accordion-bordered">
+      <li>
+        <button className="usa-accordion-button"
+      aria-expanded="false" aria-controls="submissions">Previous filings for current filing period</button>
+        <div id="submissions" className="usa-accordion-content">
+          <ol reversed className="usa-text-small">
+            {previousSubmissions.map((submission, i) => {
+              // render the end date if it was signed
+              const date = (submission.status.code === STATUS.SIGNED) ? moment(submission.end).utcOffset(-5).format('MMMM Do, YYYY') : moment(submission.start).utcOffset(-5).format('MMMM Do, YYYY')
 
-    <ol reversed className="usa-text-small">
-      {previousSubmissions.map((submission, i) => {
-        // render the end date if it was signed
-        const date = (submission.status.code === STATUS.SIGNED) ? moment(submission.end).utcOffset(-5).format('MMMM Do, YYYY') : moment(submission.start).utcOffset(-5).format('MMMM Do, YYYY')
+              // render a link if validted with errors
+              if(submission.status.code === STATUS.VALIDATED_WITH_ERRORS) {
+                return (
+                  <li className="edit-report" key={i}>
+                    <strong>{submission.status.message}</strong> on {date}.{'\u00a0'}
+                    <a href="#"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        onDownloadClick(
+                          institutionId,
+                          period,
+                          submission.id.sequenceNumber
+                        )
+                      }
+                    }>Download edit report</a>
+                  </li>
+                )
+              }
 
-        // render a link if validted with errors
-        if(submission.status.code === STATUS.VALIDATED_WITH_ERRORS) {
-          return (
-            <li className="edit-report" key={i}>
-               <strong>{submission.status.message}</strong> on {date}.{'\u00a0'}
-               <a href="#"
-                onClick={(e) => {
-                  e.preventDefault()
-                  onDownloadClick(
-                    institutionId,
-                    period,
-                    submission.id.sequenceNumber
-                  )
-                }
-              }>Download edit report</a>
-            </li>
-          )
-        }
-
-        // other statuses contain no edits
-        return (
-          <li className="edit-report" key={i}>
-            <strong>{submission.status.message}</strong> on {date}.
-          </li>
-        )
-
-      })}
-    </ol>
+              // other statuses contain no edits
+              return (
+                <li className="edit-report" key={i}>
+                  <strong>{submission.status.message}</strong> on {date}.
+                </li>
+              )
+            })}
+          </ol>
+        </div>
+      </li>
+    </ul>
   </div>
   )
 }

@@ -3,7 +3,7 @@
     margin-bottom: 3em;
 
     .current-status {
-      background-color: $color-gray-lightest;
+      border: 3px solid $color-gray-lightest;
       padding: 1em;
     }
 
@@ -12,8 +12,7 @@
     }
 
     .previous-submissions {
-      border: 1px solid $color-gray-lightest;
-      padding: 1em;
+
 
       h4 {
         margin-top: 0;
