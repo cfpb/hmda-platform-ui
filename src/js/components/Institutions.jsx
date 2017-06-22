@@ -41,8 +41,8 @@ export const renderStatus = (institutionId, period, submission, onDownloadClick,
 
   return (
     <div className="status">
-      <p><strong className={messageClass}>{submissionStatus.message}</strong> - <a href="#"
-       onClick={(e) => {
+      <p><strong className={messageClass}>{submissionStatus.message}.</strong> <a href="#" className="usa-text-small"
+        onClick={(e) => {
          e.preventDefault()
          onDownloadClick(
            institutionId,
