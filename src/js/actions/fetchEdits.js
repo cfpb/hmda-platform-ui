@@ -11,10 +11,12 @@ export default function fetchEdits() {
     dispatch(requestEdits())
     return getEdits({submission: getId()})
       .then(json => {
-        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
-        dispatch(receiveEdits(json))
-        dispatch(fetchEachEdit(json))
-        return json
+        return hasHttpError(json).then(hasError => {
+          if(hasError) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+          dispatch(receiveEdits(json))
+          dispatch(fetchEachEdit(json))
+          return json
+        })
       })
       .catch(err => console.error(err))
   }

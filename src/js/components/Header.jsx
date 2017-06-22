@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router'
-import { signinRedirect, logout } from '../utils/redirect.js'
+import { logout } from '../utils/redirect.js'
 import BannerUSA from './BannerUSA.jsx'
 import BannerDeadline from '../containers/BannerDeadline.jsx'
 
@@ -48,8 +49,8 @@ const Header = (props) => {
 }
 
 Header.propTypes = {
-  user: React.PropTypes.object,
-  pathname: React.PropTypes.string
+  user: PropTypes.object,
+  pathname: PropTypes.string
 }
 
 export default Header

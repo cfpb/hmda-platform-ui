@@ -17,7 +17,6 @@ const signinRedirect = () => {
   userManager.signinRedirect()
 }
 
-
 const restorePage = () => {
   const restored = localStorage.getItem('hmdaPageBeforeSignin')
   localStorage.removeItem('hmdaPageBeforeSignin')

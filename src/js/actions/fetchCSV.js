@@ -14,8 +14,10 @@ export default function fetchCSV(institutionId, filing, submissionId) {
       submission: submissionId
     })
     .then(csv => {
-      if(hasHttpError(csv)) throw new Error(JSON.stringify(dispatch(receiveError(csv))))
-      return fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${submissionId}-full-edit-report.csv`)
+      return hasHttpError(csv).then(hasError => {
+        if(hasError) throw new Error(JSON.stringify(dispatch(receiveError(csv))))
+        return fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${submissionId}-full-edit-report.csv`)
+      })
     })
     .catch(err => console.error(err))
   }

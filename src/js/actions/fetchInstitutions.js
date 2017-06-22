@@ -10,11 +10,13 @@ export default function fetchInstitutions() {
     dispatch(requestInstitutions())
     return getInstitutions()
       .then(json => {
-        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
-        return dispatch(receiveInstitutions(json))
+        return hasHttpError(json).then(hasError => {
+          if(hasError) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+          return dispatch(receiveInstitutions(json))
+        })
       })
       .then(receiveAction => {
-        dispatch(fetchEachInstitution(receiveAction.institutions))
+        return dispatch(fetchEachInstitution(receiveAction.institutions))
       })
       .catch(err => console.error(err))
   }
