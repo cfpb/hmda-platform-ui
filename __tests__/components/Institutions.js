@@ -14,6 +14,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
+
 const fs = require('fs')
 const filingJSON = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))
 const institutionsJSON = JSON.parse(fs.readFileSync('./__tests__/json/institutions.json'))
@@ -88,11 +89,12 @@ describe('Institutions', () => {
 
 describe('renderStatus', () => {
   const getTime = comp => comp.props.children[1].props.children
+  const onDownloadClick = jest.fn()
 
   const runByCode = (code, className, timeText) => {
     it('runs with code ' + code, () => {
-      const rendered = renderStatus({code: code}, 123, 234)
-      expect(rendered.props.children[0].props.children.props.className).toEqual(className + ' text-uppercase')
+      const rendered = renderStatus('1234', '2017', {id: {sequenceNumber: 2}}, onDownloadClick, {code: code}, 123, 234)
+      expect(rendered.props.children[0].props.children[0].props.className).toEqual(className)
       expect(rendered.props.children[1].props.children).toEqual(timeText)
     })
   }
