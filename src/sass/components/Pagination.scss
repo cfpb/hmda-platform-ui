@@ -14,4 +14,20 @@
   button:last-of-type {
     margin-right: 2em; /* centering compensatation for narrower width */
   }
+  .LoadingIconWrapper {
+    position: absolute;
+    bottom:0;
+    left:50%;
+    margin-left: -22px;
+  }
+}
+
+.PaginationTarget {
+  transition: opacity 0.3s;
+  opacity: 1;
+
+  &.hide{
+    /*transition-delay: 0s;*/
+    opacity: 0;
+  }
 }

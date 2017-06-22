@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import fetchParseErrors from '../actions/fetchParseErrors.js'
 import ParseErrors from '../components/ParseErrors.jsx'
@@ -28,11 +29,14 @@ export function mapStateToProps(state) {
     state.app.pagination.parseErrors.total :
     null
 
+  const paginationFade = state.app.paginationFade.parseErrors
+
   return {
     isFetching,
     transmittalSheetErrors,
     larErrors,
-    total
+    total,
+    paginationFade
   }
 }
 

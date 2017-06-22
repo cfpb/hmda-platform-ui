@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import LoadingIcon from '../components/LoadingIcon.jsx'
 
 const Pagination = (props) => {
   const page = props.pagination
@@ -19,6 +21,7 @@ const Pagination = (props) => {
         className={ lastPage ? 'usa-button-disabled' : '' }
         onClick={ e => { if(!lastPage) props.getNextPage(page) }}
       >Next</button>
+      {props.isFetching ? <LoadingIcon/> : null}
     </div>
   )
 }

@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import fetchPage from '../actions/fetchPage.js'
+import fadePagination from '../actions/fadePagination.js'
+import fadeInPagination from '../actions/fadeInPagination.js'
 import Pagination from '../components/Pagination.jsx'
 
 class PaginationContainer extends Component {
@@ -19,19 +21,25 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
+function fadeAndFetch(dispatch, target, pagination, link){
+  dispatch(fadePagination(target))
+  setTimeout(() => dispatch(fadeInPagination(target)), 300)
+  dispatch(fetchPage(target, makePathname(pagination, link)))
+}
+
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     getPage: (pagination, page) => {
       if(!pagination || page === undefined) return
-      dispatch(fetchPage(ownProps.target, makePathname(pagination, '?page=' + page)))
+      fadeAndFetch(dispatch, ownProps.target, pagination, '?page=' + page)
     },
     getNextPage: (pagination) => {
       if(!pagination) return
-      dispatch(fetchPage(ownProps.target, makePathname(pagination, pagination._links.next)))
+      fadeAndFetch(dispatch, ownProps.target, pagination, pagination._links.next)
     },
     getPreviousPage: (pagination) => {
       if(!pagination) return
-      dispatch(fetchPage(ownProps.target, makePathname(pagination, pagination._links.prev)))
+      fadeAndFetch(dispatch, ownProps.target, pagination, pagination._links.prev)
     }
   }
 }
