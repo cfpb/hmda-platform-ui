@@ -31,35 +31,28 @@
 
       p {
         margin: 0;
-        &:first-letter {
-          text-transform: capitalize;
-        }
-        &.timing {
-          color: $color-gray;
-          margin-bottom: .5em;
-        }
       }
     }
-  }
 
-  aside {
-    padding-right: 1em;
-    padding-left: 1em;
-  }
-
-  .edit-report:first-letter {
-    text-transform: capitalize;
-  }
-
-  .InstitutionsHeader {
-    margin: 0;
-
-    h1 {
-      margin: 0;
+    aside {
+      padding-right: 1em;
+      padding-left: 1em;
     }
 
-    h2 {
-      margin: 0.5em 0 1em;
+    .edit-report:first-letter {
+      text-transform: capitalize;
+    }
+
+    .InstitutionsHeader {
+      margin: 0;
+
+      h1 {
+        margin: 0;
+      }
+
+      h2 {
+        margin: 0.5em 0 1em;
+      }
     }
   }
 }
