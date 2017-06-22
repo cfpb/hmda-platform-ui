@@ -107,6 +107,6 @@
     "redux-logger": "2.7.4",
     "redux-oidc": "2.2.1",
     "redux-thunk": "2.1.0",
-    "uswds": "^1.2.1"
+    "uswds": "1.2.1"
   }
 }

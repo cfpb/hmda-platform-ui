@@ -7,7 +7,6 @@ import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 import * as STATUS from '../constants/statusCodes.js'
 import 'uswds'
-//require('uswds')
 
 export const renderStatus = (submissionStatus, start, end) => {
   if(!submissionStatus || !submissionStatus.code) return
