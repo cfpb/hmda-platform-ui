@@ -1,8 +1,10 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import fetchPage from '../actions/fetchPage.js'
-import fadePagination from '../actions/fadePagination.js'
-import fadeInPagination from '../actions/fadeInPagination.js'
+import paginationSlideLeft from '../actions/paginationSlideLeft.js'
+import paginationSlideRight from '../actions/paginationSlideRight.js'
+import paginationSettle from '../actions/paginationSettle.js'
 import Pagination from '../components/Pagination.jsx'
 
 class PaginationContainer extends Component {
@@ -21,9 +23,10 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-function fadeAndFetch(dispatch, target, pagination, link){
-  dispatch(fadePagination(target))
-  setTimeout(() => dispatch(fadeInPagination(target)), 300)
+function moveAndFetch(dispatch, target, pagination, link, slideLeft){
+  if(slideLeft) dispatch(paginationSlideLeft(target))
+  else dispatch(paginationSlideRight(target))
+  setTimeout(() => dispatch(paginationSettle(target)), 300)
   dispatch(fetchPage(target, makePathname(pagination, link)))
 }
 
@@ -31,15 +34,15 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     getPage: (pagination, page) => {
       if(!pagination || page === undefined) return
-      fadeAndFetch(dispatch, ownProps.target, pagination, '?page=' + page)
+      moveAndFetch(dispatch, ownProps.target, pagination, '?page=' + page)
     },
     getNextPage: (pagination) => {
       if(!pagination) return
-      fadeAndFetch(dispatch, ownProps.target, pagination, pagination._links.next)
+      moveAndFetch(dispatch, ownProps.target, pagination, pagination._links.next, 1)
     },
     getPreviousPage: (pagination) => {
       if(!pagination) return
-      fadeAndFetch(dispatch, ownProps.target, pagination, pagination._links.prev)
+      moveAndFetch(dispatch, ownProps.target, pagination, pagination._links.prev, 0)
     }
   }
 }

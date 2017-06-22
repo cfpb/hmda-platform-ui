@@ -25,18 +25,16 @@ export function mapStateToProps(state) {
     larErrors
   } = state.app.parseErrors
 
-  const total = state.app.pagination.parseErrors ?
-    state.app.pagination.parseErrors.total :
-    null
+  const pagination = state.app.pagination.parseErrors
 
-  const paginationFade = state.app.paginationFade.parseErrors
+  const paginationSlide = state.app.paginationSlide.parseErrors
 
   return {
     isFetching,
     transmittalSheetErrors,
     larErrors,
-    total,
-    paginationFade
+    pagination,
+    paginationSlide
   }
 }
 

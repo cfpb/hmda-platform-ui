@@ -22,12 +22,49 @@
   }
 }
 
+.PaginationTargetWrapper {
+  position: relative;
+}
+
+
 .PaginationTarget {
-  transition: opacity 0.3s;
   opacity: 1;
 
-  &.hide{
-    /*transition-delay: 0s;*/
+  &.slideRight {
+    transition: transform 0.3s, opacity 0.3s;
     opacity: 0;
+    transform: translateX(100%);
+  }
+
+  &.slideLeft {
+    transition: transform 0.3s, opacity 0.3s;
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+.PaginationPrev {
+  position: absolute;
+  top: 4.8em;
+  transform: translateX(-100%);
+  opacity: 0;
+
+  &.slideRight {
+    transition: transform 0.3s, opacity 0.3s;
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.PaginationNext {
+  position: absolute;
+  top: 4.8em;
+  transform: translateX(100%);
+  opacity: 0;
+
+  &.slideLeft {
+    transition: transform 0.3s, opacity 0.3s;
+    opacity: 1;
+    transform: translateX(0);
   }
 }
