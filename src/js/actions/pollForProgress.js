@@ -11,8 +11,10 @@ export default function pollForProgress(polling) {
     if(!location.pathname.match('/upload')) return Promise.resolve()
     return getLatestSubmission()
       .then(json => {
-        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
-        return dispatch(receiveSubmission(json))
+        return hasHttpError(json).then(hasError => {
+          if(hasError) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+          return dispatch(receiveSubmission(json))
+        })
       })
       .then(json => {
         if(json.status.code < VALIDATED_WITH_ERRORS &&

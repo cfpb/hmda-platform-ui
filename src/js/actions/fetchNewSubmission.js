@@ -9,10 +9,9 @@ export default function fetchNewSubmission(id, period) {
     dispatch(requestSubmission())
     return createSubmission(id, period)
       .then(json => {
-        return new Promise((resolve, reject) => {
-          if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
-          dispatch(receiveSubmission(json))
-          resolve()
+        return hasHttpError(json).then(hasError => {
+          if(hasError) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+          return dispatch(receiveSubmission(json))
         })
       })
       .catch(err => console.error(err))

@@ -10,8 +10,10 @@ export default function fetchParseErrors() {
     dispatch(requestParseErrors())
     return getParseErrors(getId())
       .then(json => {
-        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
-        return dispatch(receiveParseErrors(json))
+        return hasHttpError(json).then(hasError => {
+          if(hasError) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+          return dispatch(receiveParseErrors(json))
+        })
       })
       .catch(err => console.error(err))
   }

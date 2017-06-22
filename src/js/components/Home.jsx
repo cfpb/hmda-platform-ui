@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import { signinRedirect } from '../utils/redirect.js'
 
 const renderLoggedInHero = () => {
   return (

@@ -31,7 +31,6 @@ fetch('/env.json').then(res => {
 
   const userManager = UserManager()
   setUserManager(userManager)
-  window.userManager = userManager
 
   const oidcMiddleware = createOidcMiddleware(userManager, () => true, false, '/oidc-callback')
   const loggerMiddleware = createLogger({collapsed: true})

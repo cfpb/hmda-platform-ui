@@ -39,11 +39,7 @@ const getEachInstitution = [
     type: types.RECEIVE_INSTITUTION,
     institution: institutionsDetailObj['3'].institution
   },
-  {type:types.CLEAR_FILINGS},
-  {type:types.RECEIVE_FILINGS},
-  {type:types.RECEIVE_FILINGS},
-  {type:types.RECEIVE_FILINGS},
-  {type:types.RECEIVE_FILINGS}
+  {type:types.CLEAR_FILINGS}
 ]
 describe('fetchEachInstitution', () => {
   it('creates a thunk that will clear current filings and fetch each institution', done => {

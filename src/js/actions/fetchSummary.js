@@ -10,8 +10,10 @@ export default function fetchSummary() {
     dispatch(requestSummary())
     return getSummary(getId())
       .then(json => {
-        if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
-        return dispatch(receiveSummary(json))
+        return hasHttpError(json).then(hasError => {
+          if(hasError) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+          return dispatch(receiveSummary(json))
+        })
       })
       .catch(err => console.error(err))
   }

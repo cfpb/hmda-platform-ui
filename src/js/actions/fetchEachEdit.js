@@ -13,8 +13,10 @@ export default function fetchEachEdit(editTypes) {
            dispatch(requestEdit())
            getEdit({submission: getId(), edit: edit.edit})
              .then(json => {
-               if(hasHttpError(json)) throw new Error(JSON.stringify(dispatch(receiveError(json))))
-               dispatch(receiveEdit(json))
+                return hasHttpError(json).then(hasError => {
+                  if(hasError) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+                  return dispatch(receiveEdit(json))
+                })
              })
              .catch(err => console.error(err))
         })
