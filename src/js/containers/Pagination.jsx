@@ -7,6 +7,8 @@ import paginationSlideRight from '../actions/paginationSlideRight.js'
 import paginationSettle from '../actions/paginationSettle.js'
 import Pagination from '../components/Pagination.jsx'
 
+const fetchChecker = {}
+
 class PaginationContainer extends Component {
   constructor(props) {
     super(props)
@@ -25,13 +27,19 @@ function mapStateToProps(state, ownProps) {
 
 function moveAndFetch(dispatch, target, pagination, link, slideLeft){
   console.log(target, pagination, link, slideLeft)
+  const settle = () => {
+    if(!fetchChecker[target]) return dispatch(paginationSettle(target))
+    setTimeout(settle,100)
+  }
+
   if(slideLeft) dispatch(paginationSlideLeft(target))
   else dispatch(paginationSlideRight(target))
-  setTimeout(() => dispatch(paginationSettle(target)), 300)
+  setTimeout(settle, 300)
   dispatch(fetchPage(target, makePathname(pagination, link)))
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
+  fetchChecker[ownProps.target] = ownProps.isFetching
   return {
     getPage: (pagination, page) => {
       if(!pagination || page === undefined) return
