@@ -31,7 +31,6 @@ export function mapStateToProps(state) {
   } = state.app.irs
 
   const {
-    status,
     id
   } = state.app.submission
 
@@ -43,7 +42,6 @@ export function mapStateToProps(state) {
     isFetching,
     msas,
     summary,
-    status,
     id,
     renderTotals
   }

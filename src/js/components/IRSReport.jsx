@@ -110,7 +110,6 @@ const IRSReport = (props) => {
 IRSReport.propTypes = {
   msas: PropTypes.array,
   summary: PropTypes.object,
-  status: PropTypes.object,
   id: PropTypes.object,
   renderTotals: PropTypes.bool,
   onDownloadClick: PropTypes.func
