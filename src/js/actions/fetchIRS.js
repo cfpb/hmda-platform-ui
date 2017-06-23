@@ -12,8 +12,10 @@ export default function fetchIRS() {
     const poller = () => {
       return getIRS(getId())
         .then(json => {
-          if(hasHttpError(json)) return IRSPollingId.set(setTimeout(poller, 1000))
-          return dispatch(receiveIRS(json))
+          return hasHttpError(json).then(hasError => {
+            if(hasError) return IRSPollingId.set(setTimeout(poller, 1000))
+            return dispatch(receiveIRS(json))
+          })
         })
         .catch(err => console.error(err))
     }
