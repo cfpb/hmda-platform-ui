@@ -140,6 +140,12 @@ describe('renderTableCaption', () => {
     expect(rendered.type).toBe('div')
   })
 
+  it('renders the correct macro caption', () => {
+    const edits = types.macro.edits[0]
+    const rendered = renderTableCaption(edits, {rows: rows}, 'macro', {Q008: {total:1}})
+    expect(rendered.props.children[0].props.children).toBe('Edit Q008 found.')
+  })
+
   it('returns null without a name', () => {
     const object = {
       edits: [
