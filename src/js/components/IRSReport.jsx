@@ -26,9 +26,14 @@ const renderTotals = (props) => {
   return null
 }
 const IRSReport = (props) => {
-  console.log(props.submission)
   if (!props.msas) return null
   if (props.msas.length === 0) return null
+
+  const {
+    institutionId,
+    period,
+    sequenceNumber
+  } = props.id
 
   return (
     <div className="IRSReport">
@@ -36,15 +41,15 @@ const IRSReport = (props) => {
         <h2>Institution Register Summary</h2>
         <p className="usa-font-lead">Please review your summarized HMDA data below. If the data are incorrect, please update your file and select the "Update a new file" button. You will need to begin the filing process again.</p>
         <p><a href="#"
-          onClick={(e) => {
-           e.preventDefault()
-          /* onDownloadClick(
-             institutionId,
-             period,
-             submission.id.sequenceNumber
-           )*/
-         }
-       }>Download edit report</a></p>
+              onClick={(e) => {
+                e.preventDefault()
+                props.onDownloadClick(
+                  institutionId,
+                  period,
+                  sequenceNumber
+                )
+              }
+        }>Download edit report</a></p>
       </header>
 
       <div className="irs-table-wrapper" id="irs" >
@@ -106,6 +111,7 @@ IRSReport.propTypes = {
   msas: PropTypes.array,
   summary: PropTypes.object,
   status: PropTypes.object,
+  id: PropTypes.object,
   renderTotals: PropTypes.bool,
   onDownloadClick: PropTypes.func
 }

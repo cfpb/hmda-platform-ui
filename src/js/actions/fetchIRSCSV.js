@@ -2,7 +2,7 @@ import fileSaver from 'file-saver'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
 import requestIRSCSV from './requestIRSCSV.js'
-import { getCSV } from '../api/api.js'
+import { getIRSCSV } from '../api/api.js'
 
 // downloading the IRS csv, no reducer required
 export default function fetchIRSCSV(institutionId, filing, submissionId) {

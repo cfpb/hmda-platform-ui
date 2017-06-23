@@ -24,8 +24,6 @@ export class IRSReportContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  console.log('IRS')
-  console.log(state)
   const {
     isFetching,
     msas,
@@ -33,7 +31,8 @@ export function mapStateToProps(state) {
   } = state.app.irs
 
   const {
-    status
+    status,
+    id
   } = state.app.submission
 
   const renderTotals = state.app.pagination.irs ?
@@ -45,6 +44,7 @@ export function mapStateToProps(state) {
     msas,
     summary,
     status,
+    id,
     renderTotals
   }
 }
