@@ -26,17 +26,24 @@ export const renderErrors = (errors) => {
 }
 
 export const getDropzoneText = ({ code, errors, file }) => {
-  let message = 'Drag your LAR file into this area, or click in this box to select a LAR file to upload.'
+  const howToMessage = 'To select a file to upload, drag it into this box or click here.'
+  let message = howToMessage
   let fileName = null
 
   if(code >= UPLOADING) {
-    message = 'Drag another LAR file to this area, or click in the box to select a LAR file to upload.'
+    message = howToMessage
   }
 
   if(file) {
-    message = `${file.name} is ready for upload.`
+    message = <article>
+      <span><strong>{file.name}</strong> selected.</span>
+      {howToMessage}
+    </article>
     if(errors.length > 0) {
-      message = `${file.name} can not be uploaded.`
+      message = <article>
+        <span><strong>{file.name}</strong> can not be uploaded.</span>
+        {howToMessage}
+      </article>
     }
 
     if(code >= UPLOADING) {
@@ -93,7 +100,7 @@ export default class Upload extends Component {
                 onDrop={this.onDrop}
                 multiple={false}
                 className="dropzone">
-                <div className="usa-text-small">
+                <div>
                   {dropzoneText}
                 </div>
               </Dropzone>
