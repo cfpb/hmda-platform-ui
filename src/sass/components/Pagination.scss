@@ -24,6 +24,9 @@
 
 .PaginationTargetWrapper {
   position: relative;
+  table {
+    margin-top: 0;
+  }
 }
 
 
@@ -45,7 +48,7 @@
 
 .PaginationPrev {
   position: absolute;
-  top: 4.8em;
+  top: 0;
   transform: translateX(-100%);
   opacity: 0;
 
@@ -58,7 +61,7 @@
 
 .PaginationNext {
   position: absolute;
-  top: 4.8em;
+  top: 0;
   transform: translateX(100%);
   opacity: 0;
 

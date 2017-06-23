@@ -1,6 +1,6 @@
 import React from 'react'
 
-const makeTable = (className, pagination) => {
+const makeTable = (className, {caption, pagination}) => {
 
   const rows = []
   for(var i=0; i<pagination.count; i++) {
@@ -9,6 +9,7 @@ const makeTable = (className, pagination) => {
 
   return (
     <table className={className}>
+      {caption}
       <thead>
         <tr>
           <th>&nbsp;</th>
@@ -45,9 +46,9 @@ const PaginationSlider = props => {
 
   return (
    <div className="PaginationTargetWrapper">
-      {makeTable(prevClass, props.pagination)}
+      {makeTable(prevClass, props)}
       {props.children}
-      {makeTable(nextClass, props.pagination)}
+      {makeTable(nextClass, props)}
    </div>
   )
 }

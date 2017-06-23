@@ -10,7 +10,7 @@ export default function fetchEachEdit(editTypes) {
     Object.keys(editTypes).forEach(key => {
       if(key !== 'status'){
         editTypes[key].edits && editTypes[key].edits.forEach(edit => {
-           dispatch(requestEdit())
+           dispatch(requestEdit(edit.edit))
            getEdit({submission: getId(), edit: edit.edit})
              .then(json => {
                 return hasHttpError(json).then(hasError => {

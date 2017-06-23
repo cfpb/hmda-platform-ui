@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { browserHistory } from 'react-router'
 import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import LoadingIcon from './LoadingIcon.jsx'
@@ -29,7 +30,14 @@ export const renderTables = (props, edits, type) => {
   }
 
   return edits.map((edit, i) => {
-    return <EditsTable pagination={props.pagination} edit={edit} rows={props.rows} type={type} key={i}/>
+    return <EditsTable
+      pagination={props.pagination}
+      paginationSlide={props.paginationSlide}
+      edit={edit}
+      rows={props.rows}
+      type={type}
+      key={i}
+    />
   })
 }
 
@@ -57,6 +65,7 @@ EditsTableWrapper.propTypes = {
   fetched: PropTypes.bool,
   isFetching: PropTypes.bool,
   pagination: PropTypes.object,
+  paginationSlide: PropTypes.object,
   rows: PropTypes.object,
   types: PropTypes.object,
   // from /containers/submissionProgressHOC

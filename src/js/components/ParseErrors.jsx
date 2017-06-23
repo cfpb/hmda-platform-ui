@@ -30,14 +30,16 @@ const renderTSErrors = ({transmittalSheetErrors}) => {
 
 const renderLarErrors= ({larErrors, ...props}) => {
   if(larErrors.length === 0) return null
+  const caption =
+    <caption>
+      <h3>LAR Errors</h3>
+      <p>Formatting errors in loan application records, arranged by row.</p>
+    </caption>
 
   return (
-    <PaginationSlider {...props}>
+    <PaginationSlider caption={caption} {...props}>
       <table id="parseErrors" width="100%">
-        <caption>
-          <h3>LAR Errors</h3>
-          <p>Formatting errors in loan application records, arranged by row.</p>
-        </caption>
+        {caption}
         <thead>
           <tr>
             <th>Row</th>
@@ -62,7 +64,6 @@ const renderLarErrors= ({larErrors, ...props}) => {
 }
 
 const ParseErrors = (props) => {
-  console.log('isFetching', props.isFetching)
   if(!props.larErrors) return null
 
   const total = props.pagination && props.pagination.total + props.transmittalSheetErrors.length

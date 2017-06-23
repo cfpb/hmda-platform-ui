@@ -1,5 +1,7 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Pagination from '../containers/Pagination.jsx'
+import PaginationSlider from './PaginationSlider.jsx'
 import LoadingIcon from './LoadingIcon.jsx'
 import EditsTableRow from './EditsTableRow.jsx'
 
@@ -44,7 +46,7 @@ export const renderTableCaption = (edit, rowObj, type, pagination) => {
   if(!name) return null
 
   const description = edit.description
-  const length = pagination[name].total
+  const length = pagination.total
 
 
   const editText = length === 1 ? 'edit' : 'edits'
@@ -83,34 +85,44 @@ export const renderTable = (edit, rowObj, type, pagination) => {
 
 export const makeTable = (props) => {
   const edit = props.edit
+  const name = edit.edit
   const type = props.type
-  const rowObj = props.rows[edit.edit]
+  const rowObj = props.rows[name]
+  const pagination = props.pagination[name]
 
   if(!rowObj || rowObj.isFetching) return <LoadingIcon/>
 
+  const caption = renderTableCaption(edit, rowObj, type, pagination)
+
   return (
     type === 'macro'
-    ? renderTableCaption(edit, rowObj, type, props.pagination)
-    : renderTable(edit, rowObj, type, props.pagination)
+    ? caption
+    : <PaginationSlider caption={caption} paginationSlide={props.paginationSlide[name]} pagination={pagination}>
+        {renderTable(edit, rowObj, type, pagination)}
+      </PaginationSlider>
   )
 }
 
 
 const EditsTable = (props) => {
-  if (!props.edit) return null
+  if (!props.edit || !props.pagination[props.edit.edit]) return null
+  const name = props.edit.edit
 
   return (
-    <div className="EditsTable" id={props.edit.edit}>
+    <div className="EditsTable" id={name}>
       {makeTable(props)}
-      {props.type === 'macro' ? null : <Pagination target={props.edit.edit}/>}
+      {props.type === 'macro' ? null : <Pagination isFetching={props.rows[name].isFetching} target={name}/>}
     </div>
   )
 }
 
 
 EditsTable.propTypes = {
-  edits: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  type: PropTypes.string
+  edit: PropTypes.object,
+  rows: PropTypes.object,
+  type: PropTypes.string,
+  pagination: PropTypes.object,
+  paginationSlide: PropTypes.object
 }
 
 export default EditsTable

@@ -26,7 +26,6 @@ function mapStateToProps(state, ownProps) {
 }
 
 function moveAndFetch(dispatch, target, pagination, link, slideLeft){
-  console.log(target, pagination, link, slideLeft)
   const settle = () => {
     if(!fetchChecker[target]) return dispatch(paginationSettle(target))
     setTimeout(settle,100)
