@@ -7,6 +7,8 @@ const makeTable = (className, {caption, pagination}) => {
     rows.push(0)
   }
 
+  if(!rows.length) return null
+
   return (
     <table className={className}>
       {caption}
@@ -42,12 +44,12 @@ const PaginationSlider = props => {
   }
 
   centerClass = props.children.props.className ?  `${props.children.className} ${centerClass}` : centerClass
-  props.children.props.className = centerClass
+  const child = React.cloneElement(props.children, {className: centerClass})
 
   return (
    <div className="PaginationTargetWrapper">
       {makeTable(prevClass, props)}
-      {props.children}
+      {child}
       {makeTable(nextClass, props)}
    </div>
   )

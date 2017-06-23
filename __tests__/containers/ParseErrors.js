@@ -26,7 +26,8 @@ const defaultState = {
       transmittalSheetErrors: [],
       larErrors: []
     },
-    pagination: {}
+    pagination: {parseErrors: {}},
+    paginationSlide: {parseErrors: 'center'}
   }
 }
 
@@ -54,11 +55,12 @@ describe('ParseErrors', () => {
   it('maps state to props', () => {
     const mapped = mapStateToProps(defaultState)
 
-    expect(Object.keys(mapped)).toEqual(['isFetching', 'transmittalSheetErrors', 'larErrors', 'total'])
+    expect(Object.keys(mapped)).toEqual(['isFetching', 'transmittalSheetErrors', 'larErrors', 'pagination', 'paginationSlide'])
     expect(mapped.isFetching).toEqual(false)
     expect(mapped.transmittalSheetErrors).toEqual([])
     expect(mapped.larErrors).toEqual([])
-    expect(mapped.total).toBe(null)
+    expect(mapped.pagination).toEqual({})
+    expect(mapped.paginationSlide).toBe('center')
 
     const mappedTotal = mapStateToProps({
       app: {
@@ -67,9 +69,10 @@ describe('ParseErrors', () => {
           parseErrors: {
             total: 123
           }
-        }
+        },
+        paginationSlide: {}
       }
     })
-    expect(mappedTotal.total).toBe(123)
+    expect(mappedTotal.pagination.total).toBe(123)
   })
 })

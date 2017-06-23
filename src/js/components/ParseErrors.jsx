@@ -83,8 +83,8 @@ const ParseErrors = (props) => {
 }
 
 ParseErrors.propTypes = {
-  pagination: PropTypes.number,
-  paginationSlide: PropTypes.number,
+  pagination: PropTypes.object,
+  paginationSlide: PropTypes.string,
   transmittalSheetErrors: PropTypes.array.isRequired,
   larErrors: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired

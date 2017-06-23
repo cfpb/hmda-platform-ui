@@ -88,7 +88,7 @@ describe('Pagination Container', () => {
     mapped.getPreviousPage(pageObj)
     mapped.getNextPage(pageObj)
 
-    expect(dispatch).toHaveBeenCalledTimes(3)
+    expect(dispatch).toHaveBeenCalledTimes(6)
   })
 
   it('renders the connected component', () => {

@@ -41,12 +41,21 @@ describe('Edits Table', () => {
     expect(macroNode).toBeDefined()
     expect(TestUtils.scryRenderedDOMComponentsWithTag(editsTableMacro, 'table').length).toBe(0)
   })
+
   const editsTableNoEdits = TestUtils.renderIntoDocument(
     <Wrapper><EditsTable type='syntactical'/></Wrapper>
   )
   const tableNoEditsNode = ReactDOM.findDOMNode(editsTableNoEdits)
-  it('is NULL without edits', () => {
+  it('is NULL without edit', () => {
     expect(tableNoEditsNode).toBe(null)
+  })
+
+  const editsTableNoPagination = TestUtils.renderIntoDocument(
+    <Wrapper><EditsTable edit={types.syntactical.edits[0]} pagination={{}} type='syntactical'/></Wrapper>
+  )
+  const editsTableNoPaginationNode = ReactDOM.findDOMNode(editsTableNoPagination)
+  it('is NULL without pagination for edits', () => {
+    expect(editsTableNoPaginationNode).toBe(null)
   })
 })
 
@@ -129,7 +138,7 @@ describe('renderBody', () => {
 describe('renderTableCaption', () => {
   it('renders the syntactical caption with a description', () => {
     const edits = types.syntactical.edits[0]
-    const rendered = renderTableCaption(edits, {rows: rows}, 'syntactical', {S020:{total:3}})
+    const rendered = renderTableCaption(edits, {rows: rows}, 'syntactical', {total:3})
     expect(rendered.type).toBe('caption')
     expect(rendered.props.children[0].props.children).toBe('3 S020 edits found.')
   })
@@ -161,11 +170,11 @@ describe('makeTable', () => {
       edit: types.syntactical.edits[0],
       rows: {S020: {rows: rows}},
       type: 'syntactical',
-      pagination: {S020:{total:3}}
+      pagination: {S020:{total:3}},
+      paginationSlide: {S020:'center'}
     }
     const rendered = makeTable(props)
-    expect(rendered.type).toBe('table')
-    expect(rendered.props.children.length).toBe(3)
+    expect(typeof rendered.type).toBe('function')
   })
 
   it('returns LoadingIcon on bad rowObj', () => {
