@@ -51,26 +51,26 @@
     border: 1px dashed $color-gray-light;
     height: 200px;
     position: relative;
-    text-align: center;
+    /*text-align: center;*/
     width: 100%;
     &.dropzone-disabled {
       border-color: $color-secondary-light;
       color: $color-secondary;
     }
 
-    div {
+    span {
+      align-items: center;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      line-height: normal;
       margin: 0;
+      margin-right: -50%;
       padding: 0;
       width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-right: -50%;
-      transform: translate(-50%, -50%);
     }
 
-    button {
+    [role="button"] {
       background: none;
       color: $color-base;
       font-weight: 400;

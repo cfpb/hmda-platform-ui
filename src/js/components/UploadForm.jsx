@@ -53,7 +53,7 @@ export const getDropzoneText = ({ code, errors, file }) => {
     }
   }
 
-  return <button onClick={e=>e.preventDefault()}>{message}</button>
+  return <span className="usa-button" role="button" onClick={e=>e.preventDefault()}>{message}</span>
 }
 
 export default class Upload extends Component {
@@ -88,36 +88,32 @@ export default class Upload extends Component {
     const dropzoneText = getDropzoneText(this.props)
 
     return (
-      <div>
-        <div className="UploadForm">
-          {renderErrors(this.props.errors)}
-          <form
-            className="usa-form"
-            encType="multipart/form-data"
-            onSubmit={e => {
-              this.props.handleSubmit(e, this.props.file)}}>
-            <div className="container-upload">
-              <Dropzone
-                disablePreview={true}
-                onDrop={this.onDrop}
-                multiple={false}
-                className="dropzone">
-                <div>
-                  {dropzoneText}
-                </div>
-              </Dropzone>
-            </div>
-            <input
-              disabled={isUploadDisabled}
-              className="usa-button"
-              id="uploadButton"
-              name="uploadButton"
-              type="submit"
-              value="Upload">
-            </input>
-          </form>
-          {renderValidationProgress(this.props)}
-        </div>
+      <div className="UploadForm">
+        {renderErrors(this.props.errors)}
+        <form
+          className="usa-form"
+          encType="multipart/form-data"
+          onSubmit={e => {
+            this.props.handleSubmit(e, this.props.file)}}>
+          <div className="container-upload">
+            <Dropzone
+              disablePreview={true}
+              onDrop={this.onDrop}
+              multiple={false}
+              className="dropzone">
+              {dropzoneText}
+            </Dropzone>
+          </div>
+          <input
+            disabled={isUploadDisabled}
+            className="usa-button"
+            id="uploadButton"
+            name="uploadButton"
+            type="submit"
+            value="Upload">
+          </input>
+        </form>
+        {renderValidationProgress(this.props)}
       </div>
     )
   }
