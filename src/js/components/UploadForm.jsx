@@ -27,8 +27,7 @@ export const renderErrors = (errors) => {
 
 export const getDropzoneText = ({ code, errors, file }) => {
   const howToMessage = 'To select a file to upload, drag it into this box or click here.'
-  let message = howToMessage
-  let fileName = null
+  let message = <p>{howToMessage}</p>
 
   if(code >= UPLOADING) {
     message = howToMessage
@@ -36,18 +35,21 @@ export const getDropzoneText = ({ code, errors, file }) => {
 
   if(file) {
     message = <article>
-      <span><strong>{file.name}</strong> selected.</span>
-      {howToMessage}
+      <p><strong>{file.name}</strong> selected.</p>
+      <p className="file-selected">{howToMessage}</p>
     </article>
     if(errors.length > 0) {
       message = <article>
-        <span><strong>{file.name}</strong> can not be uploaded.</span>
-        {howToMessage}
+        <p><strong>{file.name}</strong> can not be uploaded.</p>
+        <p>{howToMessage}</p>
       </article>
     }
 
     if(code >= UPLOADING) {
-      message = `Submission of ${file.name} currently in progess. You can drag another LAR file to this area, or click in the box to select a LAR file to upload..`
+      message = <article>
+        <p>Submission of <strong>{file.name}</strong> currently in progess.</p>
+        <p className="file-selected">You can drag another LAR file to this area, or click in the box to select a LAR file to upload.</p>
+      </article>
     }
   }
 

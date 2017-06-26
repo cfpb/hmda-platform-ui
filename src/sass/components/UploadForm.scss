@@ -79,9 +79,8 @@
       margin: 0;
       padding: 0;
 
-      span {
-        display: block;
-        margin-bottom: .5em;
+      .file-selected {
+        color: $color-gray;
       }
     }
   }
