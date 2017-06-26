@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import fetchIRS from '../actions/fetchIRS.js'
 import cancelIRSFetch from '../actions/cancelIRSFetch.js'
 import IRSReport from '../components/IRSReport.jsx'
+import fetchIRSCSV from '../actions/fetchIRSCSV.js'
 
 export class IRSReportContainer extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export function mapStateToProps(state) {
   } = state.app.irs
 
   const {
-    status
+    id
   } = state.app.submission
 
   const renderTotals = state.app.pagination.irs ?
@@ -41,9 +42,19 @@ export function mapStateToProps(state) {
     isFetching,
     msas,
     summary,
-    status,
+    id,
     renderTotals
   }
 }
 
-export default connect(mapStateToProps)(IRSReportContainer)
+function mapDispatchToProps(dispatch) {
+  return {
+    // triggered by a click on "Download IRS"
+    onDownloadClick: (institutionId, filing, submissionId) => {
+      dispatch(fetchIRSCSV(institutionId, filing, submissionId))
+    },
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(IRSReportContainer)

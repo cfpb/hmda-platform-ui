@@ -10,9 +10,10 @@ import TestUtils from 'react-addons-test-utils'
 
 const fs = require('fs')
 const irsJSON = JSON.parse(fs.readFileSync('./__tests__/json/irs.json'))
-const status = {
-  code: 10,
-  message: ''
+const id = {
+  institutionId: 1,
+  period: '2017',
+  sequenceNumber: 1
 }
 
 
@@ -23,6 +24,7 @@ describe('IRS report', () => {
         msas={irsJSON.msas}
         summary={irsJSON.summary}
         renderTotals={false}
+        id={id}
       />
     </Wrapper>
   )
@@ -42,6 +44,7 @@ describe('IRS report', () => {
         msas={irsJSON.msas}
         summary={irsJSON.summary}
         renderTotals={true}
+        id={id}
       />
     </Wrapper>
   )
