@@ -11,7 +11,10 @@ export default function fetchInstitution(institution, fetchFilings = true) {
     return getInstitution(institution.id)
       .then(json => {
         return hasHttpError(json).then(hasError => {
-          if(hasError) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+          if(hasError){
+            dispatch(receiveError(json))
+            throw new Error(`${json.status}: ${json.statusText}`)
+          }
           dispatch(receiveInstitution(json))
           if(json.filings && fetchFilings){
             return dispatch(fetchEachFiling(json.filings))
