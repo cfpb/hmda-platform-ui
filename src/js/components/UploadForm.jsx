@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
-import { UPLOADING } from '../constants/statusCodes.js'
+import { UPLOADING, SIGNED } from '../constants/statusCodes.js'
 
 export const renderValidationProgress = (props) => {
   if(props.code < UPLOADING && !props.uploading) return null
@@ -33,11 +33,19 @@ export const getDropzoneText = ({ code, errors, file }) => {
     message = howToMessage
   }
 
+  if(code === SIGNED) {
+    message = <article>
+      <p>Your submission is complete.</p>
+      <p className="file-selected">{howToMessage}</p>
+    </article>
+  }
+
   if(file) {
     message = <article>
       <p><strong>{file.name}</strong> selected.</p>
       <p className="file-selected">{howToMessage}</p>
     </article>
+    
     if(errors.length > 0) {
       message = <article>
         <p><strong>{file.name}</strong> can not be uploaded.</p>
@@ -48,7 +56,14 @@ export const getDropzoneText = ({ code, errors, file }) => {
     if(code >= UPLOADING) {
       message = <article>
         <p>Submission of <strong>{file.name}</strong> currently in progess.</p>
-        <p className="file-selected">You can drag another LAR file to this area, or click in the box to select a LAR file to upload.</p>
+        <p className="file-selected">{howToMessage}</p>
+      </article>
+    }
+
+    if(code === SIGNED) {
+      message = <article>
+        <p>Your submission of <strong>{file.name}</strong> is complete.</p>
+        <p className="file-selected">{howToMessage}</p>
       </article>
     }
   }
