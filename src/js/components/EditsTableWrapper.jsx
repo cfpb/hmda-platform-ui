@@ -50,14 +50,17 @@ const EditsTableWrapper = (props) => {
       return null
   }
 
-  return props.isFetching
-  ? <LoadingIcon/>
-  : <div className="EditsContainerBody">
+  const loading = props.isFetching? <LoadingIcon/> : null
+
+  return (
+    <div className="EditsContainerBody">
+      {loading}
       {type === 'syntacticalvalidity' ? makeEntry(props, 'syntactical') : makeEntry(props, type)}
       {type === 'syntacticalvalidity' ? makeEntry(props, 'validity') : null}
       {(type === 'quality' || type === 'macro') ? <Verifier type={type}/> : null}
       <hr/>
     </div>
+  )
 }
 
 EditsTableWrapper.propTypes = {

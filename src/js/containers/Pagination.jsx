@@ -37,6 +37,7 @@ function fetchAndFade(dispatch, target, pagination, link){
 
 function mapDispatchToProps(dispatch, ownProps) {
   fetchChecker[ownProps.target] = ownProps.isFetching
+
   return {
     getPage: (pagination, page) => {
       if(!pagination || page === undefined) return

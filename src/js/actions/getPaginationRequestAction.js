@@ -9,6 +9,6 @@ export default function getPaginationRequestAction(target) {
     case 'irs':
       return requestIRS()
     default:
-      return requestEdit()
+      return requestEdit(target)
   }
 }
