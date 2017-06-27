@@ -49,37 +49,38 @@
 
   .dropzone {
     border: 1px dashed $color-gray-light;
-    color: $color-gray;
     height: 200px;
     position: relative;
-    text-align: center;
     width: 100%;
     &.dropzone-disabled {
       border-color: $color-secondary-light;
       color: $color-secondary;
     }
 
-    div {
+    button {
+      align-items: center;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      line-height: normal;
       margin: 0;
+      margin-right: -50%;
       padding: 0;
       width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-right: -50%;
-      transform: translate(-50%, -50%);
     }
 
     button {
-      color: $color-base;
       background: none;
+      color: $color-base;
       font-weight: 400;
-      font-size: 1.3rem;
       width: 100%;
       height: 100%;
       margin: 0;
       padding: 0;
+
+      .file-selected {
+        color: $color-gray;
+      }
     }
   }
 }

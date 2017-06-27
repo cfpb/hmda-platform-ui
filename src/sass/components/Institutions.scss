@@ -3,7 +3,7 @@
     margin-bottom: 3em;
 
     .current-status {
-      background-color: $color-gray-lightest;
+      border: 3px solid $color-gray-lightest;
       padding: 1em;
     }
 
@@ -12,8 +12,7 @@
     }
 
     .previous-submissions {
-      border: 1px solid $color-gray-lightest;
-      padding: 1em;
+
 
       h4 {
         margin-top: 0;
@@ -33,29 +32,26 @@
         margin: 0;
       }
     }
-    .timing {
-      color: $color-gray;
+
+    aside {
+      padding-right: 1em;
+      padding-left: 1em;
     }
-  }
 
-  aside {
-    padding-right: 1em;
-    padding-left: 1em;
-  }
+    .edit-report:first-letter {
+      text-transform: capitalize;
+    }
 
-  .edit-report:first-letter {
-    text-transform: capitalize;
-  }
-
-  .InstitutionsHeader {
-    margin: 0;
-
-    h1 {
+    .InstitutionsHeader {
       margin: 0;
-    }
 
-    h2 {
-      margin: 0.5em 0 1em;
+      h1 {
+        margin: 0;
+      }
+
+      h2 {
+        margin: 0.5em 0 1em;
+      }
     }
   }
 }

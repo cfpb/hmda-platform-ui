@@ -1,5 +1,6 @@
 export default function hasHttpError(json) {
   if(!json) return Promise.resolve(true)
-  if(json.httpStatus === 401) return new Promise(()=>{})
-  return Promise.resolve(json.httpStatus > 399)
+  if(!json.status && !json.statusText) return Promise.resolve(false)
+  if(json.status === 401) return new Promise(()=>{})
+  return Promise.resolve(json.status > 399)
 }

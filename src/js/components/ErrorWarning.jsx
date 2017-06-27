@@ -1,14 +1,15 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 export function renderHeader(props) {
   if(props.headerText) return props.headerText
 
-  switch(props.error.httpStatus) {
+  switch(props.error.status) {
     case 401:
     return 'You have been automatically logged out.'
 
     case 404:
-    return 'Sorry, there is an unrecoverable problem with this filing.'
+    return 'Sorry, we couldn\'t find the data you\'re looking for.'
 
     case 500:
     return 'Sorry, there\'s a problem on our end.'
@@ -21,12 +22,12 @@ export function renderHeader(props) {
 export function renderBody(props) {
   if(props.bodyText) return props.bodyText
 
-  switch(props.error.httpStatus) {
+  switch(props.error.status) {
     case 401:
     return 'Please refresh the page to log in again.'
 
     case 404:
-    return 'Please upload your file again.'
+    return 'Please refresh the page. If this message persists, you will need to upload your file again.'
 
     case 500:
     return 'We\'re quickly on resolving the issue. Please try again soon.'

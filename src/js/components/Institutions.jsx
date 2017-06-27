@@ -6,13 +6,13 @@ import ErrorWarning from './ErrorWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import moment from 'moment'
 import * as STATUS from '../constants/statusCodes.js'
+import 'uswds'
 
-export const renderStatus = (submissionStatus, start, end) => {
+export const renderStatus = (institutionId, period, submission, onDownloadClick, submissionStatus) => {
   if(!submissionStatus || !submissionStatus.code) return
 
   const statusCode = submissionStatus.code
   let messageClass
-  let timing = null
 
   if(statusCode === STATUS.CREATED) {
     messageClass = 'text-secondary'
@@ -20,7 +20,6 @@ export const renderStatus = (submissionStatus, start, end) => {
 
   if(statusCode > STATUS.CREATED) {
     messageClass = 'text-primary'
-    if(start) timing = `Started ${moment(start).utcOffset(-5).fromNow()}`
   }
 
   if(statusCode === STATUS.PARSED_WITH_ERRORS ||
@@ -30,20 +29,26 @@ export const renderStatus = (submissionStatus, start, end) => {
 
   if(statusCode === STATUS.SIGNED) {
     messageClass = 'text-green'
-    if(end) timing = `Completed ${moment(end).utcOffset(-5).format('MMMM Do')}`
   }
 
   // failed submission
   if(statusCode === STATUS.FAILED) {
     messageClass = 'text-secondary'
-    if(start) timing = `Submission failed ${moment(start).utcOffset(-5).fromNow()}`
   }
 
   return (
     <div className="status">
-      <p><strong className={`${messageClass} text-uppercase`}>{submissionStatus.message}</strong></p>
-      <p className="timing usa-text-small">{timing}</p>
-      <p className="status-desc">{submissionStatus.description}</p>
+      <p className="status-desc">Current filing status is <strong className={messageClass}>{submissionStatus.message}</strong>. {submissionStatus.description}</p>
+      <p className="usa-text-small"><a href="#"
+        onClick={(e) => {
+         e.preventDefault()
+         onDownloadClick(
+           institutionId,
+           period,
+           submission.id.sequenceNumber
+         )
+       }
+     }>Download edit report</a></p>
     </div>
   )
 }
@@ -97,41 +102,46 @@ export const renderPreviousSubmissions = (submissions, onDownloadClick, institut
   if(!previousSubmissions.length) return
   return (
   <div className="previous-submissions">
-    <h4>Previous filings for current filing period</h4>
+    <ul className="usa-accordion-bordered">
+      <li>
+        <button className="usa-accordion-button"
+      aria-expanded="false" aria-controls="submissions">Previous filings for current filing period</button>
+        <div id="submissions" className="usa-accordion-content">
+          <ol reversed className="usa-text-small">
+            {previousSubmissions.map((submission, i) => {
+              // render the end date if it was signed
+              const date = (submission.status.code === STATUS.SIGNED) ? moment(submission.end).utcOffset(-5).format('MMMM Do, YYYY') : moment(submission.start).utcOffset(-5).format('MMMM Do, YYYY')
 
-    <ol reversed className="usa-text-small">
-      {previousSubmissions.map((submission, i) => {
-        // render the end date if it was signed
-        const date = (submission.status.code === STATUS.SIGNED) ? moment(submission.end).utcOffset(-5).format('MMMM Do, YYYY') : moment(submission.start).utcOffset(-5).format('MMMM Do, YYYY')
+              // render a link if validted with errors
+              if(submission.status.code === STATUS.VALIDATED_WITH_ERRORS) {
+                return (
+                  <li className="edit-report" key={i}>
+                    <strong>{submission.status.message}</strong> on {date}.{'\u00a0'}
+                    <a href="#"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        onDownloadClick(
+                          institutionId,
+                          period,
+                          submission.id.sequenceNumber
+                        )
+                      }
+                    }>Download edit report</a>
+                  </li>
+                )
+              }
 
-        // render a link if validted with errors
-        if(submission.status.code === STATUS.VALIDATED_WITH_ERRORS) {
-          return (
-            <li className="edit-report" key={i}>
-               <strong>{submission.status.message}</strong> on {date}.{'\u00a0'}
-               <a href="#"
-                onClick={(e) => {
-                  e.preventDefault()
-                  onDownloadClick(
-                    institutionId,
-                    period,
-                    submission.id.sequenceNumber
-                  )
-                }
-              }>Download edit report</a>
-            </li>
-          )
-        }
-
-        // other statuses contain no edits
-        return (
-          <li className="edit-report" key={i}>
-            <strong>{submission.status.message}</strong> on {date}.
-          </li>
-        )
-
-      })}
-    </ol>
+              // other statuses contain no edits
+              return (
+                <li className="edit-report" key={i}>
+                  <strong>{submission.status.message}</strong> on {date}.
+                </li>
+              )
+            })}
+          </ol>
+        </div>
+      </li>
+    </ul>
   </div>
   )
 }
@@ -175,9 +185,11 @@ export default class Institution extends Component {
                     <div className="current-status">
                       <h3>{institution.name} - {institution.id}</h3>
                       {renderStatus(
-                        latestSubmissionStatus,
-                        filing.start,
-                        filing.end
+                        institution.id,
+                        filing.period,
+                        filingObj.submissions[0],
+                        this.props.onDownloadClick,
+                        latestSubmissionStatus
                       )}
 
                       {renderViewButton(

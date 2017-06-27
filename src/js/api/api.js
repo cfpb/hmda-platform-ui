@@ -44,6 +44,12 @@ export function getCSV(pathObj){
   return fetch(pathObj)
 }
 
+export function getIRSCSV(pathObj){
+  pathObj.suffix = pathObj.suffix ? pathObj.suffix : '/irs/csv'
+  pathObj.params = {format: 'csv'}
+  return fetch(pathObj)
+}
+
 export function postVerify(submission, type, verified){
   return fetch({
     submission: submission,

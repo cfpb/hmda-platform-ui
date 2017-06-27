@@ -49,7 +49,8 @@ export const renderTableCaption = (edit, rowObj, type, pagination) => {
 
 
   const editText = length === 1 ? 'edit' : 'edits'
-  const captionHeader = `${length} ${name} ${editText} found.`
+  let captionHeader = (type === 'macro') ? `Edit ${name} found.` : `${length} ${name} ${editText} found.`
+
 
   if(type === 'macro') {
     return (

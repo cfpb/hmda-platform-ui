@@ -9,9 +9,10 @@
 
 .RefileWarning {
   animation: 0.3s ease-out 0s 1 animateWarningHeader;
-  margin: 1px 0 0 0;
+  border-bottom: 1px solid $color-gray-lighter;
+  margin: 0;
   text-align: left;
-  
+
   .usa-alert-body {
     display: block;
     margin: 0 auto;

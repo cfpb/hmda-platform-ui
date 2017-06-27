@@ -81,8 +81,8 @@ export class AppContainer extends Component {
 
                 <ul className="usa-unstyled-list">
                   <li><a href="https://cfpb.github.io/hmda-platform-tools/file-format-verification/">File Format Verification Tool</a></li>
-                  <li>Check Digit Generator</li>
-                  <li>Rate Spread Calculator</li>
+                  {/*<li>Check Digit Generator</li>
+                  <li>Rate Spread Calculator</li>*/}
                 </ul>
               </div>
             </div>

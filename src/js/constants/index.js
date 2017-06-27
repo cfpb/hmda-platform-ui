@@ -49,6 +49,7 @@ export const RECEIVE_IRS            = 'RECEIVE_IRS'
 export const REQUEST_IRS_POST       = 'REQUEST_IRS_POST'
 export const RECEIVE_IRS_POST       = 'RECEIVE_IRS_POST'
 export const CANCEL_IRS_FETCH       = 'CANCEL_IRS_FETCH'
+export const REQUEST_IRS_CSV        = 'REQUEST_IRS_CSV'
 
 export const REQUEST_SUMMARY        = 'REQUEST_SUMMARY'
 export const RECEIVE_SUMMARY        = 'RECEIVE_SUMMARY'

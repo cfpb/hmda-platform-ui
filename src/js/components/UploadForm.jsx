@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
-import { UPLOADING } from '../constants/statusCodes.js'
+import {
+  CREATED,
+  UPLOADING,
+  SIGNED
+} from '../constants/statusCodes.js'
 
 export const renderValidationProgress = (props) => {
   if(props.code < UPLOADING && !props.uploading) return null
@@ -26,21 +30,48 @@ export const renderErrors = (errors) => {
 }
 
 export const getDropzoneText = ({ code, errors, file }) => {
-  let message = 'Drag your LAR file into this area, or click in this box to select a LAR file to upload.'
-  let fileName = null
+  let howToMessage = 'To select a file to upload, drag it into this box or click here.'
+  if(code >= CREATED) {
+    howToMessage = 'To select a new file to upload, drag it into this box or click here.'
+  }
+  let message = <p>{howToMessage}</p>
 
   if(code >= UPLOADING) {
-    message = 'Drag another LAR file to this area, or click in the box to select a LAR file to upload.'
+    message = howToMessage
+  }
+
+  if(code === SIGNED) {
+    message = <article>
+      <p>Your submission is complete.</p>
+      <p className="file-selected">{howToMessage}</p>
+    </article>
   }
 
   if(file) {
-    message = `${file.name} is ready for upload.`
+    message = <article>
+      <p><strong>{file.name}</strong> selected.</p>
+      <p className="file-selected">{howToMessage}</p>
+    </article>
+
     if(errors.length > 0) {
-      message = `${file.name} can not be uploaded.`
+      message = <article>
+        <p><strong>{file.name}</strong> can not be uploaded.</p>
+        <p>{howToMessage}</p>
+      </article>
     }
 
     if(code >= UPLOADING) {
-      message = `Submission of ${file.name} currently in progess. You can drag another LAR file to this area, or click in the box to select a LAR file to upload..`
+      message = <article>
+        <p>Submission of <strong>{file.name}</strong> is currently in progess.</p>
+        <p className="file-selected">{howToMessage}</p>
+      </article>
+    }
+
+    if(code === SIGNED) {
+      message = <article>
+        <p>Your submission of <strong>{file.name}</strong> is complete.</p>
+        <p className="file-selected">{howToMessage}</p>
+      </article>
     }
   }
 
@@ -79,36 +110,32 @@ export default class Upload extends Component {
     const dropzoneText = getDropzoneText(this.props)
 
     return (
-      <div>
-        <div className="UploadForm">
-          {renderErrors(this.props.errors)}
-          <form
-            className="usa-form"
-            encType="multipart/form-data"
-            onSubmit={e => {
-              this.props.handleSubmit(e, this.props.file)}}>
-            <div className="container-upload">
-              <Dropzone
-                disablePreview={true}
-                onDrop={this.onDrop}
-                multiple={false}
-                className="dropzone">
-                <div className="usa-text-small">
-                  {dropzoneText}
-                </div>
-              </Dropzone>
-            </div>
-            <input
-              disabled={isUploadDisabled}
-              className="usa-button"
-              id="uploadButton"
-              name="uploadButton"
-              type="submit"
-              value="Upload">
-            </input>
-          </form>
-          {renderValidationProgress(this.props)}
-        </div>
+      <div className="UploadForm">
+        {renderErrors(this.props.errors)}
+        <form
+          className="usa-form"
+          encType="multipart/form-data"
+          onSubmit={e => {
+            this.props.handleSubmit(e, this.props.file)}}>
+          <div className="container-upload">
+            <Dropzone
+              disablePreview={true}
+              onDrop={this.onDrop}
+              multiple={false}
+              className="dropzone">
+              {dropzoneText}
+            </Dropzone>
+          </div>
+          <input
+            disabled={isUploadDisabled}
+            className="usa-button"
+            id="uploadButton"
+            name="uploadButton"
+            type="submit"
+            value="Upload">
+          </input>
+        </form>
+        {renderValidationProgress(this.props)}
       </div>
     )
   }

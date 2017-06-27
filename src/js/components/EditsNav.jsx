@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import RefileWarningComponent  from '../components/RefileWarning.jsx'
 import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
@@ -181,7 +182,6 @@ export default class EditsNav extends Component {
             }
           </ul>
           <hr className="nav-bg" />
-          <hr />
           <RefileWarning />
         </div>
       </div>
@@ -190,10 +190,10 @@ export default class EditsNav extends Component {
 }
 
 EditsNav.propTypes = {
-  page: React.PropTypes.string.isRequired,
-  base: React.PropTypes.string.isRequired,
-  code: React.PropTypes.number.isRequired,
-  syntacticalValidityEditsExist: React.PropTypes.bool.isRequired,
-  qualityVerified: React.PropTypes.bool.isRequired,
-  macroVerified: React.PropTypes.bool.isRequired
+  page: PropTypes.string.isRequired,
+  base: PropTypes.string.isRequired,
+  code: PropTypes.number.isRequired,
+  syntacticalValidityEditsExist: PropTypes.bool.isRequired,
+  qualityVerified: PropTypes.bool.isRequired,
+  macroVerified: PropTypes.bool.isRequired
 }
