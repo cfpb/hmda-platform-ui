@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import fetchPage from '../actions/fetchPage.js'
-import paginationSlideLeft from '../actions/paginationSlideLeft.js'
-import paginationSlideRight from '../actions/paginationSlideRight.js'
-import paginationSettle from '../actions/paginationSettle.js'
+import paginationFadeIn from '../actions/paginationFadeIn.js'
+import paginationFadeOut from '../actions/paginationFadeOut.js'
 import Pagination from '../components/Pagination.jsx'
 
 const fetchChecker = {}
@@ -25,15 +24,14 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-function moveAndFetch(dispatch, target, pagination, link, slideLeft){
-  const settle = () => {
-    if(!fetchChecker[target]) return dispatch(paginationSettle(target))
-    setTimeout(settle,100)
+function fetchAndFade(dispatch, target, pagination, link){
+  const fadeIn = () => {
+    if(!fetchChecker[target]) return dispatch(paginationFadeIn(target))
+    setTimeout(fadeIn, 100)
   }
 
-  if(slideLeft) dispatch(paginationSlideLeft(target))
-  else dispatch(paginationSlideRight(target))
-  setTimeout(settle, 300)
+  dispatch(paginationFadeOut(target))
+  setTimeout(fadeIn, 300)
   dispatch(fetchPage(target, makePathname(pagination, link)))
 }
 
@@ -42,15 +40,15 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     getPage: (pagination, page) => {
       if(!pagination || page === undefined) return
-      moveAndFetch(dispatch, ownProps.target, pagination, '?page=' + page)
+      fetchAndFade(dispatch, ownProps.target, pagination, '?page=' + page)
     },
     getNextPage: (pagination) => {
       if(!pagination) return
-      moveAndFetch(dispatch, ownProps.target, pagination, pagination._links.next, 1)
+      fetchAndFade(dispatch, ownProps.target, pagination, pagination._links.next)
     },
     getPreviousPage: (pagination) => {
       if(!pagination) return
-      moveAndFetch(dispatch, ownProps.target, pagination, pagination._links.prev, 0)
+      fetchAndFade(dispatch, ownProps.target, pagination, pagination._links.prev)
     }
   }
 }

@@ -32,7 +32,7 @@ export const renderTables = (props, edits, type) => {
   return edits.map((edit, i) => {
     return <EditsTable
       pagination={props.pagination}
-      paginationSlide={props.paginationSlide}
+      paginationFade={props.paginationFade}
       edit={edit}
       rows={props.rows}
       type={type}
@@ -65,7 +65,7 @@ EditsTableWrapper.propTypes = {
   fetched: PropTypes.bool,
   isFetching: PropTypes.bool,
   pagination: PropTypes.object,
-  paginationSlide: PropTypes.object,
+  paginationFade: PropTypes.object,
   rows: PropTypes.object,
   types: PropTypes.object,
   // from /containers/submissionProgressHOC

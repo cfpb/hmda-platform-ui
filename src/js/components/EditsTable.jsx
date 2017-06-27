@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Pagination from '../containers/Pagination.jsx'
-import PaginationSlider from './PaginationSlider.jsx'
 import LoadingIcon from './LoadingIcon.jsx'
 import EditsTableRow from './EditsTableRow.jsx'
 
@@ -69,20 +68,6 @@ export const renderTableCaption = (edit, rowObj, type, pagination) => {
   )
 }
 
-export const renderTable = (edit, rowObj, type, pagination) => {
-  return (
-    <table width="100%" summary={`Report for edit ${edit.edit} - ${edit.description}`}>
-      {renderTableCaption(edit, rowObj, type, pagination)}
-      <thead>
-        {renderHeader(edit, rowObj.rows, type)}
-      </thead>
-      <tbody>
-        {renderBody(edit, rowObj.rows, type)}
-      </tbody>
-    </table>
-  )
-}
-
 export const makeTable = (props) => {
   const edit = props.edit
   const name = edit.edit
@@ -93,13 +78,21 @@ export const makeTable = (props) => {
   if(!rowObj || rowObj.isFetching) return <LoadingIcon/>
 
   const caption = renderTableCaption(edit, rowObj, type, pagination)
+  if(type === 'macro') return caption
+
+  let className = 'PaginationTarget'
+  className += props.paginationFade[name] ? ' fadeOut' : ''
 
   return (
-    type === 'macro'
-    ? caption
-    : <PaginationSlider caption={caption} paginationSlide={props.paginationSlide[name]} pagination={pagination}>
-        {renderTable(edit, rowObj, type, pagination)}
-      </PaginationSlider>
+    <table width="100%" className={className} summary={`Report for edit ${edit.edit} - ${edit.description}`}>
+      {caption}
+      <thead>
+        {renderHeader(edit, rowObj.rows, type)}
+      </thead>
+      <tbody>
+        {renderBody(edit, rowObj.rows, type)}
+      </tbody>
+    </table>
   )
 }
 
@@ -122,7 +115,7 @@ EditsTable.propTypes = {
   rows: PropTypes.object,
   type: PropTypes.string,
   pagination: PropTypes.object,
-  paginationSlide: PropTypes.object
+  paginationFade: PropTypes.object
 }
 
 export default EditsTable

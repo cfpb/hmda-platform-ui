@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Pagination from '../containers/Pagination.jsx'
-import PaginationSlider from './PaginationSlider.jsx'
 
 const renderTSErrors = ({transmittalSheetErrors}) => {
   if(transmittalSheetErrors.length === 0) return null
@@ -36,30 +35,31 @@ const renderLarErrors= ({larErrors, ...props}) => {
       <p>Formatting errors in loan application records, arranged by row.</p>
     </caption>
 
+  let className = 'PaginationTarget'
+  className += props.paginationFade ? ' fadeOut' : ''
+
   return (
-    <PaginationSlider caption={caption} {...props}>
-      <table id="parseErrors" width="100%">
-        {caption}
-        <thead>
-          <tr>
-            <th>Row</th>
-            <th>Errors</th>
-          </tr>
-        </thead>
-        <tbody>
-          {larErrors.map((larErrorObj, i) => {
-            return larErrorObj.errorMessages.map((message, i) => {
-              return (
-                <tr key={i}>
-                  <td>{larErrorObj.lineNumber}</td>
-                  <td>{message}</td>
-                </tr>
-              )
-            })
-          })}
-        </tbody>
-      </table>
-    </PaginationSlider>
+    <table className={className} id="parseErrors">
+      {caption}
+      <thead>
+        <tr>
+          <th>Row</th>
+          <th>Errors</th>
+        </tr>
+      </thead>
+      <tbody>
+        {larErrors.map((larErrorObj, i) => {
+          return larErrorObj.errorMessages.map((message, i) => {
+            return (
+              <tr key={i}>
+                <td>{larErrorObj.lineNumber}</td>
+                <td>{message}</td>
+              </tr>
+            )
+          })
+        })}
+      </tbody>
+    </table>
   )
 }
 
@@ -84,7 +84,7 @@ const ParseErrors = (props) => {
 
 ParseErrors.propTypes = {
   pagination: PropTypes.object,
-  paginationSlide: PropTypes.string,
+  paginationFade: PropTypes.string,
   transmittalSheetErrors: PropTypes.array.isRequired,
   larErrors: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired

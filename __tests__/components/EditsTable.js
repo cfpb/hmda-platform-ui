@@ -171,10 +171,10 @@ describe('makeTable', () => {
       rows: {S020: {rows: rows}},
       type: 'syntactical',
       pagination: {S020:{total:3}},
-      paginationSlide: {S020:'center'}
+      paginationFade: {S020:'center'}
     }
     const rendered = makeTable(props)
-    expect(typeof rendered.type).toBe('function')
+    expect(rendered.type).toBe('table')
   })
 
   it('returns LoadingIcon on bad rowObj', () => {

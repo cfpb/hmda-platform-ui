@@ -22,52 +22,11 @@
   }
 }
 
-.PaginationTargetWrapper {
-  position: relative;
-  table {
-    margin-top: 0;
-  }
-}
-
-
 .PaginationTarget {
   opacity: 1;
+  transition: opacity 0.3s;
 
-  &.slideRight {
-    transition: transform 0.3s, opacity 0.3s;
+  &.fadeOut {
     opacity: 0;
-    transform: translateX(100%);
-  }
-
-  &.slideLeft {
-    transition: transform 0.3s, opacity 0.3s;
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-}
-
-.PaginationPrev {
-  position: absolute;
-  top: 0;
-  transform: translateX(-100%);
-  opacity: 0;
-
-  &.slideRight {
-    transition: transform 0.3s, opacity 0.3s;
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.PaginationNext {
-  position: absolute;
-  top: 0;
-  transform: translateX(100%);
-  opacity: 0;
-
-  &.slideLeft {
-    transition: transform 0.3s, opacity 0.3s;
-    opacity: 1;
-    transform: translateX(0);
   }
 }

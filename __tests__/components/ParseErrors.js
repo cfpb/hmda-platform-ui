@@ -13,7 +13,7 @@ const parseJSON = JSON.parse(fs.readFileSync('./__tests__/json/parseErrors.json'
 describe('Parse errors', () => {
   const parseErrors = TestUtils.renderIntoDocument(
     <Wrapper>
-      <ParseErrors pagination={{total:45}} paginationSlide="center" transmittalSheetErrors={parseJSON.transmittalSheetErrors} larErrors={parseJSON.larErrors} />
+      <ParseErrors pagination={{total:45}} paginationFade="center" transmittalSheetErrors={parseJSON.transmittalSheetErrors} larErrors={parseJSON.larErrors} />
     </Wrapper>
   )
   const parseErrorsNode = ReactDOM.findDOMNode(parseErrors)

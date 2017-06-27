@@ -27,14 +27,14 @@ export function mapStateToProps(state) {
 
   const pagination = state.app.pagination.parseErrors
 
-  const paginationSlide = state.app.paginationSlide.parseErrors
+  const paginationFade = state.app.paginationFade.parseErrors
 
   return {
     isFetching,
     transmittalSheetErrors,
     larErrors,
     pagination,
-    paginationSlide
+    paginationFade
   }
 }
 
