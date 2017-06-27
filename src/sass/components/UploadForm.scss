@@ -57,7 +57,7 @@
       color: $color-secondary;
     }
 
-    span {
+    button {
       align-items: center;
       display: flex;
       height: 100%;
@@ -69,7 +69,7 @@
       width: 100%;
     }
 
-    [role="button"] {
+    button {
       background: none;
       color: $color-base;
       font-weight: 400;

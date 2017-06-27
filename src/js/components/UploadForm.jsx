@@ -75,7 +75,7 @@ export const getDropzoneText = ({ code, errors, file }) => {
     }
   }
 
-  return <span className="usa-button" role="button" onClick={e=>e.preventDefault()}>{message}</span>
+  return <button onClick={e=>e.preventDefault()}>{message}</button>
 }
 
 export default class Upload extends Component {
