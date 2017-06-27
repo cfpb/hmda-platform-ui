@@ -26,7 +26,16 @@
   opacity: 1;
   transition: opacity 0.3s;
 
+  td {
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
   &.fadeOut {
-    opacity: 0;
+    opacity: 0.5;
+    box-shadow: 0 1px 1px -2px;
+
+    td {
+      opacity: 0;
+    }
   }
 }
