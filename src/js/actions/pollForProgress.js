@@ -12,7 +12,10 @@ export default function pollForProgress(polling) {
     return getLatestSubmission()
       .then(json => {
         return hasHttpError(json).then(hasError => {
-          if(hasError) throw new Error(JSON.stringify(dispatch(receiveError(json))))
+          if(hasError){
+            dispatch(receiveError(json))
+            throw new Error(`${json.status}: ${json.statusText}`)
+          }
           return dispatch(receiveSubmission(json))
         })
       })

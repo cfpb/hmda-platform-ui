@@ -15,7 +15,10 @@ export default function fetchIRSCSV(institutionId, filing, submissionId) {
     })
     .then(csv => {
       return hasHttpError(csv).then(hasError => {
-        if(hasError) throw new Error(JSON.stringify(dispatch(receiveError(csv))))
+        if(hasError){
+          dispatch(receiveError(csv))
+          throw new Error(`${csv.status}: ${csv.statusText}`)
+        }
         return fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${submissionId}-irs-report.csv`)
       })
     })

@@ -13,7 +13,13 @@ export default function fetchIRS() {
       return getIRS(getId())
         .then(json => {
           return hasHttpError(json).then(hasError => {
-            if(hasError) return IRSPollingId.set(setTimeout(poller, 1000))
+            if(hasError){
+              if(json.status === 404) return IRSPollingId.set(setTimeout(poller, 1000))
+              else {
+                dispatch(receiveError(json))
+                throw new Error(`${json.status}: ${json.statusText}`)
+              }
+            }
             return dispatch(receiveIRS(json))
           })
         })

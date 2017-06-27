@@ -43,8 +43,9 @@ export function fetch(options = {method: 'GET'}){
 
   return isomorphicFetch(url, fetchOptions)
     .then(response => {
-      console.log('got res', response, response.status)
+      if(process.env.NODE_ENV !== 'production') console.log('got res', response, response.status)
       if(response.status === 401) signinRedirect()
+      if(response.status > 399) return response
       if(options.params && options.params.format === 'csv') {
         return response.text()
       }
