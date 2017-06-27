@@ -19,7 +19,7 @@ const types = {
 describe('EditsTableWrapper', () => {
   const onDownloadClick = jest.fn()
 
-  it('renders 4 children if type is quality and page is quality', () => {
+  it('renders 5 children if type is quality and page is quality', () => {
     const rendered = EditsTableWrapper({
       onDownloadClick: onDownloadClick,
       page: 'quality',
@@ -38,7 +38,7 @@ describe('EditsTableWrapper', () => {
       }
     })
 
-    expect(rendered.props.children.length).toBe(4)
+    expect(rendered.props.children.length).toBe(5)
   })
 })
 
