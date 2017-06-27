@@ -1,8 +1,21 @@
 .ParseErrors {
+  margin-bottom: 3em;
   h2 {
     margin-top: 0;
   }
   p.usa-font-lead {
     margin-top: .5em;
+  }
+
+  caption {
+    padding-bottom: 1em;
+    text-align: left;
+    h3 {
+      margin: 0;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
 }
