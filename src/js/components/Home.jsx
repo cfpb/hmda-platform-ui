@@ -3,31 +3,22 @@ import { Link } from 'react-router'
 
 const renderLoggedInHero = () => {
   return (
-    <section className="usa-hero">
-      <div className="usa-grid">
-        <div className="usa-width-one-whole">
-          <h1>Thanks for logging in!</h1>
-          <p className="usa-font-lead">The place to get started is the institutions page. This page provides a summary of institutions for which you are authorized to file HMDA data, along with the current filing status, access to previous submission data (CSV), and the ability to continue filing or start over.</p>
-          <Link to={'/institutions'} className="usa-button">View Your Institutions</Link>
-        </div>
-      </div>
-    </section>
+    <div className="usa-width-one-whole">
+      <h1>Thanks for logging in!</h1>
+      <p className="usa-font-lead">The place to get started is the institutions page. This page provides a summary of institutions for which you are authorized to file HMDA data, along with the current filing status, access to previous submission data (CSV), and the ability to continue filing or start over.</p>
+      <Link to={'/institutions'} className="usa-button">View Your Institutions</Link>
+    </div>
   )
-  //
 }
 
 const renderLoggedOutHero = () => {
   return (
-    <section className="usa-hero">
-      <div className="usa-grid">
-        <div className="usa-width-one-whole">
-          <h1>Get started filing your HMDA data</h1>
-          <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
-          <Link to={'/institutions'} className="usa-button">Get Started Filing</Link>
-          <p className="usa-text-small">Every user is required to register online for login credentials and establish an account prior to accessing the HMDA Platform.</p>
-        </div>
-      </div>
-    </section>
+    <div className="usa-width-one-whole">
+      <h1>Get started filing your HMDA data</h1>
+      <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
+      <Link to={'/institutions'} className="usa-button">Get Started Filing</Link>
+      <p className="usa-text-small">Every user is required to register online for login credentials and establish an account prior to accessing the HMDA Platform.</p>
+    </div>
   )
 }
 
@@ -37,10 +28,14 @@ const Home = (props) => {
   return (
     <div>
       <main className="Home" id="main-content">
-        {renderHero}
+        <section className="usa-hero">
+          <div className="usa-grid">
+            {renderHero}
+          </div>
+        </section>
         <div className="usa-grid">
           <div className="usa-width-one-whole">
-            <div className="faqs">
+            <article className="faqs">
               <h2>Top FAQs</h2>
               <dl>
                 <dt>What is the deadline for submitting my HMDA data?</dt>
@@ -52,7 +47,7 @@ const Home = (props) => {
                 <dt>Is there another tool for me to confirm that my LAR is in the correct format?</dt>
                 <dd>Filers who wish to confirm that their LAR is formatted in the required pipe delimited text file format may use the <a href="https://github.com/cfpb/hmda-platform-tools">File Format Verification Tool</a>. This tool will conduct the same initial checks that the HMDA Platform performs, and provides a convenient test mechanism for filers.</dd>
               </dl>
-            </div>
+            </article>
           </div>
         </div>
 

@@ -110,14 +110,14 @@ export default class Upload extends Component {
     const dropzoneText = getDropzoneText(this.props)
 
     return (
-      <div className="UploadForm">
+      <section className="UploadForm">
         {renderErrors(this.props.errors)}
         <form
           className="usa-form"
           encType="multipart/form-data"
           onSubmit={e => {
             this.props.handleSubmit(e, this.props.file)}}>
-          <div className="container-upload">
+          <section className="container-upload">
             <Dropzone
               disablePreview={true}
               onDrop={this.onDrop}
@@ -125,7 +125,7 @@ export default class Upload extends Component {
               className="dropzone">
               {dropzoneText}
             </Dropzone>
-          </div>
+          </section>
           <input
             disabled={isUploadDisabled}
             className="usa-button"
@@ -136,7 +136,7 @@ export default class Upload extends Component {
           </input>
         </form>
         {renderValidationProgress(this.props)}
-      </div>
+      </section>
     )
   }
 }

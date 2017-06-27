@@ -32,11 +32,11 @@ const BannerDeadline = (props) => {
   // render if within the filing period (1/1/<filingPeriod> to 3/1/<filingPeriod>)
   if(moment(today).isBetween(`${filingPeriodPlusOne}-${dates.FILING_START}`, `${filingPeriodPlusOne}-${dates.FILING_DEADLINE}`, 'day', '[]')) {
     return (
-      <div className={`BannerDeadline usa-alert ${getClass(today, filingPeriodPlusOne)}`}>
-        <div className="usa-alert-body">
+      <section className={`BannerDeadline usa-alert ${getClass(today, filingPeriodPlusOne)}`}>
+        <article className="usa-alert-body">
           <p className="usa-alert-text">March 1st, {filingPeriodPlusOne} is the deadline to submit HMDA data for the {props.filingPeriod} filing period.</p>
-        </div>
-      </div>
+        </article>
+      </section>
     )
   }
 

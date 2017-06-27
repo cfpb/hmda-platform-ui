@@ -95,10 +95,10 @@ const EditsTable = (props) => {
   if (!props.edit) return null
 
   return (
-    <div className="EditsTable" id={props.edit.edit}>
+    <section className="EditsTable" id={props.edit.edit}>
       {makeTable(props)}
       {props.type === 'macro' ? null : <Pagination target={props.edit.edit}/>}
-    </div>
+    </section>
   )
 }
 

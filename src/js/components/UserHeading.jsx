@@ -4,9 +4,9 @@ const UserHeading = (props) => {
   if(!props.period || !props.institution) return null
 
   return (
-    <div className="UserHeading" id="userHeading">
+    <section className="UserHeading" id="userHeading">
       <h1>Filing on behalf of {props.institution.name} for {props.period}</h1>
-    </div>
+    </section>
   )
 }
 

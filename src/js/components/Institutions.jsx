@@ -37,7 +37,7 @@ export const renderStatus = (institutionId, period, submission, onDownloadClick,
   }
 
   return (
-    <div className="status">
+    <section className="status">
       <p className="status-desc">Current filing status is <strong className={messageClass}>{submissionStatus.message}</strong>. {submissionStatus.description}</p>
       <p className="usa-text-small"><a href="#"
         onClick={(e) => {
@@ -49,7 +49,7 @@ export const renderStatus = (institutionId, period, submission, onDownloadClick,
          )
        }
      }>Download edit report</a></p>
-    </div>
+   </section>
   )
 }
 
@@ -101,7 +101,7 @@ export const renderPreviousSubmissions = (submissions, onDownloadClick, institut
   const previousSubmissions = submissions.slice(1)
   if(!previousSubmissions.length) return
   return (
-  <div className="previous-submissions">
+  <article className="previous-submissions">
     <ul className="usa-accordion-bordered">
       <li>
         <button className="usa-accordion-button"
@@ -142,7 +142,7 @@ export const renderPreviousSubmissions = (submissions, onDownloadClick, institut
         </div>
       </li>
     </ul>
-  </div>
+  </article>
   )
 }
 
@@ -161,10 +161,10 @@ export default class Institution extends Component {
     <main id="main-content" className="usa-grid Institutions">
       {this.props.error ? <ErrorWarning error={this.props.error}/> : null}
       <div className="usa-width-one-half">
-        <div className="InstitutionsHeader">
+        <header className="InstitutionsHeader">
           <h1>Institutions</h1>
           {this.props.filingPeriod ? <h2>Filing Period {this.props.filingPeriod}</h2> : null}
-        </div>
+        </header>
         {this.props.isFetching ?
           <div className="usa-grid-full">
             <LoadingIcon/>
@@ -181,8 +181,8 @@ export default class Institution extends Component {
               if(!institution) return
               return (
                 <div key={i} className="usa-grid-full">
-                  <div className="institution">
-                    <div className="current-status">
+                  <section className="institution">
+                    <article className="current-status">
                       <h3>{institution.name} - {institution.id}</h3>
                       {renderStatus(
                         institution.id,
@@ -202,7 +202,7 @@ export default class Institution extends Component {
                         latestSubmissionStatus,
                         filing
                       )}
-                    </div>
+                    </article>
 
                     {renderPreviousSubmissions(
                       filingObj.submissions,
@@ -210,7 +210,7 @@ export default class Institution extends Component {
                       institution.id,
                       filing.period
                     )}
-                  </div>
+                  </section>
                 </div>
               )
           })

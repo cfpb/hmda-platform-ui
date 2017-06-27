@@ -17,7 +17,7 @@ const Header = (props) => {
     <header className="Header usa-header usa-header-basic" id="header" role="banner">
       <BannerUSA />
       <BannerDeadline />
-      <div className="usa-nav-container">
+      <section className="usa-nav-container">
         <div className="usa-logo" id="logo">
           <em className="usa-logo-text">
             <Link
@@ -43,7 +43,7 @@ const Header = (props) => {
           </ul>
           }
         </nav>
-      </div>
+      </section>
     </header>
   )
 }
