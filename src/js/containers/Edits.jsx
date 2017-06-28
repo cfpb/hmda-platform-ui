@@ -32,16 +32,16 @@ export function mapStateToProps(state) {
     rows
   } = state.app.edits
 
-  const {
-    pagination
-  } = state.app
+  const { pagination } = state.app
+  const { paginationFade } = state.app
 
   return {
     isFetching,
     fetched,
     types,
     rows,
-    pagination
+    pagination,
+    paginationFade
   }
 }
 

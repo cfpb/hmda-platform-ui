@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { browserHistory } from 'react-router'
 import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import LoadingIcon from './LoadingIcon.jsx'
@@ -29,7 +30,14 @@ export const renderTables = (props, edits, type) => {
   }
 
   return edits.map((edit, i) => {
-    return <EditsTable pagination={props.pagination} edit={edit} rows={props.rows} type={type} key={i}/>
+    return <EditsTable
+      pagination={props.pagination}
+      paginationFade={props.paginationFade}
+      edit={edit}
+      rows={props.rows}
+      type={type}
+      key={i}
+    />
   })
 }
 
@@ -42,14 +50,17 @@ const EditsTableWrapper = (props) => {
       return null
   }
 
-  return props.isFetching
-  ? <LoadingIcon/>
-  : <div className="EditsContainerBody">
+  const loading = props.isFetching? <LoadingIcon/> : null
+
+  return (
+    <div className="EditsContainerBody">
+      {loading}
       {type === 'syntacticalvalidity' ? makeEntry(props, 'syntactical') : makeEntry(props, type)}
       {type === 'syntacticalvalidity' ? makeEntry(props, 'validity') : null}
       {(type === 'quality' || type === 'macro') ? <Verifier type={type}/> : null}
       <hr/>
     </div>
+  )
 }
 
 EditsTableWrapper.propTypes = {
@@ -57,6 +68,7 @@ EditsTableWrapper.propTypes = {
   fetched: PropTypes.bool,
   isFetching: PropTypes.bool,
   pagination: PropTypes.object,
+  paginationFade: PropTypes.object,
   rows: PropTypes.object,
   types: PropTypes.object,
   // from /containers/submissionProgressHOC
