@@ -34,6 +34,7 @@
   }
   &.fadeOut {
     opacity: 0.5;
+    /*Box shadow prevents thinning of table bottom border on transition*/
     box-shadow: 0 1px 1px -2px;
 
     td {
