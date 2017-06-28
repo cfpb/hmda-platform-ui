@@ -10,6 +10,27 @@ export const addActiveClass = (selected, current) => {
   return null
 }
 
+const makeNav = (props, page) => {
+  let userHeader = props.user ?
+    <ul className="usa-nav-primary">
+      <li>{props.user.profile.name}</li>
+      <li><a className="usa-nav-link" href="#" onClick={(e) => {
+         e.preventDefault()
+         logout()
+       }}>Logout</a></li>
+    </ul>
+  :
+    <ul className="usa-nav-primary">
+      <li><Link to="/institutions" className="usa-button">Login</Link></li>
+    </ul>
+
+  if(page === 'oidc-callback') userHeader = null
+
+  return <nav role="navigation" className="usa-nav">
+    {userHeader}
+  </nav>
+}
+
 const Header = (props) => {
   const page = props.pathname.split('/').slice(-1)[0]
 
@@ -27,22 +48,7 @@ const Header = (props) => {
               aria-label="Home">HMDA Filing</Link>
           </em>
         </div>
-        <nav role="navigation" className="usa-nav">
-          {props.user
-          ?
-          <ul className="usa-nav-primary">
-            <li>{props.user.profile.name}</li>
-            <li><a className="usa-nav-link" href="#" onClick={(e) => {
-               e.preventDefault()
-               logout()
-             }}>Logout</a></li>
-          </ul>
-          :
-          <ul className="usa-nav-primary">
-            <li><Link to="/institutions" className="usa-button">Login</Link></li>
-          </ul>
-          }
-        </nav>
+        {makeNav(props, page)}
       </div>
     </header>
   )
