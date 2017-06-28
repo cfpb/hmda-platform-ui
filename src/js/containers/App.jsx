@@ -12,17 +12,25 @@ export class AppContainer extends Component {
       super(props)
   }
 
-  _userNeeded(props) {
-    return props.location.pathname !== '/oidc-callback' &&
-      props.location.pathname !== '/'
+  _isHome(props) {
+    return props.location.pathname === '/'
+  }
+
+  _isOidc(props) {
+    return props.location.pathname === '/oidc-callback'
   }
 
   _setOrRedirect(props) {
-    if(props.expired) return signinRedirect()
-    if(props.oidc.user){
-      AccessToken.set(props.oidc.user.access_token)
-    }else{
-      if(this._userNeeded(props)) signinRedirect()
+    const isHome = this._isHome(props)
+    const isOidc = this._isOidc(props)
+
+    if(props.oidc.user) AccessToken.set(props.oidc.user.access_token)
+    if(isHome) return
+    if(!isOidc && props.expired) return signinRedirect()
+
+    if(!props.oidc.user) {
+      if(props.oidc.isLoadingUser) return
+      if(!isOidc) signinRedirect()
     }
   }
 
@@ -35,8 +43,7 @@ export class AppContainer extends Component {
   }
 
   render() {
-
-    if(this.props.expired || !this.props.oidc.user && this._userNeeded(this.props)) return null
+    if(!this._isOidc(this.props) && !this._isHome(this.props) && (this.props.expired || !this.props.oidc.user)) return null
 
     return (
       <div className="AppContainer">

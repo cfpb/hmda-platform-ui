@@ -9,6 +9,11 @@ export default (state = defaultUser, action) => {
       ...state,
       expired: true
     }
+    case 'redux-oidc/USER_EXPIRED':
+    return {
+      ...state,
+      expired: true
+    }
     case 'redux-oidc/USER_FOUND':
     return {
       ...state,
