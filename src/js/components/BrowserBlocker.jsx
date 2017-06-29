@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react'
 const BrowserBlocker = (props) => {
   return (
     <section className="BrowserBlocker usa-alert usa-alert-error">
-      <article className="usa-alert-body">
+      <div className="usa-alert-body">
         <h2 className="usa-alert-heading">Sorry, your browser is out of date.</h2>
         <hr/>
         <p className="usa-alert-text">To file HMDA data securely, please use one of the modern browsers listed below:</p>
@@ -17,7 +17,7 @@ const BrowserBlocker = (props) => {
             <li><a href="https://support.apple.com/downloads/safari">Safari</a></li>
           </ul>
         </nav>
-      </article>
+      </div>
     </section>
   )
 }

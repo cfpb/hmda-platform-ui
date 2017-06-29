@@ -41,37 +41,37 @@ export const getDropzoneText = ({ code, errors, file }) => {
   }
 
   if(code === SIGNED) {
-    message = <article>
+    message = <div>
       <p>Your submission is complete.</p>
       <p className="file-selected">{howToMessage}</p>
-    </article>
+    </div>
   }
 
   if(file) {
-    message = <article>
+    message = <div>
       <p><strong>{file.name}</strong> selected.</p>
       <p className="file-selected">{howToMessage}</p>
-    </article>
+    </div>
 
     if(errors.length > 0) {
-      message = <article>
+      message = <div>
         <p><strong>{file.name}</strong> can not be uploaded.</p>
         <p>{howToMessage}</p>
-      </article>
+      </div>
     }
 
     if(code >= UPLOADING) {
-      message = <article>
+      message = <div>
         <p>Submission of <strong>{file.name}</strong> is currently in progess.</p>
         <p className="file-selected">{howToMessage}</p>
-      </article>
+      </div>
     }
 
     if(code === SIGNED) {
-      message = <article>
+      message = <div>
         <p>Your submission of <strong>{file.name}</strong> is complete.</p>
         <p className="file-selected">{howToMessage}</p>
-      </article>
+      </div>
     }
   }
 

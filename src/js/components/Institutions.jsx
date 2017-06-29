@@ -101,7 +101,7 @@ export const renderPreviousSubmissions = (submissions, onDownloadClick, institut
   const previousSubmissions = submissions.slice(1)
   if(!previousSubmissions.length) return
   return (
-  <article className="previous-submissions">
+  <section className="previous-submissions">
     <ul className="usa-accordion-bordered">
       <li>
         <button className="usa-accordion-button"
@@ -142,7 +142,7 @@ export const renderPreviousSubmissions = (submissions, onDownloadClick, institut
         </div>
       </li>
     </ul>
-  </article>
+  </section>
   )
 }
 
@@ -182,7 +182,7 @@ export default class Institution extends Component {
               return (
                 <div key={i} className="usa-grid-full">
                   <section className="institution">
-                    <article className="current-status">
+                    <div className="current-status">
                       <h3>{institution.name} - {institution.id}</h3>
                       {renderStatus(
                         institution.id,
@@ -202,7 +202,7 @@ export default class Institution extends Component {
                         latestSubmissionStatus,
                         filing
                       )}
-                    </article>
+                    </div>
 
                     {renderPreviousSubmissions(
                       filingObj.submissions,

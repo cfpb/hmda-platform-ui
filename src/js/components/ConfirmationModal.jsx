@@ -45,7 +45,7 @@ export default class ModalConfirm extends Component {
     return (
       <div className={'confirmation-blurred-blocker'+ (showing ? ' showing-blurred-blocker' : '')}>
         <section role="dialog" className="confirmation-modal">
-          <article className="confirmation-contents">
+          <div className="confirmation-contents">
             <RefileText code={code}/>
             <button
               tabIndex={showing ? 0 : -1 }
@@ -71,7 +71,7 @@ export default class ModalConfirm extends Component {
                 _focusButton()}}
               ref={a => this.hideLink = a}
             >No, take me back.</a>
-          </article>
+          </div>
         </section>
       </div>
     )

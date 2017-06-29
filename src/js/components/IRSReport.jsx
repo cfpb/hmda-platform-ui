@@ -52,7 +52,7 @@ const IRSReport = (props) => {
         }>Download edit report</a></p>
       </header>
 
-      <article className="irs-table-wrapper" id="irs" >
+      <div className="irs-table-wrapper" id="irs" >
         <table width="100%" summary="Your summarized HMDA data grouped by MSA/MD">
           <thead>
             <tr>
@@ -100,7 +100,7 @@ const IRSReport = (props) => {
             })}
           </tbody>
         </table>
-      </article>
+      </div>
       <Pagination target="irs" />
       <hr />
     </section>
