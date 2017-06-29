@@ -21,7 +21,8 @@ export default (state = defaultSignature, action) => {
         ...state,
         isFetching: false,
         timestamp: action.timestamp,
-        receipt: action.receipt
+        receipt: action.receipt,
+        checked: (action.timestamp !== 0)
       }
 
     case REQUEST_SIGNATURE_POST:

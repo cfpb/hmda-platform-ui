@@ -33,7 +33,7 @@ describe('signature reducer', () => {
   it('handles RECEIVE_SIGNATURE', () => {
     expect(
       signature({}, {type: types.RECEIVE_SIGNATURE, timestamp: 1234, receipt: 'asdf'})
-    ).toEqual({isFetching: false, timestamp: 1234, receipt: 'asdf'})
+    ).toEqual({isFetching: false, timestamp: 1234, receipt: 'asdf', checked: true})
   })
 
   it('handles RECEIVE_SIGNATURE_POST', () => {
