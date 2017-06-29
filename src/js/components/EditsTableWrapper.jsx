@@ -8,13 +8,13 @@ import Verifier from '../containers/Verifier.jsx'
 
 export const makeEntry = (props, type) => {
   const edits = props.types[type].edits
-  return <div className="EditsContainerEntry">
+  return <article className="EditsTableWrapper-Edit">
     <EditsHeaderDescription
       count={edits.length}
       type={type}
     />
     {renderTables(props, edits, type)}
-  </div>
+  </article>
 }
 
 export const renderTables = (props, edits, type) => {
@@ -53,13 +53,13 @@ const EditsTableWrapper = (props) => {
   const loading = props.isFetching? <LoadingIcon/> : null
 
   return (
-    <div className="EditsContainerBody">
+    <section className="EditsTableWrapper">
       {loading}
       {type === 'syntacticalvalidity' ? makeEntry(props, 'syntactical') : makeEntry(props, type)}
       {type === 'syntacticalvalidity' ? makeEntry(props, 'validity') : null}
       {(type === 'quality' || type === 'macro') ? <Verifier type={type}/> : null}
       <hr/>
-    </div>
+    </section>
   )
 }
 

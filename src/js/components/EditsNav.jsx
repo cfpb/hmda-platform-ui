@@ -172,8 +172,8 @@ export default class EditsNav extends Component {
     const wrapperHeight = {height: `${this.state.editsNavHeight}px`}
     const fixedClass = this.state.fixed ? 'EditsNav-fixed' : ''
     return (
-      <div style={wrapperHeight}>
-        <div className={`EditsNav ${fixedClass}`} id="editsNav">
+      <section style={wrapperHeight}>
+        <nav role="navigation" className={`EditsNav ${fixedClass}`} id="editsNav">
           <ul className="usa-nav-primary">
             {
               navNames.map((pageObj, i) => {
@@ -183,8 +183,8 @@ export default class EditsNav extends Component {
           </ul>
           <hr className="nav-bg" />
           <RefileWarning />
-        </div>
-      </div>
+        </nav>
+      </section>
     )
   }
 }

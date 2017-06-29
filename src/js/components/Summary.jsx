@@ -4,13 +4,13 @@ const Summary = (props) => {
   if (!props.respondent || !props.file) return null
 
   return (
-    <div className="Summary usa-grid-full" id="summary">
+    <section className="Summary usa-grid-full" id="summary">
       <header>
         <h2>HMDA Filing Summary</h2>
         <p className="usa-font-lead">You have completed the verification process for your HMDA data. Please review the respondent and file information below from your HMDA file.</p>
       </header>
       <div className="info usa-grid-full">
-        <div className="usa-width-one-half">
+        <section className="usa-width-one-half">
           <h3>Respondent Information</h3>
           <dl>
             <dt>Name:</dt>
@@ -28,8 +28,8 @@ const Summary = (props) => {
             <dt>Email</dt>
             <dd>{props.respondent.contact && props.respondent.contact.email}</dd>
           </dl>
-        </div>
-        <div className="usa-width-one-half">
+        </section>
+        <section className="usa-width-one-half">
           <h3>File Information</h3>
           <dl>
             <dt>File Name:</dt>
@@ -39,11 +39,11 @@ const Summary = (props) => {
             <dt>Total Loans/Applications:</dt>
             <dd>{props.file.totalLARS}</dd>
           </dl>
-        </div>
+        </section>
       </div>
 
       <hr />
-    </div>
+    </section>
   )
 }
 

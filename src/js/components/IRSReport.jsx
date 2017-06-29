@@ -36,7 +36,7 @@ const IRSReport = (props) => {
   } = props.id
 
   return (
-    <div className="IRSReport">
+    <section className="IRSReport">
       <header>
         <h2>Institution Register Summary</h2>
         <p className="usa-font-lead">Please review your summarized HMDA data below. If the data are incorrect, please update your file and select the "Update a new file" button. You will need to begin the filing process again.</p>
@@ -103,7 +103,7 @@ const IRSReport = (props) => {
       </div>
       <Pagination target="irs" />
       <hr />
-    </div>
+    </section>
   )
 }
 

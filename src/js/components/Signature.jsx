@@ -60,7 +60,7 @@ const Signature = (props) => {
   }
 
   return (
-    <div className="Signature" id="signature">
+    <section className="Signature" id="signature">
       <header>
         <h2>Signature</h2>
         <p className="usa-font-lead">To complete your submission, select the checkbox to certify to the accuracy and completeness of the data submitted. Then, select the "Submit HMDA data" button to submit your data.</p>
@@ -88,7 +88,7 @@ const Signature = (props) => {
       </button>
 
       {showReceipt(props.status.code, props.timestamp, props.receipt)}
-    </div>
+    </section>
   )
 }
 

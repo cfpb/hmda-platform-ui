@@ -103,10 +103,10 @@ const EditsTable = (props) => {
   const name = props.edit.edit
 
   return (
-    <div className="EditsTable" id={name}>
+    <section className="EditsTable" id={props.edit.edit}>
       {makeTable(props)}
       {props.type === 'macro' ? null : <Pagination isFetching={props.rows[name].isFetching} target={name}/>}
-    </div>
+    </section>
   )
 }
 

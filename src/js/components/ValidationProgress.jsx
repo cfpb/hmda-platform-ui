@@ -24,14 +24,14 @@ export const getText = props => {
   if(props.code > STATUS.VALIDATING) text = 'Edit validation complete'
 
   return (
-    <div className="progressText">
+    <section className="progressText">
       <span>{text}</span>
       {getIndicator(props)}
       {props.code === STATUS.VALIDATED_WITH_ERRORS ?
         <strong>Edits found, review required</strong> :
         null
       }
-    </div>
+    </section>
   )
 }
 
@@ -45,11 +45,11 @@ export const getIndicator = props => {
 
 const ValidationProgress = props => {
   return (
-    <div className="ValidationProgress">
+    <section className="ValidationProgress">
       <div className="progressTotal"></div>
       {getFill(props)}
       {getText(props)}
-    </div>
+    </section>
   )
 }
 

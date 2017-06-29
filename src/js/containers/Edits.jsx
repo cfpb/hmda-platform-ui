@@ -17,9 +17,7 @@ export class EditsContainer extends Component {
 
   render() {
     return (
-      <div className="EditsContainer">
-        <EditsTableWrapper {...this.props}/>
-      </div>
+      <EditsTableWrapper {...this.props}/>
     )
   }
 }

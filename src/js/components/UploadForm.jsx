@@ -41,37 +41,37 @@ export const getDropzoneText = ({ code, errors, file }) => {
   }
 
   if(code === SIGNED) {
-    message = <article>
+    message = <div>
       <p>Your submission is complete.</p>
       <p className="file-selected">{howToMessage}</p>
-    </article>
+    </div>
   }
 
   if(file) {
-    message = <article>
+    message = <div>
       <p><strong>{file.name}</strong> selected.</p>
       <p className="file-selected">{howToMessage}</p>
-    </article>
+    </div>
 
     if(errors.length > 0) {
-      message = <article>
+      message = <div>
         <p><strong>{file.name}</strong> can not be uploaded.</p>
         <p>{howToMessage}</p>
-      </article>
+      </div>
     }
 
     if(code >= UPLOADING) {
-      message = <article>
+      message = <div>
         <p>Submission of <strong>{file.name}</strong> is currently in progess.</p>
         <p className="file-selected">{howToMessage}</p>
-      </article>
+      </div>
     }
 
     if(code === SIGNED) {
-      message = <article>
+      message = <div>
         <p>Your submission of <strong>{file.name}</strong> is complete.</p>
         <p className="file-selected">{howToMessage}</p>
-      </article>
+      </div>
     }
   }
 
@@ -110,14 +110,14 @@ export default class Upload extends Component {
     const dropzoneText = getDropzoneText(this.props)
 
     return (
-      <div className="UploadForm">
+      <section className="UploadForm">
         {renderErrors(this.props.errors)}
         <form
           className="usa-form"
           encType="multipart/form-data"
           onSubmit={e => {
             this.props.handleSubmit(e, this.props.file)}}>
-          <div className="container-upload">
+          <section className="container-upload">
             <Dropzone
               disablePreview={true}
               onDrop={this.onDrop}
@@ -125,7 +125,7 @@ export default class Upload extends Component {
               className="dropzone">
               {dropzoneText}
             </Dropzone>
-          </div>
+          </section>
           <input
             disabled={isUploadDisabled}
             className="usa-button"
@@ -136,7 +136,7 @@ export default class Upload extends Component {
           </input>
         </form>
         {renderValidationProgress(this.props)}
-      </div>
+      </section>
     )
   }
 }
