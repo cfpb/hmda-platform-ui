@@ -108,8 +108,6 @@ class SubmissionContainer extends Component {
       <main id="main-content" className="usa-grid SubmissionContainer">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null }
         {toRender.map((component, i) => {
-          console.log(i)
-          console.log(component)
           return <div className="usa-width-one-whole" key={i}>{component}</div>
         })}
       </main>
