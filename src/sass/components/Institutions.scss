@@ -3,7 +3,7 @@
     margin-bottom: 3em;
 
     .current-status {
-      border: 3px solid $color-gray-lightest;
+      background-color: $color-gray-lightest;
       padding: 1em;
     }
 
@@ -12,8 +12,6 @@
     }
 
     .previous-submissions {
-
-
       h4 {
         margin-top: 0;
       }
@@ -22,6 +20,10 @@
         margin-bottom: 0;
         padding-left: 1.5em;
       }
+    }
+
+    .usa-accordion-button {
+      background-color: $color-gray-lighter;
     }
 
     .status {
