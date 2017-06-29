@@ -8,6 +8,8 @@ const defaultSignature = {
 }
 
 export default (state = defaultSignature, action) => {
+  console.log('signature redcuer')
+  console.log(action)
   switch (action.type) {
 
     case REQUEST_SIGNATURE:
