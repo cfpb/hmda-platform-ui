@@ -20,8 +20,6 @@ export class SignatureContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  console.log('SignatureContainer')
-  console.log(state)
   const {
     isFetching,
     timestamp,

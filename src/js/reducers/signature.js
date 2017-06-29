@@ -8,8 +8,6 @@ const defaultSignature = {
 }
 
 export default (state = defaultSignature, action) => {
-  console.log('signature redcuer')
-  console.log(action)
   switch (action.type) {
 
     case REQUEST_SIGNATURE:
@@ -23,7 +21,8 @@ export default (state = defaultSignature, action) => {
         ...state,
         isFetching: false,
         timestamp: action.timestamp,
-        receipt: action.receipt
+        receipt: action.receipt,
+        checked: (action.timestamp !== 0)
       }
 
     case REQUEST_SIGNATURE_POST:
