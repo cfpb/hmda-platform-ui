@@ -1,10 +1,11 @@
-import React, { Component, PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Pagination from '../containers/Pagination.jsx'
 
-const renderTSErrors = (transmittalSheetErrors) => {
+const renderTSErrors = ({transmittalSheetErrors}) => {
   if(transmittalSheetErrors.length === 0) return null
   return (
-    <table className="margin-bottom-0" width="100%">
+    <table width="100%">
       <caption>
         <h3>Transmittal Sheet Errors</h3>
         <p>Formatting errors in the transmittal sheet, the first row of your HMDA file.</p>
@@ -24,14 +25,22 @@ const renderTSErrors = (transmittalSheetErrors) => {
   )
 }
 
-const renderLarErrors= (larErrors) => {
+
+
+const renderLarErrors= ({larErrors, ...props}) => {
   if(larErrors.length === 0) return null
+  const caption =
+    <caption>
+      <h3>LAR Errors</h3>
+      <p>Formatting errors in loan application records, arranged by row.</p>
+    </caption>
+
+  let className = 'PaginationTarget'
+  className += props.paginationFade ? ' fadeOut' : ''
+
   return (
-    <table className="margin-bottom-0" id="parseErrors" width="100%">
-      <caption>
-        <h3>LAR Errors</h3>
-        <p>Formatting errors in loan application records, arranged by row.</p>
-      </caption>
+    <table className={className} id="parseErrors">
+      {caption}
       <thead>
         <tr>
           <th>Row</th>
@@ -57,24 +66,25 @@ const renderLarErrors= (larErrors) => {
 const ParseErrors = (props) => {
   if(!props.larErrors) return null
 
-  const total = props.total + props.transmittalSheetErrors.length
+  const total = props.pagination && props.pagination.total + props.transmittalSheetErrors.length
   const errorText = total > 1 ? 'Rows' : 'Row'
 
   return (
     <section className="ParseErrors usa-grid-full" id="parseErrors">
       <header>
-        {props.total === null ? null : <h2>{total} {errorText} with Formatting Errors</h2>}
-        <p className="usa-font-lead">The uploaded file is not formatted according to the requirements specified in the <a target="_blank" href="https://www.consumerfinance.gov/data-research/hmda/static/for-filers/2017/2017-HMDA-FIG.pdf">Filing Instructions Guide for data collected in 2017</a>.</p>
+        {!props.pagination ? null : <h2>{total} {errorText} with Formatting Errors</h2>}
+        <p className="usa-font-lead">The uploaded file is not formatted according to the requirements specified in the <a rel="noopener noreferrer" target="_blank" href="https://www.consumerfinance.gov/data-research/hmda/static/for-filers/2017/2017-HMDA-FIG.pdf">Filing Instructions Guide for data collected in 2017</a>.</p>
       </header>
-      {renderTSErrors(props.transmittalSheetErrors)}
-      {renderLarErrors(props.larErrors)}
-      <Pagination target="parseErrors"/>
+      {renderTSErrors(props)}
+      {renderLarErrors(props)}
+      <Pagination isFetching={props.isFetching} target="parseErrors"/>
     </section>
   )
 }
 
 ParseErrors.propTypes = {
-  total: PropTypes.number,
+  pagination: PropTypes.object,
+  paginationFade: PropTypes.number,
   transmittalSheetErrors: PropTypes.array.isRequired,
   larErrors: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired

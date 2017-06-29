@@ -1,7 +1,12 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import fetchPage from '../actions/fetchPage.js'
+import paginationFadeIn from '../actions/paginationFadeIn.js'
+import paginationFadeOut from '../actions/paginationFadeOut.js'
 import Pagination from '../components/Pagination.jsx'
+
+const fetchChecker = {}
 
 class PaginationContainer extends Component {
   constructor(props) {
@@ -19,28 +24,34 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
+function fetchAndFade(dispatch, target, pagination, link){
+  const fadeIn = () => {
+    if(!fetchChecker[target]) return dispatch(paginationFadeIn(target))
+    setTimeout(fadeIn, 100)
+  }
+
+  dispatch(paginationFadeOut(target))
+  setTimeout(fadeIn, 300)
+  dispatch(fetchPage(target, makePathname(pagination, link)))
+}
+
 function mapDispatchToProps(dispatch, ownProps) {
+  fetchChecker[ownProps.target] = ownProps.isFetching
+
   return {
     getPage: (pagination, page) => {
       if(!pagination || page === undefined) return
-      dispatch(fetchPage(ownProps.target, makePathname(pagination, '?page=' + page)))
+      fetchAndFade(dispatch, ownProps.target, pagination, '?page=' + page)
     },
     getNextPage: (pagination) => {
       if(!pagination) return
-      scrollToTarget(ownProps.target)
-      dispatch(fetchPage(ownProps.target, makePathname(pagination, pagination._links.next)))
+      fetchAndFade(dispatch, ownProps.target, pagination, pagination._links.next)
     },
     getPreviousPage: (pagination) => {
       if(!pagination) return
-      scrollToTarget(ownProps.target)
-      dispatch(fetchPage(ownProps.target, makePathname(pagination, pagination._links.prev)))
+      fetchAndFade(dispatch, ownProps.target, pagination, pagination._links.prev)
     }
   }
-}
-
-function scrollToTarget(target) {
-  const top = document.getElementById(target).offsetTop
-  window.scrollTo(0, top)
 }
 
 function makePathname(pagination, querystring) {
@@ -53,6 +64,5 @@ export {
   PaginationContainer,
   mapStateToProps,
   mapDispatchToProps,
-  makePathname,
-  scrollToTarget
+  makePathname
 }

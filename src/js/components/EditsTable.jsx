@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Pagination from '../containers/Pagination.jsx'
 import LoadingIcon from './LoadingIcon.jsx'
 import EditsTableRow from './EditsTableRow.jsx'
@@ -44,7 +45,7 @@ export const renderTableCaption = (edit, rowObj, type, pagination) => {
   if(!name) return null
 
   const description = edit.description
-  const length = pagination[name].total
+  const length = pagination.total
 
 
   const editText = length === 1 ? 'edit' : 'edits'
@@ -70,41 +71,52 @@ export const renderTableCaption = (edit, rowObj, type, pagination) => {
 
 export const makeTable = (props) => {
   const edit = props.edit
+  const name = edit.edit
   const type = props.type
-  const rowObj = props.rows[edit.edit]
+  const rowObj = props.rows[name]
+  const pagination = props.pagination[name]
 
-  if(!rowObj || rowObj.isFetching) return <LoadingIcon/>
+  if(!rowObj) return <LoadingIcon/>
+
+  const caption = renderTableCaption(edit, rowObj, type, pagination)
+  if(type === 'macro') return caption
+
+  let className = 'PaginationTarget'
+  className += props.paginationFade[name] ? ' fadeOut' : ''
 
   return (
-    type === 'macro'
-    ? renderTableCaption(edit, rowObj, type, props.pagination)
-    : <table width="100%" summary={`Report for edit ${edit.edit} - ${edit.description}`}>
-        {renderTableCaption(edit, rowObj, type, props.pagination)}
-        <thead>
-          {renderHeader(edit, rowObj.rows, type)}
-        </thead>
-        <tbody>
-          {renderBody(edit, rowObj.rows, type)}
-        </tbody>
-      </table>
+    <table width="100%" className={className} summary={`Report for edit ${edit.edit} - ${edit.description}`}>
+      {caption}
+      <thead>
+        {renderHeader(edit, rowObj.rows, type)}
+      </thead>
+      <tbody>
+        {renderBody(edit, rowObj.rows, type)}
+      </tbody>
+    </table>
   )
 }
 
 
 const EditsTable = (props) => {
-  if (!props.edit) return null
+  if (!props.edit || !props.pagination[props.edit.edit]) return null
+  const name = props.edit.edit
 
   return (
     <section className="EditsTable" id={props.edit.edit}>
       {makeTable(props)}
-      {props.type === 'macro' ? null : <Pagination target={props.edit.edit}/>}
+      {props.type === 'macro' ? null : <Pagination isFetching={props.rows[name].isFetching} target={name}/>}
     </section>
   )
 }
 
+
 EditsTable.propTypes = {
-  edits: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  type: PropTypes.string
+  edit: PropTypes.object,
+  rows: PropTypes.object,
+  type: PropTypes.string,
+  pagination: PropTypes.object,
+  paginationFade: PropTypes.object
 }
 
 export default EditsTable

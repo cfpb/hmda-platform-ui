@@ -10,12 +10,16 @@ export default function fetchPage(target, pathname) {
     dispatch(getPaginationRequestAction(target))
     return fetch({pathname: pathname})
       .then(json => {
-        return hasHttpError(json).then(hasError => {
-          if(hasError){
-            dispatch(receiveError(json))
-            throw new Error(`${json.status}: ${json.statusText}`)
-          }
-          return dispatch(getPaginationReceiveAction(target, json))
+        return new Promise(resolve => {
+          setTimeout(() => resolve(hasHttpError(json).then(hasError => {
+            return hasHttpError(json).then(hasError => {
+              if(hasError){
+                dispatch(receiveError(json))
+                throw new Error(`${json.status}: ${json.statusText}`)
+              }
+              return dispatch(getPaginationReceiveAction(target, json))
+            })
+          })),0)
         })
       })
       .catch(err => console.error(err))

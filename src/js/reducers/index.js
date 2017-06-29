@@ -13,6 +13,7 @@ import signature from './signature.js'
 import summary from './summary.js'
 import parseErrors from './parseErrors.js'
 import pagination from './pagination.js'
+import paginationFade from './paginationFade.js'
 import error from './error.js'
 import user from './user.js'
 
@@ -30,6 +31,7 @@ export default combineReducers({
   summary,
   parseErrors,
   pagination,
+  paginationFade,
   error,
   user
 })
