@@ -161,10 +161,11 @@ export default class EditsNav extends Component {
   }
 
   handleScroll() {
-    if(document.body.scrollTop >= this.state.headerHeight) {
-      if(!this.state.fixed) this.setState({'fixed': true})
+    const state = this.state
+    if(window.scrollY >= state.headerHeight) {
+      if(!state.fixed) this.setState({fixed: true})
     } else {
-      if(this.state.fixed) this.setState({'fixed': false})
+      if(state.fixed) this.setState({fixed: false})
     }
   }
 
