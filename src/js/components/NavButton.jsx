@@ -17,19 +17,19 @@ const NavButton = ({
   switch (page) {
     case 'upload':
       suffix = 'syntacticalvalidity'
-      if(code < VALIDATED_WITH_ERRORS) className = 'usa-button-disabled'
+      if(code < VALIDATED_WITH_ERRORS) className = 'hidden'
       break
     case 'syntacticalvalidity':
       suffix = 'quality'
-      if(code < VALIDATED_WITH_ERRORS || syntacticalValidityEditsExist) className = 'usa-button-disabled'
+      if(code < VALIDATED_WITH_ERRORS || syntacticalValidityEditsExist) className = 'hidden'
       break
     case 'quality':
       suffix = 'macro'
-      if(code < VALIDATED_WITH_ERRORS || syntacticalValidityEditsExist || !qualityVerified) className = 'usa-button-disabled'
+      if(code < VALIDATED_WITH_ERRORS || syntacticalValidityEditsExist || !qualityVerified) className = 'hidden'
       break
     case 'macro':
       suffix = 'confirmation'
-      if(code < VALIDATED_WITH_ERRORS || syntacticalValidityEditsExist || !qualityVerified || !macroVerified) className = 'usa-button-disabled'
+      if(code < VALIDATED_WITH_ERRORS || syntacticalValidityEditsExist || !qualityVerified || !macroVerified) className = 'hidden'
       break
     default:
       return null
@@ -39,8 +39,8 @@ const NavButton = ({
   displayName = (suffix !== 'confirmation') ? `${displayName} Edits` : displayName
 
   return <Link
-    className={`NavButton usa-button ${className}`}
-    tabIndex={className === 'usa-button-disabled' ? -1 : 0}
+    className={`NavButton usa-button ${className || ''}`}
+    tabIndex={className === 'hidden' ? -1 : 0}
     to={`${base}/${suffix}`}>
       {`Review ${displayName}`}
     </Link>
