@@ -5,6 +5,18 @@
 }
 
 .NavButton {
+  &.usa-button {
+    margin-top: 1em;
+  }
+  position: absolute;
   text-transform: capitalize;
-  margin-top: 0;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s, visibility 0.3s;
+
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
