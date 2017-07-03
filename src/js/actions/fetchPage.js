@@ -19,7 +19,7 @@ export default function fetchPage(target, pathname) {
               }
               return dispatch(getPaginationReceiveAction(target, json))
             })
-          })),0)
+          })),500)
         })
       })
       .catch(err => console.error(err))
