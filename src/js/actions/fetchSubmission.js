@@ -11,14 +11,15 @@ export default function fetchSubmission() {
     return getLatestSubmission()
       .then(json => {
         return hasHttpError(json).then(hasError => {
-          if(json.httpStatus > 399 && json.httpStatus !== 404){
-            throw new Error(JSON.stringify(dispatch(receiveError(json))))
+          if(!hasError) return dispatch(receiveSubmission(json))
+
+          if(json.status === 404){
+            const splitPath = json.url.split('/institutions/')[1].split('/')
+            return dispatch(fetchNewSubmission(splitPath[0], splitPath[2]))
           }
-          if(json.httpStatus === 404){
-            const splitPath = json.path.split('/')
-            return dispatch(fetchNewSubmission(splitPath[2], splitPath[4]))
-          }
-          return dispatch(receiveSubmission(json))
+
+          dispatch(receiveError(json))
+          throw new Error(`${json.status}: ${json.statusText}`)
         })
       })
       .catch(err => console.error(err))
