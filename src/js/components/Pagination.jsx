@@ -17,17 +17,29 @@ class Pagination extends Component {
   }
 
   _setFromProps() {
-    this.setState({value: this._getPaginationValue(this.props)})
-  }
-  _submit(e) {
-    console.log('submitting')
-    e.preventDefault()
-    this.props.getPage(this.props.pagination, this.state.value)
+    const val = this._getPaginationValue(this.props)
+    if(val === null) return
+    if(this.state.value !== val) this.setState({value: val})
   }
 
-  _getPaginationValue(props) {
+  _submit(e) {
+    e.preventDefault()
+
+    let val = parseInt(this.state.value, 10)
+    const first = this._getPaginationValue(this.props, 'first')
+    const last = this._getPaginationValue(this.props, 'last')
+
+    if(isNaN(val)) return this._setFromProps
+
+    if(val < first) val = first
+    if(val > last) val = last
+
+    this.props.getPage(this.props.pagination, val)
+  }
+
+  _getPaginationValue(props, target='self') {
     if(!props.pagination) return null
-    return props.pagination._links.self.match(/[^=]+$/)[0]
+    return props.pagination._links[target].match(/[^=]+$/)[0]
   }
 
   _getInput() {
@@ -41,17 +53,11 @@ class Pagination extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('WILL RECEIVE', nextProps.pagination)
-      console.log('currently have', this.props.pagination)
-    if((this.props.pagination && this.props.pagination._links.self) !==
-      nextProps.pagination._links.self) {
-      console.log('setting state')
-        this.setState({value: this._getPaginationValue(nextProps)})
-    }
+    if(!nextProps.pagination || nextProps.isFetching) return
+    this.setState({value: this._getPaginationValue(nextProps)})
   }
 
   render() {
-    console.log('RENDERING PAGINATION')
     const props = this.props
     const page = props.pagination
     if(!page) return null
@@ -78,6 +84,7 @@ class Pagination extends Component {
 }
 
 Pagination.propTypes = {
+  isFetching: PropTypes.bool,
   pagination: PropTypes.object,
   getPage: PropTypes.func,
   getPreviousPage: PropTypes.func,
