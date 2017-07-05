@@ -12,6 +12,13 @@
     display: inline-block;
     margin: 0 2em;
   }
+
+  form {
+    width: 3em;
+    display: inline-block;
+    margin: 0 0.25em;
+  }
+
   button:last-of-type {
     margin-right: 2em; /* centering compensatation for narrower width */
   }
