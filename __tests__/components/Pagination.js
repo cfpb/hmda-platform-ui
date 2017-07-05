@@ -45,11 +45,11 @@ describe('Pagination component', () => {
   })
 
   it('renders the current page', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'strong')[0].textContent).toEqual('1')
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'input')[0].value).toEqual('1')
   })
 
   it('renders the pagenav text', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'div')[1].textContent).toEqual('Page 1 of 3')
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'div')[1].textContent).toEqual('Page  of 3')
   })
 
   it('does not call prev on change when self===1', () => {
@@ -66,6 +66,13 @@ describe('Pagination component', () => {
     TestUtils.Simulate.click(next)
 
     expect(getNextPage).toBeCalled()
+  })
+
+  it('has componentsWillReceiveProps with expected behavior', () => {
+    const setter = jest.fn()
+    pagination.setState = setter
+    pagination.componentWillReceiveProps()
+    expect(setter).not.toHaveBeenCalled()
   })
 
   it('does not render when pagination is empty', () => {
