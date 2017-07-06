@@ -29,7 +29,7 @@ class Pagination extends Component {
     const first = this._getPaginationValue(this.props, 'first')
     const last = this._getPaginationValue(this.props, 'last')
 
-    if(isNaN(val)) return this._setFromProps
+    if(isNaN(val)) return this._setFromProps()
 
     if(val < first) val = first
     if(val > last) val = last
