@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Pagination from '../containers/Pagination.jsx'
 import moment from 'moment'
 
@@ -39,7 +40,7 @@ const IRSReport = (props) => {
     <section className="IRSReport">
       <header>
         <h2>Institution Register Summary</h2>
-        <p className="usa-font-lead">Please review your summarized HMDA data below. If the data are incorrect, please update your file and select the "Update a new file" button. You will need to begin the filing process again.</p>
+        <p className="usa-font-lead">Please review your summarized HMDA data below. If the data are incorrect, please update your file and select the &quot;Update a new file&quot; button. You will need to begin the filing process again.</p>
         <p><a href="#"
               onClick={(e) => {
                 e.preventDefault()

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import fetchSignature from '../actions/fetchSignature.js'
 import updateSignature from '../actions/updateSignature.js'
