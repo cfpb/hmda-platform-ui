@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import ErrorWarning from './ErrorWarning.jsx'
 import moment from 'moment'
 import {
@@ -63,7 +64,7 @@ const Signature = (props) => {
     <section className="Signature" id="signature">
       <header>
         <h2>Signature</h2>
-        <p className="usa-font-lead">To complete your submission, select the checkbox to certify to the accuracy and completeness of the data submitted. Then, select the "Submit HMDA data" button to submit your data.</p>
+        <p className="usa-font-lead">To complete your submission, select the checkbox to certify to the accuracy and completeness of the data submitted. Then, select the &quot;Submit HMDA data&quot; button to submit your data.</p>
       </header>
 
       {showWarning(props)}

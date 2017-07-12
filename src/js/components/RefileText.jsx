@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { VALIDATING, SIGNED } from '../constants/statusCodes.js'
 
 export const getStatus = (code) => {
@@ -31,7 +32,7 @@ const RefileText = (props) => {
 }
 
 RefileText.propTypes = {
-  code: React.PropTypes.number.isRequired
+  code: PropTypes.number.isRequired
 }
 
 export default RefileText

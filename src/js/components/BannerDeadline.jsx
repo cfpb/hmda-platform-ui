@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 import * as dates from '../constants/dates.js'
 
@@ -44,7 +45,7 @@ const BannerDeadline = (props) => {
 }
 
 BannerDeadline.propTypes = {
-  filingPeriod: React.PropTypes.string
+  filingPeriod: PropTypes.string
 }
 
 export default BannerDeadline

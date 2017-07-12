@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import fetchVerify from '../actions/fetchVerify.js'
 import Verifier from '../components/Verifier.jsx'
@@ -45,10 +46,10 @@ function mapDispatchToProps(dispatch, ownProps) {
 }
 
 VerifierContainer.propTypes = {
-  verified: React.PropTypes.bool.isRequired,
-  noEditsExist: React.PropTypes.bool.isRequired,
-  type: React.PropTypes.string.isRequired,
-  onVerify: React.PropTypes.func.isRequired
+  verified: PropTypes.bool.isRequired,
+  noEditsExist: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
+  onVerify: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(VerifierContainer)

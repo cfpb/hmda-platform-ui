@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const UserHeading = (props) => {
   if(!props.period || !props.institution) return null
@@ -11,8 +12,8 @@ const UserHeading = (props) => {
 }
 
 UserHeading.propTypes = {
-  period: React.PropTypes.string.isRequired,
-  institution: React.PropTypes.object.isRequired
+  period: PropTypes.string.isRequired,
+  institution: PropTypes.object.isRequired
 }
 
 export default UserHeading

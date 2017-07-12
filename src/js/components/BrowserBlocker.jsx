@@ -1,5 +1,4 @@
-import React, { PropTypes } from 'react'
-
+import React from 'react'
 
 const BrowserBlocker = (props) => {
   return (
