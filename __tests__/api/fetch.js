@@ -1,7 +1,7 @@
 jest.unmock('../../src/js/api/fetch')
 import { fetch } from '../../src/js/api/fetch'
 
-let token = 'token'
+let mocktoken = 'token'
 
 jest.mock('../../src/js/api/parseLocation', () => jest.fn(()=>{return{}}))
 jest.mock('../../src/js/api/makeUrl', () => jest.fn(obj => {
@@ -11,7 +11,7 @@ jest.mock('../../src/js/api/makeUrl', () => jest.fn(obj => {
 }))
 jest.mock('../../src/js/api/createQueryString.js', () => jest.fn(() => '?qs'))
 jest.mock('../../src/js/api/AccessToken.js', () => {return {
-  get: jest.fn(() => token
+  get: jest.fn(() => mocktoken
 )}})
 
 jest.mock('isomorphic-fetch')
@@ -65,7 +65,7 @@ describe('fetch', () => {
   })
 
   it('only sets auth with token', done => {
-    token = undefined
+    mocktoken = undefined
     fetch({params:{format:'csv'}}).then(res => {
      expect(isomorphicFetch.mock.calls[5][1].headers).toEqual({
        'Content-Type':'text/csv'
