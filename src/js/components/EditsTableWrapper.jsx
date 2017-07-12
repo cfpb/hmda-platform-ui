@@ -5,60 +5,70 @@ import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import LoadingIcon from './LoadingIcon.jsx'
 import EditsTable from './EditsTable.jsx'
 import Verifier from '../containers/Verifier.jsx'
+import Alert from './Alert.jsx'
 
 export const makeEntry = (props, type) => {
   const edits = props.types[type].edits
-  return <article className="EditsTableWrapper-Edit">
-    <EditsHeaderDescription
-      count={edits.length}
-      type={type}
-    />
-    {renderTables(props, edits, type)}
-  </article>
+  return (
+    <article className="EditsTableWrapper-Edit">
+      <EditsHeaderDescription count={edits.length} type={type} />
+      {renderTablesOrSuccess(props, edits, type)}
+    </article>
+  )
 }
 
-export const renderTables = (props, edits, type) => {
-  if(edits.length === 0) {
-    const verificationMsg = (type === 'quality' || type === 'macro') ? ', no verification is required.' : '.'
+export const renderTablesOrSuccess = (props, edits, type) => {
+  if (edits.length === 0) {
+    const verificationMsg = type === 'quality' || type === 'macro'
+      ? ', no verification is required.'
+      : '.'
     return (
-      <div className="usa-alert usa-alert-success">
-        <div className="usa-alert-body">
-          <p className="usa-alert-text">Your data did not trigger any <strong>{type}</strong> edits{verificationMsg}</p>
-        </div>
-      </div>
+      <Alert
+        type="success"
+        text={`Your data did not trigger any ${type} edits${verificationMsg}`}
+      />
     )
   }
 
   return edits.map((edit, i) => {
-    return <EditsTable
-      pagination={props.pagination}
-      paginationFade={props.paginationFade}
-      edit={edit}
-      rows={props.rows}
-      type={type}
-      key={i}
-    />
+    return (
+      <EditsTable
+        pagination={props.pagination}
+        paginationFade={props.paginationFade}
+        edit={edit}
+        rows={props.rows}
+        type={type}
+        key={i}
+      />
+    )
   })
 }
 
-const EditsTableWrapper = (props) => {
+const EditsTableWrapper = props => {
   const type = props.page
-  if(props.fetched &&
+  if (
+    props.fetched &&
     (type === 'macro' || type === 'quality') &&
-    props.syntacticalValidityEditsExist) {
-      setTimeout(()=>browserHistory.replace(props.base + '/syntacticalvalidity'),0)
-      return null
+    props.syntacticalValidityEditsExist
+  ) {
+    setTimeout(
+      () => browserHistory.replace(props.base + '/syntacticalvalidity'),
+      0
+    )
+    return null
   }
 
-  const loading = props.isFetching? <LoadingIcon/> : null
+  const loading = props.isFetching ? <LoadingIcon /> : null
 
   return (
     <section className="EditsTableWrapper">
       {loading}
-      {type === 'syntacticalvalidity' ? makeEntry(props, 'syntactical') : makeEntry(props, type)}
+      {type === 'syntacticalvalidity'
+        ? makeEntry(props, 'syntactical')
+        : makeEntry(props, type)}
       {type === 'syntacticalvalidity' ? makeEntry(props, 'validity') : null}
-      {(type === 'quality' || type === 'macro') ? <Verifier type={type}/> : null}
-      <hr/>
+      {type === 'quality' || type === 'macro' ? <Verifier type={type} /> : null}
+      <hr />
     </section>
   )
 }
