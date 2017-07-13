@@ -11,7 +11,6 @@ describe('Alert', function() {
   const message = TestUtils.renderIntoDocument(
     <Wrapper>
       <Alert
-        type='info'
         text='this is some text'
       />
     </Wrapper>
@@ -26,7 +25,7 @@ describe('Alert', function() {
     expect(message.props.children.props.text).toEqual('this is some text')
   })
 
-  it('has the correct class', () => {
+  it('has the correct default class', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(message, 'usa-alert-info').length).toEqual(1)
   })
 
