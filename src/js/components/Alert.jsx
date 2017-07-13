@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Alert = ({ type = 'info', heading, text, htmlElement }) => {
+const Alert = ({ type, heading, text, htmlElement }) => {
   if (!text) return null
 
   return (
@@ -16,9 +16,9 @@ const Alert = ({ type = 'info', heading, text, htmlElement }) => {
 }
 
 Alert.propTypes = {
-  type: PropTypes.oneOf(['info', 'success', 'warning', 'error']),
+  type: PropTypes.oneOf(['info', 'success', 'warning', 'error']).isRequired,
   heading: PropTypes.string,
-  text: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
   htmlElement: PropTypes.node
 }
 
