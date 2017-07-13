@@ -18,7 +18,7 @@ const Alert = ({ type = 'info', heading, text, htmlElement }) => {
 Alert.propTypes = {
   type: PropTypes.oneOf(['info', 'success', 'warning', 'error']),
   heading: PropTypes.string,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   htmlElement: PropTypes.node
 }
 
