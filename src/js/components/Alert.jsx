@@ -9,7 +9,7 @@ const Alert = ({ type = 'info', heading, text, children }) => {
       <div className="usa-alert-body">
         {heading ? <h3 className="usa-alert-heading">{heading}</h3> : null}
         <p className="usa-alert-text">{text}</p>
-        {children ? children : null}
+        {children}
       </div>
     </div>
   )
