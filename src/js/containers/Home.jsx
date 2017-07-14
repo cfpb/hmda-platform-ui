@@ -11,15 +11,14 @@ export class HomeContainer extends Component {
 
 
   render() {
-    if(this.props.user === null) return <HomeComponent {...this.props} />
+    if(this.props.user === null) return <HomeComponent />
     return <InstitutionsContainer />
   }
 }
 
 export function mapStateToProps(state) {
   return {
-    user: state.oidc.user,
-    filingPeriod: state.app.filingPeriod
+    user: state.oidc.user
   }
 }
 

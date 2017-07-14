@@ -2,36 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 
-const renderLoggedInHero = () => {
-  return (
-    <div className="usa-width-one-whole">
-      <h1>Thanks for logging in!</h1>
-      <p className="usa-font-lead">The place to get started is the institutions page. This page provides a summary of institutions for which you are authorized to file HMDA data, along with the current filing status, access to previous submission data (CSV), and the ability to continue filing or start over.</p>
-      <Link to={'/institutions'} className="usa-button">View Your Institutions</Link>
-    </div>
-  )
-}
-
-const renderLoggedOutHero = () => {
-  return (
-    <div className="usa-width-one-whole">
-      <h1>Get started filing your HMDA data</h1>
-      <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
-      <Link to={'/institutions'} className="usa-button">Get Started Filing</Link>
-      <p className="usa-text-small">Every user is required to register online for login credentials and establish an account prior to accessing the HMDA Platform.</p>
-    </div>
-  )
-}
-
 const Home = (props) => {
-  const renderHero = (props.user && props.user.profile.name) ? renderLoggedInHero() : renderLoggedOutHero()
-
   return (
     <div>
       <main className="Home" id="main-content">
         <section className="usa-hero">
           <div className="usa-grid">
-            {renderHero}
+            <div className="usa-width-one-whole">
+              <h1>Get started filing your HMDA data</h1>
+              <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
+              <Link to={'/institutions'} className="usa-button">Get Started Filing</Link>
+              <p className="usa-text-small">Every user is required to register online for login credentials and establish an account prior to accessing the HMDA Platform.</p>
+            </div>
           </div>
         </section>
         <div className="usa-grid">
@@ -62,13 +44,6 @@ const Home = (props) => {
       </main>
     </div>
   )
-}
-
-Home.propTypes = {
-  // from /containers/Home.jsx
-  user: PropTypes.object,
-  filingPeriod: PropTypes.string,
-  // there are more props available but they are not used
 }
 
 export default Home
