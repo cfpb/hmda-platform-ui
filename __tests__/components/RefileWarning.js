@@ -11,10 +11,10 @@ import TestUtils from 'react-addons-test-utils'
 const parseLocation = jest.fn(() => { return { id:'1', period: '2017', submission: 1 } })
 
 describe('Refile Warning', () => {
-  const parserText = 'Your file has formatting errors.Please update your file and click the \"Upload a new file\" button. '
-  const refileText = 'Your file has syntactical and/or validity edits.Please update your file and select the \"Upload a new file\" button. '
-  const qualityText = 'Your file has quality edits.You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and . '
-  const macroText = 'Your file has macro quality edits.You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and . '
+  const parserText = 'Your file has formatting errors.Please update your file and click the \"Upload a new file\" button.'
+  const refileText = 'Your file has syntactical and/or validity edits.Please update your file and select the \"Upload a new file\" button.'
+  const qualityText = 'Your file has quality edits.You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and .'
+  const macroText = 'Your file has macro quality edits.You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and .'
 
 
   it('renders the correct elements for status code 5 and calls function on click', () => {

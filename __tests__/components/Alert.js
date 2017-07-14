@@ -59,13 +59,14 @@ describe('Alert', function() {
         type='success'
         text='this is some text'
         heading='this is a heading'
-        htmlElement={<div>test</div>}
-      />
+      >
+        <div>testing</div>
+      </Alert>
     </Wrapper>
   )
   const messageHtmlNode = ReactDOM.findDOMNode(messageHtml)
 
   it('has the success class', () => {
-    expect(messageHtml.props.children.props.htmlElement.type).toBe('div')
+    expect(messageHtml.props.children.props.children.type).toBe('div')
   })
 })
