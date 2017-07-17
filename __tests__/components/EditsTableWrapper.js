@@ -46,7 +46,7 @@ describe('EditsTableWrapper', () => {
 describe('renderTablesOrSuccess', () => {
   it('render the success message with verification note if NO edits and q/m', () => {
     const rendered = renderTablesOrSuccess({}, [], 'quality')
-    expect(rendered.props.text).toBe('Your data did not trigger any quality edits, no verification is required.')
+    expect(rendered.props.children.props.children.join('')).toBe('Your data did not trigger any quality edits, no verification is required.')
   })
 
   it('render the tables with edits (syntactical)', () => {

@@ -30,7 +30,7 @@ const showWarning = props => {
 
   return (
     <Alert type="warning" heading="Edits still exist.">
-      You can not sign your submission until all edits have passed or been verified.
+      <p>You can not sign your submission until all edits have passed or been verified.</p>
     </Alert>
   )
 }

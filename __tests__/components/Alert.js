@@ -10,9 +10,9 @@ import Alert from '../../src/js/components/Alert.jsx'
 describe('Alert', function() {
   const message = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Alert
-        text='this is some text'
-      />
+      <Alert>
+        <p>this is some text</p>
+      </Alert>
     </Wrapper>
   )
   const messageNode = ReactDOM.findDOMNode(message)
@@ -22,7 +22,7 @@ describe('Alert', function() {
   })
 
   it('has the correct text', () => {
-    expect(message.props.children.props.text).toEqual('this is some text')
+    expect(message.props.children.props.children.props.children).toEqual('this is some text')
   })
 
   it('has the correct default class', () => {
@@ -32,11 +32,9 @@ describe('Alert', function() {
 
   const messageHeading = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Alert
-        type='success'
-        text='this is some text'
-        heading='this is a heading'
-      />
+      <Alert type='success' heading='this is a heading'>
+        <p>this is some text</p>
+      </Alert>
     </Wrapper>
   )
   const messageHeadingNode = ReactDOM.findDOMNode(messageHeading)
@@ -55,12 +53,8 @@ describe('Alert', function() {
 
   const messageHtml = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Alert
-        type='success'
-        text='this is some text'
-        heading='this is a heading'
-      >
-        <div>testing</div>
+      <Alert type='success' heading='this is a heading'>
+        <div>this is some text</div>
       </Alert>
     </Wrapper>
   )

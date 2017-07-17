@@ -8,7 +8,7 @@ const BrowserBlocker = () => {
         type="error"
         heading="Sorry, your browser is out of date."
       >
-        <p>To file HMDA data securely, please use one of the modern browsers listed below:
+        <div>To file HMDA data securely, please use one of the modern browsers listed below:
           <nav role="navigation">
             <ul>
               <li>
@@ -28,7 +28,7 @@ const BrowserBlocker = () => {
               <li><a href="https://support.apple.com/downloads/safari">Safari</a></li>
             </ul>
           </nav>
-        </p>
+        </div>
       </Alert>
     </section>
   )

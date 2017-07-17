@@ -31,6 +31,8 @@ export const getText = props => {
     button = <RefileButton />
   }
 
+  if(!text) return null
+
   return (
     <p>
       {text}
