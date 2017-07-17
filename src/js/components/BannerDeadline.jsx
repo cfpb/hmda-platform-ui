@@ -28,30 +28,23 @@ const BannerDeadline = props => {
   // eg, filing in 2018 for 2017
   const filingPeriodPlusOne = parseInt(props.filingPeriod, 10) + 1
 
-  // render if within the filing period (1/1/<filingPeriod> to 3/1/<filingPeriod>)
-  if (
-    moment(today).isBetween(
-      `${filingPeriodPlusOne}-${dates.FILING_START}`,
-      `${filingPeriodPlusOne}-${dates.FILING_DEADLINE}`,
-      'day',
-      '[]'
-    )
-  ) {
-    return (
-      <section className="BannerDeadline">
-        <Alert
-          type={
-            withinAWeekOfDeadline(today, filingPeriodPlusOne)
-              ? 'warning'
-              : 'info'
-          }
-          text={`March 1st, ${filingPeriodPlusOne} is the deadline to submit HMDA data for the ${props.filingPeriod} filing period.`}
-        />
-      </section>
-    )
-  }
+  const withinAWeek = withinAWeekOfDeadline(today, filingPeriodPlusOne)
+  const filingDue = moment(today).isBetween(
+    `${filingPeriodPlusOne}-${dates.FILING_START}`,
+    `${filingPeriodPlusOne}-${dates.FILING_DEADLINE}`,
+    'day',
+    '[]'
+  )
 
-  return null
+  if(!filingDue) return null
+
+  return (
+    <section className="BannerDeadline">
+      <Alert type={withinAWeek ? 'warning' : 'info'}>
+        <p>March 1st, {filingPeriodPlusOne} is the deadline to submit HMDA data for the {props.filingPeriod} filing period.</p>
+      </Alert>
+    </section>
+  )
 }
 
 BannerDeadline.propTypes = {

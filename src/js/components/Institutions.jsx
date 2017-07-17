@@ -267,14 +267,9 @@ export default class Institution extends Component {
                   )
                 })}
 
-          <Alert
-            type="info"
-            text={[
-              'If you are planning to file on behalf of more than one financial institution, contact ',
-              <a href="mailto:hmdahelp@cfpb.gov">hmdahelp@cfpb.gov</a>,
-              '.'
-            ]}
-          />
+          <Alert type="info">
+            <p>If you are planning to file on behalf of more than one financial institution, contact <a href="mailto:hmdahelp@cfpb.gov">hmdahelp@cfpb.gov</a>.</p>
+          </Alert>
         </div>
         <aside className="usa-width-one-half">
           <p>

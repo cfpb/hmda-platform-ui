@@ -1,15 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Alert = ({ type = 'info', heading, text, children }) => {
-  if (!text) return null
+const Alert = ({ type = 'info', heading, children }) => {
+  if (!children) return null
 
   return (
     <div className={`usa-alert usa-alert-${type}`}>
       <div className="usa-alert-body">
         {heading ? <h3 className="usa-alert-heading">{heading}</h3> : null}
-        <p className="usa-alert-text">{text}</p>
-        {children}
+        {React.cloneElement(children, {className: 'usa-alert-text'})}
       </div>
     </div>
   )
@@ -17,8 +16,7 @@ const Alert = ({ type = 'info', heading, text, children }) => {
 
 Alert.propTypes = {
   type: PropTypes.oneOf(['info', 'success', 'warning', 'error']),
-  heading: PropTypes.string,
-  text: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired
+  heading: PropTypes.string
 }
 
 export default Alert

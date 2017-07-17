@@ -10,34 +10,35 @@ import {
 
 export const getText = props => {
   let text = null
+  let button = null
+  let periodAfter = false
 
   if (props.syntacticalValidityEditsExist) {
-    text = [
-      'Please update your file and select the "Upload a new file" button.',
-      <RefileButton />
-    ]
+    text = 'Please update your file and select the "Upload a new file" button.'
+    button = <RefileButton />
   } else if (!props.qualityVerified && props.page === 'quality') {
-    text = [
-      'You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and ',
-      <RefileButton isLink={true} isLower={true} />,
-      '.'
-    ]
+    text = 'You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and '
+    button = <RefileButton isLink={true} isLower={true} />
+    periodAfter = true
   } else if (!props.macroVerified && props.page === 'macro') {
-    text = [
-      'You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and ',
-      <RefileButton isLink={true} isLower={true} />,
-      '.'
-    ]
+    text ='You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and ',
+    button = <RefileButton isLink={true} isLower={true} />
+    periodAfter = true
   }
 
   if (props.code === PARSED_WITH_ERRORS) {
-    text = [
-      'Please update your file and click the "Upload a new file" button.',
-      <RefileButton />
-    ]
+    text = 'Please update your file and click the "Upload a new file" button.'
+    button = <RefileButton />
   }
 
-  return text
+  return (
+    <p>
+      {text}
+      {button}
+      {periodAfter ? '.' : null}
+    </p>
+  )
+
 }
 
 export const getHeading = props => {
@@ -81,11 +82,9 @@ const RefileWarning = props => {
 
   return (
     <div className="RefileWarning">
-      <Alert
-        type={alertClass}
-        heading={getHeading(props)}
-        text={getText(props)}
-      />
+      <Alert type={alertClass} heading={getHeading(props)}>
+        {getText(props)}
+      </Alert>
     </div>
   )
 }

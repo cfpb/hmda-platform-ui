@@ -41,10 +41,9 @@ export function getText(props) {
 const ErrorWarning = (props) => {
   if(props.error) return (
     <div className="ErrorWarning">
-      <Alert
-        type='error'
-        heading={getHeading(props)}
-        text={getText(props)} />
+      <Alert type='error' heading={getHeading(props)}>
+        <p>{getText(props)}</p>
+      </Alert>
     </div>
   )
 

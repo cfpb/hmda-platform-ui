@@ -9,17 +9,11 @@ const showReceipt = (code, timestamp, receipt) => {
   if (code !== SIGNED) return null
 
   return (
-    <Alert
-      type="success"
-      heading="HMDA data submitted"
-      text={[
-        'You have submitted your HMDA data on ',
-        <strong>{moment(timestamp).format('MMMM Do, YYYY, h:mm:ss')}</strong>,
-        '. Your receipt number is ',
-        <strong>{receipt}</strong>,
-        '.'
-      ]}
-    />
+    <Alert type="success" heading="HMDA data submitted">
+      <p>
+        You have submitted your HMDA data on <strong>{moment(timestamp).format('MMMM Do, YYYY, h:mm:ss')}</strong>. Your receipt number is <strong>{receipt}</strong>.
+      </p>
+    </Alert>
   )
 }
 
@@ -35,11 +29,9 @@ const showWarning = props => {
     )
 
   return (
-    <Alert
-      type="warning"
-      heading="Edits still exist."
-      text="You can not sign your submission until all edits have passed or been verified."
-    />
+    <Alert type="warning" heading="Edits still exist.">
+      You can not sign your submission until all edits have passed or been verified.
+    </Alert>
   )
 }
 

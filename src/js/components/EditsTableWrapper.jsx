@@ -23,10 +23,9 @@ export const renderTablesOrSuccess = (props, edits, type) => {
       ? ', no verification is required.'
       : '.'
     return (
-      <Alert
-        type="success"
-        text={`Your data did not trigger any ${type} edits${verificationMsg}`}
-      />
+      <Alert type="success">
+        <p>Your data did not trigger any {type} edits{verificationMsg}</p>
+      </Alert>
     )
   }
 
