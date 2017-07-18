@@ -47,7 +47,7 @@ describe('ordinal hour', () => {
   it('returns correct ordinal datetimes', () => {
     expect(ordinalHour(1387721600000).match('December 22nd, 2013')).toBeTruthy()
     expect(ordinalHour(1387721600000).match('AM')).toBeTruthy()
-    expect(ordinalHour(1500341404132).match('July 18th, 2017')).toBeTruthy()
+    expect(ordinalHour(1500341404132).match('July 17th, 2017')).toBeTruthy()
     expect(ordinalHour(1500341404132).match('PM')).toBeTruthy()
   })
 })
