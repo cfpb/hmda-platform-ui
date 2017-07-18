@@ -1,50 +1,66 @@
 jest.unmock('../../src/js/components/BannerDeadline.jsx')
+jest.unmock('../../src/js/components/Alert.jsx')
+jest.mock('../../src/js/utils/date.js')
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
 import Wrapper from '../Wrapper.js'
-import BannerDeadline, {
-  getClass
-} from '../../src/js/components/BannerDeadline.jsx'
+import TestUtils from 'react-addons-test-utils'
+import {withinFilingPeriod, withinAWeekOfDeadline} from '../../src/js/utils/date.js'
+import BannerDeadline from '../../src/js/components/BannerDeadline.jsx'
+
 
 describe('BannerDeadline', function() {
-  const banner = TestUtils.renderIntoDocument(
-    <Wrapper>
-      <BannerDeadline
-        filingPeriod='2017'
-      />
-    </Wrapper>
-  )
-  const bannerNode = ReactDOM.findDOMNode(banner)
+  it('renders the banner if within filingPeriod, but not a week', function(){
+    withinFilingPeriod.mockImplementation(() => true)
+    withinAWeekOfDeadline.mockImplementation(() => false)
 
-  it('renders the bannder', function(){
+    const banner = TestUtils.renderIntoDocument(
+        <Wrapper>
+          <BannerDeadline
+            filingPeriod='2017'
+          />
+        </Wrapper>
+      )
+    const bannerNode = ReactDOM.findDOMNode(banner)
+    const alert = TestUtils.scryRenderedDOMComponentsWithClass(banner, 'usa-alert')
     expect(bannerNode).toBeDefined()
+    Object.keys(alert).forEach(v => {
+      expect(alert[v].className).toBe('usa-alert usa-alert-info')
+    })
   })
 
-  it('sets the prop appropriately', function(){
-    expect(banner.props.children.props.filingPeriod).toEqual('2017')
-  })
-})
+  it('renders the banner if within a week of filingPeriod', function(){
+    withinFilingPeriod.mockImplementation(() => true)
+    withinAWeekOfDeadline.mockImplementation(() => true)
 
-describe('getClass', () => {
-  it('returns alert-warning', () => {
-    expect(getClass('2017-02-21', '2017')).toBe('usa-alert-warning')
-  })
-  it('returns alert-warning', () => {
-    expect(getClass('2017-03-01', '2017')).toBe('usa-alert-warning')
-  })
-  it('returns alert-warning', () => {
-    expect(getClass('2017-02-28', '2017')).toBe('usa-alert-warning')
-  })
-  it('returns alert-info', () => {
-    expect(getClass('2017-02-20', '2017')).toBe('usa-alert-info')
-  })
-  it('returns alert-info', () => {
-    expect(getClass('2017-03-02', '2017')).toBe('usa-alert-info')
+    const banner = TestUtils.renderIntoDocument(
+        <Wrapper>
+          <BannerDeadline
+            filingPeriod='2017'
+          />
+        </Wrapper>
+      )
+    const bannerNode = ReactDOM.findDOMNode(banner)
+    const alert = TestUtils.scryRenderedDOMComponentsWithClass(banner, 'usa-alert')
+    expect(bannerNode).toBeDefined()
+    Object.keys(alert).forEach(v => {
+      expect(alert[v].className).toBe('usa-alert usa-alert-warning')
+    })
   })
 
-  it('LEAP YEAR', () => {
-    expect(getClass('2017-03-02', '2017')).toBe('usa-alert-info')
+  it('renders null if not in filingPeriod', function(){
+    withinFilingPeriod.mockImplementation(() => false)
+    withinAWeekOfDeadline.mockImplementation(() => false)
+
+    const banner = TestUtils.renderIntoDocument(
+        <Wrapper>
+          <BannerDeadline
+            filingPeriod='2017'
+          />
+        </Wrapper>
+      )
+    const bannerNode = ReactDOM.findDOMNode(banner)
+    expect(bannerNode).toBe(null)
   })
 })

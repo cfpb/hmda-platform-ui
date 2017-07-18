@@ -33,10 +33,13 @@ const defaultState = {
 describe('submissionProgressHOC', () => {
 
   it('produces a wrapped component', () => {
-    const component = submissionProgressHOC(<div>hm</div>)
+    const base = () => <div>hm</div>
+    const wrapped = submissionProgressHOC(base)
+    expect(wrapped).toBeDefined()
+    expect(wrapped.displayName).toBe('Connect(base)')
+
+    const component = <wrapped/>
     expect(component).toBeDefined()
-    expect(component.displayName).toBe('Connect(Component)')
-    expect(component.props.children).toBe('hm')
   })
 
 
