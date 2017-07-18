@@ -21,7 +21,7 @@ export function padZero(n) {
 }
 
 export function ordinal(ts) {
-  const d = new Date(d)
+  const d = new Date(ts)
   const month = months[d.getMonth()]
   const day = d.getDate()
 
@@ -42,6 +42,7 @@ export function ordinalHour(ts) {
 export function withinAWeekOfDeadline(year) {
   const deadline = +new Date(`${year}-${dates.FILING_DEADLINE}T23:59:59-0500`)
   const week = +new Date(`${year}-${dates.ONE_WEEK_TO_FILE}T00:00:00-0500`)
+  if(!deadline || !week) throw new Error('Error calculating filing deadline status')
   const today = Date.now()
   return today >= week && today <= deadline
 }
@@ -49,6 +50,7 @@ export function withinAWeekOfDeadline(year) {
 export function withinFilingPeriod(year) {
   const deadline = +new Date(`${year}-${dates.FILING_DEADLINE}T23:59:59-0500`)
   const start = +new Date(`${year}-${dates.FILING_START}T00:00:00-0500`)
+  if(!deadline || !start) throw new Error('Error calculating filing deadline status')
   const today = Date.now()
   return today >= start && today <= deadline
 }
