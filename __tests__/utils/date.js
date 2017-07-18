@@ -38,17 +38,15 @@ describe('padZero', () => {
 
 describe('ordinal', () => {
   it('returns correct ordinal dates', () => {
-    expect(ordinal(1387721600000)).toBe('December 22nd, 2013')
-    expect(ordinal(1500390404132)).toBe('July 18th, 2017')
+    expect(ordinal(new Date(1387721600000))).toBe('December 22nd, 2013')
+    expect(ordinal(new Date(1500390404132))).toBe('July 18th, 2017')
   })
 })
 
 describe('ordinal hour', () => {
   it('returns correct ordinal datetimes', () => {
-    expect(ordinalHour(1387721600000).match('December 22nd, 2013')).toBeTruthy()
-    expect(ordinalHour(1387721600000).match('AM')).toBeTruthy()
-    expect(ordinalHour(1500341404132).match('July 17th, 2017')).toBeTruthy()
-    expect(ordinalHour(1500341404132).match('PM')).toBeTruthy()
+    expect(ordinalHour(new Date('2013-12-22T00:05:10'))).toBe('December 22nd, 2013, 12:05:10 AM')
+    expect(ordinalHour(new Date('2017-07-18T14:14:14'))).toBe('July 18th, 2017, 2:14:14 PM')
   })
 })
 

@@ -20,16 +20,14 @@ export function padZero(n) {
     : '0' + n
 }
 
-export function ordinal(ts) {
-  const d = new Date(ts)
+export function ordinal(d) {
   const month = months[d.getMonth()]
   const day = d.getDate()
 
   return `${month} ${day + nth(day)}, ${d.getFullYear()}`
 }
 
-export function ordinalHour(ts) {
-  const d = new Date(ts)
+export function ordinalHour(d) {
   const mil = d.getHours()
   const period = mil > 11 ? 'PM' : 'AM'
   const hour = mil%12 ? mil%12 : 12

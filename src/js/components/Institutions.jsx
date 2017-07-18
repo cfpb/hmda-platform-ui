@@ -146,7 +146,9 @@ export const renderPreviousSubmissions = (
             <ol reversed className="usa-text-small">
               {previousSubmissions.map((submission, i) => {
                 // render the end date if it was signed
-                const date = (submission.status.code === STATUS.SIGNED) ? ordinal(submission.end) : ordinal(submission.start)
+                const date = (submission.status.code === STATUS.SIGNED)
+                  ? ordinal(new Date(submission.end))
+                  : ordinal(new Date(submission.start))
 
                 // render a link if validted with errors
                 if (submission.status.code === STATUS.VALIDATED_WITH_ERRORS) {
