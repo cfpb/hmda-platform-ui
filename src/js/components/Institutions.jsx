@@ -4,7 +4,7 @@ import {Link} from 'react-router'
 import LoadingIcon from './LoadingIcon.jsx'
 import ErrorWarning from './ErrorWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
-import moment from 'moment'
+import { ordinal } from '../utils/date.js'
 import * as STATUS from '../constants/statusCodes.js'
 import 'uswds'
 
@@ -110,7 +110,8 @@ export const renderPreviousSubmissions = (submissions, onDownloadClick, institut
           <ol reversed className="usa-text-small">
             {previousSubmissions.map((submission, i) => {
               // render the end date if it was signed
-              const date = (submission.status.code === STATUS.SIGNED) ? moment(submission.end).utcOffset(-5).format('MMMM Do, YYYY') : moment(submission.start).utcOffset(-5).format('MMMM Do, YYYY')
+              console.log(submission.start)
+              const date = (submission.status.code === STATUS.SIGNED) ? ordinal(submission.end) : ordinal(submission.start)
 
               // render a link if validted with errors
               if(submission.status.code === STATUS.VALIDATED_WITH_ERRORS) {

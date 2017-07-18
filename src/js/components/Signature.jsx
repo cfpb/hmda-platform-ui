@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ErrorWarning from './ErrorWarning.jsx'
-import moment from 'moment'
+import { ordinalHour } from '../utils/date.js'
 import {
   VALIDATED_WITH_ERRORS,
   SIGNED
@@ -14,7 +14,7 @@ const showReceipt = (code, timestamp, receipt) => {
     <div className="usa-alert usa-alert-success">
       <div className="usa-alert-body">
         <h3 className="usa-alert-heading">HMDA data submitted</h3>
-        <p className="usa-alert-text">You have submitted your HMDA data on <strong>{moment(timestamp).format('MMMM Do, YYYY, h:mm:ss')}</strong>. Your receipt number is <strong>{receipt}</strong>.</p>
+        <p className="usa-alert-text">You have submitted your HMDA data on <strong>{ordinalHour(timestamp)}</strong>. Your receipt number is <strong>{receipt}</strong>.</p>
       </div>
     </div>
   )
