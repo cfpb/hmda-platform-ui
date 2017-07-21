@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { signinRedirect } from '../utils/redirect'
 import ConfirmationModal from './ConfirmationModal.jsx'
+import LoggedOutModal from '../components/LoggedOutModal.jsx'
 import * as AccessToken from '../api/AccessToken.js'
 import Header from '../components/Header.jsx'
 import BrowserBlocker from '../components/BrowserBlocker.jsx'
@@ -21,15 +22,19 @@ export class AppContainer extends Component {
   }
 
   _setOrRedirect(props) {
+    console.log("SET OR REDIRECT CALLED")
     const isHome = this._isHome(props)
     const isOidc = this._isOidc(props)
 
     if(props.oidc.user) AccessToken.set(props.oidc.user.access_token)
     if(isHome) return
+      console.log('SIGNIN RE TRIGGERED', (!isOidc && props.expired))
     if(!isOidc && props.expired) return signinRedirect()
 
     if(!props.oidc.user) {
       if(props.oidc.isLoadingUser) return
+
+      console.log('SIGNIN RE TRIGGERED', !isOidc)
       if(!isOidc) signinRedirect()
     }
   }
@@ -43,7 +48,14 @@ export class AppContainer extends Component {
   }
 
   render() {
+console.log('will it return null', !this._isOidc(this.props) && !this._isHome(this.props) && (this.props.expired || !this.props.oidc.user))
     if(!this._isOidc(this.props) && !this._isHome(this.props) && (this.props.expired || !this.props.oidc.user)) return null
+
+    if(this.props.userError) return (
+      <div className="AppContainer">
+        <LoggedOutModal/>
+      </div>
+    )
 
     return (
       <div className="AppContainer">
@@ -102,11 +114,12 @@ export class AppContainer extends Component {
 
 export function mapStateToProps(state) {
   const { oidc } = state
-  const { expired } = state.app.user
+  const { expired, userError } = state.app.user
 
   return {
     oidc,
-    expired
+    expired,
+    userError
   }
 }
 
