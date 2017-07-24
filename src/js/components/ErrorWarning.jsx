@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Alert from './Alert.jsx'
 
-export function renderHeader(props) {
+export function getHeading(props) {
   if(props.headerText) return props.headerText
 
   switch(props.error.status) {
@@ -19,7 +20,7 @@ export function renderHeader(props) {
   }
 }
 
-export function renderBody(props) {
+export function getText(props) {
   if(props.bodyText) return props.bodyText
 
   switch(props.error.status) {
@@ -38,16 +39,15 @@ export function renderBody(props) {
 }
 
 const ErrorWarning = (props) => {
-  if(!props.error) return null
-
-  return (
-    <div className="ErrorWarning usa-alert usa-alert-error">
-      <div className="usa-alert-body">
-        <h3 className="usa-alert-heading">{renderHeader(props)}</h3>
-        <p className="usa-alert-text">{renderBody(props)}</p>
-      </div>
+  if(props.error) return (
+    <div className="ErrorWarning">
+      <Alert type='error' heading={getHeading(props)}>
+        <p>{getText(props)}</p>
+      </Alert>
     </div>
   )
+
+  return null
 }
 
 ErrorWarning.propTypes = {

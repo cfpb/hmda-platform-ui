@@ -1,4 +1,5 @@
 jest.unmock('../../src/js/components/EditsTableWrapper.jsx')
+jest.mock('../../src/js/components/Alert.jsx', () => jest.fn(() => null))
 
 import fs from 'fs'
 import React from 'react'
@@ -6,7 +7,7 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 import Wrapper from '../Wrapper.js'
 import EditsTableWrapper, {
-  renderTables
+  renderTablesOrSuccess
 } from '../../src/js/components/EditsTableWrapper.jsx'
 
 const types = {
@@ -42,35 +43,29 @@ describe('EditsTableWrapper', () => {
   })
 })
 
-describe('renderTables', () => {
-  it('render the success message if NO edits', () => {
-    const rendered = renderTables({}, [], 'syntactical')
-    expect(rendered.props.className).toBe('usa-alert usa-alert-success')
-  })
-
+describe('renderTablesOrSuccess', () => {
   it('render the success message with verification note if NO edits and q/m', () => {
-    const rendered = renderTables({}, [], 'quality')
-    expect(rendered.props.className).toBe('usa-alert usa-alert-success')
-    expect(rendered.props.children.props.children.props.children[3]).toBe(', no verification is required.')
+    const rendered = renderTablesOrSuccess({}, [], 'quality')
+    expect(rendered.props.children.props.children.join('')).toBe('Your data did not trigger any quality edits, no verification is required.')
   })
 
   it('render the tables with edits (syntactical)', () => {
-    const rendered = renderTables({}, types.syntactical.edits, 'syntactical')
+    const rendered = renderTablesOrSuccess({}, types.syntactical.edits, 'syntactical')
     expect(rendered.length).toBe(2)
   })
 
   it('render the tables with edits (validity)', () => {
-    const rendered = renderTables({}, types.validity.edits, 'validity')
+    const rendered = renderTablesOrSuccess({}, types.validity.edits, 'validity')
     expect(rendered.length).toBe(1)
   })
 
   it('render the tables with edits (quality)', () => {
-    const rendered = renderTables({}, types.quality.edits, 'quality')
+    const rendered = renderTablesOrSuccess({}, types.quality.edits, 'quality')
     expect(rendered.length).toBe(2)
   })
 
   it('render the tables with edits (macro)', () => {
-    const rendered = renderTables({}, types.macro.edits, 'macro')
+    const rendered = renderTablesOrSuccess({}, types.macro.edits, 'macro')
     expect(rendered).toBeDefined()
   })
 })

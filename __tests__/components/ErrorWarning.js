@@ -1,6 +1,7 @@
 jest.unmock('../../src/js/components/ErrorWarning.jsx')
+jest.mock('../../src/js/components/Alert.jsx', () => jest.fn(() => null))
 
-import ErrorWarning, { renderHeader, renderBody } from '../../src/js/components/ErrorWarning.jsx'
+import ErrorWarning, { getHeading, getText } from '../../src/js/components/ErrorWarning.jsx'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -32,52 +33,52 @@ describe('ErrorWarning', () => {
   })
 
   it('renders correct header on 401', () => {
-    const rendered = renderHeader({error: {status: 401}})
+    const rendered = getHeading({error: {status: 401}})
     expect(rendered).toEqual('You have been automatically logged out.')
   })
 
   it('renders correct header on 404', () => {
-    const rendered = renderHeader({error: {status: 404}})
+    const rendered = getHeading({error: {status: 404}})
     expect(rendered).toEqual('Sorry, we couldn\'t find the data you\'re looking for.')
   })
 
   it('renders correct header on 500', () => {
-    const rendered = renderHeader({error: {status: 500}})
+    const rendered = getHeading({error: {status: 500}})
     expect(rendered).toEqual('Sorry, there\'s a problem on our end.')
   })
 
   it('renders correct header on unknown error', () => {
-    const rendered = renderHeader({error: {status: 405}})
+    const rendered = getHeading({error: {status: 405}})
     expect(rendered).toEqual('Sorry, an error has occurred.')
   })
 
   it('renders correct header with provided text', () => {
-    const rendered = renderHeader({error: {status: 405}, headerText: 'hi'})
+    const rendered = getHeading({error: {status: 405}, headerText: 'hi'})
     expect(rendered).toEqual('hi')
   })
 
   it('renders correct body on 401', () => {
-    const rendered = renderBody({error: {status: 401}})
+    const rendered = getText({error: {status: 401}})
     expect(rendered).toEqual('Please refresh the page to log in again.')
   })
 
   it('renders correct body on 404', () => {
-    const rendered = renderBody({error: {status: 404}})
+    const rendered = getText({error: {status: 404}})
     expect(rendered).toEqual('Please refresh the page. If this message persists, you will need to upload your file again.')
   })
 
   it('renders correct body on 500', () => {
-    const rendered = renderBody({error: {status: 500}})
+    const rendered = getText({error: {status: 500}})
     expect(rendered).toEqual('We\'re quickly on resolving the issue. Please try again soon.')
   })
 
   it('renders correct body on unknown error', () => {
-    const rendered = renderBody({error: {status: 405}})
+    const rendered = getText({error: {status: 405}})
     expect(rendered).toEqual('Please refresh the page. If this message persists, you will need to upload your file again.')
   })
 
   it('renders correct body with provided text', () => {
-    const rendered = renderBody({error: {status: 405}, bodyText: 'hi'})
+    const rendered = getText({error: {status: 405}, bodyText: 'hi'})
     expect(rendered).toEqual('hi')
   })
 })
