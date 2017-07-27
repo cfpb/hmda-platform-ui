@@ -22,19 +22,16 @@ export class AppContainer extends Component {
   }
 
   _setOrRedirect(props) {
-    console.log("SET OR REDIRECT CALLED")
     const isHome = this._isHome(props)
     const isOidc = this._isOidc(props)
 
     if(props.oidc.user) AccessToken.set(props.oidc.user.access_token)
     if(isHome) return
-      console.log('SIGNIN RE TRIGGERED', (!isOidc && props.expired))
+
     if(!isOidc && props.expired) return signinRedirect()
 
     if(!props.oidc.user) {
       if(props.oidc.isLoadingUser) return
-
-      console.log('SIGNIN RE TRIGGERED', !isOidc)
       if(!isOidc) signinRedirect()
     }
   }
@@ -50,19 +47,13 @@ export class AppContainer extends Component {
   render() {
     if(!this._isOidc(this.props) && !this._isHome(this.props) && (this.props.expired || !this.props.oidc.user)) return null
 
-    if(this.props.userError) return (
-      <div className="AppContainer">
-        <LoggedOutModal/>
-      </div>
-    )
-
     return (
       <div className="AppContainer">
         <a className="usa-skipnav" href="#main-content">Skip to main content</a>
         <Header
           pathname={this.props.location.pathname}
           user={this.props.oidc.user} />
-        <ConfirmationModal/>
+        {this.props.userError ? <LoggedOutModal/> : <ConfirmationModal/>}
         {
           this.props.location.pathname === '/oidc-callback' ?
             this.props.children :

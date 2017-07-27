@@ -43,9 +43,11 @@ export default class ModalConfirm extends Component {
     if(!filingPeriod || !id || !hideConfirmModal || !triggerRefile) return null
 
     return (
-      <div className={'confirmation-blurred-blocker'+ (showing ? ' showing-blurred-blocker' : '')}>
-        <section role="dialog" className="confirmation-modal">
-          <div className="confirmation-contents">
+      <div className={'modal-blurred-blocker'+ (showing ? ' showing-blurred-blocker' : '')}>
+        <section role="dialog" className="modal">
+          <h2>HMDA Filing</h2>
+          <hr/>
+          <div className="modal-contents">
             <RefileText code={code}/>
             <button
               tabIndex={showing ? 0 : -1 }
