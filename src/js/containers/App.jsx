@@ -48,7 +48,6 @@ export class AppContainer extends Component {
   }
 
   render() {
-console.log('will it return null', !this._isOidc(this.props) && !this._isHome(this.props) && (this.props.expired || !this.props.oidc.user))
     if(!this._isOidc(this.props) && !this._isHome(this.props) && (this.props.expired || !this.props.oidc.user)) return null
 
     if(this.props.userError) return (
