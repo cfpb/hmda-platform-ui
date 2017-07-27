@@ -9,7 +9,7 @@ import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 import 'uswds'
 
-export const renderDownloadLink = (institutionId, period, sequenceNumber, statusCode) => {
+export const renderDownloadLink = (institutionId, period, sequenceNumber, statusCode, onDownloadClick) => {
   if(!sequenceNumber) return null
   if(statusCode < STATUS.VALIDATED_WITH_ERRORS) return null
 
@@ -19,7 +19,7 @@ export const renderDownloadLink = (institutionId, period, sequenceNumber, status
         href="#"
         onClick={e => {
           e.preventDefault()
-          onDownloadClick(institutionId, period, submission.id.sequenceNumber)
+          onDownloadClick(institutionId, period, sequenceNumber)
         }}
       >
         Download edit report
@@ -76,7 +76,7 @@ export const renderStatus = (
     if(!submission || !submission.id) {
       downloadLink = null
     } else {
-      downloadLink = renderDownloadLink(institutionId, period, submission.id.sequenceNumber, statusCode)
+      downloadLink = renderDownloadLink(institutionId, period, submission.id.sequenceNumber, statusCode, onDownloadClick)
     }
   }
 
