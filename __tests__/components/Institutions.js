@@ -93,13 +93,9 @@ describe('renderStatus', () => {
   const runByCode = (code, className) => {
     it('runs with code ' + code, () => {
       const rendered = renderStatus('1234', '2017', {id: {sequenceNumber: 2}}, onDownloadClick, {code: code}, 123, 234)
-      expect(rendered.props.children[0].props.children[2].props.className).toEqual(className)
+      expect(rendered.props.children[0].props.children[1].props.className).toEqual(className)
     })
   }
-
-  it('fails on no code', () => {
-    expect(renderStatus({})).toBe(undefined)
-  })
 
   runByCode(-1, 'text-secondary')
   runByCode(1, 'text-secondary')
