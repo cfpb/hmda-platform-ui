@@ -9,6 +9,25 @@ import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 import 'uswds'
 
+export const renderDownloadLink = (institutionId, period, sequenceNumber, statusCode, onDownloadClick) => {
+  if(!sequenceNumber) return null
+  if(statusCode < STATUS.VALIDATED_WITH_ERRORS) return null
+
+  return (
+    <p className="usa-text-small">
+      <a
+        href="#"
+        onClick={e => {
+          e.preventDefault()
+          onDownloadClick(institutionId, period, sequenceNumber)
+        }}
+      >
+        Download edit report
+      </a>
+    </p>
+  )
+}
+
 export const renderStatus = (
   institutionId,
   period,
@@ -16,53 +35,57 @@ export const renderStatus = (
   onDownloadClick,
   submissionStatus
 ) => {
-  if (!submissionStatus || !submissionStatus.code) return
-
-  const statusCode = submissionStatus.code
-  let messageClass
-
-  if (statusCode === STATUS.CREATED) {
-    messageClass = 'text-secondary'
+  let message = null
+  let description = null
+  if (!submissionStatus || !submissionStatus.message || !submissionStatus.description) {
+    message = 'not started'
+    description = 'You can begin the filing process now.'
+  } else {
+    message = submissionStatus.message
+    description = submissionStatus.description
   }
 
-  if (statusCode > STATUS.CREATED) {
+  let messageClass = 'text-primary'
+  let downloadLink
+  if(!submissionStatus || !submissionStatus.code) {
     messageClass = 'text-primary'
-  }
+  } else {
+    const statusCode = submissionStatus.code
 
-  if (
-    statusCode === STATUS.PARSED_WITH_ERRORS ||
-    statusCode === STATUS.VALIDATED_WITH_ERRORS
-  ) {
-    messageClass = 'text-secondary'
-  }
+    if (statusCode === STATUS.CREATED) {
+      messageClass = 'text-secondary'
+    }
 
-  if (statusCode === STATUS.SIGNED) {
-    messageClass = 'text-green'
-  }
+    if (
+      statusCode === STATUS.PARSED_WITH_ERRORS ||
+      statusCode === STATUS.VALIDATED_WITH_ERRORS
+    ) {
+      messageClass = 'text-secondary'
+    }
 
-  // failed submission
-  if (statusCode === STATUS.FAILED) {
-    messageClass = 'text-secondary'
+    if (statusCode === STATUS.SIGNED) {
+      messageClass = 'text-green'
+    }
+
+    // failed submission
+    if (statusCode === STATUS.FAILED) {
+      messageClass = 'text-secondary'
+    }
+
+    // only render the download link if we have a code and a submission
+    if(!submission || !submission.id) {
+      downloadLink = null
+    } else {
+      downloadLink = renderDownloadLink(institutionId, period, submission.id.sequenceNumber, statusCode, onDownloadClick)
+    }
   }
 
   return (
     <section className="status">
       <p className="status-desc">
-        Current filing status is{' '}
-        <strong className={messageClass}>{submissionStatus.message}</strong>.{' '}
-        {submissionStatus.description}
+        Current filing status is <strong className={messageClass}>{message}</strong>. {description}
       </p>
-      <p className="usa-text-small">
-        <a
-          href="#"
-          onClick={e => {
-            e.preventDefault()
-            onDownloadClick(institutionId, period, submission.id.sequenceNumber)
-          }}
-        >
-          Download edit report
-        </a>
-      </p>
+      {downloadLink}
     </section>
   )
 }
