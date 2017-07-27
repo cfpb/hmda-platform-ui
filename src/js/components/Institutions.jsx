@@ -6,7 +6,6 @@ import ErrorWarning from './ErrorWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
 import { ordinal } from '../utils/date.js'
 import Alert from './Alert.jsx'
-import moment from 'moment'
 import * as STATUS from '../constants/statusCodes.js'
 import 'uswds'
 
