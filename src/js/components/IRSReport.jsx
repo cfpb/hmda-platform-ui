@@ -49,7 +49,7 @@ const IRSReport = (props) => {
                   sequenceNumber
                 )
               }
-        }>Download edit report</a></p>
+        }>Download IRS report</a></p>
       </header>
 
       <div className="irs-table-wrapper" id="irs" >
