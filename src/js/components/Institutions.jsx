@@ -68,14 +68,12 @@ export const renderStatus = (
 }
 
 export const renderViewButton = (code, institutionId, period) => {
-  let buttonText
+  let buttonText = 'View current filing'
 
   if(code === STATUS.CREATED){
     buttonText = 'Begin filing'
   }else if(code === STATUS.SIGNED){
     buttonText = 'View completed filing'
-  }else{
-    buttonText = 'View current filing'
   }
 
   return (
