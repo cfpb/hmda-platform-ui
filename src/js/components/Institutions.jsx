@@ -67,7 +67,9 @@ export const renderStatus = (
   )
 }
 
-export const renderViewButton = (code, institutionId, period) => {
+export const renderViewButton = (status, institutionId, period) => {
+
+  const code = status ? status.code : STATUS.CREATED
   let buttonText = 'View current filing'
 
   if(code === STATUS.CREATED){
@@ -229,7 +231,7 @@ export default class Institution extends Component {
                           )}
 
                           {renderViewButton(
-                            latestSubmissionStatus.code,
+                            latestSubmissionStatus,
                             filing.institutionId,
                             filing.period
                           )}

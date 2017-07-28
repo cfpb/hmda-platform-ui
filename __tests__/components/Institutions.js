@@ -113,7 +113,7 @@ describe('renderStatus', () => {
 describe('renderViewButton', () => {
   const runByCode = (code, linkText) => {
     it('runs with code ' + code, () => {
-      const rendered = renderViewButton(code, 'a', 'b')
+      const rendered = renderViewButton({code: code}, 'a', 'b')
       expect(rendered.props.children).toBe(linkText)
     })
   }
@@ -122,6 +122,8 @@ describe('renderViewButton', () => {
   runByCode(2, 'View current filing')
   runByCode(10, 'View completed filing')
   runByCode(123, 'View current filing')
+  const renderNull = renderViewButton(null, 'a', 'b')
+  expect(renderNull.props.children).toBe('Begin filing')
 })
 
 describe('renderRefileButton', () => {
