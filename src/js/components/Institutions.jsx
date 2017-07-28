@@ -68,27 +68,12 @@ export const renderStatus = (
 }
 
 export const renderViewButton = (code, institutionId, period) => {
-  let buttonText
+  let buttonText = 'View current filing'
 
-  switch (code) {
-    // not-started
-    case 1:
-      buttonText = 'Begin filing'
-      break
-    // in progress
-    case 2:
-      buttonText = 'View current filing'
-      break
-    // completed
-    case 3:
-      buttonText = 'View completed filing'
-      break
-    // cancelled
-    case 4:
-      buttonText = 'Begin filing'
-      break
-    default:
-      buttonText = 'Begin filing'
+  if(code === STATUS.CREATED){
+    buttonText = 'Begin filing'
+  }else if(code === STATUS.SIGNED){
+    buttonText = 'View completed filing'
   }
 
   return (
@@ -244,7 +229,7 @@ export default class Institution extends Component {
                           )}
 
                           {renderViewButton(
-                            filing.status.code,
+                            latestSubmissionStatus.code,
                             filing.institutionId,
                             filing.period
                           )}
