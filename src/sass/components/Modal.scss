@@ -1,22 +1,26 @@
-.confirmation-modal {
+.modal {
   transition: top 0.2s;
   box-shadow: 0 1px 2px 0 #212121, 0 8px 8px -6px #212121;
   background: $color-white;
   left: 50%;
+  width: 40%;
   position: fixed;
   top: 40%;
   transform: translate(-50%,-50%);
   z-index: 9003;
 
-  .confirmation-contents {
-    padding: 2em;
+  h2 {
+    font-size: 2.4rem;
+    margin: 0.75em 0 0 1.25em;
+  }
+
+  .modal-contents {
+    padding: 0 2em 1.5em;
 
     p {
-      margin-top: 0;
-      &:not(.usa-font-lead) {
-        margin-bottom: 0;
-      }
+      margin: 0;
     }
+
     a {
       color: $color-gray;
       &:hover {
@@ -29,12 +33,13 @@
       }
     }
     button {
+      margin-top: 1.5em;
       margin-right: 2em;
     }
   }
 }
 
-.confirmation-blurred-blocker {
+.modal-blurred-blocker {
   background: rgba(0,0,0,0.6);
   opacity: 0;
   visibility: hidden;
@@ -50,7 +55,7 @@
 div.showing-blurred-blocker {
   visibility: visible;
   opacity: 1;
-  .confirmation-modal {
+  .modal {
     top: 50%;
   }
 }

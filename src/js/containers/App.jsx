@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { signinRedirect } from '../utils/redirect'
 import ConfirmationModal from './ConfirmationModal.jsx'
+import LoggedOutModal from '../components/LoggedOutModal.jsx'
 import * as AccessToken from '../api/AccessToken.js'
 import Header from '../components/Header.jsx'
 import BrowserBlocker from '../components/BrowserBlocker.jsx'
@@ -26,6 +27,7 @@ export class AppContainer extends Component {
 
     if(props.oidc.user) AccessToken.set(props.oidc.user.access_token)
     if(isHome) return
+
     if(!isOidc && props.expired) return signinRedirect()
 
     if(!props.oidc.user) {
@@ -51,7 +53,7 @@ export class AppContainer extends Component {
         <Header
           pathname={this.props.location.pathname}
           user={this.props.oidc.user} />
-        <ConfirmationModal/>
+        {this.props.userError ? <LoggedOutModal/> : <ConfirmationModal/>}
         {
           this.props.location.pathname === '/oidc-callback' ?
             this.props.children :
@@ -102,11 +104,12 @@ export class AppContainer extends Component {
 
 export function mapStateToProps(state) {
   const { oidc } = state
-  const { expired } = state.app.user
+  const { expired, userError } = state.app.user
 
   return {
     oidc,
-    expired
+    expired,
+    userError
   }
 }
 

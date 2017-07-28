@@ -32,6 +32,11 @@ fetch('/env.json').then(res => {
   const userManager = UserManager()
   setUserManager(userManager)
 
+  /*Prevent token expiration loop*/
+  userManager.events.addSilentRenewError(e => {
+    userManager.events._cancelTimers()
+  })
+
   const oidcMiddleware = createOidcMiddleware(userManager, () => true, false, '/oidc-callback')
   const loggerMiddleware = createLogger({collapsed: true})
   const middleware = [thunkMiddleware, oidcMiddleware]
