@@ -16,7 +16,7 @@
     "sass": "node-sass --quiet --output-style=compressed --source-map-embed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts",
     "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html && html-minifier --collapse-whitespace ./src/silent_renew.html -o ./dist/silent_renew.html",
     "img-dev": "imagemin ./src/img/raw/* -o ./src/img/min",
-    "img": "cp -r ./src/img/min/ ./dist/img && cp -r ./node_modules/uswds/dist/img ./dist",
+    "img": "cp ./src/img/min/* ./dist/img && cp -r ./node_modules/uswds/dist/img/* ./dist/img",
     "env": "./env.sh",
     "postinstall": "npm run clean && npm rebuild node-sass && npm run build && npm run renew",
     "watch:js": "nodemon --exitcrash -e js,jsx -w src/js -i src/js/utils/silent_renew.js -x 'npm run js:dev'",
