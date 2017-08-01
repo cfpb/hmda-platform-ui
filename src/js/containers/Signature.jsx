@@ -12,7 +12,7 @@ export class SignatureContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchSignature())
+    if(!this.props.receipt) this.props.dispatch(fetchSignature())
   }
 
   render() {

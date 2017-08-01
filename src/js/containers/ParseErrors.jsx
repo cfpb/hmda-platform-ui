@@ -10,7 +10,7 @@ export class ParseErrorsContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchParseErrors())
+    if(!this.props.transmittalSheetErrors && !this.props.larErrors) this.props.dispatch(fetchParseErrors())
   }
 
   render() {

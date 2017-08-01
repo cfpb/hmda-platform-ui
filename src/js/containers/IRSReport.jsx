@@ -11,7 +11,7 @@ export class IRSReportContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchIRS())
+    if(!this.props.msas && !this.props.summary) this.props.dispatch(fetchIRS())
   }
 
   componentWillUnmount() {

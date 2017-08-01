@@ -76,7 +76,9 @@ class SubmissionContainer extends Component {
     }
 
     // for institution name in header
-    this.props.dispatch(fetchInstitution(institution, false))
+    if(!this.props.institution){
+      this.props.dispatch(fetchInstitution(institution, false))
+    }
   }
 
   render() {
@@ -91,7 +93,7 @@ class SubmissionContainer extends Component {
     const code = status && status.code
     const page = location.pathname.split('/').slice(-1)[0]
 
-    const toRender = code ? renderByCode(code, page, status.message) : [<LoadingIcon />]
+    const toRender = code ? renderByCode(code, page, status.message) : [<LoadingIcon key="0"/>]
 
 
     return (
