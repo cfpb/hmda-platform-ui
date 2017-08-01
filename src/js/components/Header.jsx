@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { logout } from '../utils/redirect.js'
+import BannerBeta from '../components/BannerBeta.jsx'
 import BannerUSA from './BannerUSA.jsx'
 import BannerDeadline from '../containers/BannerDeadline.jsx'
 
@@ -36,6 +37,7 @@ const Header = (props) => {
 
   return (
     <header className="Header usa-header usa-header-basic" id="header" role="banner">
+      <BannerBeta />
       <BannerUSA />
       <BannerDeadline />
       <section className="usa-nav-container">
