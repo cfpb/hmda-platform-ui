@@ -71,7 +71,7 @@ class SubmissionContainer extends Component {
     const institution = {
       id: this.props.params.institution
     }
-    if(!this.props.status && this.props.dispatch){
+    if((!this.props.status || this.props.status.code === UNINITIALIZED) && this.props.dispatch){
       this.props.dispatch(fetchSubmission())
     }
 
@@ -83,11 +83,6 @@ class SubmissionContainer extends Component {
 
   render() {
     if(!this.props.location) return null
-
-    if(!this.props.isFetching &&
-      (!this.props.status || this.props.status.code === UNINITIALIZED)){
-      this.props.dispatch(fetchSubmission())
-    }
 
     const { status, params, location } = this.props
     const code = status && status.code
