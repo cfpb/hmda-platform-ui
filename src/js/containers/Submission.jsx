@@ -68,15 +68,16 @@ class SubmissionContainer extends Component {
   }
 
   componentDidMount() {
-    const institution = {
-      id: this.props.params.institution
-    }
-    if((!this.props.status || this.props.status.code === UNINITIALIZED) && this.props.dispatch){
+    if((!this.props.status || this.props.status.code === UNINITIALIZED)){
       this.props.dispatch(fetchSubmission())
     }
 
     // for institution name in header
-    if(!this.props.institution){
+    const institution = {
+      id: this.props.params.institution
+    }
+
+    if(!this.props.institution.id){
       this.props.dispatch(fetchInstitution(institution, false))
     }
   }

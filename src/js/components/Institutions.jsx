@@ -88,17 +88,17 @@ export const renderViewButton = (status, institutionId, period) => {
   )
 }
 
-export const renderRefileButton = (latestSubmissionStatus, filing) => {
-  if (!latestSubmissionStatus) return null
+export const renderRefileButton = (status, filing) => {
+  if (!status) return null
   if (
-    latestSubmissionStatus.code === STATUS.PARSED_WITH_ERRORS ||
-    latestSubmissionStatus.code > STATUS.VALIDATING
+    status.code === STATUS.PARSED_WITH_ERRORS ||
+    status.code > STATUS.VALIDATING
   ) {
     return (
       <RefileButton
         id={filing.institutionId}
         filing={filing.period}
-        code={latestSubmissionStatus.code}
+        code={status.code}
         isLink={true}
         isSmall={true}
       />
@@ -194,7 +194,7 @@ export default class Institution extends Component {
               ? <h2>Filing Period {this.props.filingPeriod}</h2>
               : null}
           </header>
-          {this.props.isFetching
+          {this.props.isFetching || this.props.submission.isFetching
             ? <div className="usa-grid-full">
                 <LoadingIcon />
               </div>
@@ -207,10 +207,7 @@ export default class Institution extends Component {
                 </div>
               : this.props.filings.map((filingObj, i) => {
                   const filing = filingObj.filing
-                  const latestSubmissionStatus =
-                    (filingObj.submissions[0] &&
-                      filingObj.submissions[0].status) ||
-                    null
+                  const status = this.props.submission.status
                   const institution = getInstitutionFromFiling(
                     institutions,
                     filing
@@ -227,16 +224,16 @@ export default class Institution extends Component {
                             filing.period,
                             filingObj.submissions[0],
                             this.props.onDownloadClick,
-                            latestSubmissionStatus
+                            status
                           )}
 
                           {renderViewButton(
-                            latestSubmissionStatus,
+                            status,
                             filing.institutionId,
                             filing.period
                           )}
 
-                          {renderRefileButton(latestSubmissionStatus, filing)}
+                          {renderRefileButton(status, filing)}
                         </div>
 
                         {renderPreviousSubmissions(
