@@ -18,6 +18,15 @@ import TestUtils from 'react-addons-test-utils'
 const fs = require('fs')
 const filingJSON = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))
 const institutionsJSON = JSON.parse(fs.readFileSync('./__tests__/json/institutions.json'))
+const submission = {
+  id: {sequenceNumber: '2'},
+  status: {
+    code: 7,
+    message:'validated',
+    description: 'Your submission has been validated and is ready to be signed.'
+  },
+  isFetching: false
+}
 
 describe('Institutions', () => {
   const institutions = TestUtils.renderIntoDocument(
@@ -26,6 +35,7 @@ describe('Institutions', () => {
         institutions={institutionsJSON.institutions}
         filingPeriod={2017}
         filings={[filingJSON]}
+        submission={submission}
         user={{profile: {name: 'someone'}}}
         location={{pathname: '/institutions'}} />
     </Wrapper>
@@ -64,6 +74,7 @@ describe('Institutions', () => {
       <Wrapper>
         <Institutions
           institutions={institutionsJSON.institutions}
+          submission={submission}
           filings={[filingJSON]}
           user={{profile: {name: 'someone'}}}
           location={{pathname: '/institutions'}} />
@@ -78,6 +89,7 @@ describe('Institutions', () => {
         <Institutions
           institutions={institutionsJSON.institutions}
           filingPeriod={2017}
+          submission={submission}
           filings={null}
           location={{pathname: '/institutions'}} />
       </Wrapper>
@@ -92,14 +104,12 @@ describe('renderStatus', () => {
 
   const runByCode = (code, className) => {
     it('runs with code ' + code, () => {
-      const rendered = renderStatus('1234', '2017', {id: {sequenceNumber: 2}}, onDownloadClick, {code: code}, 123, 234)
+      const sub = {...submission}
+      sub.status.code = code
+      const rendered = renderStatus('1234', '2017', sub, jest.fn())
       expect(rendered.props.children[0].props.children[2].props.className).toEqual(className)
     })
   }
-
-  it('fails on no code', () => {
-    expect(renderStatus({})).toBe(undefined)
-  })
 
   runByCode(-1, 'text-secondary')
   runByCode(1, 'text-secondary')

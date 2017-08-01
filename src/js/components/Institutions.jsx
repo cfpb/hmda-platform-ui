@@ -13,12 +13,9 @@ export const renderStatus = (
   institutionId,
   period,
   submission,
-  onDownloadClick,
-  submissionStatus
+  onDownloadClick
 ) => {
-  if (!submissionStatus || !submissionStatus.code) return
-
-  const statusCode = submissionStatus.code
+  const statusCode = submission.status.code
   let messageClass
 
   if (statusCode === STATUS.CREATED) {
@@ -49,8 +46,8 @@ export const renderStatus = (
     <section className="status">
       <p className="status-desc">
         Current filing status is{' '}
-        <strong className={messageClass}>{submissionStatus.message}</strong>.{' '}
-        {submissionStatus.description}
+        <strong className={messageClass}>{submission.status.message}</strong>.{' '}
+        {submission.status.description}
       </p>
       <p className="usa-text-small">
         <a
@@ -222,9 +219,8 @@ export default class Institution extends Component {
                           {renderStatus(
                             institution.id,
                             filing.period,
-                            filingObj.submissions[0],
-                            this.props.onDownloadClick,
-                            status
+                            this.props.submission,
+                            this.props.onDownloadClick
                           )}
 
                           {renderViewButton(
