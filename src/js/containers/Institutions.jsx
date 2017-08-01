@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import updateFilingPeriod from '../actions/updateFilingPeriod.js'
 import fetchInstitutions from '../actions/fetchInstitutions.js'
 import createNewSubmission from '../actions/createNewSubmission.js'
 import fetchCSV from '../actions/fetchCSV.js'
@@ -13,8 +12,7 @@ export class InstitutionContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(updateFilingPeriod('2017')) //env.FILING_PERIOD
-    this.props.dispatch(fetchInstitutions())
+    if(!this.props.institutions) this.props.dispatch(fetchInstitutions())
   }
 
   render() {
