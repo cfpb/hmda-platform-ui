@@ -9,10 +9,17 @@ import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 import 'uswds'
 
+const defaultSubmission = {
+  status: {
+    code: STATUS.CREATED,
+    message: 'not started',
+    description: 'You may begin your filing process by selecting the "Begin Filing" button below.'
+  }
+}
 export const renderStatus = (
   institutionId,
   period,
-  submission,
+  submission = defaultSubmission,
   onDownloadClick
 ) => {
   const statusCode = submission.status.code
@@ -49,17 +56,19 @@ export const renderStatus = (
         <strong className={messageClass}>{submission.status.message}</strong>.{' '}
         {submission.status.description}
       </p>
-      <p className="usa-text-small">
-        <a
-          href="#"
-          onClick={e => {
-            e.preventDefault()
-            onDownloadClick(institutionId, period, submission.id.sequenceNumber)
-          }}
-        >
-          Download edit report
-        </a>
-      </p>
+      {statusCode > STATUS.CREATED
+        ? <p className="usa-text-small">
+            <a
+              href="#"
+              onClick={e => {
+                e.preventDefault()
+                onDownloadClick(institutionId, period, submission.id.sequenceNumber)
+              }}
+            >
+              Download edit report
+            </a>
+          </p>
+        : null}
     </section>
   )
 }
