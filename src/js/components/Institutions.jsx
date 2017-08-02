@@ -9,20 +9,19 @@ import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 import 'uswds'
 
+const defaultSubmission = {
+  status: {
+    code: STATUS.CREATED,
+    message: 'not started',
+    description: 'You may begin your filing process by selecting the "Begin Filing" button below.'
+  }
+}
 export const renderStatus = (
   institutionId,
   period,
-  submission,
+  submission = defaultSubmission,
   onDownloadClick
 ) => {
-  if(!submission) submission = {
-    status: {
-      code: STATUS.CREATED,
-      message: 'not started',
-      description: 'You may begin your filing process by selecting the "Begin Filing" button below.'
-    }
-  }
-
   const statusCode = submission.status.code
   let messageClass
 
