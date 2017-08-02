@@ -15,6 +15,8 @@ export const renderStatus = (
   submission,
   onDownloadClick
 ) => {
+  if(!submission) return null
+
   const statusCode = submission.status.code
   let messageClass
 
