@@ -15,9 +15,6 @@ export class InstitutionContainer extends Component {
 
   componentDidMount() {
     if(!this.props.institutions) this.props.dispatch(fetchInstitutions())
-    if((!this.props.submission.status || this.props.submission.status.code === UNINITIALIZED)){
-      this.props.dispatch(fetchSubmission())
-    }
   }
 
   render() {

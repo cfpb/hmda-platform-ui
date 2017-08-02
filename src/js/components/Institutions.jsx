@@ -204,7 +204,10 @@ export default class Institution extends Component {
                 </div>
               : this.props.filings.map((filingObj, i) => {
                   const filing = filingObj.filing
-                  const status = this.props.submission.status
+                  const submission = this.props.submission.id
+                    ? this.props.submission
+                    : filingObj.submissions[0]
+                  const status = submission && submission.status
                   const institution = getInstitutionFromFiling(
                     institutions,
                     filing
@@ -219,7 +222,7 @@ export default class Institution extends Component {
                           {renderStatus(
                             institution.id,
                             filing.period,
-                            this.props.submission,
+                            submission,
                             this.props.onDownloadClick
                           )}
 
