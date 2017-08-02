@@ -37,8 +37,8 @@ const Header = (props) => {
 
   return (
     <header className="Header usa-header usa-header-basic" id="header" role="banner">
-      <BannerBeta />
       <BannerUSA />
+      <BannerBeta />
       <BannerDeadline />
       <section className="usa-nav-container">
         <div className="usa-logo" id="logo">
