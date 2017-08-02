@@ -68,30 +68,28 @@ class SubmissionContainer extends Component {
   }
 
   componentDidMount() {
-    const institution = {
-      id: this.props.params.institution
-    }
-    if(!this.props.status && this.props.dispatch){
+    if((!this.props.status || this.props.status.code === UNINITIALIZED)){
       this.props.dispatch(fetchSubmission())
     }
 
     // for institution name in header
-    this.props.dispatch(fetchInstitution(institution, false))
+    const institution = {
+      id: this.props.params.institution
+    }
+
+    if(!this.props.institution.id){
+      this.props.dispatch(fetchInstitution(institution, false))
+    }
   }
 
   render() {
     if(!this.props.location) return null
 
-    if(!this.props.isFetching &&
-      (!this.props.status || this.props.status.code === UNINITIALIZED)){
-      this.props.dispatch(fetchSubmission())
-    }
-
     const { status, params, location } = this.props
     const code = status && status.code
     const page = location.pathname.split('/').slice(-1)[0]
 
-    const toRender = code ? renderByCode(code, page, status.message) : [<LoadingIcon />]
+    const toRender = code ? renderByCode(code, page, status.message) : [<LoadingIcon key="0"/>]
 
 
     return (

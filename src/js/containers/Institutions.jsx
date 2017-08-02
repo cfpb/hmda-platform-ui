@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import updateFilingPeriod from '../actions/updateFilingPeriod.js'
 import fetchInstitutions from '../actions/fetchInstitutions.js'
+import fetchSubmission from '../actions/fetchSubmission.js'
 import createNewSubmission from '../actions/createNewSubmission.js'
 import fetchCSV from '../actions/fetchCSV.js'
 import Institutions from '../components/Institutions.jsx'
+import { UNINITIALIZED } from '../constants/statusCodes.js'
 
 export class InstitutionContainer extends Component {
   constructor(props) {
@@ -13,8 +14,7 @@ export class InstitutionContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(updateFilingPeriod('2017')) //env.FILING_PERIOD
-    this.props.dispatch(fetchInstitutions())
+    if(!this.props.institutions) this.props.dispatch(fetchInstitutions())
   }
 
   render() {
@@ -23,21 +23,22 @@ export class InstitutionContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const {
-    institutions
-  } = state.app.institutions
+  const { institutions } = state.app.institutions
 
   const {
     filings,
     isFetching
   } = state.app.filings
 
-  const error = state.app.error
-
-  const { filingPeriod } = state.app
+  const {
+    submission,
+    error,
+    filingPeriod
+  } = state.app
 
   return {
     isFetching,
+    submission,
     filingPeriod,
     institutions,
     filings,

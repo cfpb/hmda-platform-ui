@@ -9,7 +9,10 @@ export class SummaryContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchSummary())
+    if(!Object.keys(this.props.respondent).length &&
+       !Object.keys(this.props.file).length) {
+         this.props.dispatch(fetchSummary())
+    }
   }
 
   render() {

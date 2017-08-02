@@ -13,12 +13,9 @@ export const renderStatus = (
   institutionId,
   period,
   submission,
-  onDownloadClick,
-  submissionStatus
+  onDownloadClick
 ) => {
-  if (!submissionStatus || !submissionStatus.code) return
-
-  const statusCode = submissionStatus.code
+  const statusCode = submission.status.code
   let messageClass
 
   if (statusCode === STATUS.CREATED) {
@@ -49,8 +46,8 @@ export const renderStatus = (
     <section className="status">
       <p className="status-desc">
         Current filing status is{' '}
-        <strong className={messageClass}>{submissionStatus.message}</strong>.{' '}
-        {submissionStatus.description}
+        <strong className={messageClass}>{submission.status.message}</strong>.{' '}
+        {submission.status.description}
       </p>
       <p className="usa-text-small">
         <a
@@ -88,17 +85,17 @@ export const renderViewButton = (status, institutionId, period) => {
   )
 }
 
-export const renderRefileButton = (latestSubmissionStatus, filing) => {
-  if (!latestSubmissionStatus) return null
+export const renderRefileButton = (status, filing) => {
+  if (!status) return null
   if (
-    latestSubmissionStatus.code === STATUS.PARSED_WITH_ERRORS ||
-    latestSubmissionStatus.code > STATUS.VALIDATING
+    status.code === STATUS.PARSED_WITH_ERRORS ||
+    status.code > STATUS.VALIDATING
   ) {
     return (
       <RefileButton
         id={filing.institutionId}
         filing={filing.period}
-        code={latestSubmissionStatus.code}
+        code={status.code}
         isLink={true}
         isSmall={true}
       />
@@ -194,7 +191,7 @@ export default class Institution extends Component {
               ? <h2>Filing Period {this.props.filingPeriod}</h2>
               : null}
           </header>
-          {this.props.isFetching
+          {this.props.isFetching || this.props.submission.isFetching
             ? <div className="usa-grid-full">
                 <LoadingIcon />
               </div>
@@ -207,10 +204,10 @@ export default class Institution extends Component {
                 </div>
               : this.props.filings.map((filingObj, i) => {
                   const filing = filingObj.filing
-                  const latestSubmissionStatus =
-                    (filingObj.submissions[0] &&
-                      filingObj.submissions[0].status) ||
-                    null
+                  const submission = this.props.submission.id
+                    ? this.props.submission
+                    : filingObj.submissions[0]
+                  const status = submission && submission.status
                   const institution = getInstitutionFromFiling(
                     institutions,
                     filing
@@ -225,18 +222,17 @@ export default class Institution extends Component {
                           {renderStatus(
                             institution.id,
                             filing.period,
-                            filingObj.submissions[0],
-                            this.props.onDownloadClick,
-                            latestSubmissionStatus
+                            submission,
+                            this.props.onDownloadClick
                           )}
 
                           {renderViewButton(
-                            latestSubmissionStatus,
+                            status,
                             filing.institutionId,
                             filing.period
                           )}
 
-                          {renderRefileButton(latestSubmissionStatus, filing)}
+                          {renderRefileButton(status, filing)}
                         </div>
 
                         {renderPreviousSubmissions(
