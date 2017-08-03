@@ -25,12 +25,15 @@ function mapStateToProps(state, ownProps) {
     ? types[type].verified
     : false
 
+  const isFetching = types[type].isFetching || false
+
   const noEditsExist = !types[type].edits.length
 
   const code = state.app.submission.status.code
 
   return {
     type,
+    isFetching,
     verified,
     noEditsExist,
     code
@@ -49,7 +52,8 @@ VerifierContainer.propTypes = {
   verified: PropTypes.bool.isRequired,
   noEditsExist: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
-  onVerify: PropTypes.func.isRequired
+  onVerify: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(VerifierContainer)

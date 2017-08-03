@@ -1,4 +1,4 @@
-import { REQUEST_EDITS,RECEIVE_EDITS,REQUEST_EDIT,RECEIVE_EDIT,VERIFY_QUALITY,VERIFY_MACRO,REFRESH_STATE } from '../constants'
+import { REQUEST_EDITS,REQUEST_VERIFY_QUALITY,REQUEST_VERIFY_MACRO,RECEIVE_EDITS,REQUEST_EDIT,RECEIVE_EDIT,VERIFY_QUALITY,VERIFY_MACRO,REFRESH_STATE } from '../constants'
 
 const defaultEdits = {
   isFetching: false,
@@ -49,14 +49,26 @@ export default (state = defaultEdits, action) => {
           }
         }
       }
+    case REQUEST_VERIFY_QUALITY: {
+      const clonedState = {...state}
+      clonedState.types.quality.isFetching = true
+      return clonedState
+    }
+    case REQUEST_VERIFY_MACRO: {
+      const clonedState = {...state}
+      clonedState.types.macro.isFetching = true
+      return clonedState
+    }
     case VERIFY_QUALITY: {
       const clonedState = {...state}
       clonedState.types.quality.verified = action.checked
+      clonedState.types.quality.isFetching = false
       return clonedState
     }
     case VERIFY_MACRO: {
       const clonedState = {...state}
       clonedState.types.macro.verified = action.checked
+      clonedState.types.macro.isFetching = false
       return clonedState
     }
     case REFRESH_STATE: {
@@ -65,4 +77,5 @@ export default (state = defaultEdits, action) => {
     default:
       return state
   }
+
 }
