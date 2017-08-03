@@ -17,9 +17,10 @@ import TestUtils from 'react-addons-test-utils'
 
 const fs = require('fs')
 const filingJSON = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))
+const multifilings = JSON.parse(fs.readFileSync('./__tests__/json/multi-filings.json'))
 const institutionsJSON = JSON.parse(fs.readFileSync('./__tests__/json/institutions.json'))
 const submission = {
-  id: {sequenceNumber: '2'},
+  id: {institutionId: '2', sequenceNumber: '2'},
   status: {
     code: 7,
     message:'validated',
@@ -96,6 +97,23 @@ describe('Institutions', () => {
     )
     expect(TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'p')[0].textContent).toEqual('There is a problem with your filing. Please contact HMDA Help.')
   })
+})
+
+it('renders multiple filings correctly', () => {
+  const institutions = TestUtils.renderIntoDocument(
+    <Wrapper>
+      <Institutions
+        institutions={institutionsJSON.institutions}
+        filingPeriod={2017}
+        submission={submission}
+        filings={multifilings}
+        location={{pathname: '/institutions'}} />
+    </Wrapper>
+  )
+  const paras = TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'p')
+  expect(paras[0].textContent).toBe('Current filing status is completed. Finished.')
+  expect(paras[2].textContent).toBe('Current filing status is validated. Your submission has been validated and is ready to be signed.')
+
 })
 
 describe('renderStatus', () => {
