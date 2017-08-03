@@ -7,7 +7,8 @@ describe('verifyMacro', () => {
   it('creates an action to signal macro has been verified', () => {
     expect(verifyMacro(true)).toEqual({
       type: types.VERIFY_MACRO,
-      checked: true
+      checked: true,
+      isFetching: false
     })
   })
 })

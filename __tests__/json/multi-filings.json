@@ -1,0 +1,56 @@
+[
+  {
+  "filing": {
+    "filingRequired": true,
+    "institutionId": "1",
+    "status": {
+      "code": 3,
+      "message": "completed"
+    },
+    "end": 1487520671000,
+    "start": 1484842271000,
+    "period": "2017"
+  },
+  "submissions": [{
+    "id": {
+      "institutionId": "1",
+      "period": "2017",
+      "sequenceNumber": 1
+    },
+    "status": {
+      "code": 10,
+      "message": "completed",
+      "description": "Finished."
+    },
+    "start": 1482169555559,
+    "end": 0
+  }]
+  },
+  {
+  "filing": {
+    "filingRequired": true,
+    "institutionId": "2",
+    "status": {
+      "code": 2,
+      "message": "in-progress"
+    },
+    "end": 1487520671000,
+    "start": 1484842271000,
+    "period": "2017"
+  },
+  "submissions": [{
+    "id": {
+      "institutionId": "2",
+      "period": "2017",
+      "sequenceNumber": 1
+    },
+    "status": {
+      "code": 1,
+      "message": "created",
+      "description": "created."
+    },
+    "start": 1482169555559,
+    "end": 0
+  }]
+  }
+]

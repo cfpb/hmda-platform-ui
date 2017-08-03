@@ -213,7 +213,8 @@ export default class Institution extends Component {
                 </div>
               : this.props.filings.map((filingObj, i) => {
                   const filing = filingObj.filing
-                  const submission = this.props.submission.id
+                  const submission = this.props.submission.id &&
+                    this.props.submission.id.institutionId === filing.institutionId
                     ? this.props.submission
                     : filingObj.submissions[0]
                   const status = submission && submission.status
