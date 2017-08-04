@@ -30,9 +30,10 @@ export function mapStateToProps(state) {
     summary
   } = state.app.irs
 
-  const {
-    id
-  } = state.app.submission
+  const { id } = state.app.submission
+
+  const pagination = state.app.pagination.irs
+  const paginationFade = state.app.paginationFade.irs
 
   const renderTotals = state.app.pagination.irs ?
   (state.app.pagination.irs._links.self === state.app.pagination.irs._links.last) :
@@ -43,6 +44,8 @@ export function mapStateToProps(state) {
     msas,
     summary,
     id,
+    pagination,
+    paginationFade,
     renderTotals
   }
 }

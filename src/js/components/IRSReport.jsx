@@ -35,6 +35,9 @@ const IRSReport = (props) => {
     sequenceNumber
   } = props.id
 
+  let tableClass = 'irs-table-wrapper PaginationTarget'
+  tableClass += props.paginationFade ? ' fadeOut' : ''
+
   return (
     <section className="IRSReport">
       <header>
@@ -52,7 +55,7 @@ const IRSReport = (props) => {
         }>Download IRS report</a></p>
       </header>
 
-      <div className="irs-table-wrapper" id="irs" >
+      <div className={tableClass} id="irs" >
         <table width="100%" summary="Your summarized HMDA data grouped by MSA/MD">
           <thead>
             <tr>
@@ -101,7 +104,7 @@ const IRSReport = (props) => {
           </tbody>
         </table>
       </div>
-      <Pagination target="irs" />
+      <Pagination isFetching={props.isFetching} target="irs" />
       <hr />
     </section>
   )
@@ -112,7 +115,10 @@ IRSReport.propTypes = {
   summary: PropTypes.object,
   id: PropTypes.object,
   renderTotals: PropTypes.bool,
-  onDownloadClick: PropTypes.func
+  onDownloadClick: PropTypes.func,
+  isFetching: PropTypes.bool,
+  pagination: PropTypes.object,
+  paginationFade: PropTypes.number
 }
 
 export default IRSReport
