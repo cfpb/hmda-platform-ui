@@ -1,4 +1,9 @@
 .ParseErrors {
+  table td:first-of-type,
+  table th:first-of-type {
+    text-align: right;
+    width: 1px;
+  }
   hr {
     margin: 2em 0 !important;
   }

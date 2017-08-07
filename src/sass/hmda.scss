@@ -32,6 +32,11 @@ hr {
     padding: 0;
 }
 
+table td,
+table th {
+  padding: 1rem;
+  border-color: $color-gray-lighter;
+}
 
 // text colors
 .text-gray {
