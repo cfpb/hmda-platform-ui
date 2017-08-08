@@ -161,7 +161,9 @@ describe('Pagination component', () => {
   it('submits the form properly', () => {
     getPage.mockReset()
     const pagination = paginate()
+    const scrollMock = jest.fn()
     const _setFromPropsMock = jest.fn()
+    pagination._setScrollValues = scrollMock
     pagination._setFromProps = _setFromPropsMock
     const e = {preventDefault: jest.fn()}
 
@@ -170,6 +172,7 @@ describe('Pagination component', () => {
 
     expect(getPage).not.toBeCalled()
     expect(_setFromPropsMock).toBeCalled()
+    expect(scrollMock).toBeCalled()
 
     pagination._change({target:{ value: -7}})
     pagination._submit(e)
@@ -180,8 +183,18 @@ describe('Pagination component', () => {
     pagination._change({target:{ value: 7}})
     pagination._submit(e)
 
+    expect(scrollMock).toBeCalled()
     expect(getPage.mock.calls[1][1]).toBe('5')
     expect(_setFromPropsMock.mock.calls.length).toBe(1)
+  })
+
+  it('correctly handles componentDidUpdate', () => {
+    const scrollTo = jest.fn()
+    window.scrollTo = scrollTo
+    const pagination = paginate()
+    pagination.componentDidUpdate(null, {value: '0'})
+
+    expect(scrollTo).not.toBeCalled()
   })
 
 })
