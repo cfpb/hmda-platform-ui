@@ -1,6 +1,6 @@
 .EditsNav {
   background: $color-white;
-  padding: 1em 0 0 0;
+  padding: 0.1em 0 0 0;
   position: relative;
   text-align: center;
   top: 0;
@@ -17,18 +17,22 @@
     li {
       vertical-align: top;
       width: 20%;
-      a {
+
+      .link-wrapper {
         color: $color-base;
+        margin: 0;
+        padding: 1.25em 0.25em 0.25em 0.25em;
+        border: none;
         &:hover {
           color: $color-primary;
+          border: none;
         }
-        margin: .5rem 1.5rem 1rem;
       }
       span {
         color: $color-gray-light;
         display: inline-block;
         font-weight: 700;
-        margin: .5rem 1.5rem 1rem;
+        margin: 0;
         text-transform: uppercase;
       }
       .step {
@@ -38,7 +42,7 @@
         color: $color-gray-light;
         font-weight: 700;
         height: 30px;
-        margin: 0 auto;
+        margin: -1em auto 0.5rem;
         padding: 3px;
         width: 30px;
       }
@@ -63,7 +67,7 @@
           border-color: $color-primary;
           color: $color-white;
         }
-        a {
+        .link-wrapper {
           color: $color-primary;
         }
       }
@@ -76,7 +80,7 @@
     margin: 1em auto;
     position: absolute;
     right: 0;
-    top: 16px;
+    top: 3px;
     width: 80%;
     z-index: -1;
   }
