@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
-import RefileWarningComponent  from '../components/RefileWarning.jsx'
 import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
 import {
   PARSED_WITH_ERRORS,
@@ -9,8 +8,6 @@ import {
   VALIDATED_WITH_ERRORS,
   VALIDATED
 } from '../constants/statusCodes.js'
-
-const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
 const navNames = [
   'upload',
@@ -190,7 +187,6 @@ export default class EditsNav extends Component {
             }
           </ul>
           <hr className="nav-bg" />
-          <RefileWarning />
         </nav>
       </section>
     )
