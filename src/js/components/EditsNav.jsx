@@ -76,7 +76,7 @@ export const getNavClass = (name, props) => {
 }
 
 export const renderLinkOrText = (props, name, i) => {
-  let toRender
+  let isLink = false
   const {
     page,
     base,
@@ -88,41 +88,46 @@ export const renderLinkOrText = (props, name, i) => {
 
   // only render link when code > VALIDATING (so it's finished validating)
   if(code > VALIDATING) {
-    toRender = <Link className="usa-nav-link"  to={`${base}/${navLinks[name]}`}>{name}</Link>
+    isLink = true
     if(code < VALIDATED) {
       if(syntacticalValidityEditsExist && navNames.indexOf(name) > 1) {
-        toRender = <span>{name}</span>
+        isLink = false
       }
       if(!qualityVerified && navNames.indexOf(name) > 2) {
-        toRender = <span>{name}</span>
+        isLink = false
       }
       if(!macroVerified && navNames.indexOf(name) > 3) {
-        toRender = <span>{name}</span>
+        isLink = false
       }
     }
-  } else {
-    toRender = <span>{name}</span>
   }
 
   // always render the upload as a link
   if(name === 'upload') {
-    toRender = (
-      <Link
-        className="usa-nav-link"
-        to={`${base}/${navLinks[name]}`}>{name}</Link>
-    )
+    isLink = true
   }
 
   let navClass = getNavClass(navLinks[name], props)
   let step
   if(navClass !== 'complete' && navClass !== 'complete current') step = i + 1
 
-  return (
-    <li className={navClass} key={i}>
-      <div className="step">{step}</div>
-      {toRender}
-    </li>
-  )
+  if(isLink) {
+    return (
+      <li className={navClass} key={i}>
+        <Link className="usa-nav-link" to={`${base}/${navLinks[name]}`}>
+          <div className="step">{step}</div>
+          {name}
+        </Link>
+       </li>
+    )
+  }else{
+    return (
+      <li className={navClass} key={i}>
+        <div className="step">{step}</div>
+        <span>{name}</span>
+       </li>
+    )
+  }
 }
 
 export default class EditsNav extends Component {
