@@ -6,7 +6,6 @@ import fetchSubmission from '../actions/fetchSubmission.js'
 import createNewSubmission from '../actions/createNewSubmission.js'
 import fetchCSV from '../actions/fetchCSV.js'
 import Institutions from '../components/Institutions.jsx'
-import { UNINITIALIZED } from '../constants/statusCodes.js'
 
 export class InstitutionContainer extends Component {
   constructor(props) {

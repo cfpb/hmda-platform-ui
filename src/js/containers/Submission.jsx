@@ -68,16 +68,18 @@ class SubmissionContainer extends Component {
   }
 
   componentDidMount() {
-    if((!this.props.status || this.props.status.code === UNINITIALIZED)){
-      this.props.dispatch(fetchSubmission())
-    }
-
     // for institution name in header
     const institution = {
       id: this.props.params.institution
     }
+    const status = this.props.submission.status
 
-    if(!this.props.institution.id){
+    if((!status || status.code === UNINITIALIZED ||
+        this.props.submission.id.institutionId !== institution.id)){
+          this.props.dispatch(fetchSubmission())
+    }
+
+    if(!this.props.institution.id || this.props.institution.id !== institution.id){
       this.props.dispatch(fetchInstitution(institution, false))
     }
   }
@@ -85,7 +87,8 @@ class SubmissionContainer extends Component {
   render() {
     if(!this.props.location) return null
 
-    const { status, params, location } = this.props
+    const { submission, params, location } = this.props
+    const status = submission.status
     const code = status && status.code
     const page = location.pathname.split('/').slice(-1)[0]
 
@@ -114,19 +117,13 @@ class SubmissionContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const {
-    isFetching,
-    status
-  } = state.app.submission
-
+function mapStateToProps(state, ownProps) {
+  const submission = state.app.submission
   const institution = state.app.institution
-
   const error = state.app.error
 
   return {
-    isFetching,
-    status,
+    submission,
     institution,
     error
   }
