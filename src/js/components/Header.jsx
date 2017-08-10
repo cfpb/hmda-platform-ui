@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { logout } from '../utils/redirect.js'
+import HomeLink from '../components/HomeLink.jsx'
 import BannerBeta from '../components/BannerBeta.jsx'
 import BannerUSA from './BannerUSA.jsx'
 import BannerDeadline from '../containers/BannerDeadline.jsx'
@@ -19,6 +20,7 @@ const makeNav = (props, page) => {
          e.preventDefault()
          logout()
        }}>Logout</a></li>
+      <li><HomeLink/></li>
     </ul>
   :
     <ul className="usa-nav-primary">
