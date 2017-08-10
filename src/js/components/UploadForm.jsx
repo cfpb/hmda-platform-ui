@@ -30,9 +30,9 @@ export const renderErrors = (errors) => {
 }
 
 export const getDropzoneText = ({ code, errors, file }) => {
-  let howToMessage = 'To select a file to upload, drag it into this box or click here.'
+  let howToMessage = 'To begin uploading a file, drag it into this box or click here.'
   if(code >= CREATED) {
-    howToMessage = 'To select a new file to upload, drag it into this box or click here.'
+    howToMessage = 'To begin uploading a new file, drag it into this box or click here.'
   }
   let message = <p>{howToMessage}</p>
 
