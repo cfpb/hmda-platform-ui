@@ -47,7 +47,7 @@ const Header = (props) => {
               className="usa-nav-link"
               to={'/'}
               title="Home"
-              aria-label="Home">HMDA Filing</Link>
+              aria-label="Home">HMDA Platform</Link>
           </em>
         </div>
         {makeNav(props, page)}
