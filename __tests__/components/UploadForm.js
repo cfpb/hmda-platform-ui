@@ -12,7 +12,6 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
 describe('submitform', function(){
-  const handleSubmit = jest.fn()
   const setFile = jest.fn()
   const pollSubmission = jest.fn()
   const poll2 = jest.fn()
@@ -22,7 +21,6 @@ describe('submitform', function(){
   const form = ReactDOM.render(
       <Wrapper>
         <UploadForm
-          handleSubmit={handleSubmit}
           pollSubmission={pollSubmission}
           setFile={setFile}
           uploading={true}
@@ -47,19 +45,10 @@ describe('submitform', function(){
     expect(pollSubmission).toBeCalled()
   })
 
-  it('submits the form', function(){
-    TestUtils.Simulate.submit(
-      TestUtils.findRenderedDOMComponentWithTag(form, 'form')
-    )
-
-    expect(handleSubmit).toBeCalled()
-  })
-
   const form2 = ReactDOM.render(
       <Wrapper>
         <UploadForm
           pollSubmission={poll2}
-          handleSubmit={handleSubmit}
           code={1}
           setFile={setFile}
           uploading={true}
