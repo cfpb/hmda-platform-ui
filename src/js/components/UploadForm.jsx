@@ -30,9 +30,9 @@ export const renderErrors = (errors) => {
 }
 
 export const getDropzoneText = ({ code, errors, file }) => {
-  let howToMessage = 'To select a file to upload, drag it into this box or click here.'
+  let howToMessage = 'To begin uploading a file, drag it into this box or click here.'
   if(code >= CREATED) {
-    howToMessage = 'To select a new file to upload, drag it into this box or click here.'
+    howToMessage = 'To begin uploading a new file, drag it into this box or click here.'
   }
   let message = <p>{howToMessage}</p>
 
@@ -112,29 +112,15 @@ export default class Upload extends Component {
     return (
       <section className="UploadForm">
         {renderErrors(this.props.errors)}
-        <form
-          className="usa-form"
-          encType="multipart/form-data"
-          onSubmit={e => {
-            this.props.handleSubmit(e, this.props.file)}}>
-          <section className="container-upload">
-            <Dropzone
-              disablePreview={true}
-              onDrop={this.onDrop}
-              multiple={false}
-              className="dropzone">
-              {dropzoneText}
-            </Dropzone>
-          </section>
-          <input
-            disabled={isUploadDisabled}
-            className="usa-button"
-            id="uploadButton"
-            name="uploadButton"
-            type="submit"
-            value="Upload">
-          </input>
-        </form>
+        <section className="container-upload">
+          <Dropzone
+            disablePreview={true}
+            onDrop={this.onDrop}
+            multiple={false}
+            className="dropzone">
+            {dropzoneText}
+          </Dropzone>
+        </section>
         {renderValidationProgress(this.props)}
       </section>
     )
@@ -142,7 +128,6 @@ export default class Upload extends Component {
 }
 
 Upload.propTypes = {
-  handleSubmit: PropTypes.func,
   setFile: PropTypes.func,
   setNewFile: PropTypes.func,
   showConfirmModal: PropTypes.func,

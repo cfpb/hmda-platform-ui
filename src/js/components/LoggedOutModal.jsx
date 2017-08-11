@@ -8,7 +8,7 @@ export default class LoggedOutModal extends Component {
     return (
       <div className="modal-blurred-blocker showing-blurred-blocker">
         <section role="dialog" className="modal">
-          <h2>HMDA Filing</h2>
+          <h2>HMDA Platform</h2>
           <hr/>
           <div className="modal-contents">
             <h3>Your session has timed out.</h3>

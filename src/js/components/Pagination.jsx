@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import LoadingIcon from '../components/LoadingIcon.jsx'
 
+let scrollHeight
+let scrollDiff
 
 class Pagination extends Component {
   constructor(props) {
@@ -16,6 +18,11 @@ class Pagination extends Component {
     this.setState({value: e.target.value})
   }
 
+  _setScrollValues() {
+    scrollHeight = document.body.scrollHeight
+    scrollDiff = scrollHeight - window.scrollY
+  }
+
   _setFromProps() {
     const val = this._getPaginationValue(this.props)
     if(val === null) return
@@ -24,6 +31,8 @@ class Pagination extends Component {
 
   _submit(e) {
     e.preventDefault()
+
+    this._setScrollValues()
 
     let val = parseInt(this.state.value, 10)
     const first = this._getPaginationValue(this.props, 'first')
@@ -57,6 +66,14 @@ class Pagination extends Component {
     this.setState({value: this._getPaginationValue(nextProps)})
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const currentScroll = document.body.scrollHeight
+    if(this.state.value !== prevState.value && currentScroll !== scrollHeight) {
+       window.scrollTo(0, currentScroll - scrollDiff)
+       scrollHeight = currentScroll
+    }
+  }
+
   render() {
     const props = this.props
     const page = props.pagination
@@ -70,12 +87,22 @@ class Pagination extends Component {
       <div className="PaginationControls">
         <button
           className={ firstPage ? 'usa-button-disabled' : '' }
-          onClick={ e => { if(!firstPage) props.getPreviousPage(page) }}
+          onClick={ e => {
+            if(!firstPage){
+              this._setScrollValues()
+              props.getPreviousPage(page)
+            }
+          }}
         >Previous</button>
         <div>Page {this._getInput()} of {Math.ceil(page.total/20)}</div>
         <button
           className={ lastPage ? 'usa-button-disabled' : '' }
-          onClick={ e => { if(!lastPage) props.getNextPage(page) }}
+          onClick={ e => {
+            if(!lastPage){
+              this._setScrollValues()
+              props.getNextPage(page)
+            }
+          }}
         >Next</button>
         {props.isFetching ? <LoadingIcon/> : null}
       </div>

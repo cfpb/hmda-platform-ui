@@ -1,4 +1,4 @@
-import { REQUEST_PARSE_ERRORS,RECEIVE_PARSE_ERRORS } from '../constants'
+import { REQUEST_PARSE_ERRORS,RECEIVE_PARSE_ERRORS, REFRESH_STATE } from '../constants'
 
 const defaultParseErrors = {
   isFetching: false,
@@ -21,6 +21,9 @@ export default (state = defaultParseErrors, action) => {
         larErrors: action.larErrors
       }
 
+    case REFRESH_STATE: {
+      return defaultParseErrors
+    }
     default:
       return state
   }
