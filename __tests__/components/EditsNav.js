@@ -3,6 +3,7 @@ jest.mock('../../src/js/components/UserHeading.jsx', () => jest.fn(() => null))
 jest.mock('../../src/js/components/RefileWarning.jsx', () => jest.fn(() => null))
 jest.mock('../../src/js/containers/submissionProgressHOC.jsx', () => jest.fn((comp) => comp))
 
+
 import EditsNav, {
   renderLinkOrText,
   getNavClass
@@ -59,9 +60,9 @@ describe('EditsNav', () => {
   })
 
   it('chooses appropriate item to render', () => {
-    expect(renderLinkOrText(baseProps, 'upload', 1).props.children[1].type.displayName).toBe('Link')
-    expect(renderLinkOrText(baseProps, 'syntactical & validity edits', 1).props.children[1].type.displayName).not.toBe('Link')
-    expect(renderLinkOrText({...baseProps, code: 8}, 'syntactical & validity edits', 1).props.children[1].type.displayName).toBe('Link')
+    expect(renderLinkOrText(baseProps, 'upload', 1).props.children.type.displayName).toBe('Link')
+    expect(renderLinkOrText(baseProps, 'syntactical & validity edits', 1).props.children[0].type).toBe('div')
+    expect(renderLinkOrText({...baseProps, code: 8}, 'syntactical & validity edits', 1).props.children.type.displayName).toBe('Link')
   })
 
   it('renders with base props', () => {
