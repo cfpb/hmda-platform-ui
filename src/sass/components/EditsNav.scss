@@ -14,28 +14,28 @@
   ul.usa-nav-primary {
     border-bottom: 1px solid $color-gray-lighter;
     display: block;
+    &>li>a {
+      margin: 0;
+    }
     li {
+      color: $color-gray-light;
+      font-weight: 700;
       line-height: normal;
+      padding: 1.25em 0.25em 0.25em 0.25em;
+      text-transform: uppercase;
       vertical-align: top;
       width: 20%;
 
-      .link-wrapper {
-        color: $color-base;
-        margin: 0;
-        padding: 1.25em 0.25em 0.25em 0.25em;
-        border: none;
-        &:hover {
-          color: $color-primary;
-          border: none;
+      a:hover {
+        background-color: transparent;
+
+        .step {
+          background-color: $color-primary;
+          border-color: $color-primary;
+          color: $color-white;
         }
       }
-      span {
-        color: $color-gray-light;
-        display: inline-block;
-        font-weight: 700;
-        margin: 0;
-        text-transform: uppercase;
-      }
+
       .step {
         background-color: $color-white;
         border: 2px solid $color-gray-light;
@@ -63,13 +63,13 @@
         }
       }
       &.current {
+        a {
+          color: $color-primary;
+        }
         .step {
           background-color: $color-primary;
           border-color: $color-primary;
           color: $color-white;
-        }
-        .link-wrapper {
-          color: $color-primary;
         }
       }
     }
