@@ -11,7 +11,7 @@ export function mapStateToProps(state) {
   const {
     uploading,
     percentUploaded,
-    file,
+    filename,
     errors
   } = state.app.upload
 
@@ -20,7 +20,7 @@ export function mapStateToProps(state) {
   return {
     uploading,
     percentUploaded,
-    file,
+    filename,
     errors,
     code
   }
@@ -31,6 +31,7 @@ export function mapDispatchToProps(dispatch) {
     setFile: (acceptedFiles) => {
       if(!acceptedFiles) return
       dispatch(selectFile(acceptedFiles[0]))
+      console.log('selecting')
       dispatch(fetchUpload(acceptedFiles[0]))
     },
 

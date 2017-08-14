@@ -1,10 +1,11 @@
-import { SELECT_FILE,SELECT_NEW_FILE,UPLOAD_START,UPLOAD_PROGRESS,UPLOAD_COMPLETE,REFRESH_STATE } from '../constants'
+import { SELECT_FILE,SELECT_NEW_FILE,SET_FILENAME, UPLOAD_START,UPLOAD_PROGRESS,UPLOAD_COMPLETE,REFRESH_STATE } from '../constants'
 
 const defaultUpload = {
   uploading: false,
   percentUploaded: 0,
   file: null,
   newFile: null,
+  filename: '',
   errors: []
 }
 
@@ -17,13 +18,20 @@ export default (state = defaultUpload, action) => {
     return {
       ...state,
       file: action.file,
-      errors: action.errors
+      errors: action.errors,
+      filename: action.file.name,
+      newFile: null
     }
   case SELECT_NEW_FILE:
     return {
       ...state,
       newFile: action.file
     }
+  case SET_FILENAME:
+      return {
+        ...state,
+        filename: action.filename
+      }
   case UPLOAD_START:
     return {
       ...state,
@@ -39,7 +47,8 @@ export default (state = defaultUpload, action) => {
     return {
       ...state,
       uploading: false,
-      percentUploaded: 100
+      percentUploaded: 100,
+      file: null,
     }
   case REFRESH_STATE:
     return defaultUpload
