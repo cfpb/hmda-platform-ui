@@ -1,4 +1,4 @@
-import { REQUEST_IRS,RECEIVE_IRS } from '../constants'
+import { REQUEST_IRS,RECEIVE_IRS, REFRESH_STATE } from '../constants'
 
 const defaultIRS = {
   isFetching: false,
@@ -22,6 +22,9 @@ export default (state = defaultIRS, action) => {
         msas: action.msas,
         summary: action.summary
       }
+
+    case REFRESH_STATE:
+      return defaultIRS
 
     default:
       return state
