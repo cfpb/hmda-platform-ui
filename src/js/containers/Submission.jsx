@@ -83,8 +83,10 @@ class SubmissionContainer extends Component {
       this.props.dispatch(fetchInstitution(institution, false))
     }
 
-    const filename = localStorage.getItem(`HMDA_FILENAME/${institution.id}`)
-    if(filename) this.props.dispatch(setFilename(filename))
+    if(institution.id) {
+      const filename = localStorage.getItem(`HMDA_FILENAME/${institution.id}`)
+      if(filename) this.props.dispatch(setFilename(filename, institution.id))
+    }
   }
 
   render() {

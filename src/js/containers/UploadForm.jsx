@@ -13,7 +13,14 @@ export function mapStateToProps(state) {
     percentUploaded,
     filename,
     errors
-  } = state.app.upload
+  } = state.app.upload[state.app.institution.id] || {
+    uploading: false,
+    percentUploaded: 0,
+    file: null,
+    newFile: null,
+    filename: '',
+    errors: []
+  }
 
   const code = state.app.submission.status.code
 
@@ -31,7 +38,6 @@ export function mapDispatchToProps(dispatch) {
     setFile: (acceptedFiles) => {
       if(!acceptedFiles) return
       dispatch(selectFile(acceptedFiles[0]))
-      console.log('selecting')
       dispatch(fetchUpload(acceptedFiles[0]))
     },
 
