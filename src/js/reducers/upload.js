@@ -53,7 +53,7 @@ export default (state = defaultUploads, action) => {
       }
     }
   case UPLOAD_PROGRESS:
-    if(upload.uploading) return state
+    if(!upload.uploading) return state
     return {
       ...state,
       [action.id]: {

@@ -3,14 +3,27 @@ jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import selectFile from '../../src/js/actions/selectFile.js'
 
-describe('selectFile', () => {
-  it('creates an action to signal file selection', () => {
-    const file = {size:42, name: 'test.txt'}
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
 
-    expect(selectFile(file)).toEqual({
-      type: types.SELECT_FILE,
-      file,
-      errors: []
-    })
+const mockStore = configureMockStore([thunk])
+const store = mockStore({app:{ institution: {id: '123'}}})
+
+const ls = jest.fn()
+
+window.localStorage = {
+  setItem: ls
+}
+
+describe('selectFile', () => {
+  it('creates a thunk to signal file selection', () => {
+    expect(typeof selectFile()).toEqual('function')
+  })
+
+  it('creates an action to signal file selection when dispatched', () => {
+    const file = {size:42, name: 'test.txt'}
+    store.dispatch(selectFile(file))
+    expect(store.getActions()).toEqual([{type: types.SELECT_FILE, file, errors: [], id: '123'}])
+    expect(ls).toBeCalled()
   })
 })
