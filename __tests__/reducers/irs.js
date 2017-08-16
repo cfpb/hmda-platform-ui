@@ -28,8 +28,14 @@ describe('irs reducer', () => {
     ).toEqual({isFetching: false, msas: []})
   })
 
+  it('handles REFRESH_STATE', () => {
+    expect(
+      irs({}, {type: types.REFRESH_STATE})
+    ).toEqual(defaultIRS)
+  })
+
   it('shouldn\'t modify state on an unknown action type', () => {
-    excludeTypes(types.RECEIVE_IRS, types.REQUEST_IRS)
+    excludeTypes(types.RECEIVE_IRS, types.REQUEST_IRS, types.REFRESH_STATE)
       .forEach(v => expect(irs({}, v))
         .toEqual({})
       )

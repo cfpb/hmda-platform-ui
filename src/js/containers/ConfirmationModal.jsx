@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router'
 import hideConfirm from '../actions/hideConfirm.js'
 import createNewSubmission from '../actions/createNewSubmission.js'
 import selectFile from '../actions/selectFile.js'
+import fetchUpload from '../actions/fetchUpload.js'
 import ConfirmationModal from '../components/ConfirmationModal.jsx'
 
 export class ConfirmationModalContainer extends Component {
@@ -25,7 +26,14 @@ export function mapStateToProps(state) {
   const {
     file,
     newFile
-  } = state.app.upload
+  } = state.app.upload[id] || {
+    uploading: false,
+    percentUploaded: 0,
+    file: null,
+    newFile: null,
+    filename: '',
+    errors: []
+  }
 
   return {
     id,
@@ -44,9 +52,10 @@ export function mapDispatchToProps(dispatch) {
 
   const triggerRefile = (id, period, page = '', file) => {
     if(page === 'upload' && file) {
-      dispatch(createNewSubmission(id, period))
-      dispatch(selectFile(file))
-      return Promise.resolve()
+      return dispatch(createNewSubmission(id, period)).then(() => {
+        dispatch(selectFile(file))
+        dispatch(fetchUpload(file))
+      })
     } else {
       return dispatch(createNewSubmission(id, period)).then(()=>{
         browserHistory.replace(`/${id}/${period}`)

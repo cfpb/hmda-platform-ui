@@ -11,16 +11,23 @@ export function mapStateToProps(state) {
   const {
     uploading,
     percentUploaded,
-    file,
+    filename,
     errors
-  } = state.app.upload
+  } = state.app.upload[state.app.institution.id] || {
+    uploading: false,
+    percentUploaded: 0,
+    file: null,
+    newFile: null,
+    filename: '',
+    errors: []
+  }
 
   const code = state.app.submission.status.code
 
   return {
     uploading,
     percentUploaded,
-    file,
+    filename,
     errors,
     code
   }
@@ -28,16 +35,10 @@ export function mapStateToProps(state) {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    handleSubmit: (e, file) => {
-      e.preventDefault()
-      if(file){
-        dispatch(fetchUpload(file))
-      }
-    },
-
     setFile: (acceptedFiles) => {
       if(!acceptedFiles) return
       dispatch(selectFile(acceptedFiles[0]))
+      dispatch(fetchUpload(acceptedFiles[0]))
     },
 
     setNewFile: (acceptedFiles) => {

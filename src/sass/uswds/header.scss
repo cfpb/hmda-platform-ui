@@ -21,6 +21,10 @@
   line-height: 0;
 }
 
+.usa-logo a:hover {
+  color: $color-primary;
+}
+
 .usa-header-basic .usa-logo {
   bottom: 0;
   font-weight: bold;

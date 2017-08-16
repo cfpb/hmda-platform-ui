@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import SubmissionContainer from './Submission.jsx'
 import fetchSubmission from '../actions/fetchSubmission.js'
+import refreshState from '../actions/refreshState.js'
 import {
   UNINITIALIZED,
   VALIDATED_WITH_ERRORS,
@@ -22,10 +23,11 @@ export class SubmissionRouter extends Component {
     const status = this.props.submission.status
     if(!status || status.code === UNINITIALIZED ||
        this.props.submission.id.institutionId !== this.props.params.institution) {
-      this.props.dispatch(fetchSubmission())
-        .then((json) => {
-          this.route()
-        })
+         this.props.dispatch(refreshState())
+         this.props.dispatch(fetchSubmission())
+           .then((json) => {
+             this.route()
+            })
     } else {
       this.route()
     }

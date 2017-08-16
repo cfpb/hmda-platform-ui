@@ -26,12 +26,13 @@ global.window.XMLHttpRequest = global.XMLHttpRequest
 
 describe('fetchUpload', () => {
   it('creates a thunk that will kick off a file upload', done => {
-    const store = mockStore({upload: {}})
+    const store = mockStore({app: {upload: {}, institution: {id: '123'}}})
     store.dispatch(fetchUpload({name: 'afile'}))
       .then(() => {
         expect(store.getActions()).toEqual([
           {
-            type: types.UPLOAD_START
+            type: types.UPLOAD_START,
+            id: '123'
           }
         ])
 

@@ -29,10 +29,10 @@ export const renderErrors = (errors) => {
   )
 }
 
-export const getDropzoneText = ({ code, errors, file }) => {
-  let howToMessage = 'To select a file to upload, drag it into this box or click here.'
+export const getDropzoneText = ({ code, errors, filename }) => {
+  let howToMessage = 'To begin uploading a file, drag it into this box or click here.'
   if(code >= CREATED) {
-    howToMessage = 'To select a new file to upload, drag it into this box or click here.'
+    howToMessage = 'To begin uploading a new file, drag it into this box or click here.'
   }
   let message = <p>{howToMessage}</p>
 
@@ -47,29 +47,29 @@ export const getDropzoneText = ({ code, errors, file }) => {
     </div>
   }
 
-  if(file) {
+  if(filename) {
     message = <div>
-      <p><strong>{file.name}</strong> selected.</p>
+      <p><strong>{filename}</strong> selected.</p>
       <p className="file-selected">{howToMessage}</p>
     </div>
 
     if(errors.length > 0) {
       message = <div>
-        <p><strong>{file.name}</strong> can not be uploaded.</p>
+        <p><strong>{filename}</strong> can not be uploaded.</p>
         <p>{howToMessage}</p>
       </div>
     }
 
     if(code >= UPLOADING) {
       message = <div>
-        <p>Submission of <strong>{file.name}</strong> is currently in progess.</p>
+        <p>Submission of <strong>{filename}</strong> is currently in progess.</p>
         <p className="file-selected">{howToMessage}</p>
       </div>
     }
 
     if(code === SIGNED) {
       message = <div>
-        <p>Your submission of <strong>{file.name}</strong> is complete.</p>
+        <p>Your submission of <strong>{filename}</strong> is complete.</p>
         <p className="file-selected">{howToMessage}</p>
       </div>
     }
@@ -106,35 +106,20 @@ export default class Upload extends Component {
   }
 
   render() {
-    const isUploadDisabled = (this.props.code >= UPLOADING || this.props.file === null || this.props.errors.length !== 0) ? true : false
     const dropzoneText = getDropzoneText(this.props)
 
     return (
       <section className="UploadForm">
         {renderErrors(this.props.errors)}
-        <form
-          className="usa-form"
-          encType="multipart/form-data"
-          onSubmit={e => {
-            this.props.handleSubmit(e, this.props.file)}}>
-          <section className="container-upload">
-            <Dropzone
-              disablePreview={true}
-              onDrop={this.onDrop}
-              multiple={false}
-              className="dropzone">
-              {dropzoneText}
-            </Dropzone>
-          </section>
-          <input
-            disabled={isUploadDisabled}
-            className="usa-button"
-            id="uploadButton"
-            name="uploadButton"
-            type="submit"
-            value="Upload">
-          </input>
-        </form>
+        <section className="container-upload">
+          <Dropzone
+            disablePreview={true}
+            onDrop={this.onDrop}
+            multiple={false}
+            className="dropzone">
+            {dropzoneText}
+          </Dropzone>
+        </section>
         {renderValidationProgress(this.props)}
       </section>
     )
@@ -142,13 +127,12 @@ export default class Upload extends Component {
 }
 
 Upload.propTypes = {
-  handleSubmit: PropTypes.func,
   setFile: PropTypes.func,
   setNewFile: PropTypes.func,
   showConfirmModal: PropTypes.func,
   pollSubmission: PropTypes.func,
   uploading: PropTypes.bool,
-  file: PropTypes.object,
+  filename: PropTypes.string,
   code: PropTypes.number,
   errors: PropTypes.array
 }

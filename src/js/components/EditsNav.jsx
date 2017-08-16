@@ -111,20 +111,18 @@ export const renderLinkOrText = (props, name, i) => {
   if(isLink) {
     return (
       <li className={navClass} key={i}>
-        <Link className="link-wrapper usa-nav-link" to={`${base}/${navLinks[name]}`}>
+        <Link className="usa-nav-link" to={`${base}/${navLinks[name]}`}>
           <div className="step">{step}</div>
           {name}
         </Link>
-       </li>
+      </li>
     )
   }else{
     return (
       <li className={navClass} key={i}>
-        <div className="link-wrapper">
-          <div className="step">{step}</div>
-          <span>{name}</span>
-        </div>
-       </li>
+        <div className="step">{step}</div>
+        {name}
+      </li>
     )
   }
 }

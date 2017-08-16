@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchInstitution from '../actions/fetchInstitution.js'
-import HomeLink from '../components/HomeLink.jsx'
+import setFilename from '../actions/setFileName.js'
 import UserHeading from '../components/UserHeading.jsx'
 import UploadForm from './UploadForm.jsx'
 import ErrorWarning from '../components/ErrorWarning.jsx'
@@ -83,6 +83,11 @@ class SubmissionContainer extends Component {
 
     if(!this.props.institution.id || this.props.institution.id !== institution.id){
       this.props.dispatch(fetchInstitution(institution, false))
+    }
+
+    if(institution.id) {
+      const filename = localStorage.getItem(`HMDA_FILENAME/${institution.id}`)
+      if(filename) this.props.dispatch(setFilename(filename, institution.id))
     }
   }
 
