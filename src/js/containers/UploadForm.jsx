@@ -12,6 +12,7 @@ export function mapStateToProps(state) {
     uploading,
     percentUploaded,
     filename,
+    file,
     errors
   } = state.app.upload[state.app.institution.id] || {
     uploading: false,
@@ -28,6 +29,7 @@ export function mapStateToProps(state) {
     uploading,
     percentUploaded,
     filename,
+    file,
     errors,
     code
   }
