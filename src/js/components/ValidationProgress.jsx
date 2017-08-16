@@ -67,14 +67,20 @@ export default class ValidationProgress extends Component {
     return <div className={className} style={{width: currWidth+'%'}}></div>
   }
 
-  getNextWidth() {
-    const currWidth = this.state.fillWidth
-
-    this.timeout = setTimeout(() => {
+  setNextWidth(currWidth) {
+    return () => {
       let nextWidth = currWidth + 1
       if(nextWidth > 100) nextWidth = 100
       this.setState({fillWidth: nextWidth})
-    }, SCALING_FACTOR*200 * Math.pow(2, 50/(100 - currWidth)))
+    }
+  }
+
+  getNextWidth() {
+    const currWidth = this.state.fillWidth
+    this.timeout = setTimeout(
+      this.setNextWidth(currWidth),
+      SCALING_FACTOR*200 * Math.pow(2, 50/(100 - currWidth))
+    )
   }
 
   componentWillUnmount() {
