@@ -11,25 +11,33 @@ postVerify.mockImplementation(() => Promise.resolve({status: {code: 8, message: 
 const mockStore = configureMockStore([thunk])
 
 describe('fetchVerify', () => {
-  it('creates a thunk that will post to the quality endpoint', () => {
+  it('creates a thunk that will post to the quality endpoint', done => {
     const store = mockStore({})
     store.dispatch(fetchVerify('quality', true))
       .then(() => {
         expect(store.getActions()).toEqual([
-          {type: types.VERIFY_QUALITY, checked: true},
+          {isFetching: true, type: types.REQUEST_VERIFY_QUALITY},
+          {type: types.VERIFY_QUALITY, checked: true, isFetching: false},
           {type: types.UPDATE_STATUS, status: {code: 8, message: 'postverify'}}
-          ])
+        ])
+        done()
+      }).catch(e => {
+        done.fail(e)
       })
   })
 
-  it('creates a thunk that will post to the macro endpoint', () => {
+  it('creates a thunk that will post to the macro endpoint', done => {
     const store = mockStore({})
     store.dispatch(fetchVerify('macro', true))
       .then(() => {
         expect(store.getActions()).toEqual([
-          {type: types.VERIFY_MACRO, checked: true},
+          {isFetching: true, type: types.REQUEST_VERIFY_MACRO},
+          {type: types.VERIFY_MACRO, checked: true, isFetching: false},
           {type: types.UPDATE_STATUS, status: {code: 8, message: 'postverify'}}
           ])
+        done()
+      }).catch(e => {
+        done.fail(e)
       })
   })
 })
