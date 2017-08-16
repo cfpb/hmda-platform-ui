@@ -52,7 +52,7 @@ describe('ValidationProgress', () => {
     progress = new ValidationProgress({code: 4})
     expect(progress.getText().props.children[0].props.children).toBe('Analyzing file format...')
     progress = new ValidationProgress({code: 5})
-    expect(progress.getText().props.children[0].props.children).toBe('Invalid file format')
+    expect(progress.getText().props.children[0].props.children).toBe('File contains formatting errors')
     progress = new ValidationProgress({code: 7})
     expect(progress.getText().props.children[0].props.children).toBe('Validating edits...')
     progress = new ValidationProgress({code: 8})
