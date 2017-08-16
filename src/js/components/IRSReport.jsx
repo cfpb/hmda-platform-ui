@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Pagination from '../containers/Pagination.jsx'
+import Alert from './Alert.jsx'
 
 const renderTotals = props => {
   if (props.renderTotals)
@@ -130,7 +131,11 @@ const renderTable = props => {
 }
 
 const renderErrorMessage = () => {
-  return 'This is not the IRS report you are looking for.'
+  return (
+    <Alert type="error">
+      <p>This is not the IRS report you are looking for.</p>
+    </Alert>
+  )
 }
 
 const IRSReport = props => {
