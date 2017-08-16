@@ -62,7 +62,7 @@ export default class ValidationProgress extends Component {
 
     if(code === STATUS.PARSED_WITH_ERRORS ||
        code > STATUS.VALIDATING) currWidth = 100
-    else this.getNextWidth()
+    else if(!this.timeout) this.getNextWidth()
 
     return <div className={className} style={{width: currWidth+'%'}}></div>
   }
@@ -72,6 +72,7 @@ export default class ValidationProgress extends Component {
       let nextWidth = currWidth + 1
       if(nextWidth > 100) nextWidth = 100
       this.setState({fillWidth: nextWidth})
+      this.timeout = null
     }
   }
 
@@ -85,6 +86,7 @@ export default class ValidationProgress extends Component {
 
   componentWillUnmount() {
     clearTimeout(this.timeout)
+    this.timeout = null
   }
 
   render() {
