@@ -31,8 +31,10 @@ const mockedState = {
       }
     },
     upload: {
-      file: {},
-      newFile: {}
+      123: {
+        file: {},
+        newFile: {}
+      }
     }
   }
 }

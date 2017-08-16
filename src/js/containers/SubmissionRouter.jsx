@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import SubmissionContainer from './Submission.jsx'
 import fetchSubmission from '../actions/fetchSubmission.js'
+import refreshState from '../actions/refreshState.js'
 import {
   UNINITIALIZED,
   VALIDATED_WITH_ERRORS,
@@ -19,11 +20,14 @@ export class SubmissionRouter extends Component {
 
   componentDidMount() {
     this.renderChildren = false
-    if(!this.props.status || this.props.status.code === UNINITIALIZED) {
-      this.props.dispatch(fetchSubmission())
-        .then((json) => {
-          this.route()
-        })
+    const status = this.props.submission.status
+    if(!status || status.code === UNINITIALIZED ||
+       this.props.submission.id.institutionId !== this.props.params.institution) {
+         this.props.dispatch(refreshState())
+         this.props.dispatch(fetchSubmission())
+           .then((json) => {
+             this.route()
+            })
     } else {
       this.route()
     }
@@ -37,10 +41,7 @@ export class SubmissionRouter extends Component {
   }
 
   route() {
-    if(!this.props.status) return null
-
-
-    const status = this.props.status
+    const status = this.props.submission.status
     const code = status.code
     const splat = this.props.params.splat
 
@@ -68,7 +69,8 @@ export class SubmissionRouter extends Component {
   }
 
   render() {
-    if(this.props.status.code === UNINITIALIZED) return null
+    if(this.props.submission.status.code === UNINITIALIZED) return null
+    if(this.props.submission.id.institutionId !== this.props.params.institution) return null
     if(!this.renderChildren) return null
     if(!this.props.params.splat) {
       setTimeout(()=>this.replaceHistory('upload'),0)
@@ -80,12 +82,12 @@ export class SubmissionRouter extends Component {
 }
 
 export function mapStateToProps(state, ownProps) {
-  const { status } = state.app.submission
+  const { submission } = state.app
 
   const { params } = ownProps
 
   return {
-    status,
+    submission,
     params
   }
 }
