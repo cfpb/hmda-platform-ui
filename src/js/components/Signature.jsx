@@ -10,9 +10,11 @@ const showReceipt = (code, timestamp, receipt) => {
 
   return (
     <Alert type="success" heading="HMDA data submitted">
-      <p>
-        You have submitted your HMDA data on <strong>{ordinalHour(new Date(timestamp))}</strong>. Your receipt number is <strong>{receipt}</strong>.
-      </p>
+      <div>
+        <p>Your submission has been <strong>accepted</strong>.</p>
+        <p>Your submission was received on <strong>{ordinalHour(new Date(timestamp))}</strong>.</p>
+        <p>Your receipt number is <strong>{receipt}</strong>.</p>
+      </div>
     </Alert>
   )
 }
