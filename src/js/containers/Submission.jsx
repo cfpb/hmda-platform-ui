@@ -11,6 +11,7 @@ import ErrorWarning from '../components/ErrorWarning.jsx'
 import EditsContainer from './Edits.jsx'
 import EditsNavComponent from '../components/EditsNav.jsx'
 import NavButtonComponent from '../components/NavButton.jsx'
+import RefileWarningComponent  from '../components/RefileWarning.jsx'
 import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
 import IRSReport from './IRSReport.jsx'
 import Signature from './Signature.jsx'
@@ -28,6 +29,7 @@ import {
 const Edits = submissionProgressHOC(EditsContainer)
 const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
+const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
 const renderByCode = (code, page, message) => {
   const toRender = []
@@ -110,6 +112,7 @@ class SubmissionContainer extends Component {
         period={params.filing}
         institution={this.props.institution}
       />
+      <RefileWarning/>
 
       <main id="main-content" className="usa-grid SubmissionContainer">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null }
