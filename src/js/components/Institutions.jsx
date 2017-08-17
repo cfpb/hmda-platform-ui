@@ -130,11 +130,11 @@ export const renderPreviousSubmissions = (
           <button
             className="usa-accordion-button"
             aria-expanded="false"
-            aria-controls="submissions"
+            aria-controls={`submissions-${institutionId}`}
           >
             Previous filings for current filing period
           </button>
-          <div id="submissions" className="usa-accordion-content">
+          <div id={`submissions-${institutionId}`} className="usa-accordion-content">
             <ol reversed className="usa-text-small">
               {previousSubmissions.map((submission, i) => {
                 // render the end date if it was signed
