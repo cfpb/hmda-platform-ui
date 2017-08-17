@@ -133,7 +133,7 @@ const renderTable = props => {
 const renderErrorMessage = () => {
   return (
     <Alert type="error">
-      <p>This is not the IRS report you are looking for.</p>
+      <p>The IRS report could not be returned at this time. If this problem continues please contact <a href="mailto:hmdahelp@cfpb.gov">HMDA help</a>.<br /> You can still sign your submission.</p>
     </Alert>
   )
 }
