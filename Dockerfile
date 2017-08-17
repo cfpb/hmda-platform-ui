@@ -16,7 +16,7 @@ RUN if [ -z ${SKIP_JS_BUILD+x} ]; then echo "Installing JS deps" && apt-get upda
 WORKDIR /usr/src/app
 
 COPY . /usr/src/app
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx /etc/nginx
 
 RUN if [ -z ${SKIP_JS_BUILD+x} ]; then echo "Building JS" && yarn; fi
 
