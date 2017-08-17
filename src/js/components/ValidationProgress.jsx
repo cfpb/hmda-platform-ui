@@ -69,10 +69,10 @@ export default class ValidationProgress extends Component {
 
   setNextWidth(currWidth) {
     return () => {
+      this.timeout = null
       let nextWidth = currWidth + 1
       if(nextWidth > 100) nextWidth = 100
       this.setState({fillWidth: nextWidth})
-      this.timeout = null
     }
   }
 
