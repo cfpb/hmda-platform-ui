@@ -10,7 +10,7 @@ import {
 
 export const renderValidationProgress = (props) => {
   if(props.code < UPLOADING && !props.uploading) return null
-  return <ValidationProgress code={props.code} percentUploaded={props.percentUploaded}/>
+  return <ValidationProgress file={props.file} code={props.code} percentUploaded={props.percentUploaded}/>
 }
 
 export const renderErrors = (errors) => {
@@ -102,7 +102,7 @@ export default class Upload extends Component {
 
   // keeps the info about the file after leaving /upload and coming back
   componentDidMount() {
-    if(this.props.code > UPLOADING) this.props.pollSubmission()
+    if(this.props.code >= UPLOADING) this.props.pollSubmission()
   }
 
   render() {
@@ -133,6 +133,7 @@ Upload.propTypes = {
   pollSubmission: PropTypes.func,
   uploading: PropTypes.bool,
   filename: PropTypes.string,
+  file: PropTypes.object,
   code: PropTypes.number,
   errors: PropTypes.array
 }

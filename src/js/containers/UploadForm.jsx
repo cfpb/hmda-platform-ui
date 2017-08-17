@@ -6,12 +6,14 @@ import fetchUpload from '../actions/fetchUpload.js'
 import createNewSubmission from '../actions/createNewSubmission.js'
 import showConfirm from '../actions/showConfirm.js'
 import pollForProgress from '../actions/pollForProgress.js'
+import * as Poller from '../actions/Poller.js'
 
 export function mapStateToProps(state) {
   const {
     uploading,
     percentUploaded,
     filename,
+    file,
     errors
   } = state.app.upload[state.app.institution.id] || {
     uploading: false,
@@ -28,6 +30,7 @@ export function mapStateToProps(state) {
     uploading,
     percentUploaded,
     filename,
+    file,
     errors,
     code
   }
@@ -51,7 +54,7 @@ export function mapDispatchToProps(dispatch) {
     },
 
     pollSubmission: () => {
-      dispatch(pollForProgress())
+      dispatch(pollForProgress(Poller.set(true)))
     }
   }
 }

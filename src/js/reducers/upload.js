@@ -67,8 +67,7 @@ export default (state = defaultUploads, action) => {
       [action.id]: {
         ...upload,
         uploading: false,
-        percentUploaded: 100,
-        file: null,
+        percentUploaded: 100
       }
     }
   case REFRESH_STATE:
