@@ -57,29 +57,22 @@
     }
 
     button {
-      align-items: center;
-      display: flex;
+      display: block;
+      width: 100%;
       height: 100%;
-      justify-content: center;
+      text-align: center;
       line-height: normal;
       margin: 0;
       margin-right: -50%;
       padding: 0;
-      width: 100%;
-    }
-
-    button {
+      font-weight: 400;
       background: none;
       color: $color-base;
-      font-weight: 400;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
 
       .file-selected {
         color: $color-gray;
       }
+
     }
   }
 }
