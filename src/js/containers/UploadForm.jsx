@@ -6,6 +6,7 @@ import fetchUpload from '../actions/fetchUpload.js'
 import createNewSubmission from '../actions/createNewSubmission.js'
 import showConfirm from '../actions/showConfirm.js'
 import pollForProgress from '../actions/pollForProgress.js'
+import * as Poller from '../actions/Poller.js'
 
 export function mapStateToProps(state) {
   const {
@@ -53,7 +54,7 @@ export function mapDispatchToProps(dispatch) {
     },
 
     pollSubmission: () => {
-      dispatch(pollForProgress())
+      dispatch(pollForProgress(Poller.set(true)))
     }
   }
 }

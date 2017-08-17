@@ -102,7 +102,7 @@ export default class Upload extends Component {
 
   // keeps the info about the file after leaving /upload and coming back
   componentDidMount() {
-    if(this.props.code > UPLOADING) this.props.pollSubmission()
+    if(this.props.code >= UPLOADING) this.props.pollSubmission()
   }
 
   render() {
