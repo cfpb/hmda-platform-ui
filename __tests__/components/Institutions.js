@@ -124,7 +124,7 @@ describe('renderStatus', () => {
     it('runs with code ' + code, () => {
       const sub = {...submission}
       sub.status.code = code
-      const rendered = renderStatus('1234', '2017', sub, jest.fn())
+      const rendered = renderStatus('1234', {period: '2017', status: {code: 2}}, sub, jest.fn())
       expect(rendered.props.children[0].props.children[2].props.className).toEqual(className)
     })
   }
@@ -136,6 +136,12 @@ describe('renderStatus', () => {
   runByCode(6, 'text-primary')
   runByCode(8, 'text-secondary')
   runByCode(10, 'text-green')
+
+  const sub = {...submission}
+  sub.status.code = 8
+  const rendered = renderStatus('1234', {period: '2017', status: {code: 3}}, sub, jest.fn())
+
+  expect(rendered.props.children[1].props.className).toBe('usa-text-small')
 })
 
 describe('renderViewButton', () => {

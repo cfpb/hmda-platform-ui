@@ -18,11 +18,13 @@ const defaultSubmission = {
 }
 export const renderStatus = (
   institutionId,
-  period,
+  filing,
   submission = defaultSubmission,
   onDownloadClick
 ) => {
   const statusCode = submission.status.code
+  const period = filing.period
+  const filingStatus = filing.status.code
   let messageClass
 
   if (statusCode === STATUS.CREATED) {
@@ -56,6 +58,11 @@ export const renderStatus = (
         <strong className={messageClass}>{submission.status.message}</strong>.{' '}
         {submission.status.description}
       </p>
+      {
+        filingStatus === 3 && statusCode !== STATUS.SIGNED
+        ? <p className="usa-text-small">You have previously submitted a HMDA file and are in the process of refiling. If you do not complete your current refiling process, your original submission will be accepted for the current filing period.</p>
+        : null
+      }
       {statusCode > STATUS.CREATED
         ? <p className="usa-text-small">
             <a
@@ -231,7 +238,7 @@ export default class Institution extends Component {
                           <h3>{institution.name} - {institution.id}</h3>
                           {renderStatus(
                             institution.id,
-                            filing.period,
+                            filing,
                             submission,
                             this.props.onDownloadClick
                           )}
