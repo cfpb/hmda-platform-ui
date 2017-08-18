@@ -211,12 +211,13 @@ export default class Institution extends Component {
             ? <div className="usa-grid-full">
                 <LoadingIcon />
               </div>
-            : !this.props.filings
+            : !this.props.filings || this.props.filings.length === 0
               ? <div className="usa-grid-full">
+                <Alert type="error">
                   <p>
-                    There is a problem with your filing. Please contact{' '}
-                    <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
+                    There is a problem with your filing. Please contact <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
                   </p>
+                </Alert>
                 </div>
               : this.props.filings.map((filingObj, i) => {
                   const filing = filingObj.filing
