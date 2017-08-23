@@ -56,25 +56,27 @@
       &.complete {
         .step {
           background-color: $color-base;
-          background-image: url("/img/correct8.png");
+          background-image: url("/img/check.png");
           background-position: center;
           background-repeat: no-repeat;
+          background-size: 13px;
           border-color: $color-base;
         }
       }
       &.warning {
         a {
-          color: $color-gold;
+          color: #dc731c;
           &:hover {
             color: $color-primary;
           }
         }
         .step {
-          background-color: $color-gold;
-          background-image: url("/img/correct8.png");
+          background-color: #dc731c;
+          background-image: url("/img/exclamation.png");
+          background-size: 4px auto;
           background-position: center;
           background-repeat: no-repeat;
-          border-color: $color-gold;
+          border-color: #dc731c;
         }
       }
       &.error {
@@ -86,7 +88,7 @@
         }
         .step {
           background-color: $color-secondary;
-          background-image: url("/img/close.png");
+          background-image: url("/img/x.png");
           background-position: center;
           background-repeat: no-repeat;
           border-color: $color-secondary;

@@ -107,7 +107,7 @@ export const renderLinkOrText = (props, name, i) => {
   let navClass = getNavClass(navLinks[name], props)
 
   let step
-  if(navClass === '' || (navLinks[name] === 'upload' && navClass.indexOf('complete'))) step = i + 1
+  if(navClass === '' || ((navLinks[name] === 'upload' || navLinks[name] === 'confirmation') && navClass.indexOf('complete') !== 0)) step = i + 1
 
   if(isLink) {
     return (
