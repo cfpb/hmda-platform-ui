@@ -13,7 +13,7 @@ export class InstitutionContainer extends Component {
   }
 
   componentDidMount() {
-    if(!this.props.institutions) this.props.dispatch(fetchInstitutions())
+    if(!this.props.institutions || !this.props.filings.fetched) this.props.dispatch(fetchInstitutions())
   }
 
   render() {
@@ -26,17 +26,12 @@ export function mapStateToProps(state) {
 
   const {
     filings,
-    isFetching
-  } = state.app.filings
-
-  const {
     submission,
     error,
     filingPeriod
   } = state.app
 
   return {
-    isFetching,
     submission,
     filingPeriod,
     institutions,

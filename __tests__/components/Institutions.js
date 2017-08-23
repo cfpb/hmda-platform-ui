@@ -35,7 +35,7 @@ describe('Institutions', () => {
       <Institutions
         institutions={institutionsJSON.institutions}
         filingPeriod={2017}
-        filings={[filingJSON]}
+        filings={{isFetching: false, filings: [filingJSON], fetched: true}}
         submission={submission}
         user={{profile: {name: 'someone'}}}
         location={{pathname: '/institutions'}} />
@@ -76,7 +76,7 @@ describe('Institutions', () => {
         <Institutions
           institutions={institutionsJSON.institutions}
           submission={submission}
-          filings={[filingJSON]}
+          filings={{isFetching: false, filings: [filingJSON], fetched: true}}
           user={{profile: {name: 'someone'}}}
           location={{pathname: '/institutions'}} />
       </Wrapper>
@@ -91,7 +91,7 @@ describe('Institutions', () => {
           institutions={institutionsJSON.institutions}
           filingPeriod={2017}
           submission={submission}
-          filings={null}
+          filings={{isFetching: false, filings: [], fetched: true}}
           location={{pathname: '/institutions'}} />
       </Wrapper>
     )
@@ -106,7 +106,7 @@ it('renders multiple filings correctly', () => {
         institutions={institutionsJSON.institutions}
         filingPeriod={2017}
         submission={submission}
-        filings={multifilings}
+        filings={{isFetching: false, filings: multifilings, fetched: true}}
         location={{pathname: '/institutions'}} />
     </Wrapper>
   )

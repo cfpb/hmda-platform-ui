@@ -6,6 +6,7 @@ import filings from '../../src/js/reducers/filings.js'
 const defaultFilings = {
   filings: [],
   isFetching: false,
+  fetched: false
 }
 
 describe('filings reducer', () => {
@@ -24,7 +25,7 @@ describe('filings reducer', () => {
   it('handles RECEIVE_FILINGS', () => {
     expect(
       filings({filings: [1,2,3]}, {type: types.RECEIVE_FILINGS})
-    ).toEqual({filings: [1,2,3], isFetching: false})
+    ).toEqual({filings: [1,2,3], isFetching: false, fetched: true})
   })
 
   it('handles CLEAR_FILINGS', () => {
@@ -33,9 +34,15 @@ describe('filings reducer', () => {
     ).toEqual(defaultFilings)
   })
 
+  it('handles REFRESH_FILINGS', () => {
+    expect(
+      filings({}, {type: types.REFRESH_STATE})
+    ).toEqual(defaultFilings)
+  })
+
   it('shouldn\'t modify state on an unknown action type', () => {
     excludeTypes(types.RECEIVE_FILING, types.RECEIVE_FILINGS,
-      types.REQUEST_FILING, types.CLEAR_FILINGS)
+      types.REQUEST_FILING, types.CLEAR_FILINGS, types.REFRESH_STATE)
       .forEach(v => expect(filings(defaultFilings, v))
         .toEqual(defaultFilings)
       )
