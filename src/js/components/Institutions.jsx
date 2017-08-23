@@ -208,7 +208,7 @@ export default class Institution extends Component {
               ? <h2>Filing Period {this.props.filingPeriod}</h2>
               : null}
           </header>
-          {this.props.filings.isFetching || this.props.submission.isFetching
+          {!this.props.filings.fetched || this.props.filings.isFetching || this.props.submission.isFetching
             ? <div className="usa-grid-full">
                 <LoadingIcon />
               </div>
