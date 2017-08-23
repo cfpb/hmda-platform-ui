@@ -43,14 +43,14 @@ export const getNavClass = (name, props) => {
     case 'syntacticalvalidity':
       if(code > VALIDATING) {
         navClass = 'active'
-        if(!syntacticalValidityEditsExist) navClass = 'complete'
+        navClass = syntacticalValidityEditsExist ? 'error' : 'complete'
       }
       break
     case 'quality':
       if(code > VALIDATING) {
         if(!syntacticalValidityEditsExist) {
           navClass = 'active'
-          if(qualityVerified) navClass = 'complete'
+          navClass = qualityVerified ? 'complete' : 'warning'
         }
       }
       break
@@ -58,7 +58,7 @@ export const getNavClass = (name, props) => {
       if(code > VALIDATING) {
         if(!syntacticalValidityEditsExist && qualityVerified) {
           navClass = 'active'
-          if(macroVerified) navClass = 'complete'
+          navClass = macroVerified ? 'complete' : 'warning'
         }
       }
       break
@@ -106,6 +106,7 @@ export const renderLinkOrText = (props, name, i) => {
 
   let navClass = getNavClass(navLinks[name], props)
   let step
+  // TODO: rework this line to remove #'s from steps
   if(navClass !== 'complete' && navClass !== 'complete current') step = i + 1
 
   if(isLink) {
