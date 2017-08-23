@@ -105,9 +105,9 @@ export const renderLinkOrText = (props, name, i) => {
   }
 
   let navClass = getNavClass(navLinks[name], props)
+
   let step
-  // TODO: rework this line to remove #'s from steps
-  if(navClass !== 'complete' && navClass !== 'complete current') step = i + 1
+  if(navClass === '' || (navLinks[name] === 'upload' && navClass.indexOf('complete'))) step = i + 1
 
   if(isLink) {
     return (
