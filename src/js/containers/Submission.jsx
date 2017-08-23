@@ -20,6 +20,7 @@ import RefileButton from '../containers/RefileButton.jsx'
 import ParseErrors from './ParseErrors.jsx'
 import LoadingIcon from '../components/LoadingIcon.jsx'
 import {
+  CREATED,
   UNINITIALIZED,
   FAILED,
   PARSED_WITH_ERRORS,
@@ -85,7 +86,7 @@ class SubmissionContainer extends Component {
       this.props.dispatch(fetchInstitution(institution, false))
     }
 
-    if(institution.id) {
+    if(institution.id && status.code > CREATED) {
       const filename = localStorage.getItem(`HMDA_FILENAME/${institution.id}`)
       if(filename) this.props.dispatch(setFilename(filename, institution.id))
     }
