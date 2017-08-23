@@ -33,12 +33,27 @@ export const getText = props => {
 
   if(!text) return null
 
+  const { institutionId, period, sequenceNumber } = props.submission.id
+
   return (
-    <p>
-      {text}
-      {button}
-      {periodAfter ? '.' : null}
-    </p>
+    <div>
+      <p>
+        {text}
+        {button}
+        {periodAfter ? '.' : null}
+      </p>
+      <p className="usa-text-small">
+        <a
+          href="#"
+          onClick={e => {
+            e.preventDefault()
+            props.onDownloadClick(institutionId, period, sequenceNumber)
+          }}
+        >
+          Download edit report
+        </a>
+      </p>
+    </div>
   )
 
 }
@@ -62,6 +77,8 @@ export const getHeading = props => {
 }
 
 const RefileWarning = props => {
+  console.log('RefileWarning')
+  console.log(props)
   if (props.code > VALIDATED_WITH_ERRORS && props.code < PARSED_WITH_ERRORS)
     return null
   if (
@@ -98,7 +115,10 @@ RefileWarning.propTypes = {
   code: PropTypes.number,
   syntacticalValidityEditsExist: PropTypes.bool,
   qualityVerified: PropTypes.bool,
-  macroVerified: PropTypes.bool
+  macroVerified: PropTypes.bool,
+  // from /containers/RefileWarning
+  submission: PropTypes.object,
+  onDownloadClick: PropTypes.func
 }
 
 export default RefileWarning
