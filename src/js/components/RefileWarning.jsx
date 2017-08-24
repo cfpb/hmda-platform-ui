@@ -9,38 +9,51 @@ import {
 } from '../constants/statusCodes.js'
 
 export const getText = props => {
+  const { institutionId, period, sequenceNumber } = props.submission.id
   let text = null
-  let button = null
+  let button = <RefileButton />
   let periodAfter = false
-
-  if (props.syntacticalValidityEditsExist) {
-    text = 'Please update your file and select the "Upload a new file" button.'
-    button = <RefileButton />
-  } else if (!props.qualityVerified && props.page === 'quality') {
-    text = 'You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and '
-    button = <RefileButton isLink={true} isLower={true} />
-    periodAfter = true
-  } else if (!props.macroVerified && props.page === 'macro') {
-    text ='You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and ',
-    button = <RefileButton isLink={true} isLower={true} />
-    periodAfter = true
-  }
-
-  if (props.code === PARSED_WITH_ERRORS) {
-    text = 'Please update your file and click the "Upload a new file" button.'
-    button = <RefileButton />
-  }
-
-  if(!text) return null
-
-  return (
+  let reviewAndDownload = (
     <p>
-      {text}
-      {button}
-      {periodAfter ? '.' : null}
+      Please review the edits below or{' '}
+      <a
+        href="#"
+        onClick={e => {
+          e.preventDefault()
+          props.onDownloadClick(institutionId, period, sequenceNumber)
+        }}
+      >
+        download the edit report
+      </a>.
     </p>
   )
 
+  if (props.syntacticalValidityEditsExist) {
+    text = 'Then update your file and select the "upload a new file" button.'
+  } else if (
+    (!props.qualityVerified && props.page === 'quality') ||
+    (!props.macroVerified && props.page === 'macro')
+  ) {
+    text =
+      'You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and '
+    button = <RefileButton isLink={true} isLower={true} />
+    periodAfter = true
+  }
+  if (props.code === PARSED_WITH_ERRORS) {
+    reviewAndDownload = null
+    text = 'Please update your file and click the "Upload a new file" button.'
+  }
+
+  if (!text) return null
+
+  return (
+    <div>
+      {reviewAndDownload}
+      {text}
+      {button}
+      {periodAfter ? '.' : null}
+    </div>
+  )
 }
 
 export const getHeading = props => {
@@ -98,7 +111,10 @@ RefileWarning.propTypes = {
   code: PropTypes.number,
   syntacticalValidityEditsExist: PropTypes.bool,
   qualityVerified: PropTypes.bool,
-  macroVerified: PropTypes.bool
+  macroVerified: PropTypes.bool,
+  // from /containers/RefileWarning
+  submission: PropTypes.object,
+  onDownloadClick: PropTypes.func
 }
 
 export default RefileWarning
