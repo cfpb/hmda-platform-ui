@@ -9,50 +9,37 @@ import {
 } from '../constants/statusCodes.js'
 
 export const getText = props => {
+  const { institutionId, period, sequenceNumber } = props.submission.id
   let text = null
-  let button = null
+  let button = <RefileButton />
   let periodAfter = false
+  let reviewAndDownload = <p>Please review the edits below or <a href="#"
+    onClick={e => {
+      e.preventDefault()
+      props.onDownloadClick(institutionId, period, sequenceNumber)
+    }}
+  >download the edit report</a>.</p>
 
   if (props.syntacticalValidityEditsExist) {
-    text = 'Please update your file and select the "Upload a new file" button.'
-    button = <RefileButton />
-  } else if (!props.qualityVerified && props.page === 'quality') {
-    text = 'You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and '
-    button = <RefileButton isLink={true} isLower={true} />
-    periodAfter = true
-  } else if (!props.macroVerified && props.page === 'macro') {
-    text ='You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and ',
+    text = 'Then update your file and select the "upload a new file" button.'
+  } else if ((!props.qualityVerified && props.page === 'quality') || (!props.macroVerified && props.page === 'macro')) {
+    text = 'You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and '
     button = <RefileButton isLink={true} isLower={true} />
     periodAfter = true
   }
-
   if (props.code === PARSED_WITH_ERRORS) {
+    reviewAndDownload = null
     text = 'Please update your file and click the "Upload a new file" button.'
-    button = <RefileButton />
   }
 
   if(!text) return null
 
-  const { institutionId, period, sequenceNumber } = props.submission.id
-
   return (
     <div>
-      <p>
-        {text}
-        {button}
-        {periodAfter ? '.' : null}
-      </p>
-      <p className="usa-text-small">
-        <a
-          href="#"
-          onClick={e => {
-            e.preventDefault()
-            props.onDownloadClick(institutionId, period, sequenceNumber)
-          }}
-        >
-          Download edit report
-        </a>
-      </p>
+      {reviewAndDownload}
+      {text}
+      {button}
+      {periodAfter ? '.' : null}
     </div>
   )
 
