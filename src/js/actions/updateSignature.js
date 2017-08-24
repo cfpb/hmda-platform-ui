@@ -19,8 +19,7 @@ export default function updateSignature(signed) {
           dispatch(receiveSignaturePost(json))
           return dispatch(updateStatus(
             {
-              code: json.status.code,
-              message: json.status.message
+              ...json.status
             }
           ))
         })

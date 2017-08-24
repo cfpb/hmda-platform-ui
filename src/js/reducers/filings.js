@@ -1,8 +1,9 @@
-import { REQUEST_FILING,RECEIVE_FILING,CLEAR_FILINGS,RECEIVE_FILINGS } from '../constants'
+import { REQUEST_FILING,RECEIVE_FILING,CLEAR_FILINGS,RECEIVE_FILINGS, REFRESH_STATE } from '../constants'
 
 const defaultFilings = {
   filings: [],
   isFetching: false,
+  fetched: false
 }
 
 /*
@@ -15,7 +16,8 @@ export default (state = defaultFilings, action) => {
   case REQUEST_FILING:
     return {
       ...state,
-      isFetching: true
+      isFetching: true,
+      fetched: false
     }
   case RECEIVE_FILING:
     return {
@@ -27,8 +29,11 @@ export default (state = defaultFilings, action) => {
   case RECEIVE_FILINGS:
       return {
         ...state,
-        isFetching: false
+        isFetching: false,
+        fetched: true
       }
+  case REFRESH_STATE:
+      return defaultFilings
   default:
     return state
   }

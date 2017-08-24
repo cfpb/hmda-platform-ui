@@ -26,8 +26,7 @@ export default function fetchVerify(type, checked) {
 
           return dispatch(updateStatus(
             {
-              code: json.status.code,
-              message: json.status.message
+              ...json.status
             }
           ))
         })

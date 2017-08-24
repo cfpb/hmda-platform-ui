@@ -21,8 +21,7 @@ export default function fetchUpload(file) {
       const uploadResponse = JSON.parse(e.target.response)
 
       dispatch(updateStatus({
-        code: uploadResponse.status.code,
-        message: uploadResponse.status.message
+        ...uploadResponse.status
       }))
 
       if(e.target.status !== 202) {

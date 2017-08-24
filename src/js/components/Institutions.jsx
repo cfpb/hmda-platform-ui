@@ -197,6 +197,7 @@ export default class Institution extends Component {
   render() {
     const institutions = this.props.institutions
     const makeNewSubmission = this.props.makeNewSubmission
+
     return (
       <main id="main-content" className="usa-grid Institutions">
         {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
@@ -207,11 +208,11 @@ export default class Institution extends Component {
               ? <h2>Filing Period {this.props.filingPeriod}</h2>
               : null}
           </header>
-          {this.props.isFetching || this.props.submission.isFetching
+          {this.props.filings.isFetching || this.props.submission.isFetching
             ? <div className="usa-grid-full">
                 <LoadingIcon />
               </div>
-            : !this.props.filings || this.props.filings.length === 0
+            : this.props.filings.fetched && this.props.filings.filings.length === 0
               ? <div className="usa-grid-full">
                 <Alert type="error">
                   <p>
@@ -219,7 +220,7 @@ export default class Institution extends Component {
                   </p>
                 </Alert>
                 </div>
-              : this.props.filings.map((filingObj, i) => {
+              : this.props.filings.filings.map((filingObj, i) => {
                   const filing = filingObj.filing
                   const submission = this.props.submission.id &&
                     this.props.submission.id.institutionId === filing.institutionId
@@ -305,7 +306,7 @@ export default class Institution extends Component {
 
 Institution.propTypes = {
   params: PropTypes.object,
-  filings: PropTypes.array,
+  filings: PropTypes.object,
   institutions: PropTypes.array,
   makeNewSubmission: PropTypes.func,
   onDownloadClick: PropTypes.func
