@@ -59,24 +59,24 @@
           background-image: url("/img/check.png");
           background-position: center;
           background-repeat: no-repeat;
-          background-size: 13px;
+          background-size: 13px auto;
           border-color: $color-base;
         }
       }
       &.warning {
         a {
-          color: #dc731c;
+          color: $color-hmda-orange;
           &:hover {
             color: $color-primary;
           }
         }
         .step {
-          background-color: #dc731c;
+          background-color: $color-hmda-orange;
           background-image: url("/img/exclamation.png");
           background-size: 4px auto;
           background-position: center;
           background-repeat: no-repeat;
-          border-color: #dc731c;
+          border-color: $color-hmda-orange;
         }
       }
       &.error {
@@ -91,6 +91,7 @@
           background-image: url("/img/x.png");
           background-position: center;
           background-repeat: no-repeat;
+          background-size: 12px auto;
           border-color: $color-secondary;
         }
       }
