@@ -57,18 +57,20 @@ const EditsTableWrapper = props => {
     return null
   }
 
-  const loading = props.isFetching ? <LoadingIcon /> : null
+  const loading = !props.fetched || props.isFetching ? <LoadingIcon /> : null
 
   return (
-    <section className="EditsTableWrapper">
-      {loading}
-      {type === 'syntacticalvalidity'
-        ? makeEntry(props, 'syntactical')
-        : makeEntry(props, type)}
-      {type === 'syntacticalvalidity' ? makeEntry(props, 'validity') : null}
-      {type === 'quality' || type === 'macro' ? <Verifier type={type} /> : null}
-      <hr />
-    </section>
+    loading
+    ? loading
+    : <section className="EditsTableWrapper">
+        {loading}
+        {type === 'syntacticalvalidity'
+          ? makeEntry(props, 'syntactical')
+          : makeEntry(props, type)}
+        {type === 'syntacticalvalidity' ? makeEntry(props, 'validity') : null}
+        {type === 'quality' || type === 'macro' ? <Verifier type={type} /> : null}
+        <hr />
+      </section>
   )
 }
 

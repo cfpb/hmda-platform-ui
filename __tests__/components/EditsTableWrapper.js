@@ -25,6 +25,8 @@ describe('EditsTableWrapper', () => {
       onDownloadClick: onDownloadClick,
       page: 'quality',
       pagination: {},
+      isFetching: false,
+      fetched: true,
       rows: {
         S020: {
           isFetching: false,
@@ -43,6 +45,33 @@ describe('EditsTableWrapper', () => {
   })
 })
 
+describe('EditsTableWrapper Loading', () => {
+  const onDownloadClick = jest.fn()
+
+  it('renders loading icon is necessary', () => {
+    const rendered = EditsTableWrapper({
+      onDownloadClick: onDownloadClick,
+      page: 'quality',
+      pagination: {},
+      isFetching: true,
+      fetched: false,
+      rows: {
+        S020: {
+          isFetching: true,
+          rows: []
+        }
+      },
+      types: {
+        syntactical: types.syntactical,
+        validity: types.validity,
+        quality: types.quality,
+        macro: types.macro
+      }
+    })
+
+    expect(typeof rendered.type).toBe('function')
+  })
+})
 describe('renderTablesOrSuccess', () => {
   it('render the success message with verification note if NO edits and q/m', () => {
     const rendered = renderTablesOrSuccess({}, [], 'quality')
