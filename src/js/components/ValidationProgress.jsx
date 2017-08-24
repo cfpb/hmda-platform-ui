@@ -6,7 +6,7 @@ let SCALING_FACTOR = 1
 export default class ValidationProgress extends Component {
   constructor(props) {
     super(props)
-    this.state = {fillWidth: 0}
+    this.state = {fillWidth: this.getSavedWidth(props.id)}
     if(props.file){
       SCALING_FACTOR = props.file.size/1e6
       if(SCALING_FACTOR < 1) SCALING_FACTOR = 1
@@ -15,11 +15,24 @@ export default class ValidationProgress extends Component {
   }
 
   componentWillReceiveProps(props){
-    if(props.file){
+    if(props.file) {
       SCALING_FACTOR = props.file.size/1e6
       if(SCALING_FACTOR < 1) SCALING_FACTOR = 1
       if(SCALING_FACTOR > 5) SCALING_FACTOR = 5
     }
+    if(props.id !== this.props.id) {
+      this.setState({fillWidth: this.getSavedWidth(props.id)})
+    }
+  }
+
+  getSavedWidth(id) {
+    return id
+      ? +localStorage.getItem(`HMDA_FILE_PROGRESS/${id}`)
+      : 0
+  }
+
+  saveWidth(id, width) {
+    localStorage.setItem(`HMDA_FILE_PROGRESS/${id}`, width)
   }
 
   getText() {
@@ -61,8 +74,10 @@ export default class ValidationProgress extends Component {
     if(code === STATUS.PARSED_WITH_ERRORS) className += ' error'
 
     if(code === STATUS.PARSED_WITH_ERRORS ||
-       code > STATUS.VALIDATING) currWidth = 100
-    else if(!this.timeout) this.getNextWidth()
+       code > STATUS.VALIDATING){
+         currWidth = 100
+         this.saveWidth(this.props.id, 100)
+    } else if(!this.timeout) this.getNextWidth()
 
     return <div className={className} style={{width: currWidth+'%'}}></div>
   }
@@ -72,6 +87,7 @@ export default class ValidationProgress extends Component {
       this.timeout = null
       let nextWidth = currWidth + 1
       if(nextWidth > 100) nextWidth = 100
+      this.saveWidth(this.props.id, nextWidth)
       this.setState({fillWidth: nextWidth})
     }
   }
@@ -90,6 +106,7 @@ export default class ValidationProgress extends Component {
   }
 
   render() {
+    if(!this.props.id) return null
     return (
       <section className="ValidationProgress">
         <div className="progressTotal"></div>
@@ -102,6 +119,6 @@ export default class ValidationProgress extends Component {
 
 ValidationProgress.propTypes = {
   code: PropTypes.number,
-  percentUploaded: PropTypes.number,
+  id: PropTypes.string,
   file: PropTypes.object
 }

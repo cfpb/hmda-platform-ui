@@ -10,7 +10,7 @@ import {
 
 export const renderValidationProgress = (props) => {
   if(props.code < UPLOADING && !props.uploading) return null
-  return <ValidationProgress file={props.file} code={props.code} percentUploaded={props.percentUploaded}/>
+  return <ValidationProgress file={props.file} code={props.code} id={props.id}/>
 }
 
 export const renderErrors = (errors) => {

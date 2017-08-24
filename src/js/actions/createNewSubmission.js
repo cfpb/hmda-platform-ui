@@ -5,6 +5,7 @@ export default function createNewSubmission(id, period, page = null) {
   return dispatch => {
     dispatch(refreshState())
     localStorage.removeItem(`HMDA_FILENAME/${id}`)
+    localStorage.removeItem(`HMDA_FILE_PROGRESS/${id}`)
     return dispatch(fetchNewSubmission(id, period))
   }
 }

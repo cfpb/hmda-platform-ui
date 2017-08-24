@@ -6,9 +6,17 @@ import TestUtils from 'react-addons-test-utils'
 import Wrapper from '../Wrapper.js'
 import ValidationProgress from '../../src/js/components/ValidationProgress.jsx'
 
+const localGet = jest.fn(() => 0)
+const localSet = jest.fn()
+
+window.localStorage = {
+  getItem: localGet,
+  setItem: localSet
+}
+
 describe('ValidationProgress', () => {
 
-  const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress code={9} percentUploaded={100}/></Wrapper>)
+  const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress code={9} id="argle"/></Wrapper>)
   const progressNode = ReactDOM.findDOMNode(progress)
 
   it('renders the component', () => {
@@ -24,13 +32,18 @@ describe('ValidationProgress', () => {
   })
 
   it('renders a pulsing class when code is appropriate', () => {
-    const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress code={7} percentUploaded={100}/></Wrapper>)
+    const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress code={7} id="argle"/></Wrapper>)
     expect(TestUtils.scryRenderedDOMComponentsWithClass(progress, 'pulsing').length).toEqual(1)
   })
 
   it('renders an error class', () => {
-    const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress code={5} percentUploaded={100}/></Wrapper>)
+    const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress code={5} id="argle"/></Wrapper>)
     expect(TestUtils.scryRenderedDOMComponentsWithClass(progress, 'error').length).toEqual(2)
+  })
+
+  it('renders null with no id', () => {
+    const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress code={5} /></Wrapper>)
+    expect(progress.props.children.key).toBe(null)
   })
 
   it('gets expected results from getFill', () => {
@@ -90,5 +103,34 @@ describe('ValidationProgress', () => {
 
     timeoutFn()
     expect(setState).toBeCalled()
+  })
+
+  it('getsSavedWidth', () => {
+    let progress = new ValidationProgress({})
+    expect(progress.getSavedWidth()).toBe(0)
+    expect(progress.getSavedWidth('argle')).toBe(0)
+
+  })
+
+  it('saves width', () => {
+    let progress = new ValidationProgress({})
+    progress.saveWidth()
+    expect(localSet).toBeCalled()
+  })
+
+  it('updates when receiving new props', () => {
+    let progress = new ValidationProgress({file:{size:123}, id:'argle'})
+    const setState = jest.fn()
+    progress.setState = setState
+    progress.componentWillReceiveProps({})
+
+    expect(setState).toBeCalled()
+
+    progress = new ValidationProgress({})
+    const setState2 = jest.fn()
+    progress.setState = setState2
+    progress.componentWillReceiveProps({})
+
+    expect(setState).not.toBeCalled()
   })
 })
