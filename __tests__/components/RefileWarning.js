@@ -8,20 +8,31 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
+const submission = {
+  id: {
+    institutionId: '1',
+    period: '2017',
+    sequenceNumber: 1
+  }
+}
 const parseLocation = jest.fn(() => { return { id:'1', period: '2017', submission: 1 } })
 
 describe('Refile Warning', () => {
   const parserText = 'Your file has formatting errors.Please update your file and click the \"Upload a new file\" button.'
-  const refileText = 'Your file has syntactical and/or validity edits.Please update your file and select the \"Upload a new file\" button.'
-  const qualityText = 'Your file has quality edits.You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and .'
-  const macroText = 'Your file has macro quality edits.You must verify the edits listed below and select the check box to confirm the accuracy of the data. If any of the data need to be corrected, please update your file and .'
+  const refileText = 'Your file has syntactical and/or validity edits.Please review the edits below or download the edit report.Then update your file and select the \"upload a new file\" button.'
+  const qualityText = 'Your file has quality edits.Please review the edits below or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
+  const macroText = 'Your file has macro quality edits.Please review the edits below or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
 
 
   it('renders the correct elements for status code 5 and calls function on click', () => {
 
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
-        <RefileWarning code={5} syntacticalValidityEditsExist={true}/>
+        <RefileWarning
+          code={5}
+          syntacticalValidityEditsExist={true}
+          submission={submission}
+        />
       </Wrapper>
     )
 
@@ -31,7 +42,11 @@ describe('Refile Warning', () => {
   it('renders the correct elements for status code 7', () => {
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
-        <RefileWarning code={7} syntacticalValidityEditsExist={true}/>
+        <RefileWarning
+          code={7}
+          syntacticalValidityEditsExist={true}
+          submission={submission}
+        />
       </Wrapper>
     )
 
@@ -41,7 +56,12 @@ describe('Refile Warning', () => {
   it('renders no warning on synval if no synval edits exist', () => {
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
-        <RefileWarning code={7} syntacticalValidityEditsExist={false} page={'syntacticalvalidity'}/>
+        <RefileWarning
+          code={7}
+          syntacticalValidityEditsExist={false}
+          submission={submission}
+          page={'syntacticalvalidity'}
+        />
       </Wrapper>
     )
 
@@ -51,7 +71,12 @@ describe('Refile Warning', () => {
   it('renders the correct elements for quality', () => {
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
-        <RefileWarning code={8} qualityVerified={false} page={'quality'}/>
+        <RefileWarning
+          code={8}
+          qualityVerified={false}
+          submission={submission}
+          page={'quality'}
+        />
       </Wrapper>
     )
 
@@ -61,7 +86,12 @@ describe('Refile Warning', () => {
   it('renders no warning on quality if verified', () => {
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
-        <RefileWarning code={8} qualityVerified={true} page={'quality'}/>
+        <RefileWarning
+          code={8}
+          qualityVerified={true}
+          submission={submission}
+          page={'quality'}
+        />
       </Wrapper>
     )
 
@@ -71,7 +101,12 @@ describe('Refile Warning', () => {
   it('renders the correct elements for macro', () => {
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
-        <RefileWarning code={8} macroVerified={false} page={'macro'}/>
+        <RefileWarning
+          code={8}
+          macroVerified={false}
+          submission={submission}
+          page={'macro'}
+        />
       </Wrapper>
     )
 
@@ -81,7 +116,12 @@ describe('Refile Warning', () => {
   it('renders no warning on macro if verified', () => {
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
-        <RefileWarning code={8} macroVerified={true} page={'macro'}/>
+        <RefileWarning
+          code={8}
+          macroVerified={true}
+          submission={submission}
+          page={'macro'}
+        />
       </Wrapper>
     )
 
@@ -90,7 +130,11 @@ describe('Refile Warning', () => {
   it('renders the correct elements for status code > 8', () => {
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
-        <RefileWarning code={10} syntacticalValidityEditsExist={false}/>
+        <RefileWarning
+          code={10}
+          syntacticalValidityEditsExist={false}
+          submission={submission}
+        />
       </Wrapper>
     )
 
