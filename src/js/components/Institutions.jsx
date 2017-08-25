@@ -53,9 +53,10 @@ export const renderStatus = (
 
   return (
     <section className="status">
-      <p className="status-desc">
-        Current filing status is{' '}
-        <strong className={messageClass}>{submission.status.message}</strong>.{' '}
+      <h4>
+        Filing status: <strong className={messageClass}>{submission.status.message}</strong>
+      </h4>
+      <p>
         {submission.status.description}
       </p>
       {
@@ -63,7 +64,7 @@ export const renderStatus = (
         ? <p className="usa-text-small">You have previously submitted a HMDA file and are in the process of refiling. If you do not complete your current refiling process, your original submission will be accepted for the current filing period.</p>
         : null
       }
-      {statusCode > STATUS.CREATED
+      {statusCode > STATUS.VALIDATING
         ? <p className="usa-text-small">
             <a
               href="#"
