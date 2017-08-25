@@ -56,20 +56,48 @@
       &.complete {
         .step {
           background-color: $color-base;
-          background-image: url("/img/correct8.png");
+          background-image: url("/img/check.png");
           background-position: center;
           background-repeat: no-repeat;
+          background-size: 13px auto;
           border-color: $color-base;
+        }
+      }
+      &.warning {
+        a {
+          color: $color-hmda-orange;
+          &:hover {
+            color: $color-primary;
+          }
+        }
+        .step {
+          background-color: $color-hmda-orange;
+          background-image: url("/img/exclamation.png");
+          background-size: 4px auto;
+          background-position: center;
+          background-repeat: no-repeat;
+          border-color: $color-hmda-orange;
+        }
+      }
+      &.error {
+        a {
+          color: $color-secondary;
+          &:hover {
+            color: $color-primary;
+          }
+        }
+        .step {
+          background-color: $color-secondary;
+          background-image: url("/img/x.png");
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: 12px auto;
+          border-color: $color-secondary;
         }
       }
       &.current {
         a {
-          color: $color-primary;
-        }
-        .step {
-          background-color: $color-primary;
-          border-color: $color-primary;
-          color: $color-white;
+          border-bottom: 2px solid;
         }
       }
     }

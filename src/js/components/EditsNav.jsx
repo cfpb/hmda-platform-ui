@@ -6,7 +6,8 @@ import {
   PARSED_WITH_ERRORS,
   VALIDATING,
   VALIDATED_WITH_ERRORS,
-  VALIDATED
+  VALIDATED,
+  SIGNED
 } from '../constants/statusCodes.js'
 
 const navNames = [
@@ -39,18 +40,19 @@ export const getNavClass = (name, props) => {
     case 'upload':
       navClass = 'active'
       if(code > VALIDATING) navClass = 'complete'
+      if(code === PARSED_WITH_ERRORS) navClass = 'error'
       break
     case 'syntacticalvalidity':
       if(code > VALIDATING) {
         navClass = 'active'
-        if(!syntacticalValidityEditsExist) navClass = 'complete'
+        navClass = syntacticalValidityEditsExist ? 'error' : 'complete'
       }
       break
     case 'quality':
       if(code > VALIDATING) {
         if(!syntacticalValidityEditsExist) {
           navClass = 'active'
-          if(qualityVerified) navClass = 'complete'
+          navClass = qualityVerified ? 'complete' : 'warning'
         }
       }
       break
@@ -58,7 +60,7 @@ export const getNavClass = (name, props) => {
       if(code > VALIDATING) {
         if(!syntacticalValidityEditsExist && qualityVerified) {
           navClass = 'active'
-          if(macroVerified) navClass = 'complete'
+          navClass = macroVerified ? 'complete' : 'warning'
         }
       }
       break
@@ -105,15 +107,42 @@ export const renderLinkOrText = (props, name, i) => {
   }
 
   let navClass = getNavClass(navLinks[name], props)
+
   let step
-  if(navClass !== 'complete' && navClass !== 'complete current') step = i + 1
+
+  if (
+  navClass === '' ||
+  (navLinks[name] === 'upload' || navLinks[name] === 'confirmation') &&
+    navClass.indexOf('complete') !== 0)
+  step = i + 1
+
+  if (navLinks[name] === 'upload' && navClass.indexOf('error') === 0) step = null
+
+  let renderedName = name
+  if(name === 'upload') {
+    if(code > VALIDATING) renderedName = 'uploaded'
+    if(code === PARSED_WITH_ERRORS) renderedName = 'uploaded with formatting errors'
+  }
+  if(name === 'syntactical & validity edits') {
+    if(syntacticalValidityEditsExist) renderedName = 'syntactical & validity edits found'
+    if(code > VALIDATING && !syntacticalValidityEditsExist) renderedName = 'no syntactical & validity edits'
+  }
+  if(name === 'quality edits') {
+    if(!qualityVerified) renderedName = 'quality edits found'
+    if(code > VALIDATING && qualityVerified) renderedName = 'quality edits verified'
+  }
+  if(name === 'macro quality edits') {
+    if(!macroVerified) renderedName = 'macro quality edits found'
+    if(code > VALIDATING && macroVerified) renderedName = 'macro quality edits verified'
+  }
+  if(name === 'confirmation' && code === SIGNED) renderedName = 'confirmed'
 
   if(isLink) {
     return (
       <li className={navClass} key={i}>
         <Link className="usa-nav-link" to={`${base}/${navLinks[name]}`}>
           <div className="step">{step}</div>
-          {name}
+          {renderedName}
         </Link>
       </li>
     )
