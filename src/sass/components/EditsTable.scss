@@ -1,8 +1,14 @@
+.EditsTableWrapper {
+  hr {
+    margin: 2em 0;
+  }
+}
+
 .EditsTableWrapper-Edit {
   margin: 2em 0;
 
   &:last-of-type {
-    margin-top: 6em;
+    margin-top: 4em;
   }
 
   &:first-of-type {
@@ -13,6 +19,7 @@
     margin-top: 2em;
   }
 }
+
 .EditsTable {
   margin: 3em 0;
   caption,
@@ -26,6 +33,9 @@
       margin-top: 0;
       margin-bottom: 0;
     }
+  }
+  &:last-of-type {
+    margin-bottom: 2em;
   }
   .caption {
     padding-bottom: 0;
