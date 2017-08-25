@@ -140,21 +140,27 @@ export const renderPreviousSubmissions = (
             aria-expanded="false"
             aria-controls={`submissions-${institutionId}`}
           >
-            Previous filings for current filing period
+            History of your progress in this filing period
           </button>
           <div id={`submissions-${institutionId}`} className="usa-accordion-content">
-            <ol reversed className="usa-text-small">
+            <p>The edit report for previous submissions that completed the valiation process can be downloaded in csv format below.</p>
+            <ol reversed>
               {previousSubmissions.map((submission, i) => {
-                // render the end date if it was signed
-                const date = (submission.status.code === STATUS.SIGNED)
-                  ? ordinal(new Date(submission.end))
-                  : ordinal(new Date(submission.start))
+                // always use the uploaded date
+                const startDate = ordinal(new Date(submission.start))
+                const endDate = ordinal(new Date(submission.end))
 
-                // render a link if validted with errors
-                if (submission.status.code === STATUS.VALIDATED_WITH_ERRORS) {
+                const signedOn = (submission.status.code === STATUS.SIGNED)
+                  ? ` on ${endDate}`
+                  : null
+
+                // render a link if beyond VALIDATING
+                // even signed submissions could have an edit report
+                // because quality and macro are verified
+                if (submission.status.code > STATUS.VALIDATING) {
                   return (
-                    <li className="edit-report" key={i}>
-                      <strong>{submission.status.message}</strong> on {date}.{'\u00a0'}
+                    <li key={i}>
+                      Upload on {startDate} was <strong>{submission.status.message}</strong>{signedOn},{' '}
                       <a
                         href="#"
                         onClick={e => {
@@ -166,16 +172,16 @@ export const renderPreviousSubmissions = (
                           )
                         }}
                       >
-                        Download edit report
-                      </a>
+                        download the edit report
+                      </a>.
                     </li>
                   )
                 }
 
                 // other statuses contain no edits
                 return (
-                  <li className="edit-report" key={i}>
-                    <strong>{submission.status.message}</strong> on {date}.
+                  <li key={i}>
+                    Upload on {startDate} was <strong>{submission.status.message}</strong>.
                   </li>
                 )
               })}
