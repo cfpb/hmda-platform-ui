@@ -1,6 +1,6 @@
 .Institutions {
   .institution {
-    margin-bottom: 3em;
+    margin-top: 2em;
 
     .current-status {
       background-color: $color-gray-lightest;
@@ -43,17 +43,18 @@
     .edit-report:first-letter {
       text-transform: capitalize;
     }
+  }
 
-    .InstitutionsHeader {
-      margin: 0;
+  header {
+    margin: 0;
 
-      h1 {
-        margin: 0;
-      }
-
-      h2 {
-        margin: 0.5em 0 1em;
-      }
+    h1 {
+      margin-top: 0;
+      margin-bottom: .25em;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: .25em;
     }
   }
 }

@@ -202,11 +202,12 @@ export default class Institution extends Component {
       <main id="main-content" className="usa-grid Institutions">
         {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
         <div className="usa-width-one-half">
-          <header className="InstitutionsHeader">
-            <h1>Institutions</h1>
+          <header>
             {this.props.filingPeriod
-              ? <h2>Filing Period {this.props.filingPeriod}</h2>
+              ? <h1>{this.props.filingPeriod} filing period</h1>
               : null}
+              <p>The filing period is open. You may file HMDA data for your authorized institutions below.</p>
+              <p>Your progress will be saved if you leave the platform before completing your filing.</p>
           </header>
           {!this.props.filings.fetched || this.props.filings.isFetching || this.props.submission.isFetching
             ? <div className="usa-grid-full">
