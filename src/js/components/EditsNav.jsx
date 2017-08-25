@@ -109,9 +109,7 @@ export const renderLinkOrText = (props, name, i) => {
   let navClass = getNavClass(navLinks[name], props)
 
   let step
-  console.log(navClass.indexOf('error') === 0)
-  console.log(navLinks[name])
-  console.log(navLinks[name] === 'upload')
+
   if (
   navClass === '' ||
   (navLinks[name] === 'upload' || navLinks[name] === 'confirmation') &&
