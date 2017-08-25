@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import LoadingIcon from './LoadingIcon.jsx'
 import ErrorWarning from './ErrorWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
-import { ordinal } from '../utils/date.js'
+import { ordinal, withinFilingPeriod } from '../utils/date.js'
 import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 import 'uswds'
@@ -53,9 +53,10 @@ export const renderStatus = (
 
   return (
     <section className="status">
-      <p className="status-desc">
-        Current filing status is{' '}
-        <strong className={messageClass}>{submission.status.message}</strong>.{' '}
+      <h4>
+        Filing status: <strong className={messageClass}>{submission.status.message}</strong>
+      </h4>
+      <p>
         {submission.status.description}
       </p>
       {
@@ -63,7 +64,7 @@ export const renderStatus = (
         ? <p className="usa-text-small">You have previously submitted a HMDA file and are in the process of refiling. If you do not complete your current refiling process, your original submission will be accepted for the current filing period.</p>
         : null
       }
-      {statusCode > STATUS.CREATED
+      {statusCode > STATUS.VALIDATING
         ? <p className="usa-text-small">
             <a
               href="#"
@@ -139,21 +140,27 @@ export const renderPreviousSubmissions = (
             aria-expanded="false"
             aria-controls={`submissions-${institutionId}`}
           >
-            Previous filings for current filing period
+            History of your progress in this filing period
           </button>
           <div id={`submissions-${institutionId}`} className="usa-accordion-content">
-            <ol reversed className="usa-text-small">
+            <p>The edit report for previous submissions that completed the valiation process can be downloaded in csv format below.</p>
+            <ol reversed>
               {previousSubmissions.map((submission, i) => {
-                // render the end date if it was signed
-                const date = (submission.status.code === STATUS.SIGNED)
-                  ? ordinal(new Date(submission.end))
-                  : ordinal(new Date(submission.start))
+                // always use the uploaded date
+                const startDate = ordinal(new Date(submission.start))
+                const endDate = ordinal(new Date(submission.end))
 
-                // render a link if validted with errors
-                if (submission.status.code === STATUS.VALIDATED_WITH_ERRORS) {
+                const signedOn = (submission.status.code === STATUS.SIGNED)
+                  ? ` on ${endDate}`
+                  : null
+
+                // render a link if beyond VALIDATING
+                // even signed submissions could have an edit report
+                // because quality and macro are verified
+                if (submission.status.code > STATUS.VALIDATING) {
                   return (
-                    <li className="edit-report" key={i}>
-                      <strong>{submission.status.message}</strong> on {date}.{'\u00a0'}
+                    <li key={i}>
+                      Upload on {startDate} was <strong>{submission.status.message}</strong>{signedOn},{' '}
                       <a
                         href="#"
                         onClick={e => {
@@ -165,16 +172,16 @@ export const renderPreviousSubmissions = (
                           )
                         }}
                       >
-                        Download edit report
-                      </a>
+                        download the edit report
+                      </a>.
                     </li>
                   )
                 }
 
                 // other statuses contain no edits
                 return (
-                  <li className="edit-report" key={i}>
-                    <strong>{submission.status.message}</strong> on {date}.
+                  <li key={i}>
+                    Upload on {startDate} was <strong>{submission.status.message}</strong>.
                   </li>
                 )
               })}
@@ -201,25 +208,32 @@ export default class Institution extends Component {
     return (
       <main id="main-content" className="usa-grid Institutions">
         {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
-        <div className="usa-width-one-half">
-          <header className="InstitutionsHeader">
-            <h1>Institutions</h1>
-            {this.props.filingPeriod
-              ? <h2>Filing Period {this.props.filingPeriod}</h2>
-              : null}
-          </header>
+        <div className="usa-width-one-whole">
+
+          {this.props.filingPeriod
+            ? withinFilingPeriod(this.props.filingPeriod)
+              ?
+              <header>
+                <h1>{this.props.filingPeriod} filing period</h1>
+                <p>The filing period is open. You may file HMDA data for your authorized institutions below.</p>
+                <p>Your progress will be saved if you leave the platform before completing your filing.</p>
+              </header>
+              :
+              <Alert
+                type="warning"
+                heading='The filing period is closed.'>
+                <p>The platform remains available outside of the filing period to upload, test, and validate HMDA data.</p>
+              </Alert>
+            : null
+          }
           {!this.props.filings.fetched || this.props.filings.isFetching || this.props.submission.isFetching
-            ? <div className="usa-grid-full">
-                <LoadingIcon />
-              </div>
+            ? <LoadingIcon />
             : this.props.filings.fetched && this.props.filings.filings.length === 0
-              ? <div className="usa-grid-full">
-                <Alert type="error">
+              ? <Alert type="error">
                   <p>
                     There is a problem with your filing. Please contact <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
                   </p>
                 </Alert>
-                </div>
               : this.props.filings.filings.map((filingObj, i) => {
                   const filing = filingObj.filing
                   const submission = this.props.submission.id &&
@@ -269,36 +283,6 @@ export default class Institution extends Component {
             <p>If you are planning to file on behalf of more than one financial institution, contact <a href="mailto:hmdahelp@cfpb.gov">hmdahelp@cfpb.gov</a>.</p>
           </Alert>
         </div>
-        <aside className="usa-width-one-half">
-          <p>
-            The Institutions page provides a summary of institutions for which
-            you are authorized to file HMDA data. The filing status is displayed
-            under the institution name.
-          </p>
-          <p>
-            Select the &quot;Begin filing&quot; button to begin your HMDA
-            filing. Your work will be saved as you progress through the various
-            edit categories. If you need to complete the filing at a later time,
-            logout of the HMDA Platform prior to reviewing the next category of
-            edits. When you are ready to continue with the filing process, login
-            and select the &quot;View Current Filing&quot; button for your
-            institution.
-          </p>
-          <p>
-            If you already started or submitted a HMDA filing and need to upload
-            a new HMDA file, select the &quot;Upload a new file&quot; button.
-            You will restart the process beginning with file format analysis.
-            Any previously completed filings will not be overridden until all
-            edits have been cleared and/or verified and the HMDA file has been
-            submitted.
-          </p>
-          <p>
-            The edit report for previous submissions can be downloaded in csv
-            format. Please note that an edit report will not be available if the
-            HMDA file did not have any outstanding quality edits or macro
-            quality edits.
-          </p>
-        </aside>
       </main>
     )
   }

@@ -1,5 +1,6 @@
 jest.unmock('../../src/js/components/Institutions.jsx')
 jest.mock('../../src/js/containers/RefileButton.jsx')
+jest.mock('../../src/js/utils/date.js')
 jest.mock('oidc-client')
 
 import Institutions, {
@@ -9,6 +10,7 @@ import Institutions, {
   renderPreviousSubmissions,
   getInstitutionFromFiling
 } from '../../src/js/components/Institutions.jsx'
+import { withinFilingPeriod } from '../../src/js/utils/date.js'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -30,6 +32,7 @@ const submission = {
 }
 
 describe('Institutions', () => {
+  withinFilingPeriod.mockImplementation(() => true)
   const institutions = TestUtils.renderIntoDocument(
     <Wrapper>
       <Institutions
@@ -52,25 +55,28 @@ describe('Institutions', () => {
   })
 
   it('creates header based on filing period', () => {
-    expect(TestUtils.findRenderedDOMComponentWithTag(institutions, 'h2').textContent).toEqual('Filing Period 2017')
+    expect(TestUtils.findRenderedDOMComponentWithTag(institutions, 'h1').textContent).toEqual('2017 filing period')
   })
+
   it('creates the status (renderStatus) with correct content', () => {
-    expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status-desc').textContent).toEqual('Current filing status is validated. Your submission has been validated and is ready to be signed.')
+    expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status').children[1].textContent).toEqual('Your submission has been validated and is ready to be signed.')
   })
+
 
   it('creates the status button (renderViewButton)', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'status-button').length).toEqual(1)
   })
+
 
   it('creates the status button (renderViewButton) with correct content', () => {
     expect(TestUtils.findRenderedDOMComponentWithClass(institutions, 'status-button').text).toEqual('View current filing')
   })
 
   it('creates the correct number of previous submissions', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'edit-report').length).toEqual(3)
+    expect(TestUtils.findRenderedDOMComponentWithTag(institutions, 'ol').children.length).toEqual(3)
   })
 
-  it('doesn\'t render a subheader without a filing period', () => {
+  it('doesn\'t render a h1 without a filing period, but renders an alert', () => {
     const institutions = TestUtils.renderIntoDocument(
       <Wrapper>
         <Institutions
@@ -81,7 +87,8 @@ describe('Institutions', () => {
           location={{pathname: '/institutions'}} />
       </Wrapper>
     )
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'h2').length).toEqual(0)
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'h1').length).toEqual(0)
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'usa-alert').length).toEqual(1)
   })
 
   it('renders a placeholder without filings', () => {
@@ -95,7 +102,7 @@ describe('Institutions', () => {
           location={{pathname: '/institutions'}} />
       </Wrapper>
     )
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'p')[0].textContent).toEqual('There is a problem with your filing. Please contact HMDA Help.')
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'p')[2].textContent).toEqual('There is a problem with your filing. Please contact HMDA Help.')
   })
 })
 
@@ -110,10 +117,9 @@ it('renders multiple filings correctly', () => {
         location={{pathname: '/institutions'}} />
     </Wrapper>
   )
-  const paras = TestUtils.scryRenderedDOMComponentsWithTag(institutions, 'p')
-  expect(paras[0].textContent).toBe('Current filing status is completed. Finished.')
-  expect(paras[2].textContent).toBe('Current filing status is validated. Your submission has been validated and is ready to be signed.')
-
+  const statuses = TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'status')
+  expect(statuses[0].children[0].textContent).toBe('Filing status: completed')
+  expect(statuses[1].children[0].textContent).toBe('Filing status: validated')
 })
 
 describe('renderStatus', () => {
@@ -125,7 +131,7 @@ describe('renderStatus', () => {
       const sub = {...submission}
       sub.status.code = code
       const rendered = renderStatus('1234', {period: '2017', status: {code: 2}}, sub, jest.fn())
-      expect(rendered.props.children[0].props.children[2].props.className).toEqual(className)
+      expect(rendered.props.children[0].props.children[1].props.className).toEqual(className)
     })
   }
 
@@ -141,7 +147,7 @@ describe('renderStatus', () => {
   sub.status.code = 8
   const rendered = renderStatus('1234', {period: '2017', status: {code: 3}}, sub, jest.fn())
 
-  expect(rendered.props.children[1].props.className).toBe('usa-text-small')
+  expect(rendered.props.children[2].props.className).toBe('usa-text-small')
 })
 
 describe('renderViewButton', () => {
@@ -200,4 +206,5 @@ describe('getInstitutionFromFiling', () => {
    expect(getInstitutionFromFiling([], {institutionId: 3}))
      .toEqual(null)
  })
+
 })

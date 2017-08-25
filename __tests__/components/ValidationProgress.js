@@ -131,6 +131,6 @@ describe('ValidationProgress', () => {
     progress.setState = setState2
     progress.componentWillReceiveProps({})
 
-    expect(setState).not.toBeCalled()
+    expect(setState2).not.toBeCalled()
   })
 })

@@ -1,6 +1,8 @@
 .Institutions {
+  max-width: 800px;
+
   .institution {
-    margin-bottom: 3em;
+    margin-top: 2em;
 
     .current-status {
       background-color: $color-gray-lightest;
@@ -39,21 +41,18 @@
       padding-right: 1em;
       padding-left: 1em;
     }
+  }
 
-    .edit-report:first-letter {
-      text-transform: capitalize;
+  header {
+    margin: 0;
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: .25em;
     }
-
-    .InstitutionsHeader {
-      margin: 0;
-
-      h1 {
-        margin: 0;
-      }
-
-      h2 {
-        margin: 0.5em 0 1em;
-      }
+    p {
+      margin-top: 0;
+      margin-bottom: .25em;
     }
   }
 }
