@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import LoadingIcon from './LoadingIcon.jsx'
 import ErrorWarning from './ErrorWarning.jsx'
 import RefileButton from '../containers/RefileButton.jsx'
-import { ordinal } from '../utils/date.js'
+import { ordinal, withinFilingPeriod } from '../utils/date.js'
 import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 import 'uswds'
@@ -209,13 +209,23 @@ export default class Institution extends Component {
       <main id="main-content" className="usa-grid Institutions">
         {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
         <div className="usa-width-one-whole">
-          <header>
-            {this.props.filingPeriod
-              ? <h1>{this.props.filingPeriod} filing period</h1>
-              : null}
-              <p>The filing period is open. You may file HMDA data for your authorized institutions below.</p>
-              <p>Your progress will be saved if you leave the platform before completing your filing.</p>
-          </header>
+
+          {this.props.filingPeriod
+            ? withinFilingPeriod(this.props.filingPeriod)
+              ?
+              <header>
+                <h1>{this.props.filingPeriod} filing period</h1>
+                <p>The filing period is open. You may file HMDA data for your authorized institutions below.</p>
+                <p>Your progress will be saved if you leave the platform before completing your filing.</p>
+              </header>
+              :
+              <Alert
+                type="warning"
+                heading='The filing period is closed.'>
+                <p>The platform remains available outside of the filing period to upload, test, and validate HMDA data.</p>
+              </Alert>
+            : null
+          }
           {!this.props.filings.fetched || this.props.filings.isFetching || this.props.submission.isFetching
             ? <LoadingIcon />
             : this.props.filings.fetched && this.props.filings.filings.length === 0
