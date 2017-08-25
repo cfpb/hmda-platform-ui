@@ -40,6 +40,7 @@ export const getNavClass = (name, props) => {
     case 'upload':
       navClass = 'active'
       if(code > VALIDATING) navClass = 'complete'
+      if(code === PARSED_WITH_ERRORS) navClass = 'error'
       break
     case 'syntacticalvalidity':
       if(code > VALIDATING) {
@@ -108,7 +109,16 @@ export const renderLinkOrText = (props, name, i) => {
   let navClass = getNavClass(navLinks[name], props)
 
   let step
-  if(navClass === '' || ((navLinks[name] === 'upload' || navLinks[name] === 'confirmation') && navClass.indexOf('complete') !== 0)) step = i + 1
+  console.log(navClass.indexOf('error') === 0)
+  console.log(navLinks[name])
+  console.log(navLinks[name] === 'upload')
+  if (
+  navClass === '' ||
+  (navLinks[name] === 'upload' || navLinks[name] === 'confirmation') &&
+    navClass.indexOf('complete') !== 0)
+  step = i + 1
+
+  if (navLinks[name] === 'upload' && navClass.indexOf('error') === 0) step = null
 
   let renderedName = name
   if(name === 'upload') {

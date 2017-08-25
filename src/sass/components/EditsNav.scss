@@ -97,12 +97,7 @@
       }
       &.current {
         a {
-          color: $color-primary;
-        }
-        .step {
-          background-color: $color-primary;
-          border-color: $color-primary;
-          color: $color-white;
+          border-bottom: 2px solid;
         }
       }
     }
