@@ -38,9 +38,12 @@ export default class Institutions extends Component {
         {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
         <div className="usa-width-one-whole">
           {renderHeaderOrAlert(this.props.filingPeriod)}
-          {!this.props.filings.fetched || this.props.filings.isFetching || this.props.submission.isFetching ? (
+          {!this.props.filings.fetched ||
+          this.props.filings.isFetching ||
+          this.props.submission.isFetching ? (
             <LoadingIcon />
-          ) : this.props.filings.fetched && this.props.filings.filings.length === 0 ? (
+          ) : this.props.filings.fetched &&
+          this.props.filings.filings.length === 0 ? (
             <Alert type="error">
               <p>
                 There is a problem with your filing. Please contact{' '}
@@ -50,10 +53,11 @@ export default class Institutions extends Component {
           ) : (
             this.props.filings.filings.map((filingObj, i) => {
               const filing = filingObj.filing
-              const submission = this.props.submission.id &&
+              const submission =
+                this.props.submission.id &&
                 this.props.submission.id.institutionId === filing.institutionId
-                ? this.props.submission
-                : filingObj.submissions[0]
+                  ? this.props.submission
+                  : filingObj.submissions[0]
               const institution = getInstitutionFromFiling(
                 this.props.institutions,
                 filing

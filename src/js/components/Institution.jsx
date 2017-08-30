@@ -49,6 +49,12 @@ const Institution = ({
   )
 }
 
-Institution.PropTypes = {}
+Institution.PropTypes = {
+  institution: PropTypes.object,
+  filing: PropTypes.object,
+  submission: PropTypes.object,
+  submissions: PropTypes.object,
+  onDownloadClick: PropTypes.func
+}
 
 export default Institution
