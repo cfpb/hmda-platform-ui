@@ -10,9 +10,9 @@ const InstitutionPreviousSubmissions = ({
   filingPeriod,
   onDownloadClick
 }) => {
-  if (!submissions.length) return
+  if (!submissions.length) return null
   const previousSubmissions = submissions.slice(1)
-  if (!previousSubmissions.length) return
+  if (!previousSubmissions.length) return null
 
   return (
     <section className="previous-submissions">
