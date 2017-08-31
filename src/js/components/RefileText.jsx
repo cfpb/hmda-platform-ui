@@ -23,10 +23,10 @@ export const getStatus = (code) => {
 const RefileText = (props) => {
   return (
     <div className="RefileText">
-      {getStatus(props.code)}
       <p className="usa-font-lead">
         Are you sure you would like to restart the filing process?
       </p>
+      {getStatus(props.code)}
     </div>
   )
 }

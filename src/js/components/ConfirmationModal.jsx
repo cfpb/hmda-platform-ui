@@ -45,7 +45,7 @@ export default class ModalConfirm extends Component {
     return (
       <div className={'modal-blurred-blocker'+ (showing ? ' showing-blurred-blocker' : '')}>
         <section role="dialog" className="modal">
-          <h2>HMDA Platform</h2>
+          <h2>Upload a new file?</h2>
           <hr/>
           <div className="modal-contents">
             <RefileText code={code}/>
