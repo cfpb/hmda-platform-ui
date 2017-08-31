@@ -43,13 +43,15 @@ export function fetch(options = {method: 'GET'}){
 
   return isomorphicFetch(url, fetchOptions)
     .then(response => {
-      if(process.env.NODE_ENV !== 'production') console.log('got res', response, response.status)
-      if(response.status === 401) signinRedirect()
-      if(response.status > 399) return response
-      if(options.params && options.params.format === 'csv') {
-        return response.text()
-      }
-      return response.json()
+      return new Promise(resolve => {
+        if(process.env.NODE_ENV !== 'production') console.log('got res', response, response.status)
+        if(response.status === 401) signinRedirect()
+        if(response.status > 399) resolve(response)
+        if(options.params && options.params.format === 'csv') {
+          resolve(response.text())
+        }
+        setTimeout(()=>resolve(response.json()), 0)
+      })
     })
     .catch(err => {
       console.log(err)
