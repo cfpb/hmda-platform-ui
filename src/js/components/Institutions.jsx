@@ -91,8 +91,10 @@ export default class Institutions extends Component {
 }
 
 Institutions.propTypes = {
-  params: PropTypes.object,
-  filings: PropTypes.object,
+  submission: PropTypes.object,
+  filingPeriod: PropTypes.string,
   institutions: PropTypes.array,
+  filings: PropTypes.object,
+  error: PropTypes.object,
   onDownloadClick: PropTypes.func
 }
