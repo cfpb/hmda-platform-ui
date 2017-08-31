@@ -3,49 +3,44 @@ import PropTypes from 'prop-types'
 import Alert from './Alert.jsx'
 
 export function getHeading(props) {
-  if(props.headerText) return props.headerText
+  if (props.headerText) return props.headerText
 
-  switch(props.error.status) {
+  switch (props.error.status) {
     case 401:
-    return 'You have been automatically logged out.'
-
-    case 404:
-    return 'Sorry, we couldn\'t find the data you\'re looking for.'
-
-    case 500:
-    return 'Sorry, there\'s a problem on our end.'
+      return 'You have been automatically logged out.'
 
     default:
-    return 'Sorry, an error has occurred.'
+      return 'Sorry, an error has occurred.'
   }
 }
 
 export function getText(props) {
-  if(props.bodyText) return props.bodyText
+  if (props.bodyText) return props.bodyText
 
-  switch(props.error.status) {
+  switch (props.error.status) {
     case 401:
-    return 'Please refresh the page to log in again.'
+      return 'Please log in to complete this request.'
 
-    case 404:
-    return 'Please refresh the page. If this message persists, you will need to upload your file again.'
+    case 403:
+      return 'Please log in to complete this request.'
 
     case 500:
-    return 'We\'re quickly on resolving the issue. Please try again soon.'
+      return "We're quickly on resolving the issue, please refresh the page."
 
     default:
-    return 'Please refresh the page. If this message persists, you will need to upload your file again.'
+      return 'Please refresh the page.'
   }
 }
 
-const ErrorWarning = (props) => {
-  if(props.error) return (
-    <div className="ErrorWarning">
-      <Alert type='error' heading={getHeading(props)}>
-        <p>{getText(props)}</p>
-      </Alert>
-    </div>
-  )
+const ErrorWarning = props => {
+  if (props.error)
+    return (
+      <div className="ErrorWarning">
+        <Alert type="error" heading={getHeading(props)}>
+          <p>{getText(props)} If the problem persists, contact HMDA Help.</p>
+        </Alert>
+      </div>
+    )
 
   return null
 }
