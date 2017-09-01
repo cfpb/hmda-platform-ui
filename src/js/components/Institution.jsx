@@ -1,11 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import InstitutionsHeader from './InstitutionsHeader'
-import InstitutionNameAndId from './InstitutionNameAndId'
-import InstitutionStatus from './InstitutionStatus'
-import InstitutionViewButton from './InstitutionViewButton'
-import InstitutionRefile from './InstitutionRefile'
-import InstitutionPreviousSubmissions from './InstitutionPreviousSubmissions'
+import InstitutionNameAndId from './InstitutionNameAndId.jsx'
+import InstitutionStatus from './InstitutionStatus.jsx'
+import InstitutionViewButton from './InstitutionViewButton.jsx'
+import InstitutionRefile from './InstitutionRefile.jsx'
+import InstitutionPreviousSubmissions from './InstitutionPreviousSubmissions.jsx'
 
 const Institution = ({
   institution,
