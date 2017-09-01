@@ -3,18 +3,18 @@ import PropTypes from 'prop-types'
 import LoadingIcon from './LoadingIcon.jsx'
 import ErrorWarning from './ErrorWarning.jsx'
 import Institution from './Institution.jsx'
+import InstitutionsHeader from './InstitutionsHeader.jsx'
 import { withinFilingPeriod } from '../utils/date.js'
 import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 
-export const renderHeaderOrAlert = filingPeriod => {
+export const renderAlert = filingPeriod => {
   if (!filingPeriod) return null
-
   if (withinFilingPeriod(filingPeriod)) {
-    return <InstitutionsHeader filingPeriod={this.props.filingPeriod} />
+    return null
   } else {
     return (
-      <Alert type="warning" heading="The filing period is closed.">
+      <Alert heading="The filing period is closed." type="warning">
         <p>
           The platform remains available outside of the filing period to upload,
           test, and validate HMDA data.
@@ -37,7 +37,8 @@ export default class Institutions extends Component {
       <main id="main-content" className="usa-grid Institutions">
         {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
         <div className="usa-width-one-whole">
-          {renderHeaderOrAlert(this.props.filingPeriod)}
+          <InstitutionsHeader filingPeriod={this.props.filingPeriod} />
+          {renderAlert(this.props.filingPeriod)}
           {!this.props.filings.fetched ||
           this.props.filings.isFetching ||
           this.props.submission.isFetching ? (
@@ -67,11 +68,11 @@ export default class Institutions extends Component {
               return (
                 <Institution
                   key={i}
-                  institution={institution}
                   filing={filing}
+                  institution={institution}
+                  onDownloadClick={this.props.onDownloadClick}
                   submission={submission}
                   submissions={filingObj.submissions}
-                  onDownloadClick={this.props.onDownloadClick}
                 />
               )
             })
@@ -91,10 +92,10 @@ export default class Institutions extends Component {
 }
 
 Institutions.propTypes = {
-  submission: PropTypes.object,
+  error: PropTypes.object,
+  filings: PropTypes.object,
   filingPeriod: PropTypes.string,
   institutions: PropTypes.array,
-  filings: PropTypes.object,
-  error: PropTypes.object,
-  onDownloadClick: PropTypes.func
+  onDownloadClick: PropTypes.func,
+  submission: PropTypes.object
 }
