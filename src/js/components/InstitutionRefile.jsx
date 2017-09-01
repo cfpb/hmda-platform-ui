@@ -4,7 +4,7 @@ import RefileButton from '../containers/RefileButton.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 
 const InstitutionRefile = ({ status, filing }) => {
-  if (!status) return null
+  if (!status || !status.code) return null
   if (
     status.code === STATUS.PARSED_WITH_ERRORS ||
     status.code > STATUS.VALIDATING
