@@ -86,7 +86,7 @@ const InstitutionPreviousSubmissions = ({
 }
 
 InstitutionPreviousSubmissions.PropTypes = {
-  submissions: PropTypes.object,
+  submissions: PropTypes.array,
   institutionId: PropTypes.string,
   filingPeriod: PropTypes.string,
   onDownloadClick: PropTypes.func

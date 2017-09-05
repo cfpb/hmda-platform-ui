@@ -60,7 +60,10 @@ describe('InstitutionRefile', () => {
   it('returns null with a code of VALIDATING', () => {
     const refile = TestUtils.renderIntoDocument(
       <Wrapper>
-        <InstitutionRefile filing={filing} status={{ code: STATUS.VALIDATING }} />
+        <InstitutionRefile
+          filing={filing}
+          status={{ code: STATUS.VALIDATING }}
+        />
       </Wrapper>
     )
     const refileNode = ReactDOM.findDOMNode(refile)
@@ -71,7 +74,10 @@ describe('InstitutionRefile', () => {
   it('returns the button with a code of PARSED_WITH_ERRORS', () => {
     const refile = TestUtils.renderIntoDocument(
       <Wrapper>
-        <InstitutionRefile filing={filing} status={{ code: STATUS.PARSED_WITH_ERRORS }} />
+        <InstitutionRefile
+          filing={filing}
+          status={{ code: STATUS.PARSED_WITH_ERRORS }}
+        />
       </Wrapper>
     )
     const refileNode = ReactDOM.findDOMNode(refile)
@@ -81,7 +87,10 @@ describe('InstitutionRefile', () => {
   it('returns the button with a code > VALIDATING', () => {
     const refile = TestUtils.renderIntoDocument(
       <Wrapper>
-        <InstitutionRefile filing={filing} status={{ code: STATUS.VALIDATED }} />
+        <InstitutionRefile
+          filing={filing}
+          status={{ code: STATUS.VALIDATED }}
+        />
       </Wrapper>
     )
     const refileNode = ReactDOM.findDOMNode(refile)

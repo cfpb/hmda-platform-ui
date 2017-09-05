@@ -24,10 +24,10 @@ describe('InstitutionViewButton', () => {
 
     expect(viewButtonNode).toBeDefined()
 
-    expect(TestUtils.findRenderedDOMComponentWithClass(
-      viewButton,
-      'status-button'
-    ).textContent).toBe('Begin filing')
+    expect(
+      TestUtils.findRenderedDOMComponentWithClass(viewButton, 'status-button')
+        .textContent
+    ).toBe('Begin filing')
   })
 
   it('renders with View current filing', () => {
@@ -46,10 +46,10 @@ describe('InstitutionViewButton', () => {
 
     expect(viewButtonNode).toBeDefined()
 
-    expect(TestUtils.findRenderedDOMComponentWithClass(
-      viewButton,
-      'status-button'
-    ).textContent).toBe('View current filing')
+    expect(
+      TestUtils.findRenderedDOMComponentWithClass(viewButton, 'status-button')
+        .textContent
+    ).toBe('View current filing')
   })
 
   it('renders with View completed filing', () => {
@@ -68,9 +68,9 @@ describe('InstitutionViewButton', () => {
 
     expect(viewButtonNode).toBeDefined()
 
-    expect(TestUtils.findRenderedDOMComponentWithClass(
-      viewButton,
-      'status-button'
-    ).textContent).toBe('View completed filing')
+    expect(
+      TestUtils.findRenderedDOMComponentWithClass(viewButton, 'status-button')
+        .textContent
+    ).toBe('View completed filing')
   })
 })
