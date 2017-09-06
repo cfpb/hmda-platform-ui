@@ -20,15 +20,6 @@ const multifilings = JSON.parse(
 const institutionsJSON = JSON.parse(
   fs.readFileSync('./__tests__/json/institutions.json')
 )
-const submission = {
-  id: { institutionId: '2', sequenceNumber: '2' },
-  status: {
-    code: 7,
-    message: 'validated',
-    description: 'Your submission has been validated and is ready to be signed.'
-  },
-  isFetching: false
-}
 
 const onDownloadClick = jest.fn()
 
@@ -41,7 +32,6 @@ describe('Institutions', () => {
           filingPeriod="2017"
           institutions={institutionsJSON.institutions}
           onDownloadClick={onDownloadClick}
-          submission={submission}
         />
       </Wrapper>
     )
@@ -57,16 +47,14 @@ describe('Institutions', () => {
           filingPeriod="2017"
           institutions={institutionsJSON.institutions}
           onDownloadClick={onDownloadClick}
-          submission={submission}
         />
       </Wrapper>
     )
-    const statuses = TestUtils.scryRenderedDOMComponentsWithClass(
+    const institutionRendered = TestUtils.scryRenderedDOMComponentsWithClass(
       institutions,
-      'status'
+      'institution'
     )
-    expect(statuses[0].children[0].textContent).toBe('Filing status: completed')
-    expect(statuses[1].children[0].textContent).toBe('Filing status: validated')
+    expect(institutionRendered.length).toBe(2)
   })
 
   it('renders a error if there are no filings', () => {
@@ -77,7 +65,6 @@ describe('Institutions', () => {
           filingPeriod="2017"
           institutions={institutionsJSON.institutions}
           onDownloadClick={onDownloadClick}
-          submission={submission}
         />
       </Wrapper>
     )
@@ -98,7 +85,6 @@ describe('Institutions', () => {
           filingPeriod="2017"
           institutions={institutionsJSON.institutions}
           onDownloadClick={onDownloadClick}
-          submission={submission}
         />
       </Wrapper>
     )

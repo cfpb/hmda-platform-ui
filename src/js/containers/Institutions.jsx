@@ -22,10 +22,9 @@ export class InstitutionContainer extends Component {
 export function mapStateToProps(state) {
   const { institutions } = state.app.institutions
 
-  const { filings, submission, error, filingPeriod } = state.app
+  const { filings, error, filingPeriod } = state.app
 
   return {
-    submission,
     filingPeriod,
     institutions,
     filings,

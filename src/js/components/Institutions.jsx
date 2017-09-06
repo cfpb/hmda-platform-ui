@@ -14,6 +14,22 @@ export const getInstitutionFromFiling = (institutions, filing) => {
   return null
 }
 
+const _isDataLoading = filings => {
+  if (!filings.fetched || filings.isFetching) {
+    return true
+  }
+
+  return false
+}
+
+const _doesFilingExist = filings => {
+  if (filings.fetched && filings.filings.length === 0) {
+    return false
+  }
+
+  return true
+}
+
 export default class Institutions extends Component {
   render() {
     return (
@@ -23,26 +39,13 @@ export default class Institutions extends Component {
           {this.props.filingPeriod ? (
             <InstitutionsHeader filingPeriod={this.props.filingPeriod} />
           ) : null}
-          {!this.props.filings.fetched ||
-          this.props.filings.isFetching ||
-          this.props.submission.isFetching ? (
+
+          {_isDataLoading(this.props.filings) ? (
             <LoadingIcon />
-          ) : this.props.filings.fetched &&
-          this.props.filings.filings.length === 0 ? (
-            <Alert type="error">
-              <p>
-                There is a problem with your filing. Please contact{' '}
-                <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
-              </p>
-            </Alert>
-          ) : (
+          ) : _doesFilingExist(this.props.filings) ? (
             this.props.filings.filings.map((filingObj, i) => {
               const filing = filingObj.filing
-              const submission =
-                this.props.submission.id &&
-                this.props.submission.id.institutionId === filing.institutionId
-                  ? this.props.submission
-                  : filingObj.submissions[0]
+              const submission = filingObj.submissions[0]
               const institution = getInstitutionFromFiling(
                 this.props.institutions,
                 filing
@@ -60,6 +63,13 @@ export default class Institutions extends Component {
                 />
               )
             })
+          ) : (
+            <Alert type="error">
+              <p>
+                There is a problem with your filing. Please contact{' '}
+                <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
+              </p>
+            </Alert>
           )}
 
           <Alert type="info">
@@ -80,6 +90,5 @@ Institutions.propTypes = {
   filings: PropTypes.object,
   filingPeriod: PropTypes.string,
   institutions: PropTypes.array,
-  onDownloadClick: PropTypes.func,
-  submission: PropTypes.object
+  onDownloadClick: PropTypes.func
 }
