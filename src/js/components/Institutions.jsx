@@ -4,25 +4,8 @@ import LoadingIcon from './LoadingIcon.jsx'
 import ErrorWarning from './ErrorWarning.jsx'
 import Institution from './Institution.jsx'
 import InstitutionsHeader from './InstitutionsHeader.jsx'
-import { withinFilingPeriod } from '../utils/date.js'
 import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
-
-export const renderAlert = filingPeriod => {
-  if (!filingPeriod) return null
-  if (withinFilingPeriod(filingPeriod)) {
-    return null
-  } else {
-    return (
-      <Alert heading="The filing period is closed." type="warning">
-        <p>
-          The platform remains available outside of the filing period to upload,
-          test, and validate HMDA data.
-        </p>
-      </Alert>
-    )
-  }
-}
 
 export const getInstitutionFromFiling = (institutions, filing) => {
   for (let i = 0; i < institutions.length; i++) {
@@ -37,8 +20,9 @@ export default class Institutions extends Component {
       <main id="main-content" className="usa-grid Institutions">
         {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
         <div className="usa-width-one-whole">
-          <InstitutionsHeader filingPeriod={this.props.filingPeriod} />
-          {renderAlert(this.props.filingPeriod)}
+          {this.props.filingPeriod ? (
+            <InstitutionsHeader filingPeriod={this.props.filingPeriod} />
+          ) : null}
           {!this.props.filings.fetched ||
           this.props.filings.isFetching ||
           this.props.submission.isFetching ? (

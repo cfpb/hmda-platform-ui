@@ -7,7 +7,6 @@ import Institutions, {
   renderAlert,
   getInstitutionFromFiling
 } from '../../src/js/components/Institutions.jsx'
-import { withinFilingPeriod } from '../../src/js/utils/date.js'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -110,24 +109,6 @@ describe('Institutions', () => {
         'usa-alert-error'
       ).length
     ).toEqual(1)
-  })
-})
-
-describe('renderAlert', () => {
-  it('returns null if no filling period', () => {
-    expect(renderAlert()).toBe(null)
-  })
-
-  it('returns null if withinFilingPeriod', () => {
-    withinFilingPeriod.mockImplementation(() => true)
-    expect(renderAlert('2017')).toBe(null)
-  })
-
-  it('returns an <Alert> if withinFilingPeriod', () => {
-    withinFilingPeriod.mockImplementation(() => false)
-    expect(renderAlert('2017').props.heading).toBe(
-      'The filing period is closed.'
-    )
   })
 })
 
