@@ -20,6 +20,15 @@ const multifilings = JSON.parse(
 const institutionsJSON = JSON.parse(
   fs.readFileSync('./__tests__/json/institutions.json')
 )
+const submission = {    
+  id: { institutionId: '2', sequenceNumber: '2' },    
+  status: {   
+    code: 7,    
+    message: 'validated',   
+    description: 'Your submission has been validated and is ready to be signed.'    
+  },    
+  isFetching: false   
+}
 
 const onDownloadClick = jest.fn()
 
@@ -32,6 +41,7 @@ describe('Institutions', () => {
           filingPeriod="2017"
           institutions={institutionsJSON.institutions}
           onDownloadClick={onDownloadClick}
+          submission={submission}
         />
       </Wrapper>
     )
@@ -47,6 +57,7 @@ describe('Institutions', () => {
           filingPeriod="2017"
           institutions={institutionsJSON.institutions}
           onDownloadClick={onDownloadClick}
+          submission={submission}
         />
       </Wrapper>
     )
@@ -65,6 +76,7 @@ describe('Institutions', () => {
           filingPeriod="2017"
           institutions={institutionsJSON.institutions}
           onDownloadClick={onDownloadClick}
+          submission={submission}
         />
       </Wrapper>
     )
@@ -85,6 +97,7 @@ describe('Institutions', () => {
           filingPeriod="2017"
           institutions={institutionsJSON.institutions}
           onDownloadClick={onDownloadClick}
+          submission={submission}
         />
       </Wrapper>
     )

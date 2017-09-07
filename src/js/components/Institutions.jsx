@@ -30,6 +30,14 @@ const _doesFilingExist = filings => {
   return true
 }
 
+const _setSubmission = (submission, filing, filingObj) => {
+  if (submission.id && submission.id.institutionId === filing.institutionId) {
+    return submission
+  }
+
+  return filingObj.submissions[0]
+}
+
 export default class Institutions extends Component {
   render() {
     return (
@@ -45,7 +53,11 @@ export default class Institutions extends Component {
           ) : _doesFilingExist(this.props.filings) ? (
             this.props.filings.filings.map((filingObj, i) => {
               const filing = filingObj.filing
-              const submission = filingObj.submissions[0]
+              const submission = _setSubmission(
+                this.props.submission,
+                filing,
+                filingObj
+              )
               const institution = getInstitutionFromFiling(
                 this.props.institutions,
                 filing
@@ -90,5 +102,6 @@ Institutions.propTypes = {
   filings: PropTypes.object,
   filingPeriod: PropTypes.string,
   institutions: PropTypes.array,
+  submission: PropTypes.object,
   onDownloadClick: PropTypes.func
 }
