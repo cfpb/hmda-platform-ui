@@ -13,19 +13,16 @@ export const addActiveClass = (selected, current) => {
 }
 
 const makeNav = (props, page) => {
-  let userHeader = props.user ?
+  let userHeader = (
     <ul className="usa-nav-primary">
-      <li>{props.user.profile.name}</li>
-      <li><a className="usa-nav-link" href="#" onClick={(e) => {
+      {props.user ? <li>{props.user.profile.name}</li> : null}
+      {props.user ? <li><a className="usa-nav-link" href="#" onClick={(e) => {
          e.preventDefault()
          logout()
-       }}>Logout</a></li>
+      }}>Logout</a></li> : null}
       <li><HomeLink/></li>
     </ul>
-  :
-    <ul className="usa-nav-primary">
-      <li><Link to="/institutions" className="usa-button">Login</Link></li>
-    </ul>
+  )
 
   if(page === 'oidc-callback') userHeader = null
 
