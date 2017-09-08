@@ -10,8 +10,8 @@
     "test": "jest --coverage",
     "snyk": "snyk test",
     "clean": "rimraf ./dist && mkdirp ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
-    "js": "rimraf ./dist/js/app.min.js.map && rimraf ./dist/js/app.min.js.bak && browserify -d -g [ envify --NODE_ENV ${NODE_ENV:-production} ] -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] -p [ minifyify --map app.min.js.map --output ./dist/js/app.min.js.map --uglify [ -cm ] ] ./src/js/index.js | bundle-collapser - > ./dist/js/app.min.js",
-    "js:dev": "rimraf ./dist/js/app.min.js.map && rimraf ./dist/js/app.min.js.bak && browserify -d -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] -e ./src/js/index.js -o ./dist/js/app.min.js",
+    "js": "rimraf ./dist/js/app.min.js.map && rimraf ./dist/js/app.min.js.bak && browserify -d -g [ envify --NODE_ENV ${NODE_ENV:-production} ] -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] -p [ minifyify --map app.min.js.map --output ./dist/js/app.min.js.map --uglify [ -cm ] ] ./src/js/index.js | bundle-collapser - > ./dist/js/app.min.js && npm run env",
+    "js:dev": "rimraf ./dist/js/app.min.js.map && rimraf ./dist/js/app.min.js.bak && browserify -d -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] -e ./src/js/index.js -o ./dist/js/app.min.js && npm run env",
     "renew": "browserify -d -g [ envify --NODE_ENV ${NODE_ENV:-production} ] -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] -p [ minifyify --map silent_renew.js.map --output ./dist/js/silent_renew.js.map --uglify [ -cm ] ] ./src/js/utils/silent_renew.js | bundle-collapser - > ./dist/js/silent_renew.js",
     "sass": "node-sass --quiet --output-style=compressed --source-map-embed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts",
     "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html && html-minifier --collapse-whitespace ./src/silent_renew.html -o ./dist/silent_renew.html",
@@ -25,7 +25,7 @@
     "watch:sass": "nodemon --exitcrash -e scss -w src/sass -x 'npm run sass'",
     "watch:html": "nodemon --exitcrash -e html -w src -x 'npm run html'",
     "watch": "npm run watch:js & npm run watch:renew & npm run watch:tests & npm run watch:sass & npm run watch:html",
-    "build": "npm run js && npm run sass && npm run html && npm run img && npm run env"
+    "build": "npm run js && npm run sass && npm run html && npm run img"
   },
   "repository": {
     "type": "git",
