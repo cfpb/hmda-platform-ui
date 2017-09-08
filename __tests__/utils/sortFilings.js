@@ -2,7 +2,7 @@ jest.unmock('../../src/js/utils/sortFilings.js')
 
 import sortFilings from '../../src/js/utils/sortFilings.js'
 
-const filingsOrdered = [
+const filingsSorted = [
   {
     filing: {
       institutionId: '1234'
@@ -15,7 +15,7 @@ const filingsOrdered = [
   }
 ]
 
-const filingsUnordered = [
+const filingsNotSorted = [
   {
     filing: {
       institutionId: '2345'
@@ -73,10 +73,10 @@ const filingsFixed = [
 
 describe('sortFilings', () => {
   it('returns the sorted filings', () => {
-    expect(filingsOrdered.sort(sortFilings)).toEqual(filingsOrdered)
+    expect(filingsSorted.sort(sortFilings)).toEqual(filingsSorted)
   })
 
   it('returns the sorted filings', () => {
-    expect(filingsUnordered.sort(sortFilings)).toEqual(filingsFixed)
+    expect(filingsNotSorted.sort(sortFilings)).toEqual(filingsFixed)
   })
 })
