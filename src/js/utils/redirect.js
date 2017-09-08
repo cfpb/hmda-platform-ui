@@ -10,10 +10,10 @@ const getUserManager = () => {
   return userManager
 }
 
-const signinRedirect = () => {
+const signinRedirect = (path = location.pathname) => {
   if(!userManager) return console.error('userManager needs to be set on app initialization')
   if(process.env.NODE_ENV !== 'production') console.log('signinRedirect triggered, saving page:', location.pathname)
-  localStorage.setItem('hmdaPageBeforeSignin', location.pathname)
+  localStorage.setItem('hmdaPageBeforeSignin', path)
   userManager.signinRedirect()
 }
 

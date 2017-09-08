@@ -12,13 +12,18 @@ export class oidcCallback extends React.Component {
     restorePage()
   }
 
+  errorCallback(e) {
+    browserHistory.replace('/')
+  }
+
+
   componentWillMount() {
     if(!this.props.location.hash) browserHistory.replace('/')
   }
 
   render() {
     if(!this.props.location.hash) return null
-    return <CallbackComponent successCallback={this.successCallback.bind(this)} />
+    return <CallbackComponent successCallback={this.successCallback} errorCallback={this.errorCallback} />
   }
 }
 
