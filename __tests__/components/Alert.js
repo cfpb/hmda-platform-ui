@@ -29,6 +29,10 @@ describe('Alert', function() {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(message, 'usa-alert-info').length).toEqual(1)
   })
 
+  it('has no alert check', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(message, 'alert-check').length).toEqual(0)
+  })
+
 
   const messageHeading = TestUtils.renderIntoDocument(
     <Wrapper>
@@ -49,6 +53,10 @@ describe('Alert', function() {
 
   it('has the success class', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithClass(messageHeading, 'usa-alert-success').length).toEqual(1)
+  })
+
+  it('has the alert check', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(messageHeading, 'alert-check').length).toEqual(1)
   })
 
   const messageHtml = TestUtils.renderIntoDocument(

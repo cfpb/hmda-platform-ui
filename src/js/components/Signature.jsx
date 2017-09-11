@@ -5,14 +5,20 @@ import { ordinalHour } from '../utils/date.js'
 import Alert from './Alert.jsx'
 import { VALIDATED_WITH_ERRORS, SIGNED } from '../constants/statusCodes.js'
 
-const showReceipt = (code, timestamp, receipt) => {
+const showReceipt = ({status, timestamp, receipt, filingPeriod, email}) => {
+  const code = status.code
   if (code !== SIGNED) return null
 
   return (
-    <Alert type="success" heading="HMDA data accepted">
+    <Alert type="success" heading="HMDA filing completed">
       <div>
-        <p>Your submission was received on <strong>{ordinalHour(new Date(timestamp))}</strong>.</p>
-        <p>Your receipt number is <strong>{receipt}</strong>.</p>
+        <hr/>
+        <p>Congratulations, you have successfully completed your HMDA filing for {filingPeriod}!</p>
+        <p>Your data and signature have been received and recorded.</p>
+        <p className="usa-text-small">Your submission was received on <strong>{ordinalHour(new Date(timestamp))}</strong>.</p>
+        <p className="usa-text-small">Your receipt number is <strong>{receipt}</strong>.</p>
+        <hr/>
+        <p>You will receive a confirmation email with this information shortly at <strong>{email}</strong>.</p>
       </div>
     </Alert>
   )
@@ -97,12 +103,14 @@ const Signature = props => {
         Submit HMDA data
       </button>
 
-      {showReceipt(props.status.code, props.timestamp, props.receipt)}
+      {showReceipt(props)}
     </section>
   )
 }
 
 Signature.propTypes = {
+  email: PropTypes.string,
+  filingPeriod: PropTypes.string,
   receipt: PropTypes.string,
   timestamp: PropTypes.number,
   status: PropTypes.object,
