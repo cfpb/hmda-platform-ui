@@ -31,8 +31,9 @@ describe('Header', () => {
     </Wrapper>
   )
 
-  it('renders the login link', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(headerNoUser, 'usa-button').length).toBe(1)
+  it('renders the homelink only', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithClass(headerNoUser, 'HomeLink').length).toBe(1)
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(headerNoUser, 'li').length).toBe(1)
   })
 
   describe('addActiveClass', () => {

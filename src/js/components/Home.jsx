@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router'
+import { signinRedirect } from '../utils/redirect.js'
 
 const Home = (props) => {
   return (
@@ -11,7 +11,11 @@ const Home = (props) => {
             <div className="usa-width-one-whole">
               <h1>Get started filing your HMDA data</h1>
               <p className="usa-font-lead">Beginning with HMDA data collected in or after 2017, financial institutions will use the HMDA Platform to upload their loan/application registers (LARs), review edits, certify the accuracy and completeness of the data, and submit data for the filing year.</p>
-              <Link to={'/institutions'} className="usa-button">Get Started Filing</Link>
+              <a href="#" className="usa-button" onClick={e => {
+                e.preventDefault()
+                signinRedirect('/institutions')
+              }}
+              >Log in</a>
               <p className="usa-text-small">Every user is required to register online for login credentials and establish an account prior to accessing the HMDA Platform.</p>
             </div>
           </div>
