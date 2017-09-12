@@ -14,6 +14,7 @@ const Alert = ({ type = 'info', heading, children }) => {
             </h3>
           : null
         }
+        {heading ? <hr /> : null}
         {React.cloneElement(children, {className: 'usa-alert-text'})}
       </div>
     </div>

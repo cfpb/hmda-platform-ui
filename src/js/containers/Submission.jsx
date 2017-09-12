@@ -6,6 +6,7 @@ import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchInstitution from '../actions/fetchInstitution.js'
 import setFilename from '../actions/setFilename.js'
 import UserHeading from '../components/UserHeading.jsx'
+import SubmissionPageInfo from '../components/SubmissionPageInfo.jsx'
 import UploadForm from './UploadForm.jsx'
 import ErrorWarning from '../components/ErrorWarning.jsx'
 import EditsContainer from './Edits.jsx'
@@ -48,6 +49,7 @@ const renderByCode = (code, page, message) => {
       }
     }else if(page === 'confirmation'){
       if(code > VALIDATING){
+        toRender.push(<SubmissionPageInfo />)
         toRender.push(<IRSReport />)
         toRender.push(<Summary />)
         toRender.push(<Signature />)
