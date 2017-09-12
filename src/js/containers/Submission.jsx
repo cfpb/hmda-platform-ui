@@ -47,7 +47,7 @@ const renderByCode = (code, page, message) => {
       if(code > VALIDATING){
         toRender.push(<Edits />)
       }
-    }else if(page === 'confirmation'){
+    }else if(page === 'submission'){
       if(code > VALIDATING){
         toRender.push(<SubmissionPageInfo />)
         toRender.push(<IRSReport />)

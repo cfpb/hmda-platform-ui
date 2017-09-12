@@ -15,7 +15,7 @@ const navNames = [
   'syntactical & validity edits',
   'quality edits',
   'macro quality edits',
-  'confirmation'
+  'submission'
 ]
 
 const navLinks = {
@@ -23,7 +23,7 @@ const navLinks = {
   'syntactical & validity edits': 'syntacticalvalidity',
   'quality edits': 'quality',
   'macro quality edits': 'macro',
-  'confirmation': 'confirmation'
+  'submission': 'submission'
 }
 
 export const getNavClass = (name, props) => {
@@ -68,7 +68,7 @@ export const getNavClass = (name, props) => {
 
   // catch all if validated
   if(code > VALIDATED_WITH_ERRORS) navClass = 'complete'
-  if(code === VALIDATED && name === 'confirmation') navClass = 'active'
+  if(code === VALIDATED && name === 'submission') navClass = 'active'
   // add current class if page matches the name
   if(name === page) navClass = `${navClass} current`
   return navClass
@@ -112,7 +112,7 @@ export const renderLinkOrText = (props, name, i) => {
 
   if (
   navClass === '' ||
-  (navLinks[name] === 'upload' || navLinks[name] === 'confirmation') &&
+  (navLinks[name] === 'upload' || navLinks[name] === 'submission') &&
     navClass.indexOf('complete') !== 0)
   step = i + 1
 
@@ -135,7 +135,7 @@ export const renderLinkOrText = (props, name, i) => {
     if(!macroVerified) renderedName = 'macro quality edits found'
     if(code > VALIDATING && macroVerified) renderedName = 'macro quality edits verified'
   }
-  if(name === 'confirmation' && code === SIGNED) renderedName = 'confirmed'
+  if(name === 'submission' && code === SIGNED) renderedName = 'submitted'
 
   if(isLink) {
     return (
