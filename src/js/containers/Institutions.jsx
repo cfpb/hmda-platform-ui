@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import fetchInstitutions from '../actions/fetchInstitutions.js'
 import fetchCSV from '../actions/fetchCSV.js'
 import Institutions from '../components/Institutions.jsx'
-import sortFilings from '../utils/sortFilings.js'
 
 export class InstitutionContainer extends Component {
   constructor(props) {
@@ -22,11 +21,7 @@ export class InstitutionContainer extends Component {
 
 export function mapStateToProps(state) {
   const { institutions } = state.app.institutions
-  const { submission, error, filingPeriod } = state.app
-  const unsortedFilings = state.app.filings
-
-  let filings = unsortedFilings
-  filings.filings = unsortedFilings.filings.sort(sortFilings)
+  const { filings, submission, error, filingPeriod } = state.app
 
   return {
     submission,
