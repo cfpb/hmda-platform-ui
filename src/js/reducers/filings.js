@@ -1,4 +1,5 @@
 import { REQUEST_FILING,RECEIVE_FILING,CLEAR_FILINGS,RECEIVE_FILINGS, REFRESH_STATE } from '../constants'
+import sortFilings from '../utils/sortFilings.js'
 
 const defaultFilings = {
   filings: [],
@@ -20,9 +21,12 @@ export default (state = defaultFilings, action) => {
       fetched: false
     }
   case RECEIVE_FILING:
+    console.log('RECEIVE_FILING')
+    console.log([...state.filings, action.filing])
+    console.log([...state.filings, action.filing].sort(sortFilings))
     return {
       ...state,
-      filings: [...state.filings, action.filing]
+      filings: [...state.filings, action.filing].sort(sortFilings)
     }
   case CLEAR_FILINGS:
     return defaultFilings
