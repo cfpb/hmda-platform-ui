@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Alert = ({ type = 'info', heading, children }) => {
+const Alert = ({ type = 'info', heading, linebreak, children }) => {
   if (!children) return null
 
   return (
@@ -14,7 +14,7 @@ const Alert = ({ type = 'info', heading, children }) => {
             </h3>
           : null
         }
-        {heading ? <hr /> : null}
+        {linebreak ? <hr /> : null}
         {React.cloneElement(children, {className: 'usa-alert-text'})}
       </div>
     </div>
@@ -23,7 +23,8 @@ const Alert = ({ type = 'info', heading, children }) => {
 
 Alert.propTypes = {
   type: PropTypes.oneOf(['info', 'success', 'warning', 'error']),
-  heading: PropTypes.string
+  heading: PropTypes.string,
+  linebreak: PropTypes.bool
 }
 
 export default Alert
