@@ -21,7 +21,6 @@ export class InstitutionContainer extends Component {
 
 export function mapStateToProps(state) {
   const { institutions } = state.app.institutions
-
   const { filings, submission, error, filingPeriod } = state.app
 
   return {

@@ -5,6 +5,7 @@ import ErrorWarning from './ErrorWarning.jsx'
 import Institution from './Institution.jsx'
 import InstitutionsHeader from './InstitutionsHeader.jsx'
 import Alert from './Alert.jsx'
+import sortFilings from '../utils/sortFilings.js'
 import * as STATUS from '../constants/statusCodes.js'
 
 export const getInstitutionFromFiling = (institutions, filing) => {
@@ -40,6 +41,9 @@ const _setSubmission = (submission, filing, filingObj) => {
 
 export default class Institutions extends Component {
   render() {
+    let sortedFilings = this.props.filings
+    sortedFilings.filings = this.props.filings.filings.sort(sortFilings)
+    
     return (
       <main id="main-content" className="usa-grid Institutions">
         {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
@@ -48,10 +52,10 @@ export default class Institutions extends Component {
             <InstitutionsHeader filingPeriod={this.props.filingPeriod} />
           ) : null}
 
-          {_isDataLoading(this.props.filings) ? (
+          {_isDataLoading(sortedFilings) ? (
             <LoadingIcon />
-          ) : _doesFilingExist(this.props.filings) ? (
-            this.props.filings.filings.map((filingObj, i) => {
+          ) : _doesFilingExist(sortedFilings) ? (
+            sortedFilings.filings.map((filingObj, i) => {
               const institution = getInstitutionFromFiling(
                 this.props.institutions,
                 filingObj.filing
