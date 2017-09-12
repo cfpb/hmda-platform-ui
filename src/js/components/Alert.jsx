@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Alert = ({ type = 'info', heading, children }) => {
+const Alert = ({ type = 'info', heading, linebreak, children }) => {
   if (!children) return null
 
   return (
