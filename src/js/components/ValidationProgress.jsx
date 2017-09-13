@@ -34,14 +34,14 @@ export default class ValidationProgress extends Component {
   }
 
   getText() {
-    let text = 'Uploading...'
+    let text = 'Uploading ...'
     const code = this.props.code
 
-    if (code >= STATUS.PARSING) text = 'Analyzing file format...'
+    if (code >= STATUS.PARSING) text = 'Analyzing file format ...'
     if (code === STATUS.PARSED_WITH_ERRORS)
-      text = 'File contains formatting errors'
-    if (code === STATUS.VALIDATING) text = 'Validating edits...'
-    if (code > STATUS.VALIDATING) text = 'Edit validation complete'
+      text = 'File contains formatting errors.'
+    if (code === STATUS.VALIDATING) text = 'Validating edits ...'
+    if (code > STATUS.VALIDATING) text = 'Edit validation complete.'
 
     const largeFile = this.props.file && this.props.file.size > 1e5
 
@@ -50,13 +50,13 @@ export default class ValidationProgress extends Component {
         <span>{text}</span>
         {this.getIndicator()}
         {code === STATUS.VALIDATED_WITH_ERRORS ? (
-          <strong>Edits found, review required</strong>
+          <strong>Edits found, review required.</strong>
         ) : largeFile &&
         (code > STATUS.UPLOADED && code < STATUS.VALIDATED_WITH_ERRORS) &&
         code !== STATUS.PARSED_WITH_ERRORS ? (
           <strong>
-            Your upload will complete automatically, so you may leave the
-            platform and log back in later.
+            This process may take a little while. Your upload will complete
+            automatically, so you may leave the platform and log back in later.
           </strong>
         ) : null}
       </section>
