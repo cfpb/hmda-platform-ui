@@ -52,12 +52,21 @@ export default class Institutions extends Component {
             <LoadingIcon />
           ) : _doesFilingExist(this.props.filings) ? (
             this.props.filings.filings.map((filingObj, i) => {
+              console.log('filings ' + i)
               const institution = getInstitutionFromFiling(
                 this.props.institutions,
                 filingObj.filing
               )
-              if (!institution) return
-                
+              if (!institution)
+                return (
+                  <Alert type="error">
+                    <p>
+                      There is a problem initializing this filing. Please
+                      contact <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
+                    </p>
+                  </Alert>
+                )
+
               const filing = filingObj.filing
               const submission = _setSubmission(
                 this.props.submission,
