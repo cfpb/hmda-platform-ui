@@ -69,6 +69,6 @@ describe('pollForProgress', () => {
     expect(dg()).toBe(1000)
     expect(dg()).toBe(1200)
     for(let i=-1; i<30; i++) {dg()}
-    expect(dg()).toBe(30000)
+    expect(dg()).toBe(20000)
   })
 })

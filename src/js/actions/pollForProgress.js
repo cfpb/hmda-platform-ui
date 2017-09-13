@@ -9,7 +9,7 @@ export const makeDurationGetter = () => {
   let count = 0
   return () => {
     let duration = Math.pow(1.2, count)*1000>>0
-    if (duration > 30000) duration = 30000
+    if (duration > 20000) duration = 20000
     else count++
     return duration
   }
