@@ -60,8 +60,15 @@ const Header = props => {
       <section className="usa-nav-container">
         <div className="usa-logo" id="logo">
           <em className="usa-logo-text">
-            <img src="/img/ffiec-logo.png" width="100px" alt="FFIEC" />
-            HMDA Platform
+            <Link
+              className="usa-nav-link"
+              to={'/'}
+              title="Home"
+              aria-label="Home"
+            >
+              <img src="/img/ffiec-logo.png" width="100px" alt="FFIEC" />
+              HMDA Platform
+            </Link>
           </em>
         </div>
         {makeNav(props, page)}
