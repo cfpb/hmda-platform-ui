@@ -122,7 +122,7 @@ describe('Signature component', () => {
   })
 
   it('has the correct email', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(signatureSigned, 'p')[5].textContent.match('yo@me.com')).toBeTruthy()
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(signatureSigned, 'p')[4].textContent.match('yo@me.com')).toBeTruthy()
   })
 
   it('has the checkbox checked', () => {
