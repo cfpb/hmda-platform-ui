@@ -10,7 +10,7 @@ const showReceipt = ({status, timestamp, receipt, filingPeriod, email}) => {
   if (code !== SIGNED) return null
 
   return (
-    <Alert type="success" heading="HMDA filing completed" linebreak={true}>
+    <Alert type="success" heading="HMDA filing completed">
       <div>
         <p>Congratulations, you have successfully completed your HMDA filing for {filingPeriod}!</p>
         <p>Your data and signature were received and recorded on <strong>{ordinalHour(new Date(timestamp))}</strong>.</p>
