@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import hideConfirm from '../actions/hideConfirm.js'
-import createNewSubmission from '../actions/createNewSubmission.js'
+import fetchNewSubmission from '../actions/fetchNewSubmission.js'
 import selectFile from '../actions/selectFile.js'
 import fetchUpload from '../actions/fetchUpload.js'
 import ConfirmationModal from '../components/ConfirmationModal.jsx'
@@ -52,12 +52,12 @@ export function mapDispatchToProps(dispatch) {
 
   const triggerRefile = (id, period, page = '', file) => {
     if(page === 'upload' && file) {
-      return dispatch(createNewSubmission(id, period)).then(() => {
+      return dispatch(fetchNewSubmission(id, period)).then(() => {
         dispatch(selectFile(file))
         dispatch(fetchUpload(file))
       })
     } else {
-      return dispatch(createNewSubmission(id, period)).then(()=>{
+      return dispatch(fetchNewSubmission(id, period)).then(()=>{
         browserHistory.replace(`/${id}/${period}`)
       })
     }

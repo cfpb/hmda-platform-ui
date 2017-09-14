@@ -1,11 +1,16 @@
 import receiveSubmission from './receiveSubmission.js'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
+import refreshState from './refreshState.js'
 import requestSubmission from './requestSubmission.js'
 import { createSubmission } from '../api/api.js'
 
 export default function fetchNewSubmission(id, period) {
   return dispatch => {
+    dispatch(refreshState())
+    localStorage.removeItem(`HMDA_FILENAME/${id}`)
+    localStorage.removeItem(`HMDA_FILE_PROGRESS/${id}`)
+
     dispatch(requestSubmission())
     return createSubmission(id, period)
       .then(json => {
