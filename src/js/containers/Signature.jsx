@@ -28,11 +28,14 @@ export function mapStateToProps(state) {
     checked
   } = state.app.signature
 
-  const {
-    status
-  } = state.app.submission
+  const { status } = state.app.submission
+  const { email }  = state.oidc.user.profile
 
-  const error = state.app.error
+  const {
+    error,
+    filingPeriod
+  } = state.app
+
 
   return {
     isFetching,
@@ -40,7 +43,9 @@ export function mapStateToProps(state) {
     receipt,
     status,
     checked,
-    error
+    error,
+    filingPeriod,
+    email
   }
 }
 
