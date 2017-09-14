@@ -116,7 +116,7 @@ class SubmissionContainer extends Component {
         institution={this.props.institution}
       />
       <RefileWarning/>
-      {page === 'confirmation' ? <SubmissionPageInfo /> : null}
+      {page === 'submission' ? <SubmissionPageInfo /> : null}
 
       <main id="main-content" className="usa-grid SubmissionContainer">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null }
