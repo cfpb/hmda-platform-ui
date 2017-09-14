@@ -7,29 +7,6 @@ import InstitutionsHeader from './InstitutionsHeader.jsx'
 import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 
-export const getInstitutionFromFiling = (institutions, filing) => {
-  for (let i = 0; i < institutions.length; i++) {
-    if (institutions[i].id === filing.institutionId) return institutions[i]
-  }
-  return null
-}
-
-const _isDataLoading = filings => {
-  if (!filings.fetched || filings.isFetching) {
-    return true
-  }
-
-  return false
-}
-
-const _doesFilingExist = filings => {
-  if (filings.fetched && filings.filings.length === 0) {
-    return false
-  }
-
-  return true
-}
-
 const _setSubmission = (submission, filing, filingObj) => {
   if (submission.id && submission.id.institutionId === filing.institutionId) {
     return submission
@@ -38,49 +15,51 @@ const _setSubmission = (submission, filing, filingObj) => {
   return filingObj.submissions[0]
 }
 
+export const getFilingFromInstitution = (institution, filings) => {
+  for (let i = 0; i < filings.filings.length; i++) {
+    if (institution.id === filings.filings[i].filing.institutionId) {
+      return filings.filings[i]
+    }
+  }
+
+  return null
+}
+
 export default class Institutions extends Component {
   render() {
+    const {
+      error,
+      filings,
+      filingPeriod,
+      institutions,
+      submission,
+      onDownloadClick
+    } = this.props
+
     return (
       <main id="main-content" className="usa-grid Institutions">
-        {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
+        {error ? <ErrorWarning error={error} /> : null}
         <div className="usa-width-one-whole">
-          {this.props.filingPeriod ? (
-            <InstitutionsHeader filingPeriod={this.props.filingPeriod} />
+          {filingPeriod ? (
+            <InstitutionsHeader filingPeriod={filingPeriod} />
           ) : null}
 
-          {_isDataLoading(this.props.filings) ? (
+          {!filings.fetched || filings.isFetching ? (
             <LoadingIcon />
-          ) : _doesFilingExist(this.props.filings) ? (
-            this.props.filings.filings.map((filingObj, i) => {
-              const institution = getInstitutionFromFiling(
-                this.props.institutions,
-                filingObj.filing
-              )
-              if (!institution)
-                return (
-                  <Alert type="error">
-                    <p>
-                      There is a problem initializing this filing. Please
-                      contact <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
-                    </p>
-                  </Alert>
-                )
+          ) : institutions && institutions.length !== 0 ? (
+            institutions.map((institution, i) => {
+              const filing = getFilingFromInstitution(institution, filings)
 
-              const filing = filingObj.filing
-              const submission = _setSubmission(
-                this.props.submission,
-                filing,
-                filingObj
-              )
+              if (!filing) return
 
               return (
                 <Institution
                   key={i}
-                  filing={filing}
+                  filing={filing.filing}
                   institution={institution}
-                  onDownloadClick={this.props.onDownloadClick}
-                  submission={submission}
-                  submissions={filingObj.submissions}
+                  onDownloadClick={onDownloadClick}
+                  submission={filing.submissions[0]}
+                  submissions={filing.submissions}
                 />
               )
             })
