@@ -2,7 +2,7 @@ jest.mock('../../src/js/api/api')
 jest.unmock('../../src/js/actions/pollForProgress.js')
 jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
-import pollForProgress from '../../src/js/actions/pollForProgress.js'
+import pollForProgress, { makeDurationGetter } from '../../src/js/actions/pollForProgress.js'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { getLatestSubmission, getEdits } from '../../src/js/api/api.js'
@@ -61,5 +61,14 @@ describe('pollForProgress', () => {
         console.log(err)
         done.fail()
       })
+  })
+
+  it('makes a duration getter properly', () => {
+    const dg = makeDurationGetter()
+    expect(dg).toBeDefined()
+    expect(dg()).toBe(1000)
+    expect(dg()).toBe(1200)
+    for(let i=-1; i<30; i++) {dg()}
+    expect(dg()).toBe(20000)
   })
 })
