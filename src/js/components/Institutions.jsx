@@ -52,7 +52,6 @@ export default class Institutions extends Component {
             <LoadingIcon />
           ) : _doesFilingExist(this.props.filings) ? (
             this.props.filings.filings.map((filingObj, i) => {
-              console.log('filings ' + i)
               const institution = getInstitutionFromFiling(
                 this.props.institutions,
                 filingObj.filing
