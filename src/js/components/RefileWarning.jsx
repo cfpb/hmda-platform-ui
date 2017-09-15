@@ -85,7 +85,7 @@ const RefileWarning = props => {
   if (props.page === 'quality' && props.qualityVerified) return null
   if (props.page === 'macro' && props.macroVerified) return null
   if (props.page === 'upload' && props.code !== PARSED_WITH_ERRORS) return null
-  if (props.page === 'confirmation') return null
+  if (props.page === 'submission') return null
 
   let alertClass = 'error'
   if (
