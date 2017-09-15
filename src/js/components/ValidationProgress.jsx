@@ -78,11 +78,8 @@ export default class ValidationProgress extends Component {
 
     if (code === STATUS.PARSED_WITH_ERRORS) className += ' error'
 
-    console.log('initial getfill', code, currWidth)
-
     if (code === STATUS.PARSED_WITH_ERRORS || code > STATUS.VALIDATING) {
       currWidth = 100
-      console.log('reassigning', currWidth)
       this.saveWidth(this.props.id, 100)
     } else if (!this.timeout) this.getNextWidth()
 
@@ -91,11 +88,9 @@ export default class ValidationProgress extends Component {
 
   setNextWidth(currWidth) {
     return () => {
-      console.log('setNextWidth timeout', currWidth)
       this.timeout = null
       let nextWidth = currWidth + 1
       if (nextWidth > 100) nextWidth = 100
-      console.log('next', nextWidth)
       this.saveWidth(this.props.id, nextWidth)
       this.setState({ fillWidth: nextWidth })
     }
@@ -103,7 +98,6 @@ export default class ValidationProgress extends Component {
 
   getNextWidth() {
     const currWidth = this.state.fillWidth
-    console.log('from getNextWidth', currWidth)
     this.timeout = setTimeout(
       this.setNextWidth(currWidth),
       SCALING_FACTOR * 200 * Math.pow(2, 50 / (100 - currWidth))
