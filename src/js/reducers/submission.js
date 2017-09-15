@@ -31,7 +31,7 @@ export default (state = defaultSubmission, action) => {
     case SELECT_FILE:
       return {
         ...state,
-        filename: action.file.name,
+        filename: action.file.name
       }
     case REQUEST_SUBMISSION:
       return {

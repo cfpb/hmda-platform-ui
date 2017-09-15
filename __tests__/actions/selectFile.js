@@ -9,12 +9,6 @@ import thunk from 'redux-thunk'
 const mockStore = configureMockStore([thunk])
 const store = mockStore({app:{ institution: {id: '123'}}})
 
-const ls = jest.fn()
-
-window.localStorage = {
-  setItem: ls
-}
-
 describe('selectFile', () => {
   it('creates a thunk to signal file selection', () => {
     expect(typeof selectFile()).toEqual('function')
@@ -24,6 +18,5 @@ describe('selectFile', () => {
     const file = {size:42, name: 'test.txt'}
     store.dispatch(selectFile(file))
     expect(store.getActions()).toEqual([{type: types.SELECT_FILE, file, errors: [], id: '123'}])
-    expect(ls).toBeCalled()
   })
 })

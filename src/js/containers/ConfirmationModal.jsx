@@ -31,7 +31,6 @@ export function mapStateToProps(state) {
     uploading: false,
     file: null,
     newFile: null,
-    filename: '',
     errors: []
   }
 
