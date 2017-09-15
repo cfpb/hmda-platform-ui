@@ -47,7 +47,7 @@ const renderByCode = (code, page, message) => {
       if(code > VALIDATING){
         toRender.push(<Edits />)
       }
-    }else if(page === 'confirmation'){
+    }else if(page === 'submission'){
       if(code > VALIDATING){
         toRender.push(<IRSReport />)
         toRender.push(<Summary />)
@@ -115,7 +115,7 @@ class SubmissionContainer extends Component {
         institution={this.props.institution}
       />
       <RefileWarning/>
-      {page === 'confirmation' ? <SubmissionPageInfo /> : null}
+      {page === 'submission' ? <SubmissionPageInfo /> : null}
 
       <main id="main-content" className="usa-grid SubmissionContainer">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null }
