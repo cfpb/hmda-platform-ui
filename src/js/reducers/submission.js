@@ -1,8 +1,9 @@
-import { RECEIVE_SUBMISSION,REQUEST_SUBMISSION,UPDATE_STATUS,REFRESH_STATE } from '../constants'
+import { RECEIVE_SUBMISSION,SELECT_FILE,REQUEST_SUBMISSION,UPDATE_STATUS,REFRESH_STATE } from '../constants'
 import { UNINITIALIZED } from '../constants/statusCodes.js'
 
 const defaultSubmission = {
   id: null,
+  filename: '',
   status: {
     code: UNINITIALIZED,
     message: ''
@@ -23,8 +24,14 @@ export default (state = defaultSubmission, action) => {
     case RECEIVE_SUBMISSION:
       return {
         isFetching: false,
+        filename: action.fileName,
         id: action.id,
         status: action.status
+      }
+    case SELECT_FILE:
+      return {
+        ...state,
+        filename: action.file.name,
       }
     case REQUEST_SUBMISSION:
       return {

@@ -29,7 +29,6 @@ export function mapStateToProps(state) {
     newFile
   } = state.app.upload[id] || {
     uploading: false,
-    percentUploaded: 0,
     file: null,
     newFile: null,
     filename: '',

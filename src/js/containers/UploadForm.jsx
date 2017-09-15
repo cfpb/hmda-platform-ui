@@ -11,27 +11,23 @@ export function mapStateToProps(state) {
 
   const id = state.app.institution.id
   const code = state.app.submission.status.code
+  const filename = state.app.submission.filename
 
   const {
     uploading,
-    percentUploaded,
-    filename,
     file,
     errors
   } = state.app.upload[id] || {
     uploading: false,
-    percentUploaded: 0,
     file: null,
     newFile: null,
-    filename: '',
     errors: []
   }
 
   return {
     uploading,
-    percentUploaded,
-    filename,
     file,
+    filename,
     errors,
     id,
     code
