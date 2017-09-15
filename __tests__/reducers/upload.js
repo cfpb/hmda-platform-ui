@@ -5,10 +5,8 @@ import upload from '../../src/js/reducers/upload.js'
 
 const defaultUpload = {
   uploading: false,
-  percentUploaded: 0,
   file: null,
   newFile: null,
-  filename: '',
   errors: []
 }
 
@@ -25,7 +23,7 @@ describe('upload reducer', () => {
     expect(
       upload({},
       {type: types.SELECT_FILE, file: {name: 'afile'}, errors: [], id: '123'}
-    )).toEqual({123:{ ...defaultUpload, file: {name: 'afile'}, filename: 'afile'}})
+    )).toEqual({123:{ ...defaultUpload, file: {name: 'afile'}}})
   })
 
   it('handles REFRESH_STATE', () => {
@@ -49,33 +47,15 @@ describe('upload reducer', () => {
     )).toEqual({123: {...defaultUpload, newFile: {a:2}}})
   })
 
-  it('handles SET_FILENAME', () => {
-    expect(
-       upload({},
-      {type: types.SET_FILENAME, id: '123', filename: 'argle'}
-    )).toEqual({123: {...defaultUpload, filename: 'argle'}})
-  })
-
-  it('handles UPLOAD_PROGRESS', () => {
-    expect(
-      upload({},
-      {type: types.UPLOAD_PROGRESS, percentUploaded: 22}
-    )).toEqual({})
-    expect(
-      upload({123:{uploading: true}},
-      {type: types.UPLOAD_PROGRESS, percentUploaded: 22, id: '123'}
-    )).toEqual({123: {uploading: true, percentUploaded: 22}})
-  })
-
   it('handles UPLOAD_COMPLETE', () => {
     expect(
        upload({},
       {type: types.UPLOAD_COMPLETE, id: '123'}
-    )).toEqual({123: {...defaultUpload, uploading: false, percentUploaded: 100}})
+    )).toEqual({123: {...defaultUpload, uploading: false}})
   })
 
   it('shouldn\'t modify state on an unknown action type', () => {
-    excludeTypes(types.UPLOAD_PROGRESS, types.SELECT_FILE, types.SELECT_NEW_FILE, types.SET_FILENAME, types.REFRESH_STATE, types.UPLOAD_START, types.UPLOAD_COMPLETE)
+    excludeTypes(types.SELECT_FILE, types.SELECT_NEW_FILE, types.REFRESH_STATE, types.UPLOAD_START, types.UPLOAD_COMPLETE)
       .forEach(v => expect(upload({}, v))
         .toEqual({})
       )

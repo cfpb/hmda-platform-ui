@@ -4,7 +4,6 @@ import * as Poller from './Poller.js'
 import getUploadUrl from '../api/getUploadUrl.js'
 import pollForProgress from './pollForProgress.js'
 import uploadComplete from './uploadComplete.js'
-import uploadProgress from './uploadProgress.js'
 import uploadError from './uploadError.js'
 import updateStatus from './updateStatus.js'
 import uploadStart from './uploadStart.js'
@@ -31,12 +30,6 @@ export default function fetchUpload(file) {
       dispatch(uploadComplete(e))
       Poller.set(true)
       dispatch(pollForProgress(Poller.get()))
-    })
-
-    xhr.addEventListener('progress', e => {
-      let percent = e.loaded / file.size * 100
-      if(percent > 100) percent = 100
-      dispatch(uploadProgress(percent))
     })
 
     xhr.open('POST', getUploadUrl(getId()));
