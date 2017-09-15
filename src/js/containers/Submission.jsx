@@ -6,6 +6,7 @@ import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchInstitution from '../actions/fetchInstitution.js'
 import setFilename from '../actions/setFilename.js'
 import UserHeading from '../components/UserHeading.jsx'
+import SubmissionPageInfo from '../components/SubmissionPageInfo.jsx'
 import UploadForm from './UploadForm.jsx'
 import ErrorWarning from '../components/ErrorWarning.jsx'
 import EditsContainer from './Edits.jsx'
@@ -114,6 +115,7 @@ class SubmissionContainer extends Component {
         institution={this.props.institution}
       />
       <RefileWarning/>
+      {page === 'confirmation' ? <SubmissionPageInfo /> : null}
 
       <main id="main-content" className="usa-grid SubmissionContainer">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null }

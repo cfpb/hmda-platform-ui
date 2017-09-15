@@ -34,13 +34,13 @@ export default class ValidationProgress extends Component {
   }
 
   getText() {
-    let text = 'Uploading ...'
+    let text = 'Uploading...'
     const code = this.props.code
 
-    if (code >= STATUS.PARSING) text = 'Analyzing file format ...'
+    if (code >= STATUS.PARSING) text = 'Analyzing file format...'
     if (code === STATUS.PARSED_WITH_ERRORS)
       text = 'File contains formatting errors.'
-    if (code === STATUS.VALIDATING) text = 'Validating edits ...'
+    if (code === STATUS.VALIDATING) text = 'Validating edits...'
     if (code > STATUS.VALIDATING) text = 'Edit validation complete.'
 
     const largeFile = this.props.file && this.props.file.size > 1e5
