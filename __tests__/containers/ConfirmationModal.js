@@ -86,16 +86,16 @@ describe('ConfirmationModal Container', () => {
       done()
     })
 
-    expect(dispatch.mock.calls.length).toBe(1)
-
-    mapped.triggerRefile('a', 'b', 'upload', {})
     expect(dispatch.mock.calls.length).toBe(2)
 
+    mapped.triggerRefile('a', 'b', 'upload', {})
+    expect(dispatch.mock.calls.length).toBe(4)
+
     mapped.triggerRefile('a', 'b', 'upload', null)
-    expect(dispatch.mock.calls.length).toBe(3)
+    expect(dispatch.mock.calls.length).toBe(6)
 
     mapped.hideConfirmModal()
-    expect(dispatch.mock.calls.length).toBe(4)
+    expect(dispatch.mock.calls.length).toBe(7)
   })
 
   it('throws on bad state', () => {

@@ -53,10 +53,10 @@ describe('EditsNav', () => {
     expect(getNavClass('macro', {...baseProps, page: 'macro', code: 8, syntacticalValidityEditsExist: false, qualityVerified: true})).toEqual('warning current')
   })
 
-  it('render the correct class for the confirmation link', () => {
-    expect(getNavClass('confirmation', {...baseProps, page: 'confirmation'})).toEqual(' current')
-    expect(getNavClass('confirmation', {...baseProps, page: 'confirmation', code: 7, syntacticalValidityEditsExist: false})).toEqual(' current')
-    expect(getNavClass('confirmation', {...baseProps, page: 'confirmation', code: 9, syntacticalValidityEditsExist: false, qualityVerified: true, macroVerified: true})).toEqual('active current')
+  it('render the correct class for the submission link', () => {
+    expect(getNavClass('submission', {...baseProps, page: 'submission'})).toEqual(' current')
+    expect(getNavClass('submission', {...baseProps, page: 'submission', code: 7, syntacticalValidityEditsExist: false})).toEqual(' current')
+    expect(getNavClass('submission', {...baseProps, page: 'submission', code: 9, syntacticalValidityEditsExist: false, qualityVerified: true, macroVerified: true})).toEqual('active current')
   })
 
   it('chooses appropriate item to render', () => {

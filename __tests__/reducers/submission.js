@@ -5,6 +5,7 @@ import submission from '../../src/js/reducers/submission.js'
 
 const defaultSubmission = {
   id: null,
+  filename: '',
   status: {
     code: 0,
     message: ''
@@ -23,6 +24,7 @@ describe('submission reducer', () => {
     const submissionAction = {
       type: 'RECEIVE_SUBMISSION',
       id: 1,
+      fileName: 'argle',
       status: {
         code: 1,
         message: ''
@@ -32,6 +34,7 @@ describe('submission reducer', () => {
     ).toEqual({
       isFetching: false,
       id: 1,
+      filename: 'argle',
       status: {
         code: 1,
         message: ''
@@ -49,8 +52,13 @@ describe('submission reducer', () => {
       .toEqual({a:2, isFetching: true})
   })
 
+  it('handles SELECT_FILE', () => {
+    expect(submission({}, {type: 'SELECT_FILE', file: {name: 'bargle'}}))
+      .toEqual({filename: 'bargle'})
+  })
+
   it('shouldn\'t modify state on an unknown action type', () => {
-    excludeTypes(types.RECEIVE_SUBMISSION, types.UPDATE_STATUS,
+    excludeTypes(types.SELECT_FILE, types.RECEIVE_SUBMISSION, types.UPDATE_STATUS,
       types.REFRESH_STATE, types.REQUEST_SUBMISSION)
       .forEach(v => expect(submission({}, v))
         .toEqual({})

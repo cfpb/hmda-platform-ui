@@ -39,7 +39,7 @@ describe('fetchUpload', () => {
         expect(xhrMock.open.mock.calls.length).toBe(1)
         expect(xhrMock.setRequestHeader.mock.calls.length).toBe(3)
         expect(xhrMock.send.mock.calls.length).toBe(1)
-        expect(xhrMock.addEventListener.mock.calls.length).toBe(2)
+        expect(xhrMock.addEventListener.mock.calls.length).toBe(1)
         done()
       })
       .catch(err => {

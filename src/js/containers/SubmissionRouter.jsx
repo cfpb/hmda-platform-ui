@@ -65,7 +65,7 @@ export class SubmissionRouter extends Component {
     }
 
     if(splat) return this.forceUpdate()
-    return this.replaceHistory('confirmation')
+    return this.replaceHistory('submission')
   }
 
   render() {

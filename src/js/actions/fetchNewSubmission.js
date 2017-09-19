@@ -6,6 +6,9 @@ import { createSubmission } from '../api/api.js'
 
 export default function fetchNewSubmission(id, period) {
   return dispatch => {
+    localStorage.removeItem(`HMDA_FILENAME/${id}`)
+    localStorage.removeItem(`HMDA_FILE_PROGRESS/${id}`)
+
     dispatch(requestSubmission())
     return createSubmission(id, period)
       .then(json => {
