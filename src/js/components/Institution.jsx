@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Alert from './Alert.jsx'
 import InstitutionNameAndId from './InstitutionNameAndId.jsx'
 import InstitutionStatus from './InstitutionStatus.jsx'
 import InstitutionViewButton from './InstitutionViewButton.jsx'
@@ -13,6 +14,23 @@ const Institution = ({
   submissions,
   onDownloadClick
 }) => {
+  if (!filing)
+    return (
+      <div className="usa-grid-full">
+        <section className="institution">
+          <div className="current-status">
+            <InstitutionNameAndId name={institution.name} id={institution.id} />
+            <Alert type="error">
+              <p>
+                There was a problem initializing your filing. Please contact{' '}
+                <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
+              </p>
+            </Alert>
+          </div>
+        </section>
+      </div>
+    )
+
   const status = submission && submission.status
 
   return (

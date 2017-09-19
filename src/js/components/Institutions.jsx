@@ -50,7 +50,12 @@ export default class Institutions extends Component {
             institutions.map((institution, i) => {
               const filing = getFilingFromInstitution(institution, filings)
 
-              if (!filing) return
+              if (!filing) return (
+                <Institution
+                  key={i}
+                  institution={institution}
+                />
+              )
 
               return (
                 <Institution
