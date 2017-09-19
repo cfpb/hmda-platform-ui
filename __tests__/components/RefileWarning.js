@@ -18,8 +18,8 @@ const submission = {
 const parseLocation = jest.fn(() => { return { id:'1', period: '2017', submission: 1 } })
 
 describe('Refile Warning', () => {
-  const parserText = 'Your file has formatting errors.Please update your file and click the \"Upload a new file\" button.'
-  const refileText = 'Your file has syntactical and/or validity edits.Please review the edits below or download the edit report.Then update your file and select the \"upload a new file\" button.'
+  const parserText = 'Your file has formatting errors.Please update your file and select the \"Upload a new file\" button.'
+  const refileText = 'Your file has syntactical and/or validity edits.Please review the edits below or download the edit report.Then update your file and select the \"Upload a new file\" button.'
   const qualityText = 'Your file has quality edits.Please review the edits below or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
   const macroText = 'Your file has macro quality edits.Please review the edits below or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
 

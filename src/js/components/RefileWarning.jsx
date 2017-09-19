@@ -29,7 +29,7 @@ export const getText = props => {
   )
 
   if (props.syntacticalValidityEditsExist) {
-    text = 'Then update your file and select the "upload a new file" button.'
+    text = 'Then update your file and select the "Upload a new file" button.'
   } else if (
     (!props.qualityVerified && props.page === 'quality') ||
     (!props.macroVerified && props.page === 'macro')
@@ -41,7 +41,7 @@ export const getText = props => {
   }
   if (props.code === PARSED_WITH_ERRORS) {
     reviewAndDownload = null
-    text = 'Please update your file and click the "Upload a new file" button.'
+    text = 'Please update your file and select the "Upload a new file" button.'
   }
 
   if (!text) return null
