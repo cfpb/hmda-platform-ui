@@ -31,10 +31,10 @@ describe('filings reducer', () => {
       )
     ).toEqual({
       filings: [
-        { filing: { institutionId: '1' } },
-        { filing: { institutionId: '2' } },
         { filing: { institutionId: '3' } },
-        { filing: { institutionId: '4' } }
+        { filing: { institutionId: '1' } },
+        { filing: { institutionId: '4' } },
+        { filing: { institutionId: '2' } }
       ]
     })
   })
