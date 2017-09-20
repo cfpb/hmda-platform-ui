@@ -8,27 +8,21 @@ const EditsTableWrapper = submissionProgressHOC(Wrapper)
 
 export class EditsContainer extends Component {
   constructor(props) {
-      super(props)
+    super(props)
   }
 
   componentDidMount() {
-    if(!this.props.fetched && !this.props.isFetching) this.props.dispatch(fetchEdits())
+    if (!this.props.fetched && !this.props.isFetching)
+      this.props.dispatch(fetchEdits())
   }
 
   render() {
-    return (
-      <EditsTableWrapper {...this.props}/>
-    )
+    return <EditsTableWrapper {...this.props} />
   }
 }
 
 export function mapStateToProps(state) {
-  const {
-    isFetching,
-    fetched,
-    types,
-    rows
-  } = state.app.edits
+  const { isFetching, fetched, types, rows } = state.app.edits
 
   const { pagination } = state.app
   const { paginationFade } = state.app
