@@ -39,6 +39,7 @@ http {
 
   server {
     listen 80;
+    autoindex off;
     access_log /dev/stdout;
     gzip on;
     gzip_types application/javascript text/html text/css application/json;
