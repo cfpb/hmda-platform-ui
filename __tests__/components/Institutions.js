@@ -5,7 +5,7 @@ jest.mock('oidc-client')
 
 import Institutions, {
   renderAlert,
-  getInstitutionFromFiling
+  getFilingFromInstitution
 } from '../../src/js/components/Institutions.jsx'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
@@ -20,14 +20,14 @@ const multifilings = JSON.parse(
 const institutionsJSON = JSON.parse(
   fs.readFileSync('./__tests__/json/institutions.json')
 )
-const submission = {    
-  id: { institutionId: '2', sequenceNumber: '2' },    
-  status: {   
-    code: 7,    
-    message: 'validated',   
-    description: 'Your submission has been validated and is ready to be signed.'    
-  },    
-  isFetching: false   
+const submission = {
+  id: { institutionId: '2', sequenceNumber: '2' },
+  status: {
+    code: 7,
+    message: 'validated',
+    description: 'Your submission has been validated and is ready to be signed.'
+  },
+  isFetching: false
 }
 
 const onDownloadClick = jest.fn()
@@ -65,14 +65,15 @@ describe('Institutions', () => {
       institutions,
       'institution'
     )
-    expect(institutionRendered.length).toBe(2)
+    // an 'institution' is rendered even without filings
+    expect(institutionRendered.length).toBe(4)
   })
 
   it('renders a error if there are no filings', () => {
     const institutions = TestUtils.renderIntoDocument(
       <Wrapper>
         <Institutions
-          filings={{ isFetching: false, filings: [], fetched: true }}
+          filings={{ isFetching: false, filings: multifilings, fetched: true }}
           filingPeriod="2017"
           institutions={institutionsJSON.institutions}
           onDownloadClick={onDownloadClick}
@@ -85,7 +86,7 @@ describe('Institutions', () => {
         institutions,
         'usa-alert-error'
       ).length
-    ).toEqual(1)
+    ).toEqual(2)
   })
 
   it('renders a error if error(s) exist', () => {
@@ -103,28 +104,42 @@ describe('Institutions', () => {
     )
 
     expect(
-      TestUtils.scryRenderedDOMComponentsWithClass(
-        institutions,
-        'usa-alert-error'
-      ).length
+      TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'ErrorWarning')
+        .length
     ).toEqual(1)
   })
 })
 
-describe('getInstitutionFromFiling', () => {
-  it('gets a matching institution', () => {
-    expect(
-      getInstitutionFromFiling([{ id: 1 }, { id: 2 }], { institutionId: 2 })
-    ).toEqual({ id: 2 })
+describe('getFilingFromInstitution', () => {
+  const filings = {
+    filings: [
+      {
+        filing: {
+          institutionId: '1'
+        }
+      },
+      {
+        filing: {
+          institutionId: '2'
+        }
+      }
+    ]
+  }
+  it('gets a matching filing', () => {
+    expect(getFilingFromInstitution({ id: '1' }, filings)).toEqual(
+      filings.filings[0]
+    )
   })
 
   it('returns null on no match', () => {
-    expect(
-      getInstitutionFromFiling([{ id: 1 }, { id: 2 }], { institutionId: 3 })
-    ).toEqual(null)
+    expect(getFilingFromInstitution({ id: '3' }, filings)).toEqual(null)
   })
 
-  it('returns null on no institutions', () => {
-    expect(getInstitutionFromFiling([], { institutionId: 3 })).toEqual(null)
+  it('returns null on empty filings', () => {
+    expect(getFilingFromInstitution({ id: '3' }, {})).toEqual(null)
+  })
+
+  it('returns null on no filings', () => {
+    expect(getFilingFromInstitution({ id: '3' })).toEqual(null)
   })
 })

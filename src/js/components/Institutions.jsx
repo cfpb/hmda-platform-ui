@@ -7,15 +7,20 @@ import InstitutionsHeader from './InstitutionsHeader.jsx'
 import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 
-const _setSubmission = (submission, filing, filingObj) => {
-  if (submission.id && submission.id.institutionId === filing.institutionId) {
+const _setSubmission = (submission, filing) => {
+  if (
+    submission.id &&
+    submission.id.institutionId === filing.filing.institutionId
+  ) {
     return submission
   }
 
-  return filingObj.submissions[0]
+  return filing.submissions[0]
 }
 
 export const getFilingFromInstitution = (institution, filings) => {
+  if (!filings || !filings.filings) return null
+
   for (let i = 0; i < filings.filings.length; i++) {
     if (institution.id === filings.filings[i].filing.institutionId) {
       return filings.filings[i]
@@ -50,12 +55,8 @@ export default class Institutions extends Component {
             institutions.map((institution, i) => {
               const filing = getFilingFromInstitution(institution, filings)
 
-              if (!filing) return (
-                <Institution
-                  key={i}
-                  institution={institution}
-                />
-              )
+              if (!filing)
+                return <Institution key={i} institution={institution} />
 
               return (
                 <Institution
@@ -63,7 +64,7 @@ export default class Institutions extends Component {
                   filing={filing.filing}
                   institution={institution}
                   onDownloadClick={onDownloadClick}
-                  submission={filing.submissions[0]}
+                  submission={_setSubmission(submission, filing)}
                   submissions={filing.submissions}
                 />
               )

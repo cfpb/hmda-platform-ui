@@ -18,8 +18,8 @@ describe('institutions reducer', () => {
 
   it('handles RECEIVE_INSTITUTIONS', () => {
     expect(
-      institutions({}, {type: types.RECEIVE_INSTITUTIONS, institutions:{a:1}})
-    ).toEqual({isFetching: false, institutions: {a: 1}})
+      institutions({}, {type: types.RECEIVE_INSTITUTIONS, institutions:['id': '1']})
+    ).toEqual({isFetching: false, institutions: ['id': '1']})
   })
 
   it('shouldn\'t modify state on an unknown action type', () => {

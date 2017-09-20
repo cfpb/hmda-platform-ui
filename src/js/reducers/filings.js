@@ -5,7 +5,6 @@ import {
   RECEIVE_FILINGS,
   REFRESH_STATE
 } from '../constants'
-import sortFilings from '../utils/sortFilings.js'
 
 const defaultFilings = {
   filings: [],
@@ -29,7 +28,7 @@ export default (state = defaultFilings, action) => {
     case RECEIVE_FILING:
       return {
         ...state,
-        filings: [...state.filings, action.filing].sort(sortFilings)
+        filings: [...state.filings, action.filing]
       }
     case CLEAR_FILINGS:
       return defaultFilings
