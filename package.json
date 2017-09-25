@@ -13,7 +13,7 @@
     "js": "rimraf ./dist/js/app.min.js.map && rimraf ./dist/js/app.min.js.bak && browserify -d -g [ envify --NODE_ENV ${NODE_ENV:-production} ] -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] -p [ minifyify --map app.min.js.map --output ./dist/js/app.min.js.map --uglify [ -cm ] ] ./src/js/index.js | bundle-collapser - > ./dist/js/app.min.js && npm run env",
     "js:dev": "rimraf ./dist/js/app.min.js.map && rimraf ./dist/js/app.min.js.bak && browserify -d -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] -e ./src/js/index.js -o ./dist/js/app.min.js && npm run env",
     "renew": "browserify -d -g [ envify --NODE_ENV ${NODE_ENV:-production} ] -t [ babelify --presets [ es2015 react ] --plugins [ babel-plugin-transform-object-rest-spread ] ] -p [ minifyify --map silent_renew.js.map --output ./dist/js/silent_renew.js.map --uglify [ -cm ] ] ./src/js/utils/silent_renew.js | bundle-collapser - > ./dist/js/silent_renew.js",
-    "sass": "node-sass --quiet --output-style=compressed --source-map-embed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts",
+    "sass": "node-sass --quiet --output-style=compressed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts",
     "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html && html-minifier --collapse-whitespace ./src/silent_renew.html -o ./dist/silent_renew.html",
     "img-dev": "imagemin ./src/img/raw/* -o ./src/img/min",
     "img": "cp ./src/img/min/* ./dist/img && cp -r ./node_modules/uswds/dist/img/* ./dist/img",
