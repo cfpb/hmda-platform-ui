@@ -32,7 +32,6 @@ export const makeEntry = (props, type) => {
 
   return (
     <article className="EditsTableWrapper-Edit">
-      {/* maybe pass the edits here and get the count within header */}
       <EditsHeaderDescription count={count} type={type} />
       {renderTablesOrSuccess(props, edits, type)}
     </article>
