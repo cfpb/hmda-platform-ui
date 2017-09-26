@@ -10,15 +10,41 @@ describe('RefileButton', () => {
     const updateInstitution = jest.fn()
     const rendered = RefileButton({
       showConfirmModal: showConfirmModal,
-      updateInstitution: updateInstitution
+      updateInstitution: updateInstitution,
+      institution: { id: '1', name: 'bank0' }
     })
 
     expect(rendered).toBeDefined()
     expect(rendered.props.className).not.toBe('')
     rendered.props.onClick({ preventDefault: jest.fn() })
     expect(showConfirmModal).toBeCalled()
-    expect(updateInstitution).toBeCalled()
+    //expect(updateInstitution).toBeCalled()
     expect(showConfirmModal.mock.calls[0][0]).toBe(undefined)
+  })
+
+  it('should update the institution', () => {
+    const showConfirmModal = jest.fn()
+    const updateInstitution = jest.fn()
+    const rendered = RefileButton({
+      showConfirmModal: showConfirmModal,
+      updateInstitution: updateInstitution,
+      institution: { id: '1', name: 'bank0' }
+    })
+
+    rendered.props.onClick({ preventDefault: jest.fn() })
+    expect(updateInstitution).toBeCalled()
+  })
+
+  it('should NOT update the institution', () => {
+    const showConfirmModal = jest.fn()
+    const updateInstitution = jest.fn()
+    const rendered = RefileButton({
+      showConfirmModal: showConfirmModal,
+      updateInstitution: updateInstitution
+    })
+
+    rendered.props.onClick({ preventDefault: jest.fn() })
+    expect(updateInstitution).not.toBeCalled()
   })
 
   it('can be overrided as a link', () => {

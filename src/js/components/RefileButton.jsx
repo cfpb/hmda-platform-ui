@@ -20,7 +20,9 @@ const RefileButton = props => {
       className={refileStyle}
       onClick={e => {
         e.preventDefault()
-        props.updateInstitution(props.institution)
+        if(props.institution) {
+          props.updateInstitution(props.institution)
+        }
         props.showConfirmModal()
       }}
     >
