@@ -52,7 +52,7 @@ const Institution = ({
             filingPeriod={filing.period}
           />
 
-          <InstitutionRefile status={status} filing={filing} />
+          <InstitutionRefile institution={institution} status={status} />
         </div>
 
         <InstitutionPreviousSubmissions
