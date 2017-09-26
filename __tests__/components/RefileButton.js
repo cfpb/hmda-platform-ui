@@ -5,17 +5,19 @@ import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 
 describe('RefileButton', () => {
-
   it('renders with provided props', () => {
     const showConfirmModal = jest.fn()
+    const updateInstitution = jest.fn()
     const rendered = RefileButton({
-      showConfirmModal: showConfirmModal
+      showConfirmModal: showConfirmModal,
+      updateInstitution: updateInstitution
     })
 
     expect(rendered).toBeDefined()
     expect(rendered.props.className).not.toBe('')
-    rendered.props.onClick({preventDefault: jest.fn()})
+    rendered.props.onClick({ preventDefault: jest.fn() })
     expect(showConfirmModal).toBeCalled()
+    expect(updateInstitution).toBeCalled()
     expect(showConfirmModal.mock.calls[0][0]).toBe(undefined)
   })
 
@@ -32,8 +34,7 @@ describe('RefileButton', () => {
 
   it('fails to render without provided props', () => {
     console.error = jest.fn()
-    const errored = TestUtils.renderIntoDocument(<RefileButton/>)
-    expect(console.error).toHaveBeenCalledTimes(1)
+    const errored = TestUtils.renderIntoDocument(<RefileButton />)
+    expect(console.error).toHaveBeenCalledTimes(2)
   })
-
 })

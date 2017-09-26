@@ -26,24 +26,23 @@ const defaultState = {
 }
 
 describe('RefileButton', () => {
-
   it('renders the connected component', () => {
     const wrappedConnected = TestUtils.renderIntoDocument(
-        <Wrapper store={defaultState}>
-          <RefileButton/>
-        </Wrapper>
-      )
+      <Wrapper store={defaultState}>
+        <RefileButton />
+      </Wrapper>
+    )
 
-      expect(console.error).not.toBeCalled()
+    expect(console.error).not.toBeCalled()
   })
 
   it('fails to render the unconnected component', () => {
     const wrappedContainer = TestUtils.renderIntoDocument(
-        <Wrapper>
-          <RefileButtonContainer/>
-        </Wrapper>
-      )
-      expect(console.error).toHaveBeenCalledTimes(1)
+      <Wrapper>
+        <RefileButtonContainer />
+      </Wrapper>
+    )
+    expect(console.error).toHaveBeenCalledTimes(2)
   })
 
   it('uses the state without props', () => {
@@ -59,7 +58,10 @@ describe('RefileButton', () => {
     const dispatch = jest.fn()
     const mapped = mapDispatchToProps(dispatch)
 
-    expect(Object.keys(mapped)).toEqual(['showConfirmModal'])
+    expect(Object.keys(mapped)).toEqual([
+      'showConfirmModal',
+      'updateInstitution'
+    ])
     mapped.showConfirmModal()
     expect(dispatch).toBeCalled()
   })
