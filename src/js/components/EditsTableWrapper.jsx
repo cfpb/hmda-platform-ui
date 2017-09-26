@@ -7,11 +7,32 @@ import EditsTable from './EditsTable.jsx'
 import Verifier from '../containers/Verifier.jsx'
 import Alert from './Alert.jsx'
 
+export const getTotalTypeCount = (edits, pagination) => {
+  let count = 0
+  edits.map((edit, i) => {
+    if (pagination[edit.edit]) {
+      count += pagination[edit.edit].total
+    }
+  })
+
+  return count
+}
+
 export const makeEntry = (props, type) => {
-  const edits = props.types[type].edits
+  let edits
+  if (type === 'syntacticalvalidity') {
+    edits = props.types['syntactical'].edits.concat(
+      props.types['validity'].edits
+    )
+  } else {
+    edits = props.types[type].edits
+  }
+
+  const count = getTotalTypeCount(edits, props.pagination)
+
   return (
     <article className="EditsTableWrapper-Edit">
-      <EditsHeaderDescription count={edits.length} type={type} />
+      <EditsHeaderDescription count={count} type={type} />
       {renderTablesOrSuccess(props, edits, type)}
     </article>
   )
@@ -19,12 +40,15 @@ export const makeEntry = (props, type) => {
 
 export const renderTablesOrSuccess = (props, edits, type) => {
   if (edits.length === 0) {
-    const verificationMsg = type === 'quality' || type === 'macro'
-      ? ', no verification is required.'
-      : '.'
+    const verificationMsg =
+      type === 'quality' || type === 'macro'
+        ? ', no verification is required.'
+        : '.'
     return (
       <Alert type="success">
-        <p>Your data did not trigger any {type} edits{verificationMsg}</p>
+        <p>
+          Your data did not trigger any {type} edits{verificationMsg}
+        </p>
       </Alert>
     )
   }
@@ -59,18 +83,15 @@ const EditsTableWrapper = props => {
 
   const loading = !props.fetched || props.isFetching ? <LoadingIcon /> : null
 
-  return (
+  return loading ? (
     loading
-    ? loading
-    : <section className="EditsTableWrapper">
-        {loading}
-        {type === 'syntacticalvalidity'
-          ? makeEntry(props, 'syntactical')
-          : makeEntry(props, type)}
-        {type === 'syntacticalvalidity' ? makeEntry(props, 'validity') : null}
-        {type === 'quality' || type === 'macro' ? <Verifier type={type} /> : null}
-        <hr />
-      </section>
+  ) : (
+    <section className="EditsTableWrapper">
+      {loading}
+      {makeEntry(props, type)}
+      {type === 'quality' || type === 'macro' ? <Verifier type={type} /> : null}
+      <hr />
+    </section>
   )
 }
 

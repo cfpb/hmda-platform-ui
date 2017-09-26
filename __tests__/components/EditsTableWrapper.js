@@ -20,7 +20,7 @@ const types = {
 describe('EditsTableWrapper', () => {
   const onDownloadClick = jest.fn()
 
-  it('renders 5 children if type is quality and page is quality', () => {
+  it('renders 2 tables type is quality and page is quality', () => {
     const rendered = EditsTableWrapper({
       onDownloadClick: onDownloadClick,
       page: 'quality',
@@ -41,7 +41,8 @@ describe('EditsTableWrapper', () => {
       }
     })
 
-    expect(rendered.props.children.length).toBe(5)
+    // the number of tables rendered
+    expect(rendered.props.children[1].props.children[1].length).toBe(2)
   })
 })
 
@@ -72,20 +73,22 @@ describe('EditsTableWrapper Loading', () => {
     expect(typeof rendered.type).toBe('function')
   })
 })
+
 describe('renderTablesOrSuccess', () => {
   it('render the success message with verification note if NO edits and q/m', () => {
     const rendered = renderTablesOrSuccess({}, [], 'quality')
-    expect(rendered.props.children.props.children.join('')).toBe('Your data did not trigger any quality edits, no verification is required.')
+    expect(rendered.props.children.props.children.join('')).toBe(
+      'Your data did not trigger any quality edits, no verification is required.'
+    )
   })
 
   it('render the tables with edits (syntactical)', () => {
-    const rendered = renderTablesOrSuccess({}, types.syntactical.edits, 'syntactical')
+    const rendered = renderTablesOrSuccess(
+      {},
+      types.syntactical.edits,
+      'syntacticalvalidity'
+    )
     expect(rendered.length).toBe(2)
-  })
-
-  it('render the tables with edits (validity)', () => {
-    const rendered = renderTablesOrSuccess({}, types.validity.edits, 'validity')
-    expect(rendered.length).toBe(1)
   })
 
   it('render the tables with edits (quality)', () => {
