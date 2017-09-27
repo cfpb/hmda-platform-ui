@@ -5,7 +5,7 @@ import fetchCSV from '../actions/fetchCSV.js'
 
 class RefileWarningContainer extends Component {
   constructor(props) {
-      super(props)
+    super(props)
   }
 
   render() {
@@ -28,9 +28,8 @@ function mapDispatchToProps(dispatch) {
   return { onDownloadClick }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RefileWarningContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  RefileWarningContainer
+)
 
-export {
-  RefileWarningContainer,
-  mapDispatchToProps
-}
+export { RefileWarningContainer, mapDispatchToProps }
