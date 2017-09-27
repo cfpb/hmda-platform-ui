@@ -10,6 +10,7 @@ module.exports = {
     filename: 'silent_renew.js',
     path: path.resolve(__dirname, 'dist/js'),
   },
+  devtool: 'source-map',
   plugins: [
     new UglifyJSPlugin({sourceMap: true}),
     new webpack.DefinePlugin({
