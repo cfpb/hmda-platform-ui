@@ -2,8 +2,8 @@
   .usa-alert {
     margin-top: 0;
     padding: 3rem;
-    p {
-      margin: 0;
+    .usa-alert-body {
+      max-width: 77rem;
     }
   }
 }
