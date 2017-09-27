@@ -25,6 +25,17 @@ export const renderErrors = errors => {
   )
 }
 
+const _getUploadMessage = (preText, filename, postText, howToMessage) => {
+  return (
+    <div>
+      <p>
+        {preText} <strong>{filename}</strong> {postText}
+      </p>
+      <p className="file-selected">{howToMessage}</p>
+    </div>
+  )
+}
+
 export const getDropzoneText = ({ code, errors, filename }) => {
   let howToMessage =
     'To begin uploading a file, drag it into this box or click here.'
@@ -39,78 +50,59 @@ export const getDropzoneText = ({ code, errors, filename }) => {
   }
 
   if (filename) {
-    message = (
-      <div>
-        <p>
-          <strong>{filename}</strong> selected.
-        </p>
-        <p className="file-selected">{howToMessage}</p>
-      </div>
-    )
+    message = _getUploadMessage('', filename, 'selected.', howToMessage)
 
     if (code >= STATUS.UPLOADING && code <= STATUS.VALIDATING) {
-      message = (
-        <div>
-          <p>
-            Upload of <strong>{filename}</strong> is currently in progress.
-          </p>
-          <p className="file-selected">{howToMessage}</p>
-        </div>
+      message = _getUploadMessage(
+        'Upload of',
+        filename,
+        'is currently in progress.',
+        howToMessage
       )
     }
 
     if (code === STATUS.PARSED_WITH_ERRORS) {
-      message = (
-        <div>
-          <p>
-            Upload of <strong>{filename}</strong> has formatting errors.
-          </p>
-          <p className="file-selected">{howToMessage}</p>
-        </div>
+      message = _getUploadMessage(
+        'Upload of',
+        filename,
+        'has formatting errors.',
+        howToMessage
       )
     }
 
     if (code === STATUS.VALIDATED_WITH_ERRORS) {
-      message = (
-        <div>
-          <p>
-            Upload of <strong>{filename}</strong> is ready for review.
-          </p>
-          <p className="file-selected">{howToMessage}</p>
-        </div>
+      message = _getUploadMessage(
+        'Upload of',
+        filename,
+        'is ready for review.',
+        howToMessage
       )
     }
 
     if (code === STATUS.VALIDATED) {
-      message = (
-        <div>
-          <p>
-            Upload of <strong>{filename}</strong> is ready for submission.
-          </p>
-          <p className="file-selected">{howToMessage}</p>
-        </div>
+      message = _getUploadMessage(
+        'Upload of',
+        filename,
+        'is ready for submission.',
+        howToMessage
       )
     }
 
     if (code === STATUS.SIGNED) {
-      message = (
-        <div>
-          <p>
-            Your submission of <strong>{filename}</strong> is complete.
-          </p>
-          <p className="file-selected">{howToMessage}</p>
-        </div>
+      message = _getUploadMessage(
+        'Your submission of',
+        filename,
+        'is complete.',
+        howToMessage
       )
     }
 
     if (errors.length > 0) {
-      message = (
-        <div>
-          <p>
-            <strong>{filename}</strong> can not be uploaded.
-          </p>
-          <p>{howToMessage}</p>
-        </div>
+      message = _getUploadMessage(
+        '',
+        filename,
+        'can not be uploaded.',
+        howToMessage
       )
     }
   }
