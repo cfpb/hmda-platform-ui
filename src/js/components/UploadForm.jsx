@@ -2,26 +2,22 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
-import {
-  CREATED,
-  UPLOADING,
-  SIGNED
-} from '../constants/statusCodes.js'
+import * as STATUS from '../constants/statusCodes.js'
 
-export const renderValidationProgress = (props) => {
-  if(props.code < UPLOADING && !props.uploading) return null
-  return <ValidationProgress file={props.file} code={props.code} id={props.id}/>
+export const renderValidationProgress = ({ code, uploading, file, id }) => {
+  if (code < STATUS.UPLOADING && !uploading) return null
+  return <ValidationProgress file={file} code={code} id={id} />
 }
 
-export const renderErrors = (errors) => {
-  if(errors.length === 0) return null
+export const renderErrors = errors => {
+  if (errors.length === 0) return null
 
-  return(
+  return (
     <div className="usa-alert usa-alert-error" role="alert">
       <div className="usa-alert-body">
         <ul className="usa-alert-text">
           {errors.map((error, i) => {
-            return(<li key={i}>{error}</li>)
+            return <li key={i}>{error}</li>
           })}
         </ul>
       </div>
@@ -29,53 +25,89 @@ export const renderErrors = (errors) => {
   )
 }
 
+const _getUploadMessage = (preText, filename, postText, howToMessage) => {
+  return (
+    <div>
+      <p>
+        {preText} <strong>{filename}</strong> {postText}
+      </p>
+      <p className="file-selected">{howToMessage}</p>
+    </div>
+  )
+}
+
 export const getDropzoneText = ({ code, errors, filename }) => {
-  let howToMessage = 'To begin uploading a file, drag it into this box or click here.'
-  if(code >= CREATED) {
-    howToMessage = 'To begin uploading a new file, drag it into this box or click here.'
+  let howToMessage =
+    'To begin uploading a file, drag it into this box or click here.'
+  if (code >= STATUS.CREATED) {
+    howToMessage =
+      'To begin uploading a new file, drag it into this box or click here.'
   }
   let message = <p>{howToMessage}</p>
 
-  if(code >= UPLOADING) {
+  if (code >= STATUS.UPLOADING) {
     message = howToMessage
   }
 
-  if(code === SIGNED) {
-    message = <div>
-      <p>Your submission is complete.</p>
-      <p className="file-selected">{howToMessage}</p>
-    </div>
+  if (filename) {
+    message = _getUploadMessage('', filename, 'selected.', howToMessage)
+
+    if (code >= STATUS.UPLOADING && code <= STATUS.VALIDATING) {
+      message = _getUploadMessage(
+        'Upload of',
+        filename,
+        'is currently in progress.',
+        howToMessage
+      )
+    }
+
+    if (code === STATUS.PARSED_WITH_ERRORS) {
+      message = _getUploadMessage(
+        'Upload of',
+        filename,
+        'has formatting errors.',
+        howToMessage
+      )
+    }
+
+    if (code === STATUS.VALIDATED_WITH_ERRORS) {
+      message = _getUploadMessage(
+        'Upload of',
+        filename,
+        'is ready for review.',
+        howToMessage
+      )
+    }
+
+    if (code === STATUS.VALIDATED) {
+      message = _getUploadMessage(
+        'Upload of',
+        filename,
+        'is ready for submission.',
+        howToMessage
+      )
+    }
+
+    if (code === STATUS.SIGNED) {
+      message = _getUploadMessage(
+        'Your submission of',
+        filename,
+        'is complete.',
+        howToMessage
+      )
+    }
+
+    if (errors.length > 0) {
+      message = _getUploadMessage(
+        '',
+        filename,
+        'can not be uploaded.',
+        howToMessage
+      )
+    }
   }
 
-  if(filename) {
-    message = <div>
-      <p><strong>{filename}</strong> selected.</p>
-      <p className="file-selected">{howToMessage}</p>
-    </div>
-
-    if(errors.length > 0) {
-      message = <div>
-        <p><strong>{filename}</strong> can not be uploaded.</p>
-        <p>{howToMessage}</p>
-      </div>
-    }
-
-    if(code >= UPLOADING) {
-      message = <div>
-        <p>Submission of <strong>{filename}</strong> is currently in progess.</p>
-        <p className="file-selected">{howToMessage}</p>
-      </div>
-    }
-
-    if(code === SIGNED) {
-      message = <div>
-        <p>Your submission of <strong>{filename}</strong> is complete.</p>
-        <p className="file-selected">{howToMessage}</p>
-      </div>
-    }
-  }
-
-  return <button onClick={e=>e.preventDefault()}>{message}</button>
+  return <button onClick={e => e.preventDefault()}>{message}</button>
 }
 
 export default class Upload extends Component {
@@ -84,14 +116,9 @@ export default class Upload extends Component {
 
     // handle the onDrop to set the file and show confirmation modal
     this.onDrop = acceptedFiles => {
-      const {
-        code,
-        showConfirmModal,
-        setFile,
-        setNewFile
-      } = this.props
+      const { code, showConfirmModal, setFile, setNewFile } = this.props
 
-      if(code >= UPLOADING) {
+      if (code >= STATUS.UPLOADING) {
         showConfirmModal()
         setNewFile(acceptedFiles)
       } else {
@@ -100,14 +127,11 @@ export default class Upload extends Component {
     }
   }
 
-  // keeps the info about the file after leaving /upload and coming back
   componentDidMount() {
-    if(this.props.code >= UPLOADING) this.props.pollSubmission()
+    if (this.props.code >= STATUS.UPLOADING) this.props.pollSubmission()
   }
 
   render() {
-    const dropzoneText = getDropzoneText(this.props)
-
     return (
       <section className="UploadForm">
         {renderErrors(this.props.errors)}
@@ -116,8 +140,9 @@ export default class Upload extends Component {
             disablePreview={true}
             onDrop={this.onDrop}
             multiple={false}
-            className="dropzone">
-            {dropzoneText}
+            className="dropzone"
+          >
+            {getDropzoneText(this.props)}
           </Dropzone>
         </section>
         {renderValidationProgress(this.props)}
