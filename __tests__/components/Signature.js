@@ -5,6 +5,8 @@ import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
+jest.mock('../../src/js/containers/Receipt.jsx')
+import Receipt from '../../src/js/containers/Receipt.jsx'
 
 const fs = require('fs')
 const signJSON = JSON.parse(fs.readFileSync('./__tests__/json/receipt.json'))
@@ -113,21 +115,8 @@ describe('Signature component', () => {
   )
   const signatureSignedNode = ReactDOM.findDOMNode(signatureSigned)
 
-  it('renders the receipt and timestamp', () => {
-    expect(TestUtils.findRenderedDOMComponentWithClass(signatureSigned, 'usa-alert-success')).toBeTruthy()
-  })
-
-  it('has the correct filingPeriod', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(signatureSigned, 'p')[1].textContent.match('2017')).toBeTruthy()
-  })
-
-  it('has the correct email', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(signatureSigned, 'p')[4].textContent.match('yo@me.com')).toBeTruthy()
-  })
-
-  it('has the checkbox checked', () => {
-    const checkboxChecked = TestUtils.findRenderedDOMComponentWithTag(signatureSigned, 'input')
-    expect(checkboxChecked.checked).toBeTruthy()
+  it('renders the receipt', () => {
+    expect(Receipt.mock.calls.length).toBe(4)
   })
 
   it('has the checkbox disabled', () => {
