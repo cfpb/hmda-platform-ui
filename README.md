@@ -28,7 +28,7 @@ _All pages, expect the home page, require authentication._
 
 ## Dependencies
 
-We use npm and yarn to manage front-end dependencies. You should have [npm installed](https://nodejs.org/en/) as well as [yarn](https://yarnpkg.com/lang/en/docs/install/).
+We use node and yarn to manage front-end dependencies. You should have [node installed](https://nodejs.org/en/) as well as [yarn](https://yarnpkg.com/lang/en/docs/install/).
 
 See the [package.json](https://github.com/cfpb/hmda-platform-ui/blob/master/package.json) file for application dependencies.
 
@@ -45,6 +45,7 @@ $ yarn
 ### Using the back-end API
 
 Viewing the full application requires the back-end [API](https://github.com/cfpb/hmda-platform) and [authentication](https://github.com/cfpb/hmda-platform-auth). Please follow the instructions found under the "Building and Running" heading of the [HMDA platform README](https://github.com/cfpb/hmda-platform#to-run-the-entire-platform).
+Running docker-compose from the hmda-platform repo will map a volume from the local built files into the ui's Docker container. This means local rebuilds will be instantly reflected in the running docker container.
 
 ## How to test the front-end
 

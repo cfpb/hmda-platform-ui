@@ -1,25 +1,28 @@
-FROM nginx:1.10
-MAINTAINER Wyatt Pearsall<Wyatt.Pearsall@cfpb.gov>
-ARG SKIP_JS_BUILD
+FROM centos:7
 
-RUN if [ -z ${SKIP_JS_BUILD+x} ]; then echo "Installing JS deps" && apt-get update && \
-    apt-get install -y curl && \
-    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
-    apt-get install -y nodejs && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ v0.27.5 main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && \
-    apt-get install -y yarn; fi && \
-    mkdir -p /usr/src/app && \
-    chown -R root /usr/src/app && chmod u+rwx /usr/src/app
+ENV NGINX_USER=svc_nginx_hmda
+
+ADD . /usr/src/app
 
 WORKDIR /usr/src/app
 
-COPY . /usr/src/app
-COPY nginx /etc/nginx
+RUN yum install -y epel-release && \
+    yum-config-manager --enable cr && \
+    yum update -y && \
+    yum install -y nginx-1.10.2 \
+    yum clean all && \
+    usermod -l $NGINX_USER nginx && \
+    groupmod -n $NGINX_USER nginx && \
+    rm -rf /usr/share/nginx/ && \
+    ls -d -1 /etc/nginx/* | grep -v '\/mime.types$' | xargs rm -rf && \
+    mv nginx/* /etc/nginx && \
+    sed -i 's/80/8080/g' /etc/nginx/nginx.tmpl && \
+    ls -d -1 * | grep -v '^\(dist\|docker-entrypoint.sh\|env.sh\)$' | xargs rm -rf && \
+    touch /run/nginx.pid && \
+    chown -R $NGINX_USER:$NGINX_USER dist/js/app.min.js /etc/nginx /run/nginx.pid
 
-RUN if [ -z ${SKIP_JS_BUILD+x} ]; then echo "Building JS" && yarn; fi
+USER $NGINX_USER
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["./docker-entrypoint.sh"]
