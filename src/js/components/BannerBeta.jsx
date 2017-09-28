@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Alert from './Alert.jsx'
 
-const BannerBeta = props => {
+const BannerBeta = () => {
   return (
     <section className="BannerBeta usa-text-small">
       <Alert type="warning" heading="Help us improve this beta release.">
