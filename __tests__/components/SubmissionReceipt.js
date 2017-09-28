@@ -1,7 +1,7 @@
-jest.unmock('../../src/js/components/Receipt.jsx')
+jest.unmock('../../src/js/components/SubmissionReceipt.jsx')
 jest.unmock('../../src/js/components/Alert.jsx')
 
-import Receipt from '../../src/js/components/Receipt.jsx'
+import SubmissionReceipt from '../../src/js/components/SubmissionReceipt.jsx'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -14,10 +14,10 @@ const status = {
   message: ''
 }
 
-describe('Receipt component', () => {
+describe('SubmissionReceipt component', () => {
   const receipt = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Receipt
+      <SubmissionReceipt
         receipt={signJSON.receipt}
         timestamp={signJSON.timestamp}
         status={status}
@@ -42,7 +42,7 @@ describe('Receipt component', () => {
 
   const unsigned = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Receipt
+      <SubmissionReceipt
         receipt={signJSON.receipt}
         timestamp={signJSON.timestamp}
         status={{code: 9, message: ''}}

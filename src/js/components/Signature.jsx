@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ErrorWarning from './ErrorWarning.jsx'
-import Receipt from '../containers/Receipt.jsx'
+import SubmissionReceipt from '../containers/SubmissionReceipt.jsx'
 import Alert from './Alert.jsx'
 import { VALIDATED_WITH_ERRORS, SIGNED } from '../constants/statusCodes.js'
 
@@ -84,7 +84,7 @@ const Signature = props => {
         Submit HMDA data
       </button>
 
-      <Receipt />
+      <SubmissionReceipt />
     </section>
   )
 }

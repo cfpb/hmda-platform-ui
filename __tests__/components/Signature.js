@@ -5,8 +5,8 @@ import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
-jest.mock('../../src/js/containers/Receipt.jsx')
-import Receipt from '../../src/js/containers/Receipt.jsx'
+jest.mock('../../src/js/containers/SubmissionReceipt.jsx')
+import SubmissionReceipt from '../../src/js/containers/SubmissionReceipt.jsx'
 
 const fs = require('fs')
 const signJSON = JSON.parse(fs.readFileSync('./__tests__/json/receipt.json'))
@@ -116,7 +116,7 @@ describe('Signature component', () => {
   const signatureSignedNode = ReactDOM.findDOMNode(signatureSigned)
 
   it('renders the receipt', () => {
-    expect(Receipt.mock.calls.length).toBe(4)
+    expect(SubmissionReceipt.mock.calls.length).toBe(4)
   })
 
   it('has the checkbox disabled', () => {
