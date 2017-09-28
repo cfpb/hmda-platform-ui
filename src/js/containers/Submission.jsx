@@ -10,6 +10,7 @@ import SubmissionPageInfo from '../components/SubmissionPageInfo.jsx'
 import UploadForm from './UploadForm.jsx'
 import ErrorWarning from '../components/ErrorWarning.jsx'
 import EditsContainer from './Edits.jsx'
+import Receipt from './Receipt.jsx'
 import EditsNavComponent from '../components/EditsNav.jsx'
 import NavButtonComponent from '../components/NavButton.jsx'
 import RefileWarningContainer  from './RefileWarning.jsx'
@@ -25,7 +26,8 @@ import {
   UNINITIALIZED,
   FAILED,
   PARSED_WITH_ERRORS,
-  VALIDATING
+  VALIDATING,
+  SIGNED
 } from '../constants/statusCodes.js'
 
 const Edits = submissionProgressHOC(EditsContainer)
@@ -115,7 +117,12 @@ class SubmissionContainer extends Component {
         institution={this.props.institution}
       />
       <RefileWarning/>
-      {page === 'submission' ? <SubmissionPageInfo /> : null}
+      {page === 'submission'
+        ? (code !== SIGNED
+          ? <SubmissionPageInfo />
+          : <section className="RefileWarning"><Receipt /></section>
+        ): null
+      }
 
       <main id="main-content" className="usa-grid SubmissionContainer">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null }
