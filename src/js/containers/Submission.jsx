@@ -25,7 +25,8 @@ import {
   UNINITIALIZED,
   FAILED,
   PARSED_WITH_ERRORS,
-  VALIDATING
+  VALIDATING,
+  SIGNED
 } from '../constants/statusCodes.js'
 
 const Edits = submissionProgressHOC(EditsContainer)
@@ -115,7 +116,7 @@ class SubmissionContainer extends Component {
         institution={this.props.institution}
       />
       <RefileWarning/>
-      {page === 'submission' ? <SubmissionPageInfo /> : null}
+      {page === 'submission' && code !== SIGNED ? <SubmissionPageInfo /> : null}
 
       <main id="main-content" className="usa-grid SubmissionContainer">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null }
