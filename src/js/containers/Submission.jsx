@@ -10,6 +10,7 @@ import SubmissionPageInfo from '../components/SubmissionPageInfo.jsx'
 import UploadForm from './UploadForm.jsx'
 import ErrorWarning from '../components/ErrorWarning.jsx'
 import EditsContainer from './Edits.jsx'
+import Receipt from './Receipt.jsx'
 import EditsNavComponent from '../components/EditsNav.jsx'
 import NavButtonComponent from '../components/NavButton.jsx'
 import RefileWarningContainer  from './RefileWarning.jsx'
@@ -116,7 +117,12 @@ class SubmissionContainer extends Component {
         institution={this.props.institution}
       />
       <RefileWarning/>
-      {page === 'submission' && code !== SIGNED ? <SubmissionPageInfo /> : null}
+      {page === 'submission'
+        ? (code !== SIGNED
+          ? <SubmissionPageInfo />
+          : <section className="RefileWarning"><Receipt /></section>
+        ): null
+      }
 
       <main id="main-content" className="usa-grid SubmissionContainer">
         {this.props.error ? <ErrorWarning error={this.props.error}/> : null }

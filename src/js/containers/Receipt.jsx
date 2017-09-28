@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import fetchSignature from '../actions/fetchSignature.js'
-import updateSignature from '../actions/updateSignature.js'
-import checkSignature from '../actions/checkSignature.js'
-import Signature from '../components/Signature.jsx'
+import Receipt from '../components/Receipt.jsx'
 
-export class SignatureContainer extends Component {
+export class ReceiptContainer extends Component {
   constructor(props) {
     super(props)
   }
@@ -16,41 +14,37 @@ export class SignatureContainer extends Component {
   }
 
   render() {
-    return <Signature {...this.props} />
+    return <Receipt {...this.props} />
   }
 }
 
 export function mapStateToProps(state) {
   const {
     isFetching,
-    receipt,
-    checked
+    timestamp,
+    receipt
   } = state.app.signature
 
   const { status } = state.app.submission
+  const { email }  = state.oidc.user.profile
 
-  const { error } = state.app
+  const { filingPeriod } = state.app
 
 
   return {
     isFetching,
+    timestamp,
     receipt,
     status,
-    checked,
-    error
+    filingPeriod,
+    email
   }
 }
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onSignatureClick: (signed) => {
-      dispatch(updateSignature(signed))
-    },
-    onSignatureCheck: (checked) => {
-      dispatch(checkSignature(checked))
-    },
     dispatch
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignatureContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(ReceiptContainer)
