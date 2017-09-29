@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const WebpackShellPlugin = require('webpack-shell-plugin')
 
 module.exports = {
   entry: {
@@ -18,7 +19,12 @@ module.exports = {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
       }
     }),
-    new webpack.optimize.ModuleConcatenationPlugin()
+    new webpack.optimize.ModuleConcatenationPlugin(),
+    new WebpackShellPlugin({
+      onBuildStart: ['npm run clearBackup'],
+      onBuildEnd:['npm run env'],
+      dev: false
+    })
   ],
   module: {
     rules: [{
