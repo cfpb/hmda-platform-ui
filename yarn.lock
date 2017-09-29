@@ -2220,10 +2220,6 @@ file-type@^3.1.0, file-type@^3.8.0:
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/file-type/-/file-type-3.9.0.tgz#257a078384d1db8087bc449d107d52a52672b9e9"
 
-file-type@^4.1.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/file-type/-/file-type-4.4.0.tgz#1b600e5fca1fbdc6e80c0a70c71c8dba5f7906c5"
-
 filename-regex@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/filename-regex/-/filename-regex-2.0.1.tgz#c1c4b9bee3e09725ddb106b75c1e301fe2f18b26"
@@ -2476,16 +2472,6 @@ globby@^5.0.0:
   dependencies:
     array-union "^1.0.1"
     arrify "^1.0.0"
-    glob "^7.0.3"
-    object-assign "^4.0.1"
-    pify "^2.0.0"
-    pinkie-promise "^2.0.0"
-
-globby@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/globby/-/globby-6.1.0.tgz#f5a6d70e8395e21c858fb0489d64df02424d506c"
-  dependencies:
-    array-union "^1.0.1"
     glob "^7.0.3"
     object-assign "^4.0.1"
     pify "^2.0.0"
@@ -4454,10 +4440,6 @@ p-map@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/p-map/-/p-map-1.2.0.tgz#e4e94f311eabbc8633a1e79908165fca26241b6b"
 
-p-pipe@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/p-pipe/-/p-pipe-1.2.0.tgz#4b1a11399a11520a67790ee5a0c1d5881d6befe9"
-
 package-json@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/package-json/-/package-json-1.2.0.tgz#c8ecac094227cdf76a316874ed05e27cc939a0e0"
@@ -5058,10 +5040,6 @@ replace-ext@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-0.0.1.tgz#29bbd92078a739f0bcce2b4ee41e837953522924"
 
-replace-ext@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
-
 request@2, request@^2.74.0, request@^2.79.0:
   version "2.83.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.83.0.tgz#ca0b65da02ed62935887808e6f510381034e3356"
@@ -5151,9 +5129,15 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@2, rimraf@2.5.4, rimraf@^2.2.6, rimraf@^2.5.1, rimraf@^2.5.4, rimraf@^2.6.1:
+rimraf@2, rimraf@^2.2.6, rimraf@^2.5.1, rimraf@^2.5.4:
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.5.4.tgz#96800093cbf1a0c86bd95b4625467535c29dfa04"
+  dependencies:
+    glob "^7.0.5"
+
+rimraf@2.6.2, rimraf@^2.6.1:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
   dependencies:
     glob "^7.0.5"
 
