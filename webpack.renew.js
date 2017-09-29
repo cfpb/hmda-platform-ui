@@ -1,5 +1,6 @@
 const merge = require('webpack-merge')
 const common = require('./webpack.common.js')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = merge(common, {
   entry: {
@@ -7,5 +8,8 @@ module.exports = merge(common, {
   },
   output: {
     filename: 'silent_renew.js'
-  }
+  },
+  plugins: [
+    new UglifyJSPlugin({sourceMap: true})
+  ]
 })
