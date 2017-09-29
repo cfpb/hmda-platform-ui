@@ -10,7 +10,7 @@ import SubmissionPageInfo from '../components/SubmissionPageInfo.jsx'
 import UploadForm from './UploadForm.jsx'
 import ErrorWarning from '../components/ErrorWarning.jsx'
 import EditsContainer from './Edits.jsx'
-import Receipt from './Receipt.jsx'
+import SubmissionReceipt from './SubmissionReceipt.jsx'
 import EditsNavComponent from '../components/EditsNav.jsx'
 import NavButtonComponent from '../components/NavButton.jsx'
 import RefileWarningContainer  from './RefileWarning.jsx'
@@ -120,7 +120,7 @@ class SubmissionContainer extends Component {
       {page === 'submission'
         ? (code !== SIGNED
           ? <SubmissionPageInfo />
-          : <section className="RefileWarning"><Receipt /></section>
+          : <section className="RefileWarning"><SubmissionReceipt /></section>
         ): null
       }
 
