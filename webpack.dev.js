@@ -11,8 +11,8 @@ module.exports = merge(common, {
   },
   plugins: [
     new WebpackShellPlugin({
-      onBuildStart: ['yarn clearBackup'],
-      onBuildEnd:['yarn env'],
+      onBuildStart: ['yarn run clearBackup'],
+      onBuildEnd:['yarn run env'],
       dev: false
     })
   ]

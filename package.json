@@ -17,12 +17,12 @@
     "sass": "node-sass --quiet --output-style=compressed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts",
     "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html && html-minifier --collapse-whitespace ./src/silent_renew.html -o ./dist/silent_renew.html",
     "img": "cp ./src/img/min/* ./dist/img && cp -r ./node_modules/uswds/dist/img/* ./dist/img",
-    "postinstall": "yarn clearDist && yarn build && yarn renew",
-    "watch:js": "yarn js:dev -- --watch",
+    "postinstall": "yarn run clearDist && yarn run build && yarn run renew",
+    "watch:js": "yarn run js:dev -- --watch",
     "watch:sass": "node-sass --watch --quiet --output-style=compressed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css",
     "watch:tests": "jest --watchAll",
-    "watch": "yarn watch:js & yarn watch:sass",
-    "build": "yarn js && yarn sass && yarn html && yarn img"
+    "watch": "yarn run watch:js & yarn run watch:sass",
+    "build": "yarn run js && yarn run sass && yarn run html && yarn run img"
   },
   "repository": {
     "type": "git",
