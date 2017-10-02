@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Pagination from '../containers/Pagination.jsx'
+import LoadingIcon from './LoadingIcon.jsx'
 import Alert from './Alert.jsx'
 
 const renderTotals = props => {
@@ -139,6 +140,7 @@ const renderErrorMessage = () => {
 }
 
 const IRSReport = props => {
+  if (props.isFetching) return <LoadingIcon />
   if (!props.msas) return null
   // sometimes the back-end returns an empty array for the, "msas":[]
   const renderResponse = props.msas.length === 0

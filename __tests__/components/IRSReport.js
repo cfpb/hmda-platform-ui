@@ -52,4 +52,20 @@ describe('IRS report', () => {
   it('creates the correct number of rows with totals', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithTag(withTotals, 'tr').length).toEqual(5)
   })
+
+  const irsLoading = TestUtils.renderIntoDocument(
+    <Wrapper>
+      <IRSReport
+        msas={irsJSON.msas}
+        summary={irsJSON.summary}
+        renderTotals={false}
+        id={id}
+        isFetching={true}
+      />
+    </Wrapper>
+  )
+
+  it('creates a loading icon when IRS is loading', () => {
+    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsLoading, 'img').length).toEqual(1)
+  })
 })
