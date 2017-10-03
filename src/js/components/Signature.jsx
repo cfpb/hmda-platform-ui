@@ -18,16 +18,19 @@ const showWarning = props => {
 
   return (
     <Alert type="warning" heading="Edits still exist.">
-      <p>You can not sign your submission until all edits have passed or been verified.</p>
+      <p>
+        You can not sign your submission until all edits have passed or been
+        verified.
+      </p>
     </Alert>
   )
 }
 
 const Signature = props => {
-  let isDisabled = props.status.code > VALIDATED_WITH_ERRORS &&
-    props.status.code !== SIGNED
-    ? false
-    : true
+  let isDisabled =
+    props.status.code > VALIDATED_WITH_ERRORS && props.status.code !== SIGNED
+      ? false
+      : true
 
   let buttonClass = 'usa-button-disabled'
   // if the checkbox is checked remove disabled from button
@@ -61,7 +64,7 @@ const Signature = props => {
       <ul className="usa-unstyled-list">
         <li>
           <input
-            id="signature"
+            id="signatureAuth"
             name="signature"
             type="checkbox"
             value="signature"
@@ -69,7 +72,7 @@ const Signature = props => {
             checked={props.checked}
             onChange={e => props.onSignatureCheck(e.target.checked)}
           />
-          <label htmlFor="signature" className="max-width-100">
+          <label htmlFor="signatureAuth" className="max-width-100">
             I am an authorized representative of my institution with knowledge
             of the data submitted and am certifying to the accuracy and
             completeness of the data submitted.
