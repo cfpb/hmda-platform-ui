@@ -53,8 +53,9 @@
       }
       &.active {
         .step {
+          background-color: $color-primary;
           border-color: $color-primary;
-          color: $color-primary;
+          color: $color-white;
         }
       }
       &.complete {
