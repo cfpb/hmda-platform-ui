@@ -31,3 +31,4 @@ dist/
 env.json
 
 .snyk
+.yarnclean
