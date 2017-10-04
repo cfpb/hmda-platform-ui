@@ -76,18 +76,18 @@
       }
       &.warning {
         a {
-          color: $color-hmda-orange;
+          color: #C05700;
           &:hover {
             color: $color-primary;
           }
         }
         .step {
-          background-color: $color-hmda-orange;
+          background-color: #DC731C;
           background-image: url('/img/exclamation.png');
           background-size: 4px auto;
           background-position: center;
           background-repeat: no-repeat;
-          border-color: $color-hmda-orange;
+          border-color: #DC731C;
         }
       }
       &.error {
