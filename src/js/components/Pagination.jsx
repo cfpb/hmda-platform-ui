@@ -54,7 +54,7 @@ class Pagination extends Component {
   _getInput(target) {
     return (
       <form onSubmit={this._submit}>
-        <label for={target}>{target}</label>
+        <label htmlFor={target}>{target}</label>
         <input
           id={target}
           type="text"
@@ -87,7 +87,6 @@ class Pagination extends Component {
   }
 
   render() {
-    console.log('Pagination', this.props)
     const props = this.props
     const page = props.pagination
     if (!page) return null
@@ -110,7 +109,8 @@ class Pagination extends Component {
           Previous
         </button>
         <div>
-          Page {this._getInput(this.props.target)} of {Math.ceil(page.total / 20)}
+          Page {this._getInput(this.props.target)} of{' '}
+          {Math.ceil(page.total / 20)}
         </div>
         <button
           className={lastPage ? 'usa-button-disabled' : ''}
