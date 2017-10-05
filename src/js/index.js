@@ -64,6 +64,11 @@ history.listen((location) => {
     console.log(`The current URL is ${location.pathname}${location.search}${location.hash}`)
   }
   localStorage.setItem('hmdaHistory', JSON.stringify(location))
+
+  if(window.hasOwnProperty( 'google_tag_manager' ) && location.pathname !== '/oidc-callback') {
+    ga('gtm1.set', 'page', location.pathname)
+    ga('gtm1.send', 'pageview')
+  }
 })
 
 render(
