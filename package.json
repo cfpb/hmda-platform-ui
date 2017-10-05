@@ -8,37 +8,29 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "snyk": "snyk test",
-    "clean":
-      "rimraf ./dist && mkdirp ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
-    "js": "rimraf ./dist/js/app.min.js.bak && webpack && npm run env",
-    "renew": "webpack --config webpack.renew.js",
-    "sass":
-      "node-sass --quiet --output-style=compressed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts",
-    "html":
-      "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html && html-minifier --collapse-whitespace ./src/silent_renew.html -o ./dist/silent_renew.html",
-    "img":
-      "cp ./src/img/min/* ./dist/img && cp -r ./node_modules/uswds/dist/img/* ./dist/img",
+    "clearDist": "rimraf ./dist && mkdirp ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
+    "clearBackup": "rimraf ./dist/js/app.min.js.bak",
+    "js": "webpack --progress",
+    "js:dev": "webpack --config webpack.dev.js --progress",
+    "renew": "webpack --config webpack.renew.js --progress",
+    "sass": "node-sass --quiet --output-style=compressed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts",
+    "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html && html-minifier --collapse-whitespace ./src/silent_renew.html -o ./dist/silent_renew.html",
+    "img": "cp ./src/img/min/* ./dist/img && cp -r ./node_modules/uswds/dist/img/* ./dist/img",
     "env": "./env.sh",
-    "postinstall":
-      "npm run clean && npm rebuild node-sass && npm run build && npm run renew",
-    "watch:js":
-      "nodemon --exitcrash -e js,jsx -w src/js -i src/js/utils/silent_renew.js -x 'npm run js'",
-    "watch:renew":
-      "nodemon --exitcrash -w src/js/silent_renew.js -x 'npm run renew'",
-    "watch:tests":
-      "nodemon --exitcrash -e js -w __tests__ -x 'jest --coverage -o'",
-    "watch:sass": "nodemon --exitcrash -e scss -w src/sass -x 'npm run sass'",
-    "watch:html": "nodemon --exitcrash -e html -w src -x 'npm run html'",
-    "watch":
-      "npm run watch:js & npm run watch:renew & npm run watch:tests & npm run watch:sass & npm run watch:html",
-    "build": "npm run js && npm run sass && npm run html && npm run img"
+    "postinstall": "yarn run clearDist && yarn run build && yarn run renew",
+    "watch:js": "yarn run js:dev -- --watch",
+    "watch:sass": "node-sass --watch --quiet --output-style=compressed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css",
+    "watch:tests": "jest --watchAll",
+    "watch": "yarn run watch:js & yarn run watch:sass",
+    "build": "yarn run js && yarn run sass && yarn run html && yarn run img"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cfpb/hmda-platform-ui.git"
   },
-  "keywords": ["HMDA"],
+  "keywords": [
+    "HMDA"
+  ],
   "author": "Consumer Financial Protection Bureau",
   "license": "CC0-1.0",
   "bugs": {
@@ -47,27 +39,22 @@
   "homepage": "https://github.com/cfpb/hmda-platform-ui#readme",
   "devDependencies": {
     "babel-jest": "20.0.3",
-    "babel-loader": "^7.1.2",
+    "babel-loader": "7.1.2",
     "babel-plugin-transform-object-rest-spread": "6.19.0",
-    "babel-polyfill": "6.16.0",
     "babel-preset-env": "1.6.0",
     "babel-preset-react": "6.16.0",
     "html-minifier": "3.1.1",
     "imagemin": "5.2.2",
     "imagemin-cli": "3.0.0",
     "jest-cli": "20.0.4",
-    "minifyify": "7.3.4",
     "mkdirp": "0.5.1",
     "node-sass": "4.5.3",
-    "nodemon": "1.11.0",
     "react-addons-test-utils": "15.4.0",
-    "react-dom": "15.4.0",
-    "react-router-scroll": "0.4.1",
-    "reactify": "1.1.1",
     "redux-mock-store": "1.2.1",
-    "rimraf": "2.5.4",
-    "snyk": "1.19.1",
-    "webpack": "^3.6.0"
+    "rimraf": "2.6.2",
+    "webpack": "3.6.0",
+    "webpack-merge": "4.1.0",
+    "webpack-shell-plugin": "0.5.0"
   },
   "jest": {
     "transform": {
@@ -89,16 +76,19 @@
     ]
   },
   "dependencies": {
+    "babel-polyfill": "6.16.0",
     "detect-browser": "1.7.0",
     "file-saver": "1.3.3",
     "immutable": "3.8.1",
     "oidc-client": "1.2.0",
     "prop-types": "15.5.10",
     "react": "15.4.0",
+    "react-dom": "15.4.0",
     "react-dropzone": "3.10.0",
     "react-redux": "4.4.6",
     "react-router": "2.6.0",
     "react-router-redux": "4.0.7",
+    "react-router-scroll": "0.4.1",
     "redux": "3.6.0",
     "redux-logger": "2.7.4",
     "redux-oidc": "2.2.1",

@@ -1,0 +1,22 @@
+.usa-button-disabled.usa-button {
+  background-color: $color-gray-lighter;
+  color: $color-gray-dark;
+  pointer-events: none;
+}
+
+.NavButton {
+  &.usa-button {
+    margin: 0;
+  }
+  position: absolute;
+  text-transform: capitalize;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s, visibility 0.3s;
+
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

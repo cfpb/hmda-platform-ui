@@ -1,0 +1,17 @@
+.Signature {
+  margin-bottom: 5em;
+
+  .usa-font-lead {
+    color: $color-gray-dark;
+    margin-top: .5em;
+    margin-bottom: 0;
+  }
+
+  .usa-alert {
+    margin-top: 1em;
+
+    p {
+      margin: 0.25em 0;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.RefileButton {
+  &:first-letter {
+    text-transform: uppercase;
+  }
+  &.float {
+    position:absolute;
+    top: 0;
+    right: 0;
+  }
+}
