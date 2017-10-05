@@ -5,10 +5,20 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
-import { Router, Route, browserHistory, IndexRoute, applyRouterMiddleware } from 'react-router'
-import useScroll from 'react-router-scroll/lib/useScroll';
+import {
+  Router,
+  Route,
+  browserHistory,
+  IndexRoute,
+  applyRouterMiddleware
+} from 'react-router'
+import useScroll from 'react-router-scroll/lib/useScroll'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
-import createOidcMiddleware, { createUserManager, OidcProvider, reducer } from 'redux-oidc'
+import createOidcMiddleware, {
+  createUserManager,
+  OidcProvider,
+  reducer
+} from 'redux-oidc'
 import oidc from 'oidc-client'
 
 import AppContainer from './containers/App.jsx'
@@ -36,36 +46,44 @@ userManager.events.addSilentRenewError(e => {
   userManager.events._cancelTimers()
 })
 
-const oidcMiddleware = createOidcMiddleware(userManager, () => true, false, '/oidc-callback')
-const loggerMiddleware = createLogger({collapsed: true})
+const oidcMiddleware = createOidcMiddleware(
+  userManager,
+  () => true,
+  false,
+  '/oidc-callback'
+)
+const loggerMiddleware = createLogger({ collapsed: true })
 const middleware = [thunkMiddleware, oidcMiddleware]
 
-if(process.env.NODE_ENV !== 'production'){
+if (process.env.NODE_ENV !== 'production') {
   oidc.Log.logger = console
   middleware.push(loggerMiddleware)
 }
 
 const store = createStore(
-  combineReducers(
-    {
-      app: appReducer,
-      routing: routerReducer,
-      oidc: reducer
-    }
-  ),
+  combineReducers({
+    app: appReducer,
+    routing: routerReducer,
+    oidc: reducer
+  }),
   applyMiddleware(...middleware)
 )
 
 const history = syncHistoryWithStore(browserHistory, store)
 
-history.listen((location) => {
-  if(process.env.NODE_ENV !== 'production'){
+history.listen(location => {
+  if (process.env.NODE_ENV !== 'production') {
     console.log(JSON.parse(localStorage.getItem('hmdaHistory')))
-    console.log(`The current URL is ${location.pathname}${location.search}${location.hash}`)
+    console.log(
+      `The current URL is ${location.pathname}${location.search}${location.hash}`
+    )
   }
   localStorage.setItem('hmdaHistory', JSON.stringify(location))
 
-  if(window.hasOwnProperty( 'google_tag_manager' ) && location.pathname !== '/oidc-callback') {
+  if (
+    window.hasOwnProperty('google_tag_manager') &&
+    location.pathname !== '/oidc-callback'
+  ) {
     ga('gtm1.set', 'page', location.pathname)
     ga('gtm1.send', 'pageview')
   }
@@ -74,15 +92,13 @@ history.listen((location) => {
 render(
   <Provider store={store}>
     <OidcProvider store={store} userManager={userManager}>
-      <Router
-        history={history}
-        render={applyRouterMiddleware(useScroll())}>
+      <Router history={history} render={applyRouterMiddleware(useScroll())}>
         <Route path="/" component={AppContainer}>
-          <IndexRoute component={HomeContainer}/>
-          <Route path="/oidc-callback" component={oidcCallback}/>
-          <Route path="/institutions" component={InstitutionContainer}/>
-          <Route path="/:institution/:filing" component={SubmissionRouter}/>
-          <Route path="/:institution/:filing/*" component={SubmissionRouter}/>
+          <IndexRoute component={HomeContainer} />
+          <Route path="/oidc-callback" component={oidcCallback} />
+          <Route path="/institutions" component={InstitutionContainer} />
+          <Route path="/:institution/:filing" component={SubmissionRouter} />
+          <Route path="/:institution/:filing/*" component={SubmissionRouter} />
         </Route>
       </Router>
     </OidcProvider>
