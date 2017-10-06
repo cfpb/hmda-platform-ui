@@ -80,12 +80,13 @@ history.listen(location => {
   }
   localStorage.setItem('hmdaHistory', JSON.stringify(location))
 
-  if (
-    window.hasOwnProperty('google_tag_manager') &&
-    location.pathname !== '/oidc-callback'
-  ) {
-    ga('gtm1.set', 'page', location.pathname)
-    ga('gtm1.send', 'pageview')
+  if (window.ga && ga.create) {
+    ga('create', 'UA-56928643-1', 'auto')
+
+    if (location.pathname !== '/oidc-callback') {
+      ga('set', 'page', location.pathname)
+      ga('send', 'pageview')
+    }
   }
 })
 
