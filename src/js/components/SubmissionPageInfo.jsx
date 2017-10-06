@@ -8,7 +8,7 @@ const SubmissionPageInfo = () => {
         type="info"
         heading="Your filing is ready to be signed and submitted.">
         <div>
-          <p>Please review your filing summary and sign your filing at the bottom of this page.</p>
+          <p>Please review your test filing summary and sign your test filing at the bottom of this page.</p>
           <p>If you discover an error in the summary, you will need to update your file and upload it again.</p>
         </div>
       </Alert>
