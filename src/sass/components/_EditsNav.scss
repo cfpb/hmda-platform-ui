@@ -14,17 +14,21 @@
   ul.usa-nav-primary {
     border-bottom: 1px solid $color-gray-lighter;
     display: block;
-    &>li>a {
+    & > li > a {
       margin: 0;
     }
     li {
-      color: $color-gray-light;
-      font-weight: 700;
+      color: $color-gray;
       line-height: normal;
       padding: 1.25em 0.25em 0.25em 0.25em;
       text-transform: uppercase;
       vertical-align: top;
       width: 20%;
+
+      a {
+        color: $color-primary;
+        font-weight: 700;
+      }
 
       a:hover {
         background-color: transparent;
@@ -38,9 +42,9 @@
 
       .step {
         background-color: $color-white;
-        border: 2px solid $color-gray-light;
+        border: 2px solid $color-gray;
         border-radius: 50%;
-        color: $color-gray-light;
+        color: $color-gray;
         font-weight: 700;
         height: 30px;
         margin: -1em auto 0.5rem;
@@ -49,34 +53,41 @@
       }
       &.active {
         .step {
-          border-color: $color-base;
-          color: $color-base;
+          background-color: $color-primary;
+          border-color: $color-primary;
+          color: $color-white;
         }
       }
       &.complete {
         .step {
           background-color: $color-base;
-          background-image: url("/img/check.png");
+          background-image: url('/img/check.png');
           background-position: center;
           background-repeat: no-repeat;
           background-size: 13px auto;
           border-color: $color-base;
         }
+        a {
+          color: $color-base;
+          &:hover {
+            color: $color-primary;
+          }
+        }
       }
       &.warning {
         a {
-          color: $color-hmda-orange;
+          color: #C05700;
           &:hover {
             color: $color-primary;
           }
         }
         .step {
-          background-color: $color-hmda-orange;
-          background-image: url("/img/exclamation.png");
+          background-color: #DC731C;
+          background-image: url('/img/exclamation.png');
           background-size: 4px auto;
           background-position: center;
           background-repeat: no-repeat;
-          border-color: $color-hmda-orange;
+          border-color: #DC731C;
         }
       }
       &.error {
@@ -88,7 +99,7 @@
         }
         .step {
           background-color: $color-secondary;
-          background-image: url("/img/x.png");
+          background-image: url('/img/x.png');
           background-position: center;
           background-repeat: no-repeat;
           background-size: 12px auto;

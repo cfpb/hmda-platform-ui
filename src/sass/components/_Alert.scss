@@ -1,4 +1,10 @@
 .usa-alert {
+  a {
+    color: $color-primary-darker;
+  }
+  a.usa-button {
+    color: $color-white;
+  }
   .alert-check {
     border-radius: 50%;
     display: inline-block;
@@ -9,9 +15,9 @@
     width: 30px;
     border: 2px solid $color-base;
     background-color: $color-base;
-    background-image: url("/img/check.png");
+    background-image: url('/img/check.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 13px auto;
-  }  
+  }
 }

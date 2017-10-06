@@ -22,7 +22,7 @@ describe('Pagination component', () => {
     }
   }
 
-  const nextPage= {
+  const nextPage = {
     total: 45,
     count: 20,
     _links: {
@@ -35,7 +35,7 @@ describe('Pagination component', () => {
     }
   }
 
-  const paginate = (page=pageObj) => {
+  const paginate = (page = pageObj) => {
     return TestUtils.renderIntoDocument(
       <Pagination
         pagination={page}
@@ -55,19 +55,29 @@ describe('Pagination component', () => {
   })
 
   it('contains the buttons', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'button').length).toEqual(2)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'button').length
+    ).toEqual(2)
   })
 
   it('renders the current page', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'input')[0].value).toEqual('1')
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'input')[0].value
+    ).toEqual('1')
   })
 
   it('renders the pagenav text', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'div')[1].textContent).toEqual('Page  of 3')
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'div')[1]
+        .textContent
+    ).toEqual('Page  of 3')
   })
 
   it('does not call prev on change when self===1', () => {
-    var previous = TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'button')[0]
+    var previous = TestUtils.scryRenderedDOMComponentsWithTag(
+      pagination,
+      'button'
+    )[0]
 
     TestUtils.Simulate.click(previous)
 
@@ -75,7 +85,10 @@ describe('Pagination component', () => {
   })
 
   it('calls next on change', () => {
-    var next = TestUtils.scryRenderedDOMComponentsWithTag(pagination, 'button')[1]
+    var next = TestUtils.scryRenderedDOMComponentsWithTag(
+      pagination,
+      'button'
+    )[1]
 
     TestUtils.Simulate.click(next)
 
@@ -132,10 +145,10 @@ describe('Pagination component', () => {
     pagination.componentWillReceiveProps({})
     expect(stateMock).not.toHaveBeenCalled()
 
-    pagination.componentWillReceiveProps({pagination:{}, isFetching: true})
+    pagination.componentWillReceiveProps({ pagination: {}, isFetching: true })
     expect(stateMock).not.toHaveBeenCalled()
 
-    pagination.componentWillReceiveProps({pagination: {}})
+    pagination.componentWillReceiveProps({ pagination: {} })
     expect(stateMock).toHaveBeenCalled()
   })
 
@@ -143,19 +156,22 @@ describe('Pagination component', () => {
     const pagination = paginate()
     const form = pagination._getInput()
     expect(form.type).toBe('form')
-    expect(form.props.children.type).toBe('input')
+    expect(form.props.children[0].type).toBe('label')
+    expect(form.props.children[1].type).toBe('input')
   })
 
   it('gets the pagination value', () => {
     const pagination = paginate()
     expect(pagination._getPaginationValue({})).toBe(null)
-    expect(pagination._getPaginationValue({
-      pagination: {
-        _links: {
-          self: '?page=3'
+    expect(
+      pagination._getPaginationValue({
+        pagination: {
+          _links: {
+            self: '?page=3'
+          }
         }
-      }
-    })).toBe('3')
+      })
+    ).toBe('3')
   })
 
   it('submits the form properly', () => {
@@ -165,22 +181,22 @@ describe('Pagination component', () => {
     const _setFromPropsMock = jest.fn()
     pagination._setScrollValues = scrollMock
     pagination._setFromProps = _setFromPropsMock
-    const e = {preventDefault: jest.fn()}
+    const e = { preventDefault: jest.fn() }
 
-    pagination._change({target:{ value: 'string'}})
+    pagination._change({ target: { value: 'string' } })
     pagination._submit(e)
 
     expect(getPage).not.toBeCalled()
     expect(_setFromPropsMock).toBeCalled()
     expect(scrollMock).toBeCalled()
 
-    pagination._change({target:{ value: -7}})
+    pagination._change({ target: { value: -7 } })
     pagination._submit(e)
 
     expect(getPage.mock.calls[0][1]).toBe('1')
     expect(_setFromPropsMock.mock.calls.length).toBe(1)
 
-    pagination._change({target:{ value: 7}})
+    pagination._change({ target: { value: 7 } })
     pagination._submit(e)
 
     expect(scrollMock).toBeCalled()
@@ -192,9 +208,8 @@ describe('Pagination component', () => {
     const scrollTo = jest.fn()
     window.scrollTo = scrollTo
     const pagination = paginate()
-    pagination.componentDidUpdate(null, {value: '0'})
+    pagination.componentDidUpdate(null, { value: '0' })
 
     expect(scrollTo).not.toBeCalled()
   })
-
 })

@@ -17,6 +17,15 @@
     width: 3em;
     display: inline-block;
     margin: 0 0.25em;
+
+    label {
+      height: 1px;
+      left: -10000px;
+      overflow: hidden;
+      position: absolute;
+      top: auto;
+      width: 1px;
+    }
   }
 
   button:last-of-type {

@@ -1,12 +1,9 @@
-import {
-  PAGINATION_FADE_IN,
-  PAGINATION_FADE_OUT
-} from '../constants'
+import { PAGINATION_FADE_IN, PAGINATION_FADE_OUT } from '../constants'
 
 const defaultFade = {}
 
 export default (state = defaultFade, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case PAGINATION_FADE_IN:
       return {
         ...state,
