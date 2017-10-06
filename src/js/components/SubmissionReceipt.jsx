@@ -9,12 +9,11 @@ const SubmissionReceipt = ({status, timestamp, receipt, filingPeriod, email}) =>
   if (code !== SIGNED) return null
 
   return (
-    <Alert type="success" heading="HMDA filing completed">
+    <Alert type="success" heading="HMDA test filing accepted">
       <div>
-        <p>Congratulations, you have successfully completed your HMDA filing for {filingPeriod}!</p>
+        <p>Congratulations, you have successfully completed your HMDA test filing!</p>
         <p>Your data and signature were received and recorded on <strong>{ordinalHour(new Date(timestamp))}</strong>.</p>
         <p>Your receipt number for this submission is <strong>{receipt}</strong>.</p>
-        <p>You will receive a confirmation email shortly at <strong>{email}.</strong></p>
       </div>
     </Alert>
   )
