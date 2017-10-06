@@ -23,7 +23,9 @@ const types = {
 const rows = types.syntactical.edits[0].rows
 describe('Edits Table', () => {
   const editsTable = TestUtils.renderIntoDocument(
-    <Wrapper><EditsTable edits={types.syntactical.edits[0]} type='syntactical'/></Wrapper>
+    <Wrapper>
+      <EditsTable edits={types.syntactical.edits[0]} type="syntactical" />
+    </Wrapper>
   )
   const tableNode = ReactDOM.findDOMNode(editsTable)
 
@@ -32,18 +34,25 @@ describe('Edits Table', () => {
   })
 
   const editsTableMacro = TestUtils.renderIntoDocument(
-    <Wrapper><EditsTable edits={types.macro.edits[0]} type='macro'/></Wrapper>
+    <Wrapper>
+      <EditsTable edits={types.macro.edits[0]} type="macro" />
+    </Wrapper>
   )
 
   const macroNode = ReactDOM.findDOMNode(editsTableMacro)
 
   it('renders the table', () => {
     expect(macroNode).toBeDefined()
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(editsTableMacro, 'table').length).toBe(0)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(editsTableMacro, 'table')
+        .length
+    ).toBe(0)
   })
 
   const editsTableNoEdits = TestUtils.renderIntoDocument(
-    <Wrapper><EditsTable type='syntactical'/></Wrapper>
+    <Wrapper>
+      <EditsTable type="syntactical" />
+    </Wrapper>
   )
   const tableNoEditsNode = ReactDOM.findDOMNode(editsTableNoEdits)
   it('is NULL without edit', () => {
@@ -51,9 +60,17 @@ describe('Edits Table', () => {
   })
 
   const editsTableNoPagination = TestUtils.renderIntoDocument(
-    <Wrapper><EditsTable edit={types.syntactical.edits[0]} pagination={{}} type='syntactical'/></Wrapper>
+    <Wrapper>
+      <EditsTable
+        edit={types.syntactical.edits[0]}
+        pagination={{}}
+        type="syntactical"
+      />
+    </Wrapper>
   )
-  const editsTableNoPaginationNode = ReactDOM.findDOMNode(editsTableNoPagination)
+  const editsTableNoPaginationNode = ReactDOM.findDOMNode(
+    editsTableNoPagination
+  )
   it('is NULL without pagination for edits', () => {
     expect(editsTableNoPaginationNode).toBe(null)
   })
@@ -83,7 +100,9 @@ describe('renderHeader', () => {
     const edits = types.syntactical.edits[0]
     const rendered = renderHeader(edits, rows, 'syntactical')
     expect(rendered.type).toBe('tr')
-    expect(rendered.props.children[0].props.children).toBe('Loan/Application Number')
+    expect(rendered.props.children[0].props.children).toBe(
+      'Loan/Application Number'
+    )
     expect(rendered.props.children[1].props.children).toBe('Agency Code')
   })
 
@@ -91,7 +110,9 @@ describe('renderHeader', () => {
     const edits = types.validity.edits[0]
     const rendered = renderHeader(edits, rows, 'validity')
     expect(rendered.type).toBe('tr')
-    expect(rendered.props.children[0].props.children).toBe('Loan/Application Number')
+    expect(rendered.props.children[0].props.children).toBe(
+      'Loan/Application Number'
+    )
     expect(rendered.props.children[1].props.children).toBe('Agency Code')
   })
 
@@ -99,10 +120,11 @@ describe('renderHeader', () => {
     const edits = types.quality.edits[0]
     const rendered = renderHeader(edits, rows, 'quality')
     expect(rendered.type).toBe('tr')
-    expect(rendered.props.children[0].props.children).toBe('Loan/Application Number')
+    expect(rendered.props.children[0].props.children).toBe(
+      'Loan/Application Number'
+    )
     expect(rendered.props.children[1].props.children).toBe('Agency Code')
   })
-
 })
 
 describe('renderBody', () => {
@@ -138,20 +160,28 @@ describe('renderBody', () => {
 describe('renderTableCaption', () => {
   it('renders the syntactical caption with a description', () => {
     const edits = types.syntactical.edits[0]
-    const rendered = renderTableCaption(edits, {rows: rows}, 'syntactical', {total:3})
+    const rendered = renderTableCaption(edits, { rows: rows }, 'syntactical', {
+      total: 3
+    })
     expect(rendered.type).toBe('caption')
-    expect(rendered.props.children[0].props.children).toBe('3 S020 edits found.')
+    expect(rendered.props.children[0].props.children).toBe(
+      '3 S020 edits found.'
+    )
   })
 
   it('renders the macro caption as a div', () => {
     const edits = types.macro.edits[0]
-    const rendered = renderTableCaption(edits, {rows: rows}, 'macro', {Q008: {total:1}})
+    const rendered = renderTableCaption(edits, { rows: rows }, 'macro', {
+      Q008: { total: 1 }
+    })
     expect(rendered.type).toBe('div')
   })
 
   it('renders the correct macro caption', () => {
     const edits = types.macro.edits[0]
-    const rendered = renderTableCaption(edits, {rows: rows}, 'macro', {Q008: {total:1}})
+    const rendered = renderTableCaption(edits, { rows: rows }, 'macro', {
+      Q008: { total: 1 }
+    })
     expect(rendered.props.children[0].props.children).toBe('Edit Q008 found.')
   })
 
@@ -165,7 +195,7 @@ describe('renderTableCaption', () => {
         }
       ]
     }
-    const rendered = renderTableCaption(object, {rows:rows})
+    const rendered = renderTableCaption(object, { rows: rows })
     expect(rendered).toBe(null)
   })
 })
@@ -174,10 +204,10 @@ describe('makeTable', () => {
   it('renders the table', () => {
     const props = {
       edit: types.syntactical.edits[0],
-      rows: {S020: {rows: rows}},
+      rows: { S020: { rows: rows } },
       type: 'syntactical',
-      pagination: {S020:{total:3}},
-      paginationFade: {S020:'center'}
+      pagination: { S020: { total: 3 } },
+      paginationFade: { S020: 'center' }
     }
     const rendered = makeTable(props)
     expect(rendered.type).toBe('table')
@@ -188,7 +218,7 @@ describe('makeTable', () => {
       edit: types.syntactical.edits[0],
       rows: {},
       type: 'syntactical',
-      pagination: {S020:{total:3}}
+      pagination: { S020: { total: 3 } }
     }
     const rendered = makeTable(props)
     expect(rendered.type).not.toBe('table')
@@ -197,9 +227,9 @@ describe('makeTable', () => {
   it('returns LoadingIcon on isFetching in rowObj', () => {
     const props = {
       edit: types.syntactical.edits[0],
-      rows: {isFetching: true},
+      rows: { isFetching: true },
       type: 'syntactical',
-      pagination: {S020:{total:3}}
+      pagination: { S020: { total: 3 } }
     }
     const rendered = makeTable(props)
     expect(rendered.type).not.toBe('table')

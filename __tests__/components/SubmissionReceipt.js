@@ -25,19 +25,30 @@ describe('SubmissionReceipt component', () => {
         filingPeriod="2017"
       />
     </Wrapper>
-
   )
 
   it('renders the receipt and timestamp', () => {
-    expect(TestUtils.findRenderedDOMComponentWithClass(receipt, 'usa-alert-success')).toBeTruthy()
+    expect(
+      TestUtils.findRenderedDOMComponentWithClass(receipt, 'usa-alert-success')
+    ).toBeTruthy()
   })
 
   it('has the correct filingPeriod', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(receipt, 'p')[0].textContent.match('2017')).toBeTruthy()
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(
+        receipt,
+        'p'
+      )[0].textContent.match('2017')
+    ).toBeTruthy()
   })
 
   it('has the correct email', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(receipt, 'p')[3].textContent.match('yo@me.com')).toBeTruthy()
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(
+        receipt,
+        'p'
+      )[3].textContent.match('yo@me.com')
+    ).toBeTruthy()
   })
 
   const unsigned = TestUtils.renderIntoDocument(
@@ -45,7 +56,7 @@ describe('SubmissionReceipt component', () => {
       <SubmissionReceipt
         receipt={signJSON.receipt}
         timestamp={signJSON.timestamp}
-        status={{code: 9, message: ''}}
+        status={{ code: 9, message: '' }}
         email="yo@me.com"
         filingPeriod="2017"
       />
@@ -53,7 +64,8 @@ describe('SubmissionReceipt component', () => {
   )
 
   it('does not render when not signed', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(unsigned, 'p').length).toBe(0)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(unsigned, 'p').length
+    ).toBe(0)
   })
-
 })

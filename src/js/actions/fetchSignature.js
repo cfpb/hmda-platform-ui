@@ -12,16 +12,16 @@ export default function fetchSignature() {
     return getSignature(getId())
       .then(json => {
         return hasHttpError(json).then(hasError => {
-          if(hasError){
+          if (hasError) {
             dispatch(receiveError(json))
             throw new Error(`${json.status}: ${json.statusText}`)
           }
           dispatch(receiveSignature(json))
-          return dispatch(updateStatus(
-            {
+          return dispatch(
+            updateStatus({
               ...json.status
-            }
-          ))
+            })
+          )
         })
       })
       .catch(err => console.error(err))

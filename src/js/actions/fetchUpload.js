@@ -19,11 +19,13 @@ export default function fetchUpload(file) {
     xhr.addEventListener('load', e => {
       const uploadResponse = JSON.parse(e.target.response)
 
-      dispatch(updateStatus({
-        ...uploadResponse.status
-      }))
+      dispatch(
+        updateStatus({
+          ...uploadResponse.status
+        })
+      )
 
-      if(e.target.status !== 202) {
+      if (e.target.status !== 202) {
         return dispatch(uploadError())
       }
 
@@ -32,11 +34,11 @@ export default function fetchUpload(file) {
       dispatch(pollForProgress(Poller.get()))
     })
 
-    xhr.open('POST', getUploadUrl(getId()));
-    xhr.setRequestHeader('Cache-Control', 'no-cache');
-    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get());
-    xhr.setRequestHeader('Accept', 'application/json');
-    xhr.send(data);
+    xhr.open('POST', getUploadUrl(getId()))
+    xhr.setRequestHeader('Cache-Control', 'no-cache')
+    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get())
+    xhr.setRequestHeader('Accept', 'application/json')
+    xhr.send(data)
 
     return Promise.resolve()
   }

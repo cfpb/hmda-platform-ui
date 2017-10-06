@@ -13,7 +13,7 @@ describe('Verifier component', () => {
       <Verifier
         verified={true}
         onVerify={onVerify}
-        type='macro'
+        type="macro"
         code={1}
         noEditsExist={false}
       />
@@ -26,12 +26,18 @@ describe('Verifier component', () => {
   })
 
   it('contains the checkbox input', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(verifier, 'input').length).toEqual(1)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(verifier, 'input').length
+    ).toEqual(1)
   })
 
-  expect(TestUtils.scryRenderedDOMComponentsWithClass(verifier, 'usa-alert').length).toEqual(1)
+  expect(
+    TestUtils.scryRenderedDOMComponentsWithClass(verifier, 'usa-alert').length
+  ).toEqual(1)
 
-  expect(TestUtils.scryRenderedDOMComponentsWithTag(verifier, 'h2')[0].textContent).toEqual('Verify macro edits')
+  expect(
+    TestUtils.scryRenderedDOMComponentsWithTag(verifier, 'h2')[0].textContent
+  ).toEqual('Verify macro edits')
 
   it('calls the function on change', () => {
     var checkbox = TestUtils.findRenderedDOMComponentWithTag(verifier, 'input')
@@ -46,21 +52,24 @@ describe('Verifier component', () => {
     expect(onVerify).toBeCalled()
   })
 
-
   it('does not render the verification message when unchecked', () => {
     const verifier = TestUtils.renderIntoDocument(
       <Wrapper>
         <Verifier
           verified={false}
           onVerify={onVerify}
-          type='quality'
+          type="quality"
           code={1}
         />
       </Wrapper>
     )
     const verifierNode = ReactDOM.findDOMNode(verifier)
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(verifier, 'usa-alert').length).toEqual(0)
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(verifier, 'h2')[0].textContent).toEqual('Verify quality edits')
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(verifier, 'usa-alert').length
+    ).toEqual(0)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(verifier, 'h2')[0].textContent
+    ).toEqual('Verify quality edits')
   })
 
   it('renders as disabled after signature', () => {
@@ -69,7 +78,7 @@ describe('Verifier component', () => {
         <Verifier
           verified={false}
           onVerify={onVerify}
-          type='quality'
+          type="quality"
           code={10}
         />
       </Wrapper>
@@ -85,7 +94,7 @@ describe('Verifier component', () => {
         <Verifier
           verified={false}
           onVerify={onVerify}
-          type='quality'
+          type="quality"
           code={10}
           noEditsExist={true}
         />

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const EditsTableCell = props => {
   let cellContent = props.cell
-  if(props.cell === '') cellContent = <em>(blank)</em>
+  if (props.cell === '') cellContent = <em>(blank)</em>
   return <td>{cellContent}</td>
 }
 

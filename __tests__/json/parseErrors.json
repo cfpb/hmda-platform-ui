@@ -6,15 +6,11 @@
   "larErrors": [
     {
       "lineNumber": 2,
-      "errorMessages": [
-        "Incorrect number of fields. found: 32, expected: 39"
-      ]
+      "errorMessages": ["Incorrect number of fields. found: 32, expected: 39"]
     },
     {
       "lineNumber": 4,
-      "errorMessages": [
-        "Record Identifier is not an Integer"
-      ]
+      "errorMessages": ["Record Identifier is not an Integer"]
     },
     {
       "lineNumber": 11,

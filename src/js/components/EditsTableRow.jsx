@@ -4,18 +4,32 @@ import PropTypes from 'prop-types'
 import EditsTableCell from '../components/EditsTableCell.jsx'
 
 const EditsTableRow = props => {
-  if(!props.row || !props.fields) return null
+  if (!props.row || !props.fields) return null
 
   const lar = props.row.rowId
   const cells = []
   let cellCount = 0
 
-  Object.keys(props.row).forEach((field) => {
-    cells.push(<EditsTableCell keyField={lar} field={field} cell={props.row[field]} key={++cellCount}/>)
+  Object.keys(props.row).forEach(field => {
+    cells.push(
+      <EditsTableCell
+        keyField={lar}
+        field={field}
+        cell={props.row[field]}
+        key={++cellCount}
+      />
+    )
   })
 
-  Object.keys(props.fields).forEach((field) => {
-    cells.push(<EditsTableCell keyField={lar} field={field} cell={props.fields[field]} key={++cellCount}/>)
+  Object.keys(props.fields).forEach(field => {
+    cells.push(
+      <EditsTableCell
+        keyField={lar}
+        field={field}
+        cell={props.fields[field]}
+        key={++cellCount}
+      />
+    )
   })
 
   return <tr>{cells}</tr>

@@ -3,7 +3,9 @@ jest.unmock('../../src/js/containers/submissionProgressHOC.jsx')
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
-import submissionProgressHOC, { mapStateToProps } from '../../src/js/containers/submissionProgressHOC.jsx'
+import submissionProgressHOC, {
+  mapStateToProps
+} from '../../src/js/containers/submissionProgressHOC.jsx'
 import Wrapper from '../Wrapper.js'
 
 const defaultState = {
@@ -16,10 +18,10 @@ const defaultState = {
     edits: {
       fetched: false,
       types: {
-        syntactical: {edits: []},
-        validity: {edits: []},
-        quality: {edits: [], verified: false},
-        macro: {edits: [], verified: false}
+        syntactical: { edits: [] },
+        validity: { edits: [] },
+        quality: { edits: [], verified: false },
+        macro: { edits: [], verified: false }
       }
     },
     submission: {
@@ -31,17 +33,15 @@ const defaultState = {
 }
 
 describe('submissionProgressHOC', () => {
-
   it('produces a wrapped component', () => {
     const base = () => <div>hm</div>
     const wrapped = submissionProgressHOC(base)
     expect(wrapped).toBeDefined()
     expect(wrapped.displayName).toBe('Connect(base)')
 
-    const component = <wrapped/>
+    const component = <wrapped />
     expect(component).toBeDefined()
   })
-
 
   it('maps state to props with proper default state', () => {
     const mapped = mapStateToProps(defaultState)
@@ -64,7 +64,7 @@ describe('submissionProgressHOC', () => {
   })
 
   it('defaults quality verification to true if no edits exist', () => {
-    defaultState.app.edits.types.quality = {edits:[], verified: false}
+    defaultState.app.edits.types.quality = { edits: [], verified: false }
     const qualityMapped = mapStateToProps(defaultState)
     expect(qualityMapped.qualityVerified).toBe(false)
   })
@@ -79,11 +79,10 @@ describe('submissionProgressHOC', () => {
     const emptyMapped = mapStateToProps({})
     expect(emptyMapped).toBe(undefined)
 
-    const noRoutingMapped = mapStateToProps({app:{}})
+    const noRoutingMapped = mapStateToProps({ app: {} })
     expect(noRoutingMapped).toBe(undefined)
 
-    const noAppMapped= mapStateToProps({routing:{}})
+    const noAppMapped = mapStateToProps({ routing: {} })
     expect(noAppMapped).toBe(undefined)
   })
-
 })

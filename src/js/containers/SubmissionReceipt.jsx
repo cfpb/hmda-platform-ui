@@ -10,7 +10,8 @@ export class SubmissionReceiptContainer extends Component {
   }
 
   componentDidMount() {
-    if(!this.props.isFetching && this.props.receipt === null) this.props.dispatch(fetchSignature())
+    if (!this.props.isFetching && this.props.receipt === null)
+      this.props.dispatch(fetchSignature())
   }
 
   render() {
@@ -19,17 +20,12 @@ export class SubmissionReceiptContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const {
-    isFetching,
-    timestamp,
-    receipt
-  } = state.app.signature
+  const { isFetching, timestamp, receipt } = state.app.signature
 
   const { status } = state.app.submission
-  const { email }  = state.oidc.user.profile
+  const { email } = state.oidc.user.profile
 
   const { filingPeriod } = state.app
-
 
   return {
     isFetching,
@@ -47,4 +43,6 @@ export function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubmissionReceiptContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  SubmissionReceiptContainer
+)

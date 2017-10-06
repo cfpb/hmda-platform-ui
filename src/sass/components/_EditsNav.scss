@@ -61,7 +61,7 @@
       &.complete {
         .step {
           background-color: $color-base;
-          background-image: url('/img/check.png');
+          background-image: url("/img/check.png");
           background-position: center;
           background-repeat: no-repeat;
           background-size: 13px auto;
@@ -76,18 +76,18 @@
       }
       &.warning {
         a {
-          color: #C05700;
+          color: #c05700;
           &:hover {
             color: $color-primary;
           }
         }
         .step {
-          background-color: #DC731C;
-          background-image: url('/img/exclamation.png');
+          background-color: #dc731c;
+          background-image: url("/img/exclamation.png");
           background-size: 4px auto;
           background-position: center;
           background-repeat: no-repeat;
-          border-color: #DC731C;
+          border-color: #dc731c;
         }
       }
       &.error {
@@ -99,7 +99,7 @@
         }
         .step {
           background-color: $color-secondary;
-          background-image: url('/img/x.png');
+          background-image: url("/img/x.png");
           background-position: center;
           background-repeat: no-repeat;
           background-size: 12px auto;

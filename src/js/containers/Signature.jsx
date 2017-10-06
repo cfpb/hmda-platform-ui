@@ -12,7 +12,8 @@ export class SignatureContainer extends Component {
   }
 
   componentDidMount() {
-    if(!this.props.isFetching && this.props.receipt === null) this.props.dispatch(fetchSignature())
+    if (!this.props.isFetching && this.props.receipt === null)
+      this.props.dispatch(fetchSignature())
   }
 
   render() {
@@ -21,16 +22,11 @@ export class SignatureContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const {
-    isFetching,
-    receipt,
-    checked
-  } = state.app.signature
+  const { isFetching, receipt, checked } = state.app.signature
 
   const { status } = state.app.submission
 
   const { error } = state.app
-
 
   return {
     isFetching,
@@ -43,10 +39,10 @@ export function mapStateToProps(state) {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onSignatureClick: (signed) => {
+    onSignatureClick: signed => {
       dispatch(updateSignature(signed))
     },
-    onSignatureCheck: (checked) => {
+    onSignatureCheck: checked => {
       dispatch(checkSignature(checked))
     },
     dispatch

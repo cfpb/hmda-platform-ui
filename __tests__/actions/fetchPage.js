@@ -8,7 +8,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { fetch } from '../../src/js/api/fetch.js'
 
-fetch.mockImplementation((pathObj) => Promise.resolve({bargle:'foo'}))
+fetch.mockImplementation(pathObj => Promise.resolve({ bargle: 'foo' }))
 const mockStore = configureMockStore([thunk])
 
 const emptyParseErrors = {
@@ -26,10 +26,11 @@ describe('fetchPage', () => {
   it('creates a thunk that will fetch a page by pathname and select sub actions', done => {
     const store = mockStore({})
 
-    store.dispatch(fetchPage('parseErrors', '/argle'))
+    store
+      .dispatch(fetchPage('parseErrors', '/argle'))
       .then(() => {
         expect(store.getActions()).toEqual([
-          {type: types.REQUEST_PARSE_ERRORS},
+          { type: types.REQUEST_PARSE_ERRORS },
           emptyParseErrors
         ])
         done()

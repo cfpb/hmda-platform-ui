@@ -9,9 +9,11 @@ export class SummaryContainer extends Component {
   }
 
   componentDidMount() {
-    if(!Object.keys(this.props.respondent).length &&
-       !Object.keys(this.props.file).length) {
-         this.props.dispatch(fetchSummary())
+    if (
+      !Object.keys(this.props.respondent).length &&
+      !Object.keys(this.props.file).length
+    ) {
+      this.props.dispatch(fetchSummary())
     }
   }
 
@@ -21,11 +23,7 @@ export class SummaryContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const {
-    isFetching,
-    respondent,
-    file
-  } = state.app.summary
+  const { isFetching, respondent, file } = state.app.summary
 
   return {
     isFetching,

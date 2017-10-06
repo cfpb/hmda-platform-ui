@@ -7,7 +7,7 @@ import {
   logout,
   setUserManager,
   getUserManager
- } from '../../src/js/utils/redirect'
+} from '../../src/js/utils/redirect'
 
 describe('redirect', () => {
   it('gets userManager', () => {
@@ -33,20 +33,19 @@ describe('redirect', () => {
 
     delete window.location
 
-    setUserManager({signinRedirect: um})
-    window.localStorage = {setItem: ls}
-    window.location = {pathname: '/'}
+    setUserManager({ signinRedirect: um })
+    window.localStorage = { setItem: ls }
+    window.location = { pathname: '/' }
 
     expect(signinRedirect()).toBe(undefined)
 
     expect(um.mock.calls.length).toBe(1)
     expect(ls.mock.calls.length).toBe(1)
 
-
-    window.location = {pathname: '/oidc-callback'}
+    window.location = { pathname: '/oidc-callback' }
     expect(signinRedirect()).toBe(undefined)
 
-    window.location = {pathname: '/fake'}
+    window.location = { pathname: '/fake' }
     expect(signinRedirect()).toBe(undefined)
 
     expect(um.mock.calls.length).toBe(3)
@@ -57,7 +56,7 @@ describe('redirect', () => {
     const getItem = jest.fn()
     const removeItem = jest.fn()
 
-    window.localStorage = {getItem: getItem, removeItem: removeItem}
+    window.localStorage = { getItem: getItem, removeItem: removeItem }
 
     restorePage()
 
@@ -72,7 +71,7 @@ describe('redirect', () => {
     logout()
     expect(um.mock.calls.length).toBe(0)
 
-    setUserManager({signoutRedirect: um})
+    setUserManager({ signoutRedirect: um })
     logout()
     expect(um.mock.calls.length).toBe(1)
   })

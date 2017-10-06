@@ -10,7 +10,7 @@ export default function fetchFiling(filing) {
     return getFiling(filing.institutionId, filing.period)
       .then(json => {
         return hasHttpError(json).then(hasError => {
-          if(hasError){
+          if (hasError) {
             dispatch(receiveError(json))
             throw new Error(`${json.status}: ${json.statusText}`)
           }

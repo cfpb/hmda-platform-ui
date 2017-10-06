@@ -1,19 +1,19 @@
-import { RECEIVE_ERROR,REFRESH_STATE } from '../constants'
+import { RECEIVE_ERROR, REFRESH_STATE } from '../constants'
 
 const defaultError = null
 
 export default (state = defaultError, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case RECEIVE_ERROR:
-    return action.error
+      return action.error
 
     case REFRESH_STATE:
-    return defaultError
+      return defaultError
 
     case '@@router/LOCATION_CHANGE':
-    return defaultError
+      return defaultError
 
     default:
-    return state
+      return state
   }
 }

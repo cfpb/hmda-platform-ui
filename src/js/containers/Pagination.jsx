@@ -14,7 +14,7 @@ class PaginationContainer extends Component {
   }
 
   render() {
-    return <Pagination {...this.props}/>
+    return <Pagination {...this.props} />
   }
 }
 
@@ -24,9 +24,9 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-function fetchAndFade(dispatch, target, pagination, link){
+function fetchAndFade(dispatch, target, pagination, link) {
   const fadeIn = () => {
-    if(!fetchChecker[target]) return dispatch(paginationFadeIn(target))
+    if (!fetchChecker[target]) return dispatch(paginationFadeIn(target))
     setTimeout(fadeIn, 100)
   }
 
@@ -40,23 +40,33 @@ function mapDispatchToProps(dispatch, ownProps) {
 
   return {
     getPage: (pagination, page) => {
-      if(!pagination || page === undefined) return
+      if (!pagination || page === undefined) return
       fetchAndFade(dispatch, ownProps.target, pagination, '?page=' + page)
     },
-    getNextPage: (pagination) => {
-      if(!pagination) return
-      fetchAndFade(dispatch, ownProps.target, pagination, pagination._links.next)
+    getNextPage: pagination => {
+      if (!pagination) return
+      fetchAndFade(
+        dispatch,
+        ownProps.target,
+        pagination,
+        pagination._links.next
+      )
     },
-    getPreviousPage: (pagination) => {
-      if(!pagination) return
-      fetchAndFade(dispatch, ownProps.target, pagination, pagination._links.prev)
+    getPreviousPage: pagination => {
+      if (!pagination) return
+      fetchAndFade(
+        dispatch,
+        ownProps.target,
+        pagination,
+        pagination._links.prev
+      )
     }
   }
 }
 
 function makePathname(pagination, querystring) {
-  if(!pagination) return
-  return pagination._links.href.slice(0,-5) + querystring
+  if (!pagination) return
+  return pagination._links.href.slice(0, -5) + querystring
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PaginationContainer)

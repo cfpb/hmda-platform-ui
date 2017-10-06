@@ -1,6 +1,8 @@
 jest.unmock('../../src/js/components/Header.jsx')
 jest.mock('oidc-client')
-jest.mock('../../src/js/containers/BannerDeadline.jsx', () => jest.fn(() => null))
+jest.mock('../../src/js/containers/BannerDeadline.jsx', () =>
+  jest.fn(() => null)
+)
 
 import Header, { addActiveClass } from '../../src/js/components/Header.jsx'
 import Wrapper from '../Wrapper.js'
@@ -12,8 +14,8 @@ describe('Header', () => {
   const header = TestUtils.renderIntoDocument(
     <Wrapper>
       <Header
-        user={{profile:{name:'Some One'}}}
-        pathname='/0/2017/upload'
+        user={{ profile: { name: 'Some One' } }}
+        pathname="/0/2017/upload"
       />
     </Wrapper>
   )
@@ -25,15 +27,18 @@ describe('Header', () => {
 
   const headerNoUser = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Header
-        pathname='/0/2017/upload'
-      />
+      <Header pathname="/0/2017/upload" />
     </Wrapper>
   )
 
   it('renders the homelink only', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(headerNoUser, 'HomeLink').length).toBe(1)
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(headerNoUser, 'li').length).toBe(1)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(headerNoUser, 'HomeLink')
+        .length
+    ).toBe(1)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(headerNoUser, 'li').length
+    ).toBe(1)
   })
 
   describe('addActiveClass', () => {

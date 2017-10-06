@@ -49,10 +49,14 @@ const institutionsFixed = [
 
 describe('sortInstitutions', () => {
   it('returns the sorted institutions', () => {
-    expect(institutionsSorted.sort(sortInstitutions)).toEqual(institutionsSorted)
+    expect(institutionsSorted.sort(sortInstitutions)).toEqual(
+      institutionsSorted
+    )
   })
 
   it('returns the sorted institutions', () => {
-    expect(institutionsNotSorted.sort(sortInstitutions)).toEqual(institutionsFixed)
+    expect(institutionsNotSorted.sort(sortInstitutions)).toEqual(
+      institutionsFixed
+    )
   })
 })

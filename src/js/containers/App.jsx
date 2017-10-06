@@ -11,7 +11,7 @@ import browser from 'detect-browser'
 
 export class AppContainer extends Component {
   constructor(props) {
-      super(props)
+    super(props)
   }
 
   _isHome(props) {
@@ -26,14 +26,14 @@ export class AppContainer extends Component {
     const isHome = this._isHome(props)
     const isOidc = this._isOidc(props)
 
-    if(props.oidc.user) AccessToken.set(props.oidc.user.access_token)
-    if(isHome) return
+    if (props.oidc.user) AccessToken.set(props.oidc.user.access_token)
+    if (isHome) return
 
-    if(!isOidc && props.expired) return signinRedirect()
+    if (!isOidc && props.expired) return signinRedirect()
 
-    if(!props.oidc.user) {
-      if(props.oidc.isLoadingUser) return
-      if(!isOidc) signinRedirect()
+    if (!props.oidc.user) {
+      if (props.oidc.isLoadingUser) return
+      if (!isOidc) signinRedirect()
     }
   }
 
@@ -46,22 +46,30 @@ export class AppContainer extends Component {
   }
 
   render() {
-    if(!this._isOidc(this.props) && !this._isHome(this.props) && (this.props.expired || !this.props.oidc.user)) return null
+    if (
+      !this._isOidc(this.props) &&
+      !this._isHome(this.props) &&
+      (this.props.expired || !this.props.oidc.user)
+    )
+      return null
 
     return (
       <div className="AppContainer">
-        <a className="usa-skipnav" href="#main-content">Skip to main content</a>
+        <a className="usa-skipnav" href="#main-content">
+          Skip to main content
+        </a>
         <Header
           pathname={this.props.location.pathname}
-          user={this.props.oidc.user} />
-        {this.props.userError ? <LoggedOutModal/> : <ConfirmationModal/>}
-        {
-          this.props.location.pathname === '/oidc-callback' ?
-            this.props.children :
-            (browser.name === 'ie' && +browser.version.split('.')[0] < 11) ?
-              <BrowserBlocker/> :
-              this.props.children
-        }
+          user={this.props.oidc.user}
+        />
+        {this.props.userError ? <LoggedOutModal /> : <ConfirmationModal />}
+        {this.props.location.pathname === '/oidc-callback' ? (
+          this.props.children
+        ) : browser.name === 'ie' && +browser.version.split('.')[0] < 11 ? (
+          <BrowserBlocker />
+        ) : (
+          this.props.children
+        )}
         <Footer />
       </div>
     )

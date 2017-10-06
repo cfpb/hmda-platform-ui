@@ -11,7 +11,8 @@ export class IRSReportContainer extends Component {
   }
 
   componentDidMount() {
-    if(!(this.props.msas.length) && !Object.keys(this.props.summary).length) this.props.dispatch(fetchIRS())
+    if (!this.props.msas.length && !Object.keys(this.props.summary).length)
+      this.props.dispatch(fetchIRS())
   }
 
   componentWillUnmount() {
@@ -24,20 +25,17 @@ export class IRSReportContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const {
-    isFetching,
-    msas,
-    summary
-  } = state.app.irs
+  const { isFetching, msas, summary } = state.app.irs
 
   const { id } = state.app.submission
 
   const pagination = state.app.pagination.irs
   const paginationFade = state.app.paginationFade.irs
 
-  const renderTotals = state.app.pagination.irs ?
-  (state.app.pagination.irs._links.self === state.app.pagination.irs._links.last) :
-  null
+  const renderTotals = state.app.pagination.irs
+    ? state.app.pagination.irs._links.self ===
+      state.app.pagination.irs._links.last
+    : null
 
   return {
     isFetching,

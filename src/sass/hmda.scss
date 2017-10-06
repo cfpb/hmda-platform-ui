@@ -1,7 +1,7 @@
 $color-hmda-orange: #dc731c;
 
 #main-content {
-  position:relative;
+  position: relative;
   margin-top: 2em;
   margin-bottom: 2em;
 
@@ -11,7 +11,7 @@ $color-hmda-orange: #dc731c;
 }
 
 a {
- cursor: pointer;
+  cursor: pointer;
 }
 
 dt {
@@ -26,12 +26,12 @@ dd {
 }
 
 hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid $color-gray-lighter;
-    margin: 1em 0;
-    padding: 0;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid $color-gray-lighter;
+  margin: 1em 0;
+  padding: 0;
 }
 
 table td,

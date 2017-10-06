@@ -12,10 +12,10 @@ export default function fetchSubmission() {
     return getLatestSubmission()
       .then(json => {
         return hasHttpError(json).then(hasError => {
-          if(!hasError) return dispatch(receiveSubmission(json))
+          if (!hasError) return dispatch(receiveSubmission(json))
 
-          if(json.status === 404){
-            const {id, filing} = parseLocation(location)
+          if (json.status === 404) {
+            const { id, filing } = parseLocation(location)
             return dispatch(fetchNewSubmission(id, filing))
           }
 

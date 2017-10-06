@@ -7,14 +7,13 @@ const Alert = ({ type = 'info', heading, children }) => {
   return (
     <div className={`usa-alert usa-alert-${type}`}>
       <div className="usa-alert-body">
-        {heading
-          ? <h3 className="usa-alert-heading">
-              {type === 'success' ? <span className='alert-check'></span> : null}
-              {heading}
-            </h3>
-          : null
-        }
-        {React.cloneElement(children, {className: 'usa-alert-text'})}
+        {heading ? (
+          <h3 className="usa-alert-heading">
+            {type === 'success' ? <span className="alert-check" /> : null}
+            {heading}
+          </h3>
+        ) : null}
+        {React.cloneElement(children, { className: 'usa-alert-text' })}
       </div>
     </div>
   )

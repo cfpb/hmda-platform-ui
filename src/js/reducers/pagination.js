@@ -1,13 +1,9 @@
-import {
-  RECEIVE_PARSE_ERRORS,
-  RECEIVE_EDIT,
-  RECEIVE_IRS
-} from '../constants'
+import { RECEIVE_PARSE_ERRORS, RECEIVE_EDIT, RECEIVE_IRS } from '../constants'
 
 const defaultPagination = {}
 
 export default (state = defaultPagination, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case RECEIVE_PARSE_ERRORS:
       return {
         ...state,

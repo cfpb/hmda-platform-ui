@@ -17,7 +17,7 @@
   }
   .usa-button.usa-button-gray {
     border: 1px solid $color-gray;
-    border-radius: .3rem 0 0 .3rem;
+    border-radius: 0.3rem 0 0 0.3rem;
     margin-right: -1px;
     &.usa-button-disabled {
       background-color: $color-gray-lighter;
@@ -72,7 +72,6 @@
       .file-selected {
         color: $color-gray;
       }
-
     }
   }
 }

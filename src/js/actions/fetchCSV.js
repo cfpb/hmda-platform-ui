@@ -13,15 +13,18 @@ export default function fetchCSV(institutionId, filing, submissionId) {
       filing: filing,
       submission: submissionId
     })
-    .then(csv => {
-      return hasHttpError(csv).then(hasError => {
-        if(hasError){
-          dispatch(receiveError(csv))
-          throw new Error(`${csv.status}: ${csv.statusText}`)
-        }
-        return fileSaver.saveAs(new Blob([csv], {type: 'text/csv;charset=utf-16'}), `${submissionId}-full-edit-report.csv`)
+      .then(csv => {
+        return hasHttpError(csv).then(hasError => {
+          if (hasError) {
+            dispatch(receiveError(csv))
+            throw new Error(`${csv.status}: ${csv.statusText}`)
+          }
+          return fileSaver.saveAs(
+            new Blob([csv], { type: 'text/csv;charset=utf-16' }),
+            `${submissionId}-full-edit-report.csv`
+          )
+        })
       })
-    })
-    .catch(err => console.error(err))
+      .catch(err => console.error(err))
   }
 }

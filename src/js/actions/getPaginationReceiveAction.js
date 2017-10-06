@@ -3,7 +3,7 @@ import receiveIRS from './receiveIRS.js'
 import receiveParseErrors from './receiveParseErrors.js'
 
 export default function getPaginationReceiveAction(target, data) {
-  switch(target) {
+  switch (target) {
     case 'parseErrors':
       return receiveParseErrors(data)
     case 'irs':

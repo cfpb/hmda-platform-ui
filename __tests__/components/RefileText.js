@@ -5,7 +5,6 @@ import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 
 describe('RefileText', () => {
-
   it('renders with provided props', () => {
     const rendered = RefileText({
       code: 3
@@ -17,10 +16,9 @@ describe('RefileText', () => {
 
   it('fails to render without provided props', () => {
     console.error = jest.fn()
-    const rendered = TestUtils.renderIntoDocument(<RefileText/>)
+    const rendered = TestUtils.renderIntoDocument(<RefileText />)
     expect(console.error).toHaveBeenCalledTimes(1)
   })
-
 })
 
 describe('getStaus', () => {
@@ -36,6 +34,8 @@ describe('getStaus', () => {
 
   it('returns as "has already been submitted" if code === 10', () => {
     const rendered = getStatus(10)
-    expect(rendered.props.children[1].props.children).toBe('has already been submitted')
+    expect(rendered.props.children[1].props.children).toBe(
+      'has already been submitted'
+    )
   })
 })

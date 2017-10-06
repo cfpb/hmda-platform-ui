@@ -4,7 +4,5 @@ import * as types from '../../src/js/constants'
 import selectNewFile from '../../src/js/actions/selectNewFile.js'
 
 describe('selectNewFile', () => {
-  it('is mocked', () => {
-
-  })
+  it('is mocked', () => {})
 })

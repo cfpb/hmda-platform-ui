@@ -53,6 +53,12 @@ Running docker-compose from the hmda-platform repo will map a volume from the lo
 $ npm test
 ```
 
+## Code formatting
+
+We're using [prettier](https://github.com/prettier/prettier) to format all of our `.js`, `.jsx`, and `.scss`. We provide a [prettier config](.prettierrc) and a script in `package.json`; which can be run using `yarn run pretty`. __But__, we recommend [integrating prettier with you're favorite editor](https://github.com/prettier/prettier#editor-integration).
+
+Just be sure to use `singleQuote: true` and `semi: false` for all `.js` and `.jsx` files and `singleQuote: false` and `semi: true` for all `.scss` files.
+
 ## Known issues
 
 This repo is a work in progress.

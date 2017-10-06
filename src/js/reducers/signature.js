@@ -1,4 +1,11 @@
-import { REQUEST_SIGNATURE,RECEIVE_SIGNATURE,REQUEST_SIGNATURE_POST,RECEIVE_SIGNATURE_POST,CHECK_SIGNATURE,REFRESH_STATE } from '../constants'
+import {
+  REQUEST_SIGNATURE,
+  RECEIVE_SIGNATURE,
+  REQUEST_SIGNATURE_POST,
+  RECEIVE_SIGNATURE_POST,
+  CHECK_SIGNATURE,
+  REFRESH_STATE
+} from '../constants'
 
 const defaultSignature = {
   isFetching: false,
@@ -9,7 +16,6 @@ const defaultSignature = {
 
 export default (state = defaultSignature, action) => {
   switch (action.type) {
-
     case REQUEST_SIGNATURE:
       return {
         ...state,
@@ -22,7 +28,7 @@ export default (state = defaultSignature, action) => {
         isFetching: false,
         timestamp: action.timestamp,
         receipt: action.receipt,
-        checked: (action.timestamp !== 0)
+        checked: action.timestamp !== 0
       }
 
     case REQUEST_SIGNATURE_POST:

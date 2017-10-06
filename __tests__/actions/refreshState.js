@@ -7,7 +7,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 const mockStore = configureMockStore([thunk])
-const store = mockStore({app:{ institution: {id: '123'}}})
+const store = mockStore({ app: { institution: { id: '123' } } })
 
 describe('refreshState', () => {
   it('creates a thunk to refresh the state', () => {
@@ -16,6 +16,8 @@ describe('refreshState', () => {
 
   it('dispatches an action when handed to dispatch', () => {
     store.dispatch(refreshState())
-    expect(store.getActions()).toEqual([{type: types.REFRESH_STATE, id: '123'}])
+    expect(store.getActions()).toEqual([
+      { type: types.REFRESH_STATE, id: '123' }
+    ])
   })
 })

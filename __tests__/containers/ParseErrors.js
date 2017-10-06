@@ -13,7 +13,9 @@ import ParseErrors, {
 } from '../../src/js/containers/ParseErrors.jsx'
 import Wrapper from '../Wrapper.js'
 
-const parseFetch = jest.fn(() => {return {type: 'FAKE'}})
+const parseFetch = jest.fn(() => {
+  return { type: 'FAKE' }
+})
 console.error = jest.fn()
 
 ParseErrorsComponent.mockImplementation(() => null)
@@ -26,36 +28,48 @@ const defaultState = {
       transmittalSheetErrors: [],
       larErrors: []
     },
-    pagination: {parseErrors: {}},
-    paginationFade: {parseErrors: 0}
+    pagination: { parseErrors: {} },
+    paginationFade: { parseErrors: 0 }
   }
 }
 
 describe('ParseErrors', () => {
   it('renders the connected component', () => {
     const wrappedConnected = TestUtils.renderIntoDocument(
-        <Wrapper store={defaultState}>
-          <ParseErrors/>
-        </Wrapper>
-      )
+      <Wrapper store={defaultState}>
+        <ParseErrors />
+      </Wrapper>
+    )
 
-      expect(parseFetch).toBeCalled()
-      expect(console.error).not.toBeCalled()
+    expect(parseFetch).toBeCalled()
+    expect(console.error).not.toBeCalled()
   })
 
   it('renders the unconnected component with passed in props', () => {
     const wrappedContainer = TestUtils.renderIntoDocument(
-        <Wrapper>
-          <ParseErrorsContainer dispatch={jest.fn()} isFetching={false} larErrors={[]} transmittalSheetErrors={[]} total={null} />
-        </Wrapper>
-      )
-      expect(console.error).not.toBeCalled()
+      <Wrapper>
+        <ParseErrorsContainer
+          dispatch={jest.fn()}
+          isFetching={false}
+          larErrors={[]}
+          transmittalSheetErrors={[]}
+          total={null}
+        />
+      </Wrapper>
+    )
+    expect(console.error).not.toBeCalled()
   })
 
   it('maps state to props', () => {
     const mapped = mapStateToProps(defaultState)
 
-    expect(Object.keys(mapped)).toEqual(['isFetching', 'transmittalSheetErrors', 'larErrors', 'pagination', 'paginationFade'])
+    expect(Object.keys(mapped)).toEqual([
+      'isFetching',
+      'transmittalSheetErrors',
+      'larErrors',
+      'pagination',
+      'paginationFade'
+    ])
     expect(mapped.isFetching).toEqual(false)
     expect(mapped.transmittalSheetErrors).toEqual([])
     expect(mapped.larErrors).toEqual([])

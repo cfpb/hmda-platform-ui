@@ -16,7 +16,9 @@ const emptyParseErrors = {
 
 describe('getPaginationReceiveAction', () => {
   it('gets the correct receive actions', () => {
-    expect(getPaginationReceiveAction('parseErrors', {})).toEqual(emptyParseErrors)
+    expect(getPaginationReceiveAction('parseErrors', {})).toEqual(
+      emptyParseErrors
+    )
     expect(getPaginationReceiveAction('q021', {})).toEqual({
       type: types.RECEIVE_EDIT,
       edit: undefined,

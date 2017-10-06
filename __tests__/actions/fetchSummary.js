@@ -9,7 +9,5 @@ import thunk from 'redux-thunk'
 const mockStore = configureMockStore([thunk])
 
 describe('fetchSummary', () => {
-  it('is mocked', () => {
-
-  })
+  it('is mocked', () => {})
 })

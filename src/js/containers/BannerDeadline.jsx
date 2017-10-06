@@ -8,7 +8,6 @@ export class BannerDeadlineContainer extends Component {
     super(props)
   }
 
-
   render() {
     return <BannerDeadline {...this.props} />
   }

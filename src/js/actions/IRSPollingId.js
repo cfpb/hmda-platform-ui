@@ -5,5 +5,5 @@ export function get() {
 }
 
 export function set(newId) {
-  return pollingId = newId
+  return (pollingId = newId)
 }
