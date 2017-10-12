@@ -8,7 +8,7 @@ export default function fetchProgress(id) {
     return getSubmission(id)
       .then(json => {
         return hasHttpError(json).then(hasError => {
-          if(hasError){
+          if (hasError) {
             dispatch(receiveError(json))
             throw new Error(`${json.status}: ${json.statusText}`)
           }

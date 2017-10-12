@@ -15,9 +15,7 @@ const defaultSubmission = {
 
 describe('submission reducer', () => {
   it('should return the initial state on empty action', () => {
-    expect(
-      submission(undefined, {})
-    ).toEqual(defaultSubmission)
+    expect(submission(undefined, {})).toEqual(defaultSubmission)
   })
 
   it('handles RECEIVE_SUBMISSION', () => {
@@ -30,8 +28,7 @@ describe('submission reducer', () => {
         message: ''
       }
     }
-    expect(submission({}, submissionAction)
-    ).toEqual({
+    expect(submission({}, submissionAction)).toEqual({
       isFetching: false,
       id: 1,
       filename: 'argle',
@@ -43,26 +40,29 @@ describe('submission reducer', () => {
   })
 
   it('handles REFRESH_STATE', () => {
-    expect(submission({},{type:'REFRESH_STATE'}))
-      .toEqual(defaultSubmission)
+    expect(submission({}, { type: 'REFRESH_STATE' })).toEqual(defaultSubmission)
   })
 
   it('handles REQUEST_SUBMISSION', () => {
-    expect(submission({a:2},{type:'REQUEST_SUBMISSION'}))
-      .toEqual({a:2, isFetching: true})
+    expect(submission({ a: 2 }, { type: 'REQUEST_SUBMISSION' })).toEqual({
+      a: 2,
+      isFetching: true
+    })
   })
 
   it('handles SELECT_FILE', () => {
-    expect(submission({}, {type: 'SELECT_FILE', file: {name: 'bargle'}}))
-      .toEqual({filename: 'bargle'})
+    expect(
+      submission({}, { type: 'SELECT_FILE', file: { name: 'bargle' } })
+    ).toEqual({ filename: 'bargle' })
   })
 
-  it('shouldn\'t modify state on an unknown action type', () => {
-    excludeTypes(types.SELECT_FILE, types.RECEIVE_SUBMISSION, types.UPDATE_STATUS,
-      types.REFRESH_STATE, types.REQUEST_SUBMISSION)
-      .forEach(v => expect(submission({}, v))
-        .toEqual({})
-      )
+  it("shouldn't modify state on an unknown action type", () => {
+    excludeTypes(
+      types.SELECT_FILE,
+      types.RECEIVE_SUBMISSION,
+      types.UPDATE_STATUS,
+      types.REFRESH_STATE,
+      types.REQUEST_SUBMISSION
+    ).forEach(v => expect(submission({}, v)).toEqual({}))
   })
-
 })

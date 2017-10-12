@@ -8,21 +8,22 @@ import { getId } from './Submission.js'
 export default function fetchEachEdit(editTypes) {
   return dispatch => {
     Object.keys(editTypes).forEach(key => {
-      if(key !== 'status'){
-        editTypes[key].edits && editTypes[key].edits.forEach(edit => {
-           dispatch(requestEdit(edit.edit))
-           getEdit({submission: getId(), edit: edit.edit})
-             .then(json => {
+      if (key !== 'status') {
+        editTypes[key].edits &&
+          editTypes[key].edits.forEach(edit => {
+            dispatch(requestEdit(edit.edit))
+            getEdit({ submission: getId(), edit: edit.edit })
+              .then(json => {
                 return hasHttpError(json).then(hasError => {
-                  if(hasError){
+                  if (hasError) {
                     dispatch(receiveError(json))
                     throw new Error(`${json.status}: ${json.statusText}`)
                   }
                   return dispatch(receiveEdit(json))
                 })
-             })
-             .catch(err => console.error(err))
-        })
+              })
+              .catch(err => console.error(err))
+          })
       }
     })
   }

@@ -10,12 +10,14 @@
         },
         {
           "id": 2,
-          "value": "There were a large number of applications, but few loans were closed",
+          "value":
+            "There were a large number of applications, but few loans were closed",
           "verified": false
         },
         {
           "id": 3,
-          "value": "Loan activity for this filing year consisted mainly of purchased loans.",
+          "value":
+            "Loan activity for this filing year consisted mainly of purchased loans.",
           "verified": false
         }
       ]

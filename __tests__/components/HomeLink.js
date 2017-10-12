@@ -7,9 +7,10 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
 describe('HomeLink', () => {
-
   const homeLink = TestUtils.renderIntoDocument(
-    <Wrapper><HomeLink/></Wrapper>
+    <Wrapper>
+      <HomeLink />
+    </Wrapper>
   )
   const linkNode = ReactDOM.findDOMNode(homeLink)
 

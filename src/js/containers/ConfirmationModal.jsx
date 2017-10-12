@@ -10,7 +10,7 @@ import ConfirmationModal from '../components/ConfirmationModal.jsx'
 
 export class ConfirmationModalContainer extends Component {
   constructor(props) {
-      super(props)
+    super(props)
   }
 
   render() {
@@ -24,10 +24,7 @@ export function mapStateToProps(state) {
   const { filingPeriod } = state.app
   const { code } = state.app.submission.status
 
-  const {
-    file,
-    newFile
-  } = state.app.upload[id] || {
+  const { file, newFile } = state.app.upload[id] || {
     uploading: false,
     file: null,
     newFile: null,
@@ -51,17 +48,16 @@ export function mapDispatchToProps(dispatch) {
 
   const triggerRefile = (id, period, page = '', file) => {
     dispatch(refreshState())
-    if(page === 'upload' && file) {
+    if (page === 'upload' && file) {
       return dispatch(fetchNewSubmission(id, period)).then(() => {
         dispatch(selectFile(file))
         dispatch(fetchUpload(file))
       })
     } else {
-      return dispatch(fetchNewSubmission(id, period)).then(()=>{
+      return dispatch(fetchNewSubmission(id, period)).then(() => {
         browserHistory.replace(`/${id}/${period}`)
       })
     }
-
   }
 
   return {
@@ -70,4 +66,6 @@ export function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConfirmationModalContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  ConfirmationModalContainer
+)

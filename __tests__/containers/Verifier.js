@@ -14,7 +14,7 @@ const defaultQuality = {
     edits: {
       types: {
         quality: {
-          verified:true,
+          verified: true,
           edits: []
         }
       }
@@ -31,7 +31,7 @@ const defaultMacro = {
     edits: {
       types: {
         macro: {
-          verified:true,
+          verified: true,
           edits: []
         }
       }
@@ -50,7 +50,7 @@ describe('Verifier Container', () => {
     console.error = jest.fn()
     const rendered = TestUtils.renderIntoDocument(
       <VerifierContainer
-        type='quality'
+        type="quality"
         verified={true}
         onVerify={jest.fn()}
         noEditsExist={true}
@@ -61,9 +61,7 @@ describe('Verifier Container', () => {
     expect(rendered).toBeDefined()
     expect(console.error).not.toBeCalled()
 
-    const renderedWithErr = TestUtils.renderIntoDocument(
-      <VerifierContainer/>
-    )
+    const renderedWithErr = TestUtils.renderIntoDocument(<VerifierContainer />)
 
     expect(rendered).toBeDefined()
     expect(console.error).toHaveBeenCalledTimes(9)
@@ -71,20 +69,48 @@ describe('Verifier Container', () => {
   })
 
   it('maps state to props with proper defaults for quality', () => {
-    expect(mapStateToProps(defaultQuality, {type: 'quality'})).toEqual({noEditsExist: true, type: 'quality', verified: true, code: 1, isFetching: false})
+    expect(mapStateToProps(defaultQuality, { type: 'quality' })).toEqual({
+      noEditsExist: true,
+      type: 'quality',
+      verified: true,
+      code: 1,
+      isFetching: false
+    })
   })
 
   it('maps state to props with proper defaults for macro', () => {
-    expect(mapStateToProps(defaultMacro, {type: 'macro'})).toEqual({noEditsExist: true, type: 'macro', verified: true, code: 1, isFetching: false})
+    expect(mapStateToProps(defaultMacro, { type: 'macro' })).toEqual({
+      noEditsExist: true,
+      type: 'macro',
+      verified: true,
+      code: 1,
+      isFetching: false
+    })
   })
 
   it('sets noEditsExist to false if edits exist', () => {
-    expect(mapStateToProps({app:{edits:{types:{macro:{edits: ['a']}}}, submission: { status: {}}}}, {type: 'macro'})).toEqual({noEditsExist: false, type: 'macro', verified:false, code: undefined, isFetching: false})
+    expect(
+      mapStateToProps(
+        {
+          app: {
+            edits: { types: { macro: { edits: ['a'] } } },
+            submission: { status: {} }
+          }
+        },
+        { type: 'macro' }
+      )
+    ).toEqual({
+      noEditsExist: false,
+      type: 'macro',
+      verified: false,
+      code: undefined,
+      isFetching: false
+    })
   })
 
   it('maps dispatch appropriately', () => {
     const dispatch = jest.fn()
-    const mapped = mapDispatchToProps(dispatch, {type:'quality'})
+    const mapped = mapDispatchToProps(dispatch, { type: 'quality' })
 
     expect(Object.keys(mapped)).toEqual(['onVerify'])
     mapped.onVerify(true)
@@ -92,7 +118,9 @@ describe('Verifier Container', () => {
   })
 
   it('throws on bad state', () => {
-    expect(()=>{mapStateToProps()}).toThrow()
+    expect(() => {
+      mapStateToProps()
+    }).toThrow()
   })
 
   it('renders the connected component for quality', () => {
@@ -100,7 +128,7 @@ describe('Verifier Container', () => {
     console.error = jest.fn()
     const qualityVerifier = TestUtils.renderIntoDocument(
       <Wrapper store={defaultQuality}>
-        <Connected type="quality"/>
+        <Connected type="quality" />
       </Wrapper>
     )
 
@@ -114,7 +142,7 @@ describe('Verifier Container', () => {
     console.error = jest.fn()
     const macroVerifier = TestUtils.renderIntoDocument(
       <Wrapper store={defaultMacro}>
-        <Connected type="macro"/>
+        <Connected type="macro" />
       </Wrapper>
     )
 

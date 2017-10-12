@@ -8,7 +8,5 @@ import thunk from 'redux-thunk'
 const mockStore = configureMockStore([thunk])
 
 describe('fetchEachFiling', () => {
-  it('is mocked', () => {
-
-  })
+  it('is mocked', () => {})
 })

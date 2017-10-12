@@ -10,25 +10,25 @@ import { postVerify } from '../api/api.js'
 
 export default function fetchVerify(type, checked) {
   return dispatch => {
-    if(type === 'quality') dispatch(requestVerifyQuality())
+    if (type === 'quality') dispatch(requestVerifyQuality())
     else dispatch(requestVerifyMacro())
 
     return postVerify(getId(), type, checked)
       .then(json => {
         return hasHttpError(json).then(hasError => {
-          if(hasError){
+          if (hasError) {
             dispatch(receiveError(json))
             throw new Error(`${json.status}: ${json.statusText}`)
           }
 
-          if(type === 'quality') dispatch(verifyQuality(checked))
+          if (type === 'quality') dispatch(verifyQuality(checked))
           else dispatch(verifyMacro(checked))
 
-          return dispatch(updateStatus(
-            {
+          return dispatch(
+            updateStatus({
               ...json.status
-            }
-          ))
+            })
+          )
         })
       })
       .catch(err => console.error(err))

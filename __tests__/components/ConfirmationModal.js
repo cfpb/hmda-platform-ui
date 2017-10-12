@@ -1,6 +1,8 @@
 jest.unmock('../../src/js/components/ConfirmationModal.jsx')
 
-import ModalConfirm, { _focusIfShowing } from '../../src/js/components/ConfirmationModal.jsx'
+import ModalConfirm, {
+  _focusIfShowing
+} from '../../src/js/components/ConfirmationModal.jsx'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -45,11 +47,19 @@ describe('Confirmation Modal', () => {
   })
 
   it('renders WITHOUT the showing-blurred-blocker class', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(confirm, 'showing-blurred-blocker').length).toEqual(0)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(
+        confirm,
+        'showing-blurred-blocker'
+      ).length
+    ).toEqual(0)
   })
 
   it('calls hideConfirmModal', () => {
-    const yesButton = TestUtils.scryRenderedDOMComponentsWithTag(confirm, 'button')[0]
+    const yesButton = TestUtils.scryRenderedDOMComponentsWithTag(
+      confirm,
+      'button'
+    )[0]
 
     TestUtils.Simulate.click(yesButton)
     expect(triggerRefile).toBeCalled()
@@ -63,16 +73,19 @@ describe('Confirmation Modal', () => {
   })
 
   it('blurs button', () => {
-    const yesButton = TestUtils.scryRenderedDOMComponentsWithTag(confirm, 'button')[0]
+    const yesButton = TestUtils.scryRenderedDOMComponentsWithTag(
+      confirm,
+      'button'
+    )[0]
     const prev = jest.fn()
-    TestUtils.Simulate.blur(yesButton, {preventDefault: prev})
+    TestUtils.Simulate.blur(yesButton, { preventDefault: prev })
     expect(prev).toHaveBeenCalled()
   })
 
   it('blurs link', () => {
     const noLink = TestUtils.scryRenderedDOMComponentsWithTag(confirm, 'a')[0]
     const prev = jest.fn()
-    TestUtils.Simulate.blur(noLink, {preventDefault: prev})
+    TestUtils.Simulate.blur(noLink, { preventDefault: prev })
     expect(prev).toHaveBeenCalled()
   })
 
@@ -93,19 +106,27 @@ describe('Confirmation Modal', () => {
     const mockTimeout = jest.fn()
     delete global.setTimeout
     global.setTimeout = mockTimeout
-    _focusIfShowing.call({props: {showing:false}})
+    _focusIfShowing.call({ props: { showing: false } })
     expect(mockTimeout).not.toHaveBeenCalled()
 
-    _focusIfShowing.call({props: {showing:true}})
+    _focusIfShowing.call({ props: { showing: true } })
     expect(mockTimeout).toHaveBeenCalled()
   })
 
   it('renders WITH the showing-blurred-blocker class', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(confirmShowing, 'showing-blurred-blocker').length).toEqual(1)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(
+        confirmShowing,
+        'showing-blurred-blocker'
+      ).length
+    ).toEqual(1)
   })
 
   it('renders showing button', () => {
-    const button = TestUtils.findRenderedDOMComponentWithTag(confirmShowing, 'button')
+    const button = TestUtils.findRenderedDOMComponentWithTag(
+      confirmShowing,
+      'button'
+    )
     expect(button.length).not.toBeNull()
     Object.keys(button).forEach(v => {
       expect(button[v]._currentElement.props.tabIndex).toBe(0)

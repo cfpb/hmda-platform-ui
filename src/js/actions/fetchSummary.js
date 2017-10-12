@@ -11,7 +11,7 @@ export default function fetchSummary() {
     return getSummary(getId())
       .then(json => {
         return hasHttpError(json).then(hasError => {
-          if(hasError){
+          if (hasError) {
             dispatch(receiveError(json))
             throw new Error(`${json.status}: ${json.statusText}`)
           }

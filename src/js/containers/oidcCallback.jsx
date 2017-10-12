@@ -6,7 +6,6 @@ import { set } from '../api/AccessToken.js'
 import { restorePage } from '../utils/redirect'
 
 export class oidcCallback extends React.Component {
-
   successCallback(user) {
     set(user.access_token)
     restorePage()
@@ -16,14 +15,18 @@ export class oidcCallback extends React.Component {
     browserHistory.replace('/')
   }
 
-
   componentWillMount() {
-    if(!this.props.location.hash) browserHistory.replace('/')
+    if (!this.props.location.hash) browserHistory.replace('/')
   }
 
   render() {
-    if(!this.props.location.hash) return null
-    return <CallbackComponent successCallback={this.successCallback} errorCallback={this.errorCallback} />
+    if (!this.props.location.hash) return null
+    return (
+      <CallbackComponent
+        successCallback={this.successCallback}
+        errorCallback={this.errorCallback}
+      />
+    )
   }
 }
 

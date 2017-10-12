@@ -5,4 +5,3 @@ export default function requestInstitutions() {
     type: types.REQUEST_INSTITUTIONS
   }
 }
-

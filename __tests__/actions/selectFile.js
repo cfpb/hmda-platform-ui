@@ -7,7 +7,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 const mockStore = configureMockStore([thunk])
-const store = mockStore({app:{ institution: {id: '123'}}})
+const store = mockStore({ app: { institution: { id: '123' } } })
 
 describe('selectFile', () => {
   it('creates a thunk to signal file selection', () => {
@@ -15,8 +15,10 @@ describe('selectFile', () => {
   })
 
   it('creates an action to signal file selection when dispatched', () => {
-    const file = {size:42, name: 'test.txt'}
+    const file = { size: 42, name: 'test.txt' }
     store.dispatch(selectFile(file))
-    expect(store.getActions()).toEqual([{type: types.SELECT_FILE, file, errors: [], id: '123'}])
+    expect(store.getActions()).toEqual([
+      { type: types.SELECT_FILE, file, errors: [], id: '123' }
+    ])
   })
 })

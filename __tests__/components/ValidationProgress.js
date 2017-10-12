@@ -15,8 +15,11 @@ window.localStorage = {
 }
 
 describe('ValidationProgress', () => {
-
-  const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress code={9} id="argle"/></Wrapper>)
+  const progress = TestUtils.renderIntoDocument(
+    <Wrapper>
+      <ValidationProgress code={9} id="argle" />
+    </Wrapper>
+  )
   const progressNode = ReactDOM.findDOMNode(progress)
 
   it('renders the component', () => {
@@ -24,65 +27,105 @@ describe('ValidationProgress', () => {
   })
 
   it('renders the correct amount of children', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(progress, 'span').length).toEqual(2)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(progress, 'span').length
+    ).toEqual(2)
   })
 
   it('renders a complete class when code is appropriate', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(progress, 'complete').length).toEqual(1)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(progress, 'complete').length
+    ).toEqual(1)
   })
 
   it('renders a pulsing class when code is appropriate', () => {
-    const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress code={7} id="argle"/></Wrapper>)
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(progress, 'pulsing').length).toEqual(1)
+    const progress = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <ValidationProgress code={7} id="argle" />
+      </Wrapper>
+    )
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(progress, 'pulsing').length
+    ).toEqual(1)
   })
 
   it('renders an error class', () => {
-    const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress code={5} id="argle"/></Wrapper>)
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(progress, 'error').length).toEqual(2)
+    const progress = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <ValidationProgress code={5} id="argle" />
+      </Wrapper>
+    )
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(progress, 'error').length
+    ).toEqual(2)
   })
 
   it('renders null with no id', () => {
-    const progress = TestUtils.renderIntoDocument(<Wrapper><ValidationProgress code={5} /></Wrapper>)
+    const progress = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <ValidationProgress code={5} />
+      </Wrapper>
+    )
     expect(progress.props.children.key).toBe(null)
   })
 
   it('gets expected results from getFill', () => {
     let progress = new ValidationProgress({})
     expect(progress.getFill().props.style.width).toBe('0%')
-    progress.state = {fillWidth: 20}
+    progress.state = { fillWidth: 20 }
     expect(progress.getFill().props.style.width).toBe('20%')
 
-    progress = new ValidationProgress({code: 5})
+    progress = new ValidationProgress({ code: 5 })
     expect(progress.getFill().props.className).toBe('progressFill error')
 
-    progress = new ValidationProgress({code: 8})
-    expect(progress.getFill({code: 8 }).props.style.width).toBe('100%')
+    progress = new ValidationProgress({ code: 8 })
+    expect(progress.getFill({ code: 8 }).props.style.width).toBe('100%')
   })
 
   it('gets expected results from getText', () => {
-    let progress = new ValidationProgress({code: 3})
-    expect(progress.getText().props.children[0].props.children).toBe('Uploading...')
-    progress = new ValidationProgress({code: 4})
-    expect(progress.getText().props.children[0].props.children).toBe('Analyzing file format...')
-    progress = new ValidationProgress({code: 5})
-    expect(progress.getText().props.children[0].props.children).toBe('File contains formatting errors.')
-    progress = new ValidationProgress({code: 7})
-    expect(progress.getText().props.children[0].props.children).toBe('Validating edits...')
-    progress = new ValidationProgress({code: 8})
-    expect(progress.getText().props.children[0].props.children).toBe('Edit validation complete.')
-    progress = new ValidationProgress({code: 8})
-    expect(progress.getText().props.children[2].props.children).toBe('Edits found, review required.')
-    progress = new ValidationProgress({code: 9})
-    expect(progress.getText().props.children[0].props.children).toBe('Edit validation complete.')
+    let progress = new ValidationProgress({ code: 3 })
+    expect(progress.getText().props.children[0].props.children).toBe(
+      'Uploading...'
+    )
+    progress = new ValidationProgress({ code: 4 })
+    expect(progress.getText().props.children[0].props.children).toBe(
+      'Analyzing file format...'
+    )
+    progress = new ValidationProgress({ code: 5 })
+    expect(progress.getText().props.children[0].props.children).toBe(
+      'File contains formatting errors.'
+    )
+    progress = new ValidationProgress({ code: 7 })
+    expect(progress.getText().props.children[0].props.children).toBe(
+      'Validating edits...'
+    )
+    progress = new ValidationProgress({ code: 8 })
+    expect(progress.getText().props.children[0].props.children).toBe(
+      'Edit validation complete.'
+    )
+    progress = new ValidationProgress({ code: 8 })
+    expect(progress.getText().props.children[2].props.children).toBe(
+      'Edits found, review required.'
+    )
+    progress = new ValidationProgress({ code: 9 })
+    expect(progress.getText().props.children[0].props.children).toBe(
+      'Edit validation complete.'
+    )
   })
 
   it('gets expected results from getIndicator', () => {
-    let progress = new ValidationProgress({code: 3})
-    expect(progress.getIndicator().props.className).toBe('progressIndicator pulsing')
-    progress = new ValidationProgress({code: 5})
-    expect(progress.getIndicator().props.className).toBe('progressIndicator error')
-    progress = new ValidationProgress({code: 8})
-    expect(progress.getIndicator().props.className).toBe('progressIndicator complete')
+    let progress = new ValidationProgress({ code: 3 })
+    expect(progress.getIndicator().props.className).toBe(
+      'progressIndicator pulsing'
+    )
+    progress = new ValidationProgress({ code: 5 })
+    expect(progress.getIndicator().props.className).toBe(
+      'progressIndicator error'
+    )
+    progress = new ValidationProgress({ code: 8 })
+    expect(progress.getIndicator().props.className).toBe(
+      'progressIndicator complete'
+    )
   })
 
   it('sets timeouts for pseudo progress', () => {
@@ -109,7 +152,6 @@ describe('ValidationProgress', () => {
     let progress = new ValidationProgress({})
     expect(progress.getSavedWidth()).toBe(0)
     expect(progress.getSavedWidth('argle')).toBe(0)
-
   })
 
   it('saves width', () => {
@@ -119,7 +161,7 @@ describe('ValidationProgress', () => {
   })
 
   it('updates when receiving new props', () => {
-    let progress = new ValidationProgress({file:{size:123}, id:'argle'})
+    let progress = new ValidationProgress({ file: { size: 123 }, id: 'argle' })
     const setState = jest.fn()
     progress.setState = setState
     progress.componentWillReceiveProps({})

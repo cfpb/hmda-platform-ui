@@ -8,20 +8,21 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { getEdits } from '../../src/js/api/api.js'
 
-getEdits.mockImplementation((id) => Promise.resolve({fakeEdits:1}))
+getEdits.mockImplementation(id => Promise.resolve({ fakeEdits: 1 }))
 const mockStore = configureMockStore([thunk])
 
 describe('fetchEdits', () => {
   it('creates a thunk that will fetch edits by type', done => {
     const store = mockStore({})
 
-    store.dispatch(fetchEdits())
+    store
+      .dispatch(fetchEdits())
       .then(() => {
         expect(store.getActions()).toEqual([
-          {type: types.REQUEST_EDITS},
+          { type: types.REQUEST_EDITS },
           {
             type: types.RECEIVE_EDITS,
-            edits: {fakeEdits:1}
+            edits: { fakeEdits: 1 }
           }
         ])
         done()

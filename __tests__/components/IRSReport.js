@@ -16,7 +16,6 @@ const id = {
   sequenceNumber: 1
 }
 
-
 describe('IRS report', () => {
   const irsReport = TestUtils.renderIntoDocument(
     <Wrapper>
@@ -35,7 +34,9 @@ describe('IRS report', () => {
   })
 
   it('creates the correct number of rows', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'tr').length).toEqual(4)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(irsReport, 'tr').length
+    ).toEqual(4)
   })
 
   const withTotals = TestUtils.renderIntoDocument(
@@ -50,7 +51,9 @@ describe('IRS report', () => {
   )
 
   it('creates the correct number of rows with totals', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(withTotals, 'tr').length).toEqual(5)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(withTotals, 'tr').length
+    ).toEqual(5)
   })
 
   const irsLoading = TestUtils.renderIntoDocument(
@@ -66,6 +69,8 @@ describe('IRS report', () => {
   )
 
   it('creates a loading icon when IRS is loading', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(irsLoading, 'img').length).toEqual(1)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(irsLoading, 'img').length
+    ).toEqual(1)
   })
 })

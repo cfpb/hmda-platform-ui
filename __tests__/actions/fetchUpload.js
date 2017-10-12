@@ -11,14 +11,14 @@ const mockStore = configureMockStore([thunk])
 
 delete global.XMLHttpRequest
 const xhrMock = {
-    open: jest.fn(),
-    send: jest.fn(),
-    addEventListener: jest.fn(),
-    setRequestHeader: jest.fn(),
-    upload: {
-      addEventListener: jest.fn()
-    }
+  open: jest.fn(),
+  send: jest.fn(),
+  addEventListener: jest.fn(),
+  setRequestHeader: jest.fn(),
+  upload: {
+    addEventListener: jest.fn()
   }
+}
 const xhrMockFn = jest.fn(() => xhrMock)
 
 global.XMLHttpRequest = xhrMockFn
@@ -26,8 +26,9 @@ global.window.XMLHttpRequest = global.XMLHttpRequest
 
 describe('fetchUpload', () => {
   it('creates a thunk that will kick off a file upload', done => {
-    const store = mockStore({app: {upload: {}, institution: {id: '123'}}})
-    store.dispatch(fetchUpload({name: 'afile'}))
+    const store = mockStore({ app: { upload: {}, institution: { id: '123' } } })
+    store
+      .dispatch(fetchUpload({ name: 'afile' }))
       .then(() => {
         expect(store.getActions()).toEqual([
           {

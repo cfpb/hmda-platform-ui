@@ -1,7 +1,7 @@
 {
   "lars": [
     {
-      "lar": {"loanId": "lar1"},
+      "lar": { "loanId": "lar1" },
       "edits": [
         {
           "edit": "edit1",
@@ -14,7 +14,7 @@
       ]
     },
     {
-      "lar": {"loanId": "lar2"},
+      "lar": { "loanId": "lar2" },
       "edits": [
         {
           "edit": "edit3",

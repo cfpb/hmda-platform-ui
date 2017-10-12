@@ -45,8 +45,8 @@ describe('ConfirmationModal Container', () => {
     console.error = jest.fn()
     const rendered = TestUtils.renderIntoDocument(
       <ConfirmationModalContainer
-        id='123'
-        filingPeriod='456'
+        id="123"
+        filingPeriod="456"
         code={8}
         showing={true}
         file={{}}
@@ -58,7 +58,7 @@ describe('ConfirmationModal Container', () => {
     expect(console.error).not.toBeCalled()
 
     const renderedWithNoProps = TestUtils.renderIntoDocument(
-      <ConfirmationModalContainer/>
+      <ConfirmationModalContainer />
     )
     expect(rendered).toBeDefined()
     expect(console.error).not.toBeCalled()
@@ -79,7 +79,7 @@ describe('ConfirmationModal Container', () => {
     const dispatch = jest.fn(() => Promise.resolve())
     const mapped = mapDispatchToProps(dispatch)
 
-    expect(Object.keys(mapped)).toEqual(['hideConfirmModal','triggerRefile'])
+    expect(Object.keys(mapped)).toEqual(['hideConfirmModal', 'triggerRefile'])
 
     mapped.triggerRefile().then(() => {
       expect(replace).toBeCalled()
@@ -99,7 +99,9 @@ describe('ConfirmationModal Container', () => {
   })
 
   it('throws on bad state', () => {
-    expect(()=>{mapStateToProps()}).toThrow()
+    expect(() => {
+      mapStateToProps()
+    }).toThrow()
   })
 
   it('renders the connected component', () => {
@@ -107,7 +109,7 @@ describe('ConfirmationModal Container', () => {
     console.error = jest.fn()
     const connected = TestUtils.renderIntoDocument(
       <Wrapper store={mockedState}>
-        <Connected/>
+        <Connected />
       </Wrapper>
     )
 
@@ -115,5 +117,4 @@ describe('ConfirmationModal Container', () => {
     expect(console.error).not.toBeCalled()
     console.error = err
   })
-
 })

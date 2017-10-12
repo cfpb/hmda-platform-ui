@@ -7,11 +7,13 @@ export default function fetchEachFiling(filings) {
     dispatch(clearFilings())
     const period = getState().app.filingPeriod
     return Promise.all(
-      filings.filter(filing => {
-        return filing.period === period
-      }).map(filing => {
-        return dispatch(fetchFiling(filing))
-      })
+      filings
+        .filter(filing => {
+          return filing.period === period
+        })
+        .map(filing => {
+          return dispatch(fetchFiling(filing))
+        })
     ).then(() => dispatch(receiveFilings()))
   }
 }

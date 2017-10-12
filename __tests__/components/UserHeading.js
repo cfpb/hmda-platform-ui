@@ -15,9 +15,7 @@ const data = {
   period: '2017'
 }
 
-
 describe('UserHeading', () => {
-
   describe('does NOT render without period', () => {
     const heading = TestUtils.renderIntoDocument(
       <Wrapper>
@@ -34,7 +32,7 @@ describe('UserHeading', () => {
   describe('does NOT render without institution', () => {
     const heading = TestUtils.renderIntoDocument(
       <Wrapper>
-        <UserHeading period='2017' />
+        <UserHeading period="2017" />
       </Wrapper>
     )
     const headingNode = ReactDOM.findDOMNode(heading)
@@ -47,9 +45,7 @@ describe('UserHeading', () => {
   describe('render with username', () => {
     const heading = TestUtils.renderIntoDocument(
       <Wrapper>
-        <UserHeading
-          institution={ { name: 'Test' } }
-          period={data.period} />
+        <UserHeading institution={{ name: 'Test' }} period={data.period} />
       </Wrapper>
     )
     const headingNode = ReactDOM.findDOMNode(heading)
@@ -59,7 +55,9 @@ describe('UserHeading', () => {
     })
 
     it('renders correctly', () => {
-      expect(headingNode.textContent).toEqual('Filing on behalf of Test for 2017')
+      expect(headingNode.textContent).toEqual(
+        'Filing on behalf of Test for 2017'
+      )
     })
   })
 })

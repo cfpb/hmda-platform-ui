@@ -9,7 +9,9 @@ const renderTotals = props => {
     return (
       <tfoot>
         <tr className="totals">
-          <td className="center" colSpan={2}><strong>Total</strong></td>
+          <td className="center" colSpan={2}>
+            <strong>Total</strong>
+          </td>
           <td>{props.summary.lars.toLocaleString()}</td>
           <td>{props.summary.amount.toLocaleString()}</td>
           <td>{props.summary.conv.toLocaleString()}</td>
@@ -30,10 +32,10 @@ const renderTotals = props => {
 }
 
 const renderDownloadLink = props => {
-  if(props.msas.length === 0) return null
+  if (props.msas.length === 0) return null
 
   const { institutionId, period, sequenceNumber } = props.id
-  return(
+  return (
     <p>
       <a
         href="#"
@@ -53,14 +55,13 @@ const renderTable = props => {
   tableClass += props.paginationFade ? ' fadeOut' : ''
   return (
     <div className={tableClass} id="irs">
-      <table
-        width="100%"
-        summary="Your summarized HMDA data grouped by MSA/MD"
-      >
+      <table width="100%" summary="Your summarized HMDA data grouped by MSA/MD">
         <thead>
           <tr>
             <td colSpan={4} />
-            <th scope="colgroup" id="loan-type" colSpan={4}>Loan Type</th>
+            <th scope="colgroup" id="loan-type" colSpan={4}>
+              Loan Type
+            </th>
             <th scope="colgroup" id="property-type" colSpan={3}>
               Property Type
             </th>
@@ -69,22 +70,48 @@ const renderTable = props => {
             </th>
           </tr>
           <tr>
-            <th scope="col" id="msa-md">MSA/MD</th>
-            <th scope="col" id="msa-md-name">MSA/MD Name</th>
-            <th scope="col" id="total-lars">Total LARs</th>
+            <th scope="col" id="msa-md">
+              MSA/MD
+            </th>
+            <th scope="col" id="msa-md-name">
+              MSA/MD Name
+            </th>
+            <th scope="col" id="total-lars">
+              Total LARs
+            </th>
             <th scope="col" id="total-amt">
               Total Amt. <span>(in thousands)</span>
             </th>
-            <th scope="col" id="conv">CONV</th>
-            <th scope="col" id="fha">FHA</th>
-            <th scope="col" id="va">VA</th>
-            <th scope="col" id="fsa-rhs">FSA/RHS</th>
-            <th scope="col" id="family">1-4 Family</th>
-            <th scope="col" id="mfd">MFD</th>
-            <th scope="col" id="multi-family">Multi-Family</th>
-            <th scope="col" id="home-purchase">Home Purchase</th>
-            <th scope="col" id="home-improvement">Home Improvement</th>
-            <th scope="col" id="refinance">Refinance</th>
+            <th scope="col" id="conv">
+              CONV
+            </th>
+            <th scope="col" id="fha">
+              FHA
+            </th>
+            <th scope="col" id="va">
+              VA
+            </th>
+            <th scope="col" id="fsa-rhs">
+              FSA/RHS
+            </th>
+            <th scope="col" id="family">
+              1-4 Family
+            </th>
+            <th scope="col" id="mfd">
+              MFD
+            </th>
+            <th scope="col" id="multi-family">
+              Multi-Family
+            </th>
+            <th scope="col" id="home-purchase">
+              Home Purchase
+            </th>
+            <th scope="col" id="home-improvement">
+              Home Improvement
+            </th>
+            <th scope="col" id="refinance">
+              Refinance
+            </th>
           </tr>
         </thead>
         {renderTotals(props)}
@@ -95,21 +122,15 @@ const renderTable = props => {
                 <td headers="msa-md">{msa.id}</td>
                 <td headers="msa-md-name">{msa.name}</td>
                 <td headers="total-lars">{msa.totalLars.toLocaleString()}</td>
-                <td headers="total-amt">
-                  {msa.totalAmount.toLocaleString()}
-                </td>
+                <td headers="total-amt">{msa.totalAmount.toLocaleString()}</td>
                 <td headers="loan-type conv">{msa.conv.toLocaleString()}</td>
                 <td headers="loan-type fha">{msa.FHA.toLocaleString()}</td>
                 <td headers="loan-type va">{msa.VA.toLocaleString()}</td>
-                <td headers="loan-type fsa-rhs">
-                  {msa.FSA.toLocaleString()}
-                </td>
+                <td headers="loan-type fsa-rhs">{msa.FSA.toLocaleString()}</td>
                 <td headers="property-type family">
                   {msa.oneToFourFamily.toLocaleString()}
                 </td>
-                <td headers="property-type mfd">
-                  {msa.MFD.toLocaleString()}
-                </td>
+                <td headers="property-type mfd">{msa.MFD.toLocaleString()}</td>
                 <td headers="property-type multi-family">
                   {msa.multiFamily.toLocaleString()}
                 </td>
@@ -134,7 +155,12 @@ const renderTable = props => {
 const renderErrorMessage = () => {
   return (
     <Alert type="error">
-      <p>The IRS report could not be returned at this time. If this problem continues please contact <a href="mailto:hmdahelp@cfpb.gov">HMDA help</a>.<br /> You can still sign your submission.</p>
+      <p>
+        The IRS report could not be returned at this time. If this problem
+        continues please contact{' '}
+        <a href="mailto:hmdahelp@cfpb.gov">HMDA help</a>.<br /> You can still
+        sign your submission.
+      </p>
     </Alert>
   )
 }
@@ -143,9 +169,8 @@ const IRSReport = props => {
   if (props.isFetching) return <LoadingIcon />
   if (!props.msas) return null
   // sometimes the back-end returns an empty array for the, "msas":[]
-  const renderResponse = props.msas.length === 0
-    ? renderErrorMessage()
-    : renderTable(props)
+  const renderResponse =
+    props.msas.length === 0 ? renderErrorMessage() : renderTable(props)
 
   return (
     <section className="IRSReport">
