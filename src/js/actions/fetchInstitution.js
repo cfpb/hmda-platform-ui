@@ -4,6 +4,7 @@ import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
 import { getInstitution } from '../api/api.js'
 import requestInstitution from './requestInstitution.js'
+import { error } from '../utils/log.js'
 
 export default function fetchInstitution(institution, fetchFilings = true) {
   return dispatch => {
@@ -21,6 +22,6 @@ export default function fetchInstitution(institution, fetchFilings = true) {
           }
         })
       })
-      .catch(err => console.error(err))
+      .catch(err => error(err))
   }
 }

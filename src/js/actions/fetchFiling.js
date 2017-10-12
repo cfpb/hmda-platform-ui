@@ -3,6 +3,7 @@ import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
 import requestFiling from './requestFiling.js'
 import { getFiling } from '../api/api.js'
+import { error } from '../utils/log.js'
 
 export default function fetchFiling(filing) {
   return dispatch => {
@@ -17,6 +18,6 @@ export default function fetchFiling(filing) {
           return dispatch(receiveFiling(json))
         })
       })
-      .catch(err => console.error(err))
+      .catch(err => error(err))
   }
 }

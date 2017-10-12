@@ -5,6 +5,7 @@ import { getId } from './Submission.js'
 import requestIRS from './requestIRS.js'
 import * as IRSPollingId from './IRSPollingId.js'
 import { getIRS } from '../api/api.js'
+import { error } from '../utils/log.js'
 
 export default function fetchIRS() {
   return dispatch => {
@@ -24,7 +25,7 @@ export default function fetchIRS() {
             return dispatch(receiveIRS(json))
           })
         })
-        .catch(err => console.error(err))
+        .catch(err => error(err))
     }
     poller()
   }

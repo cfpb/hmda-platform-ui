@@ -2,6 +2,7 @@ import getPaginationReceiveAction from './getPaginationReceiveAction.js'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
 import getPaginationRequestAction from './getPaginationRequestAction.js'
+import { error } from '../utils/log.js'
 
 import { fetch } from '../api/fetch.js'
 
@@ -28,6 +29,6 @@ export default function fetchPage(target, pathname) {
           )
         })
       })
-      .catch(err => console.error(err))
+      .catch(err => error(err))
   }
 }

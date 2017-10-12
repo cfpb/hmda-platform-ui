@@ -5,6 +5,7 @@ import receiveError from './receiveError.js'
 import requestSubmission from './requestSubmission.js'
 import { getLatestSubmission } from '../api/api.js'
 import parseLocation from '../api/parseLocation.js'
+import { error } from '../utils/log.js'
 
 export default function fetchSubmission() {
   return dispatch => {
@@ -23,6 +24,6 @@ export default function fetchSubmission() {
           throw new Error(`${json.status}: ${json.statusText}`)
         })
       })
-      .catch(err => console.error(err))
+      .catch(err => error(err))
   }
 }

@@ -4,6 +4,7 @@ import hasHttpError from './hasHttpError.js'
 import requestParseErrors from './requestParseErrors.js'
 import { getId } from './Submission.js'
 import { getParseErrors } from '../api/api.js'
+import { error } from '../utils/log.js'
 
 export default function fetchParseErrors() {
   return dispatch => {
@@ -18,6 +19,6 @@ export default function fetchParseErrors() {
           return dispatch(receiveParseErrors(json))
         })
       })
-      .catch(err => console.error(err))
+      .catch(err => error(err))
   }
 }

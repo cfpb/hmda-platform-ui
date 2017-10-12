@@ -3,6 +3,7 @@ import receiveSubmission from './receiveSubmission.js'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
 import { getLatestSubmission } from '../api/api.js'
+import { error } from '../utils/log.js'
 import {
   PARSED_WITH_ERRORS,
   VALIDATED_WITH_ERRORS
@@ -44,7 +45,7 @@ export default function pollForProgress(polling) {
           return dispatch(fetchEdits())
         }
       })
-      .catch(err => console.error(err))
+      .catch(err => error(err))
   }
   return poller
 }

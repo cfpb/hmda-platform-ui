@@ -4,6 +4,7 @@ import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
 import { getEdit } from '../api/api.js'
 import { getId } from './Submission.js'
+import { error } from '../utils/log.js'
 
 export default function fetchEachEdit(editTypes) {
   return dispatch => {
@@ -22,7 +23,7 @@ export default function fetchEachEdit(editTypes) {
                   return dispatch(receiveEdit(json))
                 })
               })
-              .catch(err => console.error(err))
+              .catch(err => error(err))
           })
       }
     })

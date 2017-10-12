@@ -1,3 +1,4 @@
+/* global ga */
 import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
@@ -29,6 +30,7 @@ import SubmissionContainer from './containers/Submission.jsx'
 import SubmissionRouter from './containers/SubmissionRouter.jsx'
 import UserManager from './utils/UserManager.js'
 import { setUserManager } from './utils/redirect.js'
+import log from './utils/log.js'
 
 import appReducer from './reducers'
 
@@ -72,12 +74,10 @@ const store = createStore(
 const history = syncHistoryWithStore(browserHistory, store)
 
 history.listen(location => {
-  if (process.env.NODE_ENV !== 'production') {
-    console.log(JSON.parse(localStorage.getItem('hmdaHistory')))
-    console.log(
-      `The current URL is ${location.pathname}${location.search}${location.hash}`
-    )
-  }
+  log(JSON.parse(localStorage.getItem('hmdaHistory')))
+  log(
+    `The current URL is ${location.pathname}${location.search}${location.hash}`
+  )
   localStorage.setItem('hmdaHistory', JSON.stringify(location))
 
   if (window.ga && ga.create) {

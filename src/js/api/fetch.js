@@ -4,6 +4,7 @@ import parseLocation from './parseLocation.js'
 import makeUrl from './makeUrl.js'
 import * as AccessToken from './AccessToken.js'
 import { signinRedirect } from '../utils/redirect.js'
+import log, { error } from '../utils/log.js'
 
 export function fetch(options = { method: 'GET' }) {
   const accessToken = AccessToken.get()
@@ -45,8 +46,7 @@ export function fetch(options = { method: 'GET' }) {
   return isomorphicFetch(url, fetchOptions)
     .then(response => {
       return new Promise(resolve => {
-        if (process.env.NODE_ENV !== 'production')
-          console.log('got res', response, response.status)
+        log('got res', response, response.status)
         if (response.status === 401) signinRedirect()
         if (response.status > 399) resolve(response)
         if (options.params && options.params.format === 'csv') {
@@ -56,6 +56,6 @@ export function fetch(options = { method: 'GET' }) {
       })
     })
     .catch(err => {
-      console.log(err)
+      error(err)
     })
 }
