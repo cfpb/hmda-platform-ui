@@ -4,9 +4,9 @@ import { UPDATE_FILING_PERIOD } from '../constants'
  */
 export default (state = '2017', action) => {
   switch (action.type) {
-  case UPDATE_FILING_PERIOD:
-    return action.filingPeriod
-  default:
-    return state
+    case UPDATE_FILING_PERIOD:
+      return action.filingPeriod
+    default:
+      return state
   }
 }

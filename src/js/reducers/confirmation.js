@@ -1,4 +1,4 @@
-import { SHOW_CONFIRM,HIDE_CONFIRM } from '../constants'
+import { SHOW_CONFIRM, HIDE_CONFIRM } from '../constants'
 
 const defaultConfirmation = {
   showing: false
@@ -9,16 +9,16 @@ const defaultConfirmation = {
  */
 export default (state = defaultConfirmation, action) => {
   switch (action.type) {
-  case SHOW_CONFIRM:
-    return {
-      showing: action.showing
-    }
-  case HIDE_CONFIRM:
-    return {
-      ...state,
-      showing: action.showing,
-    }
-  default:
-    return state
+    case SHOW_CONFIRM:
+      return {
+        showing: action.showing
+      }
+    case HIDE_CONFIRM:
+      return {
+        ...state,
+        showing: action.showing
+      }
+    default:
+      return state
   }
 }

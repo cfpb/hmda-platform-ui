@@ -6,7 +6,7 @@
 }
 
 .LoadingIcon {
-  background-image:url('/img/LoadingIcon.png');
+  background-image: url("/img/LoadingIcon.png");
   width: 3em;
   animation: loading-spin 2s infinite linear;
 }
@@ -14,21 +14,21 @@
 @-webkit-keyframes loading-spin {
   0% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
     -webkit-transform: rotate(-359deg);
-            transform: rotate(-359deg);
+    transform: rotate(-359deg);
   }
 }
 
 @keyframes loading-spin {
   0% {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
     -webkit-transform: rotate(-359deg);
-            transform: rotate(-359deg);
+    transform: rotate(-359deg);
   }
 }

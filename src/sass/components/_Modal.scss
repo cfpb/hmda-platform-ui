@@ -6,7 +6,7 @@
   width: 40%;
   position: fixed;
   top: 40%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   z-index: 9003;
 
   h2 {
@@ -40,7 +40,7 @@
 }
 
 .modal-blurred-blocker {
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   opacity: 0;
   visibility: hidden;
   position: absolute;

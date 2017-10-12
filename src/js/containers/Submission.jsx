@@ -13,7 +13,7 @@ import EditsContainer from './Edits.jsx'
 import SubmissionReceipt from './SubmissionReceipt.jsx'
 import EditsNavComponent from '../components/EditsNav.jsx'
 import NavButtonComponent from '../components/NavButton.jsx'
-import RefileWarningContainer  from './RefileWarning.jsx'
+import RefileWarningContainer from './RefileWarning.jsx'
 import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
 import IRSReport from './IRSReport.jsx'
 import Signature from './Signature.jsx'
@@ -37,20 +37,22 @@ const RefileWarning = submissionProgressHOC(RefileWarningContainer)
 
 const renderByCode = (code, page, message) => {
   const toRender = []
-  if(code === FAILED) {
+  if (code === FAILED) {
     toRender.push(<p>{message}</p>)
-  }else{
-    if(page === 'upload'){
+  } else {
+    if (page === 'upload') {
       toRender.push(<UploadForm />)
-      if(code === PARSED_WITH_ERRORS) {
+      if (code === PARSED_WITH_ERRORS) {
         toRender.push(<ParseErrors />)
       }
-    }else if(['syntacticalvalidity','quality','macro'].indexOf(page) !== -1){
-      if(code > VALIDATING){
+    } else if (
+      ['syntacticalvalidity', 'quality', 'macro'].indexOf(page) !== -1
+    ) {
+      if (code > VALIDATING) {
         toRender.push(<Edits />)
       }
-    }else if(page === 'submission'){
-      if(code > VALIDATING){
+    } else if (page === 'submission') {
+      if (code > VALIDATING) {
         toRender.push(<IRSReport />)
         toRender.push(<Summary />)
         toRender.push(<Signature />)
@@ -58,15 +60,19 @@ const renderByCode = (code, page, message) => {
     }
   }
 
-  if(toRender.length === 0){
-    toRender.push(<p>Something is wrong. <Link to='/institutions'>Return to institutions</Link>.</p>)
+  if (toRender.length === 0) {
+    toRender.push(
+      <p>
+        Something is wrong.{' '}
+        <Link to="/institutions">Return to institutions</Link>.
+      </p>
+    )
   }
 
   toRender.push(<NavButton />)
 
   return toRender
 }
-
 
 class SubmissionContainer extends Component {
   constructor(props) {
@@ -80,57 +86,68 @@ class SubmissionContainer extends Component {
     }
     const status = this.props.submission.status
 
-    if((!status || status.code === UNINITIALIZED ||
-        this.props.submission.id.institutionId !== institution.id)){
-          this.props.dispatch(fetchSubmission())
+    if (
+      !status ||
+      status.code === UNINITIALIZED ||
+      this.props.submission.id.institutionId !== institution.id
+    ) {
+      this.props.dispatch(fetchSubmission())
     }
 
-    if(!this.props.institution.id || this.props.institution.id !== institution.id){
+    if (
+      !this.props.institution.id ||
+      this.props.institution.id !== institution.id
+    ) {
       this.props.dispatch(fetchInstitution(institution, false))
     }
 
-    if(institution.id && status.code > CREATED) {
+    if (institution.id && status.code > CREATED) {
       const filename = localStorage.getItem(`HMDA_FILENAME/${institution.id}`)
-      if(filename) this.props.dispatch(setFilename(filename, institution.id))
+      if (filename) this.props.dispatch(setFilename(filename, institution.id))
     }
   }
 
   render() {
-    if(!this.props.location) return null
+    if (!this.props.location) return null
 
     const { submission, params, location } = this.props
     const status = submission.status
     const code = status && status.code
     const page = location.pathname.split('/').slice(-1)[0]
 
-    const toRender = code ? renderByCode(code, page, status.message) : [<LoadingIcon key="0"/>]
-
+    const toRender = code
+      ? renderByCode(code, page, status.message)
+      : [<LoadingIcon key="0" />]
 
     return (
-    <div>
-      <UserHeading
-        period={params.filing}
-        institution={this.props.institution}
-      />
-      <EditsNav
-        period={params.filing}
-        institution={this.props.institution}
-      />
-      <RefileWarning/>
-      {page === 'submission'
-        ? (code !== SIGNED
-          ? <SubmissionPageInfo />
-          : <section className="RefileWarning"><SubmissionReceipt /></section>
-        ): null
-      }
+      <div>
+        <UserHeading
+          period={params.filing}
+          institution={this.props.institution}
+        />
+        <EditsNav period={params.filing} institution={this.props.institution} />
+        <RefileWarning />
+        {page === 'submission' ? (
+          code !== SIGNED ? (
+            <SubmissionPageInfo />
+          ) : (
+            <section className="RefileWarning">
+              <SubmissionReceipt />
+            </section>
+          )
+        ) : null}
 
-      <main id="main-content" className="usa-grid SubmissionContainer">
-        {this.props.error ? <ErrorWarning error={this.props.error}/> : null }
-        {toRender.map((component, i) => {
-          return <div className="usa-width-one-whole" key={i}>{component}</div>
-        })}
-      </main>
-    </div>
+        <main id="main-content" className="usa-grid SubmissionContainer">
+          {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
+          {toRender.map((component, i) => {
+            return (
+              <div className="usa-width-one-whole" key={i}>
+                {component}
+              </div>
+            )
+          })}
+        </main>
+      </div>
     )
   }
 }
@@ -147,7 +164,7 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
   return { dispatch }
 }
 

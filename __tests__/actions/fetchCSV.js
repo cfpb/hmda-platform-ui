@@ -9,7 +9,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { getCSV } from '../../src/js/api/api.js'
 
-getCSV.mockImplementation((id) => Promise.resolve('a,b,c'))
+getCSV.mockImplementation(id => Promise.resolve('a,b,c'))
 const mockStore = configureMockStore([thunk])
 
 delete window.Blob
@@ -19,11 +19,10 @@ describe('fetchCSV', () => {
   it('creates a thunk that will request edits and trigger a csv download', done => {
     const store = mockStore({})
 
-    store.dispatch(fetchCSV())
+    store
+      .dispatch(fetchCSV())
       .then(() => {
-        expect(store.getActions()).toEqual([
-          {type: types.REQUEST_CSV}
-        ])
+        expect(store.getActions()).toEqual([{ type: types.REQUEST_CSV }])
         expect(window.Blob.mock.calls.length).toBe(1)
         done()
       })
@@ -38,17 +37,16 @@ describe('fetchCSV', () => {
 
     window.navigator.__defineGetter__('userAgent', () => 'MSIE ')
 
-    store.dispatch(fetchCSV())
-    .then(() => {
-      expect(store.getActions()).toEqual([
-        {type: types.REQUEST_CSV}
-      ])
-      expect(window.Blob.mock.calls.length).toBe(2)
-      done()
-    })
-    .catch(err => {
-      console.log(err)
-      done.fail()
-    })
+    store
+      .dispatch(fetchCSV())
+      .then(() => {
+        expect(store.getActions()).toEqual([{ type: types.REQUEST_CSV }])
+        expect(window.Blob.mock.calls.length).toBe(2)
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
   })
 })

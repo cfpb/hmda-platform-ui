@@ -8,7 +8,9 @@ export const renderVerified = (verified, type) => {
   if (verified) {
     return (
       <Alert type="success">
-        <p><span>{type}</span> edits have been verified.</p>
+        <p>
+          <span>{type}</span> edits have been verified.
+        </p>
       </Alert>
     )
   }
@@ -25,44 +27,45 @@ class Verifier extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if(props.verified !== this.props.verified) this.setState({checked: props.verified})
+    if (props.verified !== this.props.verified)
+      this.setState({ checked: props.verified })
   }
 
   render() {
     const props = this.props
     const disabled = props.code === SIGNED ? true : false
 
-    return props.noEditsExist
-      ? null
-      : <section className="Verifier">
-          <hr />
-          <h2>Verify {props.type} edits</h2>
-          <p className="usa-font-lead">
-            In order to continue you must verify all {props.type} edits.
-          </p>
-          {props.isFetching ? <LoadingIcon/> : null}
-          <ul className="usa-unstyled-list">
-            <li>
-              <input
-                id={`${props.type}Verifier`}
-                name={`${props.type}Verifier`}
-                type="checkbox"
-                checked={this.state.checked}
-                disabled={disabled}
-                onChange={e => {
-                  this.setState({checked: e.target.checked})
-                  props.onVerify(e.target.checked)
-                }}
-              />
-              <label htmlFor={`${props.type}Verifier`} className="max-width-100">
-                All data are accurate, no corrections required. I have verified
-                the accuracy of all data fields referenced by the {props.type}{' '}
-                edits.
-              </label>
-            </li>
-          </ul>
-          {renderVerified(props.verified, props.type)}
-        </section>
+    return props.noEditsExist ? null : (
+      <section className="Verifier">
+        <hr />
+        <h2>Verify {props.type} edits</h2>
+        <p className="usa-font-lead">
+          In order to continue you must verify all {props.type} edits.
+        </p>
+        {props.isFetching ? <LoadingIcon /> : null}
+        <ul className="usa-unstyled-list">
+          <li>
+            <input
+              id={`${props.type}Verifier`}
+              name={`${props.type}Verifier`}
+              type="checkbox"
+              checked={this.state.checked}
+              disabled={disabled}
+              onChange={e => {
+                this.setState({ checked: e.target.checked })
+                props.onVerify(e.target.checked)
+              }}
+            />
+            <label htmlFor={`${props.type}Verifier`} className="max-width-100">
+              All data are accurate, no corrections required. I have verified
+              the accuracy of all data fields referenced by the {props.type}{' '}
+              edits.
+            </label>
+          </li>
+        </ul>
+        {renderVerified(props.verified, props.type)}
+      </section>
+    )
   }
 }
 

@@ -9,9 +9,8 @@ export class HomeContainer extends Component {
     super(props)
   }
 
-
   render() {
-    if(this.props.user === null) return <HomeComponent />
+    if (this.props.user === null) return <HomeComponent />
     return <InstitutionsContainer />
   }
 }

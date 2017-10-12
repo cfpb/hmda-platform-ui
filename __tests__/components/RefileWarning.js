@@ -15,17 +15,21 @@ const submission = {
     sequenceNumber: 1
   }
 }
-const parseLocation = jest.fn(() => { return { id:'1', period: '2017', submission: 1 } })
+const parseLocation = jest.fn(() => {
+  return { id: '1', period: '2017', submission: 1 }
+})
 
 describe('Refile Warning', () => {
-  const parserText = 'Your file has formatting errors.Please update your file and select the \"Upload a new file\" button.'
-  const refileText = 'Your file has syntactical and/or validity edits.Please review the edits below or download the edit report.Then update your file and select the \"Upload a new file\" button.'
-  const qualityText = 'Your file has quality edits.Please review the edits below or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
-  const macroText = 'Your file has macro quality edits.Please review the edits below or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
-
+  const parserText =
+    'Your file has formatting errors.Please update your file and select the "Upload a new file" button.'
+  const refileText =
+    'Your file has syntactical and/or validity edits.Please review the edits below or download the edit report.Then update your file and select the "Upload a new file" button.'
+  const qualityText =
+    'Your file has quality edits.Please review the edits below or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
+  const macroText =
+    'Your file has macro quality edits.Please review the edits below or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
 
   it('renders the correct elements for status code 5 and calls function on click', () => {
-
     const refileWarning = TestUtils.renderIntoDocument(
       <Wrapper>
         <RefileWarning
@@ -36,7 +40,12 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(refileWarning, 'usa-alert-text')[0].parentNode.textContent).toEqual(parserText)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(
+        refileWarning,
+        'usa-alert-text'
+      )[0].parentNode.textContent
+    ).toEqual(parserText)
   })
 
   it('renders the correct elements for status code 7', () => {
@@ -50,7 +59,12 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(refileWarning, 'usa-alert-text')[0].parentNode.textContent).toEqual(refileText)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(
+        refileWarning,
+        'usa-alert-text'
+      )[0].parentNode.textContent
+    ).toEqual(refileText)
   })
 
   it('renders no warning on synval if no synval edits exist', () => {
@@ -65,7 +79,12 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(refileWarning, 'usa-alert-text').length).toEqual(0)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(
+        refileWarning,
+        'usa-alert-text'
+      ).length
+    ).toEqual(0)
   })
 
   it('renders the correct elements for quality', () => {
@@ -80,7 +99,12 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(refileWarning, 'usa-alert-text')[0].parentNode.textContent).toEqual(qualityText)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(
+        refileWarning,
+        'usa-alert-text'
+      )[0].parentNode.textContent
+    ).toEqual(qualityText)
   })
 
   it('renders no warning on quality if verified', () => {
@@ -95,7 +119,12 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(refileWarning, 'usa-alert-text').length).toEqual(0)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(
+        refileWarning,
+        'usa-alert-text'
+      ).length
+    ).toEqual(0)
   })
 
   it('renders the correct elements for macro', () => {
@@ -110,7 +139,12 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(refileWarning, 'usa-alert-text')[0].parentNode.textContent).toEqual(macroText)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(
+        refileWarning,
+        'usa-alert-text'
+      )[0].parentNode.textContent
+    ).toEqual(macroText)
   })
 
   it('renders no warning on macro if verified', () => {
@@ -125,7 +159,12 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(refileWarning, 'usa-alert-text').length).toEqual(0)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(
+        refileWarning,
+        'usa-alert-text'
+      ).length
+    ).toEqual(0)
   })
   it('renders the correct elements for status code > 8', () => {
     const refileWarning = TestUtils.renderIntoDocument(
@@ -138,8 +177,14 @@ describe('Refile Warning', () => {
       </Wrapper>
     )
 
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(refileWarning, 'usa-alert-text').length).toEqual(0)
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(refileWarning, 'a').length).toEqual(0)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(
+        refileWarning,
+        'usa-alert-text'
+      ).length
+    ).toEqual(0)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(refileWarning, 'a').length
+    ).toEqual(0)
   })
-
 })

@@ -1,4 +1,4 @@
-jest.unmock('../../src/js/components/Summary.jsx');
+jest.unmock('../../src/js/components/Summary.jsx')
 
 import Summary from '../../src/js/components/Summary.jsx'
 import Wrapper from '../Wrapper.js'
@@ -12,10 +12,7 @@ const summaryJSON = JSON.parse(fs.readFileSync('./__tests__/json/summary.json'))
 describe('Summary', () => {
   const summary = TestUtils.renderIntoDocument(
     <Wrapper>
-      <Summary
-        respondent={summaryJSON.respondent}
-        file={summaryJSON.file}
-      />
+      <Summary respondent={summaryJSON.respondent} file={summaryJSON.file} />
     </Wrapper>
   )
   const summaryNode = ReactDOM.findDOMNode(summary)
@@ -25,13 +22,16 @@ describe('Summary', () => {
   })
 
   it('renders the correct description lists', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(summary, 'dl').length).toEqual(2)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(summary, 'dl').length
+    ).toEqual(2)
   })
 
   it('renders the correct description terms', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(summary, 'dt').length).toEqual(10)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(summary, 'dt').length
+    ).toEqual(10)
   })
-
 
   it('returns NULL without a respondent', () => {
     const rendered = Summary({
@@ -50,6 +50,8 @@ describe('Summary', () => {
   })
 
   it('uppercases agency via className', () => {
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(summary, 'dd')[3].className).toBe('text-uppercase')
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(summary, 'dd')[3].className
+    ).toBe('text-uppercase')
   })
 })

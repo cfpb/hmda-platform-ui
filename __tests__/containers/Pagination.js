@@ -33,11 +33,11 @@ describe('Pagination Container', () => {
   })
 
   it('returns undefined without a pagination object', () => {
-   expect(makePathname()).toBeUndefined()
+    expect(makePathname()).toBeUndefined()
   })
 
   it('renders the unwrapped component', () => {
-    const targetDiv = TestUtils.renderIntoDocument(<div id="testDiv"></div>)
+    const targetDiv = TestUtils.renderIntoDocument(<div id="testDiv" />)
     const rendered = TestUtils.renderIntoDocument(
       <PaginationContainer
         pagination={null}
@@ -52,30 +52,50 @@ describe('Pagination Container', () => {
   })
 
   it('maps state to props with proper defaults', () => {
-    expect(mapStateToProps({app:{pagination:defaultPagination}}, {target: 'parseErrors'})).toEqual({pagination: null})
+    expect(
+      mapStateToProps(
+        { app: { pagination: defaultPagination } },
+        { target: 'parseErrors' }
+      )
+    ).toEqual({ pagination: null })
   })
 
   it('maps state properly when given a pagination object is present', () => {
-    expect(mapStateToProps({app:{pagination:{parseErrors:pageObj}}}, {target: 'parseErrors'})).toEqual({pagination:pageObj})
+    expect(
+      mapStateToProps(
+        { app: { pagination: { parseErrors: pageObj } } },
+        { target: 'parseErrors' }
+      )
+    ).toEqual({ pagination: pageObj })
   })
 
   it('maps state to undefined when given an invalid target', () => {
-    expect(mapStateToProps({app:{pagination:{parseErrors:pageObj}}}, {target: 'fake'})).toEqual({pagination:undefined})
+    expect(
+      mapStateToProps(
+        { app: { pagination: { parseErrors: pageObj } } },
+        { target: 'fake' }
+      )
+    ).toEqual({ pagination: undefined })
   })
 
   it('maps dispatch appropriately', () => {
     const dispatch = jest.fn()
     const mapped = mapDispatchToProps(dispatch, {})
 
-    expect(Object.keys(mapped)).toEqual(['getPage', 'getNextPage', 'getPreviousPage'])
+    expect(Object.keys(mapped)).toEqual([
+      'getPage',
+      'getNextPage',
+      'getPreviousPage'
+    ])
     expect(dispatch).not.toBeCalled()
   })
 
   it('makes proper paging fns', () => {
     const dispatch = jest.fn()
-    document.getElementById = jest.fn(() => {return {offsetTop: 12}})
+    document.getElementById = jest.fn(() => {
+      return { offsetTop: 12 }
+    })
     const mapped = mapDispatchToProps(dispatch, {})
-
 
     mapped.getPage()
     mapped.getPage(pageObj)
@@ -95,12 +115,13 @@ describe('Pagination Container', () => {
     const err = console.error
     console.error = jest.fn()
     const pagination = TestUtils.renderIntoDocument(
-      <Wrapper store={{app:{pagination:defaultPagination}}}><Connected/></Wrapper>
+      <Wrapper store={{ app: { pagination: defaultPagination } }}>
+        <Connected />
+      </Wrapper>
     )
 
     expect(pagination).toBeDefined()
     expect(console.error).not.toBeCalled()
     console.error = err
   })
-
 })

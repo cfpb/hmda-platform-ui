@@ -5,5 +5,5 @@ export function getId() {
 }
 
 export function setId(newId) {
-  return id = newId
+  return (id = newId)
 }

@@ -15,15 +15,12 @@ class VerifierContainer extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  const {
-    types
-  } = state.app.edits
+  const { types } = state.app.edits
 
   const type = ownProps.type
 
-  const verified = types[type].verified !== undefined
-    ? types[type].verified
-    : false
+  const verified =
+    types[type].verified !== undefined ? types[type].verified : false
 
   const isFetching = types[type].isFetching || false
 
@@ -42,7 +39,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    onVerify: (checked) => {
+    onVerify: checked => {
       dispatch(fetchVerify(ownProps.type, checked))
     }
   }
@@ -57,4 +54,4 @@ VerifierContainer.propTypes = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(VerifierContainer)
-export {VerifierContainer, mapStateToProps, mapDispatchToProps }
+export { VerifierContainer, mapStateToProps, mapDispatchToProps }

@@ -4,7 +4,5 @@ import * as types from '../../src/js/constants'
 import receiveSummary from '../../src/js/actions/receiveSummary.js'
 
 describe('receiveSummary', () => {
-  it('is mocked', () => {
-
-  })
+  it('is mocked', () => {})
 })

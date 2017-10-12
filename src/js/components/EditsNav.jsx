@@ -19,11 +19,11 @@ const navNames = [
 ]
 
 const navLinks = {
-  'upload': 'upload',
+  upload: 'upload',
   'syntactical & validity edits': 'syntacticalvalidity',
   'quality edits': 'quality',
   'macro quality edits': 'macro',
-  'submission': 'submission'
+  submission: 'submission'
 }
 
 export const getNavClass = (name, props) => {
@@ -36,29 +36,29 @@ export const getNavClass = (name, props) => {
     macroVerified
   } = props
 
-  switch(name) {
+  switch (name) {
     case 'upload':
       navClass = 'active'
-      if(code > VALIDATING) navClass = 'complete'
-      if(code === PARSED_WITH_ERRORS) navClass = 'error'
+      if (code > VALIDATING) navClass = 'complete'
+      if (code === PARSED_WITH_ERRORS) navClass = 'error'
       break
     case 'syntacticalvalidity':
-      if(code > VALIDATING) {
+      if (code > VALIDATING) {
         navClass = 'active'
         navClass = syntacticalValidityEditsExist ? 'error' : 'complete'
       }
       break
     case 'quality':
-      if(code > VALIDATING) {
-        if(!syntacticalValidityEditsExist) {
+      if (code > VALIDATING) {
+        if (!syntacticalValidityEditsExist) {
           navClass = 'active'
           navClass = qualityVerified ? 'complete' : 'warning'
         }
       }
       break
     case 'macro':
-      if(code > VALIDATING) {
-        if(!syntacticalValidityEditsExist && qualityVerified) {
+      if (code > VALIDATING) {
+        if (!syntacticalValidityEditsExist && qualityVerified) {
           navClass = 'active'
           navClass = macroVerified ? 'complete' : 'warning'
         }
@@ -67,10 +67,10 @@ export const getNavClass = (name, props) => {
   }
 
   // catch all if validated
-  if(code > VALIDATED_WITH_ERRORS) navClass = 'complete'
-  if(code === VALIDATED && name === 'submission') navClass = 'active'
+  if (code > VALIDATED_WITH_ERRORS) navClass = 'complete'
+  if (code === VALIDATED && name === 'submission') navClass = 'active'
   // add current class if page matches the name
-  if(name === page) navClass = `${navClass} current`
+  if (name === page) navClass = `${navClass} current`
   return navClass
 }
 
@@ -86,23 +86,23 @@ export const renderLinkOrText = (props, name, i) => {
   } = props
 
   // only render link when code > VALIDATING (so it's finished validating)
-  if(code > VALIDATING) {
+  if (code > VALIDATING) {
     isLink = true
-    if(code < VALIDATED) {
-      if(syntacticalValidityEditsExist && navNames.indexOf(name) > 1) {
+    if (code < VALIDATED) {
+      if (syntacticalValidityEditsExist && navNames.indexOf(name) > 1) {
         isLink = false
       }
-      if(!qualityVerified && navNames.indexOf(name) > 2) {
+      if (!qualityVerified && navNames.indexOf(name) > 2) {
         isLink = false
       }
-      if(!macroVerified && navNames.indexOf(name) > 3) {
+      if (!macroVerified && navNames.indexOf(name) > 3) {
         isLink = false
       }
     }
   }
 
   // always render the upload as a link
-  if(name === 'upload') {
+  if (name === 'upload') {
     isLink = true
   }
 
@@ -111,33 +111,40 @@ export const renderLinkOrText = (props, name, i) => {
   let step
 
   if (
-  navClass === '' ||
-  (navLinks[name] === 'upload' || navLinks[name] === 'submission') &&
-    navClass.indexOf('complete') !== 0)
-  step = i + 1
+    navClass === '' ||
+    ((navLinks[name] === 'upload' || navLinks[name] === 'submission') &&
+      navClass.indexOf('complete') !== 0)
+  )
+    step = i + 1
 
-  if (navLinks[name] === 'upload' && navClass.indexOf('error') === 0) step = null
+  if (navLinks[name] === 'upload' && navClass.indexOf('error') === 0)
+    step = null
 
   let renderedName = name
-  if(name === 'upload') {
-    if(code > VALIDATING) renderedName = 'uploaded'
-    if(code === PARSED_WITH_ERRORS) renderedName = 'uploaded with formatting errors'
+  if (name === 'upload') {
+    if (code > VALIDATING) renderedName = 'uploaded'
+    if (code === PARSED_WITH_ERRORS)
+      renderedName = 'uploaded with formatting errors'
   }
-  if(name === 'syntactical & validity edits') {
-    if(syntacticalValidityEditsExist) renderedName = 'syntactical & validity edits found'
-    if(code > VALIDATING && !syntacticalValidityEditsExist) renderedName = 'no syntactical & validity edits'
+  if (name === 'syntactical & validity edits') {
+    if (syntacticalValidityEditsExist)
+      renderedName = 'syntactical & validity edits found'
+    if (code > VALIDATING && !syntacticalValidityEditsExist)
+      renderedName = 'no syntactical & validity edits'
   }
-  if(name === 'quality edits') {
-    if(!qualityVerified) renderedName = 'quality edits found'
-    if(code > VALIDATING && qualityVerified) renderedName = 'quality edits verified'
+  if (name === 'quality edits') {
+    if (!qualityVerified) renderedName = 'quality edits found'
+    if (code > VALIDATING && qualityVerified)
+      renderedName = 'quality edits verified'
   }
-  if(name === 'macro quality edits') {
-    if(!macroVerified) renderedName = 'macro quality edits found'
-    if(code > VALIDATING && macroVerified) renderedName = 'macro quality edits verified'
+  if (name === 'macro quality edits') {
+    if (!macroVerified) renderedName = 'macro quality edits found'
+    if (code > VALIDATING && macroVerified)
+      renderedName = 'macro quality edits verified'
   }
-  if(name === 'submission' && code === SIGNED) renderedName = 'submitted'
+  if (name === 'submission' && code === SIGNED) renderedName = 'submitted'
 
-  if(isLink) {
+  if (isLink) {
     return (
       <li className={navClass} key={i}>
         <Link className="usa-nav-link" to={`${base}/${navLinks[name]}`}>
@@ -146,7 +153,7 @@ export const renderLinkOrText = (props, name, i) => {
         </Link>
       </li>
     )
-  }else{
+  } else {
     return (
       <li className={navClass} key={i}>
         <div className="step">{step}</div>
@@ -172,7 +179,7 @@ export default class EditsNav extends Component {
     const header = document.getElementById('header')
     const userHeading = document.getElementById('userHeading')
     const editsNav = document.getElementById('editsNav')
-    if(!header || !userHeading || !editsNav) return
+    if (!header || !userHeading || !editsNav) return
     this.setState({
       headerHeight: header.clientHeight + userHeading.clientHeight,
       editsNavHeight: editsNav.clientHeight
@@ -180,7 +187,10 @@ export default class EditsNav extends Component {
   }
 
   componentDidUpdate() {
-    if(this.state.editsNavHeight !== document.getElementById('editsNav').clientHeight) {
+    if (
+      this.state.editsNavHeight !==
+      document.getElementById('editsNav').clientHeight
+    ) {
       this.setState({
         editsNavHeight: document.getElementById('editsNav').clientHeight
       })
@@ -193,25 +203,27 @@ export default class EditsNav extends Component {
 
   handleScroll() {
     const state = this.state
-    if(window.scrollY >= state.headerHeight) {
-      if(!state.fixed) this.setState({fixed: true})
+    if (window.scrollY >= state.headerHeight) {
+      if (!state.fixed) this.setState({ fixed: true })
     } else {
-      if(state.fixed) this.setState({fixed: false})
+      if (state.fixed) this.setState({ fixed: false })
     }
   }
 
   render() {
-    const wrapperHeight = {height: `${this.state.editsNavHeight}px`}
+    const wrapperHeight = { height: `${this.state.editsNavHeight}px` }
     const fixedClass = this.state.fixed ? 'EditsNav-fixed' : ''
     return (
       <section style={wrapperHeight}>
-        <nav role="navigation" className={`EditsNav ${fixedClass}`} id="editsNav">
+        <nav
+          role="navigation"
+          className={`EditsNav ${fixedClass}`}
+          id="editsNav"
+        >
           <ul className="usa-nav-primary">
-            {
-              navNames.map((pageObj, i) => {
-                return renderLinkOrText(this.props, pageObj, i)
-              })
-            }
+            {navNames.map((pageObj, i) => {
+              return renderLinkOrText(this.props, pageObj, i)
+            })}
           </ul>
           <hr className="nav-bg" />
         </nav>

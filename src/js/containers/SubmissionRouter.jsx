@@ -21,13 +21,15 @@ export class SubmissionRouter extends Component {
   componentDidMount() {
     this.renderChildren = false
     const status = this.props.submission.status
-    if(!status || status.code === UNINITIALIZED ||
-       this.props.submission.id.institutionId !== this.props.params.institution) {
-         this.props.dispatch(refreshState())
-         this.props.dispatch(fetchSubmission())
-           .then((json) => {
-             this.route()
-            })
+    if (
+      !status ||
+      status.code === UNINITIALIZED ||
+      this.props.submission.id.institutionId !== this.props.params.institution
+    ) {
+      this.props.dispatch(refreshState())
+      this.props.dispatch(fetchSubmission()).then(json => {
+        this.route()
+      })
     } else {
       this.route()
     }
@@ -35,9 +37,7 @@ export class SubmissionRouter extends Component {
 
   replaceHistory(splat) {
     const { institution, filing } = this.props.params
-    return browserHistory.replace(
-      `/${institution}/${filing}/${splat}`
-    )
+    return browserHistory.replace(`/${institution}/${filing}/${splat}`)
   }
 
   route() {
@@ -47,37 +47,41 @@ export class SubmissionRouter extends Component {
 
     this.renderChildren = true
 
-    if(code === FAILED){
+    if (code === FAILED) {
       return (
-      <div className="SubmissionContainer">
-        <p>{status.message}</p>
-      </div>
+        <div className="SubmissionContainer">
+          <p>{status.message}</p>
+        </div>
       )
     }
 
-    if(code < VALIDATED_WITH_ERRORS || splat === 'upload' ) return this.replaceHistory('upload')
+    if (code < VALIDATED_WITH_ERRORS || splat === 'upload')
+      return this.replaceHistory('upload')
 
-    if(code === VALIDATED_WITH_ERRORS) {
-      if(editTypes.includes(splat)) {
+    if (code === VALIDATED_WITH_ERRORS) {
+      if (editTypes.includes(splat)) {
         return this.forceUpdate()
       }
       return this.replaceHistory('syntacticalvalidity')
     }
 
-    if(splat) return this.forceUpdate()
+    if (splat) return this.forceUpdate()
     return this.replaceHistory('submission')
   }
 
   render() {
-    if(this.props.submission.status.code === UNINITIALIZED) return null
-    if(this.props.submission.id.institutionId !== this.props.params.institution) return null
-    if(!this.renderChildren) return null
-    if(!this.props.params.splat) {
-      setTimeout(()=>this.replaceHistory('upload'),0)
+    if (this.props.submission.status.code === UNINITIALIZED) return null
+    if (
+      this.props.submission.id.institutionId !== this.props.params.institution
+    )
+      return null
+    if (!this.renderChildren) return null
+    if (!this.props.params.splat) {
+      setTimeout(() => this.replaceHistory('upload'), 0)
       return null
     }
 
-    return <SubmissionContainer {...this.props}/>
+    return <SubmissionContainer {...this.props} />
   }
 }
 
@@ -92,4 +96,6 @@ export function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps, dispatch => {return {dispatch}})(SubmissionRouter)
+export default connect(mapStateToProps, dispatch => {
+  return { dispatch }
+})(SubmissionRouter)

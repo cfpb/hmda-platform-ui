@@ -1,4 +1,4 @@
-import { REQUEST_SUMMARY,RECEIVE_SUMMARY, REFRESH_STATE } from '../constants'
+import { REQUEST_SUMMARY, RECEIVE_SUMMARY, REFRESH_STATE } from '../constants'
 
 const defaultSummary = {
   isFetching: false,

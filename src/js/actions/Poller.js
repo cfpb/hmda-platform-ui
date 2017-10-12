@@ -5,5 +5,5 @@ export function get() {
 }
 
 export function set(isPolling) {
-  return polling = isPolling
+  return (polling = isPolling)
 }
