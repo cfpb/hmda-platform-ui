@@ -33,7 +33,7 @@ const Home = props => {
                 className="register-link"
                 onClick={e => {
                   e.preventDefault()
-                  register()
+                  register('/institutions')
                 }}
               >
                 Create an account

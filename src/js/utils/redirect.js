@@ -12,14 +12,14 @@ const getUserManager = () => {
   return userManager
 }
 
-const register = () => {
+const register = (path = location.pathname) => {
   if (!userManager)
     return error('userManager needs to be set on app initialization')
   userManager.settings.metadataService.getAuthorizationEndpoint = () =>
     Promise.resolve(
       `${HMDA_ENV.KEYCLOAK_URL}/protocol/openid-connect/registrations`
     )
-  userManager.signinRedirect()
+  signinRedirect(path)
 }
 
 const signinRedirect = (path = location.pathname) => {
