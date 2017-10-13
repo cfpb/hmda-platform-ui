@@ -15,6 +15,7 @@ describe('Verifier component', () => {
         onVerify={onVerify}
         type="macro"
         code={1}
+        isFetching={false}
         noEditsExist={false}
       />
     </Wrapper>
@@ -59,6 +60,7 @@ describe('Verifier component', () => {
           verified={false}
           onVerify={onVerify}
           type="quality"
+          isFetching={false}
           code={1}
         />
       </Wrapper>
@@ -79,6 +81,7 @@ describe('Verifier component', () => {
           verified={false}
           onVerify={onVerify}
           type="quality"
+          isFetching={false}
           code={10}
         />
       </Wrapper>
@@ -96,6 +99,7 @@ describe('Verifier component', () => {
           onVerify={onVerify}
           type="quality"
           code={10}
+          isFetching={false}
           noEditsExist={true}
         />
       </Wrapper>

@@ -6,6 +6,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
+console.error = jest.fn()
+
 const data = {
   user: 'User1',
   institution: {
@@ -19,7 +21,7 @@ describe('UserHeading', () => {
   describe('does NOT render without period', () => {
     const heading = TestUtils.renderIntoDocument(
       <Wrapper>
-        <UserHeading institution={{}} />
+        <UserHeading institution={{}} period={null} />
       </Wrapper>
     )
     const headingNode = ReactDOM.findDOMNode(heading)
@@ -32,7 +34,7 @@ describe('UserHeading', () => {
   describe('does NOT render without institution', () => {
     const heading = TestUtils.renderIntoDocument(
       <Wrapper>
-        <UserHeading period="2017" />
+        <UserHeading period="2017" institution={null} />
       </Wrapper>
     )
     const headingNode = ReactDOM.findDOMNode(heading)

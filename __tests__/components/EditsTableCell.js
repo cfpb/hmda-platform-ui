@@ -1,27 +1,28 @@
 jest.unmock('../../src/js/components/EditsTableCell.jsx')
 
-import EditsTableCell, {
-  renderCell
-} from '../../src/js/components/EditsTableCell.jsx'
-import fs from 'fs'
+import EditsTableCell from '../../src/js/components/EditsTableCell.jsx'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 
-const types = {
-  syntactical: JSON.parse(fs.readFileSync('./__tests__/json/syntactical.json')),
-  validity: JSON.parse(fs.readFileSync('./__tests__/json/validity.json')),
-  quality: JSON.parse(fs.readFileSync('./__tests__/json/quality.json')),
-  macro: JSON.parse(fs.readFileSync('./__tests__/json/macro.json'))
-}
-
-describe('Edits Table', () => {
+describe('Edits Table Cell', () => {
   const editsTableCell = TestUtils.renderIntoDocument(
-    <EditsTableCell edits={types.syntactical.edits[0]} type="syntactical" />
+    <table>
+      <tbody>
+        <tr>
+          <EditsTableCell cell="content" type="syntactical" />
+        </tr>
+      </tbody>
+    </table>
   )
   const tableNode = ReactDOM.findDOMNode(editsTableCell)
 
   it('renders the table', () => {
     expect(tableNode).toBeDefined()
+  })
+
+  it('renders emphasized blank when missing data', () => {
+    const missingCell = EditsTableCell({ cell: '' })
+    expect(missingCell.props.children.type).toBe('em')
   })
 })
