@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { signinRedirect } from '../utils/redirect.js'
+import { signinRedirect, register } from '../utils/redirect.js'
 
 const Home = props => {
   return (
@@ -26,6 +26,17 @@ const Home = props => {
                 }}
               >
                 Log in
+              </a>
+              <span className="usa-text-small">or</span>
+              <a
+                href="#"
+                className="register-link"
+                onClick={e => {
+                  e.preventDefault()
+                  register()
+                }}
+              >
+                Create an account
               </a>
               <p className="usa-text-small">
                 Every user is required to register online for login credentials

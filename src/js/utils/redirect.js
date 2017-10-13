@@ -1,3 +1,4 @@
+/* global HMDA_ENV */
 import { browserHistory } from 'react-router'
 import log, { error } from '../utils/log.js'
 
@@ -9,6 +10,16 @@ const setUserManager = manager => {
 
 const getUserManager = () => {
   return userManager
+}
+
+const register = () => {
+  if (!userManager)
+    return error('userManager needs to be set on app initialization')
+  userManager.settings.metadataService.getAuthorizationEndpoint = () =>
+    Promise.resolve(
+      `${HMDA_ENV.KEYCLOAK_URL}/protocol/openid-connect/registrations`
+    )
+  userManager.signinRedirect()
 }
 
 const signinRedirect = (path = location.pathname) => {
@@ -33,4 +44,11 @@ const logout = () => {
   userManager.signoutRedirect()
 }
 
-export { signinRedirect, restorePage, logout, setUserManager, getUserManager }
+export {
+  register,
+  signinRedirect,
+  restorePage,
+  logout,
+  setUserManager,
+  getUserManager
+}
