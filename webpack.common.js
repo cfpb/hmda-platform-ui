@@ -28,17 +28,7 @@ module.exports = {
         options: {
           presets: [
             ['env', {
-              modules: false,
-              useBuiltIns: true,
-              targets: {
-                browsers: [
-                  'Chrome >= 60',
-                  'Safari >= 10.1',
-                  'Firefox >= 54',
-                  'Edge >= 15',
-                  'ie >= 11'
-                ],
-              },
+              modules: false
             }],
           ],
         },
