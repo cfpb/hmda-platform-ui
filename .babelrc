@@ -2,8 +2,8 @@
   "presets": [
     "react",
     ["env", {
+      "useBuiltIns": "entry",
       "targets": {
-        "useBuiltIns": "entry",
         "browsers": [
           'Chrome >= 60',
           'Safari >= 10.1',
