@@ -1,8 +1,10 @@
 jest.mock('../../src/js/api/api')
+jest.mock('../../src/js/actions/fetchEachFiling.js')
 jest.unmock('../../src/js/actions/fetchEachInstitution.js')
 jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import fetchEachInstitution from '../../src/js/actions/fetchEachInstitution.js'
+import fetchEachFiling from '../../src/js/actions/fetchEachFiling.js'
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
@@ -19,6 +21,10 @@ const institutionsDetailObj = JSON.parse(
 getInstitution.mockImplementation(id =>
   Promise.resolve(institutionsDetailObj[id])
 )
+fetchEachFiling.mockImplementation(() => () => {
+  return { type: 'fetchEachFiling' }
+})
+
 const mockStore = configureMockStore([thunk])
 
 const getEachInstitution = [
@@ -30,26 +36,22 @@ const getEachInstitution = [
     type: types.RECEIVE_INSTITUTION,
     institution: institutionsDetailObj['0'].institution
   },
-  { type: types.CLEAR_FILINGS },
   {
     type: types.RECEIVE_INSTITUTION,
     institution: institutionsDetailObj['1'].institution
   },
-  { type: types.CLEAR_FILINGS },
   {
     type: types.RECEIVE_INSTITUTION,
     institution: institutionsDetailObj['2'].institution
   },
-  { type: types.CLEAR_FILINGS },
   {
     type: types.RECEIVE_INSTITUTION,
     institution: institutionsDetailObj['3'].institution
-  },
-  { type: types.CLEAR_FILINGS }
+  }
 ]
 describe('fetchEachInstitution', () => {
   it('creates a thunk that will clear current filings and fetch each institution', done => {
-    const store = mockStore({})
+    const store = mockStore({ app: { filingPeriod: '2017' } })
 
     store
       .dispatch(fetchEachInstitution(institutionsObj.institutions))

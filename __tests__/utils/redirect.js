@@ -1,5 +1,6 @@
 jest.mock('react-router')
 jest.unmock('../../src/js/utils/redirect')
+console.log = jest.fn()
 
 import {
   signinRedirect,

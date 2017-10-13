@@ -1,4 +1,5 @@
 jest.mock('../../src/js/api/api')
+jest.mock('../../src/js/actions/fetchEachInstitution.js')
 jest.unmock('../../src/js/actions/fetchInstitutions.js')
 jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
@@ -6,6 +7,7 @@ import fetchInstitutions from '../../src/js/actions/fetchInstitutions.js'
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import fetchEachInstitution from '../../src/js/actions/fetchEachInstitution.js'
 import { getInstitutions, getInstitution } from '../../src/js/api/api.js'
 import fs from 'fs'
 
@@ -15,41 +17,20 @@ const institutionsDetailObj = JSON.parse(
 const institutionsObj = JSON.parse(
   fs.readFileSync('./__tests__/json/institutions.json')
 )
-const getEachInstitution = [
-  { type: types.REQUEST_INSTITUTION },
-  { type: types.REQUEST_INSTITUTION },
-  { type: types.REQUEST_INSTITUTION },
-  { type: types.REQUEST_INSTITUTION },
-  {
-    type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj['0'].institution
-  },
-  { type: types.CLEAR_FILINGS },
-  {
-    type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj['1'].institution
-  },
-  { type: types.CLEAR_FILINGS },
-  {
-    type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj['2'].institution
-  },
-  { type: types.CLEAR_FILINGS },
-  {
-    type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj['3'].institution
-  },
-  { type: types.CLEAR_FILINGS }
-]
+
 getInstitutions.mockImplementation(() => Promise.resolve(institutionsObj))
 getInstitution.mockImplementation(id =>
   Promise.resolve(institutionsDetailObj[id])
 )
+fetchEachInstitution.mockImplementation(() => () => {
+  return { type: 'fetchEachInstitution' }
+})
+
 const mockStore = configureMockStore([thunk])
 
 describe('fetchInstitutions', () => {
   it('creates a thunk that will fetch all institutions, looping over institution data to individually request filing info', done => {
-    const store = mockStore({})
+    const store = mockStore({ app: { filingPeriod: '2017' } })
 
     store
       .dispatch(fetchInstitutions())
@@ -59,8 +40,7 @@ describe('fetchInstitutions', () => {
           {
             type: types.RECEIVE_INSTITUTIONS,
             institutions: institutionsObj.institutions
-          },
-          ...getEachInstitution
+          }
         ])
         done()
       })
