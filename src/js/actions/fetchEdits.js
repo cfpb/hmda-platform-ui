@@ -5,6 +5,7 @@ import receiveEdits from './receiveEdits.js'
 import fetchEachEdit from './fetchEachEdit.js'
 import { getId } from './Submission.js'
 import { getEdits } from '../api/api.js'
+import { error } from '../utils/log.js'
 
 export default function fetchEdits() {
   return dispatch => {
@@ -21,6 +22,6 @@ export default function fetchEdits() {
           return json
         })
       })
-      .catch(err => console.error(err))
+      .catch(err => error(err))
   }
 }

@@ -4,6 +4,7 @@ import hasHttpError from './hasHttpError.js'
 import { getId } from './Submission.js'
 import requestSummary from './requestSummary.js'
 import { getSummary } from '../api/api.js'
+import { error } from '../utils/log.js'
 
 export default function fetchSummary() {
   return dispatch => {
@@ -18,6 +19,6 @@ export default function fetchSummary() {
           return dispatch(receiveSummary(json))
         })
       })
-      .catch(err => console.error(err))
+      .catch(err => error(err))
   }
 }

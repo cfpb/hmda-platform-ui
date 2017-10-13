@@ -7,6 +7,7 @@ import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
 import { getId } from './Submission.js'
 import { postVerify } from '../api/api.js'
+import { error } from '../utils/log.js'
 
 export default function fetchVerify(type, checked) {
   return dispatch => {
@@ -31,6 +32,6 @@ export default function fetchVerify(type, checked) {
           )
         })
       })
-      .catch(err => console.error(err))
+      .catch(err => error(err))
   }
 }

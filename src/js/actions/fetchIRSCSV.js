@@ -3,6 +3,7 @@ import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
 import requestIRSCSV from './requestIRSCSV.js'
 import { getIRSCSV } from '../api/api.js'
+import { error } from '../utils/log.js'
 
 // downloading the IRS csv, no reducer required
 export default function fetchIRSCSV(institutionId, filing, submissionId) {
@@ -25,6 +26,6 @@ export default function fetchIRSCSV(institutionId, filing, submissionId) {
           )
         })
       })
-      .catch(err => console.error(err))
+      .catch(err => error(err))
   }
 }

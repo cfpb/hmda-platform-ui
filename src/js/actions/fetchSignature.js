@@ -5,6 +5,7 @@ import hasHttpError from './hasHttpError.js'
 import { getId } from './Submission.js'
 import requestSignature from './requestSignature.js'
 import { getSignature } from '../api/api.js'
+import { error } from '../utils/log.js'
 
 export default function fetchSignature() {
   return dispatch => {
@@ -24,6 +25,6 @@ export default function fetchSignature() {
           )
         })
       })
-      .catch(err => console.error(err))
+      .catch(err => error(err))
   }
 }
