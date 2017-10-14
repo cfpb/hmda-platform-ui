@@ -28,10 +28,10 @@ export const renderErrors = errors => {
 const _getUploadMessage = (preText, filename, postText, howToMessage) => {
   return (
     <div>
+      <p className="file-selected">{howToMessage}</p>
       <p>
         {preText} <strong>{filename}</strong> {postText}
       </p>
-      <p className="file-selected">{howToMessage}</p>
     </div>
   )
 }
