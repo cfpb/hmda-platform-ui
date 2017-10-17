@@ -3,37 +3,31 @@ const webpack = require('webpack')
 
 module.exports = {
   output: {
-    path: path.resolve(__dirname, 'dist/js'),
+    path: path.resolve(__dirname, 'dist/js')
   },
   devtool: 'source-map',
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
-      }
-    }),
-    new webpack.optimize.ModuleConcatenationPlugin()
-  ],
+  plugins: [new webpack.optimize.ModuleConcatenationPlugin()],
   module: {
-    rules: [{
-      test: /\.jsx?$/,
-      include: [
-        path.resolve(__dirname, 'src/js'),
-      ],
-      exclude: [
-        path.resolve(__dirname, 'node_modules'),
-      ],
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            ['env', {
-              modules: false,
-              useBuiltIns: true
-            }],
-          ],
-        },
-      },
-    }],
-  },
+    rules: [
+      {
+        test: /\.jsx?$/,
+        include: [path.resolve(__dirname, 'src/js')],
+        exclude: [path.resolve(__dirname, 'node_modules')],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                'env',
+                {
+                  modules: false,
+                  useBuiltIns: true
+                }
+              ]
+            ]
+          }
+        }
+      }
+    ]
+  }
 }
