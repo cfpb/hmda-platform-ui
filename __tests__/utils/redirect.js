@@ -3,6 +3,7 @@ jest.unmock('../../src/js/utils/redirect')
 console.log = jest.fn()
 
 import {
+  register,
   signinRedirect,
   restorePage,
   logout,
@@ -26,6 +27,43 @@ describe('redirect', () => {
     console.error = jest.fn()
     signinRedirect()
     expect(console.error.mock.calls.length).toBe(1)
+  })
+
+  it('fails register with no userManager', () => {
+    setUserManager(null)
+    delete console.error
+    console.error = jest.fn()
+    register()
+    expect(console.error.mock.calls.length).toBe(1)
+  })
+
+  it('overrides the auth endpoint when registering', done => {
+    const um = jest.fn()
+    const ls = jest.fn()
+
+    delete window.location
+    setUserManager({
+      signinRedirect: um,
+      settings: { metadataService: { getAuthorizationEndpoint: 'bargle' } }
+    })
+    window.localStorage = { setItem: ls }
+    window.location = { pathname: '/' }
+
+    register()
+
+    expect(
+      getUserManager().settings.metadataService.getAuthorizationEndpoint
+    ).not.toBe('bargle')
+    expect(um.mock.calls.length).toBe(1)
+    expect(ls.mock.calls.length).toBe(1)
+
+    window.HMDA_ENV = { KEYCLOAK_URL: 'argle' }
+    getUserManager()
+      .settings.metadataService.getAuthorizationEndpoint()
+      .then(url => {
+        expect(url).toBe('argle/protocol/openid-connect/registrations')
+        done()
+      })
   })
 
   it('calls redir', () => {
