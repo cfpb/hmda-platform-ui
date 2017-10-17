@@ -16,7 +16,7 @@
     "sass": "node-sass --quiet --output-style=compressed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts && yarn run sass:prefix",
     "sass:prefix": "postcss -u autoprefixer -r ./dist/css/*.css",
     "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html && html-minifier --collapse-whitespace ./src/silent_renew.html -o ./dist/silent_renew.html",
-    "img": "cp ./src/img/min/* ./dist/img && cp -r ./node_modules/uswds/dist/img/* ./dist/img",
+    "img": "cp ./src/img/* ./dist/img && cp -r ./node_modules/uswds/dist/img/* ./dist/img",
     "env": "./env.sh",
     "postinstall": "yarn run clearDist && yarn run build && yarn run renew",
     "watch:js": "yarn run js:dev -- --watch",
