@@ -1,5 +1,6 @@
 jest.unmock('../../src/js/api/fetch')
 import { fetch } from '../../src/js/api/fetch'
+console.log = jest.fn()
 
 let mocktoken = 'token'
 

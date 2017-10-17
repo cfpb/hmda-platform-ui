@@ -48,6 +48,7 @@ describe('submitform', function() {
     expect(pollSubmission).toBeCalled()
   })
 
+  const n2 = document.createElement('div')
   const form2 = ReactDOM.render(
     <Wrapper>
       <UploadForm
@@ -59,7 +60,7 @@ describe('submitform', function() {
         errors={[]}
       />
     </Wrapper>,
-    node
+    n2
   )
   const form2Node = ReactDOM.findDOMNode(form2)
 
