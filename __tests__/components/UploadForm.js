@@ -124,7 +124,7 @@ describe('getDropZoneText', () => {
       filename: 'filename.txt'
     })
     expect(rendered.props.children.props.children.length).toBe(2)
-    expect(rendered.props.children.props.children[0].props.children[4]).toBe(
+    expect(rendered.props.children.props.children[1].props.children[4]).toBe(
       'is currently in progress.'
     )
   })
@@ -136,7 +136,7 @@ describe('getDropZoneText', () => {
       filename: 'filename.txt'
     })
     expect(rendered.props.children.props.children.length).toBe(2)
-    expect(rendered.props.children.props.children[0].props.children[4]).toBe(
+    expect(rendered.props.children.props.children[1].props.children[4]).toBe(
       'has formatting errors.'
     )
   })
@@ -148,7 +148,7 @@ describe('getDropZoneText', () => {
       filename: 'filename.txt'
     })
     expect(rendered.props.children.props.children.length).toBe(2)
-    expect(rendered.props.children.props.children[0].props.children[4]).toBe(
+    expect(rendered.props.children.props.children[1].props.children[4]).toBe(
       'is ready for review.'
     )
   })
@@ -160,7 +160,7 @@ describe('getDropZoneText', () => {
       filename: 'filename.txt'
     })
     expect(rendered.props.children.props.children.length).toBe(2)
-    expect(rendered.props.children.props.children[0].props.children[4]).toBe(
+    expect(rendered.props.children.props.children[1].props.children[4]).toBe(
       'is ready for submission.'
     )
   })
@@ -172,7 +172,7 @@ describe('getDropZoneText', () => {
       filename: 'filename.txt'
     })
     expect(rendered.props.children.props.children.length).toBe(2)
-    expect(rendered.props.children.props.children[0].props.children[4]).toBe(
+    expect(rendered.props.children.props.children[1].props.children[4]).toBe(
       'is complete.'
     )
   })
@@ -195,7 +195,7 @@ describe('getDropZoneText', () => {
       filename: 'filename.txt'
     })
     expect(rendered.props.children.props.children.length).toBe(2)
-    expect(rendered.props.children.props.children[0].props.children[4]).toBe(
+    expect(rendered.props.children.props.children[1].props.children[4]).toBe(
       'can not be uploaded.'
     )
   })
