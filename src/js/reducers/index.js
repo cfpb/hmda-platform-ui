@@ -16,6 +16,7 @@ import pagination from './pagination.js'
 import paginationFade from './paginationFade.js'
 import error from './error.js'
 import user from './user.js'
+import redirecting from './redirecting.js'
 
 export default combineReducers({
   institution,
@@ -33,5 +34,6 @@ export default combineReducers({
   pagination,
   paginationFade,
   error,
-  user
+  user,
+  redirecting
 })
