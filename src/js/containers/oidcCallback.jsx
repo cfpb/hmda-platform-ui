@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { set } from '../api/AccessToken.js'
 import { restorePage } from '../utils/redirect'
+import LoadingIcon from '../components/LoadingIcon.jsx'
 
 export class oidcCallback extends React.Component {
   successCallback(user) {
@@ -25,7 +26,9 @@ export class oidcCallback extends React.Component {
       <CallbackComponent
         successCallback={this.successCallback}
         errorCallback={this.errorCallback}
-      />
+      >
+        <LoadingIcon className="floatingIcon" />
+      </CallbackComponent>
     )
   }
 }

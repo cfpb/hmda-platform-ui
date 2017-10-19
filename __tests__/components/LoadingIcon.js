@@ -33,4 +33,9 @@ describe('LoadingIcon', () => {
         .length
     ).toEqual(1)
   })
+
+  it('passes a passed class to the LoadingIconWrapper', () => {
+    const loadingIcon = LoadingIcon({ className: 'argle' })
+    expect(loadingIcon.props.className).toBe('LoadingIconWrapper argle')
+  })
 })
