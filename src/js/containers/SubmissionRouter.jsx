@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import SubmissionContainer from './Submission.jsx'
+import LoadingIcon from '../components/LoadingIcon.jsx'
 import fetchSubmission from '../actions/fetchSubmission.js'
 import refreshState from '../actions/refreshState.js'
 import {
@@ -21,12 +22,13 @@ export class SubmissionRouter extends Component {
   componentDidMount() {
     this.renderChildren = false
     const status = this.props.submission.status
+
     if (
-      !status ||
-      status.code === UNINITIALIZED ||
+      this.props.submission.id &&
       this.props.submission.id.institutionId !== this.props.params.institution
-    ) {
+    )
       this.props.dispatch(refreshState())
+    if (!status || status.code === UNINITIALIZED) {
       this.props.dispatch(fetchSubmission()).then(json => {
         this.route()
       })
@@ -55,8 +57,9 @@ export class SubmissionRouter extends Component {
       )
     }
 
-    if (code < VALIDATED_WITH_ERRORS || splat === 'upload')
-      return this.replaceHistory('upload')
+    if (code < VALIDATED_WITH_ERRORS)
+      if (splat === 'upload') return this.forceUpdate()
+      else return this.replaceHistory('upload')
 
     if (code === VALIDATED_WITH_ERRORS) {
       if (editTypes.includes(splat)) {
@@ -70,17 +73,17 @@ export class SubmissionRouter extends Component {
   }
 
   render() {
-    if (this.props.submission.status.code === UNINITIALIZED) return null
     if (
-      this.props.submission.id.institutionId !== this.props.params.institution
+      this.props.submission.status.code === UNINITIALIZED ||
+      this.props.submission.id.institutionId !==
+        this.props.params.institution ||
+      !this.renderChildren
     )
-      return null
-    if (!this.renderChildren) return null
+      return <LoadingIcon className="floatingIcon" />
     if (!this.props.params.splat) {
       setTimeout(() => this.replaceHistory('upload'), 0)
-      return null
+      return <LoadingIcon className="floatingIcon" />
     }
-
     return <SubmissionContainer {...this.props} />
   }
 }
