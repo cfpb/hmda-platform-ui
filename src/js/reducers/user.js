@@ -10,6 +10,11 @@ export default (state = defaultUser, action) => {
         ...state,
         userError: true
       }
+    case 'CLEAR_USER_ERROR':
+      return {
+        ...state,
+        userError: false
+      }
     case 'redux-oidc/USER_EXPIRED':
       return {
         ...state,

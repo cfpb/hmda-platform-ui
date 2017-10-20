@@ -1,8 +1,10 @@
 /* global HMDA_ENV */
 import { browserHistory } from 'react-router'
 import log, { error } from '../utils/log.js'
+import isRedirecting from '../actions/isRedirecting.js'
 
 let userManager = null
+let dispatch = () => {}
 
 const setUserManager = manager => {
   userManager = manager
@@ -10,6 +12,10 @@ const setUserManager = manager => {
 
 const getUserManager = () => {
   return userManager
+}
+
+const setDispatch = fn => {
+  dispatch = fn
 }
 
 const register = (path = location.pathname) => {
@@ -27,6 +33,7 @@ const signinRedirect = (path = location.pathname) => {
     return error('userManager needs to be set on app initialization')
   log('signinRedirect triggered, saving page:', location.pathname)
   localStorage.setItem('hmdaPageBeforeSignin', path)
+  dispatch(isRedirecting(true))
   userManager.signinRedirect()
 }
 
@@ -50,5 +57,6 @@ export {
   restorePage,
   logout,
   setUserManager,
-  getUserManager
+  getUserManager,
+  setDispatch
 }

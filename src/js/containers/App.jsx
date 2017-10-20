@@ -2,16 +2,30 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { signinRedirect } from '../utils/redirect'
 import ConfirmationModal from './ConfirmationModal.jsx'
-import LoggedOutModal from '../components/LoggedOutModal.jsx'
+import LoggedOutModal from './LoggedOutModal.jsx'
 import * as AccessToken from '../api/AccessToken.js'
 import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
 import BrowserBlocker from '../components/BrowserBlocker.jsx'
+import LoadingIcon from '../components/LoadingIcon.jsx'
 import browser from 'detect-browser'
 
 export class AppContainer extends Component {
   constructor(props) {
     super(props)
+  }
+
+  _renderAppContents(props, redirecting) {
+    if (this.props.location.pathname === '/oidc-callback')
+      return this.props.children
+    if (this._isOldBrowser()) return <BrowserBlocker />
+    if (props.redirecting || this._isProtected(props))
+      return <LoadingIcon className="floatingIcon" />
+    return this.props.children
+  }
+
+  _isOldBrowser() {
+    return browser.name === 'ie' && +browser.version.split('.')[0] < 11
   }
 
   _isHome(props) {
@@ -20,6 +34,14 @@ export class AppContainer extends Component {
 
   _isOidc(props) {
     return props.location.pathname === '/oidc-callback'
+  }
+
+  _isProtected(props) {
+    return (
+      !this._isOidc(this.props) &&
+      !this._isHome(this.props) &&
+      (this.props.expired || !this.props.oidc.user)
+    )
   }
 
   _setOrRedirect(props) {
@@ -46,13 +68,6 @@ export class AppContainer extends Component {
   }
 
   render() {
-    if (
-      !this._isOidc(this.props) &&
-      !this._isHome(this.props) &&
-      (this.props.expired || !this.props.oidc.user)
-    )
-      return null
-
     return (
       <div className="AppContainer">
         <a className="usa-skipnav" href="#main-content">
@@ -63,13 +78,7 @@ export class AppContainer extends Component {
           user={this.props.oidc.user}
         />
         {this.props.userError ? <LoggedOutModal /> : <ConfirmationModal />}
-        {this.props.location.pathname === '/oidc-callback' ? (
-          this.props.children
-        ) : browser.name === 'ie' && +browser.version.split('.')[0] < 11 ? (
-          <BrowserBlocker />
-        ) : (
-          this.props.children
-        )}
+        {this._renderAppContents(this.props)}
         <Footer />
       </div>
     )
@@ -78,10 +87,12 @@ export class AppContainer extends Component {
 
 export function mapStateToProps(state) {
   const { oidc } = state
+  const { redirecting } = state.app
   const { expired, userError } = state.app.user
 
   return {
     oidc,
+    redirecting,
     expired,
     userError
   }

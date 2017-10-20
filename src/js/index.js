@@ -29,7 +29,7 @@ import InstitutionContainer from './containers/Institutions.jsx'
 import SubmissionContainer from './containers/Submission.jsx'
 import SubmissionRouter from './containers/SubmissionRouter.jsx'
 import UserManager from './utils/UserManager.js'
-import { setUserManager } from './utils/redirect.js'
+import { setUserManager, setDispatch } from './utils/redirect.js'
 import log from './utils/log.js'
 
 import appReducer from './reducers'
@@ -70,6 +70,8 @@ const store = createStore(
   }),
   applyMiddleware(...middleware)
 )
+
+setDispatch(store.dispatch)
 
 const history = syncHistoryWithStore(browserHistory, store)
 

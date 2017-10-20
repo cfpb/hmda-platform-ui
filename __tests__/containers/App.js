@@ -77,7 +77,7 @@ describe('AppContainer', () => {
     expect(set.mock.calls.length).toBe(2)
   })
 
-  it('short circuits token set with no user', () => {
+  it('renders loading icon token set with no user', () => {
     const container = TestUtils.renderIntoDocument(
       <Wrapper store={{}}>
         <AppContainer
@@ -88,7 +88,9 @@ describe('AppContainer', () => {
       </Wrapper>
     )
     expect(set.mock.calls.length).toBe(2)
-    expect(ReactDOM.findDOMNode(container)).toBe(null)
+    expect(
+      TestUtils.findRenderedDOMComponentWithClass(container, 'floatingIcon')
+    ).not.toBe(null)
     expect(signinRedirect).toHaveBeenCalled()
   })
 
@@ -156,6 +158,8 @@ describe('AppContainer', () => {
     )
 
     expect(signinRedirect).toBeCalled()
-    expect(ReactDOM.findDOMNode(container)).toBe(null)
+    expect(
+      TestUtils.findRenderedDOMComponentWithClass(container, 'floatingIcon')
+    ).not.toBe(null)
   })
 })

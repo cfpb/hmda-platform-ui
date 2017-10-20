@@ -4,6 +4,7 @@ import { signinRedirect } from '../utils/redirect.js'
 
 export default class LoggedOutModal extends Component {
   render() {
+    const self = this
     return (
       <div className="modal-blurred-blocker showing-blurred-blocker">
         <section role="dialog" className="modal">
@@ -22,6 +23,7 @@ export default class LoggedOutModal extends Component {
               }}
               onClick={e => {
                 e.preventDefault()
+                self.props.clearErrorModal()
                 signinRedirect()
               }}
             >
