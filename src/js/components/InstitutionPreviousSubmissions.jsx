@@ -11,8 +11,6 @@ const InstitutionPreviousSubmissions = ({
   onDownloadClick
 }) => {
   if (!submissions.length) return null
-  const previousSubmissions = submissions.slice(1)
-  if (!previousSubmissions.length) return null
 
   return (
     <section className="previous-submissions">
@@ -34,7 +32,7 @@ const InstitutionPreviousSubmissions = ({
               valiation process can be downloaded in csv format below.
             </p>
             <ol reversed>
-              {previousSubmissions.map((submission, i) => {
+              {submissions.map((submission, i) => {
                 const startDate = ordinal(new Date(submission.start))
                 const endDate = ordinal(new Date(submission.end))
 

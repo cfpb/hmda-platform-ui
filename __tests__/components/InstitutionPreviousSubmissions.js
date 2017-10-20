@@ -30,8 +30,8 @@ describe('InstitutionPreviousSubmissions', () => {
     expect(previousNode).toBeDefined()
 
     const ol = TestUtils.findRenderedDOMComponentWithTag(previous, 'ol')
-    expect(ol.children.length).toBe(3)
+    expect(ol.children.length).toBe(5)
     const links = TestUtils.scryRenderedDOMComponentsWithTag(previous, 'a')
-    expect(links.length).toBe(3)
+    expect(links.length).toBe(4)
   })
 })
