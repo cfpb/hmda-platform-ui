@@ -15,7 +15,7 @@ const SubmissionReceipt = ({
   if (code !== SIGNED) return null
 
   return (
-    <Alert type="success" heading="HMDA filing completed">
+    <Alert type="success" heading="HMDA filing accepted!">
       <div>
         <p>
           Congratulations, you have successfully completed your HMDA filing for{' '}
