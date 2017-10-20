@@ -1,6 +1,6 @@
-jest.unmock('../../src/js/components/InstitutionPreviousSubmissions.jsx')
+jest.unmock('../../src/js/components/InstitutionSubmissionHistory.jsx')
 
-import InstitutionPreviousSubmissions from '../../src/js/components/InstitutionPreviousSubmissions.jsx'
+import InstitutionSubmissionHistory from '../../src/js/components/InstitutionSubmissionHistory.jsx'
 import * as STATUS from '../../src/js/constants/statusCodes.js'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
@@ -13,11 +13,11 @@ const submissions = filings.submissions
 
 const onDownloadClick = jest.fn()
 
-describe('InstitutionPreviousSubmissions', () => {
+describe('InstitutionSubmissionHistory', () => {
   it('renders the previous submissions', () => {
     const previous = TestUtils.renderIntoDocument(
       <Wrapper>
-        <InstitutionPreviousSubmissions
+        <InstitutionSubmissionHistory
           submissions={submissions}
           institutionId="123456"
           filingPeriod="2017"
