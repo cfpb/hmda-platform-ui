@@ -12,7 +12,7 @@ jest.mock('../../src/js/components/InstitutionViewButton.jsx', () =>
 jest.mock('../../src/js/components/InstitutionRefile.jsx', () =>
   jest.fn(() => null)
 )
-jest.mock('../../src/js/components/InstitutionPreviousSubmissions.jsx', () =>
+jest.mock('../../src/js/components/InstitutionSubmissionHistory.jsx', () =>
   jest.fn(() => null)
 )
 

@@ -5,7 +5,7 @@ import InstitutionNameAndId from './InstitutionNameAndId.jsx'
 import InstitutionStatus from './InstitutionStatus.jsx'
 import InstitutionViewButton from './InstitutionViewButton.jsx'
 import InstitutionRefile from './InstitutionRefile.jsx'
-import InstitutionPreviousSubmissions from './InstitutionPreviousSubmissions.jsx'
+import InstitutionSubmissionHistory from './InstitutionSubmissionHistory.jsx'
 
 const Institution = ({
   institution,
@@ -55,7 +55,7 @@ const Institution = ({
           <InstitutionRefile institution={institution} status={status} />
         </div>
 
-        <InstitutionPreviousSubmissions
+        <InstitutionSubmissionHistory
           submissions={submissions}
           institutionId={institution.id}
           filingPeriod={filing.period}
