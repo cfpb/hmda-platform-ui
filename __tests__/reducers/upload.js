@@ -37,6 +37,15 @@ describe('upload reducer', () => {
     ).toEqual({ 123: defaultUpload })
   })
 
+  it('handles RECEIVE_FILE_ERRORS', () => {
+    expect(
+      upload(
+        { 123: 42 },
+        { type: types.RECEIVE_FILE_ERRORS, id: '123', errors: ['err'] }
+      )
+    ).toEqual({ 123: { errors: ['err'] } })
+  })
+
   it('handles UPLOAD_START', () => {
     expect(upload({}, { type: types.UPLOAD_START, id: '123' })).toEqual({
       123: { ...defaultUpload, uploading: true }
@@ -61,7 +70,8 @@ describe('upload reducer', () => {
       types.SELECT_NEW_FILE,
       types.REFRESH_STATE,
       types.UPLOAD_START,
-      types.UPLOAD_COMPLETE
+      types.UPLOAD_COMPLETE,
+      types.RECEIVE_FILE_ERRORS
     ).forEach(v => expect(upload({}, v)).toEqual({}))
   })
 })

@@ -1,6 +1,7 @@
 import {
   SELECT_FILE,
   SELECT_NEW_FILE,
+  RECEIVE_FILE_ERRORS,
   UPLOAD_START,
   UPLOAD_PROGRESS,
   UPLOAD_COMPLETE,
@@ -29,7 +30,7 @@ export default (state = defaultUploads, action) => {
         [action.id]: {
           ...upload,
           file: action.file,
-          errors: action.errors
+          errors: []
         }
       }
     case SELECT_NEW_FILE:
@@ -38,6 +39,13 @@ export default (state = defaultUploads, action) => {
         [action.id]: {
           ...upload,
           newFile: action.file
+        }
+      }
+    case RECEIVE_FILE_ERRORS:
+      return {
+        ...state,
+        [action.id]: {
+          errors: action.errors
         }
       }
     case UPLOAD_START:

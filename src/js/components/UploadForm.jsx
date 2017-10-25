@@ -116,14 +116,8 @@ export default class Upload extends Component {
 
     // handle the onDrop to set the file and show confirmation modal
     this.onDrop = acceptedFiles => {
-      const { code, showConfirmModal, setFile, setNewFile } = this.props
-
-      if (code >= STATUS.UPLOADING) {
-        showConfirmModal()
-        setNewFile(acceptedFiles)
-      } else {
-        setFile(acceptedFiles)
-      }
+      const { handleDrop, code } = this.props
+      handleDrop(acceptedFiles, code)
     }
   }
 
@@ -152,9 +146,6 @@ export default class Upload extends Component {
 }
 
 Upload.propTypes = {
-  setFile: PropTypes.func,
-  setNewFile: PropTypes.func,
-  showConfirmModal: PropTypes.func,
   pollSubmission: PropTypes.func,
   uploading: PropTypes.bool,
   filename: PropTypes.string,

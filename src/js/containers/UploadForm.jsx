@@ -1,9 +1,6 @@
 import { connect } from 'react-redux'
 import Upload from '../components/UploadForm.jsx'
-import selectFile from '../actions/selectFile.js'
-import selectNewFile from '../actions/selectNewFile.js'
-import fetchUpload from '../actions/fetchUpload.js'
-import showConfirm from '../actions/showConfirm.js'
+import handleFile from '../actions/handleFile.js'
 import pollForProgress from '../actions/pollForProgress.js'
 import * as Poller from '../actions/Poller.js'
 
@@ -31,22 +28,11 @@ export function mapStateToProps(state) {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    setFile: acceptedFiles => {
+    handleDrop(acceptedFiles, code) {
       if (!acceptedFiles) return
-      dispatch(selectFile(acceptedFiles[0]))
-      dispatch(fetchUpload(acceptedFiles[0]))
+      dispatch(handleFile(acceptedFiles[0], code))
     },
-
-    setNewFile: acceptedFiles => {
-      if (!acceptedFiles) return
-      dispatch(selectNewFile(acceptedFiles[0]))
-    },
-
-    showConfirmModal: () => {
-      dispatch(showConfirm())
-    },
-
-    pollSubmission: () => {
+    pollSubmission() {
       dispatch(pollForProgress(Poller.set(true)))
     }
   }

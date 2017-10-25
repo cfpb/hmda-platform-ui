@@ -6,6 +6,8 @@ import fetchNewSubmission from '../actions/fetchNewSubmission.js'
 import refreshState from '../actions/refreshState.js'
 import selectFile from '../actions/selectFile.js'
 import fetchUpload from '../actions/fetchUpload.js'
+import processFileErrors from '../actions/processFileErrors.js'
+import checkFileErrors from '../utils/checkFileErrors.js'
 import ConfirmationModal from '../components/ConfirmationModal.jsx'
 
 export class ConfirmationModalContainer extends Component {
@@ -49,6 +51,9 @@ export function mapDispatchToProps(dispatch) {
   const triggerRefile = (id, period, page = '', file) => {
     dispatch(refreshState())
     if (page === 'upload' && file) {
+      const fileErrors = checkFileErrors(file)
+      if (fileErrors.length) return dispatch(processFileErrors(fileErrors))
+
       return dispatch(fetchNewSubmission(id, period)).then(() => {
         dispatch(selectFile(file))
         dispatch(fetchUpload(file))
