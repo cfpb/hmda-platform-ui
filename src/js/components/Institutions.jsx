@@ -78,13 +78,11 @@ export default class Institutions extends Component {
             </Alert>
           )}
 
-          <Alert type="info">
-            <p>
-              If you are planning to file on behalf of more than one financial
-              institution, contact{' '}
-              <a href="mailto:hmdahelp@cfpb.gov">hmdahelp@cfpb.gov</a>.
-            </p>
-          </Alert>
+          <p className="multi-message">
+            If you are planning to file on behalf of more than one financial
+            institution, contact{' '}
+            <a href="mailto:hmdahelp@cfpb.gov">hmdahelp@cfpb.gov</a>.
+          </p>
         </div>
       </main>
     )
