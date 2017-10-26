@@ -52,7 +52,8 @@ export function mapDispatchToProps(dispatch) {
     dispatch(refreshState())
     if (page === 'upload' && file) {
       const fileErrors = checkFileErrors(file)
-      if (fileErrors.length) return dispatch(processFileErrors(fileErrors))
+      if (fileErrors.length)
+        return dispatch(processFileErrors(fileErrors, file.name))
 
       return dispatch(fetchNewSubmission(id, period)).then(() => {
         dispatch(selectFile(file))

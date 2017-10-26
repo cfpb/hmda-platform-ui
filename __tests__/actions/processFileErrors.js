@@ -16,9 +16,9 @@ describe('processFileErrors', () => {
 
   it('creates an action to signal file processing when dispatched', () => {
     const errors = ['qwe']
-    store.dispatch(processFileErrors(errors))
+    store.dispatch(processFileErrors(errors, 'afile'))
     expect(store.getActions()).toEqual([
-      { type: types.RECEIVE_FILE_ERRORS, errors, id: '123' }
+      { type: types.RECEIVE_FILE_ERRORS, errors, file: 'afile', id: '123' }
     ])
   })
 })

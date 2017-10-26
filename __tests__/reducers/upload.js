@@ -7,7 +7,8 @@ const defaultUpload = {
   uploading: false,
   file: null,
   newFile: null,
-  errors: []
+  errors: [],
+  errorFile: null
 }
 
 const defaultUploads = {}
@@ -41,9 +42,14 @@ describe('upload reducer', () => {
     expect(
       upload(
         { 123: 42 },
-        { type: types.RECEIVE_FILE_ERRORS, id: '123', errors: ['err'] }
+        {
+          type: types.RECEIVE_FILE_ERRORS,
+          id: '123',
+          file: 'yo',
+          errors: ['err']
+        }
       )
-    ).toEqual({ 123: { errors: ['err'] } })
+    ).toEqual({ 123: { errors: ['err'], errorFile: 'yo' } })
   })
 
   it('handles UPLOAD_START', () => {

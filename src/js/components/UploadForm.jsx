@@ -36,7 +36,7 @@ const _getUploadMessage = (preText, filename, postText, howToMessage) => {
   )
 }
 
-export const getDropzoneText = ({ code, errors, filename }) => {
+export const getDropzoneText = ({ code, errors, filename, errorFile }) => {
   let howToMessage =
     'To begin uploading a file, drag it into this box or click here.'
   if (code >= STATUS.CREATED) {
@@ -49,7 +49,7 @@ export const getDropzoneText = ({ code, errors, filename }) => {
     message = howToMessage
   }
 
-  if (filename) {
+  if (filename || errorFile) {
     message = _getUploadMessage('', filename, 'selected.', howToMessage)
 
     if (code >= STATUS.UPLOADING && code <= STATUS.VALIDATING) {
@@ -97,10 +97,10 @@ export const getDropzoneText = ({ code, errors, filename }) => {
       )
     }
 
-    if (errors.length > 0) {
+    if (errorFile) {
       message = _getUploadMessage(
         '',
-        filename,
+        errorFile,
         'can not be uploaded.',
         howToMessage
       )
@@ -146,10 +146,12 @@ export default class Upload extends Component {
 }
 
 Upload.propTypes = {
+  handleDrop: PropTypes.func,
   pollSubmission: PropTypes.func,
   uploading: PropTypes.bool,
   filename: PropTypes.string,
   file: PropTypes.object,
   code: PropTypes.number,
-  errors: PropTypes.array
+  errors: PropTypes.array,
+  errorFile: PropTypes.string
 }

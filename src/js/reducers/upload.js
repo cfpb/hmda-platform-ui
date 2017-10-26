@@ -12,7 +12,8 @@ const defaultUpload = {
   uploading: false,
   file: null,
   newFile: null,
-  errors: []
+  errors: [],
+  errorFile: null
 }
 
 const defaultUploads = {}
@@ -30,7 +31,8 @@ export default (state = defaultUploads, action) => {
         [action.id]: {
           ...upload,
           file: action.file,
-          errors: []
+          errors: [],
+          errorFile: null
         }
       }
     case SELECT_NEW_FILE:
@@ -45,7 +47,8 @@ export default (state = defaultUploads, action) => {
       return {
         ...state,
         [action.id]: {
-          errors: action.errors
+          errors: action.errors,
+          errorFile: action.file
         }
       }
     case UPLOAD_START:

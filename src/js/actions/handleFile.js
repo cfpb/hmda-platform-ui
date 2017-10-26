@@ -11,7 +11,8 @@ export default function handleFile(file, code) {
   return dispatch => {
     const fileErrors = checkFileErrors(file)
 
-    if (fileErrors.length) return dispatch(processFileErrors(fileErrors))
+    if (fileErrors.length)
+      return dispatch(processFileErrors(fileErrors, file.name))
 
     if (code >= STATUS.UPLOADING) {
       dispatch(showConfirm())
