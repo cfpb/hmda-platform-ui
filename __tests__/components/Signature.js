@@ -141,6 +141,31 @@ describe('Signature component', () => {
     expect(SubmissionReceipt.mock.calls.length).toBe(4)
   })
 
+  it('renders the receipt and timestamp', () => {
+    /*expect(
+      TestUtils.findRenderedDOMComponentWithClass(
+        signatureSigned,
+        'usa-alert-success'
+      )
+    ).toBeTruthy()*/
+  })
+
+  it('has the correct filingPeriod', () => {
+    //expect(TestUtils.scryRenderedDOMComponentsWithTag(signatureSigned, 'p')[1].textContent.match('2017')).toBeTruthy()
+  })
+
+  it('has the correct email', () => {
+    //expect(TestUtils.scryRenderedDOMComponentsWithTag(signatureSigned, 'p')[4].textContent.match('yo@me.com')).toBeTruthy()
+  })
+
+  it('has the checkbox checked', () => {
+    const checkboxChecked = TestUtils.findRenderedDOMComponentWithTag(
+      signatureSigned,
+      'input'
+    )
+    expect(checkboxChecked.checked).toBeTruthy()
+  })
+
   it('has the checkbox disabled', () => {
     const checkboxDisabled = TestUtils.findRenderedDOMComponentWithTag(
       signatureSigned,

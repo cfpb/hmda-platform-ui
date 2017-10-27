@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
+import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 
 export const renderValidationProgress = ({ code, uploading, file, id }) => {
@@ -130,6 +131,12 @@ export default class Upload extends Component {
       <section className="UploadForm">
         {renderErrors(this.props.errors)}
         <section className="container-upload">
+          <Alert type="warning">
+            <p>
+              All test data uploaded during the beta period will be removed from
+              the system when the filing period opens on January 1st, 2018.
+            </p>
+          </Alert>
           <Dropzone
             disablePreview={true}
             onDrop={this.onDrop}
