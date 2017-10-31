@@ -13,6 +13,7 @@ import {
 } from '../constants/statusCodes.js'
 
 const editTypes = ['syntacticalvalidity', 'quality', 'macro']
+const submissionRoutes = ['upload', ...editTypes, 'submission']
 
 export class SubmissionRouter extends Component {
   constructor(props) {
@@ -21,15 +22,17 @@ export class SubmissionRouter extends Component {
 
   componentDidMount() {
     this.renderChildren = false
-    const status = this.props.submission.status
+    const { submission, params, dispatch } = this.props
+    const status = submission.status
 
-    if (
-      this.props.submission.id &&
-      this.props.submission.id.institutionId !== this.props.params.institution
-    )
-      this.props.dispatch(refreshState())
+    if (!params.institution || !params.filing) {
+      return browserHistory.replace('/')
+    }
+
+    if (submission.id && submission.id.institutionId !== params.institution)
+      dispatch(refreshState())
     if (!status || status.code === UNINITIALIZED) {
-      this.props.dispatch(fetchSubmission()).then(json => {
+      dispatch(fetchSubmission()).then(json => {
         this.route()
       })
     } else {
@@ -48,6 +51,10 @@ export class SubmissionRouter extends Component {
     const splat = this.props.params.splat
 
     this.renderChildren = true
+
+    if (splat && !submissionRoutes.includes(splat)) {
+      return this.replaceHistory('upload')
+    }
 
     if (code === FAILED) {
       return (
@@ -90,11 +97,13 @@ export class SubmissionRouter extends Component {
 
 export function mapStateToProps(state, ownProps) {
   const { submission } = state.app
+  const { types } = state.app.edits
 
   const { params } = ownProps
 
   return {
     submission,
+    types,
     params
   }
 }
