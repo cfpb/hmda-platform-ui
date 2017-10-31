@@ -29,8 +29,13 @@ export class SubmissionRouter extends Component {
       return browserHistory.replace('/')
     }
 
-    if (submission.id && submission.id.institutionId !== params.institution)
+    if (submission.id && submission.id.institutionId !== params.institution) {
       dispatch(refreshState())
+      return this.props.dispatch(fetchSubmission()).then(json => {
+        this.route()
+      })
+    }
+
     if (!status || status.code === UNINITIALIZED) {
       dispatch(fetchSubmission()).then(json => {
         this.route()
@@ -56,14 +61,6 @@ export class SubmissionRouter extends Component {
       return this.replaceHistory('upload')
     }
 
-    if (code === FAILED) {
-      return (
-        <div className="SubmissionContainer">
-          <p>{status.message}</p>
-        </div>
-      )
-    }
-
     if (code < VALIDATED_WITH_ERRORS)
       if (splat === 'upload') return this.forceUpdate()
       else return this.replaceHistory('upload')
@@ -80,17 +77,20 @@ export class SubmissionRouter extends Component {
   }
 
   render() {
+    if (this.props.submission.status.code === FAILED)
+      return (
+        <div className="SubmissionContainer">
+          <p>{this.props.submission.status.message}</p>
+        </div>
+      )
     if (
       this.props.submission.status.code === UNINITIALIZED ||
       this.props.submission.id.institutionId !==
         this.props.params.institution ||
-      !this.renderChildren
+      !this.renderChildren ||
+      !this.props.params.splat
     )
       return <LoadingIcon className="floatingIcon" />
-    if (!this.props.params.splat) {
-      setTimeout(() => this.replaceHistory('upload'), 0)
-      return <LoadingIcon className="floatingIcon" />
-    }
     return <SubmissionContainer {...this.props} />
   }
 }
@@ -108,6 +108,8 @@ export function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps, dispatch => {
+export function mapDispatchToProps(dispatch) {
   return { dispatch }
-})(SubmissionRouter)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubmissionRouter)
