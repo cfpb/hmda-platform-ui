@@ -96,7 +96,7 @@ export class SubmissionRouter extends Component {
     }
 
     if (!submissionRoutes.includes(splat)) {
-      return this.replaceHistory('/')
+      return browserHistory.replace('/')
     }
 
     if (code < VALIDATED_WITH_ERRORS)

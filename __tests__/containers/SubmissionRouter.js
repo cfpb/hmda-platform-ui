@@ -412,6 +412,7 @@ describe('route', () => {
 
   it('routes with bad splat', () => {
     const replace = jest.fn()
+    browserHistory.replace = replace
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
@@ -420,7 +421,6 @@ describe('route', () => {
       types: typesDefault,
       params: { institution: 'argle', filing: 'bargle', splat: 'badsplat' }
     })
-    router.replaceHistory = replace
     router.route()
     expect(replace).toBeCalledWith('/')
   })
