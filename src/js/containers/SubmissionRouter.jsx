@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router'
 import SubmissionContainer from './Submission.jsx'
 import LoadingIcon from '../components/LoadingIcon.jsx'
 import fetchSubmission from '../actions/fetchSubmission.js'
+import fetchEdits from '../actions/fetchEdits.js'
 import refreshState from '../actions/refreshState.js'
 import {
   UNINITIALIZED,
@@ -29,20 +30,35 @@ export class SubmissionRouter extends Component {
       return browserHistory.replace('/')
     }
 
-    if (submission.id && submission.id.institutionId !== params.institution) {
-      dispatch(refreshState())
-      return this.props.dispatch(fetchSubmission()).then(json => {
+    const unmatchedId =
+      submission.id && submission.id.institutionId !== params.institution
+
+    if (unmatchedId) dispatch(refreshState())
+
+    if (unmatchedId || !status || status.code === UNINITIALIZED) {
+      return dispatch(fetchSubmission()).then(json => {
+        if (this.editsNeeded()) {
+          dispatch(fetchEdits()).then(json => {
+            this.route()
+          })
+        } else {
+          this.route()
+        }
+      })
+    }
+
+    if (this.editsNeeded()) {
+      return dispatch(fetchEdits()).then(json => {
         this.route()
       })
     }
 
-    if (!status || status.code === UNINITIALIZED) {
-      dispatch(fetchSubmission()).then(json => {
-        this.route()
-      })
-    } else {
-      this.route()
-    }
+    this.route()
+  }
+
+  editsNeeded() {
+    const { submission } = this.props
+    return submission.status.code === VALIDATED_WITH_ERRORS
   }
 
   replaceHistory(splat) {
@@ -50,15 +66,37 @@ export class SubmissionRouter extends Component {
     return browserHistory.replace(`/${institution}/${filing}/${splat}`)
   }
 
+  getLatestPage() {
+    const status = this.props.submission.status
+    const code = status.code
+    const types = this.props.types
+
+    const synvalExist = !!(
+      types.syntactical.edits.length + types.validity.edits.length
+    )
+    const qualityExist = !!types.quality.edits.length
+
+    if (code < VALIDATED_WITH_ERRORS) return 'upload'
+    if (code > VALIDATED_WITH_ERRORS) return 'submission'
+    if (synvalExist) return 'syntacticalvalidity'
+    if (qualityExist) return 'quality'
+    return 'macro'
+  }
+
   route() {
     const status = this.props.submission.status
     const code = status.code
     const splat = this.props.params.splat
+    const latest = this.getLatestPage()
 
     this.renderChildren = true
 
-    if (splat && !submissionRoutes.includes(splat)) {
-      return this.replaceHistory('upload')
+    if (!splat) {
+      return this.replaceHistory(latest)
+    }
+
+    if (!submissionRoutes.includes(splat)) {
+      return this.replaceHistory('/')
     }
 
     if (code < VALIDATED_WITH_ERRORS)
@@ -66,10 +104,12 @@ export class SubmissionRouter extends Component {
       else return this.replaceHistory('upload')
 
     if (code === VALIDATED_WITH_ERRORS) {
-      if (editTypes.includes(splat)) {
-        return this.forceUpdate()
+      if (splat === latest) return this.forceUpdate()
+      else if (
+        submissionRoutes.indexOf(splat) > submissionRoutes.indexOf(latest)
+      ) {
+        return this.replaceHistory(latest)
       }
-      return this.replaceHistory('syntacticalvalidity')
     }
 
     if (splat) return this.forceUpdate()
@@ -77,18 +117,19 @@ export class SubmissionRouter extends Component {
   }
 
   render() {
-    if (this.props.submission.status.code === FAILED)
+    const { submission, params } = this.props
+
+    if (submission.status.code === FAILED)
       return (
         <div className="SubmissionContainer">
-          <p>{this.props.submission.status.message}</p>
+          <p>{submission.status.message}</p>
         </div>
       )
     if (
-      this.props.submission.status.code === UNINITIALIZED ||
-      this.props.submission.id.institutionId !==
-        this.props.params.institution ||
+      submission.status.code === UNINITIALIZED ||
+      submission.id.institutionId !== params.institution ||
       !this.renderChildren ||
-      !this.props.params.splat
+      !params.splat
     )
       return <LoadingIcon className="floatingIcon" />
     return <SubmissionContainer {...this.props} />
