@@ -192,7 +192,8 @@ describe('getDropZoneText', () => {
     const rendered = getDropzoneText({
       code: 10,
       errors: ['an error'],
-      filename: 'filename.txt'
+      filename: 'filename.txt',
+      errorFile: 'afile'
     })
     expect(rendered.props.children.props.children.length).toBe(2)
     expect(rendered.props.children.props.children[1].props.children[4]).toBe(

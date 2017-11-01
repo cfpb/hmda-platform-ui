@@ -10,8 +10,8 @@ const SubmissionPageInfo = () => {
       >
         <div>
           <p>
-            Please review your filing summary and sign your filing at the bottom
-            of this page.
+            Please review your HMDA Test Filing Summary and sign your test
+            filing at the bottom of this page.
           </p>
           <p>
             If you discover an error in the summary, you will need to update

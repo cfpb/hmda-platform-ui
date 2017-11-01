@@ -36,11 +36,6 @@
         margin: 0;
       }
     }
-
-    aside {
-      padding-right: 1em;
-      padding-left: 1em;
-    }
   }
 
   header {
@@ -54,5 +49,9 @@
       margin-top: 0;
       margin-bottom: 0.25em;
     }
+  }
+
+  p.multi-message {
+    margin-top: 2.5em
   }
 }

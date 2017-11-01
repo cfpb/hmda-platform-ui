@@ -46,7 +46,7 @@ export const renderTablesOrSuccess = (props, edits, type) => {
   if (edits.length === 0) {
     const verificationMsg =
       type === 'quality' || type === 'macro'
-        ? ', no verification is required.'
+        ? '; no verification is required.'
         : '.'
     return (
       <Alert type="success">

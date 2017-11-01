@@ -9,13 +9,15 @@ const Home = props => {
         <section className="usa-hero">
           <div className="usa-grid">
             <div className="usa-width-one-whole">
-              <h1>Get started filing your HMDA data</h1>
+              <h1>Get familiar with the HMDA Platform</h1>
               <p className="usa-font-lead">
-                Beginning with HMDA data collected in or after 2017, financial
-                institutions will use the HMDA Platform to upload their
-                loan/application registers (LARs), review edits, certify the
-                accuracy and completeness of the data, and submit data for the
-                filing year.
+                During this beta period, you may explore the new HMDA platform.
+                It will be used to upload your financial institution's
+                loan/application registers, review edits, certify the data, and
+                submit the data for the filing year. All test data uploaded and
+                accounts created during the beta period will be removed from the
+                system when the filing period for HMDA data collected in 2017
+                opens on January 1st, 2018.
               </p>
               <a
                 href="#"
@@ -61,21 +63,22 @@ const Home = props => {
                   Can my financial institution have multiple user accounts?
                 </dt>
                 <dd>
-                  Each financial institution may have multiple users. Also, a
-                  user may be authorized by more than one financial institution
-                  to file HMDA data on those institutions’ behalf, provided that
-                  under Regulation C, each such institution is a HMDA filer.
+                  Each financial institution may have multiple user accounts.
+                  Also, an individual may establish an account on behalf of more
+                  than one financial institution, provided that the user has
+                  been authorized by each such financial institution to do so.
                 </dd>
                 <dt>
                   Will I be able to manually enter my LAR into the HMDA
                   Platform?
                 </dt>
                 <dd>
-                  The HMDA Platform only accepts a pipe delimited text file
-                  containing your LAR. Any modifications to the data must be
-                  updated in the file and uploaded to the HMDA Platform. This
-                  must be a single file as the HMDA Platform will not allow
-                  users to combine multiple files.
+                  The HMDA Platform only accepts a pipe-delimited text file
+                  containing your LAR. If changes are required to your LAR,
+                  please enter them into your pipe-delimited text file before
+                  uploading the file to the HMDA Platform. This must be a single
+                  file as the HMDA Platform will not allow users to combine
+                  multiple files.
                 </dd>
                 <dt>
                   Is there another tool for me to confirm that my LAR is in the
@@ -83,12 +86,13 @@ const Home = props => {
                 </dt>
                 <dd>
                   Filers who wish to confirm that their LAR is formatted in the
-                  required pipe delimited text file format may use the{' '}
-                  <a href="https://github.com/cfpb/hmda-platform-tools">
-                    File Format Verification Tool
-                  </a>. This tool will conduct the same initial checks that the
-                  HMDA Platform performs, and provides a convenient test
-                  mechanism for filers.
+                  required pipe-delimited text file format may also use the HMDA
+                  File Format Verification Tool available at{' '}
+                  <a href="https://cfpb.github.io/hmda-platform-tools/file-format-verification/">
+                    https://cfpb.github.io/hmda-platform-tools/file-format-verification/
+                  </a>. This tool will conduct some of the same initial checks
+                  that the HMDA Platform performs, and provides a convenient
+                  test mechanism for filers.
                 </dd>
               </dl>
             </article>
@@ -133,7 +137,7 @@ const Home = props => {
               size of the institution, per response. The obligation to respond
               to this collection of information is mandatory per the Home
               Mortgage Disclosure Act 12 U.S.C. 2801-2810 as implemented by
-              CFPB’S Regulation C 12 CFR part 1003. Comments regarding this
+              CFPB’s Regulation C 12 CFR part 1003. Comments regarding this
               collection of information, including the estimated response time,
               suggestions for improving the usefulness of the information, or
               suggestions for reducing the burden to respond to this collection

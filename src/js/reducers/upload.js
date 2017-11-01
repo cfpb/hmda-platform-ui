@@ -1,6 +1,7 @@
 import {
   SELECT_FILE,
   SELECT_NEW_FILE,
+  RECEIVE_FILE_ERRORS,
   UPLOAD_START,
   UPLOAD_PROGRESS,
   UPLOAD_COMPLETE,
@@ -11,7 +12,8 @@ const defaultUpload = {
   uploading: false,
   file: null,
   newFile: null,
-  errors: []
+  errors: [],
+  errorFile: null
 }
 
 const defaultUploads = {}
@@ -29,7 +31,8 @@ export default (state = defaultUploads, action) => {
         [action.id]: {
           ...upload,
           file: action.file,
-          errors: action.errors
+          errors: [],
+          errorFile: null
         }
       }
     case SELECT_NEW_FILE:
@@ -38,6 +41,14 @@ export default (state = defaultUploads, action) => {
         [action.id]: {
           ...upload,
           newFile: action.file
+        }
+      }
+    case RECEIVE_FILE_ERRORS:
+      return {
+        ...state,
+        [action.id]: {
+          errors: action.errors,
+          errorFile: action.file
         }
       }
     case UPLOAD_START:
