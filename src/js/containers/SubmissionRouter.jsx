@@ -112,8 +112,7 @@ export class SubmissionRouter extends Component {
       }
     }
 
-    if (splat) return this.forceUpdate()
-    return this.replaceHistory('submission')
+    return this.forceUpdate()
   }
 
   render() {
