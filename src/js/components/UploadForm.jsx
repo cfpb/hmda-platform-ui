@@ -123,7 +123,12 @@ export default class Upload extends Component {
   }
 
   componentDidMount() {
-    if (this.props.code >= STATUS.UPLOADING) this.props.pollSubmission()
+    if (
+      this.props.code >= STATUS.UPLOADING &&
+      this.props.code < STATUS.VALIDATED_WITH_ERRORS &&
+      this.props.code !== STATUS.PARSED_WITH_ERRORS
+    )
+      this.props.pollSubmission()
   }
 
   render() {

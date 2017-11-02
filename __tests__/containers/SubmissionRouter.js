@@ -13,28 +13,45 @@ import ConnectedRouter, {
 import * as STATUS from '../../src/js/constants/statusCodes.js'
 import Wrapper from '../Wrapper.js'
 
-const replace = jest.fn()
-browserHistory.replace = replace
-
 const mockStore = configureMockStore([thunk])
+window.localStorage = {
+  getItem: jest.fn()
+}
+
+const submissionDefault = {
+  id: { institutionId: '123' },
+  status: { code: STATUS.VALIDATED }
+}
+const typesDefault = {
+  syntactical: { edits: [] },
+  validity: { edits: [] },
+  quality: { edits: [], verified: false },
+  macro: { edits: [], verified: false }
+}
 
 describe('ConnectedRouter', () => {
   const store = mockStore({
     app: {
-      submission: {
-        id: { institutionId: '123' },
-        status: { code: STATUS.VALIDATED }
+      submission: submissionDefault,
+      edits: {
+        types: typesDefault
+      },
+      institution: {
+        id: '123'
       }
     }
   })
   console.error = jest.fn()
-  const wrappedContainer = TestUtils.renderIntoDocument(
-    <ConnectedRouter store={store} params={{ institution: '123' }}>
+  const container = TestUtils.renderIntoDocument(
+    <ConnectedRouter
+      store={store}
+      params={{ institution: '123', filing: '234', splat: 'upload' }}
+    >
       <p>hey</p>
     </ConnectedRouter>
   )
 
-  const containerNode = ReactDOM.findDOMNode(wrappedContainer).firstChild
+  const containerNode = ReactDOM.findDOMNode(container)
 
   it('renders the component', () => {
     expect(containerNode).toBeDefined()
@@ -48,16 +65,17 @@ describe('mapStateToProps', () => {
       mapStateToProps(
         {
           app: {
-            submission: {
-              id: { institutionId: '123' },
-              status: STATUS.VALIDATED
+            submission: submissionDefault,
+            edits: {
+              types: typesDefault
             }
           }
         },
         { params: 'argle' }
       )
     ).toEqual({
-      submission: { id: { institutionId: '123' }, status: STATUS.VALIDATED },
+      submission: submissionDefault,
+      types: typesDefault,
       params: 'argle'
     })
   })
@@ -73,6 +91,9 @@ describe('mapDispatchToProps', () => {
 
 describe('replaceHistory', () => {
   it('replaces history correctly', () => {
+    const replace = jest.fn()
+    browserHistory.replace = replace
+
     const router = new SubmissionRouter({
       params: { institution: 'argle', filing: 'bargle' }
     })
@@ -163,7 +184,47 @@ describe('render', () => {
 })
 
 describe('componentDidMount', () => {
-  it('routes under normal circumstances', () => {
+  it('routes to homepage when institution is missing', () => {
+    const dispatch = jest.fn()
+    const replace = jest.fn()
+    browserHistory.replace = replace
+
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.VALIDATED },
+        id: { institutionId: 'argle' }
+      },
+      params: { filing: 'bargle' },
+      dispatch: dispatch
+    })
+
+    router.componentDidMount()
+
+    expect(replace).toBeCalled()
+    expect(dispatch).not.toBeCalled()
+  })
+
+  it('routes to homepage when filing is missing', () => {
+    const dispatch = jest.fn()
+    const replace = jest.fn()
+    browserHistory.replace = replace
+
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.VALIDATED },
+        id: { institutionId: 'argle' }
+      },
+      params: { institution: 'argle' },
+      dispatch: dispatch
+    })
+
+    router.componentDidMount()
+
+    expect(replace).toBeCalled()
+    expect(dispatch).not.toBeCalled()
+  })
+
+  it('routes when submission exists and edits are not needed', () => {
     const route = jest.fn()
     const dispatch = jest.fn()
     const router = new SubmissionRouter({
@@ -171,7 +232,7 @@ describe('componentDidMount', () => {
         status: { code: STATUS.VALIDATED },
         id: { institutionId: 'argle' }
       },
-      params: { institution: 'argle' },
+      params: { institution: 'argle', filing: 'bargle' },
       dispatch: dispatch
     })
 
@@ -193,7 +254,7 @@ describe('componentDidMount', () => {
         status: { code: STATUS.VALIDATED },
         id: { institutionId: 'argle' }
       },
-      params: { institution: 'elsewise' },
+      params: { institution: 'elsewise', filing: 'bargle' },
       dispatch: dispatch
     })
 
@@ -209,6 +270,7 @@ describe('componentDidMount', () => {
 
   it('routes with no status', done => {
     const route = jest.fn()
+    const editsNeeded = jest.fn(() => false)
     const dispatch = jest.fn(() => {
       return Promise.resolve()
     })
@@ -217,16 +279,18 @@ describe('componentDidMount', () => {
         status: null,
         id: { institutionId: 'argle' }
       },
-      params: { institution: 'argle' },
+      params: { institution: 'argle', filing: 'bargle' },
       dispatch: dispatch
     })
 
     router.route = route
+    router.editsNeeded = editsNeeded
     router.componentDidMount()
 
     expect(dispatch.mock.calls.length).toBe(1)
     setTimeout(() => {
       expect(route).toBeCalled()
+      expect(dispatch.mock.calls.length).toBe(1)
       done()
     }, 0)
   })
@@ -241,7 +305,7 @@ describe('componentDidMount', () => {
         status: { code: STATUS.UNINITIALIZED },
         id: { institutionId: 'argle' }
       },
-      params: { institution: 'argle' },
+      params: { institution: 'argle', filing: 'bargle' },
       dispatch: dispatch
     })
 
@@ -254,9 +318,113 @@ describe('componentDidMount', () => {
       done()
     }, 0)
   })
+
+  it('routes with UNINITIALIZED status and edits needed', done => {
+    const route = jest.fn()
+    const editsNeeded = jest.fn(() => true)
+    const dispatch = jest.fn(() => {
+      return Promise.resolve()
+    })
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.UNINITIALIZED },
+        id: { institutionId: 'argle' }
+      },
+      params: { institution: 'argle', filing: 'bargle' },
+      dispatch: dispatch
+    })
+
+    router.route = route
+    router.editsNeeded = editsNeeded
+    router.componentDidMount()
+
+    setTimeout(() => {
+      expect(dispatch.mock.calls.length).toBe(2)
+      expect(route).toBeCalled()
+      done()
+    }, 0)
+  })
+
+  it('routes when edits needed', done => {
+    const route = jest.fn()
+    const editsNeeded = jest.fn(() => true)
+    const dispatch = jest.fn(() => {
+      return Promise.resolve()
+    })
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.VALIDATED_WITH_ERRORS },
+        id: { institutionId: 'argle' }
+      },
+      params: { institution: 'argle', filing: 'bargle' },
+      dispatch: dispatch
+    })
+
+    router.route = route
+    router.editsNeeded = editsNeeded
+    router.componentDidMount()
+
+    expect(dispatch.mock.calls.length).toBe(1)
+    setTimeout(() => {
+      expect(route).toBeCalled()
+      done()
+    }, 0)
+  })
+})
+
+describe('editsNeeded', () => {
+  it('returns positively when editsneeded', () => {
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.VALIDATED_WITH_ERRORS }
+      }
+    })
+    expect(router.editsNeeded()).toBe(true)
+  })
+
+  it('returns negatively when edits are not needed', () => {
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.VALIDATED }
+      }
+    })
+    expect(router.editsNeeded()).toBe(false)
+  })
 })
 
 describe('route', () => {
+  it('routes with no splat', () => {
+    const latest = jest.fn(() => 'latest')
+    const replace = jest.fn()
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.VALIDATED },
+        id: { institutionId: 'argle' }
+      },
+      types: typesDefault,
+      params: { institution: 'argle', filing: 'bargle' }
+    })
+    router.getLatestPage = latest
+    router.replaceHistory = replace
+    router.route()
+    expect(replace).toBeCalledWith('latest')
+  })
+
+  it('routes with bad splat', () => {
+    const replace = jest.fn()
+    browserHistory.replace = replace
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.VALIDATED },
+        id: { institutionId: 'argle' }
+      },
+      types: typesDefault,
+      params: { institution: 'argle', filing: 'bargle', splat: 'badsplat' }
+    })
+    router.route()
+    expect(replace).toBeCalledWith('/')
+  })
+
   it('routes on before validated on upload page', () => {
     const force = jest.fn()
     const router = new SubmissionRouter({
@@ -264,7 +432,8 @@ describe('route', () => {
         status: { code: STATUS.UPLOADING },
         id: { institutionId: 'argle' }
       },
-      params: { institution: 'argle', splat: 'upload' }
+      types: typesDefault,
+      params: { institution: 'argle', filing: 'bargle', splat: 'upload' }
     })
     router.forceUpdate = force
     router.route()
@@ -279,53 +448,63 @@ describe('route', () => {
         status: { code: STATUS.UPLOADING },
         id: { institutionId: 'argle' }
       },
-      params: { institution: 'argle' }
+      types: typesDefault,
+      params: { institution: 'argle', filing: 'bargle', splat: 'quality' }
     })
     router.replaceHistory = replace
     router.route()
     expect(replace).toBeCalled()
   })
 
-  it('routes on validated with errors on edit page', () => {
+  it('routes on validated with errors when splat is latest', () => {
+    const latest = jest.fn(() => 'quality')
     const force = jest.fn()
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED_WITH_ERRORS },
         id: { institutionId: 'argle' }
       },
-      params: { institution: 'argle', splat: 'quality' }
+      types: typesDefault,
+      params: { institution: 'argle', filing: 'bargle', splat: 'quality' }
     })
     router.forceUpdate = force
+    router.getLatestPage = latest
     router.route()
     expect(force).toBeCalled()
   })
 
-  it('routes on validated with errors not on edit page', () => {
+  it('routes on validated with errors when splat is greater than latest', () => {
     const replace = jest.fn()
+    const latest = jest.fn(() => 'quality')
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED_WITH_ERRORS },
         id: { institutionId: 'argle' }
       },
-      params: { institution: 'argle' }
+      types: typesDefault,
+      params: { institution: 'argle', filing: 'bargle', splat: 'macro' }
     })
     router.replaceHistory = replace
+    router.getLatestPage = latest
     router.route()
-    expect(replace).toBeCalledWith('syntacticalvalidity')
+    expect(replace).toBeCalledWith('quality')
   })
 
-  it('routes without splat when validated  or signed', () => {
-    const replace = jest.fn()
+  it('routes on validated with errors when splat is less than latest', () => {
+    const force = jest.fn()
+    const latest = jest.fn(() => 'quality')
     const router = new SubmissionRouter({
       submission: {
-        status: { code: STATUS.VALIDATED },
+        status: { code: STATUS.VALIDATED_WITH_ERRORS },
         id: { institutionId: 'argle' }
       },
-      params: { institution: 'argle' }
+      types: typesDefault,
+      params: { institution: 'argle', filing: 'bargle', splat: 'upload' }
     })
-    router.replaceHistory = replace
+    router.forceUpdate = force
+    router.getLatestPage = latest
     router.route()
-    expect(replace).toBeCalledWith('submission')
+    expect(force).toBeCalled()
   })
 
   it('routes on validated with splat', () => {
@@ -335,10 +514,63 @@ describe('route', () => {
         status: { code: STATUS.VALIDATED },
         id: { institutionId: 'argle' }
       },
-      params: { institution: 'argle', splat: 'quality' }
+      types: typesDefault,
+      params: { institution: 'argle', filing: 'bargle', splat: 'quality' }
     })
     router.forceUpdate = force
     router.route()
     expect(force).toBeCalled()
+  })
+})
+
+describe('getLatestPage', () => {
+  it('latest is upload when code is < VALIDATED_WITH_ERRORS', () => {
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.UPLOADING }
+      },
+      types: typesDefault
+    })
+    expect(router.getLatestPage()).toBe('upload')
+  })
+
+  it('latest is submission when code is > VALIDATED_WITH_ERRORS', () => {
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.VALIDATED }
+      },
+      types: typesDefault
+    })
+    expect(router.getLatestPage()).toBe('submission')
+  })
+
+  it('latest is synval when code is VALIDATED_WITH_ERRORS and synvalExist', () => {
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.VALIDATED_WITH_ERRORS }
+      },
+      types: { ...typesDefault, syntactical: { edits: [{}] } }
+    })
+    expect(router.getLatestPage()).toBe('syntacticalvalidity')
+  })
+
+  it('latest is quality when code is VALIDATED_WITH_ERRORS and quality exists', () => {
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.VALIDATED_WITH_ERRORS }
+      },
+      types: { ...typesDefault, quality: { edits: [{}] } }
+    })
+    expect(router.getLatestPage()).toBe('quality')
+  })
+
+  it('latest is macro when code is VALIDATED_WITH_ERRORS and not blocked by errors', () => {
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.VALIDATED_WITH_ERRORS }
+      },
+      types: typesDefault
+    })
+    expect(router.getLatestPage()).toBe('macro')
   })
 })

@@ -44,8 +44,8 @@ describe('submitform', function() {
     expect(input.value).toEqual('')
   })
 
-  it('calls the poll', () => {
-    expect(pollSubmission).toBeCalled()
+  it('does not call the poll when code is PARSED WITH ERRORS', () => {
+    expect(pollSubmission).not.toBeCalled()
   })
 
   const n2 = document.createElement('div')
