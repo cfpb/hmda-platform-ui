@@ -61,7 +61,7 @@ export function mapDispatchToProps(dispatch) {
       })
     } else {
       return dispatch(fetchNewSubmission(id, period)).then(() => {
-        browserHistory.replace(`/${id}/${period}`)
+        browserHistory.replace(`/${id}/${period}/upload`)
       })
     }
   }
