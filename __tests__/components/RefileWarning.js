@@ -23,11 +23,11 @@ describe('Refile Warning', () => {
   const parserText =
     'Your file has formatting errors.Please update your file and select the "Upload a new file" button.'
   const refileText =
-    'Your file has syntactical and/or validity edits.Please review the edits below or download the edit report.Then update your file and select the "Upload a new file" button.'
+    'Your file has syntactical and/or validity edits.Please review the edits or download the edit report.Then update your file and select the "Upload a new file" button.'
   const qualityText =
-    'Your file has quality edits.Please review the edits below or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
+    'Your file has quality edits.Please review the edits or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
   const macroText =
-    'Your file has macro quality edits.Please review the edits below or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
+    'Your file has macro quality edits.Please review the edits or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
 
   it('renders the correct elements for status code 5 and calls function on click', () => {
     const refileWarning = TestUtils.renderIntoDocument(
