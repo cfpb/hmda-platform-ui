@@ -102,6 +102,7 @@ render(
           <Route path="/institutions" component={InstitutionContainer} />
           <Route path="/:institution/:filing" component={SubmissionRouter} />
           <Route path="/:institution/:filing/*" component={SubmissionRouter} />
+          <Route path="/*" component={SubmissionRouter} />
         </Route>
       </Router>
     </OidcProvider>
