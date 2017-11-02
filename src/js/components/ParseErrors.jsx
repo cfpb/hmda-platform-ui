@@ -1,8 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import RefileWarningContainer from '../containers/RefileWarning.jsx'
+import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
 import Pagination from '../containers/Pagination.jsx'
 
-const renderTSErrors = ({ transmittalSheetErrors }) => {
+const RefileWarning = submissionProgressHOC(RefileWarningContainer)
+
+export const renderTSErrors = ({ transmittalSheetErrors }) => {
   if (transmittalSheetErrors.length === 0) return null
   return (
     <table width="100%">
@@ -33,7 +37,7 @@ const renderTSErrors = ({ transmittalSheetErrors }) => {
   )
 }
 
-const renderLarErrors = ({ larErrors, ...props }) => {
+export const renderLarErrors = ({ larErrors, ...props }) => {
   if (larErrors.length === 0) return null
   const caption = (
     <caption>
@@ -102,6 +106,7 @@ const ParseErrors = props => {
       {renderTSErrors(props)}
       {renderLarErrors(props)}
       <Pagination isFetching={props.isFetching} target="parseErrors" />
+      <RefileWarning />
     </section>
   )
 }
