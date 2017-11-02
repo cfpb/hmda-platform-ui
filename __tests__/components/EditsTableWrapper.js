@@ -57,7 +57,7 @@ describe('EditsTableWrapper', () => {
     }
     const rendered = EditsTableWrapper(localProps)
     expect(rendered.props.children[1].props.children[1].length).toBe(3)
-    expect(rendered.props.children[2]).toBe(null)
+    expect(rendered.props.children[3]).toBe(null)
   })
 })
 
