@@ -4,7 +4,11 @@ import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import LoadingIcon from './LoadingIcon.jsx'
 import EditsTable from './EditsTable.jsx'
 import Verifier from '../containers/Verifier.jsx'
+import RefileWarningContainer from '../containers/RefileWarning.jsx'
+import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
 import Alert from './Alert.jsx'
+
+const RefileWarning = submissionProgressHOC(RefileWarningContainer)
 
 export const getTotalTypeCount = (edits, pagination) => {
   let count = 0
@@ -77,6 +81,7 @@ const EditsTableWrapper = props => {
     <section className="EditsTableWrapper">
       {loading}
       {makeEntry(props, type)}
+      <RefileWarning />
       {type === 'quality' || type === 'macro' ? <Verifier type={type} /> : null}
       <hr />
     </section>
