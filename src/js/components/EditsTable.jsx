@@ -86,7 +86,7 @@ export const makeTable = props => {
   const rowObj = props.rows[name]
   const pagination = props.pagination[name]
 
-  if (!rowObj) return <LoadingIcon />
+  if (!rowObj || rowObj.isFetching) return <LoadingIcon />
 
   const caption = renderTableCaption(edit, rowObj, type, pagination)
   if (type === 'macro') return caption
@@ -110,12 +110,13 @@ export const makeTable = props => {
 const EditsTable = props => {
   if (!props.edit || !props.pagination[props.edit.edit]) return null
   const name = props.edit.edit
+  const rowObj = props.rows[name]
 
   return (
     <section className="EditsTable" id={props.edit.edit}>
       {makeTable(props)}
       {props.type === 'macro' ? null : (
-        <Pagination isFetching={props.rows[name].isFetching} target={name} />
+        <Pagination isFetching={!rowObj || rowObj.isFetching} target={name} />
       )}
     </section>
   )

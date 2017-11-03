@@ -224,6 +224,17 @@ describe('makeTable', () => {
     expect(rendered.type).not.toBe('table')
   })
 
+  it('returns LoadingIcon on a loading row', () => {
+    const props = {
+      edit: types.syntactical.edits[0],
+      rows: { S020: { isFetching: true } },
+      type: 'syntactical',
+      pagination: { S020: { total: 3 } }
+    }
+    const rendered = makeTable(props)
+    expect(rendered.type).not.toBe('table')
+  })
+
   it('returns LoadingIcon on isFetching in rowObj', () => {
     const props = {
       edit: types.syntactical.edits[0],
