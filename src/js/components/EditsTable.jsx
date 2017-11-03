@@ -86,7 +86,7 @@ export const makeTable = props => {
   const rowObj = props.rows[name]
   const pagination = props.pagination[name]
 
-  if (!rowObj || rowObj.isFetching) return <LoadingIcon />
+  if (!rowObj || !rowObj.rows) return <LoadingIcon />
 
   const caption = renderTableCaption(edit, rowObj, type, pagination)
   if (type === 'macro') return caption
