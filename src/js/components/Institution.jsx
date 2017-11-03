@@ -14,10 +14,18 @@ const Institution = ({
   submissions,
   onDownloadClick
 }) => {
-  if (!filing)
-    return (
-      <div className="usa-grid-full">
-        <section className="institution">
+  const status = submission && submission.status
+
+  return (
+    <div className="usa-grid-full">
+      <section className="institution">
+        {/*
+        a filing should be created when an institution is created
+        so this shouldn't happen but just in case ...
+        render an alert if we don't have filings for an institution
+        otherwise show the current status
+        */}
+        {!filing ? (
           <div className="current-status">
             <InstitutionNameAndId name={institution.name} id={institution.id} />
             <Alert type="error">
@@ -27,40 +35,35 @@ const Institution = ({
               </p>
             </Alert>
           </div>
-        </section>
-      </div>
-    )
+        ) : (
+          <div className="current-status">
+            <InstitutionNameAndId name={institution.name} id={institution.id} />
 
-  const status = submission && submission.status
+            <InstitutionStatus
+              institutionId={institution.id}
+              filing={filing}
+              submission={submission}
+              onDownloadClick={onDownloadClick}
+            />
 
-  return (
-    <div className="usa-grid-full">
-      <section className="institution">
-        <div className="current-status">
-          <InstitutionNameAndId name={institution.name} id={institution.id} />
+            <InstitutionViewButton
+              status={status}
+              institutionId={institution.id}
+              filingPeriod={filing.period}
+            />
 
-          <InstitutionStatus
-            institutionId={institution.id}
-            filing={filing}
-            submission={submission}
-            onDownloadClick={onDownloadClick}
-          />
-
-          <InstitutionViewButton
-            status={status}
+            <InstitutionRefile institution={institution} status={status} />
+          </div>
+        )}
+        {/* we can only show history if there is a filing */}
+        {filing ? (
+          <InstitutionSubmissionHistory
+            submissions={submissions}
             institutionId={institution.id}
             filingPeriod={filing.period}
+            onDownloadClick={onDownloadClick}
           />
-
-          <InstitutionRefile institution={institution} status={status} />
-        </div>
-
-        <InstitutionSubmissionHistory
-          submissions={submissions}
-          institutionId={institution.id}
-          filingPeriod={filing.period}
-          onDownloadClick={onDownloadClick}
-        />
+        ) : null}
       </section>
     </div>
   )
