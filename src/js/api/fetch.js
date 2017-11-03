@@ -50,7 +50,7 @@ export function fetch(options = { method: 'GET' }) {
         if (response.status === 401) signinRedirect()
         if (response.status > 399) resolve(response)
         if (options.params && options.params.format === 'csv') {
-          resolve(response.text())
+          return resolve(response.text())
         }
         setTimeout(() => resolve(response.json()), 0)
       })
