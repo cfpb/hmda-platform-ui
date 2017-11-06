@@ -18,24 +18,14 @@ const Institution = ({
 
   return (
     <div className="usa-grid-full">
-      <section className="institution">
-        {/*
+      {/*
         a filing should be created when an institution is created
         so this shouldn't happen but just in case ...
-        render an alert if we don't have filings for an institution
-        otherwise show the current status
-        */}
-        {!filing ? (
-          <div className="current-status">
-            <InstitutionNameAndId name={institution.name} id={institution.id} />
-            <Alert type="error">
-              <p>
-                There was a problem initializing your filing. Please contact{' '}
-                <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
-              </p>
-            </Alert>
-          </div>
-        ) : (
+        render the current status if there is a filing
+        otherwise render an alert
+      */}
+      {filing ? (
+        <section className="institution">
           <div className="current-status">
             <InstitutionNameAndId name={institution.name} id={institution.id} />
 
@@ -54,17 +44,26 @@ const Institution = ({
 
             <InstitutionRefile institution={institution} status={status} />
           </div>
-        )}
-        {/* we can only show history if there is a filing */}
-        {filing ? (
           <InstitutionSubmissionHistory
             submissions={submissions}
             institutionId={institution.id}
             filingPeriod={filing.period}
             onDownloadClick={onDownloadClick}
           />
-        ) : null}
-      </section>
+        </section>
+      ) : (
+        <section className="institution">
+          <div className="current-status">
+            <InstitutionNameAndId name={institution.name} id={institution.id} />
+            <Alert type="error">
+              <p>
+                There was a problem initializing your filing. Please contact{' '}
+                <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
+              </p>
+            </Alert>
+          </div>
+        </section>
+      )}
     </div>
   )
 }
