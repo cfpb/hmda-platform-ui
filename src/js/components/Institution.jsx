@@ -14,9 +14,44 @@ const Institution = ({
   submissions,
   onDownloadClick
 }) => {
-  if (!filing)
-    return (
-      <div className="usa-grid-full">
+  const status = submission && submission.status
+
+  return (
+    <div className="usa-grid-full">
+      {/*
+        a filing should be created when an institution is created
+        so this shouldn't happen but just in case ...
+        render the current status if there is a filing
+        otherwise render an alert
+      */}
+      {filing ? (
+        <section className="institution">
+          <div className="current-status">
+            <InstitutionNameAndId name={institution.name} id={institution.id} />
+
+            <InstitutionStatus
+              institutionId={institution.id}
+              filing={filing}
+              submission={submission}
+              onDownloadClick={onDownloadClick}
+            />
+
+            <InstitutionViewButton
+              status={status}
+              institutionId={institution.id}
+              filingPeriod={filing.period}
+            />
+
+            <InstitutionRefile institution={institution} status={status} />
+          </div>
+          <InstitutionSubmissionHistory
+            submissions={submissions}
+            institutionId={institution.id}
+            filingPeriod={filing.period}
+            onDownloadClick={onDownloadClick}
+          />
+        </section>
+      ) : (
         <section className="institution">
           <div className="current-status">
             <InstitutionNameAndId name={institution.name} id={institution.id} />
@@ -28,40 +63,7 @@ const Institution = ({
             </Alert>
           </div>
         </section>
-      </div>
-    )
-
-  const status = submission && submission.status
-
-  return (
-    <div className="usa-grid-full">
-      <section className="institution">
-        <div className="current-status">
-          <InstitutionNameAndId name={institution.name} id={institution.id} />
-
-          <InstitutionStatus
-            institutionId={institution.id}
-            filing={filing}
-            submission={submission}
-            onDownloadClick={onDownloadClick}
-          />
-
-          <InstitutionViewButton
-            status={status}
-            institutionId={institution.id}
-            filingPeriod={filing.period}
-          />
-
-          <InstitutionRefile institution={institution} status={status} />
-        </div>
-
-        <InstitutionSubmissionHistory
-          submissions={submissions}
-          institutionId={institution.id}
-          filingPeriod={filing.period}
-          onDownloadClick={onDownloadClick}
-        />
-      </section>
+      )}
     </div>
   )
 }
