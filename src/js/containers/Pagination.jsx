@@ -23,9 +23,13 @@ function mapStateToProps(state, ownProps) {
   let isFetching
 
   if (stateTarget !== 'parseErrors' && stateTarget !== 'irs') {
-    isFetching = state.app.edits.rows[stateTarget].isFetching
+    if (state.app.edits.rows[stateTarget]) {
+      isFetching = state.app.edits.rows[stateTarget].isFetching
+    }
   } else {
-    isFetching = state.app[stateTarget].isFetching
+    if (state.app[stateTarget]) {
+      isFetching = state.app[stateTarget].isFetching
+    }
   }
 
   fetchChecker[ownProps.target] = isFetching

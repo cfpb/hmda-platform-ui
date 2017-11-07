@@ -54,7 +54,12 @@ describe('Pagination Container', () => {
   it('maps state to props with proper defaults', () => {
     expect(
       mapStateToProps(
-        { app: { pagination: defaultPagination } },
+        {
+          app: {
+            pagination: defaultPagination,
+            parseErrors: { isFetching: false }
+          }
+        },
         { target: 'parseErrors' }
       )
     ).toEqual({ pagination: null })
@@ -63,7 +68,12 @@ describe('Pagination Container', () => {
   it('maps state properly when given a pagination object is present', () => {
     expect(
       mapStateToProps(
-        { app: { pagination: { parseErrors: pageObj } } },
+        {
+          app: {
+            pagination: { parseErrors: pageObj },
+            parseErrors: { isFetching: false }
+          }
+        },
         { target: 'parseErrors' }
       )
     ).toEqual({ pagination: pageObj })
@@ -72,7 +82,13 @@ describe('Pagination Container', () => {
   it('maps state to undefined when given an invalid target', () => {
     expect(
       mapStateToProps(
-        { app: { pagination: { parseErrors: pageObj } } },
+        {
+          app: {
+            pagination: { parseErrors: pageObj },
+            parseErrors: { isFetching: false },
+            edits: { rows: { argle: '123' } }
+          }
+        },
         { target: 'fake' }
       )
     ).toEqual({ pagination: undefined })
@@ -115,8 +131,15 @@ describe('Pagination Container', () => {
     const err = console.error
     console.error = jest.fn()
     const pagination = TestUtils.renderIntoDocument(
-      <Wrapper store={{ app: { pagination: defaultPagination } }}>
-        <Connected />
+      <Wrapper
+        store={{
+          app: {
+            pagination: defaultPagination,
+            edits: { rows: { argle: '123' } }
+          }
+        }}
+      >
+        <Connected target="argle" />
       </Wrapper>
     )
 
