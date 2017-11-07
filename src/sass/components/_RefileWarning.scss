@@ -11,6 +11,10 @@
   animation: 0.3s ease-out 0s 1 animateWarningHeader;
   text-align: left;
 
+  &:first-child {
+    margin-bottom: 2em;
+  }
+
   .usa-alert {
     margin-top: 0;
   }
