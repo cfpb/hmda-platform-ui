@@ -30,21 +30,21 @@ const syntacticalValidity = {
   id: 'syntacticalvalidity',
   title: 'Syntactical and validity edits',
   desc:
-    'Syntactical edits show if the loan/application register format is incorrect and if the data doesn’t cover the correct filing year. Validity edits show if there are invalid values in data fields. Your HMDA data cannot be submitted until syntactical and validity edits are corrected in your file.'
+    'Syntactical edits check whether the LAR is formatted correctly and the data is from the correct filing year. Validity edits check whether there are valid values in each data field. Your LAR cannot be submitted until syntactical and validity edits are corrected in your file and the corrected file is uploaded.'
 }
 
 const quality = {
   id: 'quality',
   title: 'Quality edits',
   desc:
-    'Quality edits show if data fields do not conform to expected values. Your HMDA file cannot be submitted until the data has been verified or your file has been corrected.'
+    'Quality edits check if data fields do not conform to expected values. Your LAR cannot be submitted until you either confirm the accuracy of all the values flagged by the quality edits in the HMDA Platform, or correct the flagged values and upload the updated LAR to the HMDA Platform.'
 }
 
 const macro = {
   id: 'macro',
   title: 'Macro edits',
   desc:
-    'Macro quality edits check whether the submitted loan/application register as a whole conforms to expected values. The loan/application register cannot be submitted until the filer either confirms the accuracy of all the values flagged by the macro quality edits in the HMDA Platform or corrects the flagged values and reuploads the updated loan/application register to the HMDA Platform.'
+    'Macro quality edits check whether the submitted LAR as a whole conforms to expected values. Your LAR cannot be submitted until you either confirm the accuracy of all the values flagged by the macro quality edits in the HMDA Platform, or correct the flagged values and upload the updated LAR to the HMDA Platform.'
 }
 
 describe('getText', () => {

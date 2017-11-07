@@ -177,9 +177,9 @@ const IRSReport = props => {
       <header>
         <h2>Institution Register Summary</h2>
         <p className="usa-font-lead">
-          Please review your summarized HMDA data below. If the data are
-          incorrect, please update your file and select the &quot;Update a new
-          file&quot; button. You will need to begin the filing process again.
+          Please review your Institution Register Summary below. If you discover
+          an error in your IRS, please update your file and select the
+          &quot;Update a new file&quot; button.
         </p>
         {renderDownloadLink(props)}
       </header>

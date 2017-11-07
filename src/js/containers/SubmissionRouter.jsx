@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router'
 import SubmissionContainer from './Submission.jsx'
 import LoadingIcon from '../components/LoadingIcon.jsx'
 import fetchSubmission from '../actions/fetchSubmission.js'
+import fetchEdits from '../actions/fetchEdits.js'
 import refreshState from '../actions/refreshState.js'
 import {
   UNINITIALIZED,
@@ -13,6 +14,7 @@ import {
 } from '../constants/statusCodes.js'
 
 const editTypes = ['syntacticalvalidity', 'quality', 'macro']
+const submissionRoutes = ['upload', ...editTypes, 'submission']
 
 export class SubmissionRouter extends Component {
   constructor(props) {
@@ -21,20 +23,42 @@ export class SubmissionRouter extends Component {
 
   componentDidMount() {
     this.renderChildren = false
-    const status = this.props.submission.status
+    const { submission, params, dispatch } = this.props
+    const status = submission.status
 
-    if (
-      this.props.submission.id &&
-      this.props.submission.id.institutionId !== this.props.params.institution
-    )
-      this.props.dispatch(refreshState())
-    if (!status || status.code === UNINITIALIZED) {
-      this.props.dispatch(fetchSubmission()).then(json => {
+    if (!params.institution || !params.filing) {
+      return browserHistory.replace('/')
+    }
+
+    const unmatchedId =
+      submission.id && submission.id.institutionId !== params.institution
+
+    if (unmatchedId) dispatch(refreshState())
+
+    if (unmatchedId || !status || status.code === UNINITIALIZED) {
+      return dispatch(fetchSubmission()).then(json => {
+        if (this.editsNeeded()) {
+          dispatch(fetchEdits()).then(json => {
+            this.route()
+          })
+        } else {
+          this.route()
+        }
+      })
+    }
+
+    if (this.editsNeeded()) {
+      return dispatch(fetchEdits()).then(json => {
         this.route()
       })
-    } else {
-      this.route()
     }
+
+    this.route()
+  }
+
+  editsNeeded() {
+    const { submission } = this.props
+    return submission.status.code === VALIDATED_WITH_ERRORS
   }
 
   replaceHistory(splat) {
@@ -42,19 +66,37 @@ export class SubmissionRouter extends Component {
     return browserHistory.replace(`/${institution}/${filing}/${splat}`)
   }
 
+  getLatestPage() {
+    const status = this.props.submission.status
+    const code = status.code
+    const types = this.props.types
+
+    const synvalExist = !!(
+      types.syntactical.edits.length + types.validity.edits.length
+    )
+    const qualityExist = !!types.quality.edits.length
+
+    if (code < VALIDATED_WITH_ERRORS) return 'upload'
+    if (code > VALIDATED_WITH_ERRORS) return 'submission'
+    if (synvalExist) return 'syntacticalvalidity'
+    if (qualityExist) return 'quality'
+    return 'macro'
+  }
+
   route() {
     const status = this.props.submission.status
     const code = status.code
     const splat = this.props.params.splat
+    const latest = this.getLatestPage()
 
     this.renderChildren = true
 
-    if (code === FAILED) {
-      return (
-        <div className="SubmissionContainer">
-          <p>{status.message}</p>
-        </div>
-      )
+    if (!splat) {
+      return this.replaceHistory(latest)
+    }
+
+    if (!submissionRoutes.includes(splat)) {
+      return browserHistory.replace('/')
     }
 
     if (code < VALIDATED_WITH_ERRORS)
@@ -62,43 +104,52 @@ export class SubmissionRouter extends Component {
       else return this.replaceHistory('upload')
 
     if (code === VALIDATED_WITH_ERRORS) {
-      if (editTypes.includes(splat)) {
-        return this.forceUpdate()
+      if (splat === latest) return this.forceUpdate()
+      else if (
+        submissionRoutes.indexOf(splat) > submissionRoutes.indexOf(latest)
+      ) {
+        return this.replaceHistory(latest)
       }
-      return this.replaceHistory('syntacticalvalidity')
     }
 
-    if (splat) return this.forceUpdate()
-    return this.replaceHistory('submission')
+    return this.forceUpdate()
   }
 
   render() {
+    const { submission, params } = this.props
+
+    if (submission.status.code === FAILED)
+      return (
+        <div className="SubmissionContainer">
+          <p>{submission.status.message}</p>
+        </div>
+      )
     if (
-      this.props.submission.status.code === UNINITIALIZED ||
-      this.props.submission.id.institutionId !==
-        this.props.params.institution ||
-      !this.renderChildren
+      submission.status.code === UNINITIALIZED ||
+      submission.id.institutionId !== params.institution ||
+      !this.renderChildren ||
+      !params.splat
     )
       return <LoadingIcon className="floatingIcon" />
-    if (!this.props.params.splat) {
-      setTimeout(() => this.replaceHistory('upload'), 0)
-      return <LoadingIcon className="floatingIcon" />
-    }
     return <SubmissionContainer {...this.props} />
   }
 }
 
 export function mapStateToProps(state, ownProps) {
   const { submission } = state.app
+  const { types } = state.app.edits
 
   const { params } = ownProps
 
   return {
     submission,
+    types,
     params
   }
 }
 
-export default connect(mapStateToProps, dispatch => {
+export function mapDispatchToProps(dispatch) {
   return { dispatch }
-})(SubmissionRouter)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubmissionRouter)

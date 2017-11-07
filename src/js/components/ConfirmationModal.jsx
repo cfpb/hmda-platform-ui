@@ -17,11 +17,24 @@ export function _focusIfShowing() {
   }
 }
 
+let _escKeyPress = function(event) {
+  if (this.props.showing && event.keyCode === 27) {
+    this.props.hideConfirmModal()
+  }
+}
+
 export default class ModalConfirm extends Component {
   componentDidMount() {
     this.componentDidUpdate = _focusIfShowing.bind(this)
     _focusButton = _focusButton.bind(this)
     _focusLink = _focusLink.bind(this)
+    _escKeyPress = _escKeyPress.bind(this)
+
+    document.addEventListener('keydown', _escKeyPress, false)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', _escKeyPress, false)
   }
 
   render() {

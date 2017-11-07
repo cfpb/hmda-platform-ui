@@ -15,6 +15,21 @@
       "id": {
         "institutionId": "1",
         "period": "2017",
+        "sequenceNumber": 5
+      },
+      "status": {
+        "code": 1,
+        "message": "created",
+        "description":
+          "The filing period is now open and available to accept HMDA data."
+      },
+      "start": 1482169555559,
+      "end": 0
+    },
+    {
+      "id": {
+        "institutionId": "1",
+        "period": "2017",
         "sequenceNumber": 4
       },
       "status": {

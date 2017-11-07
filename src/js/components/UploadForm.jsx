@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
+import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 
 export const renderValidationProgress = ({ code, uploading, file, id }) => {
@@ -36,7 +37,7 @@ const _getUploadMessage = (preText, filename, postText, howToMessage) => {
   )
 }
 
-export const getDropzoneText = ({ code, errors, filename }) => {
+export const getDropzoneText = ({ code, errors, filename, errorFile }) => {
   let howToMessage =
     'To begin uploading a file, drag it into this box or click here.'
   if (code >= STATUS.CREATED) {
@@ -49,7 +50,7 @@ export const getDropzoneText = ({ code, errors, filename }) => {
     message = howToMessage
   }
 
-  if (filename) {
+  if (filename || errorFile) {
     message = _getUploadMessage('', filename, 'selected.', howToMessage)
 
     if (code >= STATUS.UPLOADING && code <= STATUS.VALIDATING) {
@@ -97,10 +98,10 @@ export const getDropzoneText = ({ code, errors, filename }) => {
       )
     }
 
-    if (errors.length > 0) {
+    if (errorFile) {
       message = _getUploadMessage(
         '',
-        filename,
+        errorFile,
         'can not be uploaded.',
         howToMessage
       )
@@ -116,19 +117,18 @@ export default class Upload extends Component {
 
     // handle the onDrop to set the file and show confirmation modal
     this.onDrop = acceptedFiles => {
-      const { code, showConfirmModal, setFile, setNewFile } = this.props
-
-      if (code >= STATUS.UPLOADING) {
-        showConfirmModal()
-        setNewFile(acceptedFiles)
-      } else {
-        setFile(acceptedFiles)
-      }
+      const { handleDrop, code } = this.props
+      handleDrop(acceptedFiles, code)
     }
   }
 
   componentDidMount() {
-    if (this.props.code >= STATUS.UPLOADING) this.props.pollSubmission()
+    if (
+      this.props.code >= STATUS.UPLOADING &&
+      this.props.code < STATUS.VALIDATED_WITH_ERRORS &&
+      this.props.code !== STATUS.PARSED_WITH_ERRORS
+    )
+      this.props.pollSubmission()
   }
 
   render() {
@@ -136,6 +136,12 @@ export default class Upload extends Component {
       <section className="UploadForm">
         {renderErrors(this.props.errors)}
         <section className="container-upload">
+          <Alert type="warning">
+            <p>
+              All test data uploaded during the beta period will be removed from
+              the system when the filing period opens on January 1st, 2018.
+            </p>
+          </Alert>
           <Dropzone
             disablePreview={true}
             onDrop={this.onDrop}
@@ -152,13 +158,12 @@ export default class Upload extends Component {
 }
 
 Upload.propTypes = {
-  setFile: PropTypes.func,
-  setNewFile: PropTypes.func,
-  showConfirmModal: PropTypes.func,
+  handleDrop: PropTypes.func,
   pollSubmission: PropTypes.func,
   uploading: PropTypes.bool,
   filename: PropTypes.string,
   file: PropTypes.object,
   code: PropTypes.number,
-  errors: PropTypes.array
+  errors: PropTypes.array,
+  errorFile: PropTypes.string
 }

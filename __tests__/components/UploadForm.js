@@ -44,8 +44,8 @@ describe('submitform', function() {
     expect(input.value).toEqual('')
   })
 
-  it('calls the poll', () => {
-    expect(pollSubmission).toBeCalled()
+  it('does not call the poll when code is PARSED WITH ERRORS', () => {
+    expect(pollSubmission).not.toBeCalled()
   })
 
   const n2 = document.createElement('div')
@@ -192,7 +192,8 @@ describe('getDropZoneText', () => {
     const rendered = getDropzoneText({
       code: 10,
       errors: ['an error'],
-      filename: 'filename.txt'
+      filename: 'filename.txt',
+      errorFile: 'afile'
     })
     expect(rendered.props.children.props.children.length).toBe(2)
     expect(rendered.props.children.props.children[1].props.children[4]).toBe(

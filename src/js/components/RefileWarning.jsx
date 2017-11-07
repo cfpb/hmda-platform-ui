@@ -15,7 +15,7 @@ export const getText = props => {
   let periodAfter = false
   let reviewAndDownload = (
     <p>
-      Please review the edits below or{' '}
+      Please review the edits or{' '}
       <a
         href="#"
         onClick={e => {

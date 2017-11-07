@@ -1,9 +1,6 @@
 import { connect } from 'react-redux'
 import Upload from '../components/UploadForm.jsx'
-import selectFile from '../actions/selectFile.js'
-import selectNewFile from '../actions/selectNewFile.js'
-import fetchUpload from '../actions/fetchUpload.js'
-import showConfirm from '../actions/showConfirm.js'
+import handleFile from '../actions/handleFile.js'
 import pollForProgress from '../actions/pollForProgress.js'
 import * as Poller from '../actions/Poller.js'
 
@@ -12,11 +9,12 @@ export function mapStateToProps(state) {
   const code = state.app.submission.status.code
   const filename = state.app.submission.filename
 
-  const { uploading, file, errors } = state.app.upload[id] || {
+  const { uploading, file, errors, errorFile } = state.app.upload[id] || {
     uploading: false,
     file: null,
     newFile: null,
-    errors: []
+    errors: [],
+    errorFile: errorFile
   }
 
   return {
@@ -24,6 +22,7 @@ export function mapStateToProps(state) {
     file,
     filename,
     errors,
+    errorFile,
     id,
     code
   }
@@ -31,22 +30,11 @@ export function mapStateToProps(state) {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    setFile: acceptedFiles => {
+    handleDrop(acceptedFiles, code) {
       if (!acceptedFiles) return
-      dispatch(selectFile(acceptedFiles[0]))
-      dispatch(fetchUpload(acceptedFiles[0]))
+      dispatch(handleFile(acceptedFiles[0], code))
     },
-
-    setNewFile: acceptedFiles => {
-      if (!acceptedFiles) return
-      dispatch(selectNewFile(acceptedFiles[0]))
-    },
-
-    showConfirmModal: () => {
-      dispatch(showConfirm())
-    },
-
-    pollSubmission: () => {
+    pollSubmission() {
       dispatch(pollForProgress(Poller.set(true)))
     }
   }

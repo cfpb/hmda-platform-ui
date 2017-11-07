@@ -1,11 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { browserHistory } from 'react-router'
 import EditsHeaderDescription from './EditsHeaderDescription.jsx'
 import LoadingIcon from './LoadingIcon.jsx'
 import EditsTable from './EditsTable.jsx'
 import Verifier from '../containers/Verifier.jsx'
+import RefileWarningContainer from '../containers/RefileWarning.jsx'
+import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
 import Alert from './Alert.jsx'
+
+const RefileWarning = submissionProgressHOC(RefileWarningContainer)
 
 export const getTotalTypeCount = (edits, pagination) => {
   let count = 0
@@ -42,8 +45,9 @@ export const renderTablesOrSuccess = (props, edits, type) => {
   if (edits.length === 0) {
     const verificationMsg =
       type === 'quality' || type === 'macro'
-        ? ', no verification is required.'
+        ? '; no verification is required.'
         : '.'
+    type = type === 'syntacticalvalidity' ? 'syntactical or validity' : type
     return (
       <Alert type="success">
         <p>
@@ -69,18 +73,6 @@ export const renderTablesOrSuccess = (props, edits, type) => {
 
 const EditsTableWrapper = props => {
   const type = props.page
-  if (
-    props.fetched &&
-    (type === 'macro' || type === 'quality') &&
-    props.syntacticalValidityEditsExist
-  ) {
-    setTimeout(
-      () => browserHistory.replace(props.base + '/syntacticalvalidity'),
-      0
-    )
-    return null
-  }
-
   const loading = !props.fetched || props.isFetching ? <LoadingIcon /> : null
 
   return loading ? (
@@ -89,6 +81,7 @@ const EditsTableWrapper = props => {
     <section className="EditsTableWrapper">
       {loading}
       {makeEntry(props, type)}
+      <RefileWarning />
       {type === 'quality' || type === 'macro' ? <Verifier type={type} /> : null}
       <hr />
     </section>

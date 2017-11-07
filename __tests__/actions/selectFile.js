@@ -18,7 +18,7 @@ describe('selectFile', () => {
     const file = { size: 42, name: 'test.txt' }
     store.dispatch(selectFile(file))
     expect(store.getActions()).toEqual([
-      { type: types.SELECT_FILE, file, errors: [], id: '123' }
+      { type: types.SELECT_FILE, file, id: '123' }
     ])
   })
 })
