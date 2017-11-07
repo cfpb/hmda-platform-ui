@@ -19,6 +19,11 @@ export class IRSReportContainer extends Component {
     this.props.dispatch(cancelIRSFetch())
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (this.props.paginationFade !== nextProps.paginationFade) return true
+    return !nextProps.paginationFade
+  }
+
   render() {
     return <IRSReport {...this.props} />
   }

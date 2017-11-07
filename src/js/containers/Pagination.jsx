@@ -19,6 +19,20 @@ class PaginationContainer extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
+  const stateTarget = ownProps.target
+  let isFetching
+
+  if (stateTarget !== 'parseErrors' && stateTarget !== 'irs') {
+    if (state.app.edits.rows[stateTarget]) {
+      isFetching = state.app.edits.rows[stateTarget].isFetching
+    }
+  } else {
+    if (state.app[stateTarget]) {
+      isFetching = state.app[stateTarget].isFetching
+    }
+  }
+
+  fetchChecker[ownProps.target] = isFetching
   return {
     pagination: state.app.pagination[ownProps.target]
   }
@@ -36,8 +50,6 @@ function fetchAndFade(dispatch, target, pagination, link) {
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-  fetchChecker[ownProps.target] = ownProps.isFetching
-
   return {
     getPage: (pagination, page) => {
       if (!pagination || page === undefined) return

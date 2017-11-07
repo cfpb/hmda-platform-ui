@@ -16,6 +16,24 @@ export class EditsContainer extends Component {
       this.props.dispatch(fetchEdits())
   }
 
+  didPaginationUpdate(oldFade, newFade) {
+    const nextKeys = Object.keys(newFade)
+
+    for (let i = 0; i < nextKeys.length; i++) {
+      if (oldFade[nextKeys[i]] !== newFade[nextKeys[i]]) return true
+    }
+
+    return false
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if (!Object.keys(nextProps.paginationFade).length) return true
+    return this.didPaginationUpdate(
+      this.props.paginationFade,
+      nextProps.paginationFade
+    )
+  }
+
   render() {
     return <EditsTableWrapper {...this.props} />
   }

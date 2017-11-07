@@ -17,6 +17,11 @@ export class ParseErrorsContainer extends Component {
       this.props.dispatch(fetchParseErrors())
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (this.props.paginationFade !== nextProps.paginationFade) return true
+    return !nextProps.paginationFade
+  }
+
   render() {
     return <ParseErrors {...this.props} />
   }
