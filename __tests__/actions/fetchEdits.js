@@ -32,4 +32,27 @@ describe('fetchEdits', () => {
         done.fail()
       })
   })
+  it('handled errors when introduced', done => {
+    const store = mockStore({})
+    getEdits.mockImplementation(id =>
+      Promise.resolve({ status: 404, statusText: 'argle' })
+    )
+
+    store
+      .dispatch(fetchEdits())
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          { type: types.REQUEST_EDITS },
+          {
+            type: types.RECEIVE_ERROR,
+            error: { status: 404, statusText: 'argle' }
+          }
+        ])
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
+  })
 })

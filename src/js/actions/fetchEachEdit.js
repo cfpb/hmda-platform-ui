@@ -8,11 +8,12 @@ import { error } from '../utils/log.js'
 
 export default function fetchEachEdit(editTypes) {
   return dispatch => {
+    const promises = []
     Object.keys(editTypes).forEach(key => {
-      if (key !== 'status') {
-        editTypes[key].edits &&
-          editTypes[key].edits.forEach(edit => {
-            dispatch(requestEdit(edit.edit))
+      if (key !== 'status' && editTypes[key].edits) {
+        editTypes[key].edits.forEach(edit => {
+          dispatch(requestEdit(edit.edit))
+          promises.push(
             getEdit({ submission: getId(), edit: edit.edit })
               .then(json => {
                 return hasHttpError(json).then(hasError => {
@@ -24,8 +25,10 @@ export default function fetchEachEdit(editTypes) {
                 })
               })
               .catch(err => error(err))
-          })
+          )
+        })
       }
     })
+    return Promise.all(promises)
   }
 }
