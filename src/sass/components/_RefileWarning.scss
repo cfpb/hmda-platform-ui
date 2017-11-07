@@ -9,33 +9,14 @@
 
 .RefileWarning {
   animation: 0.3s ease-out 0s 1 animateWarningHeader;
-  text-align: left;
 
   &:first-child {
     margin-bottom: 2em;
   }
 
-  .usa-alert {
-    margin-top: 0;
-  }
-
   .usa-alert-body {
     display: block;
-    margin: 0 auto;
-    padding: 0 3rem;
     position: relative;
-    max-width: 1040px;
-  }
-
-  .usa-alert-text {
-    font-size: 1em;
-    p {
-      margin: 0.25em 0;
-    }
-
-    a {
-      font-weight: bold;
-    }
   }
 
   .RefileButton {
@@ -43,11 +24,5 @@
     top: 50%;
     right: 0;
     transform: translate(0, -50%);
-  }
-
-  &.usa-alert-error {
-    .usa-alert-text {
-      max-width: 70rem;
-    }
   }
 }
