@@ -1,9 +1,8 @@
 import React from 'react'
-import { CallbackComponent } from 'redux-oidc'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { set } from '../api/AccessToken.js'
-import { restorePage } from '../utils/redirect'
+import { restorePage, getUserManager } from '../utils/redirect'
 import LoadingIcon from '../components/LoadingIcon.jsx'
 
 export class oidcCallback extends React.Component {
@@ -20,16 +19,16 @@ export class oidcCallback extends React.Component {
     if (!this.props.location.hash) browserHistory.replace('/')
   }
 
+  componentDidMount() {
+    getUserManager()
+      .signinRedirectCallback()
+      .then(user => this.successCallback(user))
+      .catch(error => this.errorCallback(error))
+  }
+
   render() {
     if (!this.props.location.hash) return null
-    return (
-      <CallbackComponent
-        successCallback={this.successCallback}
-        errorCallback={this.errorCallback}
-      >
-        <LoadingIcon className="floatingIcon" />
-      </CallbackComponent>
-    )
+    return <LoadingIcon className="floatingIcon" />
   }
 }
 

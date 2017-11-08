@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { signinRedirect } from '../utils/redirect'
+import { getUserManager, signinRedirect } from '../utils/redirect'
 import ConfirmationModal from './ConfirmationModal.jsx'
 import LoggedOutModal from './LoggedOutModal.jsx'
 import * as AccessToken from '../api/AccessToken.js'
@@ -8,6 +8,9 @@ import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
 import BrowserBlocker from '../components/BrowserBlocker.jsx'
 import LoadingIcon from '../components/LoadingIcon.jsx'
+import makeAction from '../actions/makeAction.js'
+import { error } from '../utils/log.js'
+import { USER_LOADING, USER_EXPIRED, USER_FOUND } from '../constants'
 import browser from 'detect-browser'
 
 export class AppContainer extends Component {
@@ -38,33 +41,43 @@ export class AppContainer extends Component {
 
   _isProtected(props) {
     return (
-      !this._isOidc(this.props) &&
-      !this._isHome(this.props) &&
-      (this.props.expired || !this.props.oidc.user)
+      !this._isOidc(this.props) && !this._isHome(this.props) && !this.props.oidc
     )
   }
 
-  _setOrRedirect(props) {
-    const isHome = this._isHome(props)
-    const isOidc = this._isOidc(props)
-
-    if (props.oidc.user) AccessToken.set(props.oidc.user.access_token)
-    if (isHome) return
-
-    if (!isOidc && props.expired) return signinRedirect()
-
-    if (!props.oidc.user) {
-      if (props.oidc.isLoadingUser) return
-      if (!isOidc) signinRedirect()
+  _handleUser(user) {
+    if (!user || user.expired) this.props.dispatch(makeAction(USER_EXPIRED))
+    else {
+      AccessToken.set(user.access_token)
+      this.props.dispatch(makeAction(USER_FOUND, user))
     }
   }
 
-  componentWillMount() {
-    this._setOrRedirect(this.props)
+  _userError(err) {
+    error('Error loading user.', err)
   }
 
-  componentWillUpdate(nextProps) {
-    this._setOrRedirect(nextProps)
+  componentWillMount() {
+    if (!this.props.oidc || this.props.oidc.expired) {
+      this.props.dispatch(makeAction(USER_LOADING))
+      getUserManager()
+        .getUser()
+        .then(this._handleUser.bind(this))
+        .catch(this._userError)
+    } else {
+      AccessToken.set(this.props.user.oidc.access_token)
+    }
+  }
+
+  componentWillUpdate(props) {
+    const isHome = this._isHome(props)
+    const isOidc = this._isOidc(props)
+
+    if (isHome) return
+    if (!props.oidc) {
+      if (props.isFetching) return
+      if (!isOidc) signinRedirect()
+    }
   }
 
   render() {
@@ -75,7 +88,7 @@ export class AppContainer extends Component {
         </a>
         <Header
           pathname={this.props.location.pathname}
-          user={this.props.oidc.user}
+          user={this.props.oidc}
         />
         {this.props.userError ? <LoggedOutModal /> : <ConfirmationModal />}
         {this._renderAppContents(this.props)}
@@ -86,16 +99,19 @@ export class AppContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const { oidc } = state
   const { redirecting } = state.app
-  const { expired, userError } = state.app.user
+  const { oidc, isFetching, userError } = state.app.user
 
   return {
     oidc,
-    redirecting,
-    expired,
-    userError
+    isFetching,
+    userError,
+    redirecting
   }
+}
+
+export function mapDispatchToProps(dispatch) {
+  return { dispatch }
 }
 
 export default connect(mapStateToProps)(AppContainer)
