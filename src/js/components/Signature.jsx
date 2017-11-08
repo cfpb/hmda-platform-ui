@@ -66,14 +66,14 @@ const Signature = props => {
         <li>
           <input
             id="signatureAuth"
-            name="signature"
+            name="signatureAuth"
             type="checkbox"
             value="signature"
             disabled={isDisabled}
             checked={props.checked}
             onChange={e => props.onSignatureCheck(e.target.checked)}
           />
-          <label htmlFor="signature" className="max-width-100">
+          <label htmlFor="signatureAuth" className="max-width-100">
             I understand this data being submitted is solely for testing
             purposes and will be removed from the system when the filing period
             begins on January 1st, 2018.
