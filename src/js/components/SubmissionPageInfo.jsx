@@ -9,14 +9,11 @@ const SubmissionPageInfo = () => {
         heading="Your filing is ready to be signed and submitted."
       >
         <div>
-          <p>
-            Please review your HMDA Test Filing Summary and sign your test
-            filing at the bottom of this page.
-          </p>
-          <p>
-            If you discover an error in the summary, you will need to update
-            your file and upload it again.
-          </p>
+          Please review your HMDA Test Filing Summary and sign your test filing
+          at the bottom of this page.
+          <br />
+          If you discover an error in the summary, you will need to update your
+          file and upload it again.
         </div>
       </Alert>
     </section>

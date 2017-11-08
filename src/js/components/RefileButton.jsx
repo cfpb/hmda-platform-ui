@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const RefileButton = props => {
   let refileStyle =
-    'RefileButton usa-button usa-button-secondary usa-text-small'
+    'RefileButton usa-button usa-text-small'
   if (props.isLink) {
     refileStyle = ''
     if (props.isLower) {

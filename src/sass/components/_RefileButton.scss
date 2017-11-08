@@ -1,4 +1,8 @@
 .RefileButton {
+  background-color: $color-secondary;
+  &:hover {
+    background-color: $color-secondary-dark;
+  }
   &:first-letter {
     text-transform: uppercase;
   }

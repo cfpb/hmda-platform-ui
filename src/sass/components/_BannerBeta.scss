@@ -1,8 +1,14 @@
 .BannerBeta {
   .usa-alert {
+    background-image: none;
     margin-top: 0;
-    padding: 3rem;
+    padding-left: 0;
+    /* removes the left border */
+    &.usa-alert-warning:before {
+      content: none;
+    }
     .usa-alert-body {
+      padding-left: 3rem;
       max-width: 77rem;
     }
   }

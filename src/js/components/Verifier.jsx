@@ -7,7 +7,7 @@ import { SIGNED } from '../constants/statusCodes.js'
 export const renderVerified = (verified, type) => {
   if (verified) {
     return (
-      <Alert type="success">
+      <Alert type="success" heading="Verified.">
         <p>
           <span>{type}</span> edits have been verified.
         </p>

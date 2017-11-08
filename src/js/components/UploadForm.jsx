@@ -136,7 +136,7 @@ export default class Upload extends Component {
       <section className="UploadForm">
         {renderErrors(this.props.errors)}
         <section className="container-upload">
-          <Alert type="warning">
+          <Alert type="warning" heading="Test data will be removed">
             <p>
               All test data uploaded during the beta period will be removed from
               the system when the filing period opens on January 1st, 2018.
