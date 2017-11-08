@@ -68,15 +68,6 @@ describe('Alert', function() {
     ).toEqual(1)
   })
 
-  it('has the alert check', () => {
-    expect(
-      TestUtils.scryRenderedDOMComponentsWithClass(
-        messageHeading,
-        'alert-check'
-      ).length
-    ).toEqual(1)
-  })
-
   const messageHtml = TestUtils.renderIntoDocument(
     <Wrapper>
       <Alert type="success" heading="this is a heading">
