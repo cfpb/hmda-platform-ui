@@ -17,17 +17,12 @@ const SubmissionReceipt = ({
   return (
     <Alert type="success" heading="HMDA filing accepted!">
       <div>
-        <p>
-          Congratulations, you have successfully completed your HMDA test
-          filing!
-        </p>
-        <p>
-          Your data and signature were received and recorded on{' '}
-          <strong>{ordinalHour(new Date(timestamp))}</strong>.
-        </p>
-        <p>
-          Your receipt number for this submission is <strong>{receipt}</strong>.
-        </p>
+        Congratulations, you have successfully completed your HMDA test filing!
+        <br />
+        Your data and signature were received and recorded on{' '}
+        <strong>{ordinalHour(new Date(timestamp))}</strong>.
+        <br />
+        Your receipt number for this submission is <strong>{receipt}</strong>.
       </div>
     </Alert>
   )
