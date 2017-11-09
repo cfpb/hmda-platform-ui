@@ -26,6 +26,7 @@ const InstitutionPreviousSubmissions = ({
           <div
             id={`submissions-${institutionId}`}
             className="usa-accordion-content"
+            aria-hidden="true"
           >
             <p>
               The edit report for previous submissions that completed the
