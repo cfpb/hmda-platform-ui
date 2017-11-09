@@ -1,4 +1,5 @@
 import { UserManager } from 'oidc-client'
+import { set } from '../api/AccessToken.js'
 import makeAction from '../actions/makeAction.js'
 import {
   USER_EXPIRED,
@@ -42,6 +43,7 @@ const eventToActionMap = {
 const attachEvents = (manager, dispatch) => {
   Object.keys(eventToActionMap).forEach(key => {
     manager.events[key](arg => {
+      if (key === 'addUserLoaded') set(arg.access_token)
       dispatch(makeAction(eventToActionMap[key], arg))
     })
   })
