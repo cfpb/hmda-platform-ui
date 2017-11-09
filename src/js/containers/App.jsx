@@ -18,13 +18,11 @@ export class AppContainer extends Component {
     super(props)
   }
 
-  _renderAppContents(props, redirecting) {
-    if (this.props.location.pathname === '/oidc-callback')
-      return this.props.children
+  _renderAppContents(props) {
     if (this._isOldBrowser()) return <BrowserBlocker />
-    if (props.redirecting || this._isProtected(props))
+    if (props.redirecting || (!props.oidc && !this._isUnprotected(props)))
       return <LoadingIcon className="floatingIcon" />
-    return this.props.children
+    return props.children
   }
 
   _isOldBrowser() {
@@ -39,10 +37,8 @@ export class AppContainer extends Component {
     return props.location.pathname === '/oidc-callback'
   }
 
-  _isProtected(props) {
-    return (
-      !this._isOidc(this.props) && !this._isHome(this.props) && !this.props.oidc
-    )
+  _isUnprotected(props) {
+    return this._isOidc(props) || this._isHome(props)
   }
 
   _handleUser(user) {
@@ -65,19 +61,16 @@ export class AppContainer extends Component {
         .then(this._handleUser.bind(this))
         .catch(this._userError)
     } else {
-      AccessToken.set(this.props.user.oidc.access_token)
+      AccessToken.set(this.props.oidc.access_token)
     }
   }
 
   componentWillUpdate(props) {
-    const isHome = this._isHome(props)
-    const isOidc = this._isOidc(props)
+    if (props.oidc || props.isFetching) return
 
-    if (isHome) return
-    if (!props.oidc) {
-      if (props.isFetching) return
-      if (!isOidc) signinRedirect()
-    }
+    if (this._isUnprotected(props)) return
+
+    signinRedirect()
   }
 
   render() {
