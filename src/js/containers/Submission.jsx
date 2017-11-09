@@ -126,19 +126,18 @@ class SubmissionContainer extends Component {
           institution={this.props.institution}
         />
         <EditsNav period={params.filing} institution={this.props.institution} />
-        <RefileWarning />
-        {page === 'submission' ? (
-          code !== SIGNED ? (
-            <SubmissionPageInfo />
-          ) : (
-            <section className="RefileWarning">
-              <SubmissionReceipt />
-            </section>
-          )
-        ) : null}
-
         <main id="main-content" className="usa-grid SubmissionContainer">
           {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
+          <RefileWarning />
+          {page === 'submission' ? (
+            code !== SIGNED ? (
+              <SubmissionPageInfo />
+            ) : (
+              <section className="RefileWarning">
+                <SubmissionReceipt />
+              </section>
+            )
+          ) : null}
           {toRender.map((component, i) => {
             return (
               <div className="usa-width-one-whole" key={i}>

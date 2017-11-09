@@ -55,7 +55,7 @@ const Institution = ({
         <section className="institution">
           <div className="current-status">
             <InstitutionNameAndId name={institution.name} id={institution.id} />
-            <Alert type="error">
+            <Alert type="error" heading="Sorry, there was a problem.">
               <p>
                 There was a problem initializing your filing. Please contact{' '}
                 <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
