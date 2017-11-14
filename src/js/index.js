@@ -31,6 +31,7 @@ import SubmissionRouter from './containers/SubmissionRouter.jsx'
 import UserManager from './utils/UserManager.js'
 import { setUserManager, setDispatch } from './utils/redirect.js'
 import log from './utils/log.js'
+import eventTracker from './middleware/gaEventTracker.js'
 
 import appReducer from './reducers'
 
@@ -55,7 +56,7 @@ const oidcMiddleware = createOidcMiddleware(
   '/oidc-callback'
 )
 const loggerMiddleware = createLogger({ collapsed: true })
-const middleware = [thunkMiddleware, oidcMiddleware]
+const middleware = [thunkMiddleware, oidcMiddleware, eventTracker]
 
 if (process.env.NODE_ENV !== 'production') {
   oidc.Log.logger = console
