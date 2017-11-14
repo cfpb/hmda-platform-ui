@@ -12,7 +12,7 @@ postUpload.mockImplementation(id => Promise.resolve({ status: 'cool' }))
 const mockStore = configureMockStore([thunk])
 
 describe('fetchUpload', () => {
-  it('creates a thunk that will fetch edits by type', done => {
+  it('creates a thunk that will fetch upload', done => {
     const store = mockStore({ app: { institution: { id: '123' } } })
 
     store
