@@ -32,7 +32,7 @@ describe('fetchEdits', () => {
         done.fail()
       })
   })
-  it('handled errors when introduced', done => {
+  it('handles errors when introduced', done => {
     const store = mockStore({})
     console.error = jest.fn()
     getEdits.mockImplementation(id =>

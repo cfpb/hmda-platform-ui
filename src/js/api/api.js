@@ -78,7 +78,6 @@ export function postUpload(submission, body) {
   return fetch({
     submission: submission,
     method: 'POST',
-    'Content-Type': 'application/x-www-form-urlencoded',
     body: body
   })
 }

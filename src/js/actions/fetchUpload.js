@@ -13,8 +13,10 @@ import { error } from '../utils/log.js'
 export default function fetchUpload(file) {
   return dispatch => {
     dispatch(requestUpload())
+
     const data = new FormData()
     data.append('file', file)
+
     return postUpload(getId(), data)
       .then(json => {
         return hasHttpError(json).then(hasError => {
@@ -23,13 +25,9 @@ export default function fetchUpload(file) {
             throw new Error(`${json.status}: ${json.statusText}`)
           }
 
-          dispatch(
-            updateStatus({
-              ...json.status
-            })
-          )
-
           dispatch(receiveUpload(json))
+
+          dispatch(updateStatus(json.status))
 
           Poller.set(true)
           dispatch(pollForProgress(Poller.get()))
