@@ -1,4 +1,5 @@
 import { UserManager } from 'oidc-client'
+import { set } from '../api/AccessToken.js'
 import makeAction from '../actions/makeAction.js'
 import {
   USER_EXPIRED,
@@ -9,6 +10,8 @@ import {
 } from '../constants'
 
 const createUserManager = dispatch => {
+  if (!dispatch) return new UserManager()
+
   const keycloak = window.HMDA_ENV.KEYCLOAK_URL
   const app = window.HMDA_ENV.APP_URL
 
@@ -40,6 +43,7 @@ const eventToActionMap = {
 const attachEvents = (manager, dispatch) => {
   Object.keys(eventToActionMap).forEach(key => {
     manager.events[key](arg => {
+      if (key === 'addUserLoaded') set(arg.access_token)
       dispatch(makeAction(eventToActionMap[key], arg))
     })
   })
