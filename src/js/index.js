@@ -15,11 +15,6 @@ import {
 } from 'react-router'
 import useScroll from 'react-router-scroll/lib/useScroll'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
-import createOidcMiddleware, {
-  createUserManager,
-  OidcProvider,
-  reducer
-} from 'redux-oidc'
 import oidc from 'oidc-client'
 
 import AppContainer from './containers/App.jsx'
@@ -28,7 +23,7 @@ import HomeContainer from './containers/Home.jsx'
 import InstitutionContainer from './containers/Institutions.jsx'
 import SubmissionContainer from './containers/Submission.jsx'
 import SubmissionRouter from './containers/SubmissionRouter.jsx'
-import UserManager from './utils/UserManager.js'
+import createUserManager from './utils/createUserManager.js'
 import { setUserManager, setDispatch } from './utils/redirect.js'
 import log from './utils/log.js'
 
@@ -40,22 +35,8 @@ window.HMDA_ENV = {
   KEYCLOAK_URL: '##KEYCLOAK_URL##'
 }
 
-const userManager = UserManager()
-setUserManager(userManager)
-
-/*Prevent token expiration loop*/
-userManager.events.addSilentRenewError(e => {
-  userManager.events._cancelTimers()
-})
-
-const oidcMiddleware = createOidcMiddleware(
-  userManager,
-  () => true,
-  false,
-  '/oidc-callback'
-)
 const loggerMiddleware = createLogger({ collapsed: true })
-const middleware = [thunkMiddleware, oidcMiddleware]
+const middleware = [thunkMiddleware]
 
 if (process.env.NODE_ENV !== 'production') {
   oidc.Log.logger = console
@@ -65,13 +46,20 @@ if (process.env.NODE_ENV !== 'production') {
 const store = createStore(
   combineReducers({
     app: appReducer,
-    routing: routerReducer,
-    oidc: reducer
+    routing: routerReducer
   }),
   applyMiddleware(...middleware)
 )
 
 setDispatch(store.dispatch)
+
+const userManager = createUserManager(store.dispatch)
+setUserManager(userManager)
+
+/*Prevent token expiration loop*/
+userManager.events.addSilentRenewError(e => {
+  userManager.events._cancelTimers()
+})
 
 const history = syncHistoryWithStore(browserHistory, store)
 
@@ -94,18 +82,16 @@ history.listen(location => {
 
 render(
   <Provider store={store}>
-    <OidcProvider store={store} userManager={userManager}>
-      <Router history={history} render={applyRouterMiddleware(useScroll())}>
-        <Route path="/" component={AppContainer}>
-          <IndexRoute component={HomeContainer} />
-          <Route path="/oidc-callback" component={oidcCallback} />
-          <Route path="/institutions" component={InstitutionContainer} />
-          <Route path="/:institution/:filing" component={SubmissionRouter} />
-          <Route path="/:institution/:filing/*" component={SubmissionRouter} />
-          <Route path="/*" component={SubmissionRouter} />
-        </Route>
-      </Router>
-    </OidcProvider>
+    <Router history={history} render={applyRouterMiddleware(useScroll())}>
+      <Route path="/" component={AppContainer}>
+        <IndexRoute component={HomeContainer} />
+        <Route path="/oidc-callback" component={oidcCallback} />
+        <Route path="/institutions" component={InstitutionContainer} />
+        <Route path="/:institution/:filing" component={SubmissionRouter} />
+        <Route path="/:institution/:filing/*" component={SubmissionRouter} />
+        <Route path="/*" component={SubmissionRouter} />
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('app')
 )

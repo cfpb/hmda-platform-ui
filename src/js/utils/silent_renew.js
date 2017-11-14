@@ -1,3 +1,3 @@
-import { processSilentRenew } from 'redux-oidc'
+import createUserManager from './createUserManager.js'
 
-processSilentRenew()
+createUserManager().signinSilentCallback()

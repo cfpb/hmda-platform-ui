@@ -17,7 +17,7 @@ export class HomeContainer extends Component {
 
 export function mapStateToProps(state) {
   return {
-    user: state.oidc.user
+    user: state.app.user.oidc
   }
 }
 
