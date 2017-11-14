@@ -19,9 +19,13 @@ describe('api', () => {
     expect(mockedFetch.mock.calls[1][0]).toEqual({ pathname: '/institutions' })
   })
 
-  it('gets submission', () => {
-    api.getSubmission('1')
-    expect(mockedFetch.mock.calls[2][0]).toEqual({ submission: '1' })
+  it('posts upload', () => {
+    api.postUpload('1', {})
+    expect(mockedFetch.mock.calls[2][0]).toEqual({
+      submission: '1',
+      method: 'POST',
+      body: {}
+    })
   })
 
   it('creates institutions', () => {

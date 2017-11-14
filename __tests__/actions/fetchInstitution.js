@@ -42,4 +42,29 @@ describe('fetchInstitution', () => {
         done.fail()
       })
   })
+
+  it('handles errors when introduced', done => {
+    const store = mockStore({})
+    console.error = jest.fn()
+    getInstitution.mockImplementation(id =>
+      Promise.resolve({ status: 404, statusText: 'argle' })
+    )
+
+    store
+      .dispatch(fetchInstitution({ id: '123' }))
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          { type: types.REQUEST_INSTITUTION },
+          {
+            type: types.RECEIVE_ERROR,
+            error: { status: 404, statusText: 'argle' }
+          }
+        ])
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
+  })
 })

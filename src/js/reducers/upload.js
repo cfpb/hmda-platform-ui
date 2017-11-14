@@ -2,9 +2,8 @@ import {
   SELECT_FILE,
   SELECT_NEW_FILE,
   RECEIVE_FILE_ERRORS,
-  UPLOAD_START,
-  UPLOAD_PROGRESS,
-  UPLOAD_COMPLETE,
+  REQUEST_UPLOAD,
+  RECEIVE_UPLOAD,
   REFRESH_STATE
 } from '../constants'
 
@@ -51,7 +50,7 @@ export default (state = defaultUploads, action) => {
           errorFile: action.file
         }
       }
-    case UPLOAD_START:
+    case REQUEST_UPLOAD:
       return {
         ...state,
         [action.id]: {
@@ -59,7 +58,7 @@ export default (state = defaultUploads, action) => {
           uploading: true
         }
       }
-    case UPLOAD_COMPLETE:
+    case RECEIVE_UPLOAD:
       return {
         ...state,
         [action.id]: {

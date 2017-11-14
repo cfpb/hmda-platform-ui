@@ -9,6 +9,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { getLatestSubmission, getEdits } from '../../src/js/api/api.js'
 import fs from 'fs'
+import { VALIDATING } from '../../src/js/constants/statusCodes.js'
 
 const filingsObj = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))
 getLatestSubmission.mockImplementation(() =>
@@ -78,5 +79,55 @@ describe('pollForProgress', () => {
       dg()
     }
     expect(dg()).toBe(20000)
+  })
+
+  it('sets a timeout when polling should continue', () => {
+    const store = mockStore({ submission: {} })
+    const submission = filingsObj.submissions[2]
+    submission.status = { code: VALIDATING }
+    getLatestSubmission.mockImplementation(() => Promise.resolve(submission))
+
+    delete window.setTimeout
+    const timeout = jest.fn()
+    window.setTimeout = timeout
+
+    store.dispatch(pollForProgress(true)).then(() => {
+      expect(store.getActions()).toEqual([
+        {
+          type: types.RECEIVE_SUBMISSION,
+          id: submission.id,
+          status: submission.status,
+          start: submission.start,
+          end: submission.end
+        }
+      ])
+      expect(timeout).toBeCalled()
+      expect(typeof timeout.mock.calls[0][0]).toBe('function')
+      expect(timeout.mock.calls[0][0](store.dispatch)).resolves.toBe(undefined)
+    })
+  })
+
+  it('handles errors when introduced', done => {
+    const store = mockStore({})
+    console.error = jest.fn()
+    getLatestSubmission.mockImplementation(() =>
+      Promise.resolve({ status: 404, statusText: 'argle' })
+    )
+
+    store
+      .dispatch(pollForProgress(true))
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {
+            type: types.RECEIVE_ERROR,
+            error: { status: 404, statusText: 'argle' }
+          }
+        ])
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
   })
 })

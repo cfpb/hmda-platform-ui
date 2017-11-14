@@ -18,11 +18,7 @@ export default function fetchSignature() {
             throw new Error(`${json.status}: ${json.statusText}`)
           }
           dispatch(receiveSignature(json))
-          return dispatch(
-            updateStatus({
-              ...json.status
-            })
-          )
+          return dispatch(updateStatus(json.status))
         })
       })
       .catch(err => error(err))
