@@ -8,6 +8,9 @@ describe('getPaginationRequestAction', () => {
     expect(getPaginationRequestAction('parseErrors')).toEqual({
       type: types.REQUEST_PARSE_ERRORS
     })
+    expect(getPaginationRequestAction('irs')).toEqual({
+      type: types.REQUEST_IRS
+    })
     expect(getPaginationRequestAction('q021')).toEqual({
       type: types.REQUEST_EDIT,
       edit: 'q021'

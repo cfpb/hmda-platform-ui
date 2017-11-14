@@ -36,6 +36,9 @@ export function fetch(options = { method: 'GET' }) {
     }
   }
 
+  if (options['Content-Type'] !== undefined)
+    headers['Content-Type'] = options['Content-Type']
+
   if (accessToken) headers.Authorization = 'Bearer ' + accessToken
   var fetchOptions = {
     method: options.method || 'GET',

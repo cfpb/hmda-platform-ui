@@ -8,10 +8,6 @@ export function getInstitution(id) {
   return fetch({ pathname: `/institutions/${id}` })
 }
 
-export function getSubmission(id) {
-  return fetch({ submission: id })
-}
-
 export function createSubmission(id, filing) {
   return fetch({
     pathname: `/institutions/${id}/filings/${filing}/submissions`,
@@ -76,6 +72,15 @@ export function getSignature(submission) {
 
 export function getParseErrors(submission) {
   return fetch({ submission: submission, suffix: '/parseErrors' })
+}
+
+export function postUpload(submission, body) {
+  return fetch({
+    submission: submission,
+    method: 'POST',
+    'Content-Type': 'application/x-www-form-urlencoded',
+    body: body
+  })
 }
 
 export function postSignature(submission, signed) {

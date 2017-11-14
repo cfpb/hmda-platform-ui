@@ -34,6 +34,7 @@ describe('fetchEdits', () => {
   })
   it('handled errors when introduced', done => {
     const store = mockStore({})
+    console.error = jest.fn()
     getEdits.mockImplementation(id =>
       Promise.resolve({ status: 404, statusText: 'argle' })
     )

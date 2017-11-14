@@ -52,4 +52,28 @@ describe('fetchVerify', () => {
         done.fail(e)
       })
   })
+  it('handles errors when introduced', done => {
+    const store = mockStore({})
+    console.error = jest.fn()
+    postVerify.mockImplementation(() =>
+      Promise.resolve({ status: 404, statusText: 'argle' })
+    )
+
+    store
+      .dispatch(fetchVerify())
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          { type: types.REQUEST_VERIFY_MACRO, isFetching: true },
+          {
+            type: types.RECEIVE_ERROR,
+            error: { status: 404, statusText: 'argle' }
+          }
+        ])
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
+  })
 })
