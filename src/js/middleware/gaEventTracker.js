@@ -5,8 +5,6 @@ const sendEvent = (action, label) => {
 }
 
 const eventTracker = store => next => action => {
-  console.log('eventTracker', action)
-  console.log(store.getState())
   if (action.type === 'REQUEST_CSV') {
     sendEvent(
       'Download edit report',
