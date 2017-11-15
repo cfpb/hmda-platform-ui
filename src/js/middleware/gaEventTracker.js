@@ -21,11 +21,11 @@ const eventTracker = store => next => action => {
     sendEvent(
       'New submission',
       'A new submission was created for ' +
-        action.id.institutionId +
+        action.institutionId +
         ' during filing period ' +
-        action.id.period +
+        action.filing +
         ' with sequence number ' +
-        action.id.sequenceNumber
+        action.submissionId
     )
   }
 
