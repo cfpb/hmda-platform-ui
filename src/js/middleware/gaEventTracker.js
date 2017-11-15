@@ -5,6 +5,8 @@ const sendEvent = (action, label) => {
 }
 
 const eventTracker = store => next => action => {
+  console.log('eventTracker', action)
+  console.log(store.getState())
   if (action.type === 'REQUEST_CSV') {
     sendEvent(
       'Download edit report',
@@ -109,11 +111,21 @@ const eventTracker = store => next => action => {
     )
   }
 
-  if (action.type === 'PAGINATION_FADE_OUT') {
+  if (action.type === 'PAGINATION_FADE_IN') {
+    const currentPage = appState.pagination[action.target]._links.self.split(
+      '='
+    )[1]
+    const lastPage = appState.pagination[action.target]._links.last.split(
+      '='
+    )[1]
     sendEvent(
       'Pagination',
       action.target +
-        ' was paginated for ' +
+        ' was paged to ' +
+        currentPage +
+        ' of ' +
+        lastPage +
+        ' pages for ' +
         appState.pagination[action.target].total +
         ' records for ' +
         institutionId +
