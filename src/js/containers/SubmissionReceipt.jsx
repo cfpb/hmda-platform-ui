@@ -23,7 +23,7 @@ export function mapStateToProps(state) {
   const { isFetching, timestamp, receipt } = state.app.signature
 
   const { status } = state.app.submission
-  const { email } = state.oidc.user.profile
+  const { email } = state.app.user.oidc.profile
 
   const { filingPeriod } = state.app
 

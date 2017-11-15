@@ -3,15 +3,17 @@ jest.unmock('../../src/js/constants')
 import * as types from '../../src/js/constants'
 import getPaginationReceiveAction from '../../src/js/actions/getPaginationReceiveAction.js'
 
+const pagination = {
+  _links: undefined,
+  count: undefined,
+  total: undefined
+}
+
 const emptyParseErrors = {
   type: types.RECEIVE_PARSE_ERRORS,
   larErrors: undefined,
   transmittalSheetErrors: undefined,
-  pagination: {
-    count: undefined,
-    total: undefined,
-    _links: undefined
-  }
+  pagination
 }
 
 describe('getPaginationReceiveAction', () => {
@@ -19,14 +21,15 @@ describe('getPaginationReceiveAction', () => {
     expect(getPaginationReceiveAction('parseErrors', {})).toEqual(
       emptyParseErrors
     )
+    expect(getPaginationReceiveAction('irs', {})).toEqual({
+      type: types.RECEIVE_IRS,
+      msas: undefined,
+      pagination
+    })
     expect(getPaginationReceiveAction('q021', {})).toEqual({
       type: types.RECEIVE_EDIT,
       edit: undefined,
-      pagination: {
-        _links: undefined,
-        count: undefined,
-        total: undefined
-      }
+      pagination
     })
   })
 })

@@ -22,9 +22,11 @@ describe('fetchCSV', () => {
     store
       .dispatch(fetchCSV())
       .then(() => {
-        expect(store.getActions()).toEqual([{ type: types.REQUEST_CSV }])
-        expect(window.Blob.mock.calls.length).toBe(1)
-        done()
+        setTimeout(() => {
+          expect(store.getActions()).toEqual([{ type: types.REQUEST_CSV }])
+          expect(window.Blob.mock.calls.length).toBe(1)
+          done()
+        }, 0)
       })
       .catch(err => {
         console.log(err)
@@ -49,4 +51,32 @@ describe('fetchCSV', () => {
         done.fail()
       })
   })
+})
+
+it('creates a thunk that manags an error during csv downloads', done => {
+  const store = mockStore({})
+  console.error = jest.fn()
+  getCSV.mockImplementation(id =>
+    Promise.resolve({ status: 403, statusText: 'nope' })
+  )
+
+  store
+    .dispatch(fetchCSV())
+    .then(() => {
+      setTimeout(() => {
+        expect(store.getActions()).toEqual([
+          { type: types.REQUEST_CSV },
+          {
+            type: types.RECEIVE_ERROR,
+            error: { status: 403, statusText: 'nope' }
+          }
+        ])
+        expect(window.Blob.mock.calls.length).toBe(2)
+        done()
+      }, 0)
+    })
+    .catch(err => {
+      console.log(err)
+      done.fail()
+    })
 })

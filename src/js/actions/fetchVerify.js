@@ -25,11 +25,7 @@ export default function fetchVerify(type, checked) {
           if (type === 'quality') dispatch(verifyQuality(checked))
           else dispatch(verifyMacro(checked))
 
-          return dispatch(
-            updateStatus({
-              ...json.status
-            })
-          )
+          return dispatch(updateStatus(json.status))
         })
       })
       .catch(err => error(err))

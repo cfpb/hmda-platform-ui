@@ -10,6 +10,8 @@ export function fetch(options = { method: 'GET' }) {
   const accessToken = AccessToken.get()
   const pathname = options.pathname
   const locationObj = pathname ? {} : parseLocation(location)
+  const isFormData =
+    options.body && options.body.toString() === '[object FormData]'
 
   options = Object.assign({}, locationObj, options)
 
@@ -18,13 +20,12 @@ export function fetch(options = { method: 'GET' }) {
   }
 
   const url = makeUrl(options)
-
-  if (typeof options.body === 'object')
+  if (typeof options.body === 'object' && !isFormData)
     options.body = JSON.stringify(options.body)
 
   let headers = {}
 
-  if (options.method === 'POST') {
+  if (options.method === 'POST' && !isFormData) {
     headers = {
       'Content-Type': 'application/json'
     }
