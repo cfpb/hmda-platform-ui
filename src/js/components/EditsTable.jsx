@@ -62,11 +62,17 @@ export const renderTableCaption = (edit, rowObj, type, pagination) => {
       ? `Edit ${name} found.`
       : `${length} ${name} ${editText} found.`
 
-  if (type === 'macro') {
+  if (type === 'macro' || name === 'S040') {
     return (
       <div className="caption">
         <h3>{captionHeader}</h3>
         {description ? <p>{description}</p> : null}
+        {name === 'S040' ? (
+          <p>
+            Please check your file or system of record for duplicate
+            application/loan numbers.
+          </p>
+        ) : null}
       </div>
     )
   }
@@ -89,7 +95,7 @@ export const makeTable = props => {
   if (!rowObj || !rowObj.rows) return <LoadingIcon />
 
   const caption = renderTableCaption(edit, rowObj, type, pagination)
-  if (type === 'macro') return caption
+  if (type === 'macro' || name === 'S040') return caption
 
   let className = 'PaginationTarget'
   className += props.paginationFade[name] ? ' fadeOut' : ''

@@ -34,6 +34,10 @@
       margin-bottom: 0;
     }
   }
+  .caption p {
+    font-size: .885em; // ~15px
+    font-weight: bold;
+  }
   &:last-of-type {
     margin-bottom: 2em;
   }
