@@ -5,6 +5,7 @@ const sendEvent = (action, label) => {
 }
 
 const eventTracker = store => next => action => {
+  // events that don't rely on store.getState()
   if (action.type === 'REQUEST_CSV') {
     sendEvent(
       'Download edit report',
@@ -29,6 +30,7 @@ const eventTracker = store => next => action => {
     )
   }
 
+  // events relying on store.getState()
   const appState = store.getState().app
 
   if (
