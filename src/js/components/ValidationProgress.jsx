@@ -43,6 +43,8 @@ export default class ValidationProgress extends Component {
     if (code === STATUS.VALIDATING) text = 'Validating edits...'
     if (code > STATUS.VALIDATING) text = 'Edit validation complete.'
 
+    if (this.props.uploadError) text = 'Error uploading file. Please try again.'
+
     const largeFile = this.props.file && this.props.file.size > 1e5
 
     return (
@@ -65,7 +67,8 @@ export default class ValidationProgress extends Component {
 
   getIndicator() {
     let className = 'progressIndicator'
-    if (this.props.code === STATUS.PARSED_WITH_ERRORS) className += ' error'
+    if (this.props.code === STATUS.PARSED_WITH_ERRORS || this.props.uploadError)
+      className += ' error'
     else if (this.props.code > STATUS.VALIDATING) className += ' complete'
     else className += ' pulsing'
     return <span className={className} />
@@ -75,10 +78,11 @@ export default class ValidationProgress extends Component {
     let className = 'progressFill'
     let currWidth = this.state.fillWidth
     const code = this.props.code
+    const errored = code === STATUS.PARSED_WITH_ERRORS || this.props.uploadError
 
-    if (code === STATUS.PARSED_WITH_ERRORS) className += ' error'
+    if (errored) className += ' error'
 
-    if (code === STATUS.PARSED_WITH_ERRORS || code > STATUS.VALIDATING) {
+    if (errored || code > STATUS.VALIDATING) {
       currWidth = 100
       this.saveWidth(this.props.id, 100)
     } else if (!this.timeout) this.getNextWidth()
@@ -107,6 +111,7 @@ export default class ValidationProgress extends Component {
   componentWillUnmount() {
     clearTimeout(this.timeout)
     this.timeout = null
+    if (this.props.uploadError) this.saveWidth(this.props.id, 0)
   }
 
   render() {
