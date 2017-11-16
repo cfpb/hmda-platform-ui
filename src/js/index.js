@@ -37,7 +37,11 @@ window.HMDA_ENV = {
 }
 
 const loggerMiddleware = createLogger({ collapsed: true })
-const middleware = [thunkMiddleware, eventTracker]
+const middleware = [thunkMiddleware]
+
+if (window.HMDA_ENV.APP_URL !== 'https://192.168.99.100') {
+  middleware.push(eventTracker)
+}
 
 if (process.env.NODE_ENV !== 'production') {
   oidc.Log.logger = console
