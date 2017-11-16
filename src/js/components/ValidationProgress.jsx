@@ -30,6 +30,7 @@ export default class ValidationProgress extends Component {
   }
 
   saveWidth(id, width) {
+    if (this.props.uploadError) width = 0
     localStorage.setItem(`HMDA_FILE_PROGRESS/${id}`, width)
   }
 
@@ -111,7 +112,6 @@ export default class ValidationProgress extends Component {
   componentWillUnmount() {
     clearTimeout(this.timeout)
     this.timeout = null
-    if (this.props.uploadError) this.saveWidth(this.props.id, 0)
   }
 
   render() {

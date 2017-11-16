@@ -172,6 +172,20 @@ describe('ValidationProgress', () => {
     expect(localSet).toBeCalled()
   })
 
+  it('saves width with error', () => {
+    const localGet = jest.fn(() => 0)
+    const localSet = jest.fn()
+
+    window.localStorage = {
+      getItem: localGet,
+      setItem: localSet
+    }
+
+    let progress = new ValidationProgress({ uploadError: 1 })
+    progress.saveWidth(123)
+    expect(localSet).toBeCalledWith('HMDA_FILE_PROGRESS/123', 0)
+  })
+
   it('updates when receiving new props', () => {
     let progress = new ValidationProgress({ file: { size: 123 }, id: 'argle' })
     const setState = jest.fn()
@@ -217,22 +231,6 @@ describe('ValidationProgress', () => {
       file: { size: 123 },
       id: 'argle'
     })
-  })
-  it('calls expected functions on unmount with error', () => {
-    let progress = new ValidationProgress({
-      uploadError: '34',
-      file: { size: 123 },
-      id: 'argle'
-    })
-    delete window.clearTimeout
-    const timeout = jest.fn()
-    window.clearTimeout = timeout
-    const save = jest.fn()
-    progress.saveWidth = save
-
-    progress.componentWillUnmount({})
-    expect(timeout).toBeCalled()
-    expect(save).toBeCalled()
   })
 
   it('sets the right scaling factor', () => {

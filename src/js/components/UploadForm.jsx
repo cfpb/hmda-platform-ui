@@ -130,8 +130,8 @@ export default class Upload extends Component {
 
     // handle the onDrop to set the file and show confirmation modal
     this.onDrop = acceptedFiles => {
-      const { handleDrop, code } = this.props
-      handleDrop(acceptedFiles, code)
+      const { handleDrop, code, uploadError } = this.props
+      handleDrop(acceptedFiles, code, uploadError)
     }
   }
 

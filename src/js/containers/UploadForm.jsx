@@ -34,9 +34,9 @@ export function mapStateToProps(state) {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    handleDrop(acceptedFiles, code) {
+    handleDrop(acceptedFiles, code, error) {
       if (!acceptedFiles) return
-      dispatch(handleFile(acceptedFiles[0], code))
+      dispatch(handleFile(acceptedFiles[0], code, error))
     },
     pollSubmission() {
       dispatch(pollForProgress(Poller.set(true)))
