@@ -2,23 +2,23 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as STATUS from '../constants/statusCodes.js'
 
-let SCALING_FACTOR = 1
 export default class ValidationProgress extends Component {
   constructor(props) {
     super(props)
     this.state = { fillWidth: this.getSavedWidth(props.id) }
+    this.SCALING_FACTOR = 1
     if (props.file) {
-      SCALING_FACTOR = props.file.size / 1e6
-      if (SCALING_FACTOR < 1) SCALING_FACTOR = 1
-      if (SCALING_FACTOR > 5) SCALING_FACTOR = 5
+      this.SCALING_FACTOR = props.file.size / 1e6
+      if (this.SCALING_FACTOR < 1) this.SCALING_FACTOR = 1
+      if (this.SCALING_FACTOR > 5) this.SCALING_FACTOR = 5
     }
   }
 
   componentWillReceiveProps(props) {
     if (props.file) {
-      SCALING_FACTOR = props.file.size / 1e6
-      if (SCALING_FACTOR < 1) SCALING_FACTOR = 1
-      if (SCALING_FACTOR > 5) SCALING_FACTOR = 5
+      this.SCALING_FACTOR = props.file.size / 1e6
+      if (this.SCALING_FACTOR < 1) this.SCALING_FACTOR = 1
+      if (this.SCALING_FACTOR > 5) this.SCALING_FACTOR = 5
     }
     if (props.id !== this.props.id) {
       this.setState({ fillWidth: this.getSavedWidth(props.id) })
@@ -104,7 +104,7 @@ export default class ValidationProgress extends Component {
     const currWidth = this.state.fillWidth
     this.timeout = setTimeout(
       this.setNextWidth(currWidth),
-      SCALING_FACTOR * 200 * Math.pow(2, 50 / (100 - currWidth))
+      this.SCALING_FACTOR * 200 * Math.pow(2, 50 / (100 - currWidth))
     )
   }
 

@@ -111,6 +111,14 @@ describe('ValidationProgress', () => {
     expect(progress.getText().props.children[0].props.children).toBe(
       'Edit validation complete.'
     )
+    progress = new ValidationProgress({ uploadError: 1, code: 9 })
+    expect(progress.getText().props.children[0].props.children).toBe(
+      'Error uploading file. Please try again.'
+    )
+    progress = new ValidationProgress({ code: 7, file: { size: 1e6 } })
+    expect(progress.getText().props.children[2].props.children).toBe(
+      'This process may take a little while. Your upload will complete automatically, so you may leave the platform and log back in later.'
+    )
   })
 
   it('gets expected results from getIndicator', () => {
@@ -146,6 +154,10 @@ describe('ValidationProgress', () => {
 
     timeoutFn()
     expect(setState).toBeCalled()
+
+    const nextTimeout = progress.setNextWidth(100)
+    nextTimeout()
+    expect(setState.mock.calls[1][0]).toEqual({ fillWidth: 100 })
   })
 
   it('getsSavedWidth', () => {
@@ -174,5 +186,71 @@ describe('ValidationProgress', () => {
     progress.componentWillReceiveProps({})
 
     expect(setState2).not.toBeCalled()
+
+    progress = new ValidationProgress({ file: { size: 123 }, id: 'argle' })
+    const setState3 = jest.fn()
+    progress.setState = setState3
+    progress.componentWillReceiveProps({ file: { size: 123 }, id: 'argle' })
+
+    expect(setState3).not.toBeCalled()
+    expect(progress.SCALING_FACTOR).toBe(1)
+
+    progress.componentWillReceiveProps({ file: { size: 1e8 }, id: 'argle' })
+    expect(progress.SCALING_FACTOR).toBe(5)
+  })
+
+  it('calls expected functions on unmount with no error', () => {
+    let progress = new ValidationProgress({ file: { size: 123 }, id: 'argle' })
+
+    delete window.clearTimeout
+    const timeout = jest.fn()
+    window.clearTimeout = timeout
+    const save = jest.fn()
+    progress.saveWidth = save
+
+    progress.componentWillUnmount({})
+    expect(timeout).toBeCalled()
+    expect(save).not.toBeCalled()
+
+    progress = new ValidationProgress({
+      uploadError: '34',
+      file: { size: 123 },
+      id: 'argle'
+    })
+  })
+  it('calls expected functions on unmount with error', () => {
+    let progress = new ValidationProgress({
+      uploadError: '34',
+      file: { size: 123 },
+      id: 'argle'
+    })
+    delete window.clearTimeout
+    const timeout = jest.fn()
+    window.clearTimeout = timeout
+    const save = jest.fn()
+    progress.saveWidth = save
+
+    progress.componentWillUnmount({})
+    expect(timeout).toBeCalled()
+    expect(save).toBeCalled()
+  })
+
+  it('sets the right scaling factor', () => {
+    let progress = new ValidationProgress({
+      id: 'argle'
+    })
+    expect(progress.SCALING_FACTOR).toBe(1)
+
+    progress = new ValidationProgress({
+      file: { size: 10 },
+      id: 'argle'
+    })
+    expect(progress.SCALING_FACTOR).toBe(1)
+
+    progress = new ValidationProgress({
+      file: { size: 1e8 },
+      id: 'argle'
+    })
+    expect(progress.SCALING_FACTOR).toBe(5)
   })
 })

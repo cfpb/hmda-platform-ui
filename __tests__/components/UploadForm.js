@@ -197,7 +197,7 @@ describe('getDropZoneText', () => {
     })
     expect(rendered.props.children.props.children.length).toBe(2)
     expect(rendered.props.children.props.children[1].props.children[4]).toBe(
-      'can not be uploaded.'
+      'cannot be uploaded.'
     )
   })
 })

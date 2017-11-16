@@ -50,7 +50,8 @@ describe('fetchUpload', () => {
         expect(store.getActions()).toEqual([
           { type: types.REQUEST_UPLOAD, id: '123' },
           {
-            type: types.RECEIVE_ERROR,
+            type: types.RECEIVE_UPLOAD_ERROR,
+            id: '123',
             error: { status: 404, statusText: 'argle' }
           }
         ])
