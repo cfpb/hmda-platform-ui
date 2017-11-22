@@ -14,9 +14,6 @@
   ul.usa-nav-primary {
     border-bottom: 1px solid $color-gray-lighter;
     display: block;
-    & > li > a {
-      margin: 0;
-    }
     li {
       color: $color-gray;
       line-height: normal;
@@ -28,6 +25,9 @@
       a {
         color: $color-primary;
         font-weight: 700;
+        margin: 0;
+        padding: 1.2em 0.1em 0em;
+        margin-top: -1.2em;
       }
 
       a:hover {
