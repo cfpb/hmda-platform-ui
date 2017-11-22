@@ -7,10 +7,7 @@ jest.mock('../../src/js/containers/submissionProgressHOC.jsx', () =>
   jest.fn(comp => comp)
 )
 
-import EditsNav, {
-  renderLinkOrText,
-  getNavClass
-} from '../../src/js/components/EditsNav.jsx'
+import EditsNav from '../../src/js/components/EditsNav.jsx'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -22,7 +19,8 @@ const baseProps = {
   code: 1,
   syntacticalValidityEditsExist: true,
   qualityVerified: false,
-  macroVerified: false
+  macroVerified: false,
+  fetched: true
 }
 
 const getLinkCount = rendered => {
@@ -31,143 +29,10 @@ const getLinkCount = rendered => {
 }
 
 describe('EditsNav', () => {
-  it('render the correct class for the upload link', () => {
-    expect(getNavClass('upload', baseProps)).toEqual('active current')
-    expect(getNavClass('upload', { ...baseProps, code: 7 })).toEqual(
-      'active current'
-    )
-    expect(getNavClass('upload', { ...baseProps, code: 8 })).toEqual(
-      'complete current'
-    )
-    expect(
-      getNavClass('syntacticalvalidity', { ...baseProps, code: 8 })
-    ).toEqual('error')
-  })
-
-  it('render the correct class for the syntacticalvalidity link', () => {
-    expect(
-      getNavClass('syntacticalvalidity', {
-        ...baseProps,
-        page: 'syntacticalvalidity'
-      })
-    ).toEqual(' current')
-    expect(
-      getNavClass('syntacticalvalidity', {
-        ...baseProps,
-        page: 'syntacticalvalidity',
-        code: 7
-      })
-    ).toEqual(' current')
-    expect(
-      getNavClass('syntacticalvalidity', {
-        ...baseProps,
-        page: 'syntacticalvalidity',
-        code: 8
-      })
-    ).toEqual('error current')
-  })
-
-  it('render the correct class for the quality link', () => {
-    expect(getNavClass('quality', { ...baseProps, page: 'quality' })).toEqual(
-      ' current'
-    )
-    expect(
-      getNavClass('quality', {
-        ...baseProps,
-        page: 'quality',
-        code: 7,
-        syntacticalValidityEditsExist: false
-      })
-    ).toEqual(' current')
-    expect(
-      getNavClass('quality', {
-        ...baseProps,
-        page: 'quality',
-        code: 8,
-        syntacticalValidityEditsExist: false
-      })
-    ).toEqual('warning current')
-  })
-
-  it('render the correct class for the macro link', () => {
-    expect(getNavClass('macro', { ...baseProps, page: 'macro' })).toEqual(
-      ' current'
-    )
-    expect(
-      getNavClass('macro', {
-        ...baseProps,
-        page: 'macro',
-        code: 7,
-        syntacticalValidityEditsExist: false
-      })
-    ).toEqual(' current')
-    expect(
-      getNavClass('macro', {
-        ...baseProps,
-        page: 'macro',
-        code: 8,
-        syntacticalValidityEditsExist: false,
-        qualityVerified: true
-      })
-    ).toEqual('warning current')
-  })
-
-  it('render the correct class for the submission link', () => {
-    expect(
-      getNavClass('submission', { ...baseProps, page: 'submission' })
-    ).toEqual(' current')
-    expect(
-      getNavClass('submission', {
-        ...baseProps,
-        page: 'submission',
-        code: 7,
-        syntacticalValidityEditsExist: false
-      })
-    ).toEqual(' current')
-    expect(
-      getNavClass('submission', {
-        ...baseProps,
-        page: 'submission',
-        code: 9,
-        syntacticalValidityEditsExist: false,
-        qualityVerified: true,
-        macroVerified: true
-      })
-    ).toEqual('active current')
-  })
-
-  it('chooses appropriate item to render', () => {
-    expect(
-      renderLinkOrText(baseProps, 'upload', 1).props.children.type.displayName
-    ).toBe('Link')
-    expect(
-      renderLinkOrText(baseProps, 'syntactical & validity edits', 1).props
-        .children[0].type
-    ).toBe('div')
-    expect(
-      renderLinkOrText(
-        { ...baseProps, code: 8 },
-        'syntactical & validity edits',
-        1
-      ).props.children.type.displayName
-    ).toBe('Link')
-  })
-
   it('renders with base props', () => {
     const rendered = TestUtils.renderIntoDocument(
       <Wrapper>
-        <EditsNav
-          page={baseProps.page}
-          base={baseProps.base}
-          code={baseProps.code}
-          syntacticalValidityEditsExist={
-            baseProps.syntacticalValidityEditsExist
-          }
-          qualityVerified={baseProps.qualityVerified}
-          macroVerified={baseProps.macroVerified}
-          period="2017"
-          institution={{ name: 'Test' }}
-        />
+        <EditsNav {...baseProps} period="2017" institution={{ name: 'Test' }} />
       </Wrapper>
     )
     const renderedNode = ReactDOM.findDOMNode(rendered)
@@ -176,74 +41,68 @@ describe('EditsNav', () => {
   })
 
   it('renders after upload', () => {
+    const props = { ...baseProps, code: 8 }
     const rendered = TestUtils.renderIntoDocument(
       <Wrapper>
-        <EditsNav
-          page={baseProps.page}
-          base={baseProps.base}
-          code={8}
-          syntacticalValidityEditsExist={
-            baseProps.syntacticalValidityEditsExist
-          }
-          qualityVerified={baseProps.qualityVerified}
-          macroVerified={baseProps.macroVerified}
-          period="2017"
-          institution={{ name: 'Test' }}
-        />
+        <EditsNav {...props} period="2017" institution={{ name: 'Test' }} />
       </Wrapper>
     )
     expect(getLinkCount(rendered)).toBe(2)
   })
 
   it('renders with no synval', () => {
+    const props = {
+      ...baseProps,
+      syntacticalValidityEditsExist: false,
+      code: 8
+    }
     const rendered = TestUtils.renderIntoDocument(
       <Wrapper>
-        <EditsNav
-          page={baseProps.page}
-          base={baseProps.base}
-          code={8}
-          syntacticalValidityEditsExist={false}
-          qualityVerified={baseProps.qualityVerified}
-          macroVerified={baseProps.macroVerified}
-          period="2017"
-          institution={{ name: 'Test' }}
-        />
+        <EditsNav {...props} period="2017" institution={{ name: 'Test' }} />
       </Wrapper>
     )
     expect(getLinkCount(rendered)).toBe(3)
   })
 
   it('renders when quality verified', () => {
+    const props = {
+      ...baseProps,
+      syntacticalValidityEditsExist: false,
+      qualityVerified: true,
+      code: 8
+    }
     const rendered = TestUtils.renderIntoDocument(
       <Wrapper>
-        <EditsNav
-          page={baseProps.page}
-          base={baseProps.base}
-          code={8}
-          syntacticalValidityEditsExist={false}
-          qualityVerified={true}
-          macroVerified={baseProps.macroVerified}
-          period="2017"
-          institution={{ name: 'Test' }}
-        />
+        <EditsNav {...props} period="2017" institution={{ name: 'Test' }} />
       </Wrapper>
     )
     expect(getLinkCount(rendered)).toBe(4)
   })
 
   it('renders when macro verified', () => {
+    const props = {
+      ...baseProps,
+      syntacticalValidityEditsExist: false,
+      qualityVerified: true,
+      macroVerified: true,
+      code: 8
+    }
     const rendered = TestUtils.renderIntoDocument(
       <Wrapper>
-        <EditsNav
-          page={baseProps.page}
-          base={baseProps.base}
-          code={8}
-          syntacticalValidityEditsExist={false}
-          qualityVerified={true}
-          macroVerified={true}
-          period="2017"
-          institution={{ name: 'Test' }}
-        />
+        <EditsNav {...props} period="2017" institution={{ name: 'Test' }} />
+      </Wrapper>
+    )
+    expect(getLinkCount(rendered)).toBe(4)
+  })
+
+  it('renders all links if code > 8', () => {
+    const props = {
+      ...baseProps,
+      code: 9
+    }
+    const rendered = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <EditsNav {...props} period="2017" institution={{ name: 'Test' }} />
       </Wrapper>
     )
     expect(getLinkCount(rendered)).toBe(5)
@@ -252,6 +111,6 @@ describe('EditsNav', () => {
   it('warns without provided props', () => {
     console.error = jest.fn()
     const rendered = TestUtils.renderIntoDocument(<EditsNav />)
-    expect(console.error).toHaveBeenCalledTimes(6)
+    expect(console.error).toHaveBeenCalledTimes(7)
   })
 })
