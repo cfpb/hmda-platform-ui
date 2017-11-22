@@ -18,6 +18,8 @@ export function getText(props) {
   if (props.bodyText) return props.bodyText
 
   switch (props.error.status) {
+    case 400:
+      return 'Your request could not be completed. Please try again.'
     case 401:
       return 'Please log in to complete this request.'
 
@@ -37,7 +39,10 @@ const ErrorWarning = props => {
     return (
       <div className="ErrorWarning">
         <Alert type="error" heading={getHeading(props)}>
-          <p>{getText(props)} If the problem persists, contact HMDA Help.</p>
+          <p>
+            {getText(props)} If the problem persists, contact{' '}
+            <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
+          </p>
         </Alert>
       </div>
     )

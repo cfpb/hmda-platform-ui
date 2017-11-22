@@ -2,23 +2,23 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as STATUS from '../constants/statusCodes.js'
 
-let SCALING_FACTOR = 1
 export default class ValidationProgress extends Component {
   constructor(props) {
     super(props)
     this.state = { fillWidth: this.getSavedWidth(props.id) }
+    this.SCALING_FACTOR = 1
     if (props.file) {
-      SCALING_FACTOR = props.file.size / 1e6
-      if (SCALING_FACTOR < 1) SCALING_FACTOR = 1
-      if (SCALING_FACTOR > 5) SCALING_FACTOR = 5
+      this.SCALING_FACTOR = props.file.size / 1e6
+      if (this.SCALING_FACTOR < 1) this.SCALING_FACTOR = 1
+      if (this.SCALING_FACTOR > 5) this.SCALING_FACTOR = 5
     }
   }
 
   componentWillReceiveProps(props) {
     if (props.file) {
-      SCALING_FACTOR = props.file.size / 1e6
-      if (SCALING_FACTOR < 1) SCALING_FACTOR = 1
-      if (SCALING_FACTOR > 5) SCALING_FACTOR = 5
+      this.SCALING_FACTOR = props.file.size / 1e6
+      if (this.SCALING_FACTOR < 1) this.SCALING_FACTOR = 1
+      if (this.SCALING_FACTOR > 5) this.SCALING_FACTOR = 5
     }
     if (props.id !== this.props.id) {
       this.setState({ fillWidth: this.getSavedWidth(props.id) })
@@ -30,6 +30,7 @@ export default class ValidationProgress extends Component {
   }
 
   saveWidth(id, width) {
+    if (this.props.uploadError) width = 0
     localStorage.setItem(`HMDA_FILE_PROGRESS/${id}`, width)
   }
 
@@ -42,6 +43,8 @@ export default class ValidationProgress extends Component {
       text = 'File contains formatting errors.'
     if (code === STATUS.VALIDATING) text = 'Validating edits...'
     if (code > STATUS.VALIDATING) text = 'Edit validation complete.'
+
+    if (this.props.uploadError) text = 'Error uploading file. Please try again.'
 
     const largeFile = this.props.file && this.props.file.size > 1e5
 
@@ -65,7 +68,8 @@ export default class ValidationProgress extends Component {
 
   getIndicator() {
     let className = 'progressIndicator'
-    if (this.props.code === STATUS.PARSED_WITH_ERRORS) className += ' error'
+    if (this.props.code === STATUS.PARSED_WITH_ERRORS || this.props.uploadError)
+      className += ' error'
     else if (this.props.code > STATUS.VALIDATING) className += ' complete'
     else className += ' pulsing'
     return <span className={className} />
@@ -75,10 +79,11 @@ export default class ValidationProgress extends Component {
     let className = 'progressFill'
     let currWidth = this.state.fillWidth
     const code = this.props.code
+    const errored = code === STATUS.PARSED_WITH_ERRORS || this.props.uploadError
 
-    if (code === STATUS.PARSED_WITH_ERRORS) className += ' error'
+    if (errored) className += ' error'
 
-    if (code === STATUS.PARSED_WITH_ERRORS || code > STATUS.VALIDATING) {
+    if (errored || code > STATUS.VALIDATING) {
       currWidth = 100
       this.saveWidth(this.props.id, 100)
     } else if (!this.timeout) this.getNextWidth()
@@ -100,7 +105,7 @@ export default class ValidationProgress extends Component {
     const currWidth = this.state.fillWidth
     this.timeout = setTimeout(
       this.setNextWidth(currWidth),
-      SCALING_FACTOR * 200 * Math.pow(2, 50 / (100 - currWidth))
+      this.SCALING_FACTOR * 200 * Math.pow(2, 50 / (100 - currWidth))
     )
   }
 
