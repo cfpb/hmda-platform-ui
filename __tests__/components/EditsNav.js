@@ -114,3 +114,134 @@ describe('EditsNav', () => {
     expect(console.error).toHaveBeenCalledTimes(7)
   })
 })
+
+describe('componentDidMount', () => {
+  it('adds the event listener, but bails without rendered header/nav', () => {
+    const listen = jest.fn()
+    const setState = jest.fn()
+    delete window.addEventListener
+    window.addEventListener = listen
+
+    const nav = new EditsNav(baseProps)
+    nav.setState = setState
+    nav.componentDidMount()
+    expect(listen).toBeCalled()
+    expect(setState).not.toBeCalled()
+  })
+
+  it('sets state when header/userHeadering/editsNav exist', () => {
+    const setState = jest.fn()
+    const byId = jest.fn(() => {
+      return { clientHeight: 2 }
+    })
+    delete document.getElementById
+    document.getElementById = byId
+
+    const nav = new EditsNav(baseProps)
+    nav.setState = setState
+    nav.componentDidMount()
+    expect(byId.mock.calls.length).toBe(3)
+    expect(setState).toBeCalledWith({ headerHeight: 4, editsNavHeight: 2 })
+  })
+})
+
+describe('componentDidUpdate', () => {
+  it('sets state when current height is not equal to saved height', () => {
+    const setState = jest.fn()
+    const byId = jest.fn(() => {
+      return { clientHeight: 2 }
+    })
+    delete document.getElementById
+    document.getElementById = byId
+
+    const nav = new EditsNav(baseProps)
+    nav.setState = setState
+    nav.state.editsNavHeight = 4
+    nav.componentDidUpdate()
+    expect(setState).toBeCalledWith({ editsNavHeight: 2 })
+  })
+
+  it('does not set state when current height is equal to saved height', () => {
+    const setState = jest.fn()
+    const byId = jest.fn(() => {
+      return { clientHeight: 2 }
+    })
+    delete document.getElementById
+    document.getElementById = byId
+
+    const nav = new EditsNav(baseProps)
+    nav.setState = setState
+    nav.state.editsNavHeight = 2
+    nav.componentDidUpdate()
+    expect(setState).not.toBeCalled()
+  })
+})
+
+describe('componentWillUnmount', () => {
+  it('removes event listener on unmount', () => {
+    delete window.removeEventListener
+    const remove = jest.fn()
+    window.removeEventListener = remove
+    const nav = new EditsNav(baseProps)
+    nav.componentWillUnmount()
+
+    expect(remove).toBeCalled()
+  })
+})
+
+describe('handleScroll', () => {
+  it('sets state to fixed when scrollY >= headerHeight and state not fixed', () => {
+    const setState = jest.fn()
+    const nav = new EditsNav(baseProps)
+    nav.setState = setState
+    window.scrollY = 123
+    nav.state.headerHeight = 2
+    nav.state.fixed = false
+    nav.handleScroll()
+    expect(setState).toBeCalledWith({ fixed: true })
+  })
+
+  it('does not set state to fixed when scrollY >= headerHeight and state fixed', () => {
+    const setState = jest.fn()
+    const nav = new EditsNav(baseProps)
+    nav.setState = setState
+    window.scrollY = 123
+    nav.state.headerHeight = 2
+    nav.state.fixed = true
+    nav.handleScroll()
+    expect(setState).not.toBeCalled()
+  })
+
+  it('sets state to unfixed when scrollY < headerHeight and state fixed', () => {
+    const setState = jest.fn()
+    const nav = new EditsNav(baseProps)
+    nav.setState = setState
+    window.scrollY = 123
+    nav.state.headerHeight = 234
+    nav.state.fixed = true
+    nav.handleScroll()
+    expect(setState).toBeCalledWith({ fixed: false })
+  })
+
+  it('does not set state when scrollY < headerHeight and state unfixed', () => {
+    const setState = jest.fn()
+    const nav = new EditsNav(baseProps)
+    nav.setState = setState
+    window.scrollY = 123
+    nav.state.headerHeight = 234
+    nav.state.fixed = false
+    nav.handleScroll()
+    expect(setState).not.toBeCalled()
+  })
+})
+
+describe('render', () => {
+  it('sets class if fixed when rendering', () => {
+    const nav = new EditsNav(baseProps)
+    nav.state.fixed = true
+    const rendered = nav.render()
+    expect(rendered.props.children.props.className).toEqual(
+      'EditsNav EditsNav-fixed'
+    )
+  })
+})

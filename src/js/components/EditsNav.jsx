@@ -83,12 +83,10 @@ export default class EditsNav extends Component {
   }
 
   componentDidUpdate() {
-    if (
-      this.state.editsNavHeight !==
-      document.getElementById('editsNav').clientHeight
-    ) {
+    const currentHeight = document.getElementById('editsNav').clientHeight
+    if (this.state.editsNavHeight !== currentHeight) {
       this.setState({
-        editsNavHeight: document.getElementById('editsNav').clientHeight
+        editsNavHeight: currentHeight
       })
     }
   }
@@ -147,14 +145,10 @@ export default class EditsNav extends Component {
 
   render() {
     const wrapperHeight = { height: `${this.state.editsNavHeight}px` }
-    const fixedClass = this.state.fixed ? 'EditsNav-fixed' : ''
+    const fixed = this.state.fixed ? 'EditsNav-fixed' : ''
     return (
       <section style={wrapperHeight}>
-        <nav
-          role="navigation"
-          className={`EditsNav ${fixedClass}`}
-          id="editsNav"
-        >
+        <nav role="navigation" className={`EditsNav ${fixed}`} id="editsNav">
           <ul className="usa-nav-primary">
             {Object.keys(this.navMap).map((name, i) => {
               return this.renderNavItem(name, i)
