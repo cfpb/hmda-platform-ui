@@ -1,7 +1,7 @@
 {
   "presets": [
-    "react",
-    ["env", {
+    "@babel/react",
+    ["@babel/env", {
       "modules": false,
       "useBuiltIns": "entry",
       "targets": {
@@ -16,13 +16,13 @@
     }]
   ],
   "plugins": [
-    "transform-object-rest-spread"
+    ["@babel/plugin-proposal-object-rest-spread", {"useBuiltIns": true}]
   ],
   "env": {
     "test": {
     "presets": [
-      "react",
-      ["env", {
+      "@babel/react",
+      ["@babel/env", {
         "modules": "commonjs",
         "useBuiltIns": "entry",
         "targets": {
@@ -37,7 +37,7 @@
       }]
       ],
       "plugins": [
-        "transform-object-rest-spread"
+        ["@babel/plugin-proposal-object-rest-spread", {"useBuiltIns": true}]
       ]
     }
   }
