@@ -41,7 +41,6 @@
   "homepage": "https://github.com/cfpb/hmda-platform-ui#readme",
   "devDependencies": {
     "autoprefixer": "7.1.5",
-    "babel-jest": "20.0.3",
     "babel-loader": "7.1.2",
     "babel-plugin-transform-object-rest-spread": "6.19.0",
     "babel-preset-env": "1.6.0",
@@ -60,9 +59,6 @@
     "webpack-shell-plugin": "0.5.0"
   },
   "jest": {
-    "transform": {
-      ".*": "<rootDir>/node_modules/babel-jest"
-    },
     "testPathIgnorePatterns": [
       "<rootDir>/__tests__/Wrapper.js",
       "<rootDir>/__tests__/reducers/excludeTypes.js"

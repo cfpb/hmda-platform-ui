@@ -2,19 +2,43 @@
   "presets": [
     "react",
     ["env", {
+      "modules": false,
       "useBuiltIns": "entry",
       "targets": {
         "browsers": [
           'Chrome >= 60',
           'Safari >= 10.1',
-           'Firefox >= 54',
-           'Edge >= 15',
-           'ie >= 11'
-         ]
+          'Firefox >= 54',
+          'Edge >= 15',
+          'ie >= 11'
+        ]
       }
     }]
   ],
   "plugins": [
     "transform-object-rest-spread"
-  ]
+  ],
+  "env": {
+    "test": {
+    "presets": [
+      "react",
+      ["env", {
+        "modules": "commonjs",
+        "useBuiltIns": "entry",
+        "targets": {
+          "browsers": [
+            'Chrome >= 60',
+            'Safari >= 10.1',
+            'Firefox >= 54',
+            'Edge >= 15',
+            'ie >= 11'
+          ]
+        }
+      }]
+      ],
+      "plugins": [
+        "transform-object-rest-spread"
+      ]
+    }
+  }
 }
