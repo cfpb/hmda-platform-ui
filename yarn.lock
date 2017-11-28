@@ -2564,7 +2564,7 @@ jest-changed-files@21.3.0-beta.10:
   dependencies:
     throat "^4.0.0"
 
-jest-cli@^21.3.0-beta.10:
+jest-cli@21.3.0-beta.10:
   version "21.3.0-beta.10"
   resolved "https://registry.yarnpkg.com/jest-cli/-/jest-cli-21.3.0-beta.10.tgz#617a75a7192f457debaa1e85febec9d1893fd47d"
   dependencies:
