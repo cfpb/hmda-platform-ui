@@ -1,5 +1,5 @@
 /* global ga */
-import '@babel/polyfill'
+import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
 import { createStore, combineReducers, applyMiddleware } from 'redux'

@@ -10,7 +10,7 @@ import Institutions, {
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 
 const fs = require('fs')
 const filingJSON = JSON.parse(fs.readFileSync('./__tests__/json/filings.json'))

@@ -1,28 +1,30 @@
 {
-  "presets": [
-    "@babel/react",
-    ["@babel/env", {
-      "modules": false,
-      "useBuiltIns": "entry",
-      "targets": {
-        "browsers": [
-          'Chrome >= 60',
-          'Safari >= 10.1',
-          'Firefox >= 54',
-          'Edge >= 15',
-          'ie >= 11'
-        ]
-      }
-    }]
-  ],
-  "plugins": [
-    ["@babel/plugin-proposal-object-rest-spread", {"useBuiltIns": true}]
-  ],
   "env": {
+    "build": {
+      "presets": [
+        "react",
+        ["env", {
+          "modules": false,
+          "useBuiltIns": "entry",
+          "targets": {
+            "browsers": [
+              'Chrome >= 60',
+              'Safari >= 10.1',
+              'Firefox >= 54',
+              'Edge >= 15',
+              'ie >= 11'
+            ]
+          }
+        }]
+      ],
+      "plugins": [
+        ["transform-object-rest-spread", {"useBuiltIns": true}]
+      ] 
+    },
     "test": {
     "presets": [
-      "@babel/react",
-      ["@babel/env", {
+      "react",
+      ["env", {
         "modules": "commonjs",
         "useBuiltIns": "entry",
         "targets": {
@@ -37,7 +39,7 @@
       }]
       ],
       "plugins": [
-        ["@babel/plugin-proposal-object-rest-spread", {"useBuiltIns": true}]
+        ["transform-object-rest-spread", {"useBuiltIns": true}]
       ]
     }
   }

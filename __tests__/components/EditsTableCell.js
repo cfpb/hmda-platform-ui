@@ -3,7 +3,7 @@ jest.unmock('../../src/js/components/EditsTableCell.jsx')
 import EditsTableCell from '../../src/js/components/EditsTableCell.jsx'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 
 describe('Edits Table Cell', () => {
   const editsTableCell = TestUtils.renderIntoDocument(

@@ -2,7 +2,7 @@ jest.unmock('../../src/js/components/RefileButton.jsx')
 
 import RefileButton from '../../src/js/components/RefileButton.jsx'
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 
 describe('RefileButton', () => {
   it('renders with provided props', () => {

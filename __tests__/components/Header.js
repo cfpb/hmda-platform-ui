@@ -8,7 +8,7 @@ import Header, { addActiveClass } from '../../src/js/components/Header.jsx'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 
 describe('Header', () => {
   const header = TestUtils.renderIntoDocument(

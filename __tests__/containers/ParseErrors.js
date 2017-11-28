@@ -4,7 +4,7 @@ jest.mock('../../src/js/components/ParseErrors.jsx')
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import fetchParseErrors from '../../src/js/actions/fetchParseErrors.js'
 import ParseErrorsComponent from '../../src/js/components/ParseErrors.jsx'
 import ParseErrors, {

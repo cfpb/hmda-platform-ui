@@ -18,7 +18,7 @@ module.exports = {
           options: {
             presets: [
               [
-                '@babel/env',
+                'env',
                 {
                   modules: false,
                   useBuiltIns: 'entry'
