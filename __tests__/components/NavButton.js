@@ -10,7 +10,8 @@ const baseProps = {
   code: 1,
   syntacticalValidityEditsExist: true,
   qualityVerified: false,
-  macroVerified: false
+  macroVerified: false,
+  fetched: 1
 }
 
 const showing = 'NavButton usa-button '
@@ -23,17 +24,31 @@ describe('NavButton', () => {
   })
 
   it('renders with upload page', () => {
-    const rendered = NavButton({ ...baseProps, page: 'upload' })
+    const rendered = NavButton({ ...baseProps, page: 'upload' })[0]
     expect(rendered.props.to).toBe('a/b/syntacticalvalidity')
     expect(rendered.props.className).toBe(hidden)
     expect(rendered.props.children).toBe('Review  Edits')
 
-    const showingButton = NavButton({ ...baseProps, page: 'upload', code: 8 })
+    const showingButton = NavButton({
+      ...baseProps,
+      page: 'upload',
+      code: 8
+    })[0]
     expect(showingButton.props.className).toBe(showing)
   })
 
+  it('renders loading icon when fetching edits on upload page', () => {
+    const rendered = NavButton({
+      ...baseProps,
+      page: 'upload',
+      code: 8,
+      fetched: 0
+    })[1]
+    expect(rendered.props.children.type.name).toBe('LoadingIcon')
+  })
+
   it('renders with syntacticalvalidity page', () => {
-    const rendered = NavButton({ ...baseProps, page: 'syntacticalvalidity' })
+    const rendered = NavButton({ ...baseProps, page: 'syntacticalvalidity' })[0]
     expect(rendered.props.to).toBe('a/b/quality')
     expect(rendered.props.className).toBe(hidden)
     expect(rendered.props.children).toBe('Review quality Edits')
@@ -43,12 +58,12 @@ describe('NavButton', () => {
       code: 8,
       page: 'syntacticalvalidity',
       syntacticalValidityEditsExist: false
-    })
+    })[0]
     expect(showingButton.props.className).toBe(showing)
   })
 
   it('renders with quality page', () => {
-    const rendered = NavButton({ ...baseProps, page: 'quality' })
+    const rendered = NavButton({ ...baseProps, page: 'quality' })[0]
     expect(rendered.props.to).toBe('a/b/macro')
     expect(rendered.props.className).toBe(hidden)
     expect(rendered.props.children).toBe('Review macro Edits')
@@ -59,7 +74,7 @@ describe('NavButton', () => {
       page: 'quality',
       syntacticalValidityEditsExist: false,
       qualityVerified: true
-    })
+    })[0]
     expect(showingButton.props.className).toBe(showing)
 
     const hiddenButton = NavButton({
@@ -67,12 +82,12 @@ describe('NavButton', () => {
       page: 'quality',
       syntacticalValidityEditsExist: false,
       qualityVerified: true
-    })
+    })[0]
     expect(hiddenButton.props.className).toBe(hidden)
   })
 
   it('renders with macro page', () => {
-    const rendered = NavButton({ ...baseProps, page: 'macro' })
+    const rendered = NavButton({ ...baseProps, page: 'macro' })[0]
     expect(rendered.props.to).toBe('a/b/submission')
     expect(rendered.props.className).toBe(hidden)
     expect(rendered.props.children).toBe('Review submission')
@@ -84,7 +99,7 @@ describe('NavButton', () => {
       syntacticalValidityEditsExist: false,
       qualityVerified: true,
       macroVerified: true
-    })
+    })[0]
     expect(showingButton.props.className).toBe(showing)
   })
 })

@@ -43,7 +43,7 @@ const NavButton = ({
 
   let displayName = suffix === 'syntacticalvalidity' ? '' : suffix
   displayName = suffix !== 'submission' ? `${displayName} Edits` : displayName
-  console.log('spinOn', spinOn)
+
   return [
     <Link
       key="0"
