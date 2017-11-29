@@ -78,7 +78,7 @@ export default class ModalConfirm extends Component {
               }}
               ref={button => (this.confirmButton = button)}
             >
-              Yes, restart the filing process.
+              Yes, replace HMDA data.
             </button>
             <a
               href="#"
