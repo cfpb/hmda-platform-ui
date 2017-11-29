@@ -33,7 +33,9 @@ export default class EditsNav extends Component {
         isReachable: () =>
           this.props.fetched && this.navMap.upload.isCompleted(),
         isErrored: () => this.props.syntacticalValidityEditsExist,
-        isCompleted: () => !this.props.syntacticalValidityEditsExist,
+        isCompleted: () =>
+          this.navMap['syntactical & validity edits'].isReachable() &&
+          !this.props.syntacticalValidityEditsExist,
         errorClass: 'error',
         errorText: 'syntactical & validity edits found',
         completedText: 'no syntactical & validity edits',
@@ -41,20 +43,22 @@ export default class EditsNav extends Component {
       },
       'quality edits': {
         isReachable: () =>
-          this.props.fetched &&
           this.navMap['syntactical & validity edits'].isCompleted(),
         isErrored: () => !this.props.qualityVerified,
-        isCompleted: () => this.props.qualityVerified,
+        isCompleted: () =>
+          this.navMap['quality edits'].isReachable() &&
+          this.props.qualityVerified,
         errorClass: 'warning',
         errorText: 'quality edits found',
         completedText: 'quality edits verified',
         link: 'quality'
       },
       'macro quality edits': {
-        isReachable: () =>
-          this.props.fetched && this.navMap['quality edits'].isCompleted(),
+        isReachable: () => this.navMap['quality edits'].isCompleted(),
         isErrored: () => !this.props.macroVerified,
-        isCompleted: () => this.props.macroVerified,
+        isCompleted: () =>
+          this.navMap['macro quality edits'].isReachable() &&
+          this.props.macroVerified,
         errorClass: 'warning',
         errorText: 'macro quality edits found',
         completedText: 'macro quality edits verified',
