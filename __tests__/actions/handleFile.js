@@ -32,18 +32,30 @@ describe('handleFile', () => {
   })
 
   it('dispatches showconfirm and selectnewfile when past uploading', () => {
+    const store = mockStore({ app: { institution: { id: '123' } } })
     const file = {}
 
     checkFileErrors.mockImplementation(id => [])
     store.dispatch(handleFile(file, 8))
     expect(store.getActions()).toEqual([
-      { type: 'argle', errors: ['error'] },
       { type: types.SHOW_CONFIRM, showing: true },
       { type: types.SELECT_NEW_FILE, id: '123', file: {} }
     ])
   })
 
-  it('dispatches selectfile and fetchUpload when past uploading', () => {
+  it('dispatches showconfirm and selectnewfile when upload error exists', () => {
+    const store = mockStore({ app: { institution: { id: '123' } } })
+    const file = {}
+
+    checkFileErrors.mockImplementation(id => [])
+    store.dispatch(handleFile(file, 2, 1))
+    expect(store.getActions()).toEqual([
+      { type: types.SHOW_CONFIRM, showing: true },
+      { type: types.SELECT_NEW_FILE, id: '123', file: {} }
+    ])
+  })
+  it('dispatches selectfile and fetchUpload when before uploading', () => {
+    const store = mockStore({ app: { institution: { id: '123' } } })
     const file = {}
 
     fetchUpload.mockImplementation(id => {
@@ -52,9 +64,6 @@ describe('handleFile', () => {
     checkFileErrors.mockImplementation(id => [])
     store.dispatch(handleFile(file, 1))
     expect(store.getActions()).toEqual([
-      { type: 'argle', errors: ['error'] },
-      { type: types.SHOW_CONFIRM, showing: true },
-      { type: types.SELECT_NEW_FILE, id: '123', file: {} },
       { type: types.SELECT_FILE, id: '123', file: {} },
       { type: 'fetchup' }
     ])

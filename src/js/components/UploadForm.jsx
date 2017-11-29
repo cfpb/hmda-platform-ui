@@ -5,9 +5,22 @@ import Dropzone from 'react-dropzone'
 import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 
-export const renderValidationProgress = ({ code, uploading, file, id }) => {
+export const renderValidationProgress = ({
+  code,
+  uploading,
+  file,
+  id,
+  uploadError
+}) => {
   if (code < STATUS.UPLOADING && !uploading) return null
-  return <ValidationProgress file={file} code={code} id={id} />
+  return (
+    <ValidationProgress
+      uploadError={uploadError}
+      file={file}
+      code={code}
+      id={id}
+    />
+  )
 }
 
 export const renderErrors = errors => {
@@ -102,7 +115,7 @@ export const getDropzoneText = ({ code, errors, filename, errorFile }) => {
       message = _getUploadMessage(
         '',
         errorFile,
-        'can not be uploaded.',
+        'cannot be uploaded.',
         howToMessage
       )
     }
@@ -117,8 +130,8 @@ export default class Upload extends Component {
 
     // handle the onDrop to set the file and show confirmation modal
     this.onDrop = acceptedFiles => {
-      const { handleDrop, code } = this.props
-      handleDrop(acceptedFiles, code)
+      const { handleDrop, code, uploadError } = this.props
+      handleDrop(acceptedFiles, code, uploadError)
     }
   }
 
@@ -134,7 +147,7 @@ export default class Upload extends Component {
   render() {
     return (
       <section className="UploadForm">
-        {renderErrors(this.props.errors)}
+        {renderErrors(this.props.errors, this.props.uploadError)}
         <section className="container-upload">
           <Alert type="warning" heading="Test data will be removed">
             <p>
@@ -165,5 +178,6 @@ Upload.propTypes = {
   file: PropTypes.object,
   code: PropTypes.number,
   errors: PropTypes.array,
+  uploadError: PropTypes.object,
   errorFile: PropTypes.string
 }

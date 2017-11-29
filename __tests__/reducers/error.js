@@ -10,9 +10,18 @@ describe('error reducer', () => {
     expect(error(undefined, {})).toEqual(defaultError)
   })
 
-  it('should update the error state when encountered', () => {
+  it('should update the error state when error encountered', () => {
     expect(
       error(defaultError, { type: types.RECEIVE_ERROR, error: 'an error' })
+    ).toEqual('an error')
+  })
+
+  it('should update the error state when upload error encountered', () => {
+    expect(
+      error(defaultError, {
+        type: types.RECEIVE_UPLOAD_ERROR,
+        error: 'an error'
+      })
     ).toEqual('an error')
   })
 
@@ -21,8 +30,10 @@ describe('error reducer', () => {
   })
 
   it("shouldn't modify state on an unknown action type", () => {
-    excludeTypes(types.REFRESH_STATE, types.RECEIVE_ERROR).forEach(v =>
-      expect(error({}, v)).toEqual({})
-    )
+    excludeTypes(
+      types.REFRESH_STATE,
+      types.RECEIVE_ERROR,
+      types.RECEIVE_UPLOAD_ERROR
+    ).forEach(v => expect(error({}, v)).toEqual({}))
   })
 })

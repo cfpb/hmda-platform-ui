@@ -58,8 +58,20 @@ describe('ErrorWarning', () => {
     expect(rendered).toEqual('hi')
   })
 
+  it('renders correct body on 400', () => {
+    const rendered = getText({ error: { status: 400 } })
+    expect(rendered).toEqual(
+      'Your request could not be completed. Please try again.'
+    )
+  })
+
   it('renders correct body on 401', () => {
     const rendered = getText({ error: { status: 401 } })
+    expect(rendered).toEqual('Please log in to complete this request.')
+  })
+
+  it('renders correct body on 403', () => {
+    const rendered = getText({ error: { status: 403 } })
     expect(rendered).toEqual('Please log in to complete this request.')
   })
 
