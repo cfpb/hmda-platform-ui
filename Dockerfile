@@ -9,10 +9,11 @@ WORKDIR /usr/src/app
 RUN yum install -y epel-release && \
     yum-config-manager --enable cr && \
     yum update -y && \
-    yum install -y nginx-1.10.2 \
+    find nginx -iname 'nginx-*' | sort -r | xargs -n1 -I file yum -y --nogpgcheck localinstall file && \
     yum clean all && \
     usermod -l $NGINX_USER nginx && \
     groupmod -n $NGINX_USER nginx && \
+    rm -f nginx/*.rpm && \
     rm -rf /usr/share/nginx/ && \
     ls -d -1 /etc/nginx/* | grep -v '\/mime.types$' | xargs rm -rf && \
     mv nginx/* /etc/nginx && \
