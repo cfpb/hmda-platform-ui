@@ -42,9 +42,7 @@ export default class ValidationProgress extends Component {
     if (code === STATUS.PARSED_WITH_ERRORS)
       text = 'File contains formatting errors.'
     if (code === STATUS.VALIDATING) text = 'Validating edits...'
-    if (code > STATUS.VALIDATING) {
-      text = 'Edit validation complete.'
-    }
+    if (code > STATUS.VALIDATING) text = 'Edit validation complete.'
 
     if (this.props.uploadError) text = 'Error uploading file. Please try again.'
 

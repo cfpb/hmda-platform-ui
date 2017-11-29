@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
 import Alert from './Alert.jsx'
 import * as STATUS from '../constants/statusCodes.js'
-
-const Progress = submissionProgressHOC(ValidationProgress)
 
 export const renderValidationProgress = ({
   code,
@@ -16,7 +13,14 @@ export const renderValidationProgress = ({
   uploadError
 }) => {
   if (code < STATUS.UPLOADING && !uploading) return null
-  return <Progress uploadError={uploadError} file={file} code={code} id={id} />
+  return (
+    <ValidationProgress
+      uploadError={uploadError}
+      file={file}
+      code={code}
+      id={id}
+    />
+  )
 }
 
 export const renderErrors = errors => {
