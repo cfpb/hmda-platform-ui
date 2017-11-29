@@ -4,6 +4,7 @@
   background: $color-white;
   left: 50%;
   width: 40%;
+  min-width: 30em;
   position: fixed;
   top: 40%;
   transform: translate(-50%, -50%);
@@ -25,11 +26,6 @@
       color: $color-gray;
       &:hover {
         color: $color-gray-warm-dark;
-      }
-
-      @media screen and (max-width: 931px) {
-        display: block;
-        margin-top: 1em;
       }
     }
     button {
@@ -57,5 +53,13 @@ div.showing-blurred-blocker {
   opacity: 1;
   .modal {
     top: 50%;
+  }
+}
+
+@media (max-width: 500px) {
+  .modal {
+    min-width: 0;
+    height:100%;
+    width:100%;
   }
 }
