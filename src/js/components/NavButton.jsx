@@ -53,9 +53,7 @@ const NavButton = ({
     >
       {`Review ${displayName}`}
     </Link>,
-    <div key="1" className="NavSpinner">
-      {spinOn ? <LoadingIcon /> : null}
-    </div>
+    spinOn ? <LoadingIcon key="1" className="NavSpinner" /> : null
   ]
 }
 
