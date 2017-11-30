@@ -10,159 +10,6 @@ import {
   SIGNED
 } from '../constants/statusCodes.js'
 
-const navNames = [
-  'upload',
-  'syntactical & validity edits',
-  'quality edits',
-  'macro quality edits',
-  'submission'
-]
-
-const navLinks = {
-  upload: 'upload',
-  'syntactical & validity edits': 'syntacticalvalidity',
-  'quality edits': 'quality',
-  'macro quality edits': 'macro',
-  submission: 'submission'
-}
-
-export const getNavClass = (name, props) => {
-  let navClass = ''
-  const {
-    code,
-    page,
-    syntacticalValidityEditsExist,
-    qualityVerified,
-    macroVerified
-  } = props
-
-  switch (name) {
-    case 'upload':
-      navClass = 'active'
-      if (code > VALIDATING) navClass = 'complete'
-      if (code === PARSED_WITH_ERRORS) navClass = 'error'
-      break
-    case 'syntacticalvalidity':
-      if (code > VALIDATING) {
-        navClass = 'active'
-        navClass = syntacticalValidityEditsExist ? 'error' : 'complete'
-      }
-      break
-    case 'quality':
-      if (code > VALIDATING) {
-        if (!syntacticalValidityEditsExist) {
-          navClass = 'active'
-          navClass = qualityVerified ? 'complete' : 'warning'
-        }
-      }
-      break
-    case 'macro':
-      if (code > VALIDATING) {
-        if (!syntacticalValidityEditsExist && qualityVerified) {
-          navClass = 'active'
-          navClass = macroVerified ? 'complete' : 'warning'
-        }
-      }
-      break
-  }
-
-  // catch all if validated
-  if (code > VALIDATED_WITH_ERRORS) navClass = 'complete'
-  if (code === VALIDATED && name === 'submission') navClass = 'active'
-  // add current class if page matches the name
-  if (name === page) navClass = `${navClass} current`
-  return navClass
-}
-
-export const renderLinkOrText = (props, name, i) => {
-  let isLink = false
-  const {
-    page,
-    base,
-    code,
-    syntacticalValidityEditsExist,
-    qualityVerified,
-    macroVerified
-  } = props
-
-  // only render link when code > VALIDATING (so it's finished validating)
-  if (code > VALIDATING) {
-    isLink = true
-    if (code < VALIDATED) {
-      if (syntacticalValidityEditsExist && navNames.indexOf(name) > 1) {
-        isLink = false
-      }
-      if (!qualityVerified && navNames.indexOf(name) > 2) {
-        isLink = false
-      }
-      if (!macroVerified && navNames.indexOf(name) > 3) {
-        isLink = false
-      }
-    }
-  }
-
-  // always render the upload as a link
-  if (name === 'upload') {
-    isLink = true
-  }
-
-  let navClass = getNavClass(navLinks[name], props)
-
-  let step
-
-  if (
-    navClass === '' ||
-    ((navLinks[name] === 'upload' || navLinks[name] === 'submission') &&
-      navClass.indexOf('complete') !== 0)
-  )
-    step = i + 1
-
-  if (navLinks[name] === 'upload' && navClass.indexOf('error') === 0)
-    step = null
-
-  let renderedName = name
-  if (name === 'upload') {
-    if (code > VALIDATING) renderedName = 'uploaded'
-    if (code === PARSED_WITH_ERRORS)
-      renderedName = 'uploaded with formatting errors'
-  }
-  if (name === 'syntactical & validity edits') {
-    if (syntacticalValidityEditsExist)
-      renderedName = 'syntactical & validity edits found'
-    if (code > VALIDATING && !syntacticalValidityEditsExist)
-      renderedName = 'no syntactical & validity edits'
-  }
-  if (name === 'quality edits') {
-    if (!qualityVerified) renderedName = 'quality edits found'
-    if (code > VALIDATING && qualityVerified)
-      renderedName = 'quality edits verified'
-  }
-  if (name === 'macro quality edits') {
-    if (!macroVerified) renderedName = 'macro quality edits found'
-    if (code > VALIDATING && macroVerified)
-      renderedName = 'macro quality edits verified'
-  }
-  if (name === 'submission' && code === SIGNED) renderedName = 'submitted'
-
-  if (isLink) {
-    return (
-      <li className={navClass} key={i}>
-        <Link className="usa-nav-link" to={`${base}/${navLinks[name]}`}>
-          <div className="step">{step}</div>
-          {renderedName}
-        </Link>
-      </li>
-    )
-  } else {
-    return (
-      <li className={navClass} key={i}>
-        <div className="step">{step}</div>
-        {name}
-      </li>
-    )
-  }
-}
-
 export default class EditsNav extends Component {
   constructor(props) {
     super(props)
@@ -171,6 +18,59 @@ export default class EditsNav extends Component {
       fixed: false,
       headerHeight: 0,
       editsNavHeight: 0
+    }
+    this.navMap = {
+      upload: {
+        isReachable: () => true,
+        isErrored: () => this.props.code === PARSED_WITH_ERRORS,
+        isCompleted: () => this.props.code > VALIDATING,
+        errorClass: 'error',
+        errorText: 'uploaded with formatting errors',
+        completedText: 'uploaded',
+        link: 'upload'
+      },
+      'syntactical & validity edits': {
+        isReachable: () =>
+          this.props.fetched && this.navMap.upload.isCompleted(),
+        isErrored: () => this.props.syntacticalValidityEditsExist,
+        isCompleted: () =>
+          this.navMap['syntactical & validity edits'].isReachable() &&
+          !this.props.syntacticalValidityEditsExist,
+        errorClass: 'error',
+        errorText: 'syntactical & validity edits found',
+        completedText: 'no syntactical & validity edits',
+        link: 'syntacticalvalidity'
+      },
+      'quality edits': {
+        isReachable: () =>
+          this.navMap['syntactical & validity edits'].isCompleted(),
+        isErrored: () => !this.props.qualityVerified,
+        isCompleted: () =>
+          this.navMap['quality edits'].isReachable() &&
+          this.props.qualityVerified,
+        errorClass: 'warning',
+        errorText: 'quality edits found',
+        completedText: 'quality edits verified',
+        link: 'quality'
+      },
+      'macro quality edits': {
+        isReachable: () => this.navMap['quality edits'].isCompleted(),
+        isErrored: () => !this.props.macroVerified,
+        isCompleted: () =>
+          this.navMap['macro quality edits'].isReachable() &&
+          this.props.macroVerified,
+        errorClass: 'warning',
+        errorText: 'macro quality edits found',
+        completedText: 'macro quality edits verified',
+        link: 'macro'
+      },
+      submission: {
+        isReachable: () => this.props.code >= VALIDATED,
+        isErrored: () => false,
+        isCompleted: () => this.props.code === SIGNED,
+        completedText: 'submitted',
+        link: 'submission'
+      }
     }
   }
 
@@ -187,12 +87,10 @@ export default class EditsNav extends Component {
   }
 
   componentDidUpdate() {
-    if (
-      this.state.editsNavHeight !==
-      document.getElementById('editsNav').clientHeight
-    ) {
+    const currentHeight = document.getElementById('editsNav').clientHeight
+    if (this.state.editsNavHeight !== currentHeight) {
       this.setState({
-        editsNavHeight: document.getElementById('editsNav').clientHeight
+        editsNavHeight: currentHeight
       })
     }
   }
@@ -210,19 +108,54 @@ export default class EditsNav extends Component {
     }
   }
 
+  renderNavItem(name, i) {
+    const { page, base, code } = this.props
+    const navItem = this.navMap[name]
+    let step = i + 1
+
+    if (navItem.isReachable() || code >= VALIDATED) {
+      const completed =
+        navItem.isCompleted() || (name !== 'submission' && code >= VALIDATED)
+      const errored = navItem.isErrored()
+      const renderedName = errored
+        ? navItem.errorText
+        : completed ? navItem.completedText : name
+
+      let navClass = errored
+        ? navItem.errorClass
+        : completed ? 'complete' : 'active'
+
+      if (navClass !== 'active') step = null
+
+      if (navItem.link === page) navClass = `${navClass} current`
+
+      return (
+        <li className={navClass} key={i}>
+          <Link className="usa-nav-link" to={`${base}/${navItem.link}`}>
+            <div className="step">{step}</div>
+            {renderedName}
+          </Link>
+        </li>
+      )
+    } else {
+      return (
+        <li key={i}>
+          <div className="step">{step}</div>
+          {name}
+        </li>
+      )
+    }
+  }
+
   render() {
     const wrapperHeight = { height: `${this.state.editsNavHeight}px` }
-    const fixedClass = this.state.fixed ? 'EditsNav-fixed' : ''
+    const fixed = this.state.fixed ? 'EditsNav-fixed' : ''
     return (
       <section style={wrapperHeight}>
-        <nav
-          role="navigation"
-          className={`EditsNav ${fixedClass}`}
-          id="editsNav"
-        >
+        <nav role="navigation" className={`EditsNav ${fixed}`} id="editsNav">
           <ul className="usa-nav-primary">
-            {navNames.map((pageObj, i) => {
-              return renderLinkOrText(this.props, pageObj, i)
+            {Object.keys(this.navMap).map((name, i) => {
+              return this.renderNavItem(name, i)
             })}
           </ul>
           <hr className="nav-bg" />
@@ -238,5 +171,6 @@ EditsNav.propTypes = {
   code: PropTypes.number.isRequired,
   syntacticalValidityEditsExist: PropTypes.bool.isRequired,
   qualityVerified: PropTypes.bool.isRequired,
-  macroVerified: PropTypes.bool.isRequired
+  macroVerified: PropTypes.bool.isRequired,
+  fetched: PropTypes.bool.isRequired
 }
