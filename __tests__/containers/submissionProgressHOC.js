@@ -50,6 +50,7 @@ describe('submissionProgressHOC', () => {
       'page',
       'base',
       'code',
+      'fetched',
       'syntacticalValidityEditsExist',
       'qualityVerified',
       'macroVerified'
@@ -58,15 +59,16 @@ describe('submissionProgressHOC', () => {
     expect(mapped.page).toBe('c')
     expect(mapped.base).toBe('a/b')
     expect(mapped.code).toBe(0)
-    expect(mapped.syntacticalValidityEditsExist).toBe(true)
-    expect(mapped.qualityVerified).toBe(false)
-    expect(mapped.macroVerified).toBe(false)
+    expect(mapped.syntacticalValidityEditsExist).toBe(false)
+    expect(mapped.qualityVerified).toBe(true)
+    expect(mapped.macroVerified).toBe(true)
+    expect(mapped.fetched).toBe(false)
   })
 
   it('defaults quality verification to true if no edits exist', () => {
     defaultState.app.edits.types.quality = { edits: [], verified: false }
     const qualityMapped = mapStateToProps(defaultState)
-    expect(qualityMapped.qualityVerified).toBe(false)
+    expect(qualityMapped.qualityVerified).toBe(true)
   })
 
   it('passes synval on fetched', () => {

@@ -179,7 +179,7 @@ const IRSReport = props => {
         <p className="usa-font-lead">
           Please review your Institution Register Summary below. If you discover
           an error in your IRS, please update your file and select the
-          &quot;Update a new file&quot; button.
+          &quot;Upload a new file&quot; button.
         </p>
         {renderDownloadLink(props)}
       </header>

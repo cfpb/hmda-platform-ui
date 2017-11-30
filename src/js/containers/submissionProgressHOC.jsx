@@ -14,18 +14,16 @@ function mapStateToProps(state) {
   const { types, fetched } = state.app.edits
 
   const syntacticalValidityEditsExist =
-    !fetched ||
-    types.syntactical.edits.length !== 0 ||
-    types.validity.edits.length !== 0
+    types.syntactical.edits.length !== 0 || types.validity.edits.length !== 0
   const qualityVerified =
-    fetched && (types.quality.verified || types.quality.edits.length === 0)
-  const macroVerified =
-    fetched && (types.macro.verified || types.macro.edits.length === 0)
+    types.quality.verified || types.quality.edits.length === 0
+  const macroVerified = types.macro.verified || types.macro.edits.length === 0
 
   return {
     page,
     base,
     code,
+    fetched,
     syntacticalValidityEditsExist,
     qualityVerified,
     macroVerified

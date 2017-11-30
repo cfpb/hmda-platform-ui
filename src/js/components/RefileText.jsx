@@ -30,7 +30,7 @@ const RefileText = props => {
   return (
     <div className="RefileText">
       <p className="usa-font-lead">
-        Are you sure you would like to restart the filing process?
+        Are you sure you want to replace your HMDA data for this filing?
       </p>
       {getStatus(props.code)}
     </div>
