@@ -44,7 +44,7 @@ describe('NavButton', () => {
       code: 8,
       fetched: 0
     })[1]
-    expect(rendered.props.children.type.name).toBe('LoadingIcon')
+    expect(rendered.props.className).toBe('NavSpinner')
   })
 
   it('renders with syntacticalvalidity page', () => {
