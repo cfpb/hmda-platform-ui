@@ -4,7 +4,7 @@ const LoadingIcon = props => {
   let className = 'LoadingIconWrapper'
   if (props.className) className += ' ' + props.className
   return (
-    <div className={className}>
+    <div key={props.key} className={className}>
       <img src="/img/LoadingIcon.png" className="LoadingIcon" alt="Loading" />
     </div>
   )

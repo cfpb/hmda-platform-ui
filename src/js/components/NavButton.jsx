@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
+import LoadingIcon from './LoadingIcon.jsx'
 import { VALIDATED_WITH_ERRORS } from '../constants/statusCodes.js'
 
 const NavButton = ({
@@ -9,39 +10,32 @@ const NavButton = ({
   code,
   syntacticalValidityEditsExist,
   qualityVerified,
-  macroVerified
+  macroVerified,
+  fetched
 }) => {
   let className
   let suffix
+  let spinOn = false
+  const editFetchInProgress = code === VALIDATED_WITH_ERRORS && !fetched
+  const preError = code < VALIDATED_WITH_ERRORS || editFetchInProgress
 
   switch (page) {
     case 'upload':
       suffix = 'syntacticalvalidity'
-      if (code < VALIDATED_WITH_ERRORS) className = 'hidden'
+      if (preError) className = 'hidden'
+      if (editFetchInProgress) spinOn = true
       break
     case 'syntacticalvalidity':
       suffix = 'quality'
-      if (code < VALIDATED_WITH_ERRORS || syntacticalValidityEditsExist)
-        className = 'hidden'
+      if (preError || syntacticalValidityEditsExist) className = 'hidden'
       break
     case 'quality':
       suffix = 'macro'
-      if (
-        code < VALIDATED_WITH_ERRORS ||
-        syntacticalValidityEditsExist ||
-        !qualityVerified
-      )
-        className = 'hidden'
+      if (preError || !qualityVerified) className = 'hidden'
       break
     case 'macro':
       suffix = 'submission'
-      if (
-        code < VALIDATED_WITH_ERRORS ||
-        syntacticalValidityEditsExist ||
-        !qualityVerified ||
-        !macroVerified
-      )
-        className = 'hidden'
+      if (preError || !macroVerified) className = 'hidden'
       break
     default:
       return null
@@ -50,15 +44,17 @@ const NavButton = ({
   let displayName = suffix === 'syntacticalvalidity' ? '' : suffix
   displayName = suffix !== 'submission' ? `${displayName} Edits` : displayName
 
-  return (
+  return [
     <Link
+      key="0"
       className={`NavButton usa-button ${className || ''}`}
       tabIndex={className === 'hidden' ? -1 : 0}
       to={`${base}/${suffix}`}
     >
       {`Review ${displayName}`}
-    </Link>
-  )
+    </Link>,
+    spinOn ? <LoadingIcon key="1" className="NavSpinner" /> : null
+  ]
 }
 
 NavButton.propTypes = {
