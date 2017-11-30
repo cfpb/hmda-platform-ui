@@ -4,7 +4,7 @@ import EditsTableRow from '../../src/js/components/EditsTableRow.jsx'
 import fs from 'fs'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 
 const types = {
   syntactical: JSON.parse(fs.readFileSync('./__tests__/json/syntactical.json')),

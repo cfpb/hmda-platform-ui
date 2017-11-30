@@ -9,7 +9,7 @@ import {
   logout,
   setUserManager,
   getUserManager
-} from '../../src/js/utils/redirect'
+} from '../../src/js/utils/redirect.js'
 
 describe('redirect', () => {
   it('gets userManager', () => {

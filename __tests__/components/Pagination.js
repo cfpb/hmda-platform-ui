@@ -3,7 +3,7 @@ jest.unmock('../../src/js/components/Pagination.jsx')
 import Pagination from '../../src/js/components/Pagination.jsx'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 
 describe('Pagination component', () => {
   const getPage = jest.fn()

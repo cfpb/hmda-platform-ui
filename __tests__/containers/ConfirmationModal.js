@@ -3,7 +3,7 @@ jest.mock('react-router')
 
 import React from 'react'
 import * as reactRouter from 'react-router'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import Wrapper from '../Wrapper.js'
 import Connected, {
   ConfirmationModalContainer,

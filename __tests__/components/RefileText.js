@@ -2,7 +2,7 @@ jest.unmock('../../src/js/components/RefileText.jsx')
 
 import RefileText, { getStatus } from '../../src/js/components/RefileText.jsx'
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 
 describe('RefileText', () => {
   it('renders with provided props', () => {

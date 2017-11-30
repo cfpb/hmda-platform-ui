@@ -2,7 +2,7 @@ jest.unmock('../../src/js/containers/SubmissionRouter.jsx')
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { browserHistory } from 'react-router'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import ConnectedRouter, {

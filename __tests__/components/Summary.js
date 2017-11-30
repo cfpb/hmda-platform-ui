@@ -4,7 +4,7 @@ import Summary from '../../src/js/components/Summary.jsx'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 
 const fs = require('fs')
 const summaryJSON = JSON.parse(fs.readFileSync('./__tests__/json/summary.json'))

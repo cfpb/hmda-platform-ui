@@ -4,7 +4,7 @@ import InstitutionNameAndId from '../../src/js/components/InstitutionNameAndId.j
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 
 describe('InstitutionNameAndId', () => {
   it('renders the institution name and id', () => {

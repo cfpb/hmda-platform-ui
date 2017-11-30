@@ -1,7 +1,7 @@
 jest.unmock('../../src/js/containers/Pagination.jsx')
 
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import Wrapper from '../Wrapper.js'
 import Connected, {
   PaginationContainer,

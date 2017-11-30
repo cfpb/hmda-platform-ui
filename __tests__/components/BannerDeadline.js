@@ -5,7 +5,7 @@ jest.mock('../../src/js/utils/date.js')
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Wrapper from '../Wrapper.js'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import {
   withinFilingPeriod,
   withinAWeekOfDeadline

@@ -4,7 +4,7 @@ jest.mock('../../src/js/components/Alert.jsx', () => jest.fn(() => null))
 import fs from 'fs'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import Wrapper from '../Wrapper.js'
 import EditsTableWrapper, {
   renderTablesOrSuccess,

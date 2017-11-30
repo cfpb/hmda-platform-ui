@@ -2,7 +2,7 @@ jest.unmock('../../src/js/components/NavButton.jsx')
 
 import NavButton from '../../src/js/components/NavButton.jsx'
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 
 const baseProps = {
   page: 'c',
