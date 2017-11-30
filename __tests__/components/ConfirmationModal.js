@@ -6,7 +6,7 @@ import ModalConfirm, {
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 
 describe('Confirmation Modal', () => {
   const hideConfirmModal = jest.fn()
@@ -33,17 +33,13 @@ describe('Confirmation Modal', () => {
   it('renders button when hidden', () => {
     const button = TestUtils.findRenderedDOMComponentWithTag(confirm, 'button')
     expect(button.length).not.toBeNull()
-    Object.keys(button).forEach(v => {
-      expect(button[v]._currentElement.props.tabIndex).toBe(-1)
-    })
+    expect(button.tabIndex).toBe(-1)
   })
 
   it('renders link when hidden', () => {
     const link = TestUtils.findRenderedDOMComponentWithTag(confirm, 'a')
     expect(link.length).not.toBeNull()
-    Object.keys(link).forEach(v => {
-      expect(link[v]._currentElement.props.tabIndex).toBe(-1)
-    })
+    expect(link.tabIndex).toBe(-1)
   })
 
   it('renders WITHOUT the showing-blurred-blocker class', () => {
@@ -128,17 +124,13 @@ describe('Confirmation Modal', () => {
       'button'
     )
     expect(button.length).not.toBeNull()
-    Object.keys(button).forEach(v => {
-      expect(button[v]._currentElement.props.tabIndex).toBe(0)
-    })
+    expect(button.tabIndex).toBe(0)
   })
 
   it('renders showing link', () => {
     const link = TestUtils.findRenderedDOMComponentWithTag(confirmShowing, 'a')
     expect(link.length).not.toBeNull()
-    Object.keys(link).forEach(v => {
-      expect(link[v]._currentElement.props.tabIndex).toBe(0)
-    })
+    expect(link.tabIndex).toBe(0)
   })
   const confirmBroken = TestUtils.renderIntoDocument(
     <Wrapper>

@@ -4,7 +4,7 @@ import Signature from '../../src/js/components/Signature.jsx'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 jest.mock('../../src/js/containers/SubmissionReceipt.jsx')
 import SubmissionReceipt from '../../src/js/containers/SubmissionReceipt.jsx'
 

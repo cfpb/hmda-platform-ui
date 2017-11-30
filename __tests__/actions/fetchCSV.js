@@ -2,7 +2,7 @@ jest.mock('../../src/js/api/api')
 jest.unmock('../../src/js/actions/fetchCSV.js')
 jest.unmock('../../src/js/constants')
 jest.mock('file-saver')
-import * as types from '../../src/js/constants'
+import * as types from '../../src/js/constants/index.js'
 import fetchCSV from '../../src/js/actions/fetchCSV.js'
 
 import configureMockStore from 'redux-mock-store'

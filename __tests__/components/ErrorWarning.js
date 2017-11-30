@@ -8,7 +8,7 @@ import ErrorWarning, {
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 
 describe('ErrorWarning', () => {
   const errorWarning = TestUtils.renderIntoDocument(

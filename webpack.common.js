@@ -21,7 +21,7 @@ module.exports = {
                 'env',
                 {
                   modules: false,
-                  useBuiltIns: true
+                  useBuiltIns: 'entry'
                 }
               ]
             ]

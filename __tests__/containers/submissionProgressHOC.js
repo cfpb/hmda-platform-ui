@@ -2,7 +2,7 @@ jest.unmock('../../src/js/containers/submissionProgressHOC.jsx')
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import submissionProgressHOC, {
   mapStateToProps
 } from '../../src/js/containers/submissionProgressHOC.jsx'

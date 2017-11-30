@@ -7,7 +7,7 @@ import { withinFilingPeriod } from '../../src/js/utils/date.js'
 import Wrapper from '../Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 
 describe('InstitutionsHeader', () => {
   it('renders the header', () => {
