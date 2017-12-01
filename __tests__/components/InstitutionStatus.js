@@ -45,7 +45,7 @@ describe('InstitutionStatus', () => {
     ).toBe(1)
     expect(
       TestUtils.scryRenderedDOMComponentsWithTag(status, 'h4')[0].textContent
-    ).toEqual('Filing status: not started')
+    ).toEqual('not started')
   })
 
   it('renders the previous submission message', () => {
