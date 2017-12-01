@@ -2,8 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as STATUS from '../constants/statusCodes.js'
 
+const defaultSubmission = {
+  status: {
+    code: STATUS.CREATED,
+    message: 'No data has been uploaded yet.',
+    description:
+      'The filing period is open and available to accept HMDA data. Make sure your data is in a pipe-delimited text file.'
+  }
+}
+
 const InstitutionStatus = ({
-  submission,
+  submission = defaultSubmission,
   filing,
   institutionId,
   onDownloadClick
