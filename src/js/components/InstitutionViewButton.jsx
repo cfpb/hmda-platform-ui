@@ -5,11 +5,21 @@ import * as STATUS from '../constants/statusCodes.js'
 
 const InstitutionViewButton = ({ status, institutionId, filingPeriod }) => {
   const code = status ? status.code : STATUS.CREATED
-  let text = 'View current filing'
+  let text
 
-  if (code === STATUS.CREATED) {
-    text = 'Begin filing'
-  } else if (code === STATUS.SIGNED) {
+  if (code <= STATUS.CREATED) {
+    text = 'Upload your file'
+  } else if (code < STATUS.PARSED_WITH_ERRORS) {
+    text = 'View upload progress'
+  } else if (code === STATUS.PARSED_WITH_ERRORS) {
+    text = 'Review formatting errors'
+  } else if (code < STATUS.VALIDATED_WITH_ERRORS) {
+    text = 'View progress'
+  } else if (code === STATUS.VALIDATED_WITH_ERRORS) {
+    text = 'Review edits'
+  } else if (code === STATUS.VALIDATED) {
+    text = 'Review summary'
+  } else {
     text = 'View completed filing'
   }
 

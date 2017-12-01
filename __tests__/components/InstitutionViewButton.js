@@ -27,50 +27,123 @@ describe('InstitutionViewButton', () => {
     expect(
       TestUtils.findRenderedDOMComponentWithClass(viewButton, 'status-button')
         .textContent
-    ).toBe('Begin filing')
+    ).toBe('Upload your file')
   })
 
-  it('renders with View current filing', () => {
-    const viewButton = TestUtils.renderIntoDocument(
-      <Wrapper>
-        <InstitutionViewButton
-          status={{
-            code: STATUS.PARSED
-          }}
-          institutionId="123456"
-          filingPeriod="2017"
-        />
-      </Wrapper>
-    )
-    const viewButtonNode = ReactDOM.findDOMNode(viewButton)
-
-    expect(viewButtonNode).toBeDefined()
-
-    expect(
-      TestUtils.findRenderedDOMComponentWithClass(viewButton, 'status-button')
-        .textContent
-    ).toBe('View current filing')
+  it('renders correctly when status is FAILED', () => {
+    const button = InstitutionViewButton({
+      status: { code: -1 },
+      institutionId: 'a',
+      filingPeriod: 'b'
+    })
+    expect(button.props.children).toBe('Upload your file')
   })
 
-  it('renders with View completed filing', () => {
-    const viewButton = TestUtils.renderIntoDocument(
-      <Wrapper>
-        <InstitutionViewButton
-          status={{
-            code: STATUS.SIGNED
-          }}
-          institutionId="123456"
-          filingPeriod="2017"
-        />
-      </Wrapper>
-    )
-    const viewButtonNode = ReactDOM.findDOMNode(viewButton)
+  it('renders correctly when status is UNINITIALIZED', () => {
+    const button = InstitutionViewButton({
+      status: { code: 0 },
+      institutionId: 'a',
+      filingPeriod: 'b'
+    })
+    expect(button.props.children).toBe('Upload your file')
+  })
 
-    expect(viewButtonNode).toBeDefined()
+  it('renders correctly when status is CREATED', () => {
+    const button = InstitutionViewButton({
+      status: { code: 1 },
+      institutionId: 'a',
+      filingPeriod: 'b'
+    })
+    expect(button.props.children).toBe('Upload your file')
+  })
 
-    expect(
-      TestUtils.findRenderedDOMComponentWithClass(viewButton, 'status-button')
-        .textContent
-    ).toBe('View completed filing')
+  it('renders correctly when status is UPLOADING', () => {
+    const button = InstitutionViewButton({
+      status: { code: 2 },
+      institutionId: 'a',
+      filingPeriod: 'b'
+    })
+    expect(button.props.children).toBe('View upload progress')
+  })
+
+  it('renders correctly when status is UPLOADED', () => {
+    const button = InstitutionViewButton({
+      status: { code: 3 },
+      institutionId: 'a',
+      filingPeriod: 'b'
+    })
+    expect(button.props.children).toBe('View upload progress')
+  })
+
+  it('renders correctly when status is PARSING', () => {
+    const button = InstitutionViewButton({
+      status: { code: 4 },
+      institutionId: 'a',
+      filingPeriod: 'b'
+    })
+    expect(button.props.children).toBe('View upload progress')
+  })
+
+  it('renders correctly when status is PARSED_WITH_ERRORS', () => {
+    const button = InstitutionViewButton({
+      status: { code: 5 },
+      institutionId: 'a',
+      filingPeriod: 'b'
+    })
+    expect(button.props.children).toBe('Review formatting errors')
+  })
+
+  it('renders correctly when status is PARSED', () => {
+    const button = InstitutionViewButton({
+      status: { code: 6 },
+      institutionId: 'a',
+      filingPeriod: 'b'
+    })
+    expect(button.props.children).toBe('View progress')
+  })
+
+  it('renders correctly when status is VALIDATING', () => {
+    const button = InstitutionViewButton({
+      status: { code: 7 },
+      institutionId: 'a',
+      filingPeriod: 'b'
+    })
+    expect(button.props.children).toBe('View progress')
+  })
+
+  it('renders correctly when status is VALIDATED_WITH_ERRORS', () => {
+    const button = InstitutionViewButton({
+      status: { code: 8 },
+      institutionId: 'a',
+      filingPeriod: 'b'
+    })
+    expect(button.props.children).toBe('Review edits')
+  })
+
+  it('renders correctly when status is VALIDATED', () => {
+    const button = InstitutionViewButton({
+      status: { code: 9 },
+      institutionId: 'a',
+      filingPeriod: 'b'
+    })
+    expect(button.props.children).toBe('Review summary')
+  })
+
+  it('renders correctly when status is SIGNED', () => {
+    const button = InstitutionViewButton({
+      status: { code: 10 },
+      institutionId: 'a',
+      filingPeriod: 'b'
+    })
+    expect(button.props.children).toBe('View completed filing')
+  })
+
+  it('renders correctly when no status is provided', () => {
+    const button = InstitutionViewButton({
+      status: null,
+      instituionId: 'a',
+      filingPeriod: 'b'
+    })
+    expect(button.props.children).toBe('Upload your file')
   })
 })
