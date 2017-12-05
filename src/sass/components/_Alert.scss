@@ -5,4 +5,20 @@
   a.usa-button {
     color: $color-white;
   }
+  &.usa-alert-info,&.usa-alert-warning, &.usa-alert-error{
+    background-image: none;
+  }
+  .AlertImage {
+    font-size: 30px;
+    line-height: 25px;
+    padding: 0;
+    color: #fff;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius:50%;
+    background-color: #212121;
+    font-weight: 700;
+    text-align: center;
+  }
 }
