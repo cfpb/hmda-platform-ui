@@ -14,7 +14,7 @@ export const getText = props => {
   let button = <RefileButton />
   let periodAfter = false
   let reviewAndDownload = (
-    <span>
+    <div>
       Please review the edits or{' '}
       <a
         href="#"
@@ -25,7 +25,7 @@ export const getText = props => {
       >
         download the edit report
       </a>.
-    </span>
+    </div>
   )
 
   if (props.syntacticalValidityEditsExist) {
@@ -49,7 +49,6 @@ export const getText = props => {
   return (
     <div>
       {reviewAndDownload}
-      <br />
       {text}
       {button}
       {periodAfter ? '.' : null}

@@ -5,13 +5,13 @@
   a.usa-button {
     color: $color-white;
   }
-  &.usa-alert-info,&.usa-alert-warning, &.usa-alert-error{
+  &.usa-alert-info,&.usa-alert-warning, &.usa-alert-error, &.usa-alert-success {
     background-image: none;
   }
   .AlertImage {
     font-size: 30px;
     line-height: 25px;
-    padding: 0;
+    padding-top: 2px;
     color: #fff;
     position: absolute;
     width: 30px;
@@ -21,4 +21,32 @@
     font-weight: 700;
     text-align: center;
   }
+
+}
+.usa-alert-success > .AlertImage {
+  background-image: url('../img/correct8.png');
+  background-image: url('../img/correct8.svg');
+  background-repeat: no-repeat;
+  background-size: 30px;
+}
+
+.usa-alert-error > .AlertImage {
+  background-image: url('../img/close-white.png');
+  background-image: url('../img/close-white.svg');
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: 7px;
+  background-color: $color-secondary;
+}
+
+.usa-alert-warning > .AlertImage {
+  color: #fff1d2;
+}
+
+.usa-alert-info > .AlertImage {
+  color: #e1f3f8;
+}
+
+.BannerBeta .AlertImage {
+  display: none;
 }
