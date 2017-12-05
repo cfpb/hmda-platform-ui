@@ -55,12 +55,14 @@
       }
       &.complete {
         .step {
-          background-color: $color-base;
-          background-image: url("/img/check.png");
-          background-position: center;
+          background-image: url("../img/correct8.png");
+          background-image: url("../img/correct8.svg");
+          background-position: -2px -1px;
+          background-color: #212121;
           background-repeat: no-repeat;
-          background-size: 13px auto;
-          border-color: $color-base;
+          background-size: 30px;
+          border: 2px solid #212121;
+          border-radius: 50%;
         }
         a {
           color: $color-base;
@@ -78,11 +80,12 @@
         }
         .step {
           background-color: #dc731c;
-          background-image: url("/img/exclamation.png");
-          background-size: 4px auto;
-          background-position: center;
-          background-repeat: no-repeat;
+          background-image: none;
           border-color: #dc731c;
+          color: #fff;
+          font-size: 30px;
+          line-height: 25px;
+          padding: 0;
         }
       }
       &.error {
@@ -94,10 +97,11 @@
         }
         .step {
           background-color: $color-secondary;
-          background-image: url("/img/x.png");
-          background-position: center;
+          background-image: url("../img/close-white.png");
+          background-image: url("../img/close-white.svg");
+          background-size: 18px;
+          background-position: 4px 4px;
           background-repeat: no-repeat;
-          background-size: 12px auto;
           border-color: $color-secondary;
         }
       }

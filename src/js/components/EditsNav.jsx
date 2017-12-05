@@ -126,6 +126,7 @@ export default class EditsNav extends Component {
         : completed ? 'complete' : 'active'
 
       if (navClass !== 'active') step = null
+      if (navClass === 'warning') step = '!'
 
       if (navItem.link === page) navClass = `${navClass} current`
 

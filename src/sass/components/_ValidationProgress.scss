@@ -69,6 +69,7 @@
     margin-left: 0.5em;
     margin-bottom: -0.2em;
     background-size: cover;
+    background-repeat: no-repeat;
 
     &.pulsing {
       border-radius: 50%;
@@ -80,11 +81,17 @@
     }
 
     &.complete {
-      background-image: url("/img/correct9.png");
+      background-image: url("../img/correct9.png");
+      background-image: url("../img/correct9.svg");
+      width: 2em;
+      height: 2em;
+      margin-bottom: -0.5em;
+      margin-left: 0;
     }
 
     &.error {
-      background-image: url("/img/close.png");
+      background-image: url("../img/close.png");
+      background-image: url("../img/close.svg");
     }
   }
 }
