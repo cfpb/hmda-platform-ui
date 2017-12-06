@@ -18,9 +18,9 @@ describe('institutions reducer', () => {
     expect(
       institutions(
         {},
-        { type: types.RECEIVE_INSTITUTIONS, institutions: [('id': '1')] }
+        { type: types.RECEIVE_INSTITUTIONS, institutions: [{ id: '1' }] }
       )
-    ).toEqual({ isFetching: false, institutions: [('id': '1')] })
+    ).toEqual({ isFetching: false, institutions: [{ id: '1' }] })
   })
 
   it("shouldn't modify state on an unknown action type", () => {

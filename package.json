@@ -40,11 +40,15 @@
   },
   "homepage": "https://github.com/cfpb/hmda-platform-ui#readme",
   "devDependencies": {
+    "@babel/core": "^7.0.0-beta.34",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.34",
+    "@babel/polyfill": "^7.0.0-beta.34",
+    "@babel/preset-env": "^7.0.0-beta.34",
+    "@babel/preset-react": "^7.0.0-beta.34",
     "autoprefixer": "7.1.5",
-    "babel-loader": "7.1.2",
-    "babel-plugin-transform-object-rest-spread": "6.26.0",
-    "babel-preset-env": "1.6.1",
-    "babel-preset-react": "6.24.1",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "^21.2.0",
+    "babel-loader": "8.0.0-beta.0",
     "html-minifier": "3.1.1",
     "jest-cli": "21.3.0-beta.10",
     "mkdirp": "0.5.1",
@@ -59,7 +63,7 @@
   },
   "jest": {
     "transform": {
-      ".+\\.jsx?$": "babel-jest"
+      "^.+\\.jsx?$": "babel-jest"
     },
     "testPathIgnorePatterns": [
       "<rootDir>/__tests__/Wrapper.js",
