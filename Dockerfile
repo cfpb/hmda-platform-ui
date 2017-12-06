@@ -9,7 +9,7 @@ WORKDIR /usr/src/app
 RUN yum install -y epel-release && \
     yum-config-manager --enable cr && \
     yum update -y && \
-    find nginx -iname 'nginx-*' | sort -r | xargs -n1 -I file yum -y --nogpgcheck localinstall file && \
+    yum install -y nginx-1.12.2 && \
     yum clean all && \
     usermod -l $NGINX_USER nginx && \
     groupmod -n $NGINX_USER nginx && \
