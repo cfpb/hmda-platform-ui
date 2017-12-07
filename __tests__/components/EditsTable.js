@@ -165,7 +165,7 @@ describe('renderTableCaption', () => {
     })
     expect(rendered.type).toBe('caption')
     expect(rendered.props.children[0].props.children).toBe(
-      '3 S020 edits found.'
+      'S020 edits (3 found)'
     )
   })
 
@@ -182,7 +182,7 @@ describe('renderTableCaption', () => {
     const rendered = renderTableCaption(edits, { rows: rows }, 'macro', {
       Q008: { total: 1 }
     })
-    expect(rendered.props.children[0].props.children).toBe('Edit Q008 found.')
+    expect(rendered.props.children[0].props.children).toBe('Edit Q008 found')
   })
 
   it('returns null without a name', () => {
