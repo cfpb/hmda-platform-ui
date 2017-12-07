@@ -2,37 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as STATUS from '../constants/statusCodes.js'
 
-export const getMessageClass = code => {
-  let messageClass = 'text-primary'
-
-  if (code === STATUS.CREATED) {
-    messageClass = 'text-secondary'
-  }
-
-  if (
-    code === STATUS.PARSED_WITH_ERRORS ||
-    code === STATUS.VALIDATED_WITH_ERRORS
-  ) {
-    messageClass = 'text-secondary'
-  }
-
-  if (code === STATUS.SIGNED) {
-    messageClass = 'text-green'
-  }
-
-  if (code === STATUS.FAILED) {
-    messageClass = 'text-secondary'
-  }
-
-  return messageClass
-}
-
 const defaultSubmission = {
   status: {
     code: STATUS.CREATED,
-    message: 'not started',
+    message: 'No data has been uploaded yet.',
     description:
-      'You may begin your filing process by selecting the "Begin Filing" button below.'
+      'The filing period is open and available to accept HMDA data. Make sure your data is in a pipe-delimited text file.'
   }
 }
 
@@ -46,10 +21,7 @@ const InstitutionStatus = ({
 
   return (
     <section className="status">
-      <h4>
-        Filing status:{' '}
-        <strong className={getMessageClass(code)}>{message}</strong>
-      </h4>
+      <h4>{message}</h4>
       <p>{description}</p>
       {filing.status.code === 3 && code !== STATUS.SIGNED ? (
         <p className="usa-text-small">
