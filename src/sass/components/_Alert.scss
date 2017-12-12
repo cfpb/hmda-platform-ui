@@ -12,12 +12,12 @@
     font-size: 30px;
     line-height: 25px;
     padding-top: 2px;
-    color: #fff;
+    color: $color-white;
     position: absolute;
     width: 30px;
     height: 30px;
     border-radius:50%;
-    background-color: #212121;
+    background-color: $color-base;
     font-weight: 700;
     text-align: center;
   }
@@ -36,15 +36,14 @@
   background-repeat: no-repeat;
   background-size: 16px;
   background-position: 7px;
-  background-color: $color-secondary;
 }
 
 .usa-alert-warning > .AlertImage {
-  color: #fff1d2;
+  color: $color-white;
 }
 
 .usa-alert-info > .AlertImage {
-  color: #e1f3f8;
+  color: $color-white;
 }
 
 .BannerBeta .AlertImage {
