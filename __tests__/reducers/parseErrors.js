@@ -5,6 +5,7 @@ import parseErrors from '../../src/js/reducers/parseErrors.js'
 
 const defaultParseErrors = {
   isFetching: false,
+  fetched: false,
   transmittalSheetErrors: [],
   larErrors: []
 }
@@ -39,7 +40,12 @@ describe('parseErrors reducer', () => {
           larErrors: 2
         }
       )
-    ).toEqual({ isFetching: false, transmittalSheetErrors: 1, larErrors: 2 })
+    ).toEqual({
+      isFetching: false,
+      fetched: true,
+      transmittalSheetErrors: 1,
+      larErrors: 2
+    })
   })
 
   it("shouldn't modify state on an unknown action type", () => {

@@ -6,6 +6,7 @@ import {
 
 const defaultParseErrors = {
   isFetching: false,
+  fetched: false,
   transmittalSheetErrors: [],
   larErrors: []
 }
@@ -21,6 +22,7 @@ export default (state = defaultParseErrors, action) => {
     case RECEIVE_PARSE_ERRORS:
       return {
         isFetching: false,
+        fetched: true,
         transmittalSheetErrors: action.transmittalSheetErrors,
         larErrors: action.larErrors
       }

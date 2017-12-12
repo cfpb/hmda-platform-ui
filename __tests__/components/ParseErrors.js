@@ -14,13 +14,17 @@ const parseJSON = JSON.parse(
 )
 
 describe('Parse errors', () => {
-  const parseErrors = ParseErrors({
+  const parseErrorsClass = new ParseErrors({
     pagination: { total: 45 },
     paginationFade: 0,
     transmittalSheetErrors: parseJSON.transmittalSheetErrors,
     larErrors: parseJSON.larErrors,
-    isFetching: false
+    isFetching: false,
+    fetched: true
   })
+
+  const parseErrors = parseErrorsClass.render()
+
   it('renders the parser errors', () => {
     expect(parseErrors).not.toBeNull()
     expect(parseErrors.props.className).toBe('ParseErrors usa-grid-full')
@@ -47,31 +51,66 @@ describe('Parse errors', () => {
     )
   })
 
-  it('shortcircuits with no larErrors in props', () => {
-    expect(ParseErrors({})).toBe(null)
-  })
-
   it('only creates the pagination text when pagination is present', () => {
-    const parseErrors = ParseErrors({
+    const parseErrorsClass = new ParseErrors({
       paginationFade: 0,
       transmittalSheetErrors: ['yikes'],
       larErrors: parseJSON.larErrors,
-      isFetching: false
+      isFetching: false,
+      fetched: true
     })
+    const parseErrors = parseErrorsClass.render()
     expect(parseErrors.props.children[1].props.children[0]).toBe(null)
   })
 
   it('renders correct singularization of error text', () => {
-    const parseErrors = ParseErrors({
+    const parseErrorsClass = new ParseErrors({
       pagination: { total: 0 },
       paginationFade: 0,
       transmittalSheetErrors: ['yikes'],
       larErrors: parseJSON.larErrors,
-      isFetching: false
+      isFetching: false,
+      fetched: true
     })
+    const parseErrors = parseErrorsClass.render()
     expect(
       parseErrors.props.children[1].props.children[0].props.children.join('')
     ).toBe('1 Row with Formatting Errors')
+  })
+
+  it('renders LoadingIcon on unfetched', () => {
+    const parseErrorsClass = new ParseErrors({
+      pagination: { total: 0 },
+      paginationFade: 0,
+      transmittalSheetErrors: ['yikes'],
+      larErrors: parseJSON.larErrors,
+      isFetching: false,
+      fetched: false
+    })
+    const parseErrors = parseErrorsClass.render()
+    expect(parseErrors.type.name).toBe('LoadingIcon')
+  })
+
+  it('scrolls on componentDidUpdate if just fetched', () => {
+    const parseErrorsClass = new ParseErrors({
+      pagination: { total: 0 },
+      paginationFade: 0,
+      transmittalSheetErrors: ['yikes'],
+      larErrors: parseJSON.larErrors,
+      isFetching: false,
+      fetched: true
+    })
+
+    parseErrorsClass.rendered = { offsetTop: 1 }
+
+    delete window.scrollTo
+    const scrollTo = jest.fn()
+    window.scrollTo = scrollTo
+
+    parseErrorsClass.componentDidUpdate({ fetched: true })
+    expect(scrollTo).not.toBeCalled()
+    parseErrorsClass.componentDidUpdate({ fetched: false })
+    expect(scrollTo).toBeCalled()
   })
 })
 

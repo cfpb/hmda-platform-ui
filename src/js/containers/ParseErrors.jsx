@@ -10,11 +10,7 @@ export class ParseErrorsContainer extends Component {
   }
 
   componentDidMount() {
-    if (
-      !this.props.transmittalSheetErrors.length &&
-      !this.props.larErrors.length
-    )
-      this.props.dispatch(fetchParseErrors())
+    if (!this.props.fetched) this.props.dispatch(fetchParseErrors())
   }
 
   shouldComponentUpdate(nextProps) {
@@ -30,6 +26,7 @@ export class ParseErrorsContainer extends Component {
 export function mapStateToProps(state) {
   const {
     isFetching,
+    fetched,
     transmittalSheetErrors,
     larErrors
   } = state.app.parseErrors
@@ -40,6 +37,7 @@ export function mapStateToProps(state) {
 
   return {
     isFetching,
+    fetched,
     transmittalSheetErrors,
     larErrors,
     pagination,

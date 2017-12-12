@@ -25,6 +25,7 @@ const defaultState = {
   app: {
     parseErrors: {
       isFetching: false,
+      fetched: false,
       transmittalSheetErrors: [],
       larErrors: []
     },
@@ -51,6 +52,7 @@ describe('ParseErrors', () => {
         <ParseErrorsContainer
           dispatch={jest.fn()}
           isFetching={false}
+          fetched={false}
           larErrors={[]}
           transmittalSheetErrors={[]}
           total={null}
@@ -65,12 +67,14 @@ describe('ParseErrors', () => {
 
     expect(Object.keys(mapped)).toEqual([
       'isFetching',
+      'fetched',
       'transmittalSheetErrors',
       'larErrors',
       'pagination',
       'paginationFade'
     ])
     expect(mapped.isFetching).toEqual(false)
+    expect(mapped.fetched).toEqual(false)
     expect(mapped.transmittalSheetErrors).toEqual([])
     expect(mapped.larErrors).toEqual([])
     expect(mapped.pagination).toEqual({})
