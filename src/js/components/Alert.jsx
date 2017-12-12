@@ -1,13 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Alert = ({ type = 'info', heading, children }) => {
+const Alert = ({ type = 'info', heading, imageText, children }) => {
   if (!children) return null
-  const alertText = type === 'info' ? 'i' : type === 'warning' ? '!' : null
+  let alertText
+  let alertClass = ''
+
+  if (imageText) alertText = imageText
+  else {
+    if (type === 'success') alertClass = 'AlertImageCheck'
+    if (type === 'error') alertClass = 'AlertImageClose'
+    alertText = type === 'info' ? 'i' : type === 'warning' ? '!' : null
+  }
 
   return (
     <div className={`usa-alert usa-alert-${type}`}>
-      <div className="AlertImage">{alertText}</div>
+      <div className={`AlertImage ${alertClass}`}>{alertText}</div>
       <div className="usa-alert-body">
         {heading ? <h3 className="usa-alert-heading">{heading}</h3> : null}
         {React.cloneElement(children, { className: 'usa-alert-text' })}

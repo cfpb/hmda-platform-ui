@@ -23,14 +23,14 @@
   }
 
 }
-.usa-alert-success > .AlertImage {
+.AlertImageCheck {
   background-image: url('../img/correct8.png');
   background-image: url('../img/correct8.svg');
   background-repeat: no-repeat;
   background-size: 30px;
 }
 
-.usa-alert-error > .AlertImage {
+.AlertImageClose {
   background-image: url('../img/close-white.png');
   background-image: url('../img/close-white.svg');
   background-repeat: no-repeat;
@@ -38,11 +38,7 @@
   background-position: 7px;
 }
 
-.usa-alert-warning > .AlertImage {
-  color: $color-white;
-}
-
-.usa-alert-info > .AlertImage {
+.AlertImage {
   color: $color-white;
 }
 
