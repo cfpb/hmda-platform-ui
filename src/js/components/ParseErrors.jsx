@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
+import LoadingIcon from './LoadingIcon.jsx'
 import PropTypes from 'prop-types'
 import RefileWarningContainer from '../containers/RefileWarning.jsx'
 import submissionProgressHOC from '../containers/submissionProgressHOC.jsx'
@@ -74,41 +75,58 @@ export const renderLarErrors = ({ larErrors, ...props }) => {
   )
 }
 
-const ParseErrors = props => {
-  if (!props.larErrors) return null
+class ParseErrors extends Component {
+  constructor(props) {
+    super(props)
+  }
 
-  const total =
-    props.pagination &&
-    props.pagination.total + props.transmittalSheetErrors.length
-  const errorText = total > 1 ? 'Rows' : 'Row'
+  componentDidUpdate(prevProps) {
+    if (!prevProps.fetched && this.props.fetched) {
+      window.scrollTo(0, this.rendered.offsetTop)
+    }
+  }
 
-  return (
-    <section className="ParseErrors usa-grid-full" id="parseErrors">
-      <hr />
-      <header>
-        {!props.pagination ? null : (
-          <h2>
-            {total} {errorText} with Formatting Errors
-          </h2>
-        )}
-        <p className="usa-font-lead">
-          The uploaded file is not formatted according to the requirements
-          specified in the{' '}
-          <a
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://www.consumerfinance.gov/data-research/hmda/static/for-filers/2017/2017-HMDA-FIG.pdf"
-          >
-            Filing Instructions Guide for data collected in 2017
-          </a>.
-        </p>
-      </header>
-      {renderTSErrors(props)}
-      {renderLarErrors(props)}
-      <Pagination isFetching={props.isFetching} target="parseErrors" />
-      <RefileWarning />
-    </section>
-  )
+  render() {
+    const props = this.props
+    if (!props.fetched) return <LoadingIcon />
+
+    const total =
+      props.pagination &&
+      props.pagination.total + props.transmittalSheetErrors.length
+    const errorText = total > 1 ? 'Rows' : 'Row'
+
+    return (
+      <section
+        ref={el => (this.rendered = el)}
+        className="ParseErrors usa-grid-full"
+        id="parseErrors"
+      >
+        <hr />
+        <header>
+          {!props.pagination ? null : (
+            <h2>
+              {total} {errorText} with Formatting Errors
+            </h2>
+          )}
+          <p className="usa-font-lead">
+            The uploaded file is not formatted according to the requirements
+            specified in the{' '}
+            <a
+              rel="noopener noreferrer"
+              target="_blank"
+              href="https://www.consumerfinance.gov/data-research/hmda/static/for-filers/2017/2017-HMDA-FIG.pdf"
+            >
+              Filing Instructions Guide for data collected in 2017
+            </a>.
+          </p>
+        </header>
+        {renderTSErrors(props)}
+        {renderLarErrors(props)}
+        <Pagination isFetching={props.isFetching} target="parseErrors" />
+        <RefileWarning />
+      </section>
+    )
+  }
 }
 
 ParseErrors.propTypes = {
