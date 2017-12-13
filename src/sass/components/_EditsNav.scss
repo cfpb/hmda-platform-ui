@@ -23,6 +23,7 @@
       a {
         color: $color-primary;
         font-weight: 700;
+        margin-bottom: 0.7rem;
       }
 
       a:hover {
@@ -42,7 +43,7 @@
         color: $color-gray;
         font-weight: 700;
         height: 30px;
-        margin: 0 auto;
+        margin: 0 auto 3px;
         padding: 4px 3px;
         width: 30px;
       }
@@ -55,12 +56,14 @@
       }
       &.complete {
         .step {
-          background-color: $color-base;
-          background-image: url("/img/check.png");
-          background-position: center;
+          background-image: url("../img/correct8.png");
+          background-image: url("../img/correct8.svg");
+          background-position: -2px -1px;
+          background-color: #212121;
           background-repeat: no-repeat;
-          background-size: 13px auto;
-          border-color: $color-base;
+          background-size: 30px;
+          border: 2px solid #212121;
+          border-radius: 50%;
         }
         a {
           color: $color-base;
@@ -69,7 +72,7 @@
           }
         }
       }
-      &.warning {
+      &.warning-question {
         a {
           color: #c05700;
           &:hover {
@@ -78,11 +81,29 @@
         }
         .step {
           background-color: #dc731c;
-          background-image: url("/img/exclamation.png");
-          background-size: 4px auto;
-          background-position: center;
-          background-repeat: no-repeat;
+          background-image: none;
           border-color: #dc731c;
+          color: $color-white;
+          font-size: 30px;
+          line-height: 25px;
+          padding: 0 1px 0 0;
+        }
+      }
+      &.warning-exclamation {
+        a {
+          color: $color-secondary;
+          &:hover {
+            color: $color-primary;
+          }
+        }
+        .step {
+          background-color: $color-secondary;
+          background-image: none;
+          border-color: $color-secondary;
+          color: $color-white;
+          font-size: 30px;
+          line-height: 25px;
+          padding: 0 1px 0 0;
         }
       }
       &.error {
@@ -94,10 +115,11 @@
         }
         .step {
           background-color: $color-secondary;
-          background-image: url("/img/x.png");
-          background-position: center;
+          background-image: url("../img/close-white.png");
+          background-image: url("../img/close-white.svg");
+          background-size: 16px;
+          background-position: 5px 5px;
           background-repeat: no-repeat;
-          background-size: 12px auto;
           border-color: $color-secondary;
         }
       }

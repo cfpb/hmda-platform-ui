@@ -14,7 +14,7 @@ export const getText = props => {
   let button = <RefileButton />
   let periodAfter = false
   let reviewAndDownload = (
-    <span>
+    <div>
       Please review the edits or{' '}
       <a
         href="#"
@@ -25,7 +25,7 @@ export const getText = props => {
       >
         download the edit report
       </a>.
-    </span>
+    </div>
   )
 
   if (props.syntacticalValidityEditsExist) {
@@ -49,7 +49,6 @@ export const getText = props => {
   return (
     <div>
       {reviewAndDownload}
-      <br />
       {text}
       {button}
       {periodAfter ? '.' : null}
@@ -89,16 +88,23 @@ const RefileWarning = props => {
   if (props.page === 'submission') return null
 
   let alertClass = 'error'
+  let imageText
+  if (props.code !== PARSED_WITH_ERRORS) imageText = '!'
   if (
     !props.syntacticalValidityEditsExist &&
     props.code !== PARSED_WITH_ERRORS
   ) {
     alertClass = 'warning'
+    imageText = '?'
   }
 
   return (
     <div className="RefileWarning">
-      <Alert type={alertClass} heading={getHeading(props)}>
+      <Alert
+        type={alertClass}
+        imageText={imageText}
+        heading={getHeading(props)}
+      >
         {getText(props)}
       </Alert>
     </div>
