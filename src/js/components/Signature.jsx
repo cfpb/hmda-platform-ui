@@ -53,9 +53,8 @@ const Signature = props => {
       <header>
         <h2>Signature</h2>
         <p className="usa-font-lead">
-          To complete your submission, select the checkbox below to certify to
-          the accuracy and completeness of the data submitted. Next, select the
-          &quot;Submit HMDA data&quot; button to submit your data.
+          To sign your submission, select the checkbox below. Next, select the
+          &quot;Submit HMDA data&quot; button to complete your filing.
         </p>
       </header>
 
@@ -84,7 +83,7 @@ const Signature = props => {
         className={buttonClass}
         onClick={e => props.onSignatureClick(props.checked)}
       >
-        Submit HMDA test data
+        Submit HMDA data
       </button>
 
       <SubmissionReceipt />
