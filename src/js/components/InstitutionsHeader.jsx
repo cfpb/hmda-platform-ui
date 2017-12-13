@@ -25,9 +25,7 @@ const InstitutionsHeader = ({ filingPeriod }) => {
       <Alert heading="The filing period is closed." type="warning">
         <p>
           The HMDA Platform remains available outside of the filing period to
-          upload, test, and validate HMDA data. All test data uploaded during
-          the beta period will be removed from the system when the filing period
-          opens on January 1st, 2018.
+          upload, test, and validate HMDA data.
         </p>
       </Alert>
     )
