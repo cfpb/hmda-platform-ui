@@ -7,6 +7,8 @@ import InstitutionViewButton from './InstitutionViewButton.jsx'
 import InstitutionRefile from './InstitutionRefile.jsx'
 import InstitutionSubmissionHistory from './InstitutionSubmissionHistory.jsx'
 
+import InstitutionsEditsNav from './InstitutionsEditsNav.jsx'
+
 const Institution = ({
   institution,
   filing,
@@ -15,7 +17,7 @@ const Institution = ({
   onDownloadClick
 }) => {
   const status = submission && submission.status
-
+  console.log('institution')
   return (
     <div className="usa-grid-full">
       {/*
@@ -28,6 +30,8 @@ const Institution = ({
         <section className="institution">
           <div className="current-status">
             <InstitutionNameAndId name={institution.name} id={institution.id} />
+
+            <InstitutionsEditsNav code={status.code} />
 
             <InstitutionStatus
               institutionId={institution.id}
