@@ -36,6 +36,7 @@ const InstitutionPreviousSubmissions = ({
               {submissions.map((submission, i) => {
                 const startDate = ordinal(new Date(submission.start))
                 const endDate = ordinal(new Date(submission.end))
+                const message = submission.status.message.slice(0, -1)
 
                 const signedOn =
                   submission.status.code === STATUS.SIGNED
@@ -48,8 +49,7 @@ const InstitutionPreviousSubmissions = ({
                 if (submission.status.code > STATUS.VALIDATING) {
                   return (
                     <li key={i}>
-                      Upload on {startDate} was{' '}
-                      <strong>{submission.status.message}</strong>
+                      Filing progress on {startDate}: <strong>{message}</strong>
                       {signedOn},{' '}
                       <a
                         href="#"
@@ -71,8 +71,7 @@ const InstitutionPreviousSubmissions = ({
                 // other statuses contain no edits
                 return (
                   <li key={i}>
-                    Upload on {startDate} was{' '}
-                    <strong>{submission.status.message}</strong>.
+                    Filing progress on {startDate}: <strong>{message}</strong>.
                   </li>
                 )
               })}
