@@ -11,8 +11,8 @@ import {
 const navMap = {
   upload: {
     //isReachable: () => true,
-    isErrored: () => this.props.code === PARSED_WITH_ERRORS,
-    isCompleted: () => this.props.code > VALIDATING,
+    isErrored: code => code === PARSED_WITH_ERRORS,
+    isCompleted: code => code > VALIDATING,
     errorClass: 'error',
     errorText: 'uploaded with formatting errors',
     completedText: 'uploaded'
@@ -21,45 +21,58 @@ const navMap = {
   'syntactical & validity edits': {
     //isReachable: () =>
     //this.props.fetched && this.navMap.upload.isCompleted(),
-    isErrored: () => this.props.code === VALIDATED_WITH_ERRORS,
-    isCompleted: () => this.props.code >= VALIDATED,
+    isErrored: code => code === VALIDATED_WITH_ERRORS,
+    isCompleted: code => code >= VALIDATED,
     errorClass: 'warning-exclamation',
-    errorText: 'syntactical & validity edits found',
+    errorText: 'syntactical & validity edits',
     completedText: 'no syntactical & validity edits'
     //link: 'syntacticalvalidity'
   },
   'quality edits': {
     ///isReachable: () =>
     //this.navMap['syntactical & validity edits'].isCompleted(),
-    isErrored: () => this.props.code === VALIDATED_WITH_ERRORS,
-    isCompleted: () => this.props.code >= VALIDATED,
+    isErrored: code => code === VALIDATED_WITH_ERRORS,
+    isCompleted: code => code >= VALIDATED,
     errorClass: 'warning-question',
-    errorText: 'quality edits found',
+    errorText: 'quality edits',
     completedText: 'quality edits verified'
     //link: 'quality'
   },
   'macro quality edits': {
     //isReachable: () => this.navMap['quality edits'].isCompleted(),
-    isErrored: () => this.props.code === VALIDATED_WITH_ERRORS,
-    isCompleted: () => this.props.code >= VALIDATED,
+    isErrored: code => code === VALIDATED_WITH_ERRORS,
+    isCompleted: code => code >= VALIDATED,
     errorClass: 'warning-question',
-    errorText: 'macro quality edits found',
+    errorText: 'macro quality edits',
     completedText: 'macro quality edits verified'
     //link: 'macro'
   },
   submission: {
     //isReachable: () => this.props.code >= VALIDATED,
     isErrored: () => false,
-    isCompleted: () => this.props.code === SIGNED,
+    isCompleted: code => code === SIGNED,
     completedText: 'submitted'
     //link: 'submission'
   }
 }
 
 const renderNavItem = (code, name, i) => {
-  //const { page, base, code } = this.props
   const navItem = navMap[name]
   let step = i + 1
+
+  const completed =
+    navItem.isCompleted(code) || (name !== 'submission' && code >= VALIDATED)
+  const errored = navItem.isErrored(code)
+
+  const renderedName = errored
+    ? navItem.errorText
+    : completed ? navItem.completedText : name
+
+  let navClass = errored ? navItem.errorClass : completed ? 'complete' : ''
+
+  if (navClass === 'warning-exclamation') step = '!'
+  if (navClass === 'warning-question') step = '?'
+  if (navClass === 'complete' || navClass === 'error') step = null
 
   /*if (navItem.isReachable() || code >= VALIDATED) {
     const completed =
@@ -88,23 +101,25 @@ const renderNavItem = (code, name, i) => {
       </li>
     )
   } else {*/
-    return ([
-      
-        <div key={0} className="step">{step}</div>,
-        <span key={1}>{name}</span>
-        ]
-    )
+  return (
+    <li key={i} className={navClass}>
+      <div key={0} className="step">
+        {step}
+      </div>
+      <span key={1}>{renderedName}</span>
+    </li>
+  )
   //}
 }
 
-const InstitutionsEditsNav = (props) => {
-  console.log('InstitutionsEditsNav', props)
+const InstitutionsEditsNav = ({ code }) => {
+  console.log('InstitutionsEditsNav', code)
   return (
     <section>
       <nav role="navigation" className="EditsNav" id="editsNav">
         <ul className="usa-nav-primary">
           {Object.keys(navMap).map((name, i) => {
-            return <li key={i}>{renderNavItem(props.code, name, i)}</li>
+            return renderNavItem(code, name, i)
           })}
         </ul>
         <hr className="nav-bg" />
