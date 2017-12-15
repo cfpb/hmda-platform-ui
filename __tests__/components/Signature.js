@@ -22,11 +22,7 @@ describe('Signature component', () => {
     <Wrapper>
       <Signature
         checked={false}
-        receipt={signJSON.receipt}
-        timestamp={signJSON.timestamp}
         status={status}
-        email="yo@me.com"
-        filingPeriod="2017"
         onSignatureClick={onSignatureClick}
         onSignatureCheck={onSignatureCheck}
       />
@@ -86,8 +82,6 @@ describe('Signature component', () => {
     <Wrapper>
       <Signature
         checked={true}
-        receipt={signJSON.receipt}
-        timestamp={signJSON.timestamp}
         status={status}
         onSignatureClick={onSignatureClick}
         onSignatureCheck={onSignatureCheck}
@@ -125,11 +119,7 @@ describe('Signature component', () => {
     <Wrapper>
       <Signature
         checked={true}
-        receipt={signJSON.receipt}
-        timestamp={signJSON.timestamp}
         status={statusSigned}
-        email="yo@me.com"
-        filingPeriod="2017"
         onSignatureClick={onSignatureClick}
         onSignatureCheck={onSignatureCheck}
       />
@@ -139,23 +129,6 @@ describe('Signature component', () => {
 
   it('renders the receipt', () => {
     expect(SubmissionReceipt.mock.calls.length).toBe(4)
-  })
-
-  it('renders the receipt and timestamp', () => {
-    /*expect(
-      TestUtils.findRenderedDOMComponentWithClass(
-        signatureSigned,
-        'usa-alert-success'
-      )
-    ).toBeTruthy()*/
-  })
-
-  it('has the correct filingPeriod', () => {
-    //expect(TestUtils.scryRenderedDOMComponentsWithTag(signatureSigned, 'p')[1].textContent.match('2017')).toBeTruthy()
-  })
-
-  it('has the correct email', () => {
-    //expect(TestUtils.scryRenderedDOMComponentsWithTag(signatureSigned, 'p')[4].textContent.match('yo@me.com')).toBeTruthy()
   })
 
   it('has the checkbox checked', () => {
@@ -191,8 +164,6 @@ describe('Signature component', () => {
     <Wrapper>
       <Signature
         checked={true}
-        receipt={signJSON.receipt}
-        timestamp={signJSON.timestamp}
         status={statusEdits}
         onSignatureClick={onSignatureClick}
         onSignatureCheck={onSignatureCheck}
