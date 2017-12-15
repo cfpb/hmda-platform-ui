@@ -72,13 +72,13 @@ const renderNavItem = (code, name, i) => {
   )
 }
 
-const InstitutionsEditsNav = ({ code }) => {
+const InstitutionsEditsNav = ({ status = { code: 1 } }) => {
   return (
     <section className="InstitutionsEditsNav">
       <nav role="navigation" className="EditsNav" id="editsNav">
         <ul className="usa-nav-primary">
           {Object.keys(navMap).map((name, i) => {
-            return renderNavItem(code, name, i)
+            return renderNavItem(status.code, name, i)
           })}
         </ul>
         <hr className="nav-bg" />
@@ -88,7 +88,7 @@ const InstitutionsEditsNav = ({ code }) => {
 }
 
 InstitutionsEditsNav.propTypes = {
-  code: PropTypes.number.isRequired
+  status: PropTypes.object
 }
 
 export default InstitutionsEditsNav
