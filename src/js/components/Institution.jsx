@@ -17,7 +17,7 @@ const Institution = ({
   onDownloadClick
 }) => {
   const status = submission && submission.status
-  console.log('institution')
+  
   return (
     <div className="usa-grid-full">
       {/*
