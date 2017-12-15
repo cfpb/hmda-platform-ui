@@ -23,7 +23,7 @@ export default function fetchCSV(institutionId, filing, submissionId) {
           }
           return fileSaver.saveAs(
             new Blob([csv], { type: 'text/csv;charset=utf-16' }),
-            `${submissionId}-full-edit-report.csv`
+            `${institutionId}-${submissionId}-full-edit-report.csv`
           )
         })
       })
