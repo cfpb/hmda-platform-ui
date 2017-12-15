@@ -47,6 +47,15 @@ const Home = props => {
         </section>
         <div className="usa-grid">
           <div className="usa-width-one-whole">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/C_73Swgyc4g?rel=0"
+              frameBorder="0"
+              gesture="media"
+              allow="encrypted-media"
+              allowFullScreen
+            />
             <article className="faqs">
               <h2>Top FAQs</h2>
               <dl>
