@@ -14,6 +14,18 @@
 
     ul.usa-nav-primary {
       border-bottom: none;
+
+      li.error {
+        color: $color-primary;
+        font-weight: 700;
+        
+        .step {
+          background-color: $color-primary;
+          background-image: none;
+          border-color: $color-primary;
+          color: $color-white;
+        }
+      } 
     }
   }
 }
