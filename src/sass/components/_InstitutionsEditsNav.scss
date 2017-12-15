@@ -1,11 +1,16 @@
 .InstitutionsEditsNav {
   margin-bottom: 1.25em;
+  display: none;
+
+  @media only screen and (min-width: 600px) {
+    display: block;
+  }
   
   .EditsNav {
     background-color: transparent;
 
     ul.usa-nav-primary {
       border-bottom: none;
-    } 
+    }
   }
 }
