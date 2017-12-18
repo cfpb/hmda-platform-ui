@@ -34,12 +34,25 @@
   }
 
   hr {
-    margin-bottom: 2em;
+    margin: 2em 0;
   }
 
-  .resources {
-    border-left: 1px solid $color-gray-lightest;
-    float: right;
-    padding-left: 1em;
+  .max-width {
+    max-width: 77rem;
+  }
+
+  .video-container {
+    height: 0;
+    padding-bottom: 56.25%;
+    position: relative;
+    width: 100%;
+
+    iframe {
+      left: 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
   }
 }
