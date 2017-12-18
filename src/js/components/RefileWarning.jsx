@@ -29,19 +29,34 @@ export const getText = props => {
   )
 
   if (props.syntacticalValidityEditsExist) {
-    text = 'Then update your file and select the "Upload a new file" button.'
+    text = (
+      <div>
+        Then update your file and select the &quot;Upload a new file&quot;
+        button.
+      </div>
+    )
   } else if (
     (!props.qualityVerified && props.page === 'quality') ||
     (!props.macroVerified && props.page === 'macro')
   ) {
-    text =
-      'You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and '
+    text = (
+      <div style={{ display: 'inline' }}>
+        You must verify the edits and select the check box to confirm the data
+        is accurate. If the data need to be corrected, please update your file
+        and{' '}
+      </div>
+    )
     button = <RefileButton isLink={true} isLower={true} />
     periodAfter = true
   }
   if (props.code === PARSED_WITH_ERRORS) {
     reviewAndDownload = null
-    text = 'Please update your file and select the "Upload a new file" button.'
+    text = (
+      <div>
+        Please update your file and select the &quot;Upload a new file&quot;
+        button.
+      </div>
+    )
   }
 
   if (!text) return null
@@ -75,7 +90,7 @@ export const getHeading = props => {
 }
 
 const RefileWarning = props => {
-  if (props.code > VALIDATED_WITH_ERRORS && props.code < PARSED_WITH_ERRORS)
+  if (props.code > VALIDATED_WITH_ERRORS || props.code < PARSED_WITH_ERRORS)
     return null
   if (
     props.page === 'syntacticalvalidity' &&
