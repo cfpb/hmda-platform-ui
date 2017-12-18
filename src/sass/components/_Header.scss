@@ -2,6 +2,10 @@
   nav {
     margin: 0;
     padding: 0;
+    @media screen and (max-width: 483px) {
+      float: left;
+      margin: 6px 0 0 6px;
+    }
   }
   .usa-logo {
     a {
