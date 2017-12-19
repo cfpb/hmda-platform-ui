@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   PARSED_WITH_ERRORS,
+  PARSED,
   VALIDATING,
   VALIDATED_WITH_ERRORS,
   VALIDATED,
@@ -11,29 +12,25 @@ import {
 const navMap = {
   upload: {
     isErrored: code => code === PARSED_WITH_ERRORS,
-    isCompleted: code => code > VALIDATING,
-    errorClass: 'error',
+    isCompleted: code => code >= PARSED,
     errorText: 'uploaded with formatting errors',
     completedText: 'uploaded'
   },
   'syntactical & validity edits': {
     isErrored: code => code === VALIDATED_WITH_ERRORS,
     isCompleted: code => code >= VALIDATED,
-    errorClass: 'error',
     errorText: 'syntactical & validity edits',
     completedText: 'no syntactical & validity edits'
   },
   'quality edits': {
     isErrored: code => code === VALIDATED_WITH_ERRORS,
     isCompleted: code => code >= VALIDATED,
-    errorClass: 'error',
     errorText: 'quality edits',
     completedText: 'quality edits verified'
   },
   'macro quality edits': {
     isErrored: code => code === VALIDATED_WITH_ERRORS,
     isCompleted: code => code >= VALIDATED,
-    errorClass: 'error',
     errorText: 'macro quality edits',
     completedText: 'macro quality edits verified'
   },
@@ -54,7 +51,7 @@ const renderNavItem = (code, name, i) => {
     ? navItem.errorText
     : completed ? navItem.completedText : name
 
-  let navClass = errored ? navItem.errorClass : completed ? 'complete' : ''
+  let navClass = errored ? 'error' : completed ? 'complete' : ''
   if (name === 'submission' && navItem.isReachable(code) && !completed) {
     // using error class is misleading but the styling is what we need
     navClass = 'error'
