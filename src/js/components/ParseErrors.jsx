@@ -101,7 +101,7 @@ class ParseErrors extends Component {
         className="ParseErrors usa-grid-full"
         id="parseErrors"
       >
-        <hr />
+        <RefileWarning />
         <header>
           {!props.pagination ? null : (
             <h2>
