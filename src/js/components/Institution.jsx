@@ -6,6 +6,7 @@ import InstitutionStatus from './InstitutionStatus.jsx'
 import InstitutionViewButton from './InstitutionViewButton.jsx'
 import InstitutionRefile from './InstitutionRefile.jsx'
 import InstitutionSubmissionHistory from './InstitutionSubmissionHistory.jsx'
+import InstitutionsEditsNav from './InstitutionsEditsNav.jsx'
 
 const Institution = ({
   institution,
@@ -28,6 +29,8 @@ const Institution = ({
         <section className="institution">
           <div className="current-status">
             <InstitutionNameAndId name={institution.name} id={institution.id} />
+
+            <InstitutionsEditsNav status={status} />
 
             <InstitutionStatus
               institutionId={institution.id}

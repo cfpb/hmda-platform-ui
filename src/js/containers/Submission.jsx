@@ -125,7 +125,7 @@ class SubmissionContainer extends Component {
           period={params.filing}
           institution={this.props.institution}
         />
-        <EditsNav period={params.filing} institution={this.props.institution} />
+        <EditsNav />
         <main id="main-content" className="usa-grid SubmissionContainer">
           {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
           {code !== PARSED_WITH_ERRORS ? <RefileWarning /> : null}
