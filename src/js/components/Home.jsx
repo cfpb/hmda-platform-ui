@@ -9,7 +9,7 @@ const Home = props => {
         <section className="usa-hero">
           <div className="usa-grid">
             <div className="usa-width-one-whole">
-              <h1>Get started with the HMDA Platform</h1>
+              <h1>Get started filing your HMDA data</h1>
               <p className="usa-font-lead">
                 Beginning with HMDA data collected in or after 2017, financial
                 institutions will use the HMDA Platform to upload their
