@@ -23,7 +23,7 @@ http {
   add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains; preload';
 
   # CSP
-  add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' data: https://www.googletagmanager.com https://www.google-analytics.com; img-src 'self' https://www.google-analytics.com; style-src 'self'; font-src 'self'; object-src 'none'; frame-src ##APP_SERVER## ##KEYCLOAK_SERVER##; connect-src ##KEYCLOAK_SERVER## ##APP_SERVER## ##HMDA_API_SERVER## https://www.google-analytics.com;";
+  add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' data: https://www.googletagmanager.com https://www.google-analytics.com; img-src 'self' https://www.google-analytics.com; style-src 'self'; font-src 'self'; object-src 'none'; frame-src ##APP_SERVER## ##KEYCLOAK_SERVER## https://www.youtube.com/; connect-src ##KEYCLOAK_SERVER## ##APP_SERVER## ##HMDA_API_SERVER## https://www.google-analytics.com;";
 
   # Prevent buffer tampering
   client_body_buffer_size  16k;

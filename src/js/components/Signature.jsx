@@ -53,8 +53,9 @@ const Signature = props => {
       <header>
         <h2>Signature</h2>
         <p className="usa-font-lead">
-          To sign your submission, select the checkbox below. Next, select 
-          the &quot;Submit HMDA data&quot; button to complete your filing.
+          To complete your submission, select the checkbox to certify the
+          accuracy and completeness of the data submitted. Next, select the
+          &ldquo;Submit HMDA data&rdquo; button to submit your data.
         </p>
       </header>
 

@@ -128,7 +128,7 @@ class SubmissionContainer extends Component {
         <EditsNav />
         <main id="main-content" className="usa-grid SubmissionContainer">
           {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
-          <RefileWarning />
+          {code !== PARSED_WITH_ERRORS ? <RefileWarning /> : null}
           {page === 'submission' ? (
             code !== SIGNED ? (
               <SubmissionPageInfo />

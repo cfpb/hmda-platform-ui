@@ -22,7 +22,7 @@ export default function fetchIRSCSV(institutionId, filing, submissionId) {
           }
           return fileSaver.saveAs(
             new Blob([csv], { type: 'text/csv;charset=utf-16' }),
-            `${submissionId}-irs-report.csv`
+            `${institutionId}-${submissionId}-irs-report.csv`
           )
         })
       })

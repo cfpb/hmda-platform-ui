@@ -51,7 +51,7 @@ export const renderLarErrors = ({ larErrors, ...props }) => {
   className += props.paginationFade ? ' fadeOut' : ''
 
   return (
-    <table className={className} id="parseErrors">
+    <table className={className} id="parseErrors" width="100%">
       {caption}
       <thead>
         <tr>
@@ -101,7 +101,7 @@ class ParseErrors extends Component {
         className="ParseErrors usa-grid-full"
         id="parseErrors"
       >
-        <hr />
+        <RefileWarning />
         <header>
           {!props.pagination ? null : (
             <h2>

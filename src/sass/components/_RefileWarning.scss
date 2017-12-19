@@ -26,3 +26,10 @@
     transform: translate(0, -50%);
   }
 }
+
+@media (max-width: 800px) {
+  .RefileWarning .usa-button.RefileButton{
+    position: relative;
+    margin: 2em 0 -2em;
+  }
+}
