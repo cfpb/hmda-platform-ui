@@ -5,7 +5,9 @@ import { withinFilingPeriod } from '../utils/date.js'
 
 const InstitutionsHeader = ({ filingPeriod }) => {
   if (!filingPeriod) return null
-  if (withinFilingPeriod(filingPeriod)) {
+
+  const filingPeriodPlusOne = parseInt(filingPeriod, 10) + 1
+  if (withinFilingPeriod(filingPeriodPlusOne)) {
     return (
       <header>
         <h1>{filingPeriod} filing period</h1>
