@@ -12,7 +12,7 @@ const InstitutionsHeader = ({ filingPeriod }) => {
       <header>
         <h2>{filingPeriod} filing period</h2>
         <p className="usa-font-lead">
-          The filing period is open. March 1st, 2018 is the deadline to submit your HMDA data.
+          The filing period is open. March 1st, {filingPeriodPlusOne} is the deadline to submit your HMDA data.
         </p>
         <p className="usa-font-lead">You may file HMDA data for your authorized
           institutions below.
