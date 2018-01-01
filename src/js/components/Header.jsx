@@ -4,7 +4,6 @@ import { Link } from 'react-router'
 import { logout } from '../utils/redirect.js'
 import HomeLink from '../components/HomeLink.jsx'
 import BannerUSA from './BannerUSA.jsx'
-import BannerDeadline from '../containers/BannerDeadline.jsx'
 
 export const addActiveClass = (selected, current) => {
   if (selected === current) return 'active'
@@ -54,7 +53,6 @@ const Header = props => {
       role="banner"
     >
       <BannerUSA />
-      <BannerDeadline />
       <section className="usa-nav-container">
         <div className="usa-logo" id="logo">
           <em className="usa-logo-text">

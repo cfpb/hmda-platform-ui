@@ -21,10 +21,10 @@ describe('InstitutionsHeader', () => {
 
     expect(headerNode).toBeDefined()
     expect(
-      TestUtils.scryRenderedDOMComponentsWithTag(header, 'h1').length
+      TestUtils.scryRenderedDOMComponentsWithTag(header, 'h2').length
     ).toBe(1)
     expect(
-      TestUtils.scryRenderedDOMComponentsWithTag(header, 'h1')[0].textContent
+      TestUtils.scryRenderedDOMComponentsWithTag(header, 'h2')[0].textContent
     ).toEqual('2017 filing period')
   })
 
