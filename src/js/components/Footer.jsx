@@ -61,8 +61,16 @@ const Footer = () => {
                   File Format Verification Tool
                 </a>
               </li>
-              {/*<li>Check Digit Generator</li>
-              <li>Rate Spread Calculator</li>*/}
+              <li>
+                <a href="https://cfpb.github.io/hmda-platform-tools/check-digit/">
+                  Check Digit Tool
+                </a>
+              </li>
+              <li>
+                <a href="https://cfpb.github.io/hmda-platform-tools/rate-spread/">
+                  Rate Spread Calculator
+                </a>
+              </li>
             </ul>
           </div>
         </div>
