@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { signinRedirect, register } from '../utils/redirect.js'
 
-const Home = props => {
+const Home = () => {
   return (
     <div>
       <main className="Home" id="main-content">
