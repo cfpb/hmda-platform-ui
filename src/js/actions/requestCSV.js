@@ -1,14 +1,7 @@
 import * as types from '../constants'
 
-/*
-institutionId, filing, submissionId only required for analytics
-*/
-
-export default function requestCSV(institutionId, filing, submissionId) {
+export default function requestCSV() {
   return {
-    type: types.REQUEST_CSV,
-    institutionId: institutionId,
-    filing: filing,
-    submissionId: submissionId
+    type: types.REQUEST_CSV
   }
 }
