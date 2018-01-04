@@ -2,8 +2,16 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ErrorWarning from './ErrorWarning.jsx'
 import SubmissionReceipt from '../containers/SubmissionReceipt.jsx'
+import SubmissionPageInfo from './SubmissionPageInfo.jsx'
 import Alert from './Alert.jsx'
 import { VALIDATED_WITH_ERRORS, SIGNED } from '../constants/statusCodes.js'
+
+const showPageInfo = code => {
+  if (code > VALIDATED_WITH_ERRORS && code !== SIGNED)
+    return <SubmissionPageInfo />
+
+  return null
+}
 
 const showWarning = props => {
   if (!props.error && props.status.code > VALIDATED_WITH_ERRORS) return null
@@ -50,6 +58,8 @@ const Signature = props => {
 
   return (
     <section className="Signature" id="signature">
+      {showPageInfo(props.status.code)}
+
       <header>
         <h2>Signature</h2>
         <p className="usa-font-lead">
