@@ -8,8 +8,7 @@ import { error } from '../utils/log.js'
 // downloading the csv edit reports, no reducer required
 export default function fetchCSV(institutionId, filing, submissionId) {
   return dispatch => {
-    // pass data to action for analytics
-    dispatch(requestCSV(institutionId, filing, submissionId))
+    dispatch(requestCSV())
     return getCSV({
       id: institutionId,
       filing: filing,
