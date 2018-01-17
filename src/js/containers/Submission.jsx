@@ -87,14 +87,6 @@ class SubmissionContainer extends Component {
     const status = this.props.submission.status
 
     if (
-      !status ||
-      status.code === UNINITIALIZED ||
-      this.props.submission.id.institutionId !== institution.id
-    ) {
-      this.props.dispatch(fetchSubmission())
-    }
-
-    if (
       !this.props.institution.id ||
       this.props.institution.id !== institution.id
     ) {

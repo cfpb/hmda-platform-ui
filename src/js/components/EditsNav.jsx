@@ -31,7 +31,7 @@ export default class EditsNav extends Component {
       },
       'syntactical & validity edits': {
         isReachable: () =>
-          this.props.fetched && this.navMap.upload.isCompleted(),
+          this.props.editsFetched && this.navMap.upload.isCompleted(),
         isErrored: () => this.props.syntacticalValidityEditsExist,
         isCompleted: () =>
           this.navMap['syntactical & validity edits'].isReachable() &&
@@ -174,5 +174,8 @@ EditsNav.propTypes = {
   syntacticalValidityEditsExist: PropTypes.bool.isRequired,
   qualityVerified: PropTypes.bool.isRequired,
   macroVerified: PropTypes.bool.isRequired,
-  fetched: PropTypes.bool.isRequired
+  editsFetched: PropTypes.bool,
+  syntacticalValidityFetched: PropTypes.bool,
+  qualityFetched: PropTypes.bool,
+  macroFetched: PropTypes.bool
 }

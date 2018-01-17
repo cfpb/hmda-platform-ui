@@ -2,7 +2,6 @@ import requestEdits from './requestEdits.js'
 import hasHttpError from './hasHttpError.js'
 import receiveError from './receiveError.js'
 import receiveEdits from './receiveEdits.js'
-import fetchEachEdit from './fetchEachEdit.js'
 import { getId } from './Submission.js'
 import { getEdits } from '../api/api.js'
 import { error } from '../utils/log.js'
@@ -18,7 +17,6 @@ export default function fetchEdits() {
             throw new Error(`${json.status}: ${json.statusText}`)
           }
           dispatch(receiveEdits(json))
-          dispatch(fetchEachEdit(json))
           return json
         })
       })

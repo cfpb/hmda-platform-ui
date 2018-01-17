@@ -1,5 +1,7 @@
 import {
   REQUEST_EDITS,
+  REQUEST_EDIT_TYPE,
+  RECEIVE_EDIT_TYPE,
   REQUEST_VERIFY_QUALITY,
   REQUEST_VERIFY_MACRO,
   RECEIVE_EDITS,
@@ -35,6 +37,30 @@ export default (state = defaultEdits, action) => {
         types: action.edits,
         isFetching: false,
         fetched: true
+      }
+    case REQUEST_EDIT_TYPE:
+      return {
+        ...state,
+        types: {
+          ...state.types,
+          [action.editType]: {
+            ...state.types[action.editType],
+            isFetching: true,
+            fetched: false
+          }
+        }
+      }
+    case RECEIVE_EDIT_TYPE:
+      return {
+        ...state,
+        types: {
+          ...state.types,
+          [action.editType]: {
+            ...state.types[action.editType],
+            isFetching: false,
+            fetched: true
+          }
+        }
       }
     case REQUEST_EDIT:
       return {

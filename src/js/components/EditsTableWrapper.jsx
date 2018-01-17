@@ -73,13 +73,13 @@ export const renderTablesOrSuccess = (props, edits, type) => {
 
 const EditsTableWrapper = props => {
   const type = props.page
-  const loading = !props.fetched || props.isFetching ? <LoadingIcon /> : null
+  const loading =
+    !props.editsFetched || props.isFetching ? <LoadingIcon /> : null
 
   return loading ? (
     loading
   ) : (
     <section className="EditsTableWrapper">
-      {loading}
       {makeEntry(props, type)}
       <RefileWarning />
       {type === 'quality' || type === 'macro' ? <Verifier type={type} /> : null}
@@ -90,7 +90,6 @@ const EditsTableWrapper = props => {
 
 EditsTableWrapper.propTypes = {
   // from /containers/Edits
-  fetched: PropTypes.bool,
   isFetching: PropTypes.bool,
   pagination: PropTypes.object,
   paginationFade: PropTypes.object,
@@ -102,7 +101,11 @@ EditsTableWrapper.propTypes = {
   code: PropTypes.number,
   syntacticalValidityEditsExist: PropTypes.bool,
   qualityVerified: PropTypes.bool,
-  macroVerified: PropTypes.bool
+  macroVerified: PropTypes.bool,
+  editsFetched: PropTypes.bool,
+  syntacticalValidityFetched: PropTypes.bool,
+  qualityFetched: PropTypes.bool,
+  macroFetched: PropTypes.bool
 }
 
 export default EditsTableWrapper

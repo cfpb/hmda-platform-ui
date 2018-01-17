@@ -1,19 +1,44 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import submissionProgressHOC from './submissionProgressHOC.jsx'
-import Wrapper from '../components/EditsTableWrapper.jsx'
-import fetchEdits from '../actions/fetchEdits.js'
-
-const EditsTableWrapper = submissionProgressHOC(Wrapper)
+import EditsTableWrapper from '../components/EditsTableWrapper.jsx'
+import fetchEditType from '../actions/fetchEditType.js'
 
 export class EditsContainer extends Component {
   constructor(props) {
     super(props)
   }
 
-  componentDidMount() {
-    if (!this.props.fetched && !this.props.isFetching)
-      this.props.dispatch(fetchEdits())
+  getNeededEdits(props = this.props) {
+    if (
+      props.page === 'syntacticalvalidity' &&
+      !props.syntacticalValidityFetched &&
+      !props.types.syntactical.isFetching &&
+      !props.types.validity.isFetching
+    ) {
+      props.dispatch(fetchEditType('syntactical'))
+      props.dispatch(fetchEditType('validity'))
+    } else if (
+      props.page === 'quality' &&
+      !props.qualityFetched &&
+      !props.types.quality.isFetching
+    ) {
+      props.dispatch(fetchEditType('quality'))
+    } else if (
+      props.page === 'macro' &&
+      !props.macroFetched &&
+      !props.types.macro.isFetching
+    ) {
+      props.dispatch(fetchEditType('macro'))
+    }
+  }
+
+  componentWillMount() {
+    this.getNeededEdits()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.getNeededEdits(nextProps)
   }
 
   didPaginationUpdate(oldFade, newFade) {
@@ -40,14 +65,13 @@ export class EditsContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const { isFetching, fetched, types, rows } = state.app.edits
+  const { isFetching, types, rows } = state.app.edits
 
   const { pagination } = state.app
   const { paginationFade } = state.app
 
   return {
     isFetching,
-    fetched,
     types,
     rows,
     pagination,
@@ -55,4 +79,8 @@ export function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(EditsContainer)
+function mapDispatchToProps(dispatch) {
+  return { dispatch }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditsContainer)

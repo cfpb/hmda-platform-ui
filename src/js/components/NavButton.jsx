@@ -11,13 +11,16 @@ const NavButton = ({
   syntacticalValidityEditsExist,
   qualityVerified,
   macroVerified,
-  fetched
+  editsFetched,
+  syntacticalValidityFetched,
+  qualityFetched,
+  macroFetched
 }) => {
   let className
   let suffix
   let spinOn = false
-  const editFetchInProgress = code === VALIDATED_WITH_ERRORS && !fetched
-  const preError = code < VALIDATED_WITH_ERRORS || editFetchInProgress
+  const editFetchInProgress = code === VALIDATED_WITH_ERRORS && !editsFetched
+  const preError = code < VALIDATED_WITH_ERRORS
 
   switch (page) {
     case 'upload':
@@ -27,15 +30,20 @@ const NavButton = ({
       break
     case 'syntacticalvalidity':
       suffix = 'quality'
-      if (preError || syntacticalValidityEditsExist) className = 'hidden'
+      if (
+        preError ||
+        !syntacticalValidityFetched ||
+        syntacticalValidityEditsExist
+      )
+        className = 'hidden'
       break
     case 'quality':
       suffix = 'macro'
-      if (preError || !qualityVerified) className = 'hidden'
+      if (preError || !qualityFetched || !qualityVerified) className = 'hidden'
       break
     case 'macro':
       suffix = 'submission'
-      if (preError || !macroVerified) className = 'hidden'
+      if (preError || !macroFetched || !macroVerified) className = 'hidden'
       break
     default:
       return null
@@ -63,7 +71,11 @@ NavButton.propTypes = {
   code: PropTypes.number,
   syntacticalValidityEditsExist: PropTypes.bool,
   qualityVerified: PropTypes.bool,
-  macroVerified: PropTypes.bool
+  macroVerified: PropTypes.bool,
+  editsFetched: PropTypes.bool,
+  syntacticalValidityFetched: PropTypes.bool,
+  qualityFetched: PropTypes.bool,
+  macroFetched: PropTypes.bool
 }
 
 export default NavButton
