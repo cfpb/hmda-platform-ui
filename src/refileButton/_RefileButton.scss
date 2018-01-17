@@ -1,0 +1,13 @@
+.RefileButton {
+  &:hover {
+    background-color: $color-secondary-dark;
+  }
+  &:first-letter {
+    text-transform: uppercase;
+  }
+  &.float {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}

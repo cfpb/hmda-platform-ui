@@ -13,7 +13,7 @@
     "js": "(export NODE_ENV=build; webpack --progress)",
     "js:dev": "(export NODE_ENV=build; webpack --config webpack.dev.js --progress)",
     "renew": "(export NODE_ENV=build; webpack --config webpack.renew.js --progress)",
-    "sass": "node-sass --quiet --output-style=compressed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts && yarn run sass:prefix",
+    "sass": "node-sass --quiet --output-style=compressed --source-map=./dist/css/ ./src/app.scss ./dist/css/app.min.css && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts && yarn run sass:prefix",
     "sass:prefix": "postcss -u autoprefixer -r ./dist/css/*.css",
     "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html && html-minifier --collapse-whitespace ./src/silent_renew.html -o ./dist/silent_renew.html",
     "img": "cp -r ./node_modules/uswds/dist/img/* ./dist/img && cp ./src/img/* ./dist/img",
