@@ -24,6 +24,20 @@ describe('EditsHeaderDescription', function() {
     expect(header.props.children.props.type).toEqual('syntacticalvalidity')
     expect(header.props.children.props.count).toEqual(1)
   })
+
+  it('renders a loading icon if not fetched', () => {
+    expect(
+      EditsHeaderDescription({ type: 'quality', count: 4, fetched: false })
+        .props.children[0].props.children[4].type.name
+    ).toBe('LoadingIcon')
+  })
+
+  it('renders no loading icon if fetched', () => {
+    expect(
+      EditsHeaderDescription({ type: 'quality', count: 4, fetched: true }).props
+        .children[0].props.children[4]
+    ).toBe(null)
+  })
 })
 
 const syntacticalValidity = {

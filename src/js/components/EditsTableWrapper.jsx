@@ -23,19 +23,19 @@ export const getTotalTypeCount = (edits, pagination) => {
 
 export const makeEntry = (props, type) => {
   let edits
+  let fetched
   if (type === 'syntacticalvalidity') {
-    edits = props.types['syntactical'].edits.concat(
-      props.types['validity'].edits
-    )
+    edits = props.types.syntactical.edits.concat(props.types.validity.edits)
+    fetched = props.types.syntactical.fetched && props.types.validity.fetched
   } else {
     edits = props.types[type].edits
+    fetched = props.types[type].fetched
   }
-
   const count = getTotalTypeCount(edits, props.pagination)
 
   return (
     <article className="EditsTableWrapper-Edit">
-      <EditsHeaderDescription count={count} type={type} />
+      <EditsHeaderDescription count={count} type={type} fetched={fetched} />
       {renderTablesOrSuccess(props, edits, type)}
     </article>
   )
