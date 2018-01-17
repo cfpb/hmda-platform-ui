@@ -174,7 +174,7 @@ EditsNav.propTypes = {
   syntacticalValidityEditsExist: PropTypes.bool.isRequired,
   qualityVerified: PropTypes.bool.isRequired,
   macroVerified: PropTypes.bool.isRequired,
-  editsFetched: PropTypes.bool,
+  editsFetched: PropTypes.bool.isRequired,
   syntacticalValidityFetched: PropTypes.bool,
   qualityFetched: PropTypes.bool,
   macroFetched: PropTypes.bool

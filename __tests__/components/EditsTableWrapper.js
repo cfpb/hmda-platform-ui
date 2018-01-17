@@ -23,7 +23,7 @@ const props = {
   page: 'quality',
   pagination: { quality1337: { total: 4 }, quality1338: { total: 5 } },
   isFetching: false,
-  fetched: true,
+  editsFetched: true,
   rows: {
     S020: {
       isFetching: false,
@@ -45,7 +45,7 @@ describe('EditsTableWrapper', () => {
     const rendered = EditsTableWrapper(localProps)
 
     // the number of tables rendered
-    expect(rendered.props.children[1].props.children[1].length).toBe(2)
+    expect(rendered.props.children[0].props.children[1].length).toBe(2)
   })
 
   it('does not render verifier on synval and renders 3 tables', () => {
@@ -56,8 +56,8 @@ describe('EditsTableWrapper', () => {
       page: 'syntacticalvalidity'
     }
     const rendered = EditsTableWrapper(localProps)
-    expect(rendered.props.children[1].props.children[1].length).toBe(3)
-    expect(rendered.props.children[3]).toBe(null)
+    expect(rendered.props.children[0].props.children[1].length).toBe(3)
+    expect(rendered.props.children[2]).toBe(null)
   })
 })
 
@@ -67,7 +67,7 @@ describe('EditsTableWrapper Loading', () => {
     ...props,
     onDownloadClick,
     isFetching: true,
-    fetched: false
+    editsFetched: false
   }
 
   it('renders loading icon is necessary', () => {

@@ -50,7 +50,10 @@ describe('submissionProgressHOC', () => {
       'page',
       'base',
       'code',
-      'fetched',
+      'editsFetched',
+      'syntacticalValidityFetched',
+      'qualityFetched',
+      'macroFetched',
       'syntacticalValidityEditsExist',
       'qualityVerified',
       'macroVerified'
@@ -62,7 +65,10 @@ describe('submissionProgressHOC', () => {
     expect(mapped.syntacticalValidityEditsExist).toBe(false)
     expect(mapped.qualityVerified).toBe(true)
     expect(mapped.macroVerified).toBe(true)
-    expect(mapped.fetched).toBe(false)
+    expect(mapped.editsFetched).toBe(false)
+    expect(mapped.syntacticalValidityFetched).toBe(false)
+    expect(mapped.qualityFetched).toBe(false)
+    expect(mapped.macroFetched).toBe(false)
   })
 
   it('defaults quality verification to true if no edits exist', () => {
@@ -75,6 +81,17 @@ describe('submissionProgressHOC', () => {
     defaultState.app.edits.fetched = true
     const fetchMapped = mapStateToProps(defaultState)
     expect(fetchMapped.syntacticalValidityEditsExist).toBe(false)
+  })
+
+  it('reports fetched edits', () => {
+    defaultState.app.edits.types.syntactical.fetched = true
+    defaultState.app.edits.types.validity.fetched = true
+    defaultState.app.edits.types.quality.fetched = true
+    defaultState.app.edits.types.macro.fetched = true
+    const fetchMapped = mapStateToProps(defaultState)
+    expect(fetchMapped.syntacticalValidityFetched).toBe(true)
+    expect(fetchMapped.qualityFetched).toBe(true)
+    expect(fetchMapped.macroFetched).toBe(true)
   })
 
   it('shortcircuits on bad state', () => {
