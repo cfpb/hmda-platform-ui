@@ -1,4 +1,3 @@
-jest.unmock('../../src/js/actions/fetchEachEdit.js')
 jest.unmock('../../src/js/constants')
 jest.mock('../../src/js/api/api')
 import * as types from '../../src/js/constants'

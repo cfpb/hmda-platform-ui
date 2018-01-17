@@ -20,7 +20,7 @@ const baseProps = {
   syntacticalValidityEditsExist: true,
   qualityVerified: false,
   macroVerified: false,
-  fetched: true
+  editsFetched: true
 }
 
 const getLinkCount = rendered => {

@@ -11,7 +11,14 @@ function mapStateToProps(state) {
     .join('/')
 
   const { code } = state.app.submission.status
-  const { types, fetched } = state.app.edits
+  const { types } = state.app.edits
+  const editsFetched = state.app.edits.fetched
+
+  const syntacticalValidityFetched = !!(
+    types.syntactical.fetched && types.validity.fetched
+  )
+  const qualityFetched = !!types.quality.fetched
+  const macroFetched = !!types.macro.fetched
 
   const syntacticalValidityEditsExist =
     types.syntactical.edits.length !== 0 || types.validity.edits.length !== 0
@@ -23,7 +30,10 @@ function mapStateToProps(state) {
     page,
     base,
     code,
-    fetched,
+    editsFetched,
+    syntacticalValidityFetched,
+    qualityFetched,
+    macroFetched,
     syntacticalValidityEditsExist,
     qualityVerified,
     macroVerified

@@ -11,7 +11,10 @@ const baseProps = {
   syntacticalValidityEditsExist: true,
   qualityVerified: false,
   macroVerified: false,
-  fetched: 1
+  editsFetched: true,
+  syntacticalValidityFetched: true,
+  qualityFetched: true,
+  macroFetched: true
 }
 
 const showing = 'NavButton usa-button '
@@ -42,7 +45,7 @@ describe('NavButton', () => {
       ...baseProps,
       page: 'upload',
       code: 8,
-      fetched: 0
+      editsFetched: 0
     })[1]
     expect(rendered.props.className).toBe('NavSpinner')
   })

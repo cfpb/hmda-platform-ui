@@ -1,8 +1,8 @@
-jest.unmock('../../src/js/actions/fetchEachEdit.js')
+jest.unmock('../../src/js/actions/fetchEditType.js')
 jest.unmock('../../src/js/constants')
 jest.mock('../../src/js/api/api')
 import * as types from '../../src/js/constants'
-import fetchEachEdit from '../../src/js/actions/fetchEachEdit.js'
+import fetchEditType from '../../src/js/actions/fetchEditType.js'
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
@@ -18,15 +18,15 @@ const editTypes = {
   macro: { edits: [], verified: false }
 }
 
-describe('fetchEachEdit', () => {
+describe('fetchEditType', () => {
   it('fetches edits', done => {
-    const store = mockStore({})
+    const store = mockStore({ app: { edits: { types: editTypes } } })
 
-    store.dispatch(fetchEachEdit(editTypes)).then(() => {
+    store.dispatch(fetchEditType('syntactical')).then(() => {
       setTimeout(() => {
         expect(store.getActions()).toEqual([
+          { type: 'REQUEST_EDIT_TYPE', editType: 'syntactical' },
           { type: 'REQUEST_EDIT', edit: { edit: 1 } },
-          { type: 'REQUEST_EDIT', edit: { edit: 2 } },
           {
             type: 'RECEIVE_EDIT',
             edit: 'anedit',
@@ -37,16 +37,7 @@ describe('fetchEachEdit', () => {
               _links: undefined
             }
           },
-          {
-            type: 'RECEIVE_EDIT',
-            edit: 'anedit',
-            rows: undefined,
-            pagination: {
-              count: undefined,
-              total: undefined,
-              _links: undefined
-            }
-          }
+          { type: 'RECEIVE_EDIT_TYPE', editType: 'syntactical' }
         ])
         done()
       }, 0)
@@ -54,7 +45,7 @@ describe('fetchEachEdit', () => {
   })
 
   it('handles errors on edit fetch', done => {
-    const store = mockStore({})
+    const store = mockStore({ app: { edits: { types: editTypes } } })
 
     getEdit.mockImplementation(id =>
       Promise.resolve({ status: 404, statusText: 'nah' })
@@ -62,31 +53,31 @@ describe('fetchEachEdit', () => {
 
     console.error = jest.fn()
 
-    store.dispatch(fetchEachEdit(editTypes)).then(() => {
+    store.dispatch(fetchEditType('syntactical')).then(() => {
       setTimeout(() => {
         expect(store.getActions()).toEqual([
+          { type: 'REQUEST_EDIT_TYPE', editType: 'syntactical' },
           { type: 'REQUEST_EDIT', edit: { edit: 1 } },
-          { type: 'REQUEST_EDIT', edit: { edit: 2 } },
           {
             type: 'RECEIVE_ERROR',
             error: { status: 404, statusText: 'nah' }
           },
-          {
-            type: 'RECEIVE_ERROR',
-            error: { status: 404, statusText: 'nah' }
-          }
+          { type: 'RECEIVE_EDIT_TYPE', editType: 'syntactical' }
         ])
-        expect(console.error.mock.calls.length).toBe(2)
+        expect(console.error.mock.calls.length).toBe(1)
         done()
       }, 0)
     })
   })
 
   it('does not make subrequests on types without edits', () => {
-    const store = mockStore({})
+    const store = mockStore({ app: { edits: { types: editTypes } } })
 
-    store.dispatch(fetchEachEdit({ status: 'a', other: {} })).then(() => {
-      expect(store.getActions()).toEqual([])
+    store.dispatch(fetchEditType('validity')).then(() => {
+      expect(store.getActions()).toEqual([
+        { type: 'REQUEST_EDIT_TYPE', editType: 'validity' },
+        { type: 'RECEIVE_EDIT_TYPE', editType: 'validity' }
+      ])
     })
   })
 })

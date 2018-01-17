@@ -40,6 +40,52 @@ describe('edits reducer', () => {
       isFetching: true
     })
   })
+  it('handles REQUEST_EDIT_TYPE', () => {
+    expect(
+      edits(
+        {
+          types: {
+            syntactical: { edits: [], isFetching: false, fetched: false }
+          }
+        },
+        { type: types.REQUEST_EDIT_TYPE, editType: 'syntactical' }
+      )
+    ).toEqual({
+      types: {
+        syntactical: {
+          edits: [],
+          isFetching: true,
+          fetched: false
+        }
+      }
+    })
+  })
+  it('handles RECEIVE_EDIT_TYPE', () => {
+    expect(
+      edits(
+        {
+          types: {
+            syntactical: { edits: [], isFetching: false, fetched: false }
+          }
+        },
+        { type: types.RECEIVE_EDIT_TYPE, editType: 'syntactical' }
+      )
+    ).toEqual({
+      types: {
+        syntactical: {
+          edits: [],
+          isFetching: false,
+          fetched: true
+        }
+      }
+    })
+  })
+
+  it('handles REQUEST_EDITS', () => {
+    expect(edits({}, { type: types.REQUEST_EDITS })).toEqual({
+      isFetching: true
+    })
+  })
 
   it('handles RECEIVE_EDITS', () => {
     expect(
@@ -129,6 +175,8 @@ describe('edits reducer', () => {
       types.REQUEST_EDITS,
       types.RECEIVE_EDIT,
       types.REQUEST_EDIT,
+      types.REQUEST_EDIT_TYPE,
+      types.RECEIVE_EDIT_TYPE,
       types.REFRESH_STATE
     ).forEach(v => expect(edits({}, v)).toEqual({}))
   })
