@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import LoadingIcon from './LoadingIcon.jsx'
+import Loading from '../../common/Loading.jsx'
 
 const syntacticalValidity = {
   id: 'syntacticalvalidity',
@@ -39,7 +39,7 @@ const EditsHeaderDescription = ({ type, count, fetched }) => {
   return (
     <header className="EditsHeaderDescription" id={id}>
       <h2>
-        {title} ({count} found){!fetched ? <LoadingIcon /> : null}
+        {title} ({count} found){!fetched ? <Loading /> : null}
       </h2>
       <p className="usa-font-lead">{desc}</p>
     </header>
