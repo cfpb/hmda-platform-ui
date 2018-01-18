@@ -3,7 +3,7 @@ jest.mock('./UserHeading.jsx', () => jest.fn(() => null))
 jest.mock('../refileWarning/index.jsx', () =>
   jest.fn(() => null)
 )
-jest.mock('./ProgressHOC.jsx', () =>
+jest.mock('./progressHOC.jsx', () =>
   jest.fn(comp => comp)
 )
 
