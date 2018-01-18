@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import LoadingIcon from './LoadingIcon.jsx'
 
 const syntacticalValidity = {
   id: 'syntacticalvalidity',
@@ -32,13 +33,13 @@ export const getText = editType => {
   throw new Error('Unexpected edit type. Unable to create edit description.')
 }
 
-const EditsHeaderDescription = ({ type, count }) => {
+const EditsHeaderDescription = ({ type, count, fetched }) => {
   const { id, title, desc } = getText(type)
 
   return (
     <header className="EditsHeaderDescription" id={id}>
       <h2>
-        {title} ({count} found)
+        {title} ({count} found){!fetched ? <LoadingIcon /> : null}
       </h2>
       <p className="usa-font-lead">{desc}</p>
     </header>
@@ -47,7 +48,8 @@ const EditsHeaderDescription = ({ type, count }) => {
 
 EditsHeaderDescription.propTypes = {
   type: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired
+  count: PropTypes.number.isRequired,
+  fetched: PropTypes.bool
 }
 
 export default EditsHeaderDescription
