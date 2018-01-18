@@ -48,7 +48,8 @@ const EditsHeaderDescription = ({ type, count, fetched }) => {
 
 EditsHeaderDescription.propTypes = {
   type: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired
+  count: PropTypes.number.isRequired,
+  fetched: PropTypes.bool
 }
 
 export default EditsHeaderDescription
