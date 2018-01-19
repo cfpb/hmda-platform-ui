@@ -20,6 +20,8 @@ export function mapStateToProps(state) {
     uploadError: null
   }
 
+  const appError = state.app.error
+
   return {
     uploading,
     file,
@@ -27,6 +29,7 @@ export function mapStateToProps(state) {
     errors,
     errorFile,
     uploadError,
+    appError,
     id,
     code
   }

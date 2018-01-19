@@ -113,7 +113,11 @@ describe('ValidationProgress', () => {
     )
     progress = new ValidationProgress({ uploadError: 1, code: 9 })
     expect(progress.getText().props.children[0].props.children).toBe(
-      'Error uploading file. Please try again.'
+      'There was an error uploading your file. Please try again.'
+    )
+    progress = new ValidationProgress({ appError: 1, code: 9 })
+    expect(progress.getText().props.children[0].props.children).toBe(
+      'There was an error checking your validation progress. Please refresh the page.'
     )
     progress = new ValidationProgress({ code: 7, file: { size: 1e6 } })
     expect(progress.getText().props.children[2].props.children).toBe(
