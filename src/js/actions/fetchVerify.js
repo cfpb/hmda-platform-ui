@@ -19,7 +19,7 @@ export default function fetchVerify(type, checked) {
         return hasHttpError(json).then(hasError => {
           if (hasError) {
             dispatch(receiveError(json))
-            throw new Error(`${json.status}: ${json.statusText}`)
+            throw new Error(json && `${json.status}: ${json.statusText}`)
           }
 
           if (type === 'quality') dispatch(verifyQuality(checked))

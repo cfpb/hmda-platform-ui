@@ -19,7 +19,7 @@ export default function fetchIRS() {
                 return IRSPollingId.set(setTimeout(poller, 1000))
               else {
                 dispatch(receiveError(json))
-                throw new Error(`${json.status}: ${json.statusText}`)
+                throw new Error(json && `${json.status}: ${json.statusText}`)
               }
             }
             return dispatch(receiveIRS(json))
