@@ -1,4 +1,9 @@
-import { RECEIVE_PARSE_ERRORS, RECEIVE_EDIT, RECEIVE_IRS } from '../constants'
+import {
+  RECEIVE_PARSE_ERRORS,
+  RECEIVE_EDIT,
+  RECEIVE_IRS,
+  REFRESH_STATE
+} from '../constants'
 
 const defaultPagination = {}
 
@@ -19,6 +24,8 @@ export default (state = defaultPagination, action) => {
         ...state,
         irs: action.pagination
       }
+    case REFRESH_STATE:
+      return defaultPagination
     default:
       return state
   }

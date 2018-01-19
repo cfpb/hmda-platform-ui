@@ -19,6 +19,10 @@ describe('pagination reducer', () => {
     ).toEqual({ parseErrors: 'parseErrorsPage' })
   })
 
+  it('handles REFRESH_STATE', () => {
+    expect(pagination({}, { type: types.REFRESH_STATE })).toEqual(defaultPagination)
+  })
+
   it("shouldn't modify state on an unknown action type", () => {
     excludeTypes(types.RECEIVE_PARSE_ERRORS).forEach(v =>
       expect(pagination({}, v)).toEqual({})
