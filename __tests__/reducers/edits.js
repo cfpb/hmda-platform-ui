@@ -148,10 +148,7 @@ describe('edits reducer', () => {
       )
     ).toEqual({ types: { quality: { isFetching: true } } })
   })
-
-  it('handles REFRESH_STATE', () => {
-    expect(edits({}, { type: types.REFRESH_STATE })).toEqual(defaultEdits)
-  })
+  
   it('handles REQUEST_VERIFY_MACRO', () => {
     expect(
       edits(
