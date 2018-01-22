@@ -9,12 +9,14 @@ export const renderValidationProgress = ({
   uploading,
   file,
   id,
-  uploadError
+  uploadError,
+  appError
 }) => {
   if (code < STATUS.UPLOADING && !uploading) return null
   return (
     <ValidationProgress
       uploadError={uploadError}
+      appError={appError}
       file={file}
       code={code}
       id={id}
@@ -172,5 +174,6 @@ Upload.propTypes = {
   code: PropTypes.number,
   errors: PropTypes.array,
   uploadError: PropTypes.object,
+  appError: PropTypes.object,
   errorFile: PropTypes.string
 }

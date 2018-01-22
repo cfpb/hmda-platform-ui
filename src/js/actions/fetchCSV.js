@@ -18,7 +18,7 @@ export default function fetchCSV(institutionId, filing, submissionId) {
         return hasHttpError(csv).then(hasError => {
           if (hasError) {
             dispatch(receiveError(csv))
-            throw new Error(`${csv.status}: ${csv.statusText}`)
+            throw new Error(csv && `${csv.status}: ${csv.statusText}`)
           }
           return fileSaver.saveAs(
             new Blob([csv], { type: 'text/csv;charset=utf-16' }),

@@ -23,7 +23,7 @@ export default function fetchUpload(file) {
         return hasHttpError(json).then(hasError => {
           if (hasError) {
             dispatch(receiveUploadError(json))
-            throw new Error(`${json.status}: ${json.statusText}`)
+            throw new Error(json && `${json.status}: ${json.statusText}`)
           }
 
           dispatch(receiveUpload(json))

@@ -15,13 +15,13 @@ export default function fetchSubmission() {
         return hasHttpError(json).then(hasError => {
           if (!hasError) return dispatch(receiveSubmission(json))
 
-          if (json.status === 404) {
+          if (json && json.status === 404) {
             const { id, filing } = parseLocation(location)
             return dispatch(fetchNewSubmission(id, filing))
           }
 
           dispatch(receiveError(json))
-          throw new Error(`${json.status}: ${json.statusText}`)
+          throw new Error(json && `${json.status}: ${json.statusText}`)
         })
       })
       .catch(err => error(err))

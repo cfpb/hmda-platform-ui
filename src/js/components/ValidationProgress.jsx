@@ -30,7 +30,7 @@ export default class ValidationProgress extends Component {
   }
 
   saveWidth(id, width) {
-    if (this.props.uploadError) width = 0
+    if (this.props.uploadError || this.props.appError) width = 0
     localStorage.setItem(`HMDA_FILE_PROGRESS/${id}`, width)
   }
 
@@ -44,7 +44,11 @@ export default class ValidationProgress extends Component {
     if (code === STATUS.VALIDATING) text = 'Validating edits...'
     if (code > STATUS.VALIDATING) text = 'Edit validation complete.'
 
-    if (this.props.uploadError) text = 'Error uploading file. Please try again.'
+    if (this.props.uploadError)
+      text = 'There was an error uploading your file. Please try again.'
+    else if (this.props.appError)
+      text =
+        'There was an error checking your validation progress. Please refresh the page.'
 
     const largeFile = this.props.file && this.props.file.size > 1e5
 
@@ -56,7 +60,9 @@ export default class ValidationProgress extends Component {
           <strong>Edits found, review required.</strong>
         ) : largeFile &&
         (code > STATUS.UPLOADED && code < STATUS.VALIDATED_WITH_ERRORS) &&
-        code !== STATUS.PARSED_WITH_ERRORS ? (
+        code !== STATUS.PARSED_WITH_ERRORS &&
+        !this.props.uploadError &&
+        !this.props.appError ? (
           <strong>
             This process may take a little while. Your upload will complete
             automatically, so you may leave the platform and log back in later.
@@ -68,7 +74,11 @@ export default class ValidationProgress extends Component {
 
   getIndicator() {
     let className = 'progressIndicator'
-    if (this.props.code === STATUS.PARSED_WITH_ERRORS || this.props.uploadError)
+    if (
+      this.props.code === STATUS.PARSED_WITH_ERRORS ||
+      this.props.uploadError ||
+      this.props.appError
+    )
       className += ' error'
     else if (this.props.code > STATUS.VALIDATING) className += ' complete'
     else className += ' pulsing'
@@ -79,7 +89,10 @@ export default class ValidationProgress extends Component {
     let className = 'progressFill'
     let currWidth = this.state.fillWidth
     const code = this.props.code
-    const errored = code === STATUS.PARSED_WITH_ERRORS || this.props.uploadError
+    const errored =
+      code === STATUS.PARSED_WITH_ERRORS ||
+      this.props.uploadError ||
+      this.props.appError
 
     if (errored) className += ' error'
 
@@ -129,5 +142,7 @@ export default class ValidationProgress extends Component {
 ValidationProgress.propTypes = {
   code: PropTypes.number,
   id: PropTypes.string,
-  file: PropTypes.object
+  file: PropTypes.object,
+  uploadError: PropTypes.object,
+  appError: PropTypes.object
 }
