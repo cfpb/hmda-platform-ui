@@ -4,9 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
 import Wrapper from '../../../test-resources/Wrapper.js'
-import EditsHeaderDescription, {
-  getText
-} from './Header.jsx'
+import EditsHeaderDescription, { getText } from './Header.jsx'
 
 describe('EditsHeaderDescription', function() {
   const header = TestUtils.renderIntoDocument(

@@ -5,7 +5,10 @@
   a.usa-button {
     color: $color-white;
   }
-  &.usa-alert-info,&.usa-alert-warning, &.usa-alert-error, &.usa-alert-success {
+  &.usa-alert-info,
+  &.usa-alert-warning,
+  &.usa-alert-error,
+  &.usa-alert-success {
     background-image: none;
   }
   .AlertImage {
@@ -16,12 +19,11 @@
     position: absolute;
     width: 30px;
     height: 30px;
-    border-radius:50%;
+    border-radius: 50%;
     background-color: $color-base;
     font-weight: 700;
     text-align: center;
   }
-
 }
 .AlertImageCheck {
   background-image: url('../img/correct8.png');

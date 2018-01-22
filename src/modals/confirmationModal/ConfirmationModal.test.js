@@ -1,8 +1,6 @@
 jest.unmock('./index.jsx')
 
-import ModalConfirm, {
-  _focusIfShowing
-} from './index.jsx'
+import ModalConfirm, { _focusIfShowing } from './index.jsx'
 import Wrapper from '../../../test-resources/Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'

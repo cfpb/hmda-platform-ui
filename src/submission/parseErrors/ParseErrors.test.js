@@ -1,10 +1,7 @@
 jest.unmock('./index.jsx')
 jest.mock('../../pagination/container.jsx')
 
-import ParseErrors, {
-  renderTSErrors,
-  renderLarErrors
-} from './index.jsx'
+import ParseErrors, { renderTSErrors, renderLarErrors } from './index.jsx'
 import React from 'react'
 import TestUtils from 'react-dom/test-utils'
 

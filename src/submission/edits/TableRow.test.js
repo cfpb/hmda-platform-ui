@@ -7,7 +7,9 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
 
 const types = {
-  syntactical: JSON.parse(fs.readFileSync('./test-resources/json/syntactical.json')),
+  syntactical: JSON.parse(
+    fs.readFileSync('./test-resources/json/syntactical.json')
+  ),
   validity: JSON.parse(fs.readFileSync('./test-resources/json/validity.json')),
   quality: JSON.parse(fs.readFileSync('./test-resources/json/quality.json')),
   macro: JSON.parse(fs.readFileSync('./test-resources/json/macro.json'))

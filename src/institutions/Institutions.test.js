@@ -13,7 +13,9 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
 
 const fs = require('fs')
-const filingJSON = JSON.parse(fs.readFileSync('./test-resources/json/filings.json'))
+const filingJSON = JSON.parse(
+  fs.readFileSync('./test-resources/json/filings.json')
+)
 const multifilings = JSON.parse(
   fs.readFileSync('./test-resources/json/multi-filings.json')
 )

@@ -1,53 +1,53 @@
-@import "sass/uswds-overrides/uswds-customer-vars.scss";
-@import "node_modules/uswds/src/stylesheets/all.scss";
+@import 'sass/uswds-overrides/uswds-customer-vars.scss';
+@import 'node_modules/uswds/src/stylesheets/all.scss';
 
 // HDMA customizations to USWDS
-@import "sass/uswds-overrides/header.scss";
-@import "sass/uswds-overrides/hero.scss";
-@import "sass/uswds-overrides/footer.scss";
-@import "sass/uswds-overrides/accordion.scss";
-@import "sass/uswds-overrides/fixes.scss";
+@import 'sass/uswds-overrides/header.scss';
+@import 'sass/uswds-overrides/hero.scss';
+@import 'sass/uswds-overrides/footer.scss';
+@import 'sass/uswds-overrides/accordion.scss';
+@import 'sass/uswds-overrides/fixes.scss';
 
 // HMDA specific
-@import "sass/hmda.scss";
+@import 'sass/hmda.scss';
 
 // Components
-@import "common/Alert.scss";
-@import "common/Header.scss";
-@import "common/Footer.scss";
-@import "common/ErrorWarning.scss";
-@import "common/Loading.scss";
-@import "common/BrowserBlocker.scss";
+@import 'common/Alert.scss';
+@import 'common/Header.scss';
+@import 'common/Footer.scss';
+@import 'common/ErrorWarning.scss';
+@import 'common/Loading.scss';
+@import 'common/BrowserBlocker.scss';
 
-@import "pagination/Pagination.scss";
+@import 'pagination/Pagination.scss';
 
-@import "refileWarning/RefileWarning.scss";
-@import "refileButton/RefileButton.scss";
+@import 'refileWarning/RefileWarning.scss';
+@import 'refileButton/RefileButton.scss';
 
-@import "modals/Modal.scss";
-@import "modals/confirmationModal/RefileText.scss";
+@import 'modals/Modal.scss';
+@import 'modals/confirmationModal/RefileText.scss';
 
-@import "home/Home.scss";
+@import 'home/Home.scss';
 
-@import "institutions/Institutions.scss";
-@import "institutions/Progress.scss";
+@import 'institutions/Institutions.scss';
+@import 'institutions/Progress.scss';
 
-@import "submission/Submission.scss";
-@import "submission/NavButton.scss";
-@import "submission/UserHeading.scss";
-@import "submission/Nav.scss";
+@import 'submission/Submission.scss';
+@import 'submission/NavButton.scss';
+@import 'submission/UserHeading.scss';
+@import 'submission/Nav.scss';
 
-@import "submission/upload/UploadForm.scss";
-@import "submission/upload/ValidationProgress.scss";
+@import 'submission/upload/UploadForm.scss';
+@import 'submission/upload/ValidationProgress.scss';
 
-@import "submission/parseErrors/ParseErrors.scss";
+@import 'submission/parseErrors/ParseErrors.scss';
 
-@import "submission/edits/Table.scss";
-@import "submission/edits/Header.scss";
-@import "submission/edits/Verifier.scss";
+@import 'submission/edits/Table.scss';
+@import 'submission/edits/Header.scss';
+@import 'submission/edits/Verifier.scss';
 
-@import "submission/irs/IRSReport.scss";
+@import 'submission/irs/IRSReport.scss';
 
-@import "submission/summary/Summary.scss";
+@import 'submission/summary/Summary.scss';
 
-@import "submission/signature/Signature.scss";
+@import 'submission/signature/Signature.scss';

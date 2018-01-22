@@ -20,7 +20,9 @@ describe('pagination reducer', () => {
   })
 
   it('handles REFRESH_STATE', () => {
-    expect(pagination({}, { type: types.REFRESH_STATE })).toEqual(defaultPagination)
+    expect(pagination({}, { type: types.REFRESH_STATE })).toEqual(
+      defaultPagination
+    )
   })
 
   it("shouldn't modify state on an unknown action type", () => {

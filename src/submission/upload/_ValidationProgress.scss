@@ -25,7 +25,7 @@
     height: 1em;
     font-weight: 700;
     &::before {
-      content: "0%";
+      content: '0%';
       font-size: 0.75em;
       margin-left: 0.6em;
       position: absolute;
@@ -33,7 +33,7 @@
     }
 
     &::after {
-      content: "100%";
+      content: '100%';
       font-size: 0.75em;
       margin-right: -0.5em;
       position: absolute;
@@ -81,8 +81,8 @@
     }
 
     &.complete {
-      background-image: url("../img/correct9.png");
-      background-image: url("../img/correct9.svg");
+      background-image: url('../img/correct9.png');
+      background-image: url('../img/correct9.svg');
       width: 2em;
       height: 2em;
       margin-bottom: -0.5em;
@@ -90,8 +90,8 @@
     }
 
     &.error {
-      background-image: url("../img/close.png");
-      background-image: url("../img/close.svg");
+      background-image: url('../img/close.png');
+      background-image: url('../img/close.svg');
     }
   }
 }

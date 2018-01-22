@@ -25,7 +25,7 @@
       color: $color-gray-dark;
     }
   }
-  input[type="text"] {
+  input[type='text'] {
     border-color: $color-gray;
     max-width: 100%;
     &:disabled {
@@ -38,7 +38,7 @@
     }
   }
 
-  [type="submit"] {
+  [type='submit'] {
     border-top-right-radius: 0;
     border-top-left-radius: 0;
     margin-top: 0;
@@ -66,8 +66,8 @@
       margin-right: -50%;
       padding: 0;
       font-weight: 400;
-      background-color: rgba(0,0,0,0);
-      background-image: url("/img/upload.png");
+      background-color: rgba(0, 0, 0, 0);
+      background-image: url('/img/upload.png');
       background-repeat: no-repeat;
       background-size: 70px;
       background-position-x: 50%;

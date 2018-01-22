@@ -1,10 +1,7 @@
 jest.unmock('./ErrorWarning.jsx')
 jest.mock('./Alert.jsx', () => jest.fn(() => null))
 
-import ErrorWarning, {
-  getHeading,
-  getText
-} from './ErrorWarning.jsx'
+import ErrorWarning, { getHeading, getText } from './ErrorWarning.jsx'
 import Wrapper from '../../test-resources/Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'

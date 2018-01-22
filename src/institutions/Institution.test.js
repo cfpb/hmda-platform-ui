@@ -1,20 +1,10 @@
 jest.unmock('./Institution.jsx')
 
-jest.mock('./NameAndId.jsx', () =>
-  jest.fn(() => null)
-)
-jest.mock('./Status.jsx', () =>
-  jest.fn(() => null)
-)
-jest.mock('./ViewButton.jsx', () =>
-  jest.fn(() => null)
-)
-jest.mock('./Refile.jsx', () =>
-  jest.fn(() => null)
-)
-jest.mock('./SubmissionHistory.jsx', () =>
-  jest.fn(() => null)
-)
+jest.mock('./NameAndId.jsx', () => jest.fn(() => null))
+jest.mock('./Status.jsx', () => jest.fn(() => null))
+jest.mock('./ViewButton.jsx', () => jest.fn(() => null))
+jest.mock('./Refile.jsx', () => jest.fn(() => null))
+jest.mock('./SubmissionHistory.jsx', () => jest.fn(() => null))
 
 import Institution from './Institution.jsx'
 import Wrapper from '../../test-resources/Wrapper.js'
@@ -23,7 +13,9 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
 
 const fs = require('fs')
-const filings = JSON.parse(fs.readFileSync('./test-resources/json/filings.json'))
+const filings = JSON.parse(
+  fs.readFileSync('./test-resources/json/filings.json')
+)
 const filing = filings.filing
 const submissions = filings.submissions
 const submission = submissions[0]

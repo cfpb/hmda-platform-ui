@@ -148,7 +148,7 @@ describe('edits reducer', () => {
       )
     ).toEqual({ types: { quality: { isFetching: true } } })
   })
-  
+
   it('handles REQUEST_VERIFY_MACRO', () => {
     expect(
       edits(

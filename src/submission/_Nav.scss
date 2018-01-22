@@ -58,8 +58,8 @@
       }
       &.complete {
         .step {
-          background-image: url("../img/correct8.png");
-          background-image: url("../img/correct8.svg");
+          background-image: url('../img/correct8.png');
+          background-image: url('../img/correct8.svg');
           background-position: -2px -1px;
           background-color: #212121;
           background-repeat: no-repeat;
@@ -117,8 +117,8 @@
         }
         .step {
           background-color: $color-secondary;
-          background-image: url("../img/close-white.png");
-          background-image: url("../img/close-white.svg");
+          background-image: url('../img/close-white.png');
+          background-image: url('../img/close-white.svg');
           background-size: 16px;
           background-position: 5px 5px;
           background-repeat: no-repeat;

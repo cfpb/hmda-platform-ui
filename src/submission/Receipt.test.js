@@ -8,7 +8,9 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
 
 const fs = require('fs')
-const signJSON = JSON.parse(fs.readFileSync('./test-resources/json/receipt.json'))
+const signJSON = JSON.parse(
+  fs.readFileSync('./test-resources/json/receipt.json')
+)
 const status = {
   code: 10,
   message: ''

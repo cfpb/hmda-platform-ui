@@ -8,7 +8,9 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
 
 const fs = require('fs')
-const filings = JSON.parse(fs.readFileSync('./test-resources/json/filings.json'))
+const filings = JSON.parse(
+  fs.readFileSync('./test-resources/json/filings.json')
+)
 const submissions = filings.submissions
 
 const onDownloadClick = jest.fn()

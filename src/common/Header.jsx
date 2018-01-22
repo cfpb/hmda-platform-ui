@@ -36,11 +36,7 @@ const makeNav = (props, page) => {
 
   if (page === 'oidc-callback') userHeader = null
 
-  return (
-    <nav className="usa-nav">
-      {userHeader}
-    </nav>
-  )
+  return <nav className="usa-nav">{userHeader}</nav>
 }
 
 const Header = props => {

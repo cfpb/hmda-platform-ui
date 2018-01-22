@@ -1,11 +1,7 @@
 jest.unmock('./Nav.jsx')
 jest.mock('./UserHeading.jsx', () => jest.fn(() => null))
-jest.mock('../refileWarning/index.jsx', () =>
-  jest.fn(() => null)
-)
-jest.mock('./progressHOC.jsx', () =>
-  jest.fn(comp => comp)
-)
+jest.mock('../refileWarning/index.jsx', () => jest.fn(() => null))
+jest.mock('./progressHOC.jsx', () => jest.fn(comp => comp))
 
 import EditsNav from './Nav.jsx'
 import Wrapper from '../../test-resources/Wrapper.js'

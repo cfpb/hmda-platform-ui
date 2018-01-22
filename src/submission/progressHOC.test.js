@@ -3,9 +3,7 @@ jest.unmock('./progressHOC.jsx')
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
-import submissionProgressHOC, {
-  mapStateToProps
-} from './progressHOC.jsx'
+import submissionProgressHOC, { mapStateToProps } from './progressHOC.jsx'
 import Wrapper from '../../test-resources/Wrapper.js'
 
 const defaultState = {
