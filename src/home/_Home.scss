@@ -1,0 +1,62 @@
+.Home {
+  .usa-hero-no-script {
+    background-color: $color-secondary-lightest;
+  }
+
+  .usa-grid {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+  .usa-grid:first-of-type {
+    border-bottom: $color-gray-lightest;
+  }
+
+  .usa-alert {
+    margin-bottom: 2em;
+  }
+
+  .register-link {
+    margin-left: 0.5em;
+  }
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 0;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  h3 {
+    font-size: 1em;
+  }
+
+  .login-button {
+    float: right;
+  }
+
+  hr {
+    margin: 2em 0;
+  }
+
+  .max-width {
+    max-width: 77rem;
+  }
+
+  .video-container {
+    height: 0;
+    padding-bottom: 56.25%;
+    position: relative;
+    width: 100%;
+
+    iframe {
+      left: 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+  }
+}

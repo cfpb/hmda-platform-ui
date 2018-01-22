@@ -6,7 +6,7 @@ const WebpackShellPlugin = require('webpack-shell-plugin')
 
 module.exports = merge(common, {
   entry: {
-    main: './src/js/index.js'
+    main: './src/index.js'
   },
   output: {
     filename: 'app.min.js'

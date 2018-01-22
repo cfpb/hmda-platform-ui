@@ -4,7 +4,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = merge(common, {
   entry: {
-    'main': './src/js/utils/silent_renew.js'
+    'main': './src/utils/silent_renew.js'
   },
   output: {
     filename: 'silent_renew.js'

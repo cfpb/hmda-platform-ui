@@ -1,0 +1,49 @@
+.usa-alert {
+  a {
+    color: $color-primary-darker;
+  }
+  a.usa-button {
+    color: $color-white;
+  }
+  &.usa-alert-info,
+  &.usa-alert-warning,
+  &.usa-alert-error,
+  &.usa-alert-success {
+    background-image: none;
+  }
+  .AlertImage {
+    font-size: 30px;
+    line-height: 25px;
+    padding-top: 2px;
+    color: $color-white;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: $color-base;
+    font-weight: 700;
+    text-align: center;
+  }
+}
+.AlertImageCheck {
+  background-image: url('../img/correct8.png');
+  background-image: url('../img/correct8.svg');
+  background-repeat: no-repeat;
+  background-size: 30px;
+}
+
+.AlertImageClose {
+  background-image: url('../img/close-white.png');
+  background-image: url('../img/close-white.svg');
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: 7px;
+}
+
+.AlertImage {
+  color: $color-white;
+}
+
+.BannerBeta .AlertImage {
+  display: none;
+}
