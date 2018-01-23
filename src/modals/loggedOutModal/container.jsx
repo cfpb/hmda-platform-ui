@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import clearUserError from '../../actions/clearUserError.js'
+import clearUserError from './clearUserError.js'
 import LoggedOutModal from './index.jsx'
 
 export class LoggedOutContainer extends Component {

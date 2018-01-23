@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import Upload from './index.jsx'
-import handleFile from '../../actions/handleFile.js'
-import pollForProgress from '../../actions/pollForProgress.js'
-import * as Poller from '../../actions/Poller.js'
+import handleFile from './handleFile.js'
+import pollForProgress from './pollForProgress.js'
+import * as Poller from './poller.js'
 
 export function mapStateToProps(state) {
   const id = state.app.institution.id

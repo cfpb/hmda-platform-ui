@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import RefileWarning from './index.jsx'
-import fetchCSV from '../actions/fetchCSV.js'
+import fetchCSV from '../submission/fetchCSV.js'
 
 class RefileWarningContainer extends Component {
   render() {

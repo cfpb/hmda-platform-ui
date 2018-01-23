@@ -1,6 +1,6 @@
 import { UserManager } from 'oidc-client'
 import { set } from '../api/AccessToken.js'
-import makeAction from '../actions/makeAction.js'
+import makeAction from './makeAction.js'
 import {
   USER_EXPIRED,
   SILENT_RENEW_ERROR,

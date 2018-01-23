@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import submissionProgressHOC from '../progressHOC.jsx'
 import EditsTableWrapper from './TableWrapper.jsx'
-import fetchEditType from '../../actions/fetchEditType.js'
-import fetchEdits from '../../actions/fetchEdits.js'
+import fetchEditType from './fetchEditType.js'
+import fetchEdits from './fetchEdits.js'
 
 export class EditsContainer extends Component {
   constructor(props) {

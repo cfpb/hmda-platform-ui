@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import fetchIRS from '../../actions/fetchIRS.js'
-import cancelIRSFetch from '../../actions/cancelIRSFetch.js'
+import fetchIRS from './fetchIRS.js'
+import cancelIRSFetch from './cancelIRSFetch.js'
 import IRSReport from './index.jsx'
-import fetchIRSCSV from '../../actions/fetchIRSCSV.js'
+import fetchIRSCSV from './fetchIRSCSV.js'
 
 export class IRSReportContainer extends Component {
   constructor(props) {

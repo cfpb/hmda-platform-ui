@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import RefileButton from './index.jsx'
-import showConfirm from '../actions/showConfirm.js'
-import setInstitution from '../actions/setInstitution.js'
+import showConfirm from '../modals/confirmationModal/showConfirm.js'
+import setInstitution from '../institutions/setInstitution.js'
 
 class RefileButtonContainer extends Component {
   render() {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import fetchInstitutions from '../actions/fetchInstitutions.js'
-import fetchCSV from '../actions/fetchCSV.js'
+import fetchInstitutions from './fetchInstitutions.js'
+import fetchCSV from '../submission/fetchCSV.js'
 import Institutions from './index.jsx'
 
 export class InstitutionContainer extends Component {

@@ -1,11 +1,11 @@
 jest.unmock('./container.jsx')
-jest.mock('../../actions/fetchParseErrors.js')
+jest.mock('./fetchParseErrors.js')
 jest.mock('./index.jsx')
 
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
-import fetchParseErrors from '../../actions/fetchParseErrors.js'
+import fetchParseErrors from './fetchParseErrors.js'
 import ParseErrorsComponent from './index.jsx'
 import ParseErrors, {
   ParseErrorsContainer,

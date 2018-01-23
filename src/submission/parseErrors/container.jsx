@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import fetchParseErrors from '../../actions/fetchParseErrors.js'
+import fetchParseErrors from './fetchParseErrors.js'
 import ParseErrors from './index.jsx'
 
 export class ParseErrorsContainer extends Component {
