@@ -37,11 +37,15 @@ export default function pollForProgress(polling) {
       })
       .then(json => {
         if (
+          // continue polling until we reach a status that isn't processing
           json.status.code < VALIDATED_WITH_ERRORS &&
           json.status.code !== PARSED_WITH_ERRORS
         ) {
           setTimeout(() => poller(dispatch), getTimeoutDuration())
-        } else {
+        } else if (
+          // we don't need edits if it parsed with errors
+          json.status.code !== PARSED_WITH_ERRORS
+        ) {
           return dispatch(fetchEdits())
         }
       })
