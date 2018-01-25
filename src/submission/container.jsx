@@ -51,11 +51,23 @@ const renderByCode = (code, page, message) => {
         toRender.push(<Edits />)
       }
     } else if (page === 'submission') {
-      if (code > VALIDATING) {
-        toRender.push(<IRSReport />)
-        toRender.push(<Summary />)
-        toRender.push(<Signature />)
+      let warningOrReceipt = null
+
+      if (code !== SIGNED) {
+        warningOrReceipt = <SubmissionPageInfo />
+      } else {
+        warningOrReceipt = <section className="RefileWarning">
+                <SubmissionReceipt />
+              </section>
       }
+
+      // at the top of the page
+      toRender.push(warningOrReceipt)
+      toRender.push(<IRSReport />)
+      toRender.push(<Summary />)
+      // and just before the signature
+      toRender.push(warningOrReceipt)
+      toRender.push(<Signature />)
     }
   }
 
@@ -116,15 +128,6 @@ class SubmissionContainer extends Component {
         <main id="main-content" className="usa-grid SubmissionContainer">
           {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
           {code !== PARSED_WITH_ERRORS ? <RefileWarning /> : null}
-          {page === 'submission' ? (
-            code !== SIGNED ? (
-              <SubmissionPageInfo />
-            ) : (
-              <section className="RefileWarning">
-                <SubmissionReceipt />
-              </section>
-            )
-          ) : null}
           {toRender.map((component, i) => {
             return (
               <div className="usa-width-one-whole" key={i}>
