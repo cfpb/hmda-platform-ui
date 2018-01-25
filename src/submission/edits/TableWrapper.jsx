@@ -79,7 +79,10 @@ const EditsTableWrapper = props => {
     loading
   ) : (
     <section className="EditsTableWrapper">
+      {/* warn at the top of the page */}
+      <RefileWarning />
       {makeEntry(props, type)}
+      {/* warn at the bottom of the page */}
       <RefileWarning />
       {type === 'quality' || type === 'macro' ? <Verifier type={type} /> : null}
       <hr />
