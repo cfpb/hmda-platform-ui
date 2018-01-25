@@ -54,11 +54,7 @@ const renderByCode = (code, page, message) => {
       if (code !== SIGNED) {
         warningOrReceipt = <SubmissionPageInfo />
       } else {
-        warningOrReceipt = (
-          <section className="RefileWarning">
-            <SubmissionReceipt />
-          </section>
-        )
+        warningOrReceipt = <SubmissionReceipt />
       }
 
       // at the top of the page

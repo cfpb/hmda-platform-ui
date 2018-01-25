@@ -15,17 +15,19 @@ const SubmissionReceipt = ({
   if (code !== SIGNED) return null
 
   return (
-    <Alert type="success" heading="HMDA filing accepted!">
-      <div>
-        Congratulations, you have successfully completed your HMDA filing for{' '}
-        {filingPeriod}!
-        <br />
-        Your data and signature were received and recorded on{' '}
-        <strong>{ordinalHour(new Date(timestamp))}</strong>.
-        <br />
-        Your receipt number for this submission is <strong>{receipt}</strong>.
-      </div>
-    </Alert>
+    <section className="RefileWarning">
+      <Alert type="success" heading="HMDA filing accepted!">
+        <div>
+          Congratulations, you have successfully completed your HMDA filing for{' '}
+          {filingPeriod}!
+          <br />
+          Your data and signature were received and recorded on{' '}
+          <strong>{ordinalHour(new Date(timestamp))}</strong>.
+          <br />
+          Your receipt number for this submission is <strong>{receipt}</strong>.
+        </div>
+      </Alert>
+    </section>
   )
 }
 
