@@ -5,8 +5,6 @@ import Wrapper from '../../../test-resources/Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
-jest.mock('../ReceiptContainer.jsx')
-import SubmissionReceipt from '../ReceiptContainer.jsx'
 
 const fs = require('fs')
 const signJSON = JSON.parse(
@@ -46,15 +44,6 @@ describe('Signature component', () => {
     expect(
       TestUtils.scryRenderedDOMComponentsWithTag(signature, 'button').length
     ).toEqual(1)
-  })
-
-  it('does NOT render the receipt and hash', () => {
-    expect(
-      TestUtils.scryRenderedDOMComponentsWithClass(
-        signature,
-        'usa-alert-success'
-      ).length
-    ).toEqual(0)
   })
 
   it('has button disabled', () => {
@@ -129,10 +118,6 @@ describe('Signature component', () => {
   )
   const signatureSignedNode = ReactDOM.findDOMNode(signatureSigned)
 
-  it('renders the receipt', () => {
-    expect(SubmissionReceipt.mock.calls.length).toBe(4)
-  })
-
   it('has the checkbox checked', () => {
     const checkboxChecked = TestUtils.findRenderedDOMComponentWithTag(
       signatureSigned,
@@ -154,31 +139,6 @@ describe('Signature component', () => {
       TestUtils.findRenderedDOMComponentWithClass(
         signatureSigned,
         'usa-button-disabled'
-      )
-    ).toBeTruthy()
-  })
-
-  const statusEdits = {
-    code: 7,
-    message: ''
-  }
-  const signatureWithEdits = TestUtils.renderIntoDocument(
-    <Wrapper>
-      <Signature
-        checked={true}
-        status={statusEdits}
-        onSignatureClick={onSignatureClick}
-        onSignatureCheck={onSignatureCheck}
-      />
-    </Wrapper>
-  )
-  const signatureWithEditsNode = ReactDOM.findDOMNode(signatureWithEdits)
-
-  it('renders the warning', () => {
-    expect(
-      TestUtils.findRenderedDOMComponentWithClass(
-        signatureWithEdits,
-        'usa-alert-warning'
       )
     ).toBeTruthy()
   })
