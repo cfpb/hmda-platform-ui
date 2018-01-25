@@ -4,7 +4,7 @@ import Alert from '../common/Alert.jsx'
 import { ordinalHour } from '../utils/date.js'
 import { SIGNED } from '../constants/statusCodes.js'
 
-const SubmissionReceipt = ({
+const Receipt = ({
   status,
   timestamp,
   receipt,
@@ -31,7 +31,7 @@ const SubmissionReceipt = ({
   )
 }
 
-SubmissionReceipt.propTypes = {
+Receipt.propTypes = {
   email: PropTypes.string,
   filingPeriod: PropTypes.string,
   receipt: PropTypes.string,
@@ -40,4 +40,4 @@ SubmissionReceipt.propTypes = {
   isFetching: PropTypes.bool
 }
 
-export default SubmissionReceipt
+export default Receipt

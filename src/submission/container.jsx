@@ -6,11 +6,11 @@ import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchInstitution from '../actions/fetchInstitution.js'
 import setFilename from '../actions/setFilename.js'
 import UserHeading from './UserHeading.jsx'
-import SubmissionPageInfo from './ReadyToSign.jsx'
+import ReadyToSign from './ReadyToSign.jsx'
 import UploadForm from './upload/container.jsx'
 import ErrorWarning from '../common/ErrorWarning.jsx'
 import EditsContainer from './edits/container.jsx'
-import SubmissionReceipt from './ReceiptContainer.jsx'
+import ReceiptContainer from './ReceiptContainer.jsx'
 import EditsNavComponent from './Nav.jsx'
 import NavButtonComponent from './NavButton.jsx'
 import RefileWarningContainer from '../refileWarning/container.jsx'
@@ -52,9 +52,9 @@ const renderByCode = (code, page, message) => {
       let warningOrReceipt = null
 
       if (code !== SIGNED) {
-        warningOrReceipt = <SubmissionPageInfo />
+        warningOrReceipt = <ReadyToSign />
       } else {
-        warningOrReceipt = <SubmissionReceipt />
+        warningOrReceipt = <ReceiptContainer />
       }
 
       // at the top of the page
