@@ -3,6 +3,8 @@ import '@babel/polyfill'
 import React from 'react'
 import { render } from 'react-dom'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
+// redux debugging tool
+import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
@@ -41,13 +43,25 @@ if (process.env.NODE_ENV !== 'production') {
   middleware.push(loggerMiddleware)
 }
 
-const store = createStore(
-  combineReducers({
-    app: appReducer,
-    routing: routerReducer
-  }),
-  applyMiddleware(...middleware)
-)
+let store
+
+if (process.env.NODE_ENV !== 'production') {
+  store = createStore(
+    combineReducers({
+      app: appReducer,
+      routing: routerReducer
+    }),
+    composeWithDevTools(applyMiddleware(...middleware))
+  )
+} else {
+  store = createStore(
+    combineReducers({
+      app: appReducer,
+      routing: routerReducer
+    }),
+    applyMiddleware(...middleware)
+  )
+}
 
 setDispatch(store.dispatch)
 
