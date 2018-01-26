@@ -6,14 +6,13 @@ import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchInstitution from '../actions/fetchInstitution.js'
 import setFilename from '../actions/setFilename.js'
 import UserHeading from './UserHeading.jsx'
-import SubmissionPageInfo from './ReadyToSign.jsx'
+import ReadyToSign from './ReadyToSign.jsx'
 import UploadForm from './upload/container.jsx'
 import ErrorWarning from '../common/ErrorWarning.jsx'
 import EditsContainer from './edits/container.jsx'
-import SubmissionReceipt from './ReceiptContainer.jsx'
+import ReceiptContainer from './ReceiptContainer.jsx'
 import EditsNavComponent from './Nav.jsx'
 import NavButtonComponent from './NavButton.jsx'
-import RefileWarningContainer from '../refileWarning/container.jsx'
 import submissionProgressHOC from './progressHOC.jsx'
 import IRSReport from './irs/container.jsx'
 import Signature from './signature/container.jsx'
@@ -32,7 +31,6 @@ import {
 const Edits = submissionProgressHOC(EditsContainer)
 const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
-const RefileWarning = submissionProgressHOC(RefileWarningContainer)
 
 const renderByCode = (code, page, message) => {
   const toRender = []
@@ -47,15 +45,21 @@ const renderByCode = (code, page, message) => {
     } else if (
       ['syntacticalvalidity', 'quality', 'macro'].indexOf(page) !== -1
     ) {
-      if (code > VALIDATING) {
-        toRender.push(<Edits />)
-      }
+      toRender.push(<Edits />)
     } else if (page === 'submission') {
-      if (code > VALIDATING) {
-        toRender.push(<IRSReport />)
-        toRender.push(<Summary />)
-        toRender.push(<Signature />)
+      // at the top of the page
+      if(code !== SIGNED) {
+        toRender.push(<ReadyToSign />)
       }
+      toRender.push(<ReceiptContainer />)
+      toRender.push(<IRSReport />)
+      toRender.push(<Summary />)
+      // and just before the signature
+      if(code !== SIGNED) {
+        toRender.push(<ReadyToSign />)
+      }
+      toRender.push(<Signature />)
+      toRender.push(<ReceiptContainer />)
     }
   }
 
@@ -115,16 +119,6 @@ class SubmissionContainer extends Component {
         <EditsNav />
         <main id="main-content" className="usa-grid SubmissionContainer">
           {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
-          {code !== PARSED_WITH_ERRORS ? <RefileWarning /> : null}
-          {page === 'submission' ? (
-            code !== SIGNED ? (
-              <SubmissionPageInfo />
-            ) : (
-              <section className="RefileWarning">
-                <SubmissionReceipt />
-              </section>
-            )
-          ) : null}
           {toRender.map((component, i) => {
             return (
               <div className="usa-width-one-whole" key={i}>

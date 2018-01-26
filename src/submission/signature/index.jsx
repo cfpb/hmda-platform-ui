@@ -1,36 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ErrorWarning from '../../common/ErrorWarning.jsx'
-import SubmissionReceipt from '../ReceiptContainer.jsx'
-import SubmissionPageInfo from '../ReadyToSign.jsx'
 import Alert from '../../common/Alert.jsx'
 import { VALIDATED_WITH_ERRORS, SIGNED } from '../../constants/statusCodes.js'
 
-const showPageInfo = code => {
-  if (code > VALIDATED_WITH_ERRORS && code !== SIGNED)
-    return <SubmissionPageInfo />
-
-  return null
-}
-
 const showWarning = props => {
-  if (!props.error && props.status.code > VALIDATED_WITH_ERRORS) return null
-
-  if (props.error)
-    return (
-      <ErrorWarning
-        error={props.error}
-        bodyText="You cannot sign your submission if you have encountered an error in the filing process. Please refresh the page or try again later."
-      />
-    )
-
+  if (!props.error) return null
   return (
-    <Alert type="warning" heading="Edits still exist.">
-      <p>
-        You can not sign your submission until all edits have passed or been
-        verified.
-      </p>
-    </Alert>
+    <ErrorWarning
+      error={props.error}
+      bodyText="You cannot sign your submission if you have encountered an error in the filing process. Please refresh the page or try again later."
+    />
   )
 }
 
@@ -58,8 +38,6 @@ const Signature = props => {
 
   return (
     <section className="Signature" id="signature">
-      {showPageInfo(props.status.code)}
-
       <header>
         <h2>Signature</h2>
         <p className="usa-font-lead">
@@ -96,8 +74,6 @@ const Signature = props => {
       >
         Submit HMDA data
       </button>
-
-      <SubmissionReceipt />
     </section>
   )
 }

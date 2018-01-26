@@ -2,25 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import fetchSignature from '../actions/fetchSignature.js'
-import SubmissionReceipt from './Receipt.jsx'
-
-export class SubmissionReceiptContainer extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  componentDidMount() {
-    if (!this.props.isFetching && this.props.receipt === null)
-      this.props.dispatch(fetchSignature())
-  }
-
-  render() {
-    return <SubmissionReceipt {...this.props} />
-  }
-}
+import Receipt from './Receipt.jsx'
 
 export function mapStateToProps(state) {
-  const { isFetching, timestamp, receipt } = state.app.signature
+  const { timestamp, receipt } = state.app.signature
 
   const { status } = state.app.submission
   const { email } = state.app.user.oidc.profile
@@ -28,7 +13,6 @@ export function mapStateToProps(state) {
   const { filingPeriod } = state.app
 
   return {
-    isFetching,
     timestamp,
     receipt,
     status,
@@ -37,12 +21,4 @@ export function mapStateToProps(state) {
   }
 }
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    dispatch
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-  SubmissionReceiptContainer
-)
+export default connect(mapStateToProps)(Receipt)
