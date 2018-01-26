@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import fetchPage from '../actions/fetchPage.js'
-import paginationFadeIn from '../actions/paginationFadeIn.js'
-import paginationFadeOut from '../actions/paginationFadeOut.js'
+import fetchPage from './fetchPage.js'
+import paginationFadeIn from './paginationFadeIn.js'
+import paginationFadeOut from './paginationFadeOut.js'
 import Pagination from './index.jsx'
 
 const fetchChecker = {}

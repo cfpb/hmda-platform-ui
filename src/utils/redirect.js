@@ -1,7 +1,7 @@
 /* global HMDA_ENV */
 import { browserHistory } from 'react-router'
 import log, { error } from '../utils/log.js'
-import isRedirecting from '../actions/isRedirecting.js'
+import isRedirecting from './isRedirecting.js'
 
 let userManager = null
 let dispatch = () => {}

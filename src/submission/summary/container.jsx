@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import fetchSummary from '../../actions/fetchSummary.js'
+import fetchSummary from './fetchSummary.js'
 import Summary from './index.jsx'
 
 export class SummaryContainer extends Component {

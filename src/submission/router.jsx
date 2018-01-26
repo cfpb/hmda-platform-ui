@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import SubmissionContainer from './container.jsx'
 import Loading from '../common/Loading.jsx'
-import fetchSubmission from '../actions/fetchSubmission.js'
-import fetchEdits from '../actions/fetchEdits.js'
-import refreshState from '../actions/refreshState.js'
+import fetchSubmission from './fetchSubmission.js'
+import fetchEdits from './edits/fetchEdits.js'
+import refreshState from '../refreshState.js'
 import {
   UNINITIALIZED,
   VALIDATED_WITH_ERRORS,

@@ -25,7 +25,7 @@ import SubmissionRouter from './submission/router.jsx'
 import createUserManager from './utils/createUserManager.js'
 import { setUserManager, setDispatch } from './utils/redirect.js'
 import log from './utils/log.js'
-import appReducer from './reducers'
+import appReducer from './reducers.js'
 
 window.HMDA_ENV = {
   APP_URL: '##APP_URL##',
