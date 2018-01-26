@@ -6,14 +6,12 @@ import { VALIDATED_WITH_ERRORS, SIGNED } from '../../constants/statusCodes.js'
 
 const showWarning = props => {
   if (!props.error) return null
-
-  if (props.error)
-    return (
-      <ErrorWarning
-        error={props.error}
-        bodyText="You cannot sign your submission if you have encountered an error in the filing process. Please refresh the page or try again later."
-      />
-    )
+  return (
+    <ErrorWarning
+      error={props.error}
+      bodyText="You cannot sign your submission if you have encountered an error in the filing process. Please refresh the page or try again later."
+    />
+  )
 }
 
 const Signature = props => {
@@ -40,7 +38,6 @@ const Signature = props => {
 
   return (
     <section className="Signature" id="signature">
-
       <header>
         <h2>Signature</h2>
         <p className="usa-font-lead">
