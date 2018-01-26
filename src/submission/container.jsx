@@ -13,7 +13,6 @@ import EditsContainer from './edits/container.jsx'
 import ReceiptContainer from './ReceiptContainer.jsx'
 import EditsNavComponent from './Nav.jsx'
 import NavButtonComponent from './NavButton.jsx'
-import RefileWarningContainer from '../refileWarning/container.jsx'
 import submissionProgressHOC from './progressHOC.jsx'
 import IRSReport from './irs/container.jsx'
 import Signature from './signature/container.jsx'
@@ -32,7 +31,6 @@ import {
 const Edits = submissionProgressHOC(EditsContainer)
 const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
-const RefileWarning = submissionProgressHOC(RefileWarningContainer)
 
 const renderByCode = (code, page, message) => {
   const toRender = []
@@ -49,21 +47,19 @@ const renderByCode = (code, page, message) => {
     ) {
       toRender.push(<Edits />)
     } else if (page === 'submission') {
-      let warningOrReceipt = null
-
-      if (code !== SIGNED) {
-        warningOrReceipt = <ReadyToSign />
-      } else {
-        warningOrReceipt = <ReceiptContainer />
-      }
-
       // at the top of the page
-      toRender.push(warningOrReceipt)
+      if(code !== SIGNED) {
+        toRender.push(<ReadyToSign />)
+      }
+      toRender.push(<ReceiptContainer />)
       toRender.push(<IRSReport />)
       toRender.push(<Summary />)
       // and just before the signature
-      toRender.push(warningOrReceipt)
+      if(code !== SIGNED) {
+        toRender.push(<ReadyToSign />)
+      }
       toRender.push(<Signature />)
+      toRender.push(<ReceiptContainer />)
     }
   }
 

@@ -11,7 +11,7 @@
     "clearDist": "rimraf ./dist && mkdirp ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
     "clearBackup": "rimraf ./dist/js/app.min.js.bak",
     "js": "(export NODE_ENV=build; webpack --progress)",
-    "js:dev": "(export NODE_ENV=build; webpack --config webpack.dev.js --progress)",
+    "js:dev": "export NODE_ENV=build && webpack --config webpack.dev.js --progress",
     "renew": "(export NODE_ENV=build; webpack --config webpack.renew.js --progress)",
     "sass": "node-sass --quiet --output-style=compressed --source-map=./dist/css/ ./src/app.scss ./dist/css/app.min.css && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts && yarn run sass:prefix",
     "sass:prefix": "postcss -u autoprefixer -r ./dist/css/*.css",

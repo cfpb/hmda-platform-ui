@@ -12,8 +12,7 @@ const Receipt = ({
   email
 }) => {
   const code = status.code
-  if (code !== SIGNED) return null
-
+  if (code !== SIGNED || receipt === null) return null
   return (
     <section className="RefileWarning">
       <Alert type="success" heading="HMDA filing accepted!">
