@@ -564,6 +564,16 @@ describe('getLatestPage', () => {
     expect(router.getLatestPage()).toBe('quality')
   })
 
+  it('latest is macro when code is VALIDATED_WITH_ERRORS and quality exists but is verified', () => {
+    const router = new SubmissionRouter({
+      submission: {
+        status: { code: STATUS.VALIDATED_WITH_ERRORS }
+      },
+      types: { ...typesDefault, quality: { edits: [{}], verified: true } }
+    })
+    expect(router.getLatestPage()).toBe('macro')
+  })
+
   it('latest is macro when code is VALIDATED_WITH_ERRORS and not blocked by errors', () => {
     const router = new SubmissionRouter({
       submission: {

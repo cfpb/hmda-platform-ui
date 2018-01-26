@@ -241,3 +241,139 @@ describe('render', () => {
     )
   })
 })
+
+describe('navMap', () => {
+  const baseMap = {
+    upload: {
+      isReachable: true,
+      isErrored: false,
+      isCompleted: false
+    },
+    'syntactical & validity edits': {
+      isReachable: false,
+      isErrored: true,
+      isCompleted: false
+    },
+    'quality edits': {
+      isReachable: false,
+      isErrored: true,
+      isCompleted: false
+    },
+    'macro quality edits': {
+      isReachable: false,
+      isErrored: true,
+      isCompleted: false
+    },
+    submission: {
+      isReachable: false,
+      isErrored: false,
+      isCompleted: false
+    }
+  }
+  function checkMap(navMap, expected = {}) {
+    expected = { ...baseMap, ...expected }
+    Object.keys(navMap).forEach(key => {
+      return ['isReachable', 'isCompleted', 'isErrored'].forEach(fn => {
+        expect(navMap[key][fn]()).toBe(expected[key][fn])
+      })
+    })
+  }
+
+  it('reports reachability for upload', () => {
+    const navMap = new EditsNav(baseProps).navMap
+    checkMap(navMap)
+  })
+
+  it('reports reachability once validated', () => {
+    const navMap = new EditsNav({ ...baseProps, code: 8 }).navMap
+    checkMap(navMap, {
+      upload: { isCompleted: true, isErrored: false, isReachable: true },
+      'syntactical & validity edits': {
+        isReachable: true,
+        isErrored: true,
+        isCompleted: false
+      }
+    })
+  })
+
+  it('reports reachability for quality', () => {
+    const navMap = new EditsNav({
+      ...baseProps,
+      code: 8,
+      syntacticalValidityEditsExist: false
+    }).navMap
+    checkMap(navMap, {
+      upload: { isCompleted: true, isErrored: false, isReachable: true },
+      'syntactical & validity edits': {
+        isReachable: true,
+        isErrored: false,
+        isCompleted: true
+      },
+      'quality edits': {
+        isReachable: true,
+        isErrored: true,
+        isCompleted: false
+      }
+    })
+  })
+
+  it('reports reachability for macro', () => {
+    const navMap = new EditsNav({
+      ...baseProps,
+      code: 8,
+      syntacticalValidityEditsExist: false,
+      qualityVerified: true
+    }).navMap
+    checkMap(navMap, {
+      upload: { isCompleted: true, isErrored: false, isReachable: true },
+      'syntactical & validity edits': {
+        isReachable: true,
+        isErrored: false,
+        isCompleted: true
+      },
+      'quality edits': {
+        isReachable: true,
+        isErrored: false,
+        isCompleted: true
+      },
+      'macro quality edits': {
+        isReachable: true,
+        isErrored: true,
+        isCompleted: false
+      }
+    })
+  })
+
+  it('reports reachability for submission', () => {
+    const navMap = new EditsNav({
+      ...baseProps,
+      code: 10,
+      syntacticalValidityEditsExist: false,
+      qualityVerified: true,
+      macroVerified: true
+    }).navMap
+    checkMap(navMap, {
+      upload: { isCompleted: true, isErrored: false, isReachable: true },
+      'syntactical & validity edits': {
+        isReachable: true,
+        isErrored: false,
+        isCompleted: true
+      },
+      'quality edits': {
+        isReachable: true,
+        isErrored: false,
+        isCompleted: true
+      },
+      'macro quality edits': {
+        isReachable: true,
+        isErrored: false,
+        isCompleted: true
+      },
+      submission: {
+        isReachable: true,
+        isErrored: false,
+        isCompleted: true
+      }
+    })
+  })
+})
