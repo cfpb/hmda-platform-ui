@@ -3,8 +3,6 @@ import '@babel/polyfill'
 import React from 'react'
 import { render } from 'react-dom'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
-// redux debugging tool
-import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
@@ -48,7 +46,7 @@ if (process.env.NODE_ENV !== 'production') {
   oidc.Log.logger = console
 
   // react update logging
-  const {whyDidYouUpdate} = require('why-did-you-update')
+  const { whyDidYouUpdate } = require('why-did-you-update')
   whyDidYouUpdate(React)
 }
 
@@ -56,6 +54,7 @@ let store
 if (process.env.NODE_ENV !== 'production') {
   // use redux dev tools, extension required
   // see https://github.com/zalmoxisus/redux-devtools-extension#installation
+  const { composeWithDevTools } = require('redux-devtools-extension')
   store = createStore(
     combineReducers({
       app: appReducer,
