@@ -36,21 +36,21 @@ describe('Receipt component', () => {
   })
 
   it('has the correct filingPeriod', () => {
-    /*expect(
+    expect(
       TestUtils.scryRenderedDOMComponentsWithTag(
         receipt,
-        'p'
+        'div'
       )[0].textContent.match('2017')
-    ).toBeTruthy()*/
+    ).toBeTruthy()
   })
 
-  it('has the correct email', () => {
-    /*expect(
+  it('has the correct receipt', () => {
+    expect(
       TestUtils.scryRenderedDOMComponentsWithTag(
         receipt,
-        'p'
-      )[3].textContent.match('yo@me.com')
-    ).toBeTruthy()*/
+        'strong'
+      )[1].textContent.match('fee-fi-fo-fum')
+    ).toBeTruthy()
   })
 
   const unsigned = TestUtils.renderIntoDocument(
