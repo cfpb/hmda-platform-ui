@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ErrorWarning from '../../common/ErrorWarning.jsx'
-import Alert from '../../common/Alert.jsx'
 import { VALIDATED_WITH_ERRORS, SIGNED } from '../../constants/statusCodes.js'
 
 const showWarning = props => {

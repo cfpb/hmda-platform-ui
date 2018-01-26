@@ -6,10 +6,6 @@ import IRSReport from './index.jsx'
 import fetchIRSCSV from '../../actions/fetchIRSCSV.js'
 
 export class IRSReportContainer extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     if (!this.props.msas.length && !Object.keys(this.props.summary).length)
       this.props.dispatch(fetchIRS())

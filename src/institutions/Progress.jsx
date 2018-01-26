@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {
   PARSED_WITH_ERRORS,
   PARSED,
-  VALIDATING,
   VALIDATED_WITH_ERRORS,
   VALIDATED,
   SIGNED
@@ -73,7 +72,7 @@ const renderNavItem = (code, name, i) => {
 const Progress = ({ status = { code: 1 } }) => {
   return (
     <section className="Progress">
-      <nav role="navigation" className="EditsNav" id="editsNav">
+      <nav className="EditsNav" id="editsNav">
         <ul className="usa-nav-primary">
           {Object.keys(navMap).map((name, i) => {
             return renderNavItem(status.code, name, i)

@@ -24,7 +24,8 @@
     "watch:tests": "jest --watchAll",
     "watch": "yarn run watch:js & yarn run watch:sass",
     "build": "yarn run js && yarn run sass && yarn run html && yarn run img",
-    "pretty": "yarn run prettier --config ./.prettierrc --write './{src,__tests__}/**/*.{js*,scss}'"
+    "pretty": "yarn run prettier --config ./.prettierrc --write './{src,__tests__}/**/*.{js*,scss}'",
+    "lint": "eslint --ext .js,.jsx ./src"
   },
   "repository": {
     "type": "git",
@@ -47,8 +48,15 @@
     "@babel/preset-react": "7.0.0-beta.34",
     "autoprefixer": "7.1.5",
     "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^7.2.3",
     "babel-jest": "21.2.0",
     "babel-loader": "8.0.0-beta.0",
+    "eslint": "^4.1.1",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.34.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0",
     "html-minifier": "3.1.1",
     "jest-cli": "21.3.0-beta.10",
     "mkdirp": "0.5.1",

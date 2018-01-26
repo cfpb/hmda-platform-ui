@@ -16,6 +16,7 @@ export const getTotalTypeCount = (edits, pagination) => {
     if (pagination[edit.edit]) {
       count += pagination[edit.edit].total
     }
+    return count
   })
 
   return count

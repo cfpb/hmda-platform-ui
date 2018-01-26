@@ -1,5 +1,4 @@
 import setFile from './setFile.js'
-import * as types from '../constants'
 import * as Poller from './Poller.js'
 
 export default function selectFile(file) {

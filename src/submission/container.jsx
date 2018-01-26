@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchInstitution from '../actions/fetchInstitution.js'
 import setInstitution from '../actions/setInstitution.js'
 import setFilename from '../actions/setFilename.js'
@@ -22,10 +21,8 @@ import ParseErrors from './parseErrors/container.jsx'
 import Loading from '../common/Loading.jsx'
 import {
   CREATED,
-  UNINITIALIZED,
   FAILED,
   PARSED_WITH_ERRORS,
-  VALIDATING,
   SIGNED
 } from '../constants/statusCodes.js'
 

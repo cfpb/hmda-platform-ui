@@ -5,10 +5,6 @@ import fetchVerify from '../../actions/fetchVerify.js'
 import Verifier from './Verifier.jsx'
 
 class VerifierContainer extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return <Verifier {...this.props} />
   }

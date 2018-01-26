@@ -1,7 +1,5 @@
-import * as AccessToken from '../api/AccessToken.js'
 import { getId } from './Submission.js'
 import * as Poller from './Poller.js'
-import { UPLOADING, FAILED } from '../constants/statusCodes.js'
 import { postUpload } from '../api/api.js'
 import pollForProgress from './pollForProgress.js'
 import updateStatus from './updateStatus.js'

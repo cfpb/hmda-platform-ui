@@ -4,10 +4,6 @@ import fetchSummary from '../../actions/fetchSummary.js'
 import Summary from './index.jsx'
 
 export class SummaryContainer extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     if (
       !Object.keys(this.props.respondent).length &&
