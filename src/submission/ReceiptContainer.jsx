@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import fetchSignature from '../actions/fetchSignature.js'
-import SubmissionReceipt from './Receipt.jsx'
+import Receipt from './Receipt.jsx'
 
-export class SubmissionReceiptContainer extends Component {
+export class ReceiptContainer extends Component {
   constructor(props) {
     super(props)
   }
@@ -15,7 +15,7 @@ export class SubmissionReceiptContainer extends Component {
   }
 
   render() {
-    return <SubmissionReceipt {...this.props} />
+    return <Receipt {...this.props} />
   }
 }
 
@@ -44,5 +44,5 @@ export function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  SubmissionReceiptContainer
+  ReceiptContainer
 )

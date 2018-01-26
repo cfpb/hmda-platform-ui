@@ -4,7 +4,7 @@ import Alert from '../common/Alert.jsx'
 import { ordinalHour } from '../utils/date.js'
 import { SIGNED } from '../constants/statusCodes.js'
 
-const SubmissionReceipt = ({
+const Receipt = ({
   status,
   timestamp,
   receipt,
@@ -15,21 +15,23 @@ const SubmissionReceipt = ({
   if (code !== SIGNED) return null
 
   return (
-    <Alert type="success" heading="HMDA filing accepted!">
-      <div>
-        Congratulations, you have successfully completed your HMDA filing for{' '}
-        {filingPeriod}!
-        <br />
-        Your data and signature were received and recorded on{' '}
-        <strong>{ordinalHour(new Date(timestamp))}</strong>.
-        <br />
-        Your receipt number for this submission is <strong>{receipt}</strong>.
-      </div>
-    </Alert>
+    <section className="RefileWarning">
+      <Alert type="success" heading="HMDA filing accepted!">
+        <div>
+          Congratulations, you have successfully completed your HMDA filing for{' '}
+          {filingPeriod}!
+          <br />
+          Your data and signature were received and recorded on{' '}
+          <strong>{ordinalHour(new Date(timestamp))}</strong>.
+          <br />
+          Your receipt number for this submission is <strong>{receipt}</strong>.
+        </div>
+      </Alert>
+    </section>
   )
 }
 
-SubmissionReceipt.propTypes = {
+Receipt.propTypes = {
   email: PropTypes.string,
   filingPeriod: PropTypes.string,
   receipt: PropTypes.string,
@@ -38,4 +40,4 @@ SubmissionReceipt.propTypes = {
   isFetching: PropTypes.bool
 }
 
-export default SubmissionReceipt
+export default Receipt
