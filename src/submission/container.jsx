@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
+import shouldComponentUpdate from '../utils/shouldComponentUpdate.js'
 import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchInstitution from '../actions/fetchInstitution.js'
 import setFilename from '../actions/setFilename.js'
@@ -48,14 +49,14 @@ const renderByCode = (code, page, message) => {
       toRender.push(<Edits />)
     } else if (page === 'submission') {
       // at the top of the page
-      if(code !== SIGNED) {
+      if (code !== SIGNED) {
         toRender.push(<ReadyToSign />)
       }
       toRender.push(<ReceiptContainer />)
       toRender.push(<IRSReport />)
       toRender.push(<Summary />)
       // and just before the signature
-      if(code !== SIGNED) {
+      if (code !== SIGNED) {
         toRender.push(<ReadyToSign />)
       }
       toRender.push(<Signature />)
@@ -78,6 +79,11 @@ const renderByCode = (code, page, message) => {
 }
 
 class SubmissionContainer extends Component {
+  constructor(props) {
+    super(props)
+    this.shouldComponentUpdate = shouldComponentUpdate.bind(this)
+  }
+
   componentDidMount() {
     // for institution name in header
     const institution = {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import SubmissionContainer from './container.jsx'
 import Loading from '../common/Loading.jsx'
+import shouldComponentUpdate from '../utils/shouldComponentUpdate.js'
 import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchEdits from '../actions/fetchEdits.js'
 import refreshState from '../actions/refreshState.js'
@@ -16,6 +17,11 @@ const editTypes = ['syntacticalvalidity', 'quality', 'macro']
 const submissionRoutes = ['upload', ...editTypes, 'submission']
 
 export class SubmissionRouter extends Component {
+  constructor(props) {
+    super(props)
+    this.shouldComponentUpdate = shouldComponentUpdate.bind(this)
+  }
+
   componentDidMount() {
     this.renderChildren = false
     const { submission, params, dispatch } = this.props
