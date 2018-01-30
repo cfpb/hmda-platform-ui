@@ -1,6 +1,7 @@
 import isEqual from 'lodash.isequal'
 
 export default function shouldComponentUpdate(nextProps) {
+  //requires binding this function in a Component constructor
   const props = this.props
   const keys = Object.keys(props)
   const nextKeys = Object.keys(nextProps)
