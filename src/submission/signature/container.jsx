@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import shouldComponentUpdate from '../../utils/shouldComponentUpdate.js'
 import fetchSignature from '../../actions/fetchSignature.js'
 import updateSignature from '../../actions/updateSignature.js'
 import checkSignature from '../../actions/checkSignature.js'
@@ -10,7 +9,6 @@ import Signature from './index.jsx'
 export class SignatureContainer extends Component {
   constructor(props) {
     super(props)
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this)
   }
 
   componentDidMount() {

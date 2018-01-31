@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import shouldComponentUpdate from '../utils/shouldComponentUpdate.js'
 import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchInstitution from '../actions/fetchInstitution.js'
 import setFilename from '../actions/setFilename.js'
@@ -81,7 +80,6 @@ const renderByCode = (code, page, message) => {
 class SubmissionContainer extends Component {
   constructor(props) {
     super(props)
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this)
   }
 
   componentDidMount() {
@@ -138,7 +136,7 @@ class SubmissionContainer extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   const submission = state.app.submission
   const institution = state.app.institution
   const error = state.app.error

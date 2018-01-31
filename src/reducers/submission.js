@@ -45,6 +45,7 @@ export default (state = defaultSubmission, action) => {
         isFetching: true
       }
     case UPDATE_STATUS:
+      if (action.status.code === state.status.code) return state
       return {
         ...state,
         status: action.status

@@ -26,10 +26,6 @@ describe('fetchSignature', () => {
             type: types.RECEIVE_SIGNATURE,
             timestamp: 1,
             receipt: 2
-          },
-          {
-            type: types.UPDATE_STATUS,
-            status: 3
           }
         ])
         done()

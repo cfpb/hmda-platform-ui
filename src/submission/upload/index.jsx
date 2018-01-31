@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import shouldComponentUpdate from '../../utils/shouldComponentUpdate.js'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
 import * as STATUS from '../../constants/statusCodes.js'
@@ -129,7 +128,6 @@ export const getDropzoneText = ({ code, errors, filename, errorFile }) => {
 export default class Upload extends Component {
   constructor(props) {
     super(props)
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this)
 
     // handle the onDrop to set the file and show confirmation modal
     this.onDrop = acceptedFiles => {

@@ -1,19 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import RefileWarning from './index.jsx'
-import shouldComponentUpdate from '../utils/shouldComponentUpdate.js'
 import fetchCSV from '../actions/fetchCSV.js'
-
-class RefileWarningContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this)
-  }
-
-  render() {
-    return <RefileWarning {...this.props} />
-  }
-}
 
 function mapStateToProps(state) {
   const { submission } = state.app
@@ -30,8 +18,6 @@ function mapDispatchToProps(dispatch) {
   return { onDownloadClick }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  RefileWarningContainer
-)
+export default connect(mapStateToProps, mapDispatchToProps)(RefileWarning)
 
-export { RefileWarningContainer, mapDispatchToProps }
+export { mapDispatchToProps }
