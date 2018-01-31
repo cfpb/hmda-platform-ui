@@ -12,7 +12,9 @@ const defaultUpload = {
   uploadError: null
 }
 
-const defaultUploads = {}
+const defaultUploads = {
+  __DEFAULT_UPLOAD__: defaultUpload
+}
 
 describe('upload reducer', () => {
   it('should return the initial state on empty action', () => {
@@ -21,22 +23,25 @@ describe('upload reducer', () => {
 
   it('handles SELECT_FILE', () => {
     expect(
-      upload(
-        {},
-        {
-          type: types.SELECT_FILE,
-          file: { name: 'afile' },
-          errors: [],
-          id: '123'
-        }
-      )
-    ).toEqual({ 123: { ...defaultUpload, file: { name: 'afile' } } })
+      upload(defaultUploads, {
+        type: types.SELECT_FILE,
+        file: { name: 'afile' },
+        errors: [],
+        id: '123'
+      })
+    ).toEqual({
+      123: { ...defaultUpload, file: { name: 'afile' } },
+      __DEFAULT_UPLOAD__: defaultUpload
+    })
   })
 
   it('handles REFRESH_STATE', () => {
     expect(
-      upload({ 123: 42 }, { type: types.REFRESH_STATE, id: '123' })
-    ).toEqual({ 123: defaultUpload })
+      upload(
+        { ...defaultUploads, 123: 42 },
+        { type: types.REFRESH_STATE, id: '123' }
+      )
+    ).toEqual({ 123: defaultUpload, __DEFAULT_UPLOAD__: defaultUpload })
   })
 
   it('handles RECEIVE_UPLOAD_ERROR', () => {
@@ -63,19 +68,32 @@ describe('upload reducer', () => {
   })
 
   it('handles REQUEST_UPLOAD', () => {
-    expect(upload({}, { type: types.REQUEST_UPLOAD, id: '123' })).toEqual({
+    expect(
+      upload(defaultUploads, { type: types.REQUEST_UPLOAD, id: '123' })
+    ).toEqual({
+      ...defaultUploads,
       123: { ...defaultUpload, uploading: true }
     })
   })
 
   it('handles SELECT_NEW_FILE', () => {
     expect(
-      upload({}, { type: types.SELECT_NEW_FILE, id: '123', file: { a: 2 } })
-    ).toEqual({ 123: { ...defaultUpload, newFile: { a: 2 } } })
+      upload(defaultUploads, {
+        type: types.SELECT_NEW_FILE,
+        id: '123',
+        file: { a: 2 }
+      })
+    ).toEqual({
+      ...defaultUploads,
+      123: { ...defaultUpload, newFile: { a: 2 } }
+    })
   })
 
   it('handles RECEIVE_UPLOAD', () => {
-    expect(upload({}, { type: types.RECEIVE_UPLOAD, id: '123' })).toEqual({
+    expect(
+      upload(defaultUploads, { type: types.RECEIVE_UPLOAD, id: '123' })
+    ).toEqual({
+      ...defaultUploads,
       123: { ...defaultUpload, uploading: false }
     })
   })
