@@ -7,7 +7,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 const mockStore = configureMockStore([thunk])
-const store = mockStore({ app: { institution: { id: '123' } } })
+const store = mockStore({ app: { institutionId: '123' } })
 
 describe('uploadStart', () => {
   it('creates a thunk to signal the start of the file upload', () => {

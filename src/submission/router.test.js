@@ -1,4 +1,5 @@
 jest.unmock('./router.jsx')
+jest.mock('./container.jsx')
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { browserHistory } from 'react-router'
@@ -36,8 +37,9 @@ describe('ConnectedRouter', () => {
       edits: {
         types: typesDefault
       },
-      institution: {
-        id: '123'
+      institutionId: '123',
+      institutions: {
+        institutions: {}
       }
     }
   })

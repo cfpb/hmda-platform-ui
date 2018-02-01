@@ -31,23 +31,10 @@ describe('UserHeading', () => {
     })
   })
 
-  describe('does NOT render without institution', () => {
-    const heading = TestUtils.renderIntoDocument(
-      <Wrapper>
-        <UserHeading period="2017" institution={null} />
-      </Wrapper>
-    )
-    const headingNode = ReactDOM.findDOMNode(heading)
-
-    it('does NOT render the component', () => {
-      expect(headingNode).toBeNull()
-    })
-  })
-
   describe('render with username', () => {
     const heading = TestUtils.renderIntoDocument(
       <Wrapper>
-        <UserHeading institution={{ name: 'Test' }} period={data.period} />
+        <UserHeading name="Test" period={data.period} />
       </Wrapper>
     )
     const headingNode = ReactDOM.findDOMNode(heading)

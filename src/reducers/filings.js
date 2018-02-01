@@ -1,4 +1,4 @@
-import { REQUEST_FILING, RECEIVE_FILING, REFRESH_STATE } from '../constants'
+import { REQUEST_FILING, RECEIVE_FILING } from '../constants'
 
 const defaultFilings = {}
 

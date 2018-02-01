@@ -39,9 +39,15 @@ describe('Institutions', () => {
     const institutions = TestUtils.renderIntoDocument(
       <Wrapper>
         <Institutions
-          filings={{ isFetching: false, filings: [filingJSON], fetched: true }}
+          filings={{
+            0: { filing: filingJSON, isFetching: false, fetched: true }
+          }}
           filingPeriod="2017"
-          institutions={institutionsJSON.institutions}
+          institutions={{
+            isFetching: false,
+            fetched: true,
+            institutions: institutionsJSON
+          }}
           onDownloadClick={onDownloadClick}
           submission={submission}
         />
@@ -55,9 +61,16 @@ describe('Institutions', () => {
     const institutions = TestUtils.renderIntoDocument(
       <Wrapper>
         <Institutions
-          filings={{ isFetching: false, filings: multifilings, fetched: true }}
+          filings={{
+            1: { filing: multifilings[0], isFetching: false, fetched: true },
+            2: { filing: multifilings[1], isFetching: false, fetched: true }
+          }}
           filingPeriod="2017"
-          institutions={institutionsJSON.institutions}
+          institutions={{
+            isFetching: false,
+            fetched: true,
+            institutions: institutionsJSON.institutions
+          }}
           onDownloadClick={onDownloadClick}
           submission={submission}
         />
@@ -75,9 +88,16 @@ describe('Institutions', () => {
     const institutions = TestUtils.renderIntoDocument(
       <Wrapper>
         <Institutions
-          filings={{ isFetching: false, filings: multifilings, fetched: true }}
+          filings={{
+            1: { filing: multifilings[0], isFetching: false, fetched: true },
+            2: { filing: multifilings[1], isFetching: false, fetched: true }
+          }}
           filingPeriod="2017"
-          institutions={institutionsJSON.institutions}
+          institutions={{
+            isFetching: false,
+            fetched: true,
+            institutions: institutionsJSON.institutions
+          }}
           onDownloadClick={onDownloadClick}
           submission={submission}
         />
@@ -96,9 +116,16 @@ describe('Institutions', () => {
       <Wrapper>
         <Institutions
           error={{ error: 402 }}
-          filings={{ isFetching: false, filings: multifilings, fetched: true }}
+          filings={{
+            1: { filing: multifilings[0], isFetching: false, fetched: true },
+            2: { filing: multifilings[1], isFetching: false, fetched: true }
+          }}
           filingPeriod="2017"
-          institutions={institutionsJSON.institutions}
+          institutions={{
+            isFetching: false,
+            fetched: true,
+            institutions: institutionsJSON.institutions
+          }}
           onDownloadClick={onDownloadClick}
           submission={submission}
         />
@@ -109,39 +136,5 @@ describe('Institutions', () => {
       TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'ErrorWarning')
         .length
     ).toEqual(1)
-  })
-})
-
-describe('getFilingFromInstitution', () => {
-  const filings = {
-    filings: [
-      {
-        filing: {
-          institutionId: '1'
-        }
-      },
-      {
-        filing: {
-          institutionId: '2'
-        }
-      }
-    ]
-  }
-  it('gets a matching filing', () => {
-    expect(getFilingFromInstitution({ id: '1' }, filings)).toEqual(
-      filings.filings[0]
-    )
-  })
-
-  it('returns null on no match', () => {
-    expect(getFilingFromInstitution({ id: '3' }, filings)).toEqual(null)
-  })
-
-  it('returns null on empty filings', () => {
-    expect(getFilingFromInstitution({ id: '3' }, {})).toEqual(null)
-  })
-
-  it('returns null on no filings', () => {
-    expect(getFilingFromInstitution({ id: '3' })).toEqual(null)
   })
 })
