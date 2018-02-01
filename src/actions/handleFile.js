@@ -1,4 +1,3 @@
-import * as types from '../constants'
 import * as STATUS from '../constants/statusCodes.js'
 import selectFile from '../actions/selectFile.js'
 import selectNewFile from '../actions/selectNewFile.js'

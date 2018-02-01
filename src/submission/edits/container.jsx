@@ -1,15 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import submissionProgressHOC from '../progressHOC.jsx'
 import EditsTableWrapper from './TableWrapper.jsx'
 import fetchEditType from '../../actions/fetchEditType.js'
 import fetchEdits from '../../actions/fetchEdits.js'
 
 export class EditsContainer extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     if (!this.props.editsFetched && !this.props.isFetching)
       this.props.dispatch(fetchEdits())

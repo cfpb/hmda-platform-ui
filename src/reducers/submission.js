@@ -24,8 +24,6 @@ const defaultSubmission = {
  * Update the submission status code and message when the upload completes or fails
  */
 export default (state = defaultSubmission, action) => {
-  let currentSubmission
-
   switch (action.type) {
     case RECEIVE_SUBMISSION:
       return {

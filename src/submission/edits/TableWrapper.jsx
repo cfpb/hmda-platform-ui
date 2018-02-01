@@ -12,7 +12,7 @@ const RefileWarning = submissionProgressHOC(RefileWarningContainer)
 
 export const getTotalTypeCount = (edits, pagination) => {
   let count = 0
-  edits.map((edit, i) => {
+  edits.forEach((edit, i) => {
     if (pagination[edit.edit]) {
       count += pagination[edit.edit].total
     }

@@ -8,31 +8,38 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "clearDist": "rimraf ./dist && mkdirp ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
+    "clearDist":
+      "rimraf ./dist && mkdirp ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
     "clearBackup": "rimraf ./dist/js/app.min.js.bak",
     "js": "(export NODE_ENV=build; webpack --progress)",
-    "js:dev": "export NODE_ENV=build && webpack --config webpack.dev.js --progress",
-    "renew": "(export NODE_ENV=build; webpack --config webpack.renew.js --progress)",
-    "sass": "node-sass --quiet --output-style=compressed --source-map=./dist/css/ ./src/app.scss ./dist/css/app.min.css && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts && yarn run sass:prefix",
+    "js:dev":
+      "export NODE_ENV=build && webpack --config webpack.dev.js --progress",
+    "renew":
+      "(export NODE_ENV=build; webpack --config webpack.renew.js --progress)",
+    "sass":
+      "node-sass --quiet --output-style=compressed --source-map=./dist/css/ ./src/app.scss ./dist/css/app.min.css && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts && yarn run sass:prefix",
     "sass:prefix": "postcss -u autoprefixer -r ./dist/css/*.css",
-    "html": "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html && html-minifier --collapse-whitespace ./src/silent_renew.html -o ./dist/silent_renew.html",
-    "img": "cp -r ./node_modules/uswds/dist/img/* ./dist/img && cp ./src/img/* ./dist/img",
+    "html":
+      "html-minifier --collapse-whitespace ./src/index.html -o ./dist/index.html && html-minifier --collapse-whitespace ./src/silent_renew.html -o ./dist/silent_renew.html",
+    "img":
+      "cp -r ./node_modules/uswds/dist/img/* ./dist/img && cp ./src/img/* ./dist/img",
     "env": "./env.sh",
     "postinstall": "yarn run clearDist && yarn run build && yarn run renew",
     "watch:js": "yarn run js:dev -- --watch",
-    "watch:sass": "node-sass --watch --quiet --output-style=compressed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css",
+    "watch:sass":
+      "node-sass --watch --quiet --output-style=compressed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css",
     "watch:tests": "jest --watchAll",
     "watch": "yarn run watch:js & yarn run watch:sass",
     "build": "yarn run js && yarn run sass && yarn run html && yarn run img",
-    "pretty": "yarn run prettier --config ./.prettierrc --write './{src,__tests__}/**/*.{js*,scss}'"
+    "pretty":
+      "yarn run prettier --config ./.prettierrc --write './{src,__tests__}/**/*.{js*,scss}'",
+    "lint": "eslint --ext .js,.jsx ./src"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cfpb/hmda-platform-ui.git"
   },
-  "keywords": [
-    "HMDA"
-  ],
+  "keywords": ["HMDA"],
   "author": "Consumer Financial Protection Bureau",
   "license": "CC0-1.0",
   "bugs": {
@@ -47,8 +54,15 @@
     "@babel/preset-react": "7.0.0-beta.34",
     "autoprefixer": "7.1.5",
     "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^7.2.3",
     "babel-jest": "21.2.0",
     "babel-loader": "8.0.0-beta.0",
+    "eslint": "4.1.1",
+    "eslint-config-react-app": "2.1.0",
+    "eslint-plugin-flowtype": "2.34.1",
+    "eslint-plugin-import": "2.6.0",
+    "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-react": "7.1.0",
     "html-minifier": "3.1.1",
     "jest-cli": "21.3.0-beta.10",
     "mkdirp": "0.5.1",

@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchInstitution from '../actions/fetchInstitution.js'
 import setInstitution from '../actions/setInstitution.js'
-import setFilename from '../actions/setFilename.js'
 import UserHeading from './UserHeading.jsx'
 import ReadyToSign from './ReadyToSign.jsx'
 import UploadForm from './upload/container.jsx'
@@ -20,14 +18,7 @@ import Signature from './signature/container.jsx'
 import Summary from './summary/container.jsx'
 import ParseErrors from './parseErrors/container.jsx'
 import Loading from '../common/Loading.jsx'
-import {
-  CREATED,
-  UNINITIALIZED,
-  FAILED,
-  PARSED_WITH_ERRORS,
-  VALIDATING,
-  SIGNED
-} from '../constants/statusCodes.js'
+import { FAILED, PARSED_WITH_ERRORS, SIGNED } from '../constants/statusCodes.js'
 
 const Edits = submissionProgressHOC(EditsContainer)
 const EditsNav = submissionProgressHOC(EditsNavComponent)
@@ -79,14 +70,9 @@ const renderByCode = (code, page, message) => {
 }
 
 class SubmissionContainer extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     // for institution name in header
     const id = this.props.params.institution
-    const status = this.props.submission.status
 
     if (!this.props.institutionId !== id) {
       this.props.dispatch(setInstitution(id))

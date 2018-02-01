@@ -152,7 +152,7 @@ export default class EditsNav extends Component {
     const fixed = this.state.fixed ? 'EditsNav-fixed' : ''
     return (
       <section style={wrapperHeight}>
-        <nav role="navigation" className={`EditsNav ${fixed}`} id="editsNav">
+        <nav className={`EditsNav ${fixed}`} id="editsNav">
           <ul className="usa-nav-primary">
             {Object.keys(this.navMap).map((name, i) => {
               return this.renderNavItem(name, i)
