@@ -1,4 +1,3 @@
-import updateStatus from './updateStatus.js'
 import receiveSignature from './receiveSignature.js'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
