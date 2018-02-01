@@ -16,11 +16,11 @@ export default function fetchInstitutions() {
             dispatch(receiveError(json))
             throw new Error(json && `${json.status}: ${json.statusText}`)
           }
-          return dispatch(receiveInstitutions(json))
+          return dispatch(fetchEachInstitution(json.institutions))
         })
       })
       .then(receiveAction => {
-        return dispatch(fetchEachInstitution(receiveAction.institutions))
+        return dispatch(receiveInstitutions())
       })
       .catch(err => error(err))
   }

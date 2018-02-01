@@ -13,7 +13,7 @@ const mockStore = configureMockStore([thunk])
 
 describe('fetchUpload', () => {
   it('creates a thunk that will fetch upload', done => {
-    const store = mockStore({ app: { institution: { id: '123' } } })
+    const store = mockStore({ app: { institutionId: '123' } })
 
     store
       .dispatch(fetchUpload({ aFile: 'f' }))
@@ -38,7 +38,7 @@ describe('fetchUpload', () => {
   })
 
   it('handles errors when introduced', done => {
-    const store = mockStore({ app: { institution: { id: '123' } } })
+    const store = mockStore({ app: { institutionId: '123' } })
     console.error = jest.fn()
     postUpload.mockImplementation(id =>
       Promise.resolve({ status: 404, statusText: 'argle' })

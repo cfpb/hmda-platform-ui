@@ -5,20 +5,12 @@ import pollForProgress from '../../actions/pollForProgress.js'
 import * as Poller from '../../actions/Poller.js'
 
 export function mapStateToProps(state) {
-  const id = state.app.institution.id
+  const id = state.app.institutionId
   const code = state.app.submission.status.code
   const filename = state.app.submission.filename
 
-  const { uploading, file, errors, errorFile, uploadError } = state.app.upload[
-    id
-  ] || {
-    uploading: false,
-    file: null,
-    newFile: null,
-    errors: [],
-    errorFile: null,
-    uploadError: null
-  }
+  const { uploading, file, errors, errorFile, uploadError } =
+    state.app.upload[id] || state.app.upload['__DEFAULT_UPLOAD__']
 
   const appError = state.app.error
 

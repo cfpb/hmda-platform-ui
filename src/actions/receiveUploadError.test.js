@@ -7,9 +7,7 @@ const dispatch = jest.fn()
 const getState = jest.fn(() => {
   return {
     app: {
-      institution: {
-        id: '123'
-      }
+      institutionId: '123'
     }
   }
 })

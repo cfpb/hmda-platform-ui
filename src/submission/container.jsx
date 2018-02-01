@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchInstitution from '../actions/fetchInstitution.js'
+import setInstitution from '../actions/setInstitution.js'
 import setFilename from '../actions/setFilename.js'
 import UserHeading from './UserHeading.jsx'
 import ReadyToSign from './ReadyToSign.jsx'
@@ -48,14 +49,14 @@ const renderByCode = (code, page, message) => {
       toRender.push(<Edits />)
     } else if (page === 'submission') {
       // at the top of the page
-      if(code !== SIGNED) {
+      if (code !== SIGNED) {
         toRender.push(<ReadyToSign />)
       }
       toRender.push(<ReceiptContainer />)
       toRender.push(<IRSReport />)
       toRender.push(<Summary />)
       // and just before the signature
-      if(code !== SIGNED) {
+      if (code !== SIGNED) {
         toRender.push(<ReadyToSign />)
       }
       toRender.push(<Signature />)
@@ -78,33 +79,31 @@ const renderByCode = (code, page, message) => {
 }
 
 class SubmissionContainer extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   componentDidMount() {
     // for institution name in header
-    const institution = {
-      id: this.props.params.institution
-    }
+    const id = this.props.params.institution
     const status = this.props.submission.status
 
-    if (
-      !this.props.institution.id ||
-      this.props.institution.id !== institution.id
-    ) {
-      this.props.dispatch(fetchInstitution(institution, false))
+    if (!this.props.institutionId !== id) {
+      this.props.dispatch(setInstitution(id))
     }
 
-    if (institution.id && status.code > CREATED) {
-      const filename = localStorage.getItem(`HMDA_FILENAME/${institution.id}`)
-      if (filename) this.props.dispatch(setFilename(filename, institution.id))
+    if (!this.props.institutions.institutions[id]) {
+      this.props.dispatch(fetchInstitution({ id: id }, false))
     }
   }
 
   render() {
     if (!this.props.location) return null
-
-    const { submission, params, location } = this.props
+    const { submission, params, location, institutions } = this.props
     const status = submission.status
     const code = status && status.code
     const page = location.pathname.split('/').slice(-1)[0]
+    const institution = institutions.institutions[params.institution]
 
     const toRender = code
       ? renderByCode(code, page, status.message)
@@ -114,7 +113,7 @@ class SubmissionContainer extends Component {
       <div>
         <UserHeading
           period={params.filing}
-          institution={this.props.institution}
+          name={institution && institution.name ? institution.name : ''}
         />
         <EditsNav />
         <main id="main-content" className="usa-grid SubmissionContainer">
@@ -132,14 +131,13 @@ class SubmissionContainer extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  const submission = state.app.submission
-  const institution = state.app.institution
-  const error = state.app.error
+function mapStateToProps(state) {
+  const { submission, institutions, institutionId, error } = state.app
 
   return {
     submission,
-    institution,
+    institutions,
+    institutionId,
     error
   }
 }

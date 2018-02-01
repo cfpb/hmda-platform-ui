@@ -6,7 +6,7 @@ import Institutions from './index.jsx'
 
 export class InstitutionContainer extends Component {
   componentDidMount() {
-    if (!this.props.institutions || !this.props.filings.fetched)
+    if (!this.props.institutions.fetched && !this.props.institutions.isFetching)
       this.props.dispatch(fetchInstitutions())
   }
 
@@ -16,9 +16,7 @@ export class InstitutionContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const { institutions } = state.app.institutions
-
-  const { filings, submission, error, filingPeriod } = state.app
+  const { institutions, filings, submission, error, filingPeriod } = state.app
 
   return {
     submission,

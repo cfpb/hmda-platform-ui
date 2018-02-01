@@ -8,22 +8,24 @@ import {
   REFRESH_STATE
 } from '../constants'
 
-const defaultUpload = {
-  uploading: false,
-  file: null,
-  newFile: null,
-  errors: [],
-  errorFile: null,
-  uploadError: null
+const defaultUploads = {
+  __DEFAULT_UPLOAD__: {
+    uploading: false,
+    file: null,
+    newFile: null,
+    errors: [],
+    errorFile: null,
+    uploadError: null
+  }
 }
-
-const defaultUploads = {}
 
 /*
  * Maintain data on the current upload
  */
 export default (state = defaultUploads, action) => {
-  const upload = state[action.id] ? state[action.id] : defaultUpload
+  const upload = state[action.id]
+    ? state[action.id]
+    : state['__DEFAULT_UPLOAD__']
 
   switch (action.type) {
     case SELECT_FILE:
@@ -32,7 +34,7 @@ export default (state = defaultUploads, action) => {
         [action.id]: {
           ...upload,
           file: action.file,
-          errors: [],
+          errors: upload.errors.length === 0 ? upload.errors : [],
           errorFile: null,
           uploadError: null
         }
@@ -80,7 +82,7 @@ export default (state = defaultUploads, action) => {
     case REFRESH_STATE:
       return {
         ...state,
-        [action.id]: defaultUpload
+        [action.id]: state['__DEFAULT_UPLOAD__']
       }
     default:
       return state

@@ -38,8 +38,7 @@ describe('fetchInstitutions', () => {
         expect(store.getActions()).toEqual([
           { type: types.REQUEST_INSTITUTIONS },
           {
-            type: types.RECEIVE_INSTITUTIONS,
-            institutions: institutionsObj.institutions
+            type: types.RECEIVE_INSTITUTIONS
           }
         ])
         done()

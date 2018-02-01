@@ -25,7 +25,7 @@ describe('fetchInstitution', () => {
       .dispatch(fetchInstitution({ id: '0' }, false))
       .then(() => {
         expect(store.getActions()).toEqual([
-          { type: types.REQUEST_INSTITUTION },
+          { type: types.REQUEST_INSTITUTION, id: '0' },
           {
             type: types.RECEIVE_INSTITUTION,
             institution: {
@@ -54,7 +54,7 @@ describe('fetchInstitution', () => {
       .dispatch(fetchInstitution({ id: '123' }))
       .then(() => {
         expect(store.getActions()).toEqual([
-          { type: types.REQUEST_INSTITUTION },
+          { type: types.REQUEST_INSTITUTION, id: '123' },
           {
             type: types.RECEIVE_ERROR,
             error: { status: 404, statusText: 'argle' }

@@ -20,7 +20,7 @@ const RefileButton = props => {
       onClick={e => {
         e.preventDefault()
         if (props.institution) {
-          props.updateInstitution(props.institution)
+          props.updateInstitution(props.institution.id)
         }
         props.showConfirmModal()
       }}

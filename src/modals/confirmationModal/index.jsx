@@ -24,12 +24,15 @@ let _escKeyPress = function(event) {
 }
 
 export default class ModalConfirm extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props)
     this.componentDidUpdate = _focusIfShowing.bind(this)
     _focusButton = _focusButton.bind(this)
     _focusLink = _focusLink.bind(this)
     _escKeyPress = _escKeyPress.bind(this)
+  }
 
+  componentDidMount() {
     document.addEventListener('keydown', _escKeyPress, false)
   }
 

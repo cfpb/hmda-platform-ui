@@ -10,23 +10,13 @@ import processFileErrors from '../../actions/processFileErrors.js'
 import checkFileErrors from '../../utils/checkFileErrors.js'
 import ConfirmationModal from './index.jsx'
 
-export class ConfirmationModalContainer extends Component {
-  render() {
-    return <ConfirmationModal {...this.props} />
-  }
-}
-
 export function mapStateToProps(state) {
+  const id = state.app.institutionId
   const { showing } = state.app.confirmation
-  const { id } = state.app.institution
   const { filingPeriod } = state.app
   const { code } = state.app.submission.status
-
-  const { newFile } = state.app.upload[id] || {
-    uploading: false,
-    newFile: null,
-    errors: []
-  }
+  const { newFile } =
+    state.app.upload[id] || state.app.upload['__DEFAULT_UPLOAD__']
 
   return {
     id,
@@ -66,6 +56,4 @@ export function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  ConfirmationModalContainer
-)
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmationModal)

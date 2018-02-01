@@ -1,16 +1,6 @@
-import {
-  REQUEST_FILING,
-  RECEIVE_FILING,
-  CLEAR_FILINGS,
-  RECEIVE_FILINGS,
-  REFRESH_STATE
-} from '../constants'
+import { REQUEST_FILING, RECEIVE_FILING } from '../constants'
 
-const defaultFilings = {
-  filings: [],
-  isFetching: false,
-  fetched: false
-}
+const defaultFilings = {}
 
 /*
  * Populate a list with data on every filing period for each institution
@@ -22,24 +12,21 @@ export default (state = defaultFilings, action) => {
     case REQUEST_FILING:
       return {
         ...state,
-        isFetching: true,
-        fetched: false
+        [action.id]: {
+          isFetching: true,
+          fetched: false,
+          filing: null
+        }
       }
     case RECEIVE_FILING:
       return {
         ...state,
-        filings: [...state.filings, action.filing]
+        [action.filing.filing.institutionId]: {
+          isFetching: false,
+          fetched: true,
+          filing: action.filing
+        }
       }
-    case CLEAR_FILINGS:
-      return defaultFilings
-    case RECEIVE_FILINGS:
-      return {
-        ...state,
-        isFetching: false,
-        fetched: true
-      }
-    case REFRESH_STATE:
-      return defaultFilings
     default:
       return state
   }

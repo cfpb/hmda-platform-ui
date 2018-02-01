@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import * as STATUS from '../../constants/statusCodes.js'
 
-export default class ValidationProgress extends Component {
+export default class ValidationProgress extends PureComponent {
   constructor(props) {
     super(props)
     this.state = { fillWidth: this.getSavedWidth(props.id) }

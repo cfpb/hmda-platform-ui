@@ -5,7 +5,7 @@ import * as Poller from './Poller.js'
 export default function selectFile(file) {
   return (dispatch, getState) => {
     Poller.set(false)
-    const institution = getState().app.institution.id
+    const institution = getState().app.institutionId
     return dispatch(setFile(file, institution))
   }
 }

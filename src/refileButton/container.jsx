@@ -15,8 +15,8 @@ function mapDispatchToProps(dispatch) {
     dispatch(showConfirm())
   }
 
-  const updateInstitution = institution => {
-    dispatch(setInstitution(institution))
+  const updateInstitution = id => {
+    dispatch(setInstitution(id))
   }
 
   return { showConfirmModal, updateInstitution }

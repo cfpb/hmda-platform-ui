@@ -1,4 +1,4 @@
-import fetchEachFiling from './fetchEachFiling.js'
+import fetchCurrentFiling from './fetchCurrentFiling.js'
 import receiveInstitution from './receiveInstitution.js'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
@@ -8,7 +8,7 @@ import { error } from '../utils/log.js'
 
 export default function fetchInstitution(institution, fetchFilings = true) {
   return dispatch => {
-    dispatch(requestInstitution())
+    dispatch(requestInstitution(institution.id))
     return getInstitution(institution.id)
       .then(json => {
         return hasHttpError(json).then(hasError => {
@@ -18,7 +18,7 @@ export default function fetchInstitution(institution, fetchFilings = true) {
           }
           dispatch(receiveInstitution(json))
           if (json.filings && fetchFilings) {
-            return dispatch(fetchEachFiling(json.filings))
+            return dispatch(fetchCurrentFiling(json.filings))
           }
         })
       })

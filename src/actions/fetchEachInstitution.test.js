@@ -1,19 +1,16 @@
 jest.mock('../api/api')
-jest.mock('./fetchEachFiling.js')
+jest.mock('./fetchCurrentFiling.js')
 jest.unmock('./fetchEachInstitution.js')
 jest.unmock('../constants')
 import * as types from '../constants'
 import fetchEachInstitution from './fetchEachInstitution.js'
-import fetchEachFiling from './fetchEachFiling.js'
+import fetchCurrentFiling from './fetchCurrentFiling.js'
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { getInstitution } from '../api/api.js'
 import fs from 'fs'
 
-const institutionsObj = JSON.parse(
-  fs.readFileSync('./test-resources/json/institutions.json')
-)
 const institutionsDetailObj = JSON.parse(
   fs.readFileSync('./test-resources/json/institutions-detail.json')
 )
@@ -21,17 +18,17 @@ const institutionsDetailObj = JSON.parse(
 getInstitution.mockImplementation(id =>
   Promise.resolve(institutionsDetailObj[id])
 )
-fetchEachFiling.mockImplementation(() => () => {
-  return { type: 'fetchEachFiling' }
+fetchCurrentFiling.mockImplementation(() => () => {
+  return { type: 'fetchCurrentFiling' }
 })
 
 const mockStore = configureMockStore([thunk])
 
 const getEachInstitution = [
-  { type: types.REQUEST_INSTITUTION },
-  { type: types.REQUEST_INSTITUTION },
-  { type: types.REQUEST_INSTITUTION },
-  { type: types.REQUEST_INSTITUTION },
+  { type: types.REQUEST_INSTITUTION, id: '0' },
+  { type: types.REQUEST_INSTITUTION, id: '1' },
+  { type: types.REQUEST_INSTITUTION, id: '2' },
+  { type: types.REQUEST_INSTITUTION, id: '3' },
   {
     type: types.RECEIVE_INSTITUTION,
     institution: institutionsDetailObj['0'].institution
@@ -54,7 +51,14 @@ describe('fetchEachInstitution', () => {
     const store = mockStore({ app: { filingPeriod: '2017' } })
 
     store
-      .dispatch(fetchEachInstitution(institutionsObj.institutions))
+      .dispatch(
+        fetchEachInstitution([
+          { id: '0' },
+          { id: '1' },
+          { id: '2' },
+          { id: '3' }
+        ])
+      )
       .then(() => {
         expect(store.getActions()).toEqual([...getEachInstitution])
         done()

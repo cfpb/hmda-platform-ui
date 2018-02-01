@@ -5,11 +5,7 @@ import React from 'react'
 import * as reactRouter from 'react-router'
 import TestUtils from 'react-dom/test-utils'
 import Wrapper from '../../../test-resources/Wrapper.js'
-import Connected, {
-  ConfirmationModalContainer,
-  mapStateToProps,
-  mapDispatchToProps
-} from './container.jsx'
+import Connected, { mapStateToProps, mapDispatchToProps } from './container.jsx'
 
 const replace = jest.fn()
 reactRouter.browserHistory = {
@@ -21,9 +17,7 @@ const mockedState = {
     confirmation: {
       showing: true
     },
-    institution: {
-      id: '123'
-    },
+    institutionId: '123',
     filingPeriod: '2017',
     submission: {
       status: {
@@ -40,30 +34,6 @@ const mockedState = {
 }
 
 describe('ConfirmationModal Container', () => {
-  it('renders the unwrapped component', () => {
-    const err = console.error
-    console.error = jest.fn()
-    const rendered = TestUtils.renderIntoDocument(
-      <ConfirmationModalContainer
-        id="123"
-        filingPeriod="456"
-        code={8}
-        showing={true}
-        file={{}}
-        newFile={{}}
-      />
-    )
-
-    expect(rendered).toBeDefined()
-    expect(console.error).not.toBeCalled()
-
-    const renderedWithNoProps = TestUtils.renderIntoDocument(
-      <ConfirmationModalContainer />
-    )
-    expect(rendered).toBeDefined()
-    expect(console.error).not.toBeCalled()
-  })
-
   it('maps state to props', () => {
     expect(mapStateToProps(mockedState)).toEqual({
       id: '123',
