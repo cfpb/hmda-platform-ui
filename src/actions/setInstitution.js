@@ -1,8 +1,8 @@
 import * as types from '../constants'
 
-export default function setInstitution(institution) {
+export default function setInstitution(id) {
   return {
     type: types.SET_INSTITUTION,
-    institution: institution
+    id: id
   }
 }

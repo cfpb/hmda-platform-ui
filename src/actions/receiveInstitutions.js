@@ -1,8 +1,7 @@
 import * as types from '../constants'
 
-export default function receiveInstitutions(data) {
+export default function receiveInstitutions() {
   return {
-    type: types.RECEIVE_INSTITUTIONS,
-    institutions: data.institutions
+    type: types.RECEIVE_INSTITUTIONS
   }
 }

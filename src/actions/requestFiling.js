@@ -1,7 +1,8 @@
 import * as types from '../constants'
 
-export default function requestFiling() {
+export default function requestFiling(filing) {
   return {
-    type: types.REQUEST_FILING
+    type: types.REQUEST_FILING,
+    id: filing.institutionId
   }
 }

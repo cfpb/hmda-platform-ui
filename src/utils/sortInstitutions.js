@@ -1,6 +1,6 @@
 const sortInstitutions = (institutionA, institutionB) => {
-  const idA = institutionA.id.toUpperCase()
-  const idB = institutionB.id.toUpperCase()
+  const idA = institutionA.toUpperCase()
+  const idB = institutionB.toUpperCase()
 
   if (idA < idB) {
     return -1
