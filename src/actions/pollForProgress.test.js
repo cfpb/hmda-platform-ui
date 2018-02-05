@@ -70,6 +70,36 @@ describe('pollForProgress', () => {
       })
   })
 
+  it('creates a thunk that will poll for updated status codes in the latest submission, but will not get errors', done => {
+    const store = mockStore({ submission: {} })
+    const submission = filingsObj.submissions[1]
+
+    delete global.location
+    global.location = { pathname: '/upload' }
+
+    getLatestSubmission.mockImplementation(() =>
+      Promise.resolve(filingsObj.submissions[1])
+    )
+    store
+      .dispatch(pollForProgress(true))
+      .then(() => {
+        expect(store.getActions()).toEqual([
+          {
+            type: types.RECEIVE_SUBMISSION,
+            id: submission.id,
+            status: submission.status,
+            start: submission.start,
+            end: submission.end
+          }
+        ])
+
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done.fail()
+      })
+  })
   it('makes a duration getter properly', () => {
     const dg = makeDurationGetter()
     expect(dg).toBeDefined()
