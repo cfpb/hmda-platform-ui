@@ -26,9 +26,9 @@ class Verifier extends Component {
     }
   }
 
-  componentWillReceiveProps(props) {
-    if (props.verified !== this.props.verified)
-      this.setState({ checked: props.verified })
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.verified !== this.props.verified)
+      this.setState({ checked: nextProps.verified })
   }
 
   render() {
