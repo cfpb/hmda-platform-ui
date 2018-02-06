@@ -8,7 +8,10 @@ import thunk from 'redux-thunk'
 import { postVerify } from '../api/api.js'
 
 postVerify.mockImplementation(() =>
-  Promise.resolve({ status: { code: 8, message: 'postverify' } })
+  Promise.resolve({
+    verified: true,
+    status: { code: 8, message: 'postverify' }
+  })
 )
 const mockStore = configureMockStore([thunk])
 
