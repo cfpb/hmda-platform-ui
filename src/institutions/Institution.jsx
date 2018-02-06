@@ -71,11 +71,11 @@ const Institution = ({
   )
 }
 
-Institution.PropTypes = {
+Institution.propTypes = {
   institution: PropTypes.object,
   filing: PropTypes.object,
   submission: PropTypes.object,
-  submissions: PropTypes.object,
+  submissions: PropTypes.array,
   onDownloadClick: PropTypes.func
 }
 

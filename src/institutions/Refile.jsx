@@ -17,7 +17,7 @@ const InstitutionRefile = ({ status, institution }) => {
   }
 }
 
-InstitutionRefile.PropTypes = {
+InstitutionRefile.propTypes = {
   status: PropTypes.object,
   institution: PropTypes.object
 }
