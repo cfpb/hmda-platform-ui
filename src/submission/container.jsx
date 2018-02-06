@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import fetchInstitution from '../actions/fetchInstitution.js'
-import setInstitution from '../actions/setInstitution.js'
 import UserHeading from './UserHeading.jsx'
 import ReadyToSign from './ReadyToSign.jsx'
 import UploadForm from './upload/container.jsx'
@@ -73,10 +72,6 @@ class SubmissionContainer extends Component {
   componentDidMount() {
     // for institution name in header
     const id = this.props.params.institution
-
-    if (!this.props.institutionId !== id) {
-      this.props.dispatch(setInstitution(id))
-    }
 
     if (!this.props.institutions.institutions[id]) {
       this.props.dispatch(fetchInstitution({ id: id }, false))

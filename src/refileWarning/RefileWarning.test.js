@@ -15,9 +15,6 @@ const submission = {
     sequenceNumber: 1
   }
 }
-const parseLocation = jest.fn(() => {
-  return { id: '1', period: '2017', submission: 1 }
-})
 
 describe('Refile Warning', () => {
   const parserText =

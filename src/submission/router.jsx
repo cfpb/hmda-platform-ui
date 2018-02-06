@@ -6,6 +6,8 @@ import Loading from '../common/Loading.jsx'
 import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchEdits from '../actions/fetchEdits.js'
 import refreshState from '../actions/refreshState.js'
+import setInstitution from '../actions/setInstitution.js'
+import updateFilingPeriod from '../actions/updateFilingPeriod.js'
 import {
   UNINITIALIZED,
   VALIDATED_WITH_ERRORS,
@@ -29,6 +31,9 @@ export class SubmissionRouter extends Component {
       submission.id && submission.id.institutionId !== params.institution
 
     if (unmatchedId) dispatch(refreshState())
+
+    dispatch(setInstitution(params.institution))
+    dispatch(updateFilingPeriod(params.filing))
 
     if (unmatchedId || !status || status.code === UNINITIALIZED) {
       return dispatch(fetchSubmission()).then(json => {
