@@ -1,5 +1,12 @@
 .UploadForm {
   margin: 2em 0;
+
+  .data-warning {
+    background-color: $color-gold-lighter;
+    margin-bottom: 1em;
+    padding: 1em;
+    text-align: center;
+  }
   .usa-alert {
     margin-bottom: 1em;
     margin-top: 0;

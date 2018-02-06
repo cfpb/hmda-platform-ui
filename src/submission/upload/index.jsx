@@ -149,16 +149,19 @@ export default class Upload extends Component {
     return (
       <section className="UploadForm">
         {renderErrors(this.props.errors, this.props.uploadError)}
-        <section className="container-upload">
-          <Dropzone
-            disablePreview={true}
-            onDrop={this.onDrop}
-            multiple={false}
-            className="dropzone"
-          >
-            {getDropzoneText(this.props)}
-          </Dropzone>
-        </section>
+        <div class="data-warning usa-text-small">
+          Institutions are strongly encouraged not to use the applicant’s or
+          borrower’s name or Social Security number in the Loan/Application
+          Number field, for privacy reasons.
+        </div>
+        <Dropzone
+          disablePreview={true}
+          onDrop={this.onDrop}
+          multiple={false}
+          className="dropzone"
+        >
+          {getDropzoneText(this.props)}
+        </Dropzone>
         {renderValidationProgress(this.props)}
       </section>
     )
