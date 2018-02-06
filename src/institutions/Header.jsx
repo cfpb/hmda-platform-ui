@@ -18,10 +18,6 @@ const InstitutionsHeader = ({ filingPeriod }) => {
         <p className="usa-font-lead">
           You may file HMDA data for your authorized institutions below.
         </p>
-        <p>
-          Your progress will be saved if you leave the platform before
-          completing your filing.
-        </p>
       </header>
     )
   } else {
