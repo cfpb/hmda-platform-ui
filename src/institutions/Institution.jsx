@@ -55,6 +55,8 @@ const Institution = ({
           />
         </section>
       ) : (
+        // this error is rendered here so we can
+        // give the user the FI name and id
         <section className="institution">
           <div className="current-status">
             <InstitutionNameAndId name={institution.name} id={institution.id} />

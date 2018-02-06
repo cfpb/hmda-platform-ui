@@ -18,6 +18,58 @@ const _setSubmission = (submission, filingObj) => {
   return filingObj.submissions[0]
 }
 
+const _whatToRender = ({
+  filings,
+  filingPeriod,
+  institutions,
+  submission,
+  onDownloadClick
+}) => {
+  // we don't have institutions yet
+  if (!institutions.fetched) return <Loading />
+
+  // we don't have any institutions
+  if (institutions.institutions.length === 0)
+    return (
+      <Alert type="error">
+        <p>
+          There is a problem with your filing. Please contact{' '}
+          <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
+        </p>
+      </Alert>
+    )
+
+  // sorted to keep the listing consistent
+  const sortedInstitutions = Object.keys(institutions.institutions).sort(
+    sortInstitutions
+  )
+  return sortedInstitutions.map((key, i) => {
+    const institution = institutions.institutions[key]
+    const institutionFilings = filings[institution.id]
+
+    if (!institutionFilings) {
+      // there are no filings
+      return <Institution key={i} institution={institution} />
+    } else if (!institutionFilings.fetched) {
+      // filings are not fetched yet
+      return <Loading key={i} />
+    } else {
+      // we have good stuff
+      const filingObj = institutionFilings.filing
+      return (
+        <Institution
+          key={i}
+          filing={filingObj.filing}
+          institution={institution}
+          onDownloadClick={onDownloadClick}
+          submission={_setSubmission(submission, filingObj)}
+          submissions={filingObj.submissions}
+        />
+      )
+    }
+  })
+}
+
 export default class Institutions extends Component {
   render() {
     const {
@@ -29,10 +81,6 @@ export default class Institutions extends Component {
       onDownloadClick
     } = this.props
 
-    const instArray = Object.keys(institutions.institutions).sort(
-      sortInstitutions
-    )
-
     return (
       <main id="main-content" className="usa-grid Institutions">
         {error ? <ErrorWarning error={error} /> : null}
@@ -41,39 +89,7 @@ export default class Institutions extends Component {
             <InstitutionsHeader filingPeriod={filingPeriod} />
           ) : null}
 
-          {institutions.fetched ? (
-            instArray.length !== 0 ? (
-              instArray.map((key, i) => {
-                const institution = institutions.institutions[key]
-                const filingWrapper = filings[institution.id]
-
-                if (!filingWrapper)
-                  return <Institution key={i} institution={institution} />
-                if (!filingWrapper.fetched) return <Loading key={i} />
-
-                const filingObj = filingWrapper.filing
-                return (
-                  <Institution
-                    key={i}
-                    filing={filingObj.filing}
-                    institution={institution}
-                    onDownloadClick={onDownloadClick}
-                    submission={_setSubmission(submission, filingObj)}
-                    submissions={filingObj.submissions}
-                  />
-                )
-              })
-            ) : (
-              <Alert type="error">
-                <p>
-                  There is a problem with your filing. Please contact{' '}
-                  <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
-                </p>
-              </Alert>
-            )
-          ) : (
-            <Loading />
-          )}
+          {_whatToRender(this.props)}
 
           <p className="multi-message">
             If you are planning to file on behalf of more than one financial
