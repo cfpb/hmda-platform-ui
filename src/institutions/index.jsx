@@ -29,11 +29,14 @@ const _whatToRender = ({
   if (!institutions.fetched) return <Loading />
 
   // we don't have any institutions
+  // this shouldn't happen because they need to pick
+  // an institution when registering but just in case
   if (institutions.institutions.length === 0)
     return (
       <Alert type="error">
         <p>
-          There is a problem with your filing. Please contact{' '}
+          There was an error getting your list of institutions, please refresh
+          the page or try again later. If the problem persists, contact{' '}
           <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
         </p>
       </Alert>
