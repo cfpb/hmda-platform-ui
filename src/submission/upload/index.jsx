@@ -155,6 +155,7 @@ export default class Upload extends Component {
             onDrop={this.onDrop}
             multiple={false}
             className="dropzone"
+            activeClassName="dropzone-active"
           >
             {getDropzoneText(this.props)}
           </Dropzone>

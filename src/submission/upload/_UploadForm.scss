@@ -87,4 +87,9 @@
       }
     }
   }
+
+  .dropzone-active {
+    background-color: $color-gray-lightest;
+    border-color: $color-green;
+  }
 }
