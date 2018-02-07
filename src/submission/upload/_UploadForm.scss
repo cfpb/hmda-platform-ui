@@ -55,6 +55,9 @@
       border-color: $color-secondary-light;
       color: $color-secondary;
     }
+    &:hover {
+      background-color: $color-gray-lightest;
+    }
 
     button {
       display: block;
@@ -86,5 +89,10 @@
         color: $color-gray;
       }
     }
+  }
+
+  .dropzone-active {
+    background-color: $color-gray-lightest;
+    border-color: $color-green;
   }
 }

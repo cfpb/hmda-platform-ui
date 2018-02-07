@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Header from './Header.jsx'
 import Loading from '../../common/Loading.jsx'
-import EditsTable from './Table.jsx'
+import EditsTable from './TableContainer.jsx'
 import Verifier from './VerifierContainer.jsx'
 import RefileWarningContainer from '../../refileWarning/container.jsx'
 import submissionProgressHOC from '../progressHOC.jsx'
@@ -43,11 +43,14 @@ export const makeEntry = (props, type) => {
 
 export const renderTablesOrSuccess = (props, edits, type) => {
   if (edits.length === 0) {
-    const verificationMsg =
-      type === 'quality' || type === 'macro'
-        ? '; no verification is required.'
-        : '.'
-    type = type === 'syntacticalvalidity' ? 'syntactical or validity' : type
+    let verificationMsg = '.'
+    if (type === 'quality' || type === 'macro') {
+      verificationMsg = '; no verification is required.'
+    }
+    if (type === 'syntacticalvalidity') {
+      type = 'syntactical or validity'
+    }
+
     return (
       <Alert type="success">
         <p>
@@ -58,26 +61,18 @@ export const renderTablesOrSuccess = (props, edits, type) => {
   }
 
   return edits.map((edit, i) => {
-    return (
-      <EditsTable
-        pagination={props.pagination}
-        paginationFade={props.paginationFade}
-        edit={edit}
-        rows={props.rows}
-        type={type}
-        key={i}
-      />
-    )
+    return <EditsTable edit={edit} type={type} key={i} />
   })
 }
 
 const EditsTableWrapper = props => {
   const type = props.page
-  const loading = !props.editsFetched || props.isFetching ? <Loading /> : null
 
-  return loading ? (
-    loading
-  ) : (
+  if (!props.editsFetched || props.isFetching) {
+    return <Loading />
+  }
+
+  return (
     <section className="EditsTableWrapper">
       {/* warn at the top of the page */}
       <RefileWarning />
@@ -93,9 +88,6 @@ const EditsTableWrapper = props => {
 EditsTableWrapper.propTypes = {
   // from /containers/Edits
   isFetching: PropTypes.bool,
-  pagination: PropTypes.object,
-  paginationFade: PropTypes.object,
-  rows: PropTypes.object,
   types: PropTypes.object,
   // from /containers/submissionProgressHOC
   page: PropTypes.string,
