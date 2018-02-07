@@ -69,74 +69,66 @@ describe('ValidationProgress', () => {
     expect(progress.props.children.key).toBe(null)
   })
 
-  it('gets expected results from getFill', () => {
+  it('gets expected results from getFillWidth', () => {
     let progress = new ValidationProgress({})
-    expect(progress.getFill().props.style.width).toBe('0%')
+    expect(progress.getFillWidth()).toBe(0)
     progress.state = { fillWidth: 20 }
-    expect(progress.getFill().props.style.width).toBe('20%')
+    expect(progress.getFillWidth()).toBe(20)
 
     progress = new ValidationProgress({ code: 5 })
-    expect(progress.getFill().props.className).toBe('progressFill error')
+    expect(progress.getFillWidth()).toBe(100)
 
     progress = new ValidationProgress({ code: 8 })
-    expect(progress.getFill({ code: 8 }).props.style.width).toBe('100%')
+    expect(progress.getFillWidth()).toBe(100)
   })
 
-  it('gets expected results from getText', () => {
+  it('gets expected results from getProgressText', () => {
     let progress = new ValidationProgress({ code: 3 })
-    expect(progress.getText().props.children[0].props.children).toBe(
-      'Uploading...'
-    )
+    expect(progress.getProgressText()).toBe('Uploading...')
     progress = new ValidationProgress({ code: 4 })
-    expect(progress.getText().props.children[0].props.children).toBe(
-      'Analyzing file format...'
-    )
+    expect(progress.getProgressText()).toBe('Analyzing file format...')
     progress = new ValidationProgress({ code: 5 })
-    expect(progress.getText().props.children[0].props.children).toBe(
-      'File contains formatting errors.'
-    )
+    expect(progress.getProgressText()).toBe('File contains formatting errors.')
     progress = new ValidationProgress({ code: 7 })
-    expect(progress.getText().props.children[0].props.children).toBe(
-      'Validating edits...'
-    )
+    expect(progress.getProgressText()).toBe('Validating edits...')
     progress = new ValidationProgress({ code: 8 })
-    expect(progress.getText().props.children[0].props.children).toBe(
-      'Edit validation complete.'
-    )
-    progress = new ValidationProgress({ code: 8 })
-    expect(progress.getText().props.children[2].props.children).toBe(
-      'Edits found, review required.'
-    )
+    expect(progress.getProgressText()).toBe('Edit validation complete.')
     progress = new ValidationProgress({ code: 9 })
-    expect(progress.getText().props.children[0].props.children).toBe(
-      'Edit validation complete.'
-    )
+    expect(progress.getProgressText()).toBe('Edit validation complete.')
     progress = new ValidationProgress({ uploadError: 1, code: 9 })
-    expect(progress.getText().props.children[0].props.children).toBe(
+    expect(progress.getProgressText()).toBe(
       'There was an error uploading your file. Please try again.'
     )
     progress = new ValidationProgress({ appError: 1, code: 9 })
-    expect(progress.getText().props.children[0].props.children).toBe(
+    expect(progress.getProgressText()).toBe(
       'There was an error checking your validation progress. Please refresh the page.'
     )
+  })
+
+  it('gets expected results from getIndicatorClass', () => {
+    let progress = new ValidationProgress({ code: 3 })
+    expect(progress.getIndicatorClass()).toBe(' pulsing')
+    progress = new ValidationProgress({ code: 5 })
+    expect(progress.getIndicatorClass()).toBe(' error')
+    progress = new ValidationProgress({ code: 8 })
+    expect(progress.getIndicatorClass()).toBe(' complete')
+  })
+
+  it('gets expected results from getLargeFileMessage', () => {
+    let progress = new ValidationProgress({ code: 3 })
+    expect(progress.getLargeFileMessage()).toEqual(null)
     progress = new ValidationProgress({ code: 7, file: { size: 1e6 } })
-    expect(progress.getText().props.children[2].props.children).toBe(
+    expect(progress.getLargeFileMessage()).toEqual(
       'This process may take a little while. Your upload will complete automatically, so you may leave the platform and log back in later.'
     )
   })
 
-  it('gets expected results from getIndicator', () => {
+  it('gets expected results from getEditsFoundMessage', () => {
     let progress = new ValidationProgress({ code: 3 })
-    expect(progress.getIndicator().props.className).toBe(
-      'progressIndicator pulsing'
-    )
-    progress = new ValidationProgress({ code: 5 })
-    expect(progress.getIndicator().props.className).toBe(
-      'progressIndicator error'
-    )
+    expect(progress.getEditsFoundMessage()).toBe(null)
     progress = new ValidationProgress({ code: 8 })
-    expect(progress.getIndicator().props.className).toBe(
-      'progressIndicator complete'
+    expect(progress.getEditsFoundMessage()).toEqual(
+      'Edits found, review required.'
     )
   })
 

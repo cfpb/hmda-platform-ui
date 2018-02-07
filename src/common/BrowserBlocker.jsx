@@ -3,7 +3,7 @@ import Alert from './Alert.jsx'
 
 const BrowserBlocker = () => {
   return (
-    <section className="BrowserBlocker">
+    <main id="main-content" className="BrowserBlocker">
       <Alert type="error" heading="Sorry, your browser is out of date.">
         <div>
           To file HMDA data securely, please use one of the modern browsers
@@ -35,7 +35,7 @@ const BrowserBlocker = () => {
           </nav>
         </div>
       </Alert>
-    </section>
+    </main>
   )
 }
 

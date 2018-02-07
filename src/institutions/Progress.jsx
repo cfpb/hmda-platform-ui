@@ -46,11 +46,16 @@ const renderNavItem = (code, name, i) => {
   const completed = navItem.isCompleted(code)
   const errored = navItem.isErrored(code)
 
-  const renderedName = errored
-    ? navItem.errorText
-    : completed ? navItem.completedText : name
+  let renderedName = name
+  let navClass = ''
+  if (errored) {
+    renderedName = navItem.errorText
+    navClass = 'error'
+  } else if (completed) {
+    renderedName = navItem.completedText
+    navClass = 'complete'
+  }
 
-  let navClass = errored ? 'error' : completed ? 'complete' : ''
   if (name === 'submission' && navItem.isReachable(code) && !completed) {
     // using error class is misleading but the styling is what we need
     navClass = 'error'
