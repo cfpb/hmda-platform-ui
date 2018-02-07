@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import Pagination from '../../pagination/container.jsx'
 import Loading from '../../common/Loading.jsx'
@@ -112,26 +112,19 @@ export const makeTable = props => {
   )
 }
 
-export class EditsTable extends Component {
-  shouldComponentUpdate(nextProps) {
-    if (this.props.paginationFade !== nextProps.paginationFade) return true
-    return !nextProps.paginationFade
-  }
-  render() {
-    const props = this.props
-    if (!props.edit || !props.pagination) return null
-    const name = props.edit.edit
-    const rowObj = props.rowObj
+const EditsTable = props => {
+  if (!props.edit || !props.pagination) return null
+  const name = props.edit.edit
+  const rowObj = props.rowObj
 
-    return (
-      <section className="EditsTable" id={name}>
-        {makeTable(props)}
-        {props.type === 'macro' ? null : (
-          <Pagination isFetching={!rowObj || rowObj.isFetching} target={name} />
-        )}
-      </section>
-    )
-  }
+  return (
+    <section className="EditsTable" id={name}>
+      {makeTable(props)}
+      {props.type === 'macro' ? null : (
+        <Pagination isFetching={!rowObj || rowObj.isFetching} target={name} />
+      )}
+    </section>
+  )
 }
 
 EditsTable.propTypes = {
