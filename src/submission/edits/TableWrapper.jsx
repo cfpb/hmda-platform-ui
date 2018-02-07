@@ -43,11 +43,14 @@ export const makeEntry = (props, type) => {
 
 export const renderTablesOrSuccess = (props, edits, type) => {
   if (edits.length === 0) {
-    const verificationMsg =
-      type === 'quality' || type === 'macro'
-        ? '; no verification is required.'
-        : '.'
-    type = type === 'syntacticalvalidity' ? 'syntactical or validity' : type
+    let verificationMsg = '.'
+    if (type === 'quality' || type === 'macro') {
+      verificationMsg = '; no verification is required.'
+    }
+    if (type === 'syntacticalvalidity') {
+      type = 'syntactical or validity'
+    }
+
     return (
       <Alert type="success">
         <p>
@@ -73,11 +76,12 @@ export const renderTablesOrSuccess = (props, edits, type) => {
 
 const EditsTableWrapper = props => {
   const type = props.page
-  const loading = !props.editsFetched || props.isFetching ? <Loading /> : null
 
-  return loading ? (
-    loading
-  ) : (
+  if (!props.editsFetched || props.isFetching) {
+    return <Loading />
+  }
+
+  return (
     <section className="EditsTableWrapper">
       {/* warn at the top of the page */}
       <RefileWarning />

@@ -6,11 +6,23 @@ const Alert = ({ type = 'info', heading, imageText, children }) => {
   let alertText
   let alertClass = ''
 
-  if (imageText) alertText = imageText
-  else {
+  if (imageText) {
+    alertText = imageText
+  } else {
+    // we use bg images for success and info
+    // so these are classes
     if (type === 'success') alertClass = 'AlertImageCheck'
     if (type === 'error') alertClass = 'AlertImageClose'
-    alertText = type === 'info' ? 'i' : type === 'warning' ? '!' : null
+
+    // we use text for info and warning
+    // so no class is used, instead we put the content within the div
+    if (type === 'info') {
+      alertText = 'i'
+    } else if (type === 'warning') {
+      alertText = '!'
+    } else {
+      alertText = null
+    }
   }
 
   return (
