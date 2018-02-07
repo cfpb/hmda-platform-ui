@@ -83,7 +83,7 @@ const InstitutionPreviousSubmissions = ({
   )
 }
 
-InstitutionPreviousSubmissions.PropTypes = {
+InstitutionPreviousSubmissions.propTypes = {
   submissions: PropTypes.array,
   institutionId: PropTypes.string,
   filingPeriod: PropTypes.string,
