@@ -42,41 +42,19 @@ export class EditsContainer extends Component {
     this.getNeededEdits(nextProps)
   }
 
-  didPaginationUpdate(oldFade, newFade) {
-    const nextKeys = Object.keys(newFade)
-
-    for (let i = 0; i < nextKeys.length; i++) {
-      if (oldFade[nextKeys[i]] !== newFade[nextKeys[i]]) return true
-    }
-
-    return false
-  }
-
-  shouldComponentUpdate(nextProps) {
-    if (!Object.keys(nextProps.paginationFade).length) return true
-    return this.didPaginationUpdate(
-      this.props.paginationFade,
-      nextProps.paginationFade
-    )
-  }
-
   render() {
     return <EditsTableWrapper {...this.props} />
   }
 }
 
 export function mapStateToProps(state) {
-  const { isFetching, types, rows } = state.app.edits
-
+  const { isFetching, types } = state.app.edits
   const { pagination } = state.app
-  const { paginationFade } = state.app
 
   return {
     isFetching,
     types,
-    rows,
-    pagination,
-    paginationFade
+    pagination
   }
 }
 

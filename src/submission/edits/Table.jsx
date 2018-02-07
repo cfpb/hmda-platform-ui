@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Pagination from '../../pagination/container.jsx'
 import Loading from '../../common/Loading.jsx'
@@ -88,8 +88,8 @@ export const makeTable = props => {
   const edit = props.edit
   const name = edit.edit
   const type = props.type
-  const rowObj = props.rows[name]
-  const pagination = props.pagination[name]
+  const rowObj = props.rowObj
+  const pagination = props.pagination
 
   if (!rowObj || !rowObj.rows) return <Loading />
 
@@ -97,7 +97,7 @@ export const makeTable = props => {
   if (type === 'macro' || name === 'S040') return caption
 
   let className = 'PaginationTarget'
-  className += props.paginationFade[name] ? ' fadeOut' : ''
+  className += props.paginationFade ? ' fadeOut' : ''
 
   return (
     <table
@@ -112,27 +112,34 @@ export const makeTable = props => {
   )
 }
 
-const EditsTable = props => {
-  if (!props.edit || !props.pagination[props.edit.edit]) return null
-  const name = props.edit.edit
-  const rowObj = props.rows[name]
+export class EditsTable extends Component {
+  shouldComponentUpdate(nextProps) {
+    if (this.props.paginationFade !== nextProps.paginationFade) return true
+    return !nextProps.paginationFade
+  }
+  render() {
+    const props = this.props
+    if (!props.edit || !props.pagination) return null
+    const name = props.edit.edit
+    const rowObj = props.rowObj
 
-  return (
-    <section className="EditsTable" id={props.edit.edit}>
-      {makeTable(props)}
-      {props.type === 'macro' ? null : (
-        <Pagination isFetching={!rowObj || rowObj.isFetching} target={name} />
-      )}
-    </section>
-  )
+    return (
+      <section className="EditsTable" id={name}>
+        {makeTable(props)}
+        {props.type === 'macro' ? null : (
+          <Pagination isFetching={!rowObj || rowObj.isFetching} target={name} />
+        )}
+      </section>
+    )
+  }
 }
 
 EditsTable.propTypes = {
   edit: PropTypes.object,
-  rows: PropTypes.object,
+  rowObj: PropTypes.object,
   type: PropTypes.string,
   pagination: PropTypes.object,
-  paginationFade: PropTypes.object
+  paginationFade: PropTypes.number
 }
 
 export default EditsTable
