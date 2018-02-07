@@ -1,4 +1,5 @@
 jest.unmock('./Table.jsx')
+jest.mock('../../pagination/container.jsx')
 
 import EditsTable, {
   formatHeader,
@@ -26,7 +27,11 @@ const rows = types.syntactical.edits[0].rows
 describe('Edits Table', () => {
   const editsTable = TestUtils.renderIntoDocument(
     <Wrapper>
-      <EditsTable edits={types.syntactical.edits[0]} type="syntactical" />
+      <EditsTable
+        pagination={{}}
+        edit={types.syntactical.edits[0]}
+        type="syntactical"
+      />
     </Wrapper>
   )
   const tableNode = ReactDOM.findDOMNode(editsTable)
@@ -37,7 +42,7 @@ describe('Edits Table', () => {
 
   const editsTableMacro = TestUtils.renderIntoDocument(
     <Wrapper>
-      <EditsTable edits={types.macro.edits[0]} type="macro" />
+      <EditsTable pagination={{}} edit={types.macro.edits[0]} type="macro" />
     </Wrapper>
   )
 
@@ -65,7 +70,7 @@ describe('Edits Table', () => {
     <Wrapper>
       <EditsTable
         edit={types.syntactical.edits[0]}
-        pagination={{}}
+        pagination={null}
         type="syntactical"
       />
     </Wrapper>
@@ -206,10 +211,10 @@ describe('makeTable', () => {
   it('renders the table', () => {
     const props = {
       edit: types.syntactical.edits[0],
-      rows: { S020: { rows: rows } },
+      rowObj: { rows: rows },
       type: 'syntactical',
-      pagination: { S020: { total: 3 } },
-      paginationFade: { S020: 'center' }
+      pagination: { total: 3 },
+      paginationFade: 0
     }
     const rendered = makeTable(props)
     expect(rendered.type).toBe('table')
@@ -220,7 +225,7 @@ describe('makeTable', () => {
       edit: types.syntactical.edits[0],
       rows: {},
       type: 'syntactical',
-      pagination: { S020: { total: 3 } }
+      pagination: { total: 3 }
     }
     const rendered = makeTable(props)
     expect(rendered.type).not.toBe('table')
@@ -229,9 +234,9 @@ describe('makeTable', () => {
   it('returns LoadingIcon when rows are not loaded', () => {
     const props = {
       edit: types.syntactical.edits[0],
-      rows: { S020: { isFetching: true } },
+      rows: { isFetching: true },
       type: 'syntactical',
-      pagination: { S020: { total: 3 } }
+      pagination: { total: 3 }
     }
     const rendered = makeTable(props)
     expect(rendered.type).not.toBe('table')
