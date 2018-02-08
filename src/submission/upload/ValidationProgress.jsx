@@ -30,7 +30,7 @@ export default class ValidationProgress extends PureComponent {
   }
 
   saveWidth(id, width) {
-    if (this.props.uploadError || this.props.appError) width = 0
+    if (this.props.errorUpload || this.props.errorApp) width = 0
     localStorage.setItem(`HMDA_FILE_PROGRESS/${id}`, width)
   }
 
@@ -44,9 +44,9 @@ export default class ValidationProgress extends PureComponent {
     if (code === STATUS.VALIDATING) progressText = 'Validating edits...'
     if (code > STATUS.VALIDATING) progressText = 'Edit validation complete.'
 
-    if (this.props.uploadError)
+    if (this.props.errorUpload)
       progressText = 'There was an error uploading your file. Please try again.'
-    else if (this.props.appError)
+    else if (this.props.errorApp)
       progressText =
         'There was an error checking your validation progress. Please refresh the page.'
 
@@ -69,8 +69,8 @@ export default class ValidationProgress extends PureComponent {
       (this.props.code > STATUS.UPLOADED &&
         this.props.code < STATUS.VALIDATED_WITH_ERRORS) &&
       this.props.code !== STATUS.PARSED_WITH_ERRORS &&
-      !this.props.uploadError &&
-      !this.props.appError
+      !this.props.errorUpload &&
+      !this.props.errorApp
     ) {
       return 'This process may take a little while. Your upload will complete automatically, so you may leave the platform and log back in later.'
     }
@@ -80,8 +80,8 @@ export default class ValidationProgress extends PureComponent {
   getIndicatorClass() {
     if (
       this.props.code === STATUS.PARSED_WITH_ERRORS ||
-      this.props.uploadError ||
-      this.props.appError
+      this.props.errorUpload ||
+      this.props.errorApp
     ) {
       return ' error'
     }
@@ -94,8 +94,8 @@ export default class ValidationProgress extends PureComponent {
   isErrored() {
     return (
       this.props.code === STATUS.PARSED_WITH_ERRORS ||
-      this.props.uploadError ||
-      this.props.appError
+      this.props.errorUpload ||
+      this.props.errorApp
     )
   }
 
@@ -165,8 +165,8 @@ export default class ValidationProgress extends PureComponent {
 
 ValidationProgress.propTypes = {
   code: PropTypes.number,
-  id: PropTypes.string,
+  errorApp: PropTypes.object,
+  errorUpload: PropTypes.object,
   file: PropTypes.object,
-  uploadError: PropTypes.object,
-  appError: PropTypes.object
+  id: PropTypes.string
 }

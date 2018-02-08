@@ -6,19 +6,19 @@ import * as STATUS from '../../constants/statusCodes.js'
 
 export const renderValidationProgress = ({
   code,
-  uploading,
+  errorApp,
+  errorUpload,
   file,
   id,
-  uploadError,
-  appError
+  uploading
 }) => {
   if (code < STATUS.UPLOADING && !uploading) return null
   return (
     <ValidationProgress
-      uploadError={uploadError}
-      appError={appError}
-      file={file}
       code={code}
+      errorApp={errorApp}
+      errorUpload={errorUpload}
+      file={file}
       id={id}
     />
   )
@@ -131,8 +131,8 @@ export default class Upload extends Component {
 
     // handle the onDrop to set the file and show confirmation modal
     this.onDrop = acceptedFiles => {
-      const { handleDrop, code, uploadError } = this.props
-      handleDrop(acceptedFiles, code, uploadError)
+      const { handleDrop, code, errorUpload } = this.props
+      handleDrop(acceptedFiles, code, errorUpload)
     }
   }
 
@@ -148,7 +148,7 @@ export default class Upload extends Component {
   render() {
     return (
       <section className="UploadForm">
-        {renderErrors(this.props.errors, this.props.uploadError)}
+        {renderErrors(this.props.errors, this.props.errorUpload)}
         <section className="container-upload">
           <Dropzone
             disablePreview={true}
@@ -167,14 +167,17 @@ export default class Upload extends Component {
 }
 
 Upload.propTypes = {
-  handleDrop: PropTypes.func,
-  pollSubmission: PropTypes.func,
-  uploading: PropTypes.bool,
-  filename: PropTypes.string,
-  file: PropTypes.object,
-  code: PropTypes.number,
+  // data
+  code: PropTypes.number, // submission status
+  errorApp: PropTypes.object,
+  errorFile: PropTypes.string,
   errors: PropTypes.array,
-  uploadError: PropTypes.object,
-  appError: PropTypes.object,
-  errorFile: PropTypes.string
+  errorUpload: PropTypes.object,
+  file: PropTypes.object,
+  filename: PropTypes.string,
+  id: PropTypes.string,
+  uploading: PropTypes.bool,
+  // dispatch
+  handleDrop: PropTypes.func,
+  pollSubmission: PropTypes.func
 }
