@@ -7,6 +7,7 @@ const InstitutionsHeader = ({ filingPeriod }) => {
   if (!filingPeriod) return null
 
   const filingPeriodPlusOne = parseInt(filingPeriod, 10) + 1
+
   if (withinFilingPeriod(filingPeriodPlusOne)) {
     return (
       <header>

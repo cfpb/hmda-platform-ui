@@ -51,7 +51,7 @@ const InstitutionStatus = ({
   )
 }
 
-InstitutionStatus.PropTypes = {
+InstitutionStatus.propTypes = {
   institutionId: PropTypes.string,
   filing: PropTypes.object,
   submission: PropTypes.object,

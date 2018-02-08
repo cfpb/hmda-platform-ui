@@ -33,7 +33,7 @@ const InstitutionViewButton = ({ status, institutionId, filingPeriod }) => {
   )
 }
 
-InstitutionViewButton.PropTypes = {
+InstitutionViewButton.propTypes = {
   status: PropTypes.object,
   institutionId: PropTypes.string,
   filingPeriod: PropTypes.string
