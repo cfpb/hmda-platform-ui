@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Alert from '../../common/Alert.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
 import * as STATUS from '../../constants/statusCodes.js'
@@ -137,15 +138,13 @@ export default class Upload extends Component {
           detected by the front-end
         */}
         {this.props.errors.length > 0 ? (
-          <div className="usa-alert usa-alert-error" role="alert">
-            <div className="usa-alert-body">
-              <ul className="usa-alert-text">
-                {this.props.errors.map((error, i) => {
-                  return <li key={i}>{error}</li>
-                })}
-              </ul>
-            </div>
-          </div>
+          <Alert heading="Sorry, your file has errors." type="error">
+            <ul>
+              {this.props.errors.map((error, i) => {
+                return <li key={i}>{error}</li>
+              })}
+            </ul>
+          </Alert>
         ) : null}
         <section className="container-upload">
           <Dropzone
