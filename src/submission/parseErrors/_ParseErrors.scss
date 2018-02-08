@@ -18,14 +18,15 @@
   }
 
   caption {
-    padding-bottom: 1em;
     text-align: left;
+
     h3 {
       margin: 0;
     }
     p {
       color: $color-gray-dark;
-      margin-top: 0;
+      font-weight: normal;
+      margin-top: 0.5em;
       margin-bottom: 0;
     }
   }
