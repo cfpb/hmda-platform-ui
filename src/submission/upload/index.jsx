@@ -24,22 +24,6 @@ export const renderValidationProgress = ({
   )
 }
 
-export const renderErrors = errors => {
-  if (errors.length === 0) return null
-
-  return (
-    <div className="usa-alert usa-alert-error" role="alert">
-      <div className="usa-alert-body">
-        <ul className="usa-alert-text">
-          {errors.map((error, i) => {
-            return <li key={i}>{error}</li>
-          })}
-        </ul>
-      </div>
-    </div>
-  )
-}
-
 const _getUploadMessage = (preText, filename, postText, howToMessage) => {
   return (
     <div>
@@ -148,7 +132,21 @@ export default class Upload extends Component {
   render() {
     return (
       <section className="UploadForm">
-        {renderErrors(this.props.errors, this.props.errorUpload)}
+        {/*
+          something is wrong with the file
+          detected by the front-end
+        */}
+        {this.props.errors.length > 0 ? (
+          <div className="usa-alert usa-alert-error" role="alert">
+            <div className="usa-alert-body">
+              <ul className="usa-alert-text">
+                {this.props.errors.map((error, i) => {
+                  return <li key={i}>{error}</li>
+                })}
+              </ul>
+            </div>
+          </div>
+        ) : null}
         <section className="container-upload">
           <Dropzone
             disablePreview={true}
