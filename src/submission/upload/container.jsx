@@ -9,21 +9,21 @@ export function mapStateToProps(state) {
   const code = state.app.submission.status.code
   const filename = state.app.submission.filename
 
-  const { uploading, file, errors, errorFile, uploadError } =
+  const { uploading, file, errors, errorFile, errorUpload } =
     state.app.upload[id] || state.app.upload['__DEFAULT_UPLOAD__']
 
-  const appError = state.app.error
+  const errorApp = state.app.error
 
   return {
-    uploading,
+    code,
+    errorApp,
+    errorFile,
+    errors,
+    errorUpload,
     file,
     filename,
-    errors,
-    errorFile,
-    uploadError,
-    appError,
     id,
-    code
+    uploading
   }
 }
 

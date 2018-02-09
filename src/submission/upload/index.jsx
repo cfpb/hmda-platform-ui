@@ -1,129 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Alert from '../../common/Alert.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
+import DropzoneContent from './DropzoneContent.jsx'
 import * as STATUS from '../../constants/statusCodes.js'
-
-export const renderValidationProgress = ({
-  code,
-  uploading,
-  file,
-  id,
-  uploadError,
-  appError
-}) => {
-  if (code < STATUS.UPLOADING && !uploading) return null
-  return (
-    <ValidationProgress
-      uploadError={uploadError}
-      appError={appError}
-      file={file}
-      code={code}
-      id={id}
-    />
-  )
-}
-
-export const renderErrors = errors => {
-  if (errors.length === 0) return null
-
-  return (
-    <div className="usa-alert usa-alert-error" role="alert">
-      <div className="usa-alert-body">
-        <ul className="usa-alert-text">
-          {errors.map((error, i) => {
-            return <li key={i}>{error}</li>
-          })}
-        </ul>
-      </div>
-    </div>
-  )
-}
-
-const _getUploadMessage = (preText, filename, postText, howToMessage) => {
-  return (
-    <div>
-      <p className="file-selected">{howToMessage}</p>
-      <p>
-        {preText} <strong>{filename}</strong> {postText}
-      </p>
-    </div>
-  )
-}
-
-export const getDropzoneText = ({ code, errors, filename, errorFile }) => {
-  let howToMessage =
-    'To begin uploading a file, drag it into this box or click here.'
-  if (code >= STATUS.CREATED) {
-    howToMessage =
-      'To begin uploading a new file, drag it into this box or click here.'
-  }
-  let message = <p>{howToMessage}</p>
-
-  if (code >= STATUS.UPLOADING) {
-    message = howToMessage
-  }
-
-  if (filename || errorFile) {
-    message = _getUploadMessage('', filename, 'selected.', howToMessage)
-
-    if (code >= STATUS.UPLOADING && code <= STATUS.VALIDATING) {
-      message = _getUploadMessage(
-        'Upload of',
-        filename,
-        'is currently in progress.',
-        howToMessage
-      )
-    }
-
-    if (code === STATUS.PARSED_WITH_ERRORS) {
-      message = _getUploadMessage(
-        'Upload of',
-        filename,
-        'has formatting errors.',
-        howToMessage
-      )
-    }
-
-    if (code === STATUS.VALIDATED_WITH_ERRORS) {
-      message = _getUploadMessage(
-        'Upload of',
-        filename,
-        'is ready for review.',
-        howToMessage
-      )
-    }
-
-    if (code === STATUS.VALIDATED) {
-      message = _getUploadMessage(
-        'Upload of',
-        filename,
-        'is ready for submission.',
-        howToMessage
-      )
-    }
-
-    if (code === STATUS.SIGNED) {
-      message = _getUploadMessage(
-        'Your submission of',
-        filename,
-        'is complete.',
-        howToMessage
-      )
-    }
-
-    if (errorFile) {
-      message = _getUploadMessage(
-        '',
-        errorFile,
-        'cannot be uploaded.',
-        howToMessage
-      )
-    }
-  }
-
-  return <button onClick={e => e.preventDefault()}>{message}</button>
-}
 
 export default class Upload extends Component {
   constructor(props) {
@@ -131,50 +12,90 @@ export default class Upload extends Component {
 
     // handle the onDrop to set the file and show confirmation modal
     this.onDrop = acceptedFiles => {
-      const { handleDrop, code, uploadError } = this.props
-      handleDrop(acceptedFiles, code, uploadError)
+      const { handleDrop, code, errorUpload } = this.props
+      handleDrop(acceptedFiles, code, errorUpload)
     }
   }
 
   componentDidMount() {
+    const { code, pollSubmission } = this.props
     if (
-      this.props.code >= STATUS.UPLOADING &&
-      this.props.code < STATUS.VALIDATED_WITH_ERRORS &&
-      this.props.code !== STATUS.PARSED_WITH_ERRORS
+      code >= STATUS.UPLOADING &&
+      code < STATUS.VALIDATED_WITH_ERRORS &&
+      code !== STATUS.PARSED_WITH_ERRORS
     )
-      this.props.pollSubmission()
+      pollSubmission()
   }
 
   render() {
+    const {
+      code,
+      errorApp,
+      errorFile,
+      errors,
+      errorUpload,
+      file,
+      filename,
+      id,
+      uploading,
+      handleDrop,
+      pollSubmission
+    } = this.props
+
     return (
       <section className="UploadForm">
-        {renderErrors(this.props.errors, this.props.uploadError)}
-        <section className="container-upload">
-          <Dropzone
-            disablePreview={true}
-            onDrop={this.onDrop}
-            multiple={false}
-            className="dropzone"
-            activeClassName="dropzone-active"
-          >
-            {getDropzoneText(this.props)}
-          </Dropzone>
-        </section>
-        {renderValidationProgress(this.props)}
+        {/*
+          something is wrong with the file
+          detected by the front-end
+        */}
+        {errors.length > 0 ? (
+          <Alert heading="Sorry, your file has errors." type="error">
+            <ul>
+              {errors.map((error, i) => {
+                return <li key={i}>{error}</li>
+              })}
+            </ul>
+          </Alert>
+        ) : null}
+        <Dropzone
+          disablePreview={true}
+          onDrop={this.onDrop}
+          multiple={false}
+          className="dropzone"
+          activeClassName="dropzone-active"
+        >
+          <DropzoneContent
+            code={code}
+            errorFile={errorFile}
+            errors={errors}
+            filename={filename}
+          />
+        </Dropzone>
+        <ValidationProgress
+          code={code}
+          errorApp={errorApp}
+          errorUpload={errorUpload}
+          file={file}
+          id={id}
+          uploading={uploading}
+        />
       </section>
     )
   }
 }
 
 Upload.propTypes = {
-  handleDrop: PropTypes.func,
-  pollSubmission: PropTypes.func,
-  uploading: PropTypes.bool,
-  filename: PropTypes.string,
-  file: PropTypes.object,
-  code: PropTypes.number,
+  // data
+  code: PropTypes.number, // submission status
+  errorApp: PropTypes.object,
+  errorFile: PropTypes.string,
   errors: PropTypes.array,
-  uploadError: PropTypes.object,
-  appError: PropTypes.object,
-  errorFile: PropTypes.string
+  errorUpload: PropTypes.object,
+  file: PropTypes.object,
+  filename: PropTypes.string,
+  id: PropTypes.string,
+  uploading: PropTypes.bool,
+  // dispatch
+  handleDrop: PropTypes.func,
+  pollSubmission: PropTypes.func
 }

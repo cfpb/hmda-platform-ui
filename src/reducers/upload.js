@@ -15,7 +15,7 @@ const defaultUploads = {
     newFile: null,
     errors: [],
     errorFile: null,
-    uploadError: null
+    errorUpload: null
   }
 }
 
@@ -36,7 +36,7 @@ export default (state = defaultUploads, action) => {
           file: action.file,
           errors: upload.errors.length === 0 ? upload.errors : [],
           errorFile: null,
-          uploadError: null
+          errorUpload: null
         }
       }
     case SELECT_NEW_FILE:
@@ -60,7 +60,7 @@ export default (state = defaultUploads, action) => {
         ...state,
         [action.id]: {
           ...upload,
-          uploadError: action.error
+          errorUpload: action.error
         }
       }
     case REQUEST_UPLOAD:
