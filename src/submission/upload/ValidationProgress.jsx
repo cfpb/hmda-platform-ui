@@ -138,7 +138,6 @@ export default class ValidationProgress extends PureComponent {
   }
 
   render() {
-    if (!this.props.id) return null
     return (
       <section className="ValidationProgress">
         <div className="progressTotal" />
@@ -167,6 +166,5 @@ ValidationProgress.propTypes = {
   code: PropTypes.number,
   errorApp: PropTypes.object,
   errorUpload: PropTypes.object,
-  file: PropTypes.object,
-  id: PropTypes.string
+  file: PropTypes.object
 }

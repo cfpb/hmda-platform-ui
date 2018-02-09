@@ -91,7 +91,6 @@ Upload.propTypes = {
   errorUpload: PropTypes.object,
   file: PropTypes.object,
   filename: PropTypes.string,
-  id: PropTypes.string,
   uploading: PropTypes.bool,
   // dispatch
   handleDrop: PropTypes.func,

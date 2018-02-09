@@ -22,7 +22,6 @@ export function mapStateToProps(state) {
     errorUpload,
     file,
     filename,
-    id,
     uploading
   }
 }
