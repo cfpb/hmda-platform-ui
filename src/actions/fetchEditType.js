@@ -5,7 +5,6 @@ import receiveEditType from './receiveEditType.js'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
 import { getEdit } from '../api/api.js'
-import { getId } from './Submission.js'
 import { error } from '../utils/log.js'
 
 export default function fetchEditType(type) {
@@ -16,7 +15,7 @@ export default function fetchEditType(type) {
     editTypes[type].edits.forEach(edit => {
       dispatch(requestEdit(edit.edit))
       promises.push(
-        getEdit({ submission: getId(), edit: edit.edit })
+        getEdit({ edit: edit.edit })
           .then(json => {
             return hasHttpError(json).then(hasError => {
               if (hasError) {

@@ -1,10 +1,9 @@
 jest.unmock('./api')
-const mockedFetch = jest.fn()
+import * as api from './api'
 
 const fetch = require.requireActual('./fetch')
+const mockedFetch = jest.fn()
 fetch.fetch = mockedFetch
-
-import * as api from './api'
 
 describe('api', () => {
   it('gets institution', () => {
@@ -20,9 +19,8 @@ describe('api', () => {
   })
 
   it('posts upload', () => {
-    api.postUpload('1', {})
+    api.postUpload({})
     expect(mockedFetch.mock.calls[2][0]).toEqual({
-      submission: '1',
       method: 'POST',
       body: {}
     })
@@ -43,55 +41,42 @@ describe('api', () => {
     })
   })
 
-  it('gets filing from url', () => {
-    api.getFilingFromUrl()
-    expect(mockedFetch.mock.calls[5][0]).toEqual()
-  })
-
   it('gets latest submission', () => {
     api.getLatestSubmission()
-    expect(mockedFetch.mock.calls[6][0]).toEqual({
-      suffix: '/submissions/latest'
+    expect(mockedFetch.mock.calls[5][0]).toEqual({
+      submission: 'latest'
     })
   })
 
   it('gets edits', () => {
     api.getEdits({})
-    expect(mockedFetch.mock.calls[7][0]).toEqual({ suffix: '/edits' })
-
-    api.getEdits({ suffix: '1' })
-    expect(mockedFetch.mock.calls[8][0]).toEqual({ suffix: '1' })
+    expect(mockedFetch.mock.calls[6][0]).toEqual({ suffix: '/edits' })
   })
 
   it('gets edit', () => {
     api.getEdit({ edit: '1' })
-    expect(mockedFetch.mock.calls[9][0]).toEqual({
-      edit: '1',
+    expect(mockedFetch.mock.calls[7][0]).toEqual({
       suffix: '/edits/1'
     })
-
-    api.getEdit({ suffix: '1' })
-    expect(mockedFetch.mock.calls[10][0]).toEqual({ suffix: '1' })
   })
 
   it('gets csv', () => {
     api.getCSV({})
-    expect(mockedFetch.mock.calls[11][0]).toEqual({
+    expect(mockedFetch.mock.calls[8][0]).toEqual({
       params: { format: 'csv' },
       suffix: '/edits/csv'
     })
 
     api.getCSV({ suffix: '1' })
-    expect(mockedFetch.mock.calls[12][0]).toEqual({
+    expect(mockedFetch.mock.calls[9][0]).toEqual({
       params: { format: 'csv' },
       suffix: '1'
     })
   })
 
   it('posts verify', () => {
-    api.postVerify('1', '2', '3')
-    expect(mockedFetch.mock.calls[13][0]).toEqual({
-      submission: '1',
+    api.postVerify('2', '3')
+    expect(mockedFetch.mock.calls[10][0]).toEqual({
       suffix: '/edits/2',
       method: 'POST',
       body: { verified: '3' }
@@ -99,41 +84,49 @@ describe('api', () => {
   })
 
   it('gets irs', () => {
-    api.getIRS('1')
-    expect(mockedFetch.mock.calls[14][0]).toEqual({
-      submission: '1',
+    api.getIRS()
+    expect(mockedFetch.mock.calls[11][0]).toEqual({
       suffix: '/irs'
     })
   })
 
+  it('gets irscsv', () => {
+    api.getIRSCSV({})
+    expect(mockedFetch.mock.calls[12][0]).toEqual({
+      params: { format: 'csv' },
+      suffix: '/irs/csv'
+    })
+    api.getIRSCSV({ suffix: 'a' })
+    expect(mockedFetch.mock.calls[13][0]).toEqual({
+      params: { format: 'csv' },
+      suffix: 'a'
+    })
+  })
+
   it('gets summary', () => {
-    api.getSummary('1')
-    expect(mockedFetch.mock.calls[15][0]).toEqual({
-      submission: '1',
+    api.getSummary()
+    expect(mockedFetch.mock.calls[14][0]).toEqual({
       suffix: '/summary'
     })
   })
 
   it('gets signature', () => {
-    api.getSignature('1')
-    expect(mockedFetch.mock.calls[16][0]).toEqual({
-      submission: '1',
+    api.getSignature()
+    expect(mockedFetch.mock.calls[15][0]).toEqual({
       suffix: '/sign'
     })
   })
 
   it('gets parse errors', () => {
-    api.getParseErrors('1')
-    expect(mockedFetch.mock.calls[17][0]).toEqual({
-      submission: '1',
+    api.getParseErrors()
+    expect(mockedFetch.mock.calls[16][0]).toEqual({
       suffix: '/parseErrors'
     })
   })
 
   it('posts signature', () => {
-    api.postSignature('1', '2')
-    expect(mockedFetch.mock.calls[18][0]).toEqual({
-      submission: '1',
+    api.postSignature('2')
+    expect(mockedFetch.mock.calls[17][0]).toEqual({
       suffix: '/sign',
       method: 'POST',
       body: { signed: '2' }

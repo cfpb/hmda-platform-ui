@@ -26,12 +26,14 @@ const defaultSubmission = {
 export default (state = defaultSubmission, action) => {
   switch (action.type) {
     case RECEIVE_SUBMISSION:
-      return {
-        isFetching: false,
-        filename: action.fileName,
-        id: action.id,
-        status: action.status
-      }
+      if (action.status.code !== state.status.code || state.isFetching)
+        return {
+          isFetching: false,
+          filename: action.fileName,
+          id: action.id,
+          status: action.status
+        }
+      return state
     case SELECT_FILE:
       return {
         ...state,

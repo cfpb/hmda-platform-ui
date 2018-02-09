@@ -15,7 +15,9 @@ const mockStore = configureMockStore([thunk])
 
 describe('fetchNewSubmission', () => {
   it('creates a thunk that will fetch summary', done => {
-    const store = mockStore({})
+    const store = mockStore({
+      app: { institutionId: '1', filingPeriod: '2017' }
+    })
     const remove = jest.fn()
     delete window.localStorage
     window.localStorage = { removeItem: remove }
@@ -39,7 +41,9 @@ describe('fetchNewSubmission', () => {
       })
   })
   it('handles errors when introduced', done => {
-    const store = mockStore({})
+    const store = mockStore({
+      app: { institutionId: '1', filingPeriod: '2017' }
+    })
     console.error = jest.fn()
     const remove = jest.fn()
     delete window.localStorage
