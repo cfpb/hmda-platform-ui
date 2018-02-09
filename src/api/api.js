@@ -19,12 +19,8 @@ export function getFiling(id, filing) {
   return fetch({ pathname: `/institutions/${id}/filings/${filing}` })
 }
 
-export function getFilingFromUrl() {
-  return fetch()
-}
-
 export function getLatestSubmission() {
-  return fetch({ suffix: '/submissions/latest' })
+  return fetch({ submission: 'latest' })
 }
 
 export function getEdits(pathObj) {

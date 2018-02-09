@@ -1,19 +1,34 @@
 import isomorphicFetch from 'isomorphic-fetch'
 import createQueryString from './createQueryString.js'
-import parseLocation from './parseLocation.js'
 import makeUrl from './makeUrl.js'
 import * as AccessToken from './AccessToken.js'
 import { signinRedirect } from '../utils/redirect.js'
 import log, { error } from '../utils/log.js'
 
+//Once the store is intialized, save a reference to it here
+//This is currently done in index.js
+let store = null
+export function setStore(s) {
+  store = s
+}
+
+export function getFilingData() {
+  const appState = store.getState().app
+  return {
+    id: appState.institutionId,
+    filing: appState.filingPeriod,
+    submission: appState.submission.id && appState.submission.id.sequenceNumber
+  }
+}
+
 export function fetch(options = { method: 'GET' }) {
   const accessToken = AccessToken.get()
   const pathname = options.pathname
-  const locationObj = pathname ? {} : parseLocation(location)
+  const filingData = pathname ? {} : getFilingData()
   const isFormData =
     options.body && options.body.toString() === '[object FormData]'
 
-  options = Object.assign({}, locationObj, options)
+  options = Object.assign({}, filingData, options)
 
   if (options.params) {
     options.querystring = createQueryString(options.params)

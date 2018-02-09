@@ -1,14 +1,18 @@
 jest.unmock('./fetch')
-import { fetch } from './fetch'
+import { fetch, setStore } from './fetch'
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
 console.log = jest.fn()
+
+const mockStore = configureMockStore([thunk])
+const store = mockStore({
+  app: { institutionId: '1', filingPeriod: '2017', submission: { id: '123' } }
+})
+
+setStore(store)
 
 let mocktoken = 'token'
 
-jest.mock('./parseLocation', () =>
-  jest.fn(() => {
-    return {}
-  })
-)
 jest.mock('./makeUrl', () =>
   jest.fn(obj => {
     if (obj.pathname) return 'pathname'
@@ -88,6 +92,16 @@ describe('fetch', () => {
   it('skips location parse when provided pathname', done => {
     fetch({ pathname: 'path' }).then(res => {
       expect(isomorphicFetch.mock.calls[6][0]).toBe('pathname')
+      done()
+    })
+  })
+
+  it('logs on errors', done => {
+    isomorphicFetch.mockImplementation(() => Promise.reject('yikes'))
+    const err = jest.fn()
+    console.error = err
+    fetch().then(val => {
+      expect(err.mock.calls.length).toBe(1)
       done()
     })
   })

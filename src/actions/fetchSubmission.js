@@ -4,7 +4,6 @@ import hasHttpError from './hasHttpError.js'
 import receiveError from './receiveError.js'
 import requestSubmission from './requestSubmission.js'
 import { getLatestSubmission } from '../api/api.js'
-import parseLocation from '../api/parseLocation.js'
 import { error } from '../utils/log.js'
 
 export default function fetchSubmission() {
@@ -16,8 +15,7 @@ export default function fetchSubmission() {
           if (!hasError) return dispatch(receiveSubmission(json))
 
           if (json && json.status === 404) {
-            const { id, filing } = parseLocation(location)
-            return dispatch(fetchNewSubmission(id, filing))
+            return dispatch(fetchNewSubmission())
           }
 
           dispatch(receiveError(json))
