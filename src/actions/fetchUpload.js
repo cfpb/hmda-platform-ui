@@ -1,4 +1,3 @@
-import { getId } from './Submission.js'
 import * as Poller from './Poller.js'
 import { postUpload } from '../api/api.js'
 import pollForProgress from './pollForProgress.js'
@@ -16,7 +15,7 @@ export default function fetchUpload(file) {
     const data = new FormData()
     data.append('file', file)
 
-    return postUpload(getId(), data)
+    return postUpload(data)
       .then(json => {
         return hasHttpError(json).then(hasError => {
           if (hasError) {
