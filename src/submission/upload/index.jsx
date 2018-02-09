@@ -6,26 +6,6 @@ import Dropzone from 'react-dropzone'
 import DropzoneContent from './DropzoneContent.jsx'
 import * as STATUS from '../../constants/statusCodes.js'
 
-export const renderValidationProgress = ({
-  code,
-  errorApp,
-  errorUpload,
-  file,
-  id,
-  uploading
-}) => {
-  if (code < STATUS.UPLOADING && !uploading) return null
-  return (
-    <ValidationProgress
-      code={code}
-      errorApp={errorApp}
-      errorUpload={errorUpload}
-      file={file}
-      id={id}
-    />
-  )
-}
-
 export default class Upload extends Component {
   constructor(props) {
     super(props)
@@ -38,25 +18,40 @@ export default class Upload extends Component {
   }
 
   componentDidMount() {
+    const { code, pollSubmission } = this.props
     if (
-      this.props.code >= STATUS.UPLOADING &&
-      this.props.code < STATUS.VALIDATED_WITH_ERRORS &&
-      this.props.code !== STATUS.PARSED_WITH_ERRORS
+      code >= STATUS.UPLOADING &&
+      code < STATUS.VALIDATED_WITH_ERRORS &&
+      code !== STATUS.PARSED_WITH_ERRORS
     )
-      this.props.pollSubmission()
+      pollSubmission()
   }
 
   render() {
+    const {
+      code,
+      errorApp,
+      errorFile,
+      errors,
+      errorUpload,
+      file,
+      filename,
+      id,
+      uploading,
+      handleDrop,
+      pollSubmission
+    } = this.props
+
     return (
       <section className="UploadForm">
         {/*
           something is wrong with the file
           detected by the front-end
         */}
-        {this.props.errors.length > 0 ? (
+        {errors.length > 0 ? (
           <Alert heading="Sorry, your file has errors." type="error">
             <ul>
-              {this.props.errors.map((error, i) => {
+              {errors.map((error, i) => {
                 return <li key={i}>{error}</li>
               })}
             </ul>
@@ -70,13 +65,20 @@ export default class Upload extends Component {
           activeClassName="dropzone-active"
         >
           <DropzoneContent
-            code={this.props.code}
-            errorFile={this.props.errorFile}
-            errors={this.props.errors}
-            filename={this.props.filename}
+            code={code}
+            errorFile={errorFile}
+            errors={errors}
+            filename={filename}
           />
         </Dropzone>
-        {renderValidationProgress(this.props)}
+        <ValidationProgress
+          code={code}
+          errorApp={errorApp}
+          errorUpload={errorUpload}
+          file={file}
+          id={id}
+          uploading={uploading}
+        />
       </section>
     )
   }
@@ -91,6 +93,7 @@ Upload.propTypes = {
   errorUpload: PropTypes.object,
   file: PropTypes.object,
   filename: PropTypes.string,
+  id: PropTypes.string,
   uploading: PropTypes.bool,
   // dispatch
   handleDrop: PropTypes.func,
