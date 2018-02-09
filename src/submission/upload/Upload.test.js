@@ -1,16 +1,20 @@
 jest.unmock('./index.jsx')
 jest.unmock('./ValidationProgress.jsx')
 
-import UploadForm, {
-  renderValidationProgress,
-  renderErrors,
-  getDropzoneText
-} from './index.jsx'
+import UploadForm from './index.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Wrapper from '../../../test-resources/Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
+
+const localGet = jest.fn(() => 0)
+const localSet = jest.fn()
+
+window.localStorage = {
+  getItem: localGet,
+  setItem: localSet
+}
 
 describe('submitform', function() {
   const setFile = jest.fn()
@@ -72,9 +76,24 @@ describe('submitform', function() {
   it('does not call the poll', () => {
     expect(poll2).not.toBeCalled()
   })
+
+  const n3 = document.createElement('div')
+  const form3 = ReactDOM.render(
+    <Wrapper>
+      <UploadForm
+        pollSubmission={poll2}
+        code={1}
+        setFile={setFile}
+        uploading={true}
+        file={{ size: 200 }}
+        errors={['error', 'error']}
+      />
+    </Wrapper>,
+    n3
+  )
 })
 
-describe('renderErrors', () => {
+/*describe('renderErrors', () => {
   const getClass = component => component.props.className
 
   it('renders errors', () => {
@@ -211,4 +230,4 @@ describe('renderValidationProgress', () => {
   it("doesn't renders validation progress", () => {
     expect(renderValidationProgress({ code: 1 })).toBe(null)
   })
-})
+})*/
