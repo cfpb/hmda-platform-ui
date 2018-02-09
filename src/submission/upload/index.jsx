@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Alert from '../../common/Alert.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
+import DropzoneContent from './DropzoneContent.jsx'
 import * as STATUS from '../../constants/statusCodes.js'
 
 export const renderValidationProgress = ({
@@ -23,91 +24,6 @@ export const renderValidationProgress = ({
       id={id}
     />
   )
-}
-
-const _getUploadMessage = (preText, filename, postText, howToMessage) => {
-  return (
-    <div>
-      <p className="file-selected">{howToMessage}</p>
-      <p>
-        {preText} <strong>{filename}</strong> {postText}
-      </p>
-    </div>
-  )
-}
-
-export const getDropzoneText = ({ code, errors, filename, errorFile }) => {
-  let howToMessage =
-    'To begin uploading a file, drag it into this box or click here.'
-  if (code >= STATUS.CREATED) {
-    howToMessage =
-      'To begin uploading a new file, drag it into this box or click here.'
-  }
-  let message = <p>{howToMessage}</p>
-
-  if (code >= STATUS.UPLOADING) {
-    message = howToMessage
-  }
-
-  if (filename || errorFile) {
-    message = _getUploadMessage('', filename, 'selected.', howToMessage)
-
-    if (code >= STATUS.UPLOADING && code <= STATUS.VALIDATING) {
-      message = _getUploadMessage(
-        'Upload of',
-        filename,
-        'is currently in progress.',
-        howToMessage
-      )
-    }
-
-    if (code === STATUS.PARSED_WITH_ERRORS) {
-      message = _getUploadMessage(
-        'Upload of',
-        filename,
-        'has formatting errors.',
-        howToMessage
-      )
-    }
-
-    if (code === STATUS.VALIDATED_WITH_ERRORS) {
-      message = _getUploadMessage(
-        'Upload of',
-        filename,
-        'is ready for review.',
-        howToMessage
-      )
-    }
-
-    if (code === STATUS.VALIDATED) {
-      message = _getUploadMessage(
-        'Upload of',
-        filename,
-        'is ready for submission.',
-        howToMessage
-      )
-    }
-
-    if (code === STATUS.SIGNED) {
-      message = _getUploadMessage(
-        'Your submission of',
-        filename,
-        'is complete.',
-        howToMessage
-      )
-    }
-
-    if (errorFile) {
-      message = _getUploadMessage(
-        '',
-        errorFile,
-        'cannot be uploaded.',
-        howToMessage
-      )
-    }
-  }
-
-  return <button onClick={e => e.preventDefault()}>{message}</button>
 }
 
 export default class Upload extends Component {
@@ -146,17 +62,20 @@ export default class Upload extends Component {
             </ul>
           </Alert>
         ) : null}
-        <section className="container-upload">
-          <Dropzone
-            disablePreview={true}
-            onDrop={this.onDrop}
-            multiple={false}
-            className="dropzone"
-            activeClassName="dropzone-active"
-          >
-            {getDropzoneText(this.props)}
-          </Dropzone>
-        </section>
+        <Dropzone
+          disablePreview={true}
+          onDrop={this.onDrop}
+          multiple={false}
+          className="dropzone"
+          activeClassName="dropzone-active"
+        >
+          <DropzoneContent
+            code={this.props.code}
+            errorFile={this.props.errorFile}
+            errors={this.props.errors}
+            filename={this.props.filename}
+          />
+        </Dropzone>
         {renderValidationProgress(this.props)}
       </section>
     )
