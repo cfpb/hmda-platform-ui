@@ -1,8 +1,10 @@
 jest.unmock('./index.jsx')
 jest.unmock('./ValidationProgress.jsx')
+jest.unmock('../../common/Alert.jsx')
 
 import UploadForm from './index.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
+import Alert from '../../common/Alert.jsx'
 import Wrapper from '../../../test-resources/Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -77,20 +79,24 @@ describe('submitform', function() {
     expect(poll2).not.toBeCalled()
   })
 
-  const n3 = document.createElement('div')
-  const form3 = ReactDOM.render(
-    <Wrapper>
-      <UploadForm
-        pollSubmission={poll2}
-        code={1}
-        setFile={setFile}
-        uploading={true}
-        file={{ size: 200 }}
-        errors={['error', 'error']}
-      />
-    </Wrapper>,
-    n3
-  )
+  it('renders the alert with errors', () => {
+    const rendered = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <UploadForm
+          pollSubmission={poll2}
+          code={1}
+          setFile={setFile}
+          uploading={true}
+          file={{ size: 200 }}
+          errors={['error']}
+        />
+      </Wrapper>
+    )
+
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithClass(rendered, 'usa-alert').length
+    ).toBe(1)
+  })
 })
 
 /*describe('renderErrors', () => {
