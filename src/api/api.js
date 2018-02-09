@@ -23,14 +23,12 @@ export function getLatestSubmission() {
   return fetch({ submission: 'latest' })
 }
 
-export function getEdits(pathObj) {
-  pathObj.suffix = pathObj.suffix ? pathObj.suffix : '/edits'
-  return fetch(pathObj)
+export function getEdits() {
+  return fetch({ suffix: '/edits' })
 }
 
 export function getEdit(pathObj) {
-  pathObj.suffix = pathObj.suffix ? pathObj.suffix : `/edits/${pathObj.edit}`
-  return fetch(pathObj)
+  return fetch({ suffix: `/edits/${pathObj.edit}` })
 }
 
 export function getCSV(pathObj) {
@@ -45,42 +43,39 @@ export function getIRSCSV(pathObj) {
   return fetch(pathObj)
 }
 
-export function postVerify(submission, type, verified) {
+export function postVerify(type, verified) {
   return fetch({
-    submission: submission,
     suffix: `/edits/${type}`,
     method: 'POST',
     body: { verified: verified }
   })
 }
 
-export function getIRS(submission) {
-  return fetch({ submission: submission, suffix: '/irs' })
+export function getIRS() {
+  return fetch({ suffix: '/irs' })
 }
 
-export function getSummary(submission) {
-  return fetch({ submission: submission, suffix: '/summary' })
+export function getSummary() {
+  return fetch({ suffix: '/summary' })
 }
 
-export function getSignature(submission) {
-  return fetch({ submission: submission, suffix: '/sign' })
+export function getSignature() {
+  return fetch({ suffix: '/sign' })
 }
 
-export function getParseErrors(submission) {
-  return fetch({ submission: submission, suffix: '/parseErrors' })
+export function getParseErrors() {
+  return fetch({ suffix: '/parseErrors' })
 }
 
-export function postUpload(submission, body) {
+export function postUpload(body) {
   return fetch({
-    submission: submission,
     method: 'POST',
     body: body
   })
 }
 
-export function postSignature(submission, signed) {
+export function postSignature(signed) {
   return fetch({
-    submission: submission,
     suffix: '/sign',
     method: 'POST',
     body: { signed: signed }

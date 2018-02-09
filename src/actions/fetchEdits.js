@@ -2,14 +2,13 @@ import requestEdits from './requestEdits.js'
 import hasHttpError from './hasHttpError.js'
 import receiveError from './receiveError.js'
 import receiveEdits from './receiveEdits.js'
-import { getId } from './Submission.js'
 import { getEdits } from '../api/api.js'
 import { error } from '../utils/log.js'
 
 export default function fetchEdits() {
   return dispatch => {
     dispatch(requestEdits())
-    return getEdits({ submission: getId() })
+    return getEdits()
       .then(json => {
         return hasHttpError(json).then(hasError => {
           if (hasError) {
