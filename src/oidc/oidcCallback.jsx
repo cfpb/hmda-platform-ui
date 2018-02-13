@@ -1,13 +1,18 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
-import { set } from './api/AccessToken.js'
-import { restorePage, getUserManager } from './utils/redirect'
-import receiveError from './actions/receiveError.js'
-import Loading from './common/Loading.jsx'
-import Alert from './common/Alert.jsx'
+import { set } from '../api/AccessToken.js'
+import { restorePage, getUserManager } from '../utils/redirect'
+import receiveError from '../actions/receiveError.js'
+import Loading from '../common/Loading.jsx'
+import Alert from '../common/Alert.jsx'
 
 export class oidcCallback extends React.Component {
+  constructor(props) {
+    super(props)
+    this.redirecting = false
+  }
+
   successCallback(user) {
     set(user.access_token)
     restorePage()
@@ -42,14 +47,18 @@ export class oidcCallback extends React.Component {
   }
 
   componentWillMount() {
-    if (!this.props.location.hash) browserHistory.replace('/')
+    if (!this.props.location.hash) {
+      this.redirecting = true
+      browserHistory.replace('/')
+    }
   }
 
   componentDidMount() {
+    if (this.redirecting) return
     getUserManager()
       .signinRedirectCallback()
-      .then(user => this.successCallback(user))
-      .catch(error => this.errorCallback(error))
+      .then(this.successCallback)
+      .catch(this.errorCallback.bind(this))
   }
 
   render() {

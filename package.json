@@ -75,10 +75,6 @@
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     },
-    "testPathIgnorePatterns": [
-      "<rootDir>/__tests__/Wrapper.js",
-      "<rootDir>/__tests__/reducers/excludeTypes.js"
-    ],
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/lodash",
@@ -86,8 +82,7 @@
       "<rootDir>/node_modules/react-addons-test-utils",
       "<rootDir>/node_modules/redux-mock-store",
       "<rootDir>/node_modules/redux-thunk",
-      "<rootDir>/node_modules/fbjs",
-      "<rootDir>/__tests__/Wrapper.js"
+      "<rootDir>/node_modules/fbjs"
     ]
   },
   "dependencies": {
