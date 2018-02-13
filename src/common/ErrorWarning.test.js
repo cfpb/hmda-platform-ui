@@ -80,10 +80,22 @@ describe('ErrorWarning', () => {
   it('renders correct body on 500', () => {
     const rendered = getText({ error: { status: 500 } })
     expect(rendered).toEqual(
-      "We're quickly on resolving the issue, please refresh the page."
+      "We're quickly working on resolving the issue, please refresh the page."
     )
   })
 
+  it('renders correct body on 502', () => {
+    const rendered = getText({ error: { status: 502 } })
+    expect(rendered).toEqual(
+      "We're having trouble routing your request, please refresh the page or try again later."
+    )
+  })
+  it('renders correct body on 503', () => {
+    const rendered = getText({ error: { status: 503 } })
+    expect(rendered).toEqual(
+      "We're experiencing some issues on our end, please refresh the page or try again later."
+    )
+  })
   it('renders correct body on unknown error', () => {
     const rendered = getText({ error: { status: 405 } })
     expect(rendered).toEqual('Please refresh the page.')

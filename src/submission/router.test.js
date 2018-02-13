@@ -243,7 +243,7 @@ describe('componentDidMount', () => {
 
     expect(router.renderChildren).toBe(false)
     expect(route).toBeCalled()
-    expect(dispatch).not.toBeCalled()
+    expect(dispatch.mock.calls.length).toBe(2)
   })
 
   it('refreshes and routes when id exists and is unmatched', done => {
@@ -263,7 +263,7 @@ describe('componentDidMount', () => {
     router.route = route
     router.componentDidMount()
 
-    expect(dispatch.mock.calls.length).toBe(2)
+    expect(dispatch.mock.calls.length).toBe(4)
     setTimeout(() => {
       expect(route).toBeCalled()
       done()
@@ -289,10 +289,10 @@ describe('componentDidMount', () => {
     router.editsNeeded = editsNeeded
     router.componentDidMount()
 
-    expect(dispatch.mock.calls.length).toBe(1)
+    expect(dispatch.mock.calls.length).toBe(3)
     setTimeout(() => {
       expect(route).toBeCalled()
-      expect(dispatch.mock.calls.length).toBe(1)
+      expect(dispatch.mock.calls.length).toBe(3)
       done()
     }, 0)
   })
@@ -314,7 +314,7 @@ describe('componentDidMount', () => {
     router.route = route
     router.componentDidMount()
 
-    expect(dispatch.mock.calls.length).toBe(1)
+    expect(dispatch.mock.calls.length).toBe(3)
     setTimeout(() => {
       expect(route).toBeCalled()
       done()
@@ -341,7 +341,7 @@ describe('componentDidMount', () => {
     router.componentDidMount()
 
     setTimeout(() => {
-      expect(dispatch.mock.calls.length).toBe(2)
+      expect(dispatch.mock.calls.length).toBe(4)
       expect(route).toBeCalled()
       done()
     }, 0)
@@ -366,7 +366,7 @@ describe('componentDidMount', () => {
     router.editsNeeded = editsNeeded
     router.componentDidMount()
 
-    expect(dispatch.mock.calls.length).toBe(1)
+    expect(dispatch.mock.calls.length).toBe(3)
     setTimeout(() => {
       expect(route).toBeCalled()
       done()

@@ -15,7 +15,7 @@ const defaultSubmission = {
 
 describe('submission reducer', () => {
   it('should return the initial state on empty action', () => {
-    expect(submission(undefined, {})).toEqual(defaultSubmission)
+    expect(submission({ ...defaultSubmission }, {})).toEqual(defaultSubmission)
   })
 
   it('handles RECEIVE_SUBMISSION', () => {
@@ -28,7 +28,12 @@ describe('submission reducer', () => {
         message: ''
       }
     }
-    expect(submission({}, submissionAction)).toEqual({
+    expect(
+      submission(
+        { ...defaultSubmission, status: { code: 1 }, isFetching: true },
+        submissionAction
+      )
+    ).toEqual({
       isFetching: false,
       id: 1,
       filename: 'argle',
@@ -37,6 +42,13 @@ describe('submission reducer', () => {
         message: ''
       }
     })
+
+    expect(
+      submission(
+        { ...defaultSubmission, status: { code: 1 } },
+        submissionAction
+      )
+    ).toEqual({ ...defaultSubmission, status: { code: 1 } })
   })
 
   it('handles REFRESH_STATE', () => {
@@ -54,6 +66,21 @@ describe('submission reducer', () => {
     expect(
       submission({}, { type: 'SELECT_FILE', file: { name: 'bargle' } })
     ).toEqual({ filename: 'bargle' })
+  })
+
+  it('handles UPDATE_STATUS', () => {
+    expect(
+      submission(undefined, {
+        type: 'UPDATE_STATUS',
+        status: { code: 0 }
+      })
+    ).toEqual(defaultSubmission)
+    expect(
+      submission(defaultSubmission, {
+        type: 'UPDATE_STATUS',
+        status: { code: 7 }
+      })
+    ).toEqual({ ...defaultSubmission, status: { code: 7 } })
   })
 
   it("shouldn't modify state on an unknown action type", () => {

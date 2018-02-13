@@ -27,7 +27,13 @@ export function getText(props) {
       return 'Please log in to complete this request.'
 
     case 500:
-      return "We're quickly on resolving the issue, please refresh the page."
+      return "We're quickly working on resolving the issue, please refresh the page."
+
+    case 502:
+      return "We're having trouble routing your request, please refresh the page or try again later."
+
+    case 503:
+      return "We're experiencing some issues on our end, please refresh the page or try again later."
 
     default:
       return 'Please refresh the page.'

@@ -1,5 +1,4 @@
 jest.mock('../api/api.js')
-jest.mock('../api/parseLocation.js')
 jest.mock('./receiveSubmission.js')
 jest.mock('./fetchNewSubmission.js')
 jest.unmock('./fetchSubmission.js')
@@ -9,7 +8,6 @@ jest.unmock('../constants')
 import * as types from '../constants'
 import fetchSubmission from './fetchSubmission.js'
 import { getLatestSubmission } from '../api/api.js'
-import parseLocation from '../api/parseLocation.js'
 import receiveSubmission from './receiveSubmission.js'
 import fetchNewSubmission from './fetchNewSubmission.js'
 
@@ -22,10 +20,6 @@ fetchNewSubmission.mockImplementation((id, filing) => {
   return dispatch => {
     return { type: 'resolved' }
   }
-})
-
-parseLocation.mockImplementation(() => {
-  return { id: '1', filing: {} }
 })
 
 receiveSubmission.mockImplementation(json => {
