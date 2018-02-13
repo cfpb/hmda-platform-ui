@@ -25,19 +25,20 @@
   overflow-x: auto;
   caption,
   .caption {
+    // this is set for <caption> in _utilities from USWDS
+    // adding it here to make sure .caption is set too
+    font-size: 1.5rem;
     text-align: left;
+
     h3 {
       margin: 0;
     }
     p {
       color: $color-gray-dark;
-      margin-top: 0;
+      font-weight: normal;
+      margin-top: 0.5em;
       margin-bottom: 0;
     }
-  }
-  .caption p {
-    font-size: 0.885em; // ~15px
-    font-weight: bold;
   }
   &:last-of-type {
     margin-bottom: 2em;
@@ -45,11 +46,20 @@
   .caption {
     padding-bottom: 0;
   }
-  caption {
-    padding-bottom: 1em;
-  }
   table {
     margin-top: 0;
     margin-bottom: 0;
+  }
+}
+
+// hightlight Q666 for PII
+#Q666 {
+  caption {
+    background-color: $color-gold-lightest;
+    padding: 1em;
+
+    p {
+      color: $color-base;
+    }
   }
 }

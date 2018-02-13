@@ -44,6 +44,11 @@ export default class Upload extends Component {
 
     return (
       <section className="UploadForm">
+        <div className="data-warning usa-text-small">
+          Institutions are strongly encouraged not to use the applicant’s or
+          borrower’s name or Social Security number in the Loan/Application
+          Number field, for privacy reasons.
+        </div>
         {/*
           something is wrong with the file
           detected by the front-end
