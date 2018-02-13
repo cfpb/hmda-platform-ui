@@ -20,7 +20,7 @@ export class oidcCallback extends React.Component {
   renderError() {
     return (
       <Alert type="error" heading={this.props.error.message}>
-        <div>
+        <React.Fragment>
           We encountered the above problem logging you in. Please ensure:
           <ul>
             <li>this site is not being blocked or filtered by your firewall</li>
@@ -36,7 +36,7 @@ export class oidcCallback extends React.Component {
             and try again. If the problem persists, contact{' '}
             <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
           </p>
-        </div>
+        </React.Fragment>
       </Alert>
     )
   }
