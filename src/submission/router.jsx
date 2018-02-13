@@ -148,8 +148,4 @@ export function mapStateToProps(state, ownProps) {
   }
 }
 
-export function mapDispatchToProps(dispatch) {
-  return { dispatch }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SubmissionRouter)
+export default connect(mapStateToProps)(SubmissionRouter)

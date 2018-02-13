@@ -58,8 +58,4 @@ export function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return { dispatch }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditsContainer)
+export default connect(mapStateToProps)(EditsContainer)

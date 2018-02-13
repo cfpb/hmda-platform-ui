@@ -8,8 +8,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import ConnectedRouter, {
   SubmissionRouter,
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 } from './router.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 import Wrapper from '../../test-resources/Wrapper.js'
@@ -79,14 +78,6 @@ describe('mapStateToProps', () => {
       submission: submissionDefault,
       types: typesDefault,
       params: 'argle'
-    })
-  })
-})
-
-describe('mapDispatchToProps', () => {
-  it('maps dispatch to props correctly', () => {
-    expect(mapDispatchToProps('argle')).toEqual({
-      dispatch: 'argle'
     })
   })
 })
