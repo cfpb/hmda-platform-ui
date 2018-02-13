@@ -52,14 +52,18 @@ export const renderTableCaption = (edit, rowObj, type, pagination) => {
   const name = edit.edit
   if (!name) return null
 
-  const description = edit.description
   const length = pagination.total
-
-  const editText = length === 1 ? 'edit' : 'edits'
-  let captionHeader =
-    type === 'macro'
-      ? `Edit ${name} found`
-      : `${name} ${editText} (${length} found)`
+  let editText = length === 1 ? 'edit' : 'edits'
+  let renderedName = name
+  if (name === 'Q666') {
+    renderedName = 'Review your loan/application IDs'
+    editText = ''
+  }
+  let captionHeader = `${renderedName} ${editText} (${length} found)`
+  if (type === 'macro') {
+    captionHeader = `Edit ${renderedName} found`
+  }
+  const description = edit.description
 
   if (type === 'macro' || name === 'S040') {
     return (
