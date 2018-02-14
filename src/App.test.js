@@ -7,11 +7,7 @@ jest.mock('detect-browser', () => {
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
-import ConnectedAppContainer, {
-  AppContainer,
-  mapStateToProps,
-  mapDispatchToProps
-} from './App.jsx'
+import ConnectedAppContainer, { AppContainer, mapStateToProps } from './App.jsx'
 import * as AccessToken from './api/AccessToken.js'
 import * as redirect from './utils/redirect.js'
 import * as log from './utils/log'
@@ -67,12 +63,6 @@ describe('mapStateToProps', () => {
       redirecting: false,
       oidc: null
     })
-  })
-})
-
-describe('mapDispatchToProps', () => {
-  it('mapsDispatch', () => {
-    expect(mapDispatchToProps('argle')).toEqual({ dispatch: 'argle' })
   })
 })
 

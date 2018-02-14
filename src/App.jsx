@@ -99,8 +99,4 @@ export function mapStateToProps(state) {
   }
 }
 
-export function mapDispatchToProps(dispatch) {
-  return { dispatch }
-}
-
 export default connect(mapStateToProps)(AppContainer)

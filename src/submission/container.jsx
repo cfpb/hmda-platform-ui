@@ -123,14 +123,10 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return { dispatch }
-}
-
 SubmissionContainer.propTypes = {
   params: PropTypes.object,
   dispatch: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubmissionContainer)
-export { SubmissionContainer, mapStateToProps, mapDispatchToProps }
+export default connect(mapStateToProps)(SubmissionContainer)
+export { SubmissionContainer, mapStateToProps }
