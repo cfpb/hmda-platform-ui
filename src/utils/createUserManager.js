@@ -24,7 +24,8 @@ const createUserManager = dispatch => {
     automaticSilentRenew: true,
     scope: 'openid profile',
     response_type: 'id_token token',
-    monitorSession: false
+    monitorSession: false,
+    clockSkew: 60*10
   })
 
   attachEvents(manager, dispatch)
