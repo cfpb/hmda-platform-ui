@@ -11,6 +11,8 @@ export class EditsContainer extends Component {
   }
 
   getNeededEdits(props = this.props) {
+    console.log('suppressing in edits container', props.suppressEdits)
+    if (props.suppressEdits) return
     if (
       props.page === 'syntacticalvalidity' &&
       !props.syntacticalValidityFetched &&
@@ -48,10 +50,11 @@ export class EditsContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const { isFetching, types } = state.app.edits
+  const { isFetching, types, suppressEdits } = state.app.edits
   const { pagination } = state.app
 
   return {
+    suppressEdits,
     isFetching,
     types,
     pagination

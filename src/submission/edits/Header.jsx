@@ -33,13 +33,16 @@ export const getText = editType => {
   throw new Error('Unexpected edit type. Unable to create edit description.')
 }
 
-const EditsHeaderDescription = ({ type, count, fetched }) => {
+const EditsHeaderDescription = ({ type, count, fetched, suppressCount }) => {
   const { id, title, desc } = getText(type)
+  const countEl = suppressCount ? '' : ` (${count} found)`
 
   return (
     <header className="EditsHeaderDescription" id={id}>
       <h2>
-        {title} ({count} found){!fetched ? <Loading /> : null}
+        {title}
+        {countEl}
+        {!fetched && !suppressCount ? <Loading /> : null}
       </h2>
       <p className="usa-font-lead">{desc}</p>
     </header>
@@ -49,6 +52,7 @@ const EditsHeaderDescription = ({ type, count, fetched }) => {
 EditsHeaderDescription.propTypes = {
   type: PropTypes.string.isRequired,
   count: PropTypes.number.isRequired,
+  renderCount: PropTypes.bool,
   fetched: PropTypes.bool
 }
 

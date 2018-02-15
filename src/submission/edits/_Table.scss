@@ -54,7 +54,7 @@
 
 // hightlight Q666 for PII
 #Q666 {
-  caption {
+  caption, .caption {
     background-color: $color-gold-lightest;
     padding: 1em;
 

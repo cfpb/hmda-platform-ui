@@ -37,9 +37,7 @@ export default class Upload extends Component {
       file,
       filename,
       id,
-      uploading,
-      handleDrop,
-      pollSubmission
+      uploading
     } = this.props
 
     return (

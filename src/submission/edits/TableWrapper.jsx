@@ -35,7 +35,12 @@ export const makeEntry = (props, type) => {
 
   return (
     <article className="EditsTableWrapper-Edit">
-      <Header count={count} type={type} fetched={fetched} />
+      <Header
+        count={count}
+        type={type}
+        fetched={fetched}
+        suppressCount={props.suppressEdits}
+      />
       {renderTablesOrSuccess(props, edits, type)}
     </article>
   )
@@ -61,7 +66,14 @@ export const renderTablesOrSuccess = (props, edits, type) => {
   }
 
   return edits.map((edit, i) => {
-    return <EditsTable edit={edit} type={type} key={i} />
+    return (
+      <EditsTable
+        edit={edit}
+        type={type}
+        suppressEdits={props.suppressEdits}
+        key={i}
+      />
+    )
   })
 }
 

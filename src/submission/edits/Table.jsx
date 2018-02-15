@@ -48,24 +48,30 @@ export const renderBody = (edits, rows, type) => {
   })
 }
 
-export const renderTableCaption = (edit, rowObj, type, pagination) => {
-  const name = edit.edit
+export const renderTableCaption = props => {
+  const name = props.edit.edit
   if (!name) return null
-
-  const length = pagination.total
-  let editText = length === 1 ? 'edit' : 'edits'
   let renderedName = name
-  if (name === 'Q666') {
-    renderedName = 'Review your loan/application IDs'
-    editText = ''
-  }
-  let captionHeader = `${renderedName} ${editText} (${length} found)`
-  if (type === 'macro') {
-    captionHeader = `Edit ${renderedName} found`
-  }
-  const description = edit.description
+  let captionHeader
 
-  if (type === 'macro' || name === 'S040') {
+  if (shouldSuppressTable(props) && name !== 'S040') {
+    captionHeader = `Edit ${renderedName} found`
+  } else {
+    const length = props.pagination.total
+    let editText = length === 1 ? 'edit' : 'edits'
+    if (name === 'Q666') {
+      editText = ''
+    }
+    captionHeader = `${renderedName} ${editText} (${length} found)`
+  }
+
+  if (name === 'Q666') {
+    captionHeader = 'Review your loan/application IDs'
+  }
+
+  const description = props.edit.description
+
+  if (shouldSuppressTable(props)) {
     return (
       <div className="caption">
         <h3>{captionHeader}</h3>
@@ -90,15 +96,13 @@ export const renderTableCaption = (edit, rowObj, type, pagination) => {
 
 export const makeTable = props => {
   const edit = props.edit
-  const name = edit.edit
   const type = props.type
   const rowObj = props.rowObj
-  const pagination = props.pagination
+  console.log(props)
+  if (!props.suppressEdits && (!rowObj || !rowObj.rows)) return <Loading />
 
-  if (!rowObj || !rowObj.rows) return <Loading />
-
-  const caption = renderTableCaption(edit, rowObj, type, pagination)
-  if (type === 'macro' || name === 'S040') return caption
+  const caption = renderTableCaption(props)
+  if (shouldSuppressTable(props)) return caption
 
   let className = 'PaginationTarget'
   className += props.paginationFade ? ' fadeOut' : ''
@@ -116,15 +120,22 @@ export const makeTable = props => {
   )
 }
 
+export const shouldSuppressTable = props => {
+  return (
+    props.type === 'macro' || props.suppressEdits || props.edit.edit === 'S040'
+  )
+}
+
 const EditsTable = props => {
-  if (!props.edit || !props.pagination) return null
+  console.log('edits table, probably need a fetch check')
+  if (!props.edit) return null
   const name = props.edit.edit
   const rowObj = props.rowObj
 
   return (
     <section className="EditsTable" id={name}>
       {makeTable(props)}
-      {props.type === 'macro' ? null : (
+      {shouldSuppressTable(props) ? null : (
         <Pagination isFetching={!rowObj || rowObj.isFetching} target={name} />
       )}
     </section>
@@ -133,6 +144,7 @@ const EditsTable = props => {
 
 EditsTable.propTypes = {
   edit: PropTypes.object,
+  suppressEdits: PropTypes.bool,
   rowObj: PropTypes.object,
   type: PropTypes.string,
   pagination: PropTypes.object,

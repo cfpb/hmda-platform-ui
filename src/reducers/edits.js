@@ -9,11 +9,13 @@ import {
   RECEIVE_EDIT,
   VERIFY_QUALITY,
   VERIFY_MACRO,
+  SUPPRESS_EDITS,
   REFRESH_STATE
 } from '../constants'
 
 const defaultEdits = {
   isFetching: false,
+  suppressEdits: false,
   fetched: false,
   types: {
     syntactical: { edits: [] },
@@ -106,6 +108,10 @@ export default (state = defaultEdits, action) => {
       clonedState.types.macro.verified = action.checked
       clonedState.types.macro.isFetching = false
       return clonedState
+    }
+    case SUPPRESS_EDITS: {
+      console.log('suppressing edits')
+      return { ...state, suppressEdits: true }
     }
     case REFRESH_STATE: {
       return defaultEdits

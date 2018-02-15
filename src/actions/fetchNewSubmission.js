@@ -11,7 +11,7 @@ export default function fetchNewSubmission() {
     const id = appState.institutionId
     const filing = appState.filingPeriod
 
-    localStorage.removeItem(`HMDA_FILENAME/${id}`)
+    localStorage.removeItem(`HMDA_FILE_SIZE/${id}`)
     localStorage.removeItem(`HMDA_FILE_PROGRESS/${id}`)
 
     dispatch(requestSubmission())
