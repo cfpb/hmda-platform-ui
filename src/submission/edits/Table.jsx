@@ -98,11 +98,17 @@ export const makeTable = props => {
   const edit = props.edit
   const type = props.type
   const rowObj = props.rowObj
-  console.log(props)
-  if (!props.suppressEdits && (!rowObj || !rowObj.rows)) return <Loading />
+  const isLoading =
+    !props.suppressEdits && (!rowObj || !rowObj.rows) ? <Loading /> : null
 
   const caption = renderTableCaption(props)
-  if (shouldSuppressTable(props)) return caption
+  if (shouldSuppressTable(props))
+    return (
+      <React.Fragment>
+        {caption}
+        {isLoading}
+      </React.Fragment>
+    )
 
   let className = 'PaginationTarget'
   className += props.paginationFade ? ' fadeOut' : ''
@@ -122,7 +128,11 @@ export const makeTable = props => {
 
 export const shouldSuppressTable = props => {
   return (
-    props.type === 'macro' || props.suppressEdits || props.edit.edit === 'S040'
+    props.type === 'macro' ||
+    props.suppressEdits ||
+    props.edit.edit === 'S040' ||
+    !props.rowObj ||
+    !props.rowObj.rows
   )
 }
 
