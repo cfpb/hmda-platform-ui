@@ -110,7 +110,6 @@ export default (state = defaultEdits, action) => {
       return clonedState
     }
     case SUPPRESS_EDITS: {
-      console.log('suppressing edits')
       return { ...state, suppressEdits: true }
     }
     case REFRESH_STATE: {
