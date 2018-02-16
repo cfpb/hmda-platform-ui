@@ -4,6 +4,7 @@ import Header from './Header.jsx'
 import Loading from '../../common/Loading.jsx'
 import EditsTable from './TableContainer.jsx'
 import Verifier from './VerifierContainer.jsx'
+import SuppressionAlert from './SuppressionAlert.jsx'
 import RefileWarningContainer from '../../refileWarning/container.jsx'
 import submissionProgressHOC from '../progressHOC.jsx'
 import Alert from '../../common/Alert.jsx'
@@ -41,6 +42,7 @@ export const makeEntry = (props, type) => {
         fetched={fetched}
         suppressCount={props.suppressEdits}
       />
+      {props.suppressEdits ? <SuppressionAlert /> : null}
       {renderTablesOrSuccess(props, edits, type)}
     </article>
   )
@@ -108,10 +110,7 @@ EditsTableWrapper.propTypes = {
   syntacticalValidityEditsExist: PropTypes.bool,
   qualityVerified: PropTypes.bool,
   macroVerified: PropTypes.bool,
-  editsFetched: PropTypes.bool,
-  syntacticalValidityFetched: PropTypes.bool,
-  qualityFetched: PropTypes.bool,
-  macroFetched: PropTypes.bool
+  editsFetched: PropTypes.bool
 }
 
 export default EditsTableWrapper

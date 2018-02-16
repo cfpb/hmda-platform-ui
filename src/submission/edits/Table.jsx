@@ -137,7 +137,6 @@ export const shouldSuppressTable = props => {
 }
 
 const EditsTable = props => {
-  console.log('edits table, probably need a fetch check')
   if (!props.edit) return null
   const name = props.edit.edit
   const rowObj = props.rowObj
@@ -146,7 +145,7 @@ const EditsTable = props => {
     <section className="EditsTable" id={name}>
       {makeTable(props)}
       {shouldSuppressTable(props) ? null : (
-        <Pagination isFetching={!rowObj || rowObj.isFetching} target={name} />
+        <Pagination isFetching={rowObj.isFetching} target={name} />
       )}
     </section>
   )

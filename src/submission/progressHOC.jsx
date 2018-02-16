@@ -14,12 +14,6 @@ function mapStateToProps(state) {
   const { types } = state.app.edits
   const editsFetched = state.app.edits.fetched
 
-  const syntacticalValidityFetched = !!(
-    types.syntactical.fetched && types.validity.fetched
-  )
-  const qualityFetched = !!types.quality.fetched
-  const macroFetched = !!types.macro.fetched
-
   const syntacticalValidityEditsExist =
     types.syntactical.edits.length !== 0 || types.validity.edits.length !== 0
   const qualityVerified =
@@ -31,9 +25,6 @@ function mapStateToProps(state) {
     base,
     code,
     editsFetched,
-    syntacticalValidityFetched,
-    qualityFetched,
-    macroFetched,
     syntacticalValidityEditsExist,
     qualityVerified,
     macroVerified

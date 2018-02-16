@@ -11,10 +11,7 @@ const NavButton = ({
   syntacticalValidityEditsExist,
   qualityVerified,
   macroVerified,
-  editsFetched,
-  syntacticalValidityFetched,
-  qualityFetched,
-  macroFetched
+  editsFetched
 }) => {
   let className
   let suffix
@@ -30,20 +27,15 @@ const NavButton = ({
       break
     case 'syntacticalvalidity':
       suffix = 'quality'
-      if (
-        preError ||
-        !syntacticalValidityFetched ||
-        syntacticalValidityEditsExist
-      )
-        className = 'hidden'
+      if (preError || syntacticalValidityEditsExist) className = 'hidden'
       break
     case 'quality':
       suffix = 'macro'
-      if (preError || !qualityFetched || !qualityVerified) className = 'hidden'
+      if (preError || !qualityVerified) className = 'hidden'
       break
     case 'macro':
       suffix = 'submission'
-      if (preError || !macroFetched || !macroVerified) className = 'hidden'
+      if (preError || !macroVerified) className = 'hidden'
       break
     default:
       return null
@@ -72,10 +64,7 @@ NavButton.propTypes = {
   syntacticalValidityEditsExist: PropTypes.bool,
   qualityVerified: PropTypes.bool,
   macroVerified: PropTypes.bool,
-  editsFetched: PropTypes.bool,
-  syntacticalValidityFetched: PropTypes.bool,
-  qualityFetched: PropTypes.bool,
-  macroFetched: PropTypes.bool
+  editsFetched: PropTypes.bool
 }
 
 export default NavButton
