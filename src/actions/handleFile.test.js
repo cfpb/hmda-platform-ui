@@ -15,6 +15,11 @@ import thunk from 'redux-thunk'
 const mockStore = configureMockStore([thunk])
 const store = mockStore({ app: { institutionId: '123' } })
 
+const setItem = jest.fn()
+window.localStorage = {
+  setItem
+}
+
 describe('handleFile', () => {
   it('creates a thunk to signal file handling', () => {
     expect(typeof handleFile()).toEqual('function')

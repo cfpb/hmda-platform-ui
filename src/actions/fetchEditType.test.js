@@ -44,7 +44,7 @@ describe('fetchEditType', () => {
     })
   })
 
-  it('handles errors on edit fetch', done => {
+  it('suppresses when given errors on edit fetch', done => {
     const store = mockStore({ app: { edits: { types: editTypes } } })
 
     getEdit.mockImplementation(id =>
@@ -59,12 +59,10 @@ describe('fetchEditType', () => {
           { type: 'REQUEST_EDIT_TYPE', editType: 'syntactical' },
           { type: 'REQUEST_EDIT', edit: { edit: 1 } },
           {
-            type: 'RECEIVE_ERROR',
-            error: { status: 404, statusText: 'nah' }
+            type: 'SUPPRESS_EDITS'
           },
           { type: 'RECEIVE_EDIT_TYPE', editType: 'syntactical' }
         ])
-        expect(console.error.mock.calls.length).toBe(1)
         done()
       }, 0)
     })

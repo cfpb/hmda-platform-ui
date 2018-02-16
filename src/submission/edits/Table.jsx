@@ -54,7 +54,7 @@ export const renderTableCaption = props => {
   let renderedName = name
   let captionHeader
 
-  if (shouldSuppressTable(props) && name !== 'S040') {
+  if (shouldSuppressTable(props)) {
     captionHeader = `Edit ${renderedName} found`
   } else {
     const length = props.pagination.total

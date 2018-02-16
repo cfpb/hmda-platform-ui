@@ -6,6 +6,7 @@ import edits from './edits.js'
 const defaultEdits = {
   isFetching: false,
   fetched: false,
+  suppressEdits: false,
   types: {
     syntactical: { edits: [] },
     validity: { edits: [] },
@@ -162,6 +163,12 @@ describe('edits reducer', () => {
     expect(edits({}, { type: types.REFRESH_STATE })).toEqual(defaultEdits)
   })
 
+  it('handles SUPPRESS_EDITS', () => {
+    expect(edits({}, { type: types.SUPPRESS_EDITS })).toEqual({
+      suppressEdits: true
+    })
+  })
+
   it("shouldn't modify state on an unknown action type", () => {
     excludeTypes(
       types.REQUEST_VERIFY_QUALITY,
@@ -174,7 +181,8 @@ describe('edits reducer', () => {
       types.REQUEST_EDIT,
       types.REQUEST_EDIT_TYPE,
       types.RECEIVE_EDIT_TYPE,
-      types.REFRESH_STATE
+      types.REFRESH_STATE,
+      types.SUPPRESS_EDITS
     ).forEach(v => expect(edits({}, v)).toEqual({}))
   })
 })

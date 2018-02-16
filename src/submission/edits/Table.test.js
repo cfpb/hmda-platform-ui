@@ -6,6 +6,7 @@ import EditsTable, {
   renderHeader,
   renderBody,
   renderTableCaption,
+  shouldSuppressTable,
   makeTable
 } from './Table.jsx'
 import Wrapper from '../../../test-resources/Wrapper.js'
@@ -66,20 +67,43 @@ describe('Edits Table', () => {
     expect(tableNoEditsNode).toBe(null)
   })
 
-  const editsTableNoPagination = TestUtils.renderIntoDocument(
-    <Wrapper>
-      <EditsTable
-        edit={types.syntactical.edits[0]}
-        pagination={null}
-        type="syntactical"
-      />
-    </Wrapper>
-  )
-  const editsTableNoPaginationNode = ReactDOM.findDOMNode(
-    editsTableNoPagination
-  )
-  it('is NULL without pagination for edits', () => {
-    expect(editsTableNoPaginationNode).toBe(null)
+  it('renders pagination when not suppressed', () => {
+    const table = EditsTable({
+      edit: { edit: 'a' },
+      rowObj: { rows: [{ row: {}, fields: {} }] },
+      pagination: { total: 1 },
+      suppressEdits: 0
+    })
+    expect(table.props.children[0].props.children[1]).not.toBe(null)
+  })
+  it('renders null when suppressed', () => {
+    const table = EditsTable({
+      edit: { edit: 'a' },
+      rowObj: { rows: [{ row: {}, fields: {} }] },
+      pagination: { total: 1 },
+      suppressEdits: 1
+    })
+    expect(table.props.children[0].props.children[1]).toBe(null)
+  })
+})
+
+describe('shouldSuppressTable', () => {
+  it('is suppressed on macro', () => {
+    expect(shouldSuppressTable({ type: 'macro' })).toBe(true)
+  })
+
+  it('is suppressed when suppressed', () => {
+    expect(shouldSuppressTable({ suppressEdits: true })).toBe(true)
+  })
+
+  it('is suppressed on S040', () => {
+    expect(shouldSuppressTable({ edit: { edit: 'S040' } })).toBe(true)
+  })
+  it('is suppressed on no rowObj', () => {
+    expect(shouldSuppressTable({ edit: { edit: 'a' } })).toBe(true)
+  })
+  it('is suppressed on macro', () => {
+    expect(shouldSuppressTable({ edit: { edit: 'a' }, rows: [1] })).toBe(true)
   })
 })
 
@@ -166,9 +190,14 @@ describe('renderBody', () => {
 
 describe('renderTableCaption', () => {
   it('renders the syntactical caption with a description', () => {
-    const edits = types.syntactical.edits[0]
-    const rendered = renderTableCaption(edits, { rows: rows }, 'syntactical', {
-      total: 3
+    const edit = types.syntactical.edits[0]
+    const rendered = renderTableCaption({
+      edit: edit,
+      rowObj: { rows: rows },
+      type: 'syntactical',
+      pagination: {
+        total: 3
+      }
     })
     expect(rendered.type).toBe('caption')
     expect(rendered.props.children[0].props.children).toBe(
@@ -176,34 +205,86 @@ describe('renderTableCaption', () => {
     )
   })
 
-  it('renders the macro caption as a div', () => {
-    const edits = types.macro.edits[0]
-    const rendered = renderTableCaption(edits, { rows: rows }, 'macro', {
-      Q008: { total: 1 }
+  it('renders syntactical with a single edit', () => {
+    const edit = types.syntactical.edits[0]
+    const rendered = renderTableCaption({
+      edit: edit,
+      rowObj: { rows: rows },
+      type: 'syntactical',
+      pagination: {
+        total: 1
+      }
     })
-    expect(rendered.type).toBe('div')
+    expect(rendered.type).toBe('caption')
+    expect(rendered.props.children[0].props.children).toBe(
+      'S020 edit (1 found)'
+    )
   })
 
-  it('renders the correct macro caption', () => {
-    const edits = types.macro.edits[0]
-    const rendered = renderTableCaption(edits, { rows: rows }, 'macro', {
-      Q008: { total: 1 }
+  it('renders S040', () => {
+    const rendered = renderTableCaption({
+      edit: { edit: 'S040', description: 'd' },
+      rowObj: { rows: rows },
+      type: 'syntactical',
+      pagination: {
+        total: 1
+      }
     })
+    expect(rendered.props.children[0].props.children).toBe('Edit S040 found')
+    expect(rendered.props.children[2].props.children).toBe(
+      'Please check your file or system of record for duplicate application/loan numbers.'
+    )
+  })
+
+  it('renders the macro caption', () => {
+    const edit = types.macro.edits[0]
+    const rendered = renderTableCaption({
+      edit: edit,
+      rowObj: { rows: rows },
+      type: 'macro',
+      pagination: {
+        Q008: {
+          total: 3
+        }
+      }
+    })
+    expect(rendered.type).toBe('div')
     expect(rendered.props.children[0].props.children).toBe('Edit Q008 found')
   })
 
   it('returns null without a name', () => {
     const object = {
-      edits: [
-        {
-          description: types.syntactical.edits[0].description,
-          editId: types.syntactical.edits[0].edit,
-          fields: types.syntactical.edits[0].rows[0].fields
-        }
-      ]
+      description: types.syntactical.edits[0].description,
+      editId: types.syntactical.edits[0].edit,
+      fields: types.syntactical.edits[0].rows[0].fields
     }
-    const rendered = renderTableCaption(object, { rows: rows })
+    const rendered = renderTableCaption({
+      edit: object,
+      rowObj: { rows: rows }
+    })
     expect(rendered).toBe(null)
+  })
+
+  it('renders for Q666', () => {
+    const edit = {
+      description: null,
+      edit: 'Q666'
+    }
+    const rendered = renderTableCaption({
+      edit,
+      rowObj: { rows: rows },
+      type: 'quality',
+      pagination: {
+        Q666: {
+          total: 3
+        }
+      }
+    })
+
+    expect(rendered.props.children[0].props.children).toBe(
+      'Review your loan/application IDs'
+    )
+    expect(rendered.props.children[1]).toBe(null)
   })
 })
 
@@ -218,6 +299,18 @@ describe('makeTable', () => {
     }
     const rendered = makeTable(props)
     expect(rendered.type).toBe('table')
+  })
+
+  it('renders the faded table', () => {
+    const props = {
+      edit: types.syntactical.edits[0],
+      rowObj: { rows: rows },
+      type: 'syntactical',
+      pagination: { total: 3 },
+      paginationFade: 1
+    }
+    const rendered = makeTable(props)
+    expect(rendered.props.className).toBe('PaginationTarget fadeOut')
   })
 
   it('returns LoadingIcon on bad rowObj', () => {
