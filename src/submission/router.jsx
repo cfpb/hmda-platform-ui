@@ -37,7 +37,7 @@ export class SubmissionRouter extends Component {
     dispatch(updateFilingPeriod(params.filing))
 
     const size = localStorage.getItem(`HMDA_FILE_SIZE/${params.institution}`)
-    if (size > 5e5) dispatch(suppressEdits())
+    if (size > 5e6) dispatch(suppressEdits())
 
     if (unmatchedId || !status || status.code === UNINITIALIZED) {
       return dispatch(fetchSubmission()).then(json => {
