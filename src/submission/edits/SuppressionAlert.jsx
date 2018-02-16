@@ -8,7 +8,7 @@ export const SuppressionAlert = props => {
     <Alert type="warning">
       <p>
         Your file is too large to display tables of rows for each edit. To
-        review the failing rows,{' '}
+        review the affected rows,{' '}
         <a
           href="#"
           onClick={e => {
