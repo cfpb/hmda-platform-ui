@@ -4,6 +4,7 @@ import Header from './Header.jsx'
 import Loading from '../../common/Loading.jsx'
 import EditsTable from './TableContainer.jsx'
 import Verifier from './VerifierContainer.jsx'
+import SuppressionAlert from './SuppressionAlert.jsx'
 import RefileWarningContainer from '../../refileWarning/container.jsx'
 import submissionProgressHOC from '../progressHOC.jsx'
 import Alert from '../../common/Alert.jsx'
@@ -35,7 +36,13 @@ export const makeEntry = (props, type) => {
 
   return (
     <article className="EditsTableWrapper-Edit">
-      <Header count={count} type={type} fetched={fetched} />
+      <Header
+        count={count}
+        type={type}
+        fetched={fetched}
+        suppressCount={props.suppressEdits}
+      />
+      {props.suppressEdits ? <SuppressionAlert /> : null}
       {renderTablesOrSuccess(props, edits, type)}
     </article>
   )
@@ -61,7 +68,14 @@ export const renderTablesOrSuccess = (props, edits, type) => {
   }
 
   return edits.map((edit, i) => {
-    return <EditsTable edit={edit} type={type} key={i} />
+    return (
+      <EditsTable
+        edit={edit}
+        type={type}
+        suppressEdits={props.suppressEdits}
+        key={i}
+      />
+    )
   })
 }
 
@@ -96,10 +110,7 @@ EditsTableWrapper.propTypes = {
   syntacticalValidityEditsExist: PropTypes.bool,
   qualityVerified: PropTypes.bool,
   macroVerified: PropTypes.bool,
-  editsFetched: PropTypes.bool,
-  syntacticalValidityFetched: PropTypes.bool,
-  qualityFetched: PropTypes.bool,
-  macroFetched: PropTypes.bool
+  editsFetched: PropTypes.bool
 }
 
 export default EditsTableWrapper

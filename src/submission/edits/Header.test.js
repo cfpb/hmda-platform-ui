@@ -26,15 +26,26 @@ describe('EditsHeaderDescription', function() {
   it('renders a loading icon if not fetched', () => {
     expect(
       EditsHeaderDescription({ type: 'quality', count: 4, fetched: false })
-        .props.children[0].props.children[4].type.name
+        .props.children[0].props.children[2].type.name
     ).toBe('LoadingIcon')
   })
 
   it('renders no loading icon if fetched', () => {
     expect(
       EditsHeaderDescription({ type: 'quality', count: 4, fetched: true }).props
-        .children[0].props.children[4]
+        .children[0].props.children[2]
     ).toBe(null)
+  })
+
+  it('suppresses count', () => {
+    expect(
+      EditsHeaderDescription({
+        type: 'quality',
+        count: 4,
+        fetched: false,
+        suppressCount: true
+      }).props.children[0].props.children[1]
+    ).toBe('')
   })
 })
 

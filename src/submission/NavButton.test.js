@@ -11,10 +11,7 @@ const baseProps = {
   syntacticalValidityEditsExist: true,
   qualityVerified: false,
   macroVerified: false,
-  editsFetched: true,
-  syntacticalValidityFetched: true,
-  qualityFetched: true,
-  macroFetched: true
+  editsFetched: true
 }
 
 const showing = 'NavButton usa-button '

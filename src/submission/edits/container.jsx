@@ -11,9 +11,11 @@ export class EditsContainer extends Component {
   }
 
   getNeededEdits(props = this.props) {
+    if (props.suppressEdits) return
     if (
       props.page === 'syntacticalvalidity' &&
-      !props.syntacticalValidityFetched &&
+      !props.types.syntactical.fetched &&
+      !props.types.validity.fetched &&
       !props.types.syntactical.isFetching &&
       !props.types.validity.isFetching
     ) {
@@ -21,13 +23,13 @@ export class EditsContainer extends Component {
       props.dispatch(fetchEditType('validity'))
     } else if (
       props.page === 'quality' &&
-      !props.qualityFetched &&
+      !props.types.quality.fetched &&
       !props.types.quality.isFetching
     ) {
       props.dispatch(fetchEditType('quality'))
     } else if (
       props.page === 'macro' &&
-      !props.macroFetched &&
+      !props.types.macro.fetched &&
       !props.types.macro.isFetching
     ) {
       props.dispatch(fetchEditType('macro'))
@@ -48,10 +50,11 @@ export class EditsContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const { isFetching, types } = state.app.edits
+  const { isFetching, types, suppressEdits } = state.app.edits
   const { pagination } = state.app
 
   return {
+    suppressEdits,
     isFetching,
     types,
     pagination

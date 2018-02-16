@@ -8,6 +8,7 @@ import fetchEdits from '../actions/fetchEdits.js'
 import refreshState from '../actions/refreshState.js'
 import setInstitution from '../actions/setInstitution.js'
 import updateFilingPeriod from '../actions/updateFilingPeriod.js'
+import suppressEdits from '../actions/suppressEdits.js'
 import {
   UNINITIALIZED,
   VALIDATED_WITH_ERRORS,
@@ -34,6 +35,9 @@ export class SubmissionRouter extends Component {
 
     dispatch(setInstitution(params.institution))
     dispatch(updateFilingPeriod(params.filing))
+
+    const size = localStorage.getItem(`HMDA_FILE_SIZE/${params.institution}`)
+    if (size > 5e5) dispatch(suppressEdits())
 
     if (unmatchedId || !status || status.code === UNINITIALIZED) {
       return dispatch(fetchSubmission()).then(json => {

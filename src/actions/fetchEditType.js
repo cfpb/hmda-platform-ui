@@ -2,8 +2,8 @@ import requestEdit from './requestEdit.js'
 import receiveEdit from './receiveEdit.js'
 import requestEditType from './requestEditType.js'
 import receiveEditType from './receiveEditType.js'
-import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
+import suppressEdits from './suppressEdits.js'
 import { getEdit } from '../api/api.js'
 import { error } from '../utils/log.js'
 
@@ -19,8 +19,7 @@ export default function fetchEditType(type) {
           .then(json => {
             return hasHttpError(json).then(hasError => {
               if (hasError) {
-                dispatch(receiveError(json))
-                throw new Error(json && `${json.status}: ${json.statusText}`)
+                return dispatch(suppressEdits())
               }
               return dispatch(receiveEdit(json))
             })

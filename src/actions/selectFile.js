@@ -1,10 +1,12 @@
 import setFile from './setFile.js'
+import suppressEdits from './suppressEdits.js'
 import * as Poller from './Poller.js'
 
 export default function selectFile(file) {
   return (dispatch, getState) => {
     Poller.set(false)
-    const institution = getState().app.institutionId
-    return dispatch(setFile(file, institution))
+    const id = getState().app.institutionId
+    if (file.size > 5e5) dispatch(suppressEdits())
+    return dispatch(setFile(file, id))
   }
 }
