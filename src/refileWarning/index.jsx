@@ -17,10 +17,7 @@ export const getText = props => {
       Please review the edits or{' '}
       <a
         href="#"
-        onClick={e => {
-          e.preventDefault()
-          props.onDownloadClick(institutionId, period, sequenceNumber)
-        }}
+        onClick={props.onDownloadClick(institutionId, period, sequenceNumber)}
       >
         download the edit report
       </a>.

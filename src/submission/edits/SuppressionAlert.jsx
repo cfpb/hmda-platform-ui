@@ -1,5 +1,4 @@
 import React from 'react'
-import CSVDownloadHOC from '../../common/CSVDownloadHOC.jsx'
 import Alert from '../../common/Alert.jsx'
 
 export const SuppressionAlert = props => {
@@ -11,10 +10,7 @@ export const SuppressionAlert = props => {
         the affected rows,{' '}
         <a
           href="#"
-          onClick={e => {
-            e.preventDefault()
-            props.onDownloadClick(institutionId, period, sequenceNumber)
-          }}
+          onClick={props.onDownloadClick(institutionId, period, sequenceNumber)}
         >
           download the edit report
         </a>.
@@ -23,4 +19,4 @@ export const SuppressionAlert = props => {
   )
 }
 
-export default CSVDownloadHOC(SuppressionAlert)
+export default SuppressionAlert

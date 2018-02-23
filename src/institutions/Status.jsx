@@ -34,14 +34,11 @@ const InstitutionStatus = ({
         <p className="usa-text-small">
           <a
             href="#"
-            onClick={e => {
-              e.preventDefault()
-              onDownloadClick(
-                institutionId,
-                filing.period,
-                submission.id.sequenceNumber
-              )
-            }}
+            onClick={onDownloadClick(
+              institutionId,
+              filing.period,
+              submission.id.sequenceNumber
+            )}
           >
             Download edit report
           </a>

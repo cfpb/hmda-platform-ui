@@ -53,14 +53,11 @@ const InstitutionPreviousSubmissions = ({
                       {signedOn},{' '}
                       <a
                         href="#"
-                        onClick={e => {
-                          e.preventDefault()
-                          onDownloadClick(
-                            institutionId,
-                            filingPeriod,
-                            submission.id.sequenceNumber
-                          )
-                        }}
+                        onClick={onDownloadClick(
+                          institutionId,
+                          filingPeriod,
+                          submission.id.sequenceNumber
+                        )}
                       >
                         download the edit report
                       </a>.

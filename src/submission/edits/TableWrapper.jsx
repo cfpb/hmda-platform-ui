@@ -8,6 +8,7 @@ import SuppressionAlert from './SuppressionAlert.jsx'
 import RefileWarningContainer from '../../refileWarning/container.jsx'
 import submissionProgressHOC from '../progressHOC.jsx'
 import Alert from '../../common/Alert.jsx'
+import CSVDownload from '../../common/CSVDownload.jsx'
 
 const RefileWarning = submissionProgressHOC(RefileWarningContainer)
 
@@ -42,7 +43,11 @@ export const makeEntry = (props, type) => {
         fetched={fetched}
         suppressCount={props.suppressEdits}
       />
-      {props.suppressEdits ? <SuppressionAlert /> : null}
+      {props.suppressEdits ? (
+        <CSVDownload>
+          <SuppressionAlert />
+        </CSVDownload>
+      ) : null}
       {renderTablesOrSuccess(props, edits, type)}
     </article>
   )

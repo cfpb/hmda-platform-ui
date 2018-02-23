@@ -31,7 +31,7 @@ const _whatToRender = ({
   // we don't have any institutions
   // this shouldn't happen because they need to pick
   // an institution when registering but just in case
-  if (institutions.institutions.length === 0)
+  if (Object.keys(institutions.institutions).length === 0)
     return (
       <Alert type="error">
         <p>
@@ -75,14 +75,7 @@ const _whatToRender = ({
 
 export default class Institutions extends Component {
   render() {
-    const {
-      error,
-      filings,
-      filingPeriod,
-      institutions,
-      submission,
-      onDownloadClick
-    } = this.props
+    const { error, filingPeriod } = this.props
 
     return (
       <main id="main-content" className="usa-grid Institutions">
