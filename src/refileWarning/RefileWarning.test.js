@@ -1,5 +1,5 @@
 jest.unmock('./index.jsx')
-jest.mock('../refileButton/container.jsx')
+jest.mock('../common/CSVContainer.jsx')
 jest.mock('../api/api')
 
 import RefileWarning from './index.jsx'
@@ -18,13 +18,13 @@ const submission = {
 
 describe('Refile Warning', () => {
   const parserText =
-    'Your file has formatting errors.Please update your file and select the "Upload a new file" button.'
+    'Your file has formatting errors.Please update your file and select the "Upload a new file" button.Upload a new file'
   const refileText =
-    'Your file has syntactical and/or validity edits.Please review the edits or download the edit report.Then update your file and select the "Upload a new file" button.'
+    'Your file has syntactical and/or validity edits.Please review the edits or Then update your file and select the "Upload a new file" button.Upload a new file'
   const qualityText =
-    'Your file has quality edits.Please review the edits or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
+    'Your file has quality edits.Please review the edits or You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and Upload a new file.'
   const macroText =
-    'Your file has macro quality edits.Please review the edits or download the edit report.You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and .'
+    'Your file has macro quality edits.Please review the edits or You must verify the edits and select the check box to confirm the data is accurate. If the data need to be corrected, please update your file and Upload a new file.'
 
   it('renders the correct elements for status code 5 and calls function on click', () => {
     const refileWarning = TestUtils.renderIntoDocument(

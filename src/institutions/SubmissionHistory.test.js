@@ -13,8 +13,6 @@ const filings = JSON.parse(
 )
 const submissions = filings.submissions
 
-const onDownloadClick = jest.fn()
-
 describe('InstitutionSubmissionHistory', () => {
   it('renders the previous submissions', () => {
     const previous = TestUtils.renderIntoDocument(
@@ -22,8 +20,6 @@ describe('InstitutionSubmissionHistory', () => {
         <InstitutionSubmissionHistory
           submissions={submissions}
           institutionId="123456"
-          filingPeriod="2017"
-          onDownloadClick={onDownloadClick}
         />
       </Wrapper>
     )

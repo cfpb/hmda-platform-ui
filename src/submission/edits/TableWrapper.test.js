@@ -42,19 +42,15 @@ const props = {
 
 describe('EditsTableWrapper', () => {
   it('renders 2 tables type is quality and page is quality', () => {
-    const onDownloadClick = jest.fn()
-    const localProps = { ...props, onDownloadClick }
-    const rendered = EditsTableWrapper(localProps)
+    const rendered = EditsTableWrapper(props)
 
     // the number of tables rendered
     expect(rendered.props.children[1].props.children[2].length).toBe(2)
   })
 
   it('does not render verifier on synval and renders 3 tables', () => {
-    const onDownloadClick = jest.fn()
     const localProps = {
       ...props,
-      onDownloadClick,
       page: 'syntacticalvalidity'
     }
     const rendered = EditsTableWrapper(localProps)
@@ -65,10 +61,8 @@ describe('EditsTableWrapper', () => {
 })
 
 describe('EditsTableWrapper Loading', () => {
-  const onDownloadClick = jest.fn()
   const localProps = {
     ...props,
-    onDownloadClick,
     isFetching: true,
     editsFetched: false
   }

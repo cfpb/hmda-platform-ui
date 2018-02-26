@@ -2,7 +2,7 @@ import React from 'react'
 import Loading from './Loading.jsx'
 
 const CSVDownload = props => {
-  if (!props.submission.id) return null
+  if (props.submission.id === null) return null
   const { institutionId, period, sequenceNumber } = props.submission.id
 
   return (
