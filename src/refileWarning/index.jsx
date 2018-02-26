@@ -2,25 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import RefileButton from '../refileButton/container.jsx'
 import Alert from '../common/Alert.jsx'
+import CSVDownload from '../common/CSVContainer.jsx'
 import {
   PARSED_WITH_ERRORS,
   VALIDATED_WITH_ERRORS
 } from '../constants/statusCodes.js'
 
 export const getText = props => {
-  const { institutionId, period, sequenceNumber } = props.submission.id
   let text = null
   let button = <RefileButton />
   let periodAfter = false
   let reviewAndDownload = (
     <div>
-      Please review the edits or{' '}
-      <a
-        href="#"
-        onClick={props.onDownloadClick(institutionId, period, sequenceNumber)}
-      >
-        download the edit report
-      </a>.
+      Please review the edits or <CSVDownload />
     </div>
   )
 
@@ -129,10 +123,7 @@ RefileWarning.propTypes = {
   code: PropTypes.number,
   syntacticalValidityEditsExist: PropTypes.bool,
   qualityVerified: PropTypes.bool,
-  macroVerified: PropTypes.bool,
-  // from /containers/RefileWarning
-  submission: PropTypes.object,
-  onDownloadClick: PropTypes.func
+  macroVerified: PropTypes.bool
 }
 
 export default RefileWarning

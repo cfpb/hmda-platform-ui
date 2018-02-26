@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import Loading from '../../common/Loading.jsx'
 import PropTypes from 'prop-types'
-import RefileWarningContainer from '../../refileWarning/container.jsx'
+import RefileWarningComponent from '../../refileWarning/index.jsx'
 import submissionProgressHOC from '../progressHOC.jsx'
 import Pagination from '../../pagination/container.jsx'
 
-const RefileWarning = submissionProgressHOC(RefileWarningContainer)
+const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
 export const renderTSErrors = ({ transmittalSheetErrors }) => {
   if (transmittalSheetErrors.length === 0) return null

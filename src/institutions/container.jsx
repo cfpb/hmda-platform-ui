@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import fetchInstitutions from '../actions/fetchInstitutions.js'
-import CSVDownload from '../common/CSVDownload.jsx'
 import Institutions from './index.jsx'
 
 export class InstitutionContainer extends Component {
@@ -11,18 +10,15 @@ export class InstitutionContainer extends Component {
   }
 
   render() {
-    return (
-      <CSVDownload {...this.props}>
-        <Institutions />
-      </CSVDownload>
-    )
+    return <Institutions {...this.props} />
   }
 }
 
 export function mapStateToProps(state) {
-  const { institutions, filings, error, filingPeriod } = state.app
+  const { institutions, filings, submission, error, filingPeriod } = state.app
 
   return {
+    submission,
     filingPeriod,
     institutions,
     filings,

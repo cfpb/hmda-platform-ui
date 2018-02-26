@@ -18,13 +18,7 @@ const _setSubmission = (submission, filingObj) => {
   return filingObj.submissions[0]
 }
 
-const _whatToRender = ({
-  filings,
-  filingPeriod,
-  institutions,
-  submission,
-  onDownloadClick
-}) => {
+const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
   // we don't have institutions yet
   if (!institutions.fetched) return <Loading />
 
@@ -64,7 +58,6 @@ const _whatToRender = ({
           key={i}
           filing={filingObj.filing}
           institution={institution}
-          onDownloadClick={onDownloadClick}
           submission={_setSubmission(submission, filingObj)}
           submissions={filingObj.submissions}
         />
@@ -99,10 +92,9 @@ export default class Institutions extends Component {
 }
 
 Institutions.propTypes = {
+  submission: PropTypes.object,
   error: PropTypes.object,
   filings: PropTypes.object,
   filingPeriod: PropTypes.string,
-  institutions: PropTypes.object,
-  submission: PropTypes.object,
-  onDownloadClick: PropTypes.func
+  institutions: PropTypes.object
 }

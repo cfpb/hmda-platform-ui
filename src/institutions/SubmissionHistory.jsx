@@ -1,15 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ordinal } from '../utils/date.js'
+import CSVDownload from '../common/CSVContainer.jsx'
 import * as STATUS from '../constants/statusCodes.js'
 import 'uswds'
 
-const InstitutionPreviousSubmissions = ({
-  submissions,
-  institutionId,
-  filingPeriod,
-  onDownloadClick
-}) => {
+const InstitutionPreviousSubmissions = ({ submissions, institutionId }) => {
   if (!submissions.length) return null
 
   return (
@@ -50,17 +46,7 @@ const InstitutionPreviousSubmissions = ({
                   return (
                     <li key={i}>
                       Filing progress on {startDate}: <strong>{message}</strong>
-                      {signedOn},{' '}
-                      <a
-                        href="#"
-                        onClick={onDownloadClick(
-                          institutionId,
-                          filingPeriod,
-                          submission.id.sequenceNumber
-                        )}
-                      >
-                        download the edit report
-                      </a>.
+                      {signedOn}, <CSVDownload submission={submission} />
                     </li>
                   )
                 }
@@ -82,9 +68,7 @@ const InstitutionPreviousSubmissions = ({
 
 InstitutionPreviousSubmissions.propTypes = {
   submissions: PropTypes.array,
-  institutionId: PropTypes.string,
-  filingPeriod: PropTypes.string,
-  onDownloadClick: PropTypes.func
+  institutionId: PropTypes.string
 }
 
 export default InstitutionPreviousSubmissions
