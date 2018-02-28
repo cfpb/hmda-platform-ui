@@ -25,8 +25,6 @@ const institutions = JSON.parse(
 )
 const singleFI = institutions.institutions[0]
 
-const onDownloadClick = jest.fn()
-
 describe('Institution', () => {
   it('renders the previous submissions', () => {
     const fi = TestUtils.renderIntoDocument(
@@ -36,7 +34,6 @@ describe('Institution', () => {
           filing={filing}
           submissions={submissions}
           filingPeriod="2017"
-          onDownloadClick={onDownloadClick}
         />
       </Wrapper>
     )

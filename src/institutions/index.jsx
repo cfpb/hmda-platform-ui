@@ -18,20 +18,14 @@ const _setSubmission = (submission, filingObj) => {
   return filingObj.submissions[0]
 }
 
-const _whatToRender = ({
-  filings,
-  filingPeriod,
-  institutions,
-  submission,
-  onDownloadClick
-}) => {
+const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
   // we don't have institutions yet
   if (!institutions.fetched) return <Loading />
 
   // we don't have any institutions
   // this shouldn't happen because they need to pick
   // an institution when registering but just in case
-  if (institutions.institutions.length === 0)
+  if (Object.keys(institutions.institutions).length === 0)
     return (
       <Alert type="error">
         <p>
@@ -64,7 +58,6 @@ const _whatToRender = ({
           key={i}
           filing={filingObj.filing}
           institution={institution}
-          onDownloadClick={onDownloadClick}
           submission={_setSubmission(submission, filingObj)}
           submissions={filingObj.submissions}
         />
@@ -75,14 +68,7 @@ const _whatToRender = ({
 
 export default class Institutions extends Component {
   render() {
-    const {
-      error,
-      filings,
-      filingPeriod,
-      institutions,
-      submission,
-      onDownloadClick
-    } = this.props
+    const { error, filingPeriod } = this.props
 
     return (
       <main id="main-content" className="usa-grid Institutions">
@@ -106,10 +92,9 @@ export default class Institutions extends Component {
 }
 
 Institutions.propTypes = {
+  submission: PropTypes.object,
   error: PropTypes.object,
   filings: PropTypes.object,
   filingPeriod: PropTypes.string,
-  institutions: PropTypes.object,
-  submission: PropTypes.object,
-  onDownloadClick: PropTypes.func
+  institutions: PropTypes.object
 }

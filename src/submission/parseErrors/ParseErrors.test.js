@@ -44,7 +44,7 @@ describe('Parse errors', () => {
 
   it('creates the refile warning', () => {
     expect(parseErrors.props.children[5].type.displayName).toBe(
-      'Connect(Connect(RefileWarning))'
+      'Connect(RefileWarning)'
     )
   })
 

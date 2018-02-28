@@ -9,6 +9,18 @@
   animation: loading-spin 2s infinite linear;
 }
 
+.LoadingInline {
+  height: 22px;
+  width: 22px;
+  display: inline-block;
+  margin-left: 4px;
+}
+
+.status .LoadingInline {
+  height: 18px;
+  width: 18px;
+}
+
 @keyframes loading-spin {
   0% {
     transform: rotate(0deg);

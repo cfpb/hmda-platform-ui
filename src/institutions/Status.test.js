@@ -1,4 +1,5 @@
 jest.unmock('./Status.jsx')
+jest.mock('../common/CSVContainer.jsx')
 
 import InstitutionStatus from './Status.jsx'
 import * as STATUS from '../constants/statusCodes.js'
@@ -6,8 +7,6 @@ import Wrapper from '../../test-resources/Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
-
-const onDownloadClick = jest.fn()
 
 describe('InstitutionStatus', () => {
   it('renders the status', () => {
@@ -29,12 +28,7 @@ describe('InstitutionStatus', () => {
 
     const status = TestUtils.renderIntoDocument(
       <Wrapper>
-        <InstitutionStatus
-          institutionId="123456"
-          filing={filing}
-          submission={submission}
-          onDownloadClick={onDownloadClick}
-        />
+        <InstitutionStatus filing={filing} submission={submission} />
       </Wrapper>
     )
     const statusNode = ReactDOM.findDOMNode(status)
@@ -67,15 +61,9 @@ describe('InstitutionStatus', () => {
 
     const status = TestUtils.renderIntoDocument(
       <Wrapper>
-        <InstitutionStatus
-          institutionId="123456"
-          filing={filing}
-          submission={submission}
-          onDownloadClick={onDownloadClick}
-        />
+        <InstitutionStatus filing={filing} submission={submission} />
       </Wrapper>
     )
-    const statusNode = ReactDOM.findDOMNode(status)
 
     const paras = TestUtils.scryRenderedDOMComponentsWithClass(
       status,
@@ -85,6 +73,5 @@ describe('InstitutionStatus', () => {
     expect(paras[0].textContent).toBe(
       'You have previously submitted a HMDA file and are in the process of refiling. If you do not complete your current refiling process, your original submission will be accepted for the current filing period.'
     )
-    expect(paras[1].textContent).toBe('Download edit report')
   })
 })

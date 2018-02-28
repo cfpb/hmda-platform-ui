@@ -5,11 +5,11 @@ import Loading from '../../common/Loading.jsx'
 import EditsTable from './TableContainer.jsx'
 import Verifier from './VerifierContainer.jsx'
 import SuppressionAlert from './SuppressionAlert.jsx'
-import RefileWarningContainer from '../../refileWarning/container.jsx'
+import RefileWarningComponent from '../../refileWarning/index.jsx'
 import submissionProgressHOC from '../progressHOC.jsx'
 import Alert from '../../common/Alert.jsx'
 
-const RefileWarning = submissionProgressHOC(RefileWarningContainer)
+const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
 export const getTotalTypeCount = (edits, pagination) => {
   let count = 0

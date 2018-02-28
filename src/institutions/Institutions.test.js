@@ -32,8 +32,6 @@ const submission = {
   isFetching: false
 }
 
-const onDownloadClick = jest.fn()
-
 describe('Institutions', () => {
   it('renders the institutions', () => {
     const institutions = TestUtils.renderIntoDocument(
@@ -48,7 +46,6 @@ describe('Institutions', () => {
             fetched: true,
             institutions: institutionsJSON
           }}
-          onDownloadClick={onDownloadClick}
           submission={submission}
         />
       </Wrapper>
@@ -71,7 +68,6 @@ describe('Institutions', () => {
             fetched: true,
             institutions: institutionsJSON.institutions
           }}
-          onDownloadClick={onDownloadClick}
           submission={submission}
         />
       </Wrapper>
@@ -98,7 +94,6 @@ describe('Institutions', () => {
             fetched: true,
             institutions: institutionsJSON.institutions
           }}
-          onDownloadClick={onDownloadClick}
           submission={submission}
         />
       </Wrapper>
@@ -126,7 +121,6 @@ describe('Institutions', () => {
             fetched: true,
             institutions: institutionsJSON.institutions
           }}
-          onDownloadClick={onDownloadClick}
           submission={submission}
         />
       </Wrapper>

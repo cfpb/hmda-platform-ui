@@ -8,13 +8,7 @@ import InstitutionRefile from './Refile.jsx'
 import InstitutionSubmissionHistory from './SubmissionHistory.jsx'
 import SubmissionNav from './Progress.jsx'
 
-const Institution = ({
-  institution,
-  filing,
-  submission,
-  submissions,
-  onDownloadClick
-}) => {
+const Institution = ({ institution, filing, submission, submissions }) => {
   const status = submission && submission.status
 
   return (
@@ -32,12 +26,7 @@ const Institution = ({
 
             <SubmissionNav status={status} />
 
-            <InstitutionStatus
-              institutionId={institution.id}
-              filing={filing}
-              submission={submission}
-              onDownloadClick={onDownloadClick}
-            />
+            <InstitutionStatus filing={filing} submission={submission} />
 
             <InstitutionViewButton
               status={status}
@@ -50,8 +39,6 @@ const Institution = ({
           <InstitutionSubmissionHistory
             submissions={submissions}
             institutionId={institution.id}
-            filingPeriod={filing.period}
-            onDownloadClick={onDownloadClick}
           />
         </section>
       ) : (
@@ -77,8 +64,7 @@ Institution.propTypes = {
   institution: PropTypes.object,
   filing: PropTypes.object,
   submission: PropTypes.object,
-  submissions: PropTypes.array,
-  onDownloadClick: PropTypes.func
+  submissions: PropTypes.array
 }
 
 export default Institution
