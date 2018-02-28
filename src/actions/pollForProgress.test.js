@@ -131,26 +131,47 @@ describe('pollForProgress', () => {
   })
 
   it('handles errors when introduced', done => {
-    const store = mockStore({})
+    delete window.setTimeout
+    const timeout = jest.fn()
+    window.setTimeout = timeout
+
     console.error = jest.fn()
     getLatestSubmission.mockImplementation(() =>
       Promise.resolve({ status: 404, statusText: 'argle' })
     )
+    const poller = pollForProgress()
+    poller().then(json => {
+      expect(json).toBe(undefined)
+      expect(timeout).toBeCalled()
+      expect(console.error).not.toBeCalled()
+      poller().then(json => {
+        expect(json).toBe(undefined)
+        expect(console.error).not.toBeCalled()
+        poller(jest.fn()).then(json => {
+          expect(json).toBe(undefined)
+          expect(console.error).toBeCalled()
+          done()
+        })
+      })
+    })
+  })
 
-    store
-      .dispatch(pollForProgress())
-      .then(() => {
-        expect(store.getActions()).toEqual([
-          {
-            type: types.RECEIVE_ERROR,
-            error: { status: 404, statusText: 'argle' }
-          }
-        ])
-        done()
-      })
-      .catch(err => {
-        console.log(err)
-        done.fail()
-      })
+  it('does not process old polls', done => {
+    delete global.location
+    global.location = { pathname: '/upload' }
+
+    console.error = jest.fn()
+
+    const submission = filingsObj.submissions[2]
+    submission.status = { code: VALIDATING }
+    getLatestSubmission.mockImplementation(() => Promise.resolve(submission))
+
+    const p1 = pollForProgress()
+    pollForProgress()
+    p1(jest.fn(fn => Promise.resolve('defined'))).then(json => {
+      expect(json).toBe(null)
+      expect(console.error).not.toBeCalled()
+      done()
+    })
   })
 })

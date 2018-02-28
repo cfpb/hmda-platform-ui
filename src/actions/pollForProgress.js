@@ -19,27 +19,34 @@ export const makeDurationGetter = () => {
   }
 }
 
+let poll = 0
+
 export default function pollForProgress() {
   const getTimeoutDuration = makeDurationGetter()
   let errorCounter = 0
+  const currentPoll = ++poll
 
   const poller = dispatch => {
-    if (!window.location.pathname.match('/upload')) return Promise.resolve()
+    if (currentPoll !== poll || !window.location.pathname.match('/upload'))
+      return Promise.resolve(null)
     return getLatestSubmission()
       .then(json => {
         return hasHttpError(json).then(hasError => {
           if (hasError) {
-            if (++errorCounter === 3) {
+            if (++errorCounter >= 3) {
               dispatch(receiveError(json))
               throw new Error(json && `${json.status}: ${json.statusText}`)
             } else {
               setTimeout(() => poller(dispatch), getTimeoutDuration())
+              return Promise.resolve()
             }
           }
+          errorCounter = 0
           return dispatch(receiveSubmission(json))
         })
       })
       .then(json => {
+        if (!json) return
         if (
           // continue polling until we reach a status that isn't processing
           json.status.code < VALIDATED_WITH_ERRORS &&
