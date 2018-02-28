@@ -21,14 +21,7 @@ const mockStore = configureMockStore([thunk])
 describe('pollForProgress', () => {
   it('does not poll on pages other than upload', () => {
     const store = mockStore({ submission: {} })
-    store.dispatch(pollForProgress(true)).then(() => {
-      expect(store.getActions()).toEqual([])
-    })
-  })
-
-  it('does not poll when polling is set to false', () => {
-    const store = mockStore({ submission: {} })
-    store.dispatch(pollForProgress(false)).then(() => {
+    store.dispatch(pollForProgress()).then(() => {
       expect(store.getActions()).toEqual([])
     })
   })
@@ -41,7 +34,7 @@ describe('pollForProgress', () => {
     global.location = { pathname: '/upload' }
 
     store
-      .dispatch(pollForProgress(true))
+      .dispatch(pollForProgress())
       .then(() => {
         expect(store.getActions()).toEqual([
           {
@@ -81,7 +74,7 @@ describe('pollForProgress', () => {
       Promise.resolve(filingsObj.submissions[1])
     )
     store
-      .dispatch(pollForProgress(true))
+      .dispatch(pollForProgress())
       .then(() => {
         expect(store.getActions()).toEqual([
           {
@@ -121,7 +114,7 @@ describe('pollForProgress', () => {
     const timeout = jest.fn()
     window.setTimeout = timeout
 
-    store.dispatch(pollForProgress(true)).then(() => {
+    store.dispatch(pollForProgress()).then(() => {
       expect(store.getActions()).toEqual([
         {
           type: types.RECEIVE_SUBMISSION,
@@ -145,7 +138,7 @@ describe('pollForProgress', () => {
     )
 
     store
-      .dispatch(pollForProgress(true))
+      .dispatch(pollForProgress())
       .then(() => {
         expect(store.getActions()).toEqual([
           {

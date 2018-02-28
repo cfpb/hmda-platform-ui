@@ -19,18 +19,22 @@ export const makeDurationGetter = () => {
   }
 }
 
-export default function pollForProgress(polling) {
+export default function pollForProgress() {
   const getTimeoutDuration = makeDurationGetter()
+  let errorCounter = 0
 
   const poller = dispatch => {
-    if (!polling) return Promise.resolve()
-    if (!location.pathname.match('/upload')) return Promise.resolve()
+    if (!window.location.pathname.match('/upload')) return Promise.resolve()
     return getLatestSubmission()
       .then(json => {
         return hasHttpError(json).then(hasError => {
           if (hasError) {
-            dispatch(receiveError(json))
-            throw new Error(json && `${json.status}: ${json.statusText}`)
+            if (++errorCounter === 3) {
+              dispatch(receiveError(json))
+              throw new Error(json && `${json.status}: ${json.statusText}`)
+            } else {
+              setTimeout(() => poller(dispatch), getTimeoutDuration())
+            }
           }
           return dispatch(receiveSubmission(json))
         })
