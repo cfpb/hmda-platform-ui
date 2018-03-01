@@ -1,4 +1,3 @@
-import * as Poller from './Poller.js'
 import { postUpload } from '../api/api.js'
 import pollForProgress from './pollForProgress.js'
 import updateStatus from './updateStatus.js'
@@ -24,11 +23,8 @@ export default function fetchUpload(file) {
           }
 
           dispatch(receiveUpload(json))
-
           dispatch(updateStatus(json.status))
-
-          Poller.set(true)
-          dispatch(pollForProgress(Poller.get()))
+          dispatch(pollForProgress())
         })
       })
       .catch(err => error(err))
