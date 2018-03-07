@@ -1,7 +1,7 @@
 jest.unmock('./Header.jsx')
 jest.mock('oidc-client')
 
-import Header, { addActiveClass } from './Header.jsx'
+import Header, { addActiveClass, makeNav, logOutHandler } from './Header.jsx'
 import Wrapper from '../../test-resources/Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -37,16 +37,30 @@ describe('Header', () => {
       TestUtils.scryRenderedDOMComponentsWithTag(headerNoUser, 'li').length
     ).toBe(1)
   })
+})
 
-  describe('addActiveClass', () => {
-    it('returns the correct style', () => {
-      const returned = addActiveClass('upload', 'upload')
-      expect(returned).toEqual('active')
-    })
+describe('addActiveClass', () => {
+  it('returns the correct style', () => {
+    const returned = addActiveClass('upload', 'upload')
+    expect(returned).toEqual('active')
+  })
 
-    it('returns null', () => {
-      const returned = addActiveClass('upload', 'notupload')
-      expect(returned).toEqual(null)
-    })
+  it('returns null', () => {
+    const returned = addActiveClass('upload', 'notupload')
+    expect(returned).toEqual(null)
+  })
+})
+
+describe('makeNav', () => {
+  it('returns wrapped null if on oidc-callback', () => {
+    expect(makeNav({}, 'oidc-callback').props.children).toBe(null)
+  })
+})
+
+describe('logOutHandler', () => {
+  it('returns a handler that behaves as expected', () => {
+    const pd = jest.fn()
+    logOutHandler({ preventDefault: pd })
+    expect(pd).toBeCalled()
   })
 })

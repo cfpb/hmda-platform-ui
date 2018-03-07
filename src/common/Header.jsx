@@ -10,20 +10,18 @@ export const addActiveClass = (selected, current) => {
   return null
 }
 
-const makeNav = (props, page) => {
+export const logOutHandler = e => {
+  e.preventDefault()
+  logout()
+}
+
+export const makeNav = (props, page) => {
   let userHeader = (
     <ul className="usa-nav-primary">
       {props.user ? <li>{props.user.profile.name}</li> : null}
       {props.user ? (
         <li>
-          <a
-            href="#"
-            className="usa-nav-link"
-            onClick={e => {
-              e.preventDefault()
-              logout()
-            }}
-          >
+          <a href="#" className="usa-nav-link" onClick={logOutHandler}>
             Logout
           </a>
         </li>
