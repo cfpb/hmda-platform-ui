@@ -22,6 +22,8 @@ export default function fetchInstitutions() {
       .then(receiveAction => {
         return dispatch(receiveInstitutions())
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }

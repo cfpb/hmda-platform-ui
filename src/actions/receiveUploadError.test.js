@@ -21,4 +21,13 @@ describe('receiveUploadError', () => {
       id: '123'
     })
   })
+
+  it('creates an action to signal receiving an error when no error is passed', () => {
+    receiveUploadError()(dispatch, getState)
+    expect(dispatch.mock.calls[1][0]).toEqual({
+      type: types.RECEIVE_UPLOAD_ERROR,
+      error: new Error('Unexpected upload error'),
+      id: '123'
+    })
+  })
 })

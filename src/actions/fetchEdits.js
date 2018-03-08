@@ -19,6 +19,8 @@ export default function fetchEdits() {
           return json
         })
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }

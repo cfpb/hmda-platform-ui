@@ -22,6 +22,8 @@ export default function fetchSubmission() {
           throw new Error(json && `${json.status}: ${json.statusText}`)
         })
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }

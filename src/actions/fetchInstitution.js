@@ -22,6 +22,8 @@ export default function fetchInstitution(institution, fetchFilings = true) {
           }
         })
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }

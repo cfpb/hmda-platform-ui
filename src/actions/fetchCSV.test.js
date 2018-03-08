@@ -53,13 +53,12 @@ describe('fetchCSV', () => {
   })
 })
 
-it('creates a thunk that manags an error during csv downloads', done => {
+it('creates a thunk that manages an error during csv downloads', done => {
   const store = mockStore({})
   console.error = jest.fn()
   getCSV.mockImplementation(id =>
     Promise.resolve({ status: 403, statusText: 'nope' })
   )
-
   store
     .dispatch(fetchCSV())
     .then(() => {

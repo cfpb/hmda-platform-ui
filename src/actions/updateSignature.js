@@ -24,6 +24,8 @@ export default function updateSignature(signed) {
           )
         })
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }

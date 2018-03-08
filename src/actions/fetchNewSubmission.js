@@ -25,6 +25,8 @@ export default function fetchNewSubmission() {
           return dispatch(receiveSubmission(json))
         })
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }

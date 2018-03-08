@@ -18,6 +18,8 @@ export default function fetchFiling(filing) {
           return dispatch(receiveFiling(json))
         })
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }
