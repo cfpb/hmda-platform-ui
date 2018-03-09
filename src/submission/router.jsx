@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import SubmissionContainer from './container.jsx'
+import ErrorWarning from '../common/ErrorWarning.jsx'
 import Loading from '../common/Loading.jsx'
 import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchEdits from '../actions/fetchEdits.js'
@@ -120,8 +121,15 @@ export class SubmissionRouter extends Component {
   }
 
   render() {
-    const { submission, params } = this.props
+    const { submission, error, params } = this.props
 
+    if (error) {
+      return (
+        <div id="main-content" className="usa-grid">
+          <ErrorWarning error={this.props.error} />
+        </div>
+      )
+    }
     if (submission.status.code === FAILED)
       return (
         <div className="SubmissionContainer">
@@ -140,13 +148,14 @@ export class SubmissionRouter extends Component {
 }
 
 export function mapStateToProps(state, ownProps) {
-  const { submission } = state.app
+  const { submission, error } = state.app
   const { types } = state.app.edits
 
   const { params } = ownProps
 
   return {
     submission,
+    error,
     types,
     params
   }

@@ -64,11 +64,11 @@ export function fetch(options = { method: 'GET' }) {
       return new Promise(resolve => {
         log('got res', response, response.status)
         if (response.status === 401) signinRedirect()
-        if (response.status > 399) resolve(response)
+        if (response.status > 399) return resolve(response)
         if (options.params && options.params.format === 'csv') {
           return resolve(response.text())
         }
-        setTimeout(() => resolve(response.json()), 0)
+        resolve(response.json())
       })
     })
     .catch(err => {

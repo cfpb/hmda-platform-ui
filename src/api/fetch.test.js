@@ -1,8 +1,11 @@
 jest.unmock('./fetch')
+jest.mock('../utils/log.js')
+jest.mock('../utils/redirect.js')
 import { fetch, setStore } from './fetch'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-console.log = jest.fn()
+import { error } from '../utils/log.js'
+import { signinRedirect } from '../utils/redirect.js'
 
 const mockStore = configureMockStore([thunk])
 const store = mockStore({
@@ -12,6 +15,8 @@ const store = mockStore({
 setStore(store)
 
 let mocktoken = 'token'
+
+error.mockImplementation(e => console.error(e))
 
 jest.mock('./makeUrl', () =>
   jest.fn(obj => {
@@ -92,6 +97,28 @@ describe('fetch', () => {
   it('skips location parse when provided pathname', done => {
     fetch({ pathname: 'path' }).then(res => {
       expect(isomorphicFetch.mock.calls[6][0]).toBe('pathname')
+      done()
+    })
+  })
+
+  it('redirects on 401', done => {
+    const redirect = jest.fn()
+    signinRedirect.mockImplementation(redirect)
+    isomorphicFetch.mockImplementation(() => {
+      return Promise.resolve({ json: json, status: 401 })
+    })
+    fetch({ pathname: 'path' }).then(res => {
+      expect(redirect).toBeCalled()
+      done()
+    })
+  })
+
+  it('resolves other errors to be handled at the action level', done => {
+    isomorphicFetch.mockImplementation(() => {
+      return Promise.resolve({ json: json, status: 404 })
+    })
+    fetch({ pathname: 'path' }).then(res => {
+      expect(res.status).toBe(404)
       done()
     })
   })
