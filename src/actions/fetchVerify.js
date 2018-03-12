@@ -27,6 +27,8 @@ export default function fetchVerify(type, checked) {
           return dispatch(updateStatus(json.status))
         })
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }

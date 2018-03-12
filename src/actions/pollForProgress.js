@@ -37,7 +37,7 @@ export default function pollForProgress() {
               dispatch(receiveError(json))
               throw new Error(json && `${json.status}: ${json.statusText}`)
             } else {
-              setTimeout(() => poller(dispatch), getTimeoutDuration())
+              setTimeout(poller.bind(null, dispatch), getTimeoutDuration())
               return Promise.resolve()
             }
           }
@@ -52,7 +52,7 @@ export default function pollForProgress() {
           json.status.code < VALIDATED_WITH_ERRORS &&
           json.status.code !== PARSED_WITH_ERRORS
         ) {
-          setTimeout(() => poller(dispatch), getTimeoutDuration())
+          setTimeout(poller.bind(null, dispatch), getTimeoutDuration())
         } else if (
           // we don't need edits if it parsed with errors
           json.status.code === VALIDATED_WITH_ERRORS
@@ -60,7 +60,9 @@ export default function pollForProgress() {
           return dispatch(fetchEdits())
         }
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
   return poller
 }

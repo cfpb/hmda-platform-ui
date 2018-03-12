@@ -18,6 +18,8 @@ export default function fetchParseErrors() {
           return dispatch(receiveParseErrors(json))
         })
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }

@@ -26,6 +26,8 @@ export default function fetchIRSCSV(institutionId, filing, submissionId) {
           )
         })
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }

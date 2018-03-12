@@ -129,4 +129,4 @@ SubmissionContainer.propTypes = {
 }
 
 export default connect(mapStateToProps)(SubmissionContainer)
-export { SubmissionContainer, mapStateToProps }
+export { SubmissionContainer, mapStateToProps, renderByCode }

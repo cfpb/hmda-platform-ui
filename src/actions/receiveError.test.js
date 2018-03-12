@@ -10,4 +10,11 @@ describe('receiveError', () => {
       error: 'b'
     })
   })
+
+  it('creates an action to signal receiving an error when no error passed', () => {
+    expect(receiveError()).toEqual({
+      type: types.RECEIVE_ERROR,
+      error: new Error('Unexpected error')
+    })
+  })
 })

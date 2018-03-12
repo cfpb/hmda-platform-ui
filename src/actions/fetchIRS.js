@@ -24,7 +24,9 @@ export default function fetchIRS() {
             return dispatch(receiveIRS(json))
           })
         })
-        .catch(err => error(err))
+        .catch(err => {
+          error(err)
+        })
     }
     return poller()
   }

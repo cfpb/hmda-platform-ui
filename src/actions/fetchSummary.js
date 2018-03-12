@@ -18,6 +18,8 @@ export default function fetchSummary() {
           return dispatch(receiveSummary(json))
         })
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }

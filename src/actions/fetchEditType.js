@@ -5,7 +5,6 @@ import receiveEditType from './receiveEditType.js'
 import hasHttpError from './hasHttpError.js'
 import suppressEdits from './suppressEdits.js'
 import { getEdit } from '../api/api.js'
-import { error } from '../utils/log.js'
 
 export default function fetchEditType(type) {
   return (dispatch, getState) => {
@@ -15,16 +14,14 @@ export default function fetchEditType(type) {
     editTypes[type].edits.forEach(edit => {
       dispatch(requestEdit(edit.edit))
       promises.push(
-        getEdit({ edit: edit.edit })
-          .then(json => {
-            return hasHttpError(json).then(hasError => {
-              if (hasError) {
-                return dispatch(suppressEdits())
-              }
-              return dispatch(receiveEdit(json))
-            })
+        getEdit({ edit: edit.edit }).then(json => {
+          return hasHttpError(json).then(hasError => {
+            if (hasError) {
+              return dispatch(suppressEdits())
+            }
+            return dispatch(receiveEdit(json))
           })
-          .catch(err => error(err))
+        })
       )
     })
     return Promise.all(promises).then(json => {

@@ -27,6 +27,8 @@ export default function fetchUpload(file) {
           dispatch(pollForProgress())
         })
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }

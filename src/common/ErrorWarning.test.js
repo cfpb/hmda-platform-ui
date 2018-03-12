@@ -69,7 +69,9 @@ describe('ErrorWarning', () => {
 
   it('renders correct body on 403', () => {
     const rendered = getText({ error: { status: 403 } })
-    expect(rendered).toEqual('Please log in to complete this request.')
+    expect(rendered).toEqual(
+      "You don't have access to the requested resources. Please ensure you are filing for the correct institution."
+    )
   })
 
   it('renders correct body on 404', () => {

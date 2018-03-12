@@ -19,6 +19,8 @@ export default function fetchPage(target, pathname) {
           return dispatch(getPaginationReceiveAction(target, json))
         })
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }

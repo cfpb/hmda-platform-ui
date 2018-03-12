@@ -18,6 +18,8 @@ export default function fetchSignature() {
           dispatch(receiveSignature(json))
         })
       })
-      .catch(err => error(err))
+      .catch(err => {
+        error(err)
+      })
   }
 }
