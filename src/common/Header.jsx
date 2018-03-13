@@ -29,6 +29,20 @@ export const makeNav = (props, page) => {
       <li>
         <HomeLink />
       </li>
+      {props.user ? null : (
+        <React.Fragment>
+          <li>
+            <a href="/publication/" className="usa-nav-link">
+              Publication
+            </a>
+          </li>
+          <li>
+            <a href="/tools/" className="usa-nav-link">
+              Tools
+            </a>
+          </li>
+        </React.Fragment>
+      )}
     </ul>
   )
 
