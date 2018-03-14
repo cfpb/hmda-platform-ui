@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { logout } from '../utils/redirect.js'
+import FilingPeriodSelector from './FilingPeriodSelectorContainer.jsx'
 import HomeLink from './HomeLink.jsx'
 import BannerUSA from './BannerUSA.jsx'
 
@@ -26,6 +27,9 @@ export const makeNav = (props, page) => {
           </a>
         </li>
       ) : null}
+      <li>
+        <FilingPeriodSelector />
+      </li>
       <li>
         <HomeLink />
       </li>
