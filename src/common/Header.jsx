@@ -32,8 +32,8 @@ export const makeNav = (props, page) => {
       {props.user ? null : (
         <React.Fragment>
           <li>
-            <a href="/publication/" className="usa-nav-link">
-              Publication
+            <a href="/data-publication/" className="usa-nav-link">
+              Data Publication
             </a>
           </li>
           <li>
