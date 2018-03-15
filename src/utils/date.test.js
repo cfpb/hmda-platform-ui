@@ -7,7 +7,10 @@ import {
   ordinal,
   ordinalHour,
   withinAWeekOfDeadline,
-  withinFilingPeriod
+  withinFilingPeriod,
+  beforeFilingPeriod,
+  afterFilingPeriod,
+  isBeta
 } from './date.js'
 import * as dates from '../constants/dates.js'
 
@@ -77,12 +80,12 @@ describe('withinAWeekOfDeadline', () => {
 describe('withinFilingPeriod', () => {
   it('returns true if within filing period', () => {
     Date.now = () => 1487721600000
-    expect(withinFilingPeriod('2017')).toBe(true)
+    expect(withinFilingPeriod('2016')).toBe(true)
   })
 
   it('returns false if not within filing period', () => {
     Date.now = () => 1387721600000
-    expect(withinFilingPeriod('2017')).toBe(false)
+    expect(withinFilingPeriod('2016')).toBe(false)
   })
 
   it('throws on bad input', () => {
@@ -91,5 +94,52 @@ describe('withinFilingPeriod', () => {
     } catch (e) {
       expect(e).toBeDefined()
     }
+  })
+})
+
+describe('afterFilingPeriod', () => {
+  it('returns true if after filing period', () => {
+    Date.now = () => 1587721600000
+    expect(afterFilingPeriod('2016')).toBe(true)
+  })
+
+  it('returns false if not after filing period', () => {
+    Date.now = () => 1387721600000
+    expect(afterFilingPeriod('2016')).toBe(false)
+  })
+
+  it('throws on bad input', () => {
+    try {
+      afterFilingPeriod('qwe')
+    } catch (e) {
+      expect(e).toBeDefined()
+    }
+  })
+})
+
+describe('beforeFilingPeriod', () => {
+  it('returns true if before filing period', () => {
+    Date.now = () => 1387721600000
+    expect(beforeFilingPeriod('2016')).toBe(true)
+  })
+
+  it('returns false if not before filing period', () => {
+    Date.now = () => 1587721600000
+    expect(beforeFilingPeriod('2016')).toBe(false)
+  })
+
+  it('throws on bad input', () => {
+    try {
+      beforeFilingPeriod('qwe')
+    } catch (e) {
+      expect(e).toBeDefined()
+    }
+  })
+})
+
+describe('isBeta', () => {
+  it('checks beta status of various filing periods', () => {
+    expect(isBeta('2018')).toBe(0)
+    expect(isBeta('2017')).toBe(0)
   })
 })

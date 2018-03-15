@@ -41,8 +41,9 @@ export function ordinalHour(d) {
 }
 
 export function withinAWeekOfDeadline(year) {
+  const yearPlusOne = parseInt(year, 10) + 1
   const deadline = Date.UTC(
-    year,
+    yearPlusOne,
     dates.FILING_DEADLINE.month,
     dates.FILING_DEADLINE.day,
     28,
@@ -63,25 +64,38 @@ export function withinAWeekOfDeadline(year) {
   return today >= week && today <= deadline
 }
 
-export function withinFilingPeriod(year) {
+export function afterFilingPeriod(year) {
+  const yearPlusOne = parseInt(year, 10) + 1
   const deadline = Date.UTC(
-    year,
+    yearPlusOne,
     dates.FILING_DEADLINE.month,
     dates.FILING_DEADLINE.day,
     28,
     59,
     59 //28 is 23 in UTC-0500
   )
+  if (!deadline) throw new Error('Error calculating filing period deadline')
+  return Date.now() > deadline
+}
+
+export function beforeFilingPeriod(year) {
+  const yearPlusOne = parseInt(year, 10) + 1
   const start = Date.UTC(
-    year,
+    yearPlusOne,
     dates.FILING_START.month,
     dates.FILING_START.day,
     5,
     0,
     0 //5 is 0 in UTC-0500
   )
-  if (!deadline || !start)
-    throw new Error('Error calculating filing deadline status')
-  const today = Date.now()
-  return today >= start && today <= deadline
+  if (!start) throw new Error('Error calculating filing period starting date')
+  return Date.now() < start
+}
+
+export function withinFilingPeriod(year) {
+  return !beforeFilingPeriod(year) && !afterFilingPeriod(year)
+}
+
+export function isBeta(year) {
+  return dates.FILING_PERIODS[year].isBeta
 }
