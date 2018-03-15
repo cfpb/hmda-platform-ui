@@ -8,17 +8,17 @@ import InstitutionRefile from './Refile.jsx'
 import InstitutionSubmissionHistory from './SubmissionHistory.jsx'
 import SubmissionNav from './Progress.jsx'
 
-const Institution = ({ institution, filing, submission, submissions }) => {
+const Institution = ({
+  institution,
+  filing,
+  filingPeriod,
+  submission,
+  submissions
+}) => {
   const status = submission && submission.status
 
   return (
     <div className="usa-grid-full">
-      {/*
-        a filing should be created when an institution is created
-        so this shouldn't happen but just in case ...
-        render the current status if there is a filing
-        otherwise render an alert
-      */}
       {filing ? (
         <section className="institution">
           <div className="current-status">
@@ -47,9 +47,14 @@ const Institution = ({ institution, filing, submission, submissions }) => {
         <section className="institution">
           <div className="current-status">
             <InstitutionNameAndId name={institution.name} id={institution.id} />
-            <Alert type="error" heading="Sorry, there was a problem.">
+            <Alert
+              type="warning"
+              heading={`No filing initialized for ${filingPeriod}.`}
+            >
               <p>
-                There was a problem initializing your filing. Please contact{' '}
+                Your filing has not been initialized for filing period{' '}
+                {filingPeriod}. If you need to submit data for this filing
+                period, please contact{' '}
                 <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
               </p>
             </Alert>
