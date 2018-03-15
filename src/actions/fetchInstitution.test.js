@@ -32,7 +32,19 @@ describe('fetchInstitution', () => {
               id: '0',
               name: 'Bank 0',
               status: 'active'
-            }
+            },
+            filings: [
+              {
+                institutionId: '0',
+                period: '2017',
+                status: { code: 1, message: 'not-started' }
+              },
+              {
+                institutionId: '0',
+                period: '2016',
+                status: { code: 3, message: 'completed' }
+              }
+            ]
           }
         ])
         done()

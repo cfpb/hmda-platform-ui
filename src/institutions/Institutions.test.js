@@ -3,10 +3,7 @@ jest.unmock('../common/Alert.jsx')
 jest.mock('../utils/date.js')
 jest.mock('oidc-client')
 
-import Institutions, {
-  renderAlert,
-  getFilingFromInstitution
-} from './index.jsx'
+import Institutions from './index.jsx'
 import Wrapper from '../../test-resources/Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -44,7 +41,7 @@ describe('Institutions', () => {
           institutions={{
             isFetching: false,
             fetched: true,
-            institutions: institutionsJSON
+            ...institutionsJSON
           }}
           submission={submission}
         />
@@ -80,13 +77,25 @@ describe('Institutions', () => {
     expect(institutionRendered.length).toBe(4)
   })
 
-  it('renders a error if there are no filings', () => {
+  it('renders an error if there are no filings', () => {
     const institutions = TestUtils.renderIntoDocument(
       <Wrapper>
         <Institutions
           filings={{
-            1: { filing: multifilings[0], isFetching: false, fetched: true },
-            2: { filing: multifilings[1], isFetching: false, fetched: true }
+            1: {
+              2017: {
+                filing: multifilings[0],
+                isFetching: false,
+                fetched: true
+              }
+            },
+            2: {
+              2017: {
+                filing: multifilings[1],
+                isFetching: false,
+                fetched: true
+              }
+            }
           }}
           filingPeriod="2017"
           institutions={{
@@ -99,21 +108,31 @@ describe('Institutions', () => {
       </Wrapper>
     )
     expect(
-      TestUtils.scryRenderedDOMComponentsWithClass(
-        institutions,
-        'usa-alert-error'
-      ).length
-    ).toEqual(2)
+      TestUtils.scryRenderedDOMComponentsWithClass(institutions, 'usa-alert')
+        .length
+    ).toEqual(4)
   })
 
-  it('renders a error if error(s) exist', () => {
+  it('renders an error if error(s) exist', () => {
     const institutions = TestUtils.renderIntoDocument(
       <Wrapper>
         <Institutions
           error={{ error: 402 }}
           filings={{
-            1: { filing: multifilings[0], isFetching: false, fetched: true },
-            2: { filing: multifilings[1], isFetching: false, fetched: true }
+            1: {
+              2017: {
+                filing: multifilings[0],
+                isFetching: false,
+                fetched: true
+              }
+            },
+            2: {
+              2017: {
+                filing: multifilings[1],
+                isFetching: false,
+                fetched: true
+              }
+            }
           }}
           filingPeriod="2017"
           institutions={{

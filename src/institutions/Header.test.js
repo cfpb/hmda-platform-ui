@@ -3,7 +3,7 @@ jest.unmock('../common/Alert.jsx')
 jest.mock('../utils/date.js')
 
 import InstitutionsHeader from './Header.jsx'
-import { withinFilingPeriod } from '../utils/date.js'
+import { beforeFilingPeriod, afterFilingPeriod, isBeta } from '../utils/date.js'
 import Wrapper from '../../test-resources/Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -11,7 +11,8 @@ import TestUtils from 'react-dom/test-utils'
 
 describe('InstitutionsHeader', () => {
   it('renders the header', () => {
-    withinFilingPeriod.mockImplementation(() => true)
+    beforeFilingPeriod.mockImplementation(() => false)
+    afterFilingPeriod.mockImplementation(() => false)
     const header = TestUtils.renderIntoDocument(
       <Wrapper>
         <InstitutionsHeader filingPeriod="2017" />
@@ -39,8 +40,8 @@ describe('InstitutionsHeader', () => {
     expect(headerNode).toBeNull()
   })
 
-  it('renders an alert outside of the filing period', () => {
-    withinFilingPeriod.mockImplementation(() => false)
+  it('renders an alert before the filing period', () => {
+    beforeFilingPeriod.mockImplementation(() => true)
     const header = TestUtils.renderIntoDocument(
       <Wrapper>
         <InstitutionsHeader filingPeriod="2017" />
@@ -53,6 +54,41 @@ describe('InstitutionsHeader', () => {
     ).toBe(1)
     expect(
       TestUtils.scryRenderedDOMComponentsWithTag(header, 'h3')[0].textContent
-    ).toEqual('The filing period is closed.')
+    ).toEqual('The 2017 filing period is not yet open.')
+  })
+
+  it('renders an alert after the filing period', () => {
+    beforeFilingPeriod.mockImplementation(() => false)
+    afterFilingPeriod.mockImplementation(() => true)
+    const header = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <InstitutionsHeader filingPeriod="2017" />
+      </Wrapper>
+    )
+    const headerNode = ReactDOM.findDOMNode(header)
+
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(header, 'h3').length
+    ).toBe(1)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(header, 'h3')[0].textContent
+    ).toEqual('The 2017 filing period is closed.')
+  })
+
+  it('renders an alert in beta', () => {
+    isBeta.mockImplementation(() => true)
+    const header = TestUtils.renderIntoDocument(
+      <Wrapper>
+        <InstitutionsHeader filingPeriod="2017" />
+      </Wrapper>
+    )
+    const headerNode = ReactDOM.findDOMNode(header)
+
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(header, 'h3').length
+    ).toBe(1)
+    expect(
+      TestUtils.scryRenderedDOMComponentsWithTag(header, 'h3')[0].textContent
+    ).toEqual('The 2017 filing period is not yet open.')
   })
 })

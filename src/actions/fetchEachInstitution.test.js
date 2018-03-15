@@ -23,7 +23,46 @@ fetchCurrentFiling.mockImplementation(() => () => {
 })
 
 const mockStore = configureMockStore([thunk])
+const filings = [
+  {
+    institutionId: '0',
+    period: '2017',
+    status: { code: 1, message: 'not-started' }
+  },
+  {
+    institutionId: '0',
+    period: '2016',
+    status: { code: 3, message: 'completed' }
+  }
+]
 
+const f2 = [
+  {
+    institutionId: '1',
+    period: '2017',
+    status: { code: 3, message: 'completed' }
+  }
+]
+
+const f3 = [
+  {
+    institutionId: '2',
+    period: '2016',
+    status: { code: 3, message: 'completed' }
+  }
+]
+const f4 = [
+  {
+    institutionId: '3',
+    period: '2017',
+    status: { code: 1, message: 'not-started' }
+  },
+  {
+    institutionId: '3',
+    period: '2016',
+    status: { code: 3, message: 'completed' }
+  }
+]
 const getEachInstitution = [
   { type: types.REQUEST_INSTITUTION, id: '0' },
   { type: types.REQUEST_INSTITUTION, id: '1' },
@@ -31,19 +70,23 @@ const getEachInstitution = [
   { type: types.REQUEST_INSTITUTION, id: '3' },
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj['0'].institution
+    institution: institutionsDetailObj['0'].institution,
+    filings: filings
   },
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj['1'].institution
+    institution: institutionsDetailObj['1'].institution,
+    filings: f2
   },
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj['2'].institution
+    institution: institutionsDetailObj['2'].institution,
+    filings: f3
   },
   {
     type: types.RECEIVE_INSTITUTION,
-    institution: institutionsDetailObj['3'].institution
+    institution: institutionsDetailObj['3'].institution,
+    filings: f4
   }
 ]
 describe('fetchEachInstitution', () => {

@@ -25,7 +25,7 @@ describe('fetchCurrentFiling', () => {
     store.dispatch(fetchCurrentFiling(filings)).then(() => {
       setTimeout(() => {
         expect(store.getActions()).toEqual([
-          { type: 'REQUEST_FILING', id: '123' },
+          { type: 'REQUEST_FILING', id: '123', period: '2017' },
           { type: 'RECEIVE_FILING', filing: { filing: 'afiling' } }
         ])
         done()

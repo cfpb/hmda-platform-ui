@@ -1,5 +1,6 @@
 jest.unmock('./Header.jsx')
 jest.mock('oidc-client')
+jest.mock('./FilingPeriodSelectorContainer.jsx')
 
 import Header, { addActiveClass, makeNav, logOutHandler } from './Header.jsx'
 import Wrapper from '../../test-resources/Wrapper.js'
@@ -35,7 +36,7 @@ describe('Header', () => {
     ).toBe(1)
     expect(
       TestUtils.scryRenderedDOMComponentsWithTag(headerNoUser, 'li').length
-    ).toBe(1)
+    ).toBe(2)
   })
 })
 

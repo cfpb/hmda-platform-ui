@@ -27,7 +27,6 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
   )
   return sortedInstitutions.map((key, i) => {
     const institution = institutions.institutions[key]
-
     if (
       institution.filings.filter(v => v.period === filingPeriod).length === 0
     ) {
