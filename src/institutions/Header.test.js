@@ -1,13 +1,17 @@
 jest.unmock('./Header.jsx')
 jest.unmock('../common/Alert.jsx')
 jest.mock('../utils/date.js')
+jest.mock('../common/FilingPeriodSelectorContainer.jsx')
 
 import InstitutionsHeader from './Header.jsx'
+import FilingPeriodSelector from '../common/FilingPeriodSelectorContainer.jsx'
 import { beforeFilingPeriod, afterFilingPeriod, isBeta } from '../utils/date.js'
 import Wrapper from '../../test-resources/Wrapper.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
+
+FilingPeriodSelector.mockImplementation(() => null)
 
 describe('InstitutionsHeader', () => {
   it('renders the header', () => {
@@ -26,7 +30,7 @@ describe('InstitutionsHeader', () => {
     ).toBe(1)
     expect(
       TestUtils.scryRenderedDOMComponentsWithTag(header, 'h2')[0].textContent
-    ).toEqual('2017 filing period')
+    ).toEqual(' filing period')
   })
 
   it('renders null without the filing period', () => {
@@ -76,6 +80,8 @@ describe('InstitutionsHeader', () => {
   })
 
   it('renders an alert in beta', () => {
+    beforeFilingPeriod.mockImplementation(() => true)
+    afterFilingPeriod.mockImplementation(() => false)
     isBeta.mockImplementation(() => true)
     const header = TestUtils.renderIntoDocument(
       <Wrapper>

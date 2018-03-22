@@ -2,13 +2,16 @@ jest.unmock('./index.jsx')
 jest.unmock('../common/Alert.jsx')
 jest.mock('../utils/date.js')
 jest.mock('oidc-client')
+jest.mock('../common/FilingPeriodSelectorContainer.jsx')
 
 import Institutions from './index.jsx'
 import Wrapper from '../../test-resources/Wrapper.js'
+import FilingPeriodSelector from '../common/FilingPeriodSelectorContainer.jsx'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
 
+FilingPeriodSelector.mockImplementation(() => null)
 const fs = require('fs')
 const filingJSON = JSON.parse(
   fs.readFileSync('./test-resources/json/filings.json')
