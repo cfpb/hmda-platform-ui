@@ -36,7 +36,7 @@ describe('Header', () => {
     ).toBe(1)
     expect(
       TestUtils.scryRenderedDOMComponentsWithTag(headerNoUser, 'li').length
-    ).toBe(2)
+    ).toBe(1)
   })
 })
 

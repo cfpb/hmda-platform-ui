@@ -7,6 +7,7 @@ import InstitutionViewButton from './ViewButton.jsx'
 import InstitutionRefile from './Refile.jsx'
 import InstitutionSubmissionHistory from './SubmissionHistory.jsx'
 import SubmissionNav from './Progress.jsx'
+import { afterFilingPeriod } from '../utils/date.js'
 
 const Institution = ({
   institution,
@@ -16,37 +17,29 @@ const Institution = ({
   submissions
 }) => {
   const status = submission && submission.status
+  let className = 'institution'
+  if (afterFilingPeriod(filingPeriod)) className += ' closedFilingPeriod'
 
   return (
     <div className="usa-grid-full">
-      {filing ? (
-        <section className="institution">
-          <div className="current-status">
-            <InstitutionNameAndId name={institution.name} id={institution.id} />
+      <section className={className}>
+        <div className="current-status">
+          <InstitutionNameAndId name={institution.name} id={institution.id} />
+          {filing ? (
+            <React.Fragment>
+              <SubmissionNav status={status} />
 
-            <SubmissionNav status={status} />
+              <InstitutionStatus filing={filing} submission={submission} />
 
-            <InstitutionStatus filing={filing} submission={submission} />
+              <InstitutionViewButton
+                status={status}
+                institutionId={institution.id}
+                filingPeriod={filing.period}
+              />
 
-            <InstitutionViewButton
-              status={status}
-              institutionId={institution.id}
-              filingPeriod={filing.period}
-            />
-
-            <InstitutionRefile institution={institution} status={status} />
-          </div>
-          <InstitutionSubmissionHistory
-            submissions={submissions}
-            institutionId={institution.id}
-          />
-        </section>
-      ) : (
-        // this error is rendered here so we can
-        // give the user the FI name and id
-        <section className="institution">
-          <div className="current-status">
-            <InstitutionNameAndId name={institution.name} id={institution.id} />
+              <InstitutionRefile institution={institution} status={status} />
+            </React.Fragment>
+          ) : (
             <Alert
               type="warning"
               heading={`No filing initialized for ${filingPeriod}.`}
@@ -58,9 +51,15 @@ const Institution = ({
                 <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
               </p>
             </Alert>
-          </div>
-        </section>
-      )}
+          )}
+        </div>
+        {filing ? (
+          <InstitutionSubmissionHistory
+            submissions={submissions}
+            institutionId={institution.id}
+          />
+        ) : null}
+      </section>
     </div>
   )
 }

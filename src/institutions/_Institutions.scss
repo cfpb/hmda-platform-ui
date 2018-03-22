@@ -28,6 +28,10 @@
       background-color: $color-gray-lighter;
     }
 
+    .usa-accordion-bordered>li {
+      margin-bottom: 0;
+    }
+
     .status {
       margin-top: 0.5em;
       margin-bottom: 0.5em;
@@ -40,10 +44,23 @@
         margin: 0;
       }
     }
+    &.closedFilingPeriod {
+      opacity: 0.7;
+      border: 1px solid $color-gray-lighter;
+      .current-status {
+        background-color: $color-white;
+      }
+      .usa-accordion-button {
+        background-color: $color-gray-lightest;
+      }
+    }
   }
 
   header {
     margin: 0;
+    .closedFilingPeriod {
+      color: $color-gray;
+    }
 
     h2 {
       margin-top: 0;

@@ -5,8 +5,8 @@ const FilingPeriodSelector = props => {
   return (
     <form className="FilingPeriodSelector usa-form">
       <select value={props.filingPeriod} onChange={props.selectFilingPeriod}>
-        <option value="2018">Filing Period: 2018</option>
-        <option value="2017">Filing Period: 2017</option>
+        <option value="2018">2018</option>
+        <option value="2017">2017</option>
       </select>
     </form>
   )
