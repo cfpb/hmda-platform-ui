@@ -70,7 +70,10 @@ describe('IRS report', () => {
 
   it('creates a loading icon when IRS is loading', () => {
     expect(
-      TestUtils.scryRenderedDOMComponentsWithTag(irsLoading, 'img').length
+      TestUtils.scryRenderedDOMComponentsWithClass(
+        irsLoading,
+        'LoadingIconWrapper'
+      ).length
     ).toEqual(1)
   })
 })

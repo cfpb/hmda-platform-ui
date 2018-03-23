@@ -21,9 +21,11 @@
   }
   .LoadingIconWrapper {
     position: absolute;
-    width: 40px;
-    margin-left: -50px;
-    margin-top: 22px;
+  }
+
+  .LoadingIcon {
+    left: -38px;
+    top: 27px;
   }
 
   .usa-font-lead {
