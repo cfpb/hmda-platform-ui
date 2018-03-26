@@ -28,14 +28,14 @@ describe('Header', () => {
     </Wrapper>
   )
 
-  it('renders the homelink only', () => {
+  it('renders links without a user', () => {
     expect(
       TestUtils.scryRenderedDOMComponentsWithClass(headerNoUser, 'HomeLink')
         .length
     ).toBe(1)
     expect(
       TestUtils.scryRenderedDOMComponentsWithTag(headerNoUser, 'li').length
-    ).toBe(1)
+    ).toBe(3)
   })
 })
 

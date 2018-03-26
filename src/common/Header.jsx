@@ -18,17 +18,30 @@ export const logOutHandler = e => {
 export const makeNav = (props, page) => {
   let userHeader = (
     <ul className="usa-nav-primary">
-      {props.user ? <li>{props.user.profile.name}</li> : null}
+      <li>
+        <HomeLink />
+      </li>
       {props.user ? (
-        <li>
+        <li className="user">
+          {props.user.profile.name}
           <a href="#" className="usa-nav-link" onClick={logOutHandler}>
             Logout
           </a>
         </li>
-      ) : null}
-      <li>
-        <HomeLink />
-      </li>
+      ) : (
+        <React.Fragment>
+          <li>
+            <a href="/data-publication/" className="usa-nav-link">
+              Data Publication
+            </a>
+          </li>
+          <li>
+            <a href="/tools/" className="usa-nav-link">
+              Tools
+            </a>
+          </li>
+        </React.Fragment>
+      )}
     </ul>
   )
 
