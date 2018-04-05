@@ -166,13 +166,6 @@ const renderErrorMessage = () => {
 }
 
 const IRSReport = props => {
-  if (props.isFetching && !props.paginationFade)
-    return <Loading />
-  if (!props.msas) return null
-  // sometimes the back-end returns an empty array for the, "msas":[]
-  const renderResponse =
-    props.msas.length === 0 ? renderErrorMessage() : renderTable(props)
-
   return (
     <section className="IRSReport">
       <header>
@@ -184,7 +177,13 @@ const IRSReport = props => {
         </p>
         {renderDownloadLink(props)}
       </header>
-      {renderResponse}
+      {props.isFetching && !props.paginationFade ? (
+        <Loading />
+      ) : props.msas.length === 0 ? (
+        renderErrorMessage()
+      ) : (
+        renderTable(props)
+      )}
       <Pagination isFetching={props.isFetching} target="irs" />
       <hr />
     </section>
