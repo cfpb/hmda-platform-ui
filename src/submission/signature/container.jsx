@@ -17,7 +17,7 @@ export class SignatureContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const { isFetching, receipt, checked } = state.app.signature
+  const { isFetching, isSubmitting, receipt, checked } = state.app.signature
 
   const { status } = state.app.submission
 
@@ -25,6 +25,7 @@ export function mapStateToProps(state) {
 
   return {
     isFetching,
+    isSubmitting,
     receipt,
     status,
     checked,
