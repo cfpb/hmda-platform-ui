@@ -5,7 +5,6 @@ import ErrorWarning from '../common/ErrorWarning.jsx'
 import Institution from './Institution.jsx'
 import InstitutionsHeader from './Header.jsx'
 import sortInstitutions from '../utils/sortInstitutions.js'
-import Alert from '../common/Alert.jsx'
 
 const _setSubmission = (submission, filingObj) => {
   if (

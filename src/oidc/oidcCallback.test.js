@@ -48,7 +48,7 @@ describe('oidcCallback', () => {
 
     const wrapped = TestUtils.scryRenderedDOMComponentsWithClass(
       wrappedConnected,
-      'floatingIcon'
+      'LoadingIconWrapper'
     )
     setTimeout(() => {
       expect(wrapped).toBeDefined()

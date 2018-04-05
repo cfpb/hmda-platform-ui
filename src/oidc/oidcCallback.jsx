@@ -63,7 +63,7 @@ export class oidcCallback extends React.Component {
 
   render() {
     if (this.props.error) return this.renderError()
-    return <Loading className="floatingIcon" />
+    return <Loading />
   }
 }
 

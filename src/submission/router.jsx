@@ -142,7 +142,7 @@ export class SubmissionRouter extends Component {
       !this.renderChildren ||
       !params.splat
     )
-      return <Loading className="floatingIcon" />
+      return <Loading />
     return <SubmissionContainer {...this.props} />
   }
 }

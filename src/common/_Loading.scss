@@ -1,8 +1,14 @@
-.LoadingInline {
+.LoadingInline.LoadingIconWrapper {
   height: 22px;
   width: 22px;
   display: inline-block;
-  margin-left: 4px;
+  margin-left: 5px;
+  margin-top: 0;
+  padding-top: 3px;
+  .LoadingIcon {
+    height: 22px;
+    width: 22px;
+  }
 }
 
 .status .LoadingInline {
@@ -25,6 +31,8 @@
   height: 30px;
   width: 30px;
   display: inline-block;
+  margin-top: 2em;
+  margin-left: 48%;
 }
 
 .LoadingIcon {
@@ -36,4 +44,9 @@
   width: 30px;
   height: 30px;
   animation: loading-spin 1.2s linear infinite;
+}
+
+.usa-alert .LoadingIcon {
+  border: 4px solid $color-gray-lighter;
+  border-left-color: $color-primary;
 }
