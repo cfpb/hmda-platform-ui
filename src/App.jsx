@@ -17,7 +17,7 @@ export class AppContainer extends Component {
   _renderAppContents(props) {
     if (this._isOldBrowser()) return <BrowserBlocker />
     if (props.redirecting || (!props.oidc && !this._isUnprotected(props)))
-      return <Loading className="floatingIcon" />
+      return <Loading />
     return props.children
   }
 

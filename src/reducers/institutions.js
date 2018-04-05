@@ -42,7 +42,8 @@ export default (state = defaultInstitutions, action) => {
           [action.institution.id]: {
             isFetching: false,
             name: action.institution.name,
-            id: action.institution.id
+            id: action.institution.id,
+            filings: action.filings
           }
         }
       }

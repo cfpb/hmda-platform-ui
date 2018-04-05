@@ -5,7 +5,6 @@ import ErrorWarning from '../common/ErrorWarning.jsx'
 import Institution from './Institution.jsx'
 import InstitutionsHeader from './Header.jsx'
 import sortInstitutions from '../utils/sortInstitutions.js'
-import Alert from '../common/Alert.jsx'
 
 const _setSubmission = (submission, filingObj) => {
   if (
@@ -19,22 +18,7 @@ const _setSubmission = (submission, filingObj) => {
 }
 
 const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
-  // we don't have institutions yet
   if (!institutions.fetched) return <Loading />
-
-  // we don't have any institutions
-  // this shouldn't happen because they need to pick
-  // an institution when registering but just in case
-  if (Object.keys(institutions.institutions).length === 0)
-    return (
-      <Alert type="error">
-        <p>
-          There was an error getting your list of institutions, please refresh
-          the page or try again later. If the problem persists, contact{' '}
-          <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
-        </p>
-      </Alert>
-    )
 
   // sorted to keep the listing consistent
   const sortedInstitutions = Object.keys(institutions.institutions).sort(
@@ -42,24 +26,36 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
   )
   return sortedInstitutions.map((key, i) => {
     const institution = institutions.institutions[key]
-    const institutionFilings = filings[institution.id]
+    if (
+      institution.filings.filter(v => v.period === filingPeriod).length === 0
+    ) {
+      return (
+        <Institution
+          key={i}
+          filingPeriod={filingPeriod}
+          institution={institution}
+        />
+      )
+    }
 
-    if (!institutionFilings) {
-      // there are no filings
-      return <Institution key={i} institution={institution} />
-    } else if (!institutionFilings.fetched) {
+    const filingsByPeriod = filings[institution.id]
+    if (!filingsByPeriod) return <Loading key={i} />
+
+    const filingsObj = filingsByPeriod[filingPeriod]
+    if (!filingsObj || !filingsObj.fetched) {
       // filings are not fetched yet
       return <Loading key={i} />
     } else {
       // we have good stuff
-      const filingObj = institutionFilings.filing
+      const filing = filingsObj.filing
       return (
         <Institution
           key={i}
-          filing={filingObj.filing}
+          filing={filing.filing}
+          filingPeriod={filingPeriod}
           institution={institution}
-          submission={_setSubmission(submission, filingObj)}
-          submissions={filingObj.submissions}
+          submission={_setSubmission(submission, filing)}
+          submissions={filing.submissions}
         />
       )
     }
@@ -74,9 +70,7 @@ export default class Institutions extends Component {
       <main id="main-content" className="usa-grid Institutions">
         {error ? <ErrorWarning error={error} /> : null}
         <div className="usa-width-one-whole">
-          {filingPeriod ? (
-            <InstitutionsHeader filingPeriod={filingPeriod} />
-          ) : null}
+          <InstitutionsHeader filingPeriod={filingPeriod} />
 
           {_whatToRender(this.props)}
 

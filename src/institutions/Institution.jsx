@@ -7,55 +7,59 @@ import InstitutionViewButton from './ViewButton.jsx'
 import InstitutionRefile from './Refile.jsx'
 import InstitutionSubmissionHistory from './SubmissionHistory.jsx'
 import SubmissionNav from './Progress.jsx'
+import { afterFilingPeriod } from '../utils/date.js'
 
-const Institution = ({ institution, filing, submission, submissions }) => {
+const Institution = ({
+  institution,
+  filing,
+  filingPeriod,
+  submission,
+  submissions
+}) => {
   const status = submission && submission.status
+  let className = 'institution'
+  if (afterFilingPeriod(filingPeriod)) className += ' closedFilingPeriod'
 
   return (
     <div className="usa-grid-full">
-      {/*
-        a filing should be created when an institution is created
-        so this shouldn't happen but just in case ...
-        render the current status if there is a filing
-        otherwise render an alert
-      */}
-      {filing ? (
-        <section className="institution">
-          <div className="current-status">
-            <InstitutionNameAndId name={institution.name} id={institution.id} />
+      <section className={className}>
+        <div className="current-status">
+          <InstitutionNameAndId name={institution.name} id={institution.id} />
+          {filing ? (
+            <React.Fragment>
+              <SubmissionNav status={status} />
 
-            <SubmissionNav status={status} />
+              <InstitutionStatus filing={filing} submission={submission} />
 
-            <InstitutionStatus filing={filing} submission={submission} />
+              <InstitutionViewButton
+                status={status}
+                institutionId={institution.id}
+                filingPeriod={filing.period}
+              />
 
-            <InstitutionViewButton
-              status={status}
-              institutionId={institution.id}
-              filingPeriod={filing.period}
-            />
-
-            <InstitutionRefile institution={institution} status={status} />
-          </div>
+              <InstitutionRefile institution={institution} status={status} />
+            </React.Fragment>
+          ) : (
+            <Alert
+              type="warning"
+              heading={`No filing initialized for ${filingPeriod}.`}
+            >
+              <p>
+                Your filing has not been initialized for filing period{' '}
+                {filingPeriod}. If you need to submit data for this filing
+                period, please contact{' '}
+                <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
+              </p>
+            </Alert>
+          )}
+        </div>
+        {filing ? (
           <InstitutionSubmissionHistory
             submissions={submissions}
             institutionId={institution.id}
           />
-        </section>
-      ) : (
-        // this error is rendered here so we can
-        // give the user the FI name and id
-        <section className="institution">
-          <div className="current-status">
-            <InstitutionNameAndId name={institution.name} id={institution.id} />
-            <Alert type="error" heading="Sorry, there was a problem.">
-              <p>
-                There was a problem initializing your filing. Please contact{' '}
-                <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
-              </p>
-            </Alert>
-          </div>
-        </section>
-      )}
+        ) : null}
+      </section>
     </div>
   )
 }

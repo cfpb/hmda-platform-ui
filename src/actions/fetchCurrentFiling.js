@@ -6,6 +6,6 @@ export default function fetchCurrentFiling(filings) {
     const filing = filings.filter(filing => {
       return filing.period === period
     })[0]
-    return dispatch(fetchFiling(filing))
+    if (filing) return dispatch(fetchFiling(filing))
   }
 }

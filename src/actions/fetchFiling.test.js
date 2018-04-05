@@ -19,7 +19,7 @@ describe('fetchFiling', () => {
       .dispatch(fetchFiling({ institutionId: '123', period: '2017' }))
       .then(() => {
         expect(store.getActions()).toEqual([
-          { type: types.REQUEST_FILING, id: '123' },
+          { type: types.REQUEST_FILING, id: '123', period: '2017' },
           {
             type: types.RECEIVE_FILING,
             filing: { filing: 1 }
@@ -43,7 +43,7 @@ describe('fetchFiling', () => {
       .dispatch(fetchFiling({ institutionId: '123', period: '2017' }))
       .then(() => {
         expect(store.getActions()).toEqual([
-          { type: types.REQUEST_FILING, id: '123' },
+          { type: types.REQUEST_FILING, id: '123', period: '2017' },
           {
             type: types.RECEIVE_ERROR,
             error: { status: 404, statusText: 'argle' }

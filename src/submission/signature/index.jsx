@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ErrorWarning from '../../common/ErrorWarning.jsx'
+import Loading from '../../common/Loading.jsx'
 import { VALIDATED_WITH_ERRORS, SIGNED } from '../../constants/statusCodes.js'
 
 const showWarning = props => {
@@ -30,7 +31,7 @@ const Signature = props => {
   }
 
   // if an error has occurred, disable both checkbox and button
-  if (props.error) {
+  if (props.error || props.isSubmitting) {
     isDisabled = true
     buttonClass = 'usa-button-disabled'
   }
@@ -47,32 +48,40 @@ const Signature = props => {
       </header>
 
       {showWarning(props)}
+      {props.isFetching ? (
+        <Loading />
+      ) : (
+        <React.Fragment>
+          <ul className="usa-unstyled-list">
+            <li>
+              {props.isSubmitting ? (
+                <Loading className="submissionLoading" />
+              ) : null}
+              <input
+                id="signatureAuth"
+                name="signatureAuth"
+                type="checkbox"
+                value="signature"
+                disabled={isDisabled}
+                checked={props.checked}
+                onChange={e => props.onSignatureCheck(e.target.checked)}
+              />
+              <label htmlFor="signatureAuth" className="max-width-100">
+                I am an authorized representative of my institution with
+                knowledge of the data submitted and am certifying to the
+                accuracy and completeness of the data submitted.
+              </label>
+            </li>
+          </ul>
 
-      <ul className="usa-unstyled-list">
-        <li>
-          <input
-            id="signatureAuth"
-            name="signatureAuth"
-            type="checkbox"
-            value="signature"
-            disabled={isDisabled}
-            checked={props.checked}
-            onChange={e => props.onSignatureCheck(e.target.checked)}
-          />
-          <label htmlFor="signatureAuth" className="max-width-100">
-            I am an authorized representative of my institution with knowledge
-            of the data submitted and am certifying to the accuracy and
-            completeness of the data submitted.
-          </label>
-        </li>
-      </ul>
-
-      <button
-        className={buttonClass}
-        onClick={e => props.onSignatureClick(props.checked)}
-      >
-        Submit HMDA data
-      </button>
+          <button
+            className={buttonClass}
+            onClick={e => props.onSignatureClick(props.checked)}
+          >
+            Submit HMDA data
+          </button>
+        </React.Fragment>
+      )}
     </section>
   )
 }

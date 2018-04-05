@@ -9,6 +9,7 @@ import {
 
 const defaultSignature = {
   isFetching: false,
+  isSubmitting: false,
   timestamp: null,
   receipt: null,
   checked: false
@@ -34,13 +35,13 @@ export default (state = defaultSignature, action) => {
     case REQUEST_SIGNATURE_POST:
       return {
         ...state,
-        isFetching: true
+        isSubmitting: true
       }
 
     case RECEIVE_SIGNATURE_POST:
       return {
         ...state,
-        isFetching: false,
+        isSubmitting: false,
         timestamp: action.timestamp,
         receipt: action.receipt
       }

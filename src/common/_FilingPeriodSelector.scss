@@ -1,0 +1,14 @@
+.FilingPeriodSelector{
+  display: inline-block;
+  select {
+    padding-top: 0;
+    padding-bottom: 0;
+    text-transform: uppercase;
+    font-size: 3rem;
+    font-weight: bold;
+  }
+}
+
+.closedFilingPeriod > .FilingPeriodSelector select {
+  color: $color-gray;
+}

@@ -5,6 +5,7 @@ import signature from './signature.js'
 
 const defaultSignature = {
   isFetching: false,
+  isSubmitting: false,
   timestamp: null,
   receipt: null,
   checked: false
@@ -23,7 +24,7 @@ describe('signature reducer', () => {
 
   it('handles REQUEST_SIGNATURE_POST', () => {
     expect(signature({}, { type: types.REQUEST_SIGNATURE_POST })).toEqual({
-      isFetching: true
+      isSubmitting: true
     })
   })
 
@@ -47,7 +48,7 @@ describe('signature reducer', () => {
         {},
         { type: types.RECEIVE_SIGNATURE_POST, timestamp: 1234, receipt: 'asdf' }
       )
-    ).toEqual({ isFetching: false, timestamp: 1234, receipt: 'asdf' })
+    ).toEqual({ isSubmitting: false, timestamp: 1234, receipt: 'asdf' })
   })
 
   it('handles CHECK_SIGNATURE', () => {
