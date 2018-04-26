@@ -3,7 +3,7 @@ pipeline {
   agent {
     docker {
       image 'cfpb/jenkinsfile:nodejs'
-      args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker'
+      args '--user jenkins -v /run/docker.sock:/run/docker.sock'
     }
   }
 
@@ -35,7 +35,7 @@ pipeline {
         // It seems this is necessary because `docker.withRegistry()` credentials only perform a `docker login`
         // correctly for some versions of Docker.  This may go away upon future Docker versions.
         sh 'docker login --username $DOCKER_REGISTRY_CREDENTIALS_USR --password $DOCKER_REGISTRY_CREDENTIALS_PSW $DOCKER_REGISTRY_URL'
-        
+
         sh 'env | sort'
       }
     }
@@ -54,7 +54,7 @@ pipeline {
       }
     }
 
-    stage('push') {
+    stage('publish') {
       steps {
         script {
           docker.withRegistry(env.DOCKER_REGISTRY_URL, env.DOCKER_REGISTRY_CREDENTIALS_ID) {
