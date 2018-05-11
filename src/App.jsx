@@ -26,11 +26,13 @@ export class AppContainer extends Component {
   }
 
   _isHome(props) {
-    return props.location.pathname === '/'
+    return props.location.pathname === window.HMDA_ENV.APP_SUFFIX
   }
 
   _isOidc(props) {
-    return props.location.pathname === '/oidc-callback'
+    return (
+      props.location.pathname === window.HMDA_ENV.APP_SUFFIX + 'oidc-callback'
+    )
   }
 
   _isUnprotected(props) {

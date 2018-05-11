@@ -19,7 +19,7 @@ const Home = () => {
               className="usa-button"
               onClick={e => {
                 e.preventDefault()
-                signinRedirect('/institutions')
+                signinRedirect(window.HMDA_ENV.APP_SUFFIX + 'institutions')
               }}
             >
               Log in
@@ -29,7 +29,7 @@ const Home = () => {
               className="register-link"
               onClick={e => {
                 e.preventDefault()
-                register('/institutions')
+                register(window.HMDA_ENV.APP_SUFFIX + 'institutions')
               }}
             >
               Create an account

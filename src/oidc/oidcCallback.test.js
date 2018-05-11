@@ -104,7 +104,7 @@ describe('oidcCallback', () => {
   })
 
   it('renders an error if theres an error in state', () => {
-    window.HMDA_ENV = { APP_URL: 'website.cool' }
+    window.HMDA_ENV = { FILING_APP_URL: 'website.cool' }
     const oidc = new oidcCallback({
       dispatch: jest.fn(),
       location: { hash: '123' },

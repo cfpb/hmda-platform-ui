@@ -58,7 +58,9 @@ const renderByCode = (code, page, message) => {
     toRender.push(
       <p>
         Something is wrong.{' '}
-        <Link to="/institutions">Return to institutions</Link>.
+        <Link to={window.HMDA_ENV.APP_SUFFIX + 'institutions'}>
+          Return to institutions
+        </Link>.
       </p>
     )
   }

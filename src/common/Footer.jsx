@@ -14,7 +14,7 @@ const Footer = () => {
               <li className="usa-footer-primary-content">
                 <Link
                   className="usa-nav-link"
-                  to={'/'}
+                  to={window.HMDA_ENV.FILING_APP_URL}
                   title="Home"
                   aria-label="Home"
                 >

@@ -47,7 +47,7 @@ const restorePage = () => {
 const logout = () => {
   if (!userManager)
     return error('userManager needs to be set on app initialization')
-  browserHistory.push('/')
+  browserHistory.push(HMDA_ENV.APP_SUFFIX)
   userManager.signoutRedirect()
 }
 

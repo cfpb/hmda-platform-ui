@@ -13,19 +13,19 @@ const createUserManager = dispatch => {
   if (!dispatch) return new UserManager()
 
   const keycloak = window.HMDA_ENV.KEYCLOAK_URL
-  const app = window.HMDA_ENV.APP_URL
+  const app = window.HMDA_ENV.FILING_APP_URL
 
   const manager = new UserManager({
     authority: keycloak,
     client_id: 'hmda-api',
-    redirect_uri: app + '/oidc-callback',
-    silent_redirect_uri: app + '/silent_renew.html',
+    redirect_uri: app + 'oidc-callback',
+    silent_redirect_uri: app + 'silent_renew.html',
     post_logout_redirect_uri: app,
     automaticSilentRenew: true,
     scope: 'openid profile',
     response_type: 'id_token token',
     monitorSession: false,
-    clockSkew: 60*10
+    clockSkew: 60 * 10
   })
 
   attachEvents(manager, dispatch)

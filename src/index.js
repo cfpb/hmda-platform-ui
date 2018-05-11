@@ -28,10 +28,18 @@ import log from './utils/log.js'
 import appReducer from './reducers'
 
 window.HMDA_ENV = {
-  APP_URL: '##APP_URL##',
+  HOMEPAGE_URL: '##HOMEPAGE_URL##',
+  FILING_APP_URL: '##FILING_APP_URL##',
   HMDA_API: '##HMDA_API##',
   KEYCLOAK_URL: '##KEYCLOAK_URL##'
 }
+
+const suffix = (window.HMDA_ENV.APP_SUFFIX =
+  '/' +
+  window.HMDA_ENV.FILING_APP_URL
+    .split('/')
+    .slice(3)
+    .join('/'))
 
 const middleware = [thunkMiddleware]
 
@@ -105,13 +113,22 @@ history.listen(location => {
 render(
   <Provider store={store}>
     <Router history={history} render={applyRouterMiddleware(useScroll())}>
-      <Route path="/" component={AppContainer}>
+      <Route path={suffix} component={AppContainer}>
         <IndexRoute component={HomeContainer} />
-        <Route path="/oidc-callback" component={oidcCallback} />
-        <Route path="/institutions" component={InstitutionContainer} />
-        <Route path="/:institution/:filing" component={SubmissionRouter} />
-        <Route path="/:institution/:filing/*" component={SubmissionRouter} />
-        <Route path="/*" component={SubmissionRouter} />
+        <Route path={suffix + 'oidc-callback'} component={oidcCallback} />
+        <Route
+          path={suffix + 'institutions'}
+          component={InstitutionContainer}
+        />
+        <Route
+          path={suffix + ':institution/:filing'}
+          component={SubmissionRouter}
+        />
+        <Route
+          path={suffix + ':institution/:filing/*'}
+          component={SubmissionRouter}
+        />
+        <Route path={suffix + '*'} component={SubmissionRouter} />
       </Route>
     </Router>
   </Provider>,
