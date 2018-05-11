@@ -44,7 +44,9 @@ export function mapDispatchToProps(dispatch) {
       })
     } else {
       return dispatch(fetchNewSubmission(id, period)).then(() => {
-        browserHistory.replace(`/${id}/${period}/upload`)
+        browserHistory.replace(
+          `${window.HMDA_ENV.APP_SUFFIX}${id}/${period}/upload`
+        )
       })
     }
   }

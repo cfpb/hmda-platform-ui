@@ -26,7 +26,7 @@ export class SubmissionRouter extends Component {
     const status = submission.status
 
     if (!params.institution || !params.filing) {
-      return browserHistory.replace('/')
+      this.goToAppHome()
     }
 
     const unmatchedId =
@@ -68,7 +68,13 @@ export class SubmissionRouter extends Component {
 
   replaceHistory(splat) {
     const { institution, filing } = this.props.params
-    return browserHistory.replace(`/${institution}/${filing}/${splat}`)
+    return browserHistory.replace(
+      `${window.HMDA_ENV.APP_SUFFIX}${institution}/${filing}/${splat}`
+    )
+  }
+
+  goToAppHome() {
+    return browserHistory.replace(window.HMDA_ENV.APP_SUFFIX)
   }
 
   getLatestPage() {
@@ -101,7 +107,7 @@ export class SubmissionRouter extends Component {
     }
 
     if (!submissionRoutes.includes(splat)) {
-      return browserHistory.replace('/')
+      return this.goToAppHome()
     }
 
     if (code < VALIDATED_WITH_ERRORS)
