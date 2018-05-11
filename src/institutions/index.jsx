@@ -20,7 +20,7 @@ const _setSubmission = (submission, filingObj) => {
 
 const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
   // we don't have institutions yet
-  if (!institutions.fetched) return <Loading />
+  if (!institutions.fetched) return <Loading className="floatingIcon" />
 
   // we don't have any institutions
   // this shouldn't happen because they need to pick
@@ -49,7 +49,7 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
       return <Institution key={i} institution={institution} />
     } else if (!institutionFilings.fetched) {
       // filings are not fetched yet
-      return <Loading key={i} />
+      return <Loading className="floatingIcon" key={i} />
     } else {
       // we have good stuff
       const filingObj = institutionFilings.filing
@@ -80,11 +80,13 @@ export default class Institutions extends Component {
 
           {_whatToRender(this.props)}
 
-          <p className="multi-message">
-            If you are planning to file on behalf of more than one financial
-            institution, contact{' '}
-            <a href="mailto:hmdahelp@cfpb.gov">hmdahelp@cfpb.gov</a>.
-          </p>
+          {this.props.institutions.fetched ? (
+            <p className="multi-message">
+              If you are planning to file on behalf of more than one financial
+              institution, contact{' '}
+              <a href="mailto:hmdahelp@cfpb.gov">hmdahelp@cfpb.gov</a>.
+            </p>
+          ) : null}
         </div>
       </main>
     )
