@@ -33,6 +33,8 @@ const defaultState = {
   }
 }
 
+window.HMDA_ENV = { APP_SUFFIX: '/filing/', HOMEPAGE_URL: 'home' }
+
 describe('oidcCallback', () => {
   it('renders the connected component', done => {
     const set = jest.fn()
@@ -94,9 +96,8 @@ describe('oidcCallback', () => {
       dispatch: jest.fn(),
       location: { hash: null }
     })
-    oidc.componentWillMount()
+    oidc.componentDidMount()
     expect(replace).toBeCalled()
-    expect(oidc.redirecting).toBe(true)
     const getUM = jest.fn()
     redirect.getUserManager = getUM
     oidc.componentDidMount()

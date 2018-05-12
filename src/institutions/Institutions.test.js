@@ -32,6 +32,8 @@ const submission = {
   isFetching: false
 }
 
+window.HMDA_ENV = { APP_SUFFIX: '/filing/', HOMEPAGE_URL: 'home' }
+
 describe('Institutions', () => {
   it('renders the institutions', () => {
     const institutions = TestUtils.renderIntoDocument(

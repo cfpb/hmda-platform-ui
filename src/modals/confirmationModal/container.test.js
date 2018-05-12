@@ -33,6 +33,8 @@ const mockedState = {
   }
 }
 
+window.HMDA_ENV = { APP_SUFFIX: '/filing/', HOMEPAGE_URL: 'home' }
+
 describe('ConfirmationModal Container', () => {
   it('maps state to props', () => {
     expect(mapStateToProps(mockedState)).toEqual({

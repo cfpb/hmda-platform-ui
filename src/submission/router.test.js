@@ -29,6 +29,8 @@ const typesDefault = {
   macro: { edits: [], verified: false }
 }
 
+window.HMDA_ENV = { APP_SUFFIX: '/filing/', HOMEPAGE_URL: 'home' }
+
 describe('ConnectedRouter', () => {
   const store = mockStore({
     app: {
@@ -92,7 +94,7 @@ describe('replaceHistory', () => {
     })
     router.replaceHistory('foofaraw')
 
-    expect(replace).toBeCalledWith('/argle/bargle/foofaraw')
+    expect(replace).toBeCalledWith('/filing/argle/bargle/foofaraw')
   })
 })
 
@@ -415,7 +417,7 @@ describe('route', () => {
       params: { institution: 'argle', filing: 'bargle', splat: 'badsplat' }
     })
     router.route()
-    expect(replace).toBeCalledWith('/')
+    expect(replace).toBeCalledWith('/filing/')
   })
 
   it('routes on before validated on upload page', () => {

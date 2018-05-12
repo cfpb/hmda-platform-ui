@@ -26,7 +26,7 @@ export class SubmissionRouter extends Component {
     const status = submission.status
 
     if (!params.institution || !params.filing) {
-      this.goToAppHome()
+      return this.goToAppHome()
     }
 
     const unmatchedId =
