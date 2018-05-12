@@ -93,8 +93,8 @@ const Home = () => {
                   Filers who wish to confirm that their LAR is formatted in the
                   required pipe-delimited text file format may also use the HMDA
                   File Format Verification Tool available at{' '}
-                  <a href="https://cfpb.github.io/hmda-platform-tools/file-format-verification/">
-                    https://cfpb.github.io/hmda-platform-tools/file-format-verification/
+                  <a href="https://ffiec.cfpb.gov/tools/file-format-verification/">
+                    https://ffiec.cfpb.gov/tools/file-format-verification/
                   </a>. This tool will conduct some of the same initial checks
                   that the HMDA Platform performs, and provides a convenient
                   test mechanism for filers.

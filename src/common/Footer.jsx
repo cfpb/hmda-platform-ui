@@ -18,7 +18,11 @@ const Footer = () => {
                   title="Home"
                   aria-label="Home"
                 >
-                  <img src="/img/ffiec-logo.png" width="75px" alt="FFIEC" />
+                  <img
+                    src="/filing/img/ffiec-logo.png"
+                    width="75px"
+                    alt="FFIEC"
+                  />
                   HMDA Platform
                 </Link>
               </li>
@@ -56,17 +60,17 @@ const Footer = () => {
 
             <ul className="usa-unstyled-list">
               <li>
-                <a href="https://cfpb.github.io/hmda-platform-tools/file-format-verification/">
+                <a href="https://ffiec.cfpb.gov/tools/file-format-verification/">
                   File Format Verification Tool
                 </a>
               </li>
               <li>
-                <a href="https://cfpb.github.io/hmda-platform-tools/check-digit/">
+                <a href="https://ffiec.cfpb.gov/tools/check-digit/">
                   Check Digit Tool
                 </a>
               </li>
               <li>
-                <a href="https://cfpb.github.io/hmda-platform-tools/rate-spread/">
+                <a href="https://ffiec.cfpb.gov/tools/rate-spread/">
                   Rate Spread Calculator
                 </a>
               </li>

@@ -72,7 +72,7 @@ const Header = props => {
               title="Home"
               aria-label="Home"
             >
-              <img src="/img/ffiec-logo.png" height="27px" alt="FFIEC" />
+              <img src="/filing/img/ffiec-logo.png" height="27px" alt="FFIEC" />
               HMDA Platform
             </Link>
           </em>
