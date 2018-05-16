@@ -166,7 +166,8 @@ const renderErrorMessage = () => {
 }
 
 const IRSReport = props => {
-  if (props.isFetching && !props.paginationFade) return <Loading />
+  if (props.isFetching && !props.paginationFade)
+    return <Loading className="floatingIcon" />
   if (!props.msas) return null
   // sometimes the back-end returns an empty array for the, "msas":[]
   const renderResponse =

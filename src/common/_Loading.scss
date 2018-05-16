@@ -1,14 +1,3 @@
-.LoadingIconWrapper {
-  width: 3em;
-  margin: 0 auto;
-  transform: rotateX(180deg);
-}
-
-.LoadingIcon {
-  width: 3em;
-  animation: loading-spin 2s infinite linear;
-}
-
 .LoadingInline {
   height: 22px;
   width: 22px;
@@ -21,11 +10,30 @@
   width: 18px;
 }
 
+
 @keyframes loading-spin {
   0% {
     transform: rotate(0deg);
   }
   100% {
-    transform: rotate(-359deg);
+    transform: rotate(360deg);
   }
+}
+
+.LoadingIconWrapper {
+  position: relative;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+}
+
+.LoadingIcon {
+  position:absolute;
+  margin: 0 auto;
+  border: 4px solid $color-gray-lightest;
+  border-left-color: $color-primary;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: loading-spin 1.2s linear infinite;
 }
