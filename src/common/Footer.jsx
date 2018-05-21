@@ -9,70 +9,27 @@ const Footer = () => {
       </div>
       <div className="usa-footer-primary-section">
         <div className="usa-grid-full">
-          <nav className="usa-footer-nav usa-width-one-third">
+          <nav className="usa-footer-nav usa-width-one-half">
             <ul className="usa-unstyled-list">
               <li className="usa-footer-primary-content">
-                <Link
+                <a
                   className="usa-nav-link"
-                  to={window.HMDA_ENV.FILING_APP_URL}
+                  href={window.HMDA_ENV.HOMEPAGE_URL}
                   title="Home"
                   aria-label="Home"
                 >
-                  <img
-                    src="/filing/img/ffiec-logo.png"
-                    width="75px"
-                    alt="FFIEC"
-                  />
-                  HMDA Platform
-                </Link>
+                  <img src="/img/ffiec-logo.png" width="75px" alt="FFIEC" />
+                  Home Mortgage Disclosure Act
+                </a>
               </li>
             </ul>
           </nav>
-          <div className="usa-width-one-third">
-            <h4>Resources</h4>
+          <div className="usa-width-one-half">
+            <h4>Questions?</h4>
 
             <ul className="usa-unstyled-list">
               <li>
-                <a href="https://www.ffiec.gov/hmda/">FFIEC HMDA Website</a>
-              </li>
-              <li>
-                <a href="https://www.federalregister.gov/documents/2015/10/28/2015-26607/home-mortgage-disclosure-regulation-c">
-                  HMDA Final Rule
-                </a>
-              </li>
-              <li>
-                <a href="https://www.consumerfinance.gov/policy-compliance/guidance/implementation-guidance/hmda-implementation/">
-                  Regulatory Implementation Resources
-                </a>
-              </li>
-              <li>
-                <a href="https://www.consumerfinance.gov/data-research/hmda/for-filers">
-                  Resources for HMDA Filers
-                </a>
-              </li>
-              <li>
-                <a href="mailto:hmdahelp@cfpb.gov">Contact Us</a>
-              </li>
-            </ul>
-          </div>
-          <div className="usa-width-one-third">
-            <h4>HMDA Platform Tools</h4>
-
-            <ul className="usa-unstyled-list">
-              <li>
-                <a href="https://ffiec.cfpb.gov/tools/file-format-verification/">
-                  File Format Verification Tool
-                </a>
-              </li>
-              <li>
-                <a href="https://ffiec.cfpb.gov/tools/check-digit/">
-                  Check Digit Tool
-                </a>
-              </li>
-              <li>
-                <a href="https://ffiec.cfpb.gov/tools/rate-spread/">
-                  Rate Spread Calculator
-                </a>
+                <a href="mailto:hmdahelp@cfpb.gov">hmdahelp@cfpb.gov</a>
               </li>
             </ul>
           </div>

@@ -18,24 +18,9 @@ export const makeNav = (props, page) => {
   let userHeader = (
     <ul className="usa-nav-primary">
       <li>
-        <a href={window.HMDA_ENV.HOMEPAGE_URL} className="usa-nav-link">
-          Home
-        </a>
-      </li>
-      <li>
         <Link to={window.HMDA_ENV.APP_SUFFIX} className="usa-nav-link">
-          Filing
+          Filing Home
         </Link>
-      </li>
-      <li>
-        <a href="/data-publication/" className="usa-nav-link">
-          Data Publication
-        </a>
-      </li>
-      <li>
-        <a href="/tools/" className="usa-nav-link">
-          Tools
-        </a>
       </li>
       {props.user ? (
         <li className="user">
@@ -72,8 +57,8 @@ const Header = props => {
               title="Home"
               aria-label="Home"
             >
-              <img src="/filing/img/ffiec-logo.png" height="27px" alt="FFIEC" />
-              HMDA Platform
+              <img src="/img/ffiec-logo.png" height="32px" alt="FFIEC" />
+              HMDA Filing Platform
             </Link>
           </em>
         </div>
