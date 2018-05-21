@@ -25,13 +25,7 @@ const Footer = () => {
             </ul>
           </nav>
           <div className="usa-width-one-half">
-            <h4>Questions?</h4>
-
-            <ul className="usa-unstyled-list">
-              <li>
-                <a href="mailto:hmdahelp@cfpb.gov">hmdahelp@cfpb.gov</a>
-              </li>
-            </ul>
+            <a href="mailto:hmdahelp@cfpb.gov">Questions?</a>
           </div>
         </div>
       </div>
