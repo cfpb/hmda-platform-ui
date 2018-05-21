@@ -33,7 +33,7 @@ describe('Header', () => {
   it('renders links without a user', () => {
     expect(
       TestUtils.scryRenderedDOMComponentsWithTag(headerNoUser, 'li').length
-    ).toBe(4)
+    ).toBe(1)
   })
 })
 
