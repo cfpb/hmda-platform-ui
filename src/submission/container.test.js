@@ -34,6 +34,8 @@ const state = {
   }
 }
 
+window.HMDA_ENV = { APP_SUFFIX: '/filing/', HOMEPAGE_URL: 'home' }
+
 describe('SubmissionContainer', () => {
   it('renders the unwrapped component', () => {
     console.error = jest.fn()

@@ -36,6 +36,8 @@ const defaultState = {
   }
 }
 
+window.HMDA_ENV = { APP_SUFFIX: '/filing/', HOMEPAGE_URL: 'home' }
+
 describe('AppContainer', () => {
   console.error = jest.fn()
   const wrappedContainer = TestUtils.renderIntoDocument(
@@ -206,7 +208,9 @@ describe('_isUnprotected', () => {
 describe('_isOidc', () => {
   it('returns true when matches oidc endpoint', () => {
     const app = new AppContainer({})
-    expect(app._isOidc({ location: { pathname: '/oidc-callback' } })).toBe(true)
+    expect(
+      app._isOidc({ location: { pathname: '/filing/oidc-callback' } })
+    ).toBe(true)
   })
 
   it('returns false when does not match oidc endpoint', () => {
@@ -218,7 +222,7 @@ describe('_isOidc', () => {
 describe('_isHome', () => {
   it('returns true when matches home endpoint', () => {
     const app = new AppContainer({})
-    expect(app._isHome({ location: { pathname: '/' } })).toBe(true)
+    expect(app._isHome({ location: { pathname: '/filing/' } })).toBe(true)
   })
 
   it('returns false when does not match home endpoint', () => {

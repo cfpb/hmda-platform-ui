@@ -19,7 +19,7 @@ const Home = () => {
               className="usa-button"
               onClick={e => {
                 e.preventDefault()
-                signinRedirect('/institutions')
+                signinRedirect(window.HMDA_ENV.APP_SUFFIX + 'institutions')
               }}
             >
               Log in
@@ -29,7 +29,7 @@ const Home = () => {
               className="register-link"
               onClick={e => {
                 e.preventDefault()
-                register('/institutions')
+                register(window.HMDA_ENV.APP_SUFFIX + 'institutions')
               }}
             >
               Create an account
@@ -54,56 +54,6 @@ const Home = () => {
             />
           </section>
           <div className="max-width">
-            <article className="faqs">
-              <h2>Top FAQs</h2>
-              <dl>
-                <dt>What is the deadline for submitting my HMDA data?</dt>
-                <dd>
-                  The deadline for submitting HMDA data is March 1 following the
-                  calendar year for which data are collected and recorded. For
-                  example, for data collected in 2017, the deadline for
-                  submitting HMDA data is March 1, 2018.
-                </dd>
-                <dt>
-                  Can my financial institution have multiple user accounts?
-                </dt>
-                <dd>
-                  Each financial institution may have multiple user accounts.
-                  Also, an individual may establish an account on behalf of more
-                  than one financial institution, provided that the user has
-                  been authorized by each such financial institution to do so.
-                </dd>
-                <dt>
-                  Will I be able to manually enter my LAR into the HMDA
-                  Platform?
-                </dt>
-                <dd>
-                  The HMDA Platform only accepts a pipe-delimited text file
-                  containing your LAR. If changes are required to your LAR,
-                  please enter them into your pipe-delimited text file before
-                  uploading the file to the HMDA Platform. This must be a single
-                  file as the HMDA Platform will not allow users to combine
-                  multiple files.
-                </dd>
-                <dt>
-                  Is there another tool for me to confirm that my LAR is in the
-                  correct format?
-                </dt>
-                <dd>
-                  Filers who wish to confirm that their LAR is formatted in the
-                  required pipe-delimited text file format may also use the HMDA
-                  File Format Verification Tool available at{' '}
-                  <a href="https://cfpb.github.io/hmda-platform-tools/file-format-verification/">
-                    https://cfpb.github.io/hmda-platform-tools/file-format-verification/
-                  </a>. This tool will conduct some of the same initial checks
-                  that the HMDA Platform performs, and provides a convenient
-                  test mechanism for filers.
-                </dd>
-              </dl>
-            </article>
-
-            <hr />
-
             <h3>CFPB Notice and Consent Banner</h3>
             <p className="usa-text-small">
               This is a Consumer Financial Protection Bureau (CFPB) information

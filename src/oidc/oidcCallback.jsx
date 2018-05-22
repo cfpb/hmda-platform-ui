@@ -8,11 +8,6 @@ import Loading from '../common/Loading.jsx'
 import Alert from '../common/Alert.jsx'
 
 export class oidcCallback extends React.Component {
-  constructor(props) {
-    super(props)
-    this.redirecting = false
-  }
-
   successCallback(user) {
     set(user.access_token)
     restorePage()
@@ -35,8 +30,9 @@ export class oidcCallback extends React.Component {
             <li>the local time on your computer is set accurately</li>
           </ul>
           <p style={{ marginBottom: '0.5em' }}>
-            Please <a href={window.HMDA_ENV.APP_URL}>
-              return to the home page
+            Please{' '}
+            <a href={window.HMDA_ENV.FILING_APP_URL}>
+              return to the filing home page
             </a>{' '}
             and try again. If the problem persists, contact{' '}
             <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
@@ -46,19 +42,15 @@ export class oidcCallback extends React.Component {
     )
   }
 
-  componentWillMount() {
-    if (!this.props.location.hash) {
-      this.redirecting = true
-      browserHistory.replace('/')
-    }
-  }
-
   componentDidMount() {
-    if (this.redirecting) return
-    getUserManager()
-      .signinRedirectCallback()
-      .then(this.successCallback)
-      .catch(this.errorCallback.bind(this))
+    if (!this.props.location.hash) {
+      browserHistory.replace(window.HMDA_ENV.APP_SUFFIX)
+    } else {
+      getUserManager()
+        .signinRedirectCallback()
+        .then(this.successCallback)
+        .catch(this.errorCallback.bind(this))
+    }
   }
 
   render() {

@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { logout } from '../utils/redirect.js'
-import HomeLink from './HomeLink.jsx'
 import BannerUSA from './BannerUSA.jsx'
 
 export const addActiveClass = (selected, current) => {
@@ -19,7 +18,9 @@ export const makeNav = (props, page) => {
   let userHeader = (
     <ul className="usa-nav-primary">
       <li>
-        <HomeLink />
+        <Link to={window.HMDA_ENV.APP_SUFFIX} className="usa-nav-link">
+          Filing Home
+        </Link>
       </li>
       {props.user ? (
         <li className="user">
@@ -28,20 +29,7 @@ export const makeNav = (props, page) => {
             Logout
           </a>
         </li>
-      ) : (
-        <React.Fragment>
-          <li>
-            <a href="/data-publication/" className="usa-nav-link">
-              Data Publication
-            </a>
-          </li>
-          <li>
-            <a href="/tools/" className="usa-nav-link">
-              Tools
-            </a>
-          </li>
-        </React.Fragment>
-      )}
+      ) : null}
     </ul>
   )
 
@@ -65,12 +53,12 @@ const Header = props => {
           <em className="usa-logo-text">
             <Link
               className="usa-nav-link"
-              to={'/'}
+              to={window.HMDA_ENV.APP_SUFFIX}
               title="Home"
               aria-label="Home"
             >
-              <img src="/img/ffiec-logo.png" width="100px" alt="FFIEC" />
-              HMDA Platform
+              <img src="/img/ffiec-logo.png" height="32px" alt="FFIEC" />
+              HMDA Filing Platform
             </Link>
           </em>
         </div>

@@ -102,6 +102,6 @@
     "redux": "3.6.0",
     "redux-logger": "2.7.4",
     "redux-thunk": "2.1.0",
-    "uswds": "1.4.2"
+    "uswds": "1.4.6"
   }
 }

@@ -6,6 +6,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
 
+window.HMDA_ENV = { APP_SUFFIX: '/filing/', HOMEPAGE_URL: 'home' }
+
 describe('Confirmation Modal', () => {
   const hideConfirmModal = jest.fn()
   const triggerRefile = jest.fn()

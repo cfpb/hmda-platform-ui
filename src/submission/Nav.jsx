@@ -131,7 +131,10 @@ export default class EditsNav extends Component {
 
       return (
         <li className={navClass} key={i}>
-          <Link className="usa-nav-link" to={`${base}/${navItem.link}`}>
+          <Link
+            className="usa-nav-link"
+            to={`${base}/${navItem.link}`}
+          >
             <div className="step">{step}</div>
             {renderedName}
           </Link>
