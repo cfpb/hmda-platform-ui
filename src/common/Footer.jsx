@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router'
 
 const Footer = () => {
   return (
@@ -18,7 +17,7 @@ const Footer = () => {
                   title="Home"
                   aria-label="Home"
                 >
-                  <img src="/img/ffiec-logo.png" width="75px" alt="FFIEC" />
+                  <img src="/img/ffiec-logo.svg" height="21px" alt="FFIEC" />
                   Home Mortgage Disclosure Act
                 </a>
               </li>
