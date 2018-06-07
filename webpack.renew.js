@@ -1,15 +1,76 @@
-const merge = require('webpack-merge')
-const common = require('./webpack.common.js')
+const path = require('path')
+const webpack = require('webpack')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-module.exports = merge(common, {
+module.exports = {
   entry: {
-    'main': './src/utils/silent_renew.js'
+    renew: './src/utils/silent_renew.js'
   },
+  devtool: 'source-map',
+  mode: 'production',
   output: {
-    filename: 'silent_renew.js'
+    path: path.resolve('./dist/js'),
+    filename: '[name].[chunkhash].js'
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'extraneous',
+          chunks: 'all'
+        }
+      }
+    }
   },
   plugins: [
-    new UglifyJSPlugin({sourceMap: true})
-  ]
-})
+    new webpack.optimize.ModuleConcatenationPlugin(),
+    new HtmlWebpackPlugin({
+      filename: '../silent_renew.html',
+      template: './src/silent_renew.html',
+      inject: false,
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true
+      }
+    }),
+    new UglifyJSPlugin({ sourceMap: true })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        include: [
+          path.resolve('./src'),
+          path.resolve('./node_modules/hmda-ui')
+        ],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                '@babel/env',
+                {
+                  modules: false,
+                  useBuiltIns: 'entry'
+                }
+              ]
+            ]
+          }
+        }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '../css/[hash].[ext]'
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

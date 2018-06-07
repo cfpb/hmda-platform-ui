@@ -37,6 +37,14 @@ http {
   include  mime.types;
   include /etc/nginx/useragent.rules;
 
+  map $sent_http_content_type $expires {
+    default                    off;
+    text/html                  epoch;
+    text/css                   max;
+    application/javascript     max;
+    ~image/                    max;
+  }
+
   server {
     listen 8080;
     root /usr/src/app/dist;
@@ -47,6 +55,7 @@ http {
     sendfile on;
     tcp_nopush on;
     tcp_nodelay on;
+    expires $expires;
 
     # Prevent access from nasty user agents
     if ($badagent) {

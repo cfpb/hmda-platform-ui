@@ -19,7 +19,7 @@ RUN yum install -y epel-release && \
     mv nginx/* /etc/nginx && \
     ls -d -1 * | grep -v '^\(dist\|docker-entrypoint.sh\|env.sh\)$' | xargs rm -rf && \
     touch /run/nginx.pid && \
-    chown -R $NGINX_USER:$NGINX_USER dist/js/app.min.js /etc/nginx /run/nginx.pid
+    chown -R $NGINX_USER:$NGINX_USER dist/js/*.js /etc/nginx /run/nginx.pid
 
 USER $NGINX_USER
 

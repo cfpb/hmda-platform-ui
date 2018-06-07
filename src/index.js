@@ -26,6 +26,7 @@ import { setUserManager, setDispatch } from './utils/redirect.js'
 import { setStore } from './api/fetch.js'
 import log from './utils/log.js'
 import appReducer from './reducers'
+import '../dist/css/app.min.css'
 
 window.HMDA_ENV = {
   HOMEPAGE_URL: '##HOMEPAGE_URL##',
