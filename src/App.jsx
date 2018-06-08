@@ -81,7 +81,11 @@ export class AppContainer extends Component {
           pathname={this.props.location.pathname}
           user={this.props.oidc}
         />
-        {this.props.userError ? <LoggedOutModal /> : <ConfirmationModal />}
+        {this.props.userError && !this.props.redirecting ? (
+          <LoggedOutModal />
+        ) : (
+          <ConfirmationModal />
+        )}
         {this._renderAppContents(this.props)}
         <Footer />
       </div>
