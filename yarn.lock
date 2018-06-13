@@ -3314,9 +3314,9 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hmda-ui@0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/hmda-ui/-/hmda-ui-0.0.15.tgz#a9647e834cfc4a58d8388d9957365cb02bf91ebb"
+hmda-ui@0.0.16:
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/hmda-ui/-/hmda-ui-0.0.16.tgz#80dcab9c43c16938e14fc2e37e9ea64255846a25"
   dependencies:
     babel-loader "8.0.0-beta.0"
     file-loader "1.1.11"
@@ -3324,7 +3324,6 @@ hmda-ui@0.0.15:
     webpack "4.10.2"
     webpack-command "0.2.0"
     webpack-merge "4.1.1"
-    webpack-shell-plugin "0.5.0"
 
 hoek@2.x.x:
   version "2.16.3"
@@ -7322,10 +7321,6 @@ webpack-merge@4.1.1:
   resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-4.1.1.tgz#f1197a0a973e69c6fbeeb6d658219aa8c0c13555"
   dependencies:
     lodash "^4.17.4"
-
-webpack-shell-plugin@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/webpack-shell-plugin/-/webpack-shell-plugin-0.5.0.tgz#29b8a1d80ddeae0ddb10e729667f728653c2c742"
 
 webpack-sources@^1.0.1, webpack-sources@^1.1.0:
   version "1.1.0"
