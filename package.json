@@ -9,8 +9,8 @@
   "scripts": {
     "test": "jest --coverage",
     "clearDist": "rimraf ./dist && mkdirp ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
-    "js": "(export NODE_ENV=build; webpack --config node_modules/hmda-ui/webpack.config.js --progress)",
-    "js:dev": "export NODE_ENV=build && webpack --config node_modules/hmda-ui/webpack.dev.js --progress",
+    "js": "(export NODE_ENV=build; webpack --config node_modules/hmda-ui/webpack.config.js --progress) && yarn run env",
+    "js:dev": "export NODE_ENV=build && webpack --config node_modules/hmda-ui/webpack.dev.js --progress && yarn run env",
     "renew": "(export NODE_ENV=build; webpack --config webpack.renew.js --progress) && rimraf ./dist/js/extraneous* && sed -i.bak s@##vendor##@$(basename dist/js/vendor*.js)@ ./dist/silent_renew.html && rimraf ./dist/silent_renew.html.bak",
     "sass": "node-sass --quiet --output-style=compressed --source-map-embed=true ./src/app.scss ./dist/css/app.min.scss && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts && yarn run sass:prefix",
     "sass:prefix": "postcss ./dist/css/app.min.scss -u autoprefixer -m -o ./dist/css/app.min.css && rimraf ./dist/css/app.min.scss",
@@ -21,7 +21,7 @@
     "watch:sass": "node-sass --watch --quiet --output-style=compressed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css",
     "watch:tests": "jest --watchAll",
     "watch": "yarn run watch:js & yarn run watch:sass",
-    "build": "yarn run clearDist && yarn run sass && yarn run img && yarn run js && yarn run env",
+    "build": "yarn run clearDist && yarn run sass && yarn run img && yarn run js",
     "pretty": "yarn run prettier --config ./.prettierrc --write './{src,__tests__}/**/*.{js*,scss}'",
     "lint": "eslint --ext .js,.jsx ./src"
   },
@@ -83,7 +83,7 @@
     "babel-polyfill": "6.26.0",
     "detect-browser": "1.7.0",
     "file-saver": "1.3.3",
-    "hmda-ui": "0.0.16",
+    "hmda-ui": "0.0.17",
     "isomorphic-fetch": "2.2.1",
     "oidc-client": "1.4.1",
     "prop-types": "15.5.10",
