@@ -25,15 +25,16 @@ const Home = () => {
               Log in
             </button>
             <span className="usa-text-small">or</span>
-            <button
-              className="register-link"
+            <a
+              href="#"
+              className="register-link usa-text-small"
               onClick={e => {
                 e.preventDefault()
                 register(window.HMDA_ENV.APP_SUFFIX + 'institutions')
               }}
             >
               Create an account
-            </button>
+            </a>
             <p className="usa-text-small">
               Every user is required to register online for login credentials
               and establish an account prior to accessing the HMDA Platform.
