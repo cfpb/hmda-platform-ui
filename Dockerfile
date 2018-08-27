@@ -1,4 +1,4 @@
-FROM wpears/hmda-ui-backend:latest
+FROM hmda/hmda-ui-backend:latest
 
 ENV NGINX_USER=svc_nginx_hmda
 
