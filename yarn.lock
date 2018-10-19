@@ -7851,7 +7851,7 @@ react-router@v3.2.0:
     prop-types "^15.5.6"
     warning "^3.0.0"
 
-react-scripts@^2.0.5:
+react-scripts@2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-2.0.5.tgz#74b8e9fa6a7c5f0f11221dd18c10df2ae3df3d69"
   integrity sha512-ApwQM91U5FK9CPktUJQu+UhGIdgcBqqw0pvCUPYshW1jBhIgl8N3SJtd+o+I+jwRXPWAXcbJNvzsBAFDW5HHAQ==
