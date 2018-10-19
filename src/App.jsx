@@ -5,15 +5,13 @@ import Header from './common/Header.jsx'
 import Footer from './common/Footer.jsx'
 import BrowserBlocker from './common/BrowserBlocker.jsx'
 import Loading from './common/Loading.jsx'
-import makeAction from './actions/makeAction.js'
-import { error } from './utils/log.js'
+//import { error } from './utils/log.js'
 import browser from 'detect-browser'
 
 export class AppContainer extends Component {
   _renderAppContents(props) {
     if (this._isOldBrowser()) return <BrowserBlocker />
-    if (props.redirecting || !props.oidc)
-      return <Loading className="floatingIcon" />
+    if (props.redirecting) return <Loading className="floatingIcon" />
     return props.children
   }
 
@@ -32,9 +30,7 @@ export class AppContainer extends Component {
           Skip to main content
         </a>
         <Header pathname={this.props.location.pathname} />
-        {this.props.userError && !this.props.redirecting ? null : (
-          <ConfirmationModal />
-        )}
+        {!this.props.redirecting ? null : <ConfirmationModal />}
         {this._renderAppContents(this.props)}
         <Footer />
       </div>
@@ -44,12 +40,12 @@ export class AppContainer extends Component {
 
 export function mapStateToProps(state) {
   const { redirecting } = state.app
-  const { oidc, isFetching, userError } = state.app.user
+  //const { oidc, isFetching, userError } = state.app.user
 
   return {
-    oidc,
-    isFetching,
-    userError,
+    //oidc,
+    //isFetching,
+    //userError,
     redirecting
   }
 }

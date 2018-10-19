@@ -25,9 +25,7 @@ export const makeNav = (props, page) => {
       {props.user ? (
         <li className="user">
           {props.user.profile.name}
-          <a href="#" className="usa-nav-link">
-            Logout
-          </a>
+          <button className="usa-nav-link">Logout</button>
         </li>
       ) : null}
     </ul>

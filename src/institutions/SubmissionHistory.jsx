@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { ordinal } from '../utils/date.js'
 import CSVDownload from '../common/CSVContainer.jsx'
 import * as STATUS from '../constants/statusCodes.js'
-import 'uswds'
 
 const InstitutionPreviousSubmissions = ({ submissions, institutionId }) => {
   if (!submissions.length) return null

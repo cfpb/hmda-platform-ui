@@ -25,8 +25,7 @@ const Home = () => {
               Log in
             </button>
             <span className="usa-text-small">or</span>
-            <a
-              href="#"
+            <button
               className="register-link usa-text-small"
               onClick={e => {
                 e.preventDefault()
@@ -34,7 +33,7 @@ const Home = () => {
               }}
             >
               Create an account
-            </a>
+            </button>
             <p className="usa-text-small">
               Every user is required to register online for login credentials
               and establish an account prior to accessing the HMDA Platform.

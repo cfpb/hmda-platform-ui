@@ -7,12 +7,11 @@ const CSVDownload = props => {
 
   return (
     <React.Fragment>
-      <a
-        href="#"
+      <button
         onClick={props.onDownloadClick(institutionId, period, sequenceNumber)}
       >
         {props.text || 'download the edit report.'}
-      </a>
+      </button>
       {props.isFetching ? <Loading className="LoadingInline" /> : null}
     </React.Fragment>
   )

@@ -5,7 +5,6 @@ import { render } from 'react-dom'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
 import {
   Router,
   Route,
@@ -73,5 +72,5 @@ render(
       </Route>
     </Router>
   </Provider>,
-  document.getElementById('app')
+  document.getElementById('root')
 )

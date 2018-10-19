@@ -14,8 +14,7 @@ const RefileButton = props => {
   }
 
   return (
-    <a
-      href="#"
+    <button
       className={refileStyle}
       onClick={e => {
         e.preventDefault()
@@ -26,7 +25,7 @@ const RefileButton = props => {
       }}
     >
       Upload a new file
-    </a>
+    </button>
   )
 }
 
