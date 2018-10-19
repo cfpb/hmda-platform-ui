@@ -19,6 +19,7 @@ import AppContainer from './App.jsx'
 import HomeContainer from './home/container.jsx'
 import InstitutionContainer from './institutions/container.jsx'
 import SubmissionRouter from './submission/router.jsx'
+import { setDispatch } from './utils/redirect.js'
 import { setStore } from './api/fetch.js'
 import log from './utils/log.js'
 import appReducer from './reducers'
@@ -58,12 +59,6 @@ history.listen(location => {
     `The current URL is ${location.pathname}${location.search}${location.hash}`
   )
   localStorage.setItem('hmdaHistory', JSON.stringify(location))
-
-  if (window.ga && ga.create) {
-    ga('create', 'UA-56928643-1', 'auto')
-    ga('set', 'page', location.pathname)
-    ga('send', 'pageview')
-  }
 })
 
 render(

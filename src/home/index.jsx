@@ -1,5 +1,5 @@
 import React from 'react'
-import { signinRedirect, register } from '../utils/redirect.js'
+// import { signinRedirect, register } from '../utils/redirect.js'
 
 const Home = () => {
   return (
@@ -19,7 +19,7 @@ const Home = () => {
               className="usa-button"
               onClick={e => {
                 e.preventDefault()
-                signinRedirect(window.HMDA_ENV.APP_SUFFIX + 'institutions')
+                // signinRedirect(window.HMDA_ENV.APP_SUFFIX + 'institutions')
               }}
             >
               Log in
@@ -30,7 +30,7 @@ const Home = () => {
               className="register-link usa-text-small"
               onClick={e => {
                 e.preventDefault()
-                register(window.HMDA_ENV.APP_SUFFIX + 'institutions')
+                // register(window.HMDA_ENV.APP_SUFFIX + 'institutions')
               }}
             >
               Create an account

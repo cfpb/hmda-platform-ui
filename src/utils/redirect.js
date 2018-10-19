@@ -1,24 +1,24 @@
 /* global HMDA_ENV */
 import { browserHistory } from 'react-router'
 import log, { error } from '../utils/log.js'
-import isRedirecting from '../actions/isRedirecting.js'
+// import isRedirecting from '../actions/isRedirecting.js'
 
-let userManager = null
+// let userManager = null
 let dispatch = () => {}
 
-const setUserManager = manager => {
+/*const setUserManager = manager => {
   userManager = manager
 }
 
 const getUserManager = () => {
   return userManager
-}
+}*/
 
 const setDispatch = fn => {
   dispatch = fn
 }
 
-const register = (path = location.pathname) => {
+/*const register = (path = location.pathname) => {
   if (!userManager)
     return error('userManager needs to be set on app initialization')
   userManager.settings.metadataService.getAuthorizationEndpoint = () =>
@@ -49,14 +49,14 @@ const logout = () => {
     return error('userManager needs to be set on app initialization')
   browserHistory.push(HMDA_ENV.APP_SUFFIX)
   userManager.signoutRedirect()
-}
+}*/
 
 export {
-  register,
-  signinRedirect,
-  restorePage,
-  logout,
-  setUserManager,
-  getUserManager,
+  //register,
+  //signinRedirect,
+  //restorePage,
+  //logout,
+  //setUserManager,
+  //getUserManager,
   setDispatch
 }

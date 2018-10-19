@@ -32,9 +32,7 @@ export class AppContainer extends Component {
           Skip to main content
         </a>
         <Header pathname={this.props.location.pathname} />
-        {this.props.userError && !this.props.redirecting ? (
-          <LoggedOutModal />
-        ) : (
+        {this.props.userError && !this.props.redirecting ? null : (
           <ConfirmationModal />
         )}
         {this._renderAppContents(this.props)}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { signinRedirect } from '../../utils/redirect.js'
+// import { signinRedirect } from '../../utils/redirect.js'
 
 export default class LoggedOutModal extends Component {
   render() {
@@ -23,7 +23,7 @@ export default class LoggedOutModal extends Component {
               onClick={e => {
                 e.preventDefault()
                 self.props.clearErrorModal()
-                signinRedirect()
+                // signinRedirect()
               }}
             >
               Log in
