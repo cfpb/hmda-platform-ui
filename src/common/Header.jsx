@@ -18,7 +18,7 @@ export const makeNav = (props, page) => {
   let userHeader = (
     <ul className="usa-nav-primary">
       <li>
-        <Link to={window.HMDA_ENV.APP_SUFFIX} className="usa-nav-link">
+        <Link to={'/filing'} className="usa-nav-link">
           Filing Home
         </Link>
       </li>
@@ -53,7 +53,7 @@ const Header = props => {
           <em className="usa-logo-text">
             <Link
               className="usa-nav-link"
-              to={window.HMDA_ENV.APP_SUFFIX}
+              to="/filing"
               title="Home"
               aria-label="Home"
             >
@@ -69,7 +69,7 @@ const Header = props => {
 }
 
 Header.propTypes = {
-  user: PropTypes.object,
+  //user: PropTypes.object,
   pathname: PropTypes.string
 }
 
