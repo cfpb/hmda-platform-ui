@@ -1,53 +1,68 @@
-@import 'sass/uswds-overrides/uswds-customer-vars.scss';
-@import 'node_modules/uswds/src/stylesheets/all.scss';
+@font-face {
+  font-family: SourceSansPro;
+  src: url(./fonts/sourcesanspro-regular-webfont.woff);
+}
+@font-face {
+  font-family: SourceSansProBold;
+  src: url(./fonts/sourcesanspro-bold-webfont.woff);
+}
+@font-face {
+  font-family: SourceSansProItalic;
+  src: url(./fonts/sourcesanspro-italic-webfont.woff);
+}
+html {
+  font-family: SourceSansPro;
+  font-size: 10px;
+  min-height: 100%;
+  position: relative;
+}
+body {
+  margin: 0 0 350px;
+  padding: 0;
+  font-family: SourceSansPro;
+  font-size: 1.6rem;
+}
+.skipnav {
+  background: transparent;
+  color: #212121;
+  left: 0;
+  padding: 1rem 1.5rem;
+  position: absolute;
+  top: -4.2rem;
+  transition: all 0.2s ease-in-out;
+  z-index: 100;
+}
 
-// HDMA customizations to USWDS
-@import 'sass/uswds-overrides/header.scss';
-@import 'sass/uswds-overrides/hero.scss';
-@import 'sass/uswds-overrides/footer.scss';
-@import 'sass/uswds-overrides/accordion.scss';
-@import 'sass/uswds-overrides/fixes.scss';
+a {
+  color: #0071bc;
+  text-decoration: underline;
+}
+a:visited {
+  color: #4c2c92;
+}
+a:hover,
+a:active {
+  color: #205493;
+}
 
-// HMDA specific
-@import 'sass/hmda.scss';
+p {
+  line-height: 1.5;
+}
 
-// Components
-@import 'common/Alert.scss';
-@import 'common/Header.scss';
-@import 'common/Footer.scss';
-@import 'common/ErrorWarning.scss';
-@import 'common/Loading.scss';
-@import 'common/BrowserBlocker.scss';
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: SourceSansProBold;
+}
 
-@import 'pagination/Pagination.scss';
+hr {
+  border-bottom: none;
+  border-top: 1px solid #aeb0b5;
+}
 
-@import 'refileWarning/RefileWarning.scss';
-@import 'refileButton/RefileButton.scss';
-
-@import 'modals/Modal.scss';
-@import 'modals/confirmationModal/RefileText.scss';
-
-@import 'home/Home.scss';
-
-@import 'institutions/Institutions.scss';
-@import 'institutions/Progress.scss';
-
-@import 'submission/Submission.scss';
-@import 'submission/NavButton.scss';
-@import 'submission/UserHeading.scss';
-@import 'submission/Nav.scss';
-
-@import 'submission/upload/UploadForm.scss';
-@import 'submission/upload/ValidationProgress.scss';
-
-@import 'submission/parseErrors/ParseErrors.scss';
-
-@import 'submission/edits/Table.scss';
-@import 'submission/edits/Header.scss';
-@import 'submission/edits/Verifier.scss';
-
-@import 'submission/irs/IRSReport.scss';
-
-@import 'submission/summary/Summary.scss';
-
-@import 'submission/signature/Signature.scss';
+.text-small {
+  font-size: 1.3rem;
+}

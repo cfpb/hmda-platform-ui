@@ -5,17 +5,19 @@ import logo from '../images/ffiec-logo.svg'
 
 const Footer = () => {
   return (
-    <footer className="Footer usa-footer usa-footer-slim" role="contentinfo">
-      <div className="usa-grid usa-footer-return-to-top">
-        <a href="#">Return to top</a>
+    <footer className="Footer footer footer-slim" role="contentinfo">
+      <div className="grid">
+        <a className="return-to-top" href="#">
+          Return to top
+        </a>
       </div>
-      <div className="usa-footer-primary-section">
-        <div className="usa-grid-full">
-          <nav className="usa-footer-nav usa-width-one-half">
-            <ul className="usa-unstyled-list">
-              <li className="usa-footer-primary-content">
+      <div className="footer-primary-section">
+        <div className="grid">
+          <nav className="item footer-nav">
+            <ul className="unstyled-list">
+              <li className="footer-primary-content">
                 <a
-                  className="usa-nav-link"
+                  className="nav-link"
                   href="/filing"
                   title="Home"
                   aria-label="Home"
@@ -26,7 +28,7 @@ const Footer = () => {
               </li>
             </ul>
           </nav>
-          <div className="usa-width-one-half">
+          <div className="item">
             <a href="mailto:hmdahelp@cfpb.gov">Questions?</a>
           </div>
         </div>
