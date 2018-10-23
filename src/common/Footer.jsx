@@ -1,6 +1,7 @@
 import React from 'react'
 
 import './Footer.css'
+import logo from '../images/ffiec-logo.svg'
 
 const Footer = () => {
   return (
@@ -19,7 +20,7 @@ const Footer = () => {
                   title="Home"
                   aria-label="Home"
                 >
-                  <img src="/img/ffiec-logo.svg" height="21px" alt="FFIEC" />
+                  <img src={logo} height="21px" alt="FFIEC" />
                   Home Mortgage Disclosure Act
                 </a>
               </li>

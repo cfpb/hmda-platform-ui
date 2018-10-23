@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 import BannerUSA from './BannerUSA.jsx'
 
 import './Header.css'
+import logo from '../images/ffiec-logo.svg'
 
 export const addActiveClass = (selected, current) => {
   if (selected === current) return 'active'
@@ -57,7 +58,7 @@ const Header = props => {
               title="Home"
               aria-label="Home"
             >
-              <img src="/img/ffiec-logo.svg" height="32px" alt="FFIEC" />
+              <img src={logo} height="32px" alt="FFIEC" />
               HMDA Filing Platform
             </Link>
           </em>
