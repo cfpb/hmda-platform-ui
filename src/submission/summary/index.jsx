@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import './Summary.css'
+
 const Summary = props => {
   if (!props.respondent || !props.file) return null
 

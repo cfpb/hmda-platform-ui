@@ -7,6 +7,8 @@ import InstitutionsHeader from './Header.jsx'
 import sortInstitutions from '../utils/sortInstitutions.js'
 import Alert from '../common/Alert.jsx'
 
+import './Institutions.css'
+
 const _setSubmission = (submission, filingObj) => {
   if (
     submission.id &&

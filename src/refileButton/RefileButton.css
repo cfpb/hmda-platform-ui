@@ -1,0 +1,11 @@
+.RefileButton:hover {
+  background-color: #cd2026;
+}
+.RefileButton:first-letter {
+  text-transform: uppercase;
+}
+.RefileButton.float {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

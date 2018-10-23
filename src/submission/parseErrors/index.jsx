@@ -5,6 +5,8 @@ import RefileWarningComponent from '../../refileWarning/index.jsx'
 import submissionProgressHOC from '../progressHOC.jsx'
 import Pagination from '../../pagination/container.jsx'
 
+import './ParseErrors.css'
+
 const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
 export const renderTSErrors = ({ transmittalSheetErrors }) => {
@@ -113,7 +115,8 @@ class ParseErrors extends Component {
               href="https://www.consumerfinance.gov/data-research/hmda/static/for-filers/2017/2017-HMDA-FIG.pdf"
             >
               Filing Instructions Guide for data collected in 2017
-            </a>.
+            </a>
+            .
           </p>
         </header>
         {renderTSErrors(props)}

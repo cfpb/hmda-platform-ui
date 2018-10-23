@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Loading from '../common/Loading.jsx'
 
+import './Pagination.css'
+
 let scrollHeight
 let scrollDiff
 

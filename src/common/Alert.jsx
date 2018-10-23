@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import './Alert.css'
+
 const Alert = ({ type = 'info', heading, imageText, children }) => {
   if (!children) return null
   let alertText

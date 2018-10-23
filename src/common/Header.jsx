@@ -4,6 +4,8 @@ import { Link } from 'react-router'
 // import { logout } from '../utils/redirect.js'
 import BannerUSA from './BannerUSA.jsx'
 
+import './Header.css'
+
 export const addActiveClass = (selected, current) => {
   if (selected === current) return 'active'
   return null

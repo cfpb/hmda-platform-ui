@@ -1,23 +1,23 @@
 .usa-button-disabled.usa-button {
-  background-color: $color-gray-lighter;
-  color: $color-gray-dark;
+  background-color: #d6d7d9;
+  color: #323a45;
   pointer-events: none;
 }
 
 .NavButton {
-  &.usa-button {
-    margin: 0;
-  }
   position: relative;
   text-transform: capitalize;
   opacity: 1;
   visibility: visible;
   transition: opacity 0.3s, visibility 0.3s;
+}
+.NavButton.usa-button {
+  margin: 0;
+}
 
-  &.hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
+.NavButton.hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .NavSpinner {

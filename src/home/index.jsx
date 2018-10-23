@@ -1,6 +1,8 @@
 import React from 'react'
 // import { signinRedirect, register } from '../utils/redirect.js'
 
+import './Home.css'
+
 const Home = () => {
   return (
     <main className="Home" id="main-content">

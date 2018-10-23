@@ -1,0 +1,33 @@
+.Progress {
+  margin-bottom: 0.5em;
+}
+
+.Progress span {
+  display: none;
+}
+
+@media only screen and (min-width: 600px) {
+  .Progress span {
+    display: block;
+  }
+}
+
+.Progress .EditsNav {
+  background-color: transparent;
+}
+
+.Progress .EditsNav ul.usa-nav-primary {
+  border-bottom: none;
+}
+
+.Progress .EditsNav ul.usa-nav-primary li.error {
+  color: #0071bc;
+  font-weight: 700;
+}
+
+.Progress .EditsNav ul.usa-nav-primary li.error .step {
+  background-color: #0071bc;
+  background-image: none;
+  border-color: #0071bc;
+  color: #ffffff;
+}

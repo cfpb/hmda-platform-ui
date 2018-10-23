@@ -1,0 +1,51 @@
+.usa-alert a {
+  color: #205493;
+}
+.usa-alert a.usa-button {
+  color: #ffffff;
+}
+.usa-alert.usa-alert-info,
+.usa-alert.usa-alert-warning,
+.usa-alert.usa-alert-error,
+.usa-alert.usa-alert-success {
+  background-image: none;
+}
+.usa-alert .usa-alert-heading {
+  margin-bottom: 0.5em;
+}
+.usa-alert .AlertImage {
+  font-size: 30px;
+  line-height: 25px;
+  padding-top: 2px;
+  color: #ffffff;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #212121;
+  font-weight: 700;
+  text-align: center;
+}
+
+.AlertImageCheck {
+  background-image: url('../images/correct8.png');
+  background-image: url('../images/correct8.svg');
+  background-repeat: no-repeat;
+  background-size: 30px;
+}
+
+.AlertImageClose {
+  background-image: url('../images/close-white.png');
+  background-image: url('../images/close-white.svg');
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: 7px;
+}
+
+.AlertImage {
+  color: #ffffff;
+}
+
+.BannerBeta .AlertImage {
+  display: none;
+}

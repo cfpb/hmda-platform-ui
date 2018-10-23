@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './Footer.css'
+
 const Footer = () => {
   return (
     <footer className="Footer usa-footer usa-footer-slim" role="contentinfo">
