@@ -1,12 +1,14 @@
 import React from 'react'
 
+import './BannerUSA.css'
+
 import favicon from '../images/favicon-57.png'
 
 const USABanner = () => {
   return (
-    <section className="usa-banner">
-      <header className="usa-banner-header">
-        <div className="usa-grid usa-banner-inner">
+    <section className="banner">
+      <header className="banner-header">
+        <div className="grid banner-inner">
           <img src={favicon} alt="U.S. flag" />
           <p>An official website of the United States government</p>
         </div>

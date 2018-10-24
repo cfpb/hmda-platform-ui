@@ -19,16 +19,16 @@ export const addActiveClass = (selected, current) => {
 
 export const makeNav = (props, page) => {
   let userHeader = (
-    <ul className="usa-nav-primary">
+    <ul className="nav-primary">
       <li>
-        <Link to={'/filing'} className="usa-nav-link">
+        <Link to={'/filing'} className="nav-link">
           Filing Home
         </Link>
       </li>
       {props.user ? (
         <li className="user">
           {props.user.profile.name}
-          <button className="usa-nav-link">Logout</button>
+          <button className="nav-link">Logout</button>
         </li>
       ) : null}
     </ul>
@@ -36,24 +36,20 @@ export const makeNav = (props, page) => {
 
   if (page === 'oidc-callback') userHeader = null
 
-  return <nav className="usa-nav">{userHeader}</nav>
+  return <nav className="nav">{userHeader}</nav>
 }
 
 const Header = props => {
   const page = props.pathname.split('/').slice(-1)[0]
 
   return (
-    <header
-      className="Header usa-header usa-header-basic"
-      id="header"
-      role="banner"
-    >
+    <header className="Header header header-basic" id="header" role="banner">
       <BannerUSA />
-      <section className="usa-nav-container">
-        <div className="usa-logo" id="logo">
-          <em className="usa-logo-text">
+      <section className="nav-container">
+        <div className="logo" id="logo">
+          <span className="logo-text">
             <Link
-              className="usa-nav-link"
+              className="nav-link"
               to="/filing"
               title="Home"
               aria-label="Home"
@@ -61,7 +57,7 @@ const Header = props => {
               <img src={logo} height="32px" alt="FFIEC" />
               HMDA Filing Platform
             </Link>
-          </em>
+          </span>
         </div>
         {makeNav(props, page)}
       </section>

@@ -8,6 +8,8 @@ import Loading from './common/Loading.jsx'
 //import { error } from './utils/log.js'
 import browser from 'detect-browser'
 
+import './app.css'
+
 export class AppContainer extends Component {
   _renderAppContents(props) {
     if (this._isOldBrowser()) return <BrowserBlocker />
@@ -26,7 +28,7 @@ export class AppContainer extends Component {
   render() {
     return (
       <div className="AppContainer">
-        <a className="usa-skipnav" href="#main-content">
+        <a className="skipnav" href="#main-content">
           Skip to main content
         </a>
         <Header pathname={this.props.location.pathname} />
