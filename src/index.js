@@ -1,9 +1,10 @@
+import 'react-app-polyfill/ie11' // For IE 11 support
+
 import React from 'react'
 import { render } from 'react-dom'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
 import {
   Router,
   Route,
@@ -17,6 +18,7 @@ import AppContainer from './App.jsx'
 import HomeContainer from './home/container.jsx'
 import InstitutionContainer from './institutions/container.jsx'
 import SubmissionRouter from './submission/router.jsx'
+import { setDispatch } from './utils/redirect.js'
 import { setStore } from './api/fetch.js'
 import log from './utils/log.js'
 import appReducer from './reducers'
@@ -56,12 +58,6 @@ history.listen(location => {
     `The current URL is ${location.pathname}${location.search}${location.hash}`
   )
   localStorage.setItem('hmdaHistory', JSON.stringify(location))
-
-  if (window.ga && ga.create) {
-    ga('create', 'UA-56928643-1', 'auto')
-    ga('set', 'page', location.pathname)
-    ga('send', 'pageview')
-  }
 })
 
 render(
@@ -76,5 +72,5 @@ render(
       </Route>
     </Router>
   </Provider>,
-  document.getElementById('app')
+  document.getElementById('root')
 )

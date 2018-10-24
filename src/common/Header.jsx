@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
-import { logout } from '../utils/redirect.js'
+// import { logout } from '../utils/redirect.js'
 import BannerUSA from './BannerUSA.jsx'
 
 export const addActiveClass = (selected, current) => {
@@ -9,10 +9,10 @@ export const addActiveClass = (selected, current) => {
   return null
 }
 
-export const logOutHandler = e => {
+/*export const logOutHandler = e => {
   e.preventDefault()
   logout()
-}
+}*/
 
 export const makeNav = (props, page) => {
   let userHeader = (
@@ -25,9 +25,7 @@ export const makeNav = (props, page) => {
       {props.user ? (
         <li className="user">
           {props.user.profile.name}
-          <a href="#" className="usa-nav-link" onClick={logOutHandler}>
-            Logout
-          </a>
+          <button className="usa-nav-link">Logout</button>
         </li>
       ) : null}
     </ul>

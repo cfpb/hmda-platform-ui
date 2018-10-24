@@ -68,13 +68,11 @@ export class SubmissionRouter extends Component {
 
   replaceHistory(splat) {
     const { institution, filing } = this.props.params
-    return browserHistory.replace(
-      `${window.HMDA_ENV.APP_SUFFIX}${institution}/${filing}/${splat}`
-    )
+    return browserHistory.replace(`/filing/${institution}/${filing}/${splat}`)
   }
 
   goToAppHome() {
-    return browserHistory.replace(window.HMDA_ENV.APP_SUFFIX)
+    return browserHistory.replace('/filing')
   }
 
   getLatestPage() {

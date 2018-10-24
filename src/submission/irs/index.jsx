@@ -37,15 +37,14 @@ const renderDownloadLink = props => {
   const { institutionId, period, sequenceNumber } = props.id
   return (
     <p>
-      <a
-        href="#"
+      <button
         onClick={e => {
           e.preventDefault()
           props.onDownloadClick(institutionId, period, sequenceNumber)
         }}
       >
         Download IRS report
-      </a>
+      </button>
     </p>
   )
 }

@@ -56,6 +56,8 @@ const DropzoneContent = ({ code, errors, filename, errorFile }) => {
           post: 'is complete'
         }
         break
+      default:
+        break
     }
 
     message = formatMessage(messageObj, filename)
