@@ -73,9 +73,9 @@ export default class Institutions extends Component {
     const { error, filingPeriod } = this.props
 
     return (
-      <main id="main-content" className="usa-grid Institutions">
+      <main id="main-content" className="Institutions">
         {error ? <ErrorWarning error={error} /> : null}
-        <div className="usa-width-one-whole">
+        <div className="grid">
           {filingPeriod ? (
             <InstitutionsHeader filingPeriod={filingPeriod} />
           ) : null}

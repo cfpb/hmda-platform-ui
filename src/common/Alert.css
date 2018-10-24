@@ -1,19 +1,122 @@
-.usa-alert a {
+.alert {
+  background-color: #f1f1f1;
+  background-position: 2rem 2rem;
+  background-repeat: no-repeat;
+  background-size: 5.2rem;
+  margin-top: 1.5em;
+  padding-bottom: 1.4rem;
+  padding-left: 3rem;
+  padding-right: 2rem;
+  padding-top: 2rem;
+  position: relative;
+}
+.alert::before {
+  background-color: #8b8b8b;
+  content: '';
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 1rem;
+}
+.alert a {
   color: #205493;
 }
-.usa-alert a.usa-button {
+.alert a:focus,
+.alert a:hover {
+  color: #112e51;
+}
+.alert ul {
+  margin-bottom: 0;
+  margin-top: 1rem;
+  padding-left: 1rem;
+}
+
+.alert-slim {
+  background-position: 2rem 1rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+.alert-slim .alert-text:only-child {
+  margin-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.alert-icon {
+  display: table-cell;
+  padding-right: 1rem;
+}
+
+.alert-body {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.alert-heading {
+  font-family: SourceSansProBold;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.alert-text {
+  font-family: SourceSansPro;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.alert-text:only-child {
+  margin-bottom: 1rem;
+  padding-top: 0.5rem;
+}
+
+.alert-success {
+  background-color: #e7f4e4;
+}
+.alert-success::before {
+  background-color: #2e8540;
+}
+
+.alert-warning {
+  background-color: #fff1d2;
+}
+.alert-warning::before {
+  background-color: #fdb81e;
+}
+
+.alert-error {
+  background-color: #f9dede;
+}
+.alert-error::before {
+  background-color: #e31c3d;
+}
+
+.alert-info {
+  background-color: #e1f3f8;
+}
+.alert-info::before {
+  background-color: #02bfe7;
+}
+
+.alert-paragraph {
+  width: 66ch;
+}
+
+.alert a {
+  color: #205493;
+}
+.alert a.button {
   color: #ffffff;
 }
-.usa-alert.usa-alert-info,
-.usa-alert.usa-alert-warning,
-.usa-alert.usa-alert-error,
-.usa-alert.usa-alert-success {
+.alert.alert-info,
+.alert.alert-warning,
+.alert.alert-error,
+.alert.alert-success {
   background-image: none;
 }
-.usa-alert .usa-alert-heading {
+.alert .alert-heading {
   margin-bottom: 0.5em;
 }
-.usa-alert .AlertImage {
+.alert .AlertImage {
   font-size: 30px;
   line-height: 25px;
   padding-top: 2px;
@@ -25,21 +128,6 @@
   background-color: #212121;
   font-weight: 700;
   text-align: center;
-}
-
-.AlertImageCheck {
-  background-image: url('../images/correct8.png');
-  background-image: url('../images/correct8.svg');
-  background-repeat: no-repeat;
-  background-size: 30px;
-}
-
-.AlertImageClose {
-  background-image: url('../images/close-white.png');
-  background-image: url('../images/close-white.svg');
-  background-repeat: no-repeat;
-  background-size: 16px;
-  background-position: 7px;
 }
 
 .AlertImage {
