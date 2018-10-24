@@ -8,6 +8,8 @@ import {
   SIGNED
 } from '../constants/statusCodes.js'
 
+import './Progress.css'
+
 const navMap = {
   upload: {
     isErrored: code => code === PARSED_WITH_ERRORS,

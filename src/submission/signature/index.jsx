@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import ErrorWarning from '../../common/ErrorWarning.jsx'
 import { VALIDATED_WITH_ERRORS, SIGNED } from '../../constants/statusCodes.js'
 
+import './Signature.css'
+
 const showWarning = props => {
   if (!props.error) return null
   return (

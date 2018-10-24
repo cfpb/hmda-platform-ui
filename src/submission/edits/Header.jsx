@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Loading from '../../common/Loading.jsx'
 
+import './Header.css'
+
 const syntacticalValidity = {
   id: 'syntacticalvalidity',
   title: 'Syntactical and validity edits',

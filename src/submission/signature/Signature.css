@@ -1,0 +1,21 @@
+.Signature {
+  margin-bottom: 5em;
+}
+
+.Signature h2 {
+  margin-top: 0;
+}
+
+.Signature .usa-font-lead {
+  color: #323a45;
+  margin-top: 0.5em;
+  margin-bottom: 0;
+}
+
+.Signature .usa-alert {
+  margin-top: 1em;
+}
+
+.Signature .usa-alert p {
+  margin: 0.25em 0;
+}

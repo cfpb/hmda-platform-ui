@@ -8,6 +8,8 @@ import {
   SIGNED
 } from '../constants/statusCodes.js'
 
+import './Nav.css'
+
 export default class EditsNav extends Component {
   constructor(props) {
     super(props)
@@ -117,11 +119,15 @@ export default class EditsNav extends Component {
       const errored = navItem.isErrored()
       const renderedName = errored
         ? navItem.errorText
-        : completed ? navItem.completedText : name
+        : completed
+          ? navItem.completedText
+          : name
 
       let navClass = errored
         ? navItem.errorClass
-        : completed ? 'complete' : 'active'
+        : completed
+          ? 'complete'
+          : 'active'
 
       if (navClass !== 'active') step = null
       if (navClass === 'warning-exclamation') step = '!'
@@ -131,10 +137,7 @@ export default class EditsNav extends Component {
 
       return (
         <li className={navClass} key={i}>
-          <Link
-            className="usa-nav-link"
-            to={`${base}/${navItem.link}`}
-          >
+          <Link className="usa-nav-link" to={`${base}/${navItem.link}`}>
             <div className="step">{step}</div>
             {renderedName}
           </Link>

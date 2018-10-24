@@ -4,6 +4,8 @@ import Pagination from '../../pagination/container.jsx'
 import Loading from '../../common/Loading.jsx'
 import EditsTableRow from './TableRow.jsx'
 
+import './Table.css'
+
 export const formatHeader = text => {
   if (text === 'rowId') return 'Loan/Application Number'
   if (text === 'edit') return 'Edit ID'

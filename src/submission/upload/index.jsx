@@ -6,6 +6,8 @@ import Dropzone from 'react-dropzone'
 import DropzoneContent from './DropzoneContent.jsx'
 import * as STATUS from '../../constants/statusCodes.js'
 
+import './UploadForm.css'
+
 export default class Upload extends Component {
   constructor(props) {
     super(props)

@@ -8,6 +8,8 @@ import {
   VALIDATED_WITH_ERRORS
 } from '../constants/statusCodes.js'
 
+import './RefileWarning.css'
+
 export const getText = props => {
   let text = null
   let button = <RefileButton />

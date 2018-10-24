@@ -4,6 +4,8 @@ import Alert from '../../common/Alert.jsx'
 import Loading from '../../common/Loading.jsx'
 import { SIGNED } from '../../constants/statusCodes.js'
 
+import './Verifier.css'
+
 export const renderVerified = (verified, type) => {
   if (verified) {
     return (

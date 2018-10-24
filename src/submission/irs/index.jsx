@@ -4,6 +4,8 @@ import Pagination from '../../pagination/container.jsx'
 import Loading from '../../common/Loading.jsx'
 import Alert from '../../common/Alert.jsx'
 
+import './IRSReport.css'
+
 const renderTotals = props => {
   if (props.renderTotals)
     return (

@@ -4,6 +4,8 @@ import { Link } from 'react-router'
 import Loading from '../common/Loading.jsx'
 import { VALIDATED_WITH_ERRORS } from '../constants/statusCodes.js'
 
+import './NavButton.css'
+
 const NavButton = ({
   page,
   base,

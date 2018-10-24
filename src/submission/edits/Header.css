@@ -1,0 +1,12 @@
+.EditsHeaderDescription h2 {
+  margin-top: 0;
+}
+.EditsHeaderDescription p.usa-font-lead {
+  color: #323a45;
+  margin-top: 0.5em;
+  margin-bottom: 0;
+}
+.EditsHeaderDescription .LoadingIcon {
+  left: 5px;
+  top: 5px;
+}
