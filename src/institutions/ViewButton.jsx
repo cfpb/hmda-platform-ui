@@ -26,7 +26,7 @@ const InstitutionViewButton = ({ status, institutionId, filingPeriod }) => {
   return (
     <Link
       className="status-button usa-button"
-      to={`${window.HMDA_ENV.APP_SUFFIX}${institutionId}/${filingPeriod}`}
+      to={`/institutions/${institutionId}/${filingPeriod}`}
     >
       {text}
     </Link>
