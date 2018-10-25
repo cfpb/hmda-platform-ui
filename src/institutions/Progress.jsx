@@ -80,7 +80,7 @@ const Progress = ({ status = { code: 1 } }) => {
   return (
     <section className="Progress">
       <nav className="EditsNav" id="editsNav">
-        <ul className="usa-nav-primary">
+        <ul className="nav-primary">
           {Object.keys(navMap).map((name, i) => {
             return renderNavItem(status.code, name, i)
           })}

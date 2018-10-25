@@ -11,12 +11,12 @@
   position: fixed;
 }
 
-.EditsNav ul.usa-nav-primary {
+.EditsNav ul.nav-primary {
   border-bottom: 1px solid #d6d7d9;
   display: block;
   padding: 0.75em 0 0.25em;
 }
-.EditsNav ul.usa-nav-primary li {
+.EditsNav ul.nav-primary li {
   color: #5b616b;
   line-height: normal;
   padding: 0;
@@ -25,23 +25,23 @@
   vertical-align: top;
 }
 
-.EditsNav ul.usa-nav-primary li a {
+.EditsNav ul.nav-primary li a {
   color: #0071bc;
   font-weight: 700;
   margin: 0;
 }
 
-.EditsNav ul.usa-nav-primary li a:hover {
+.EditsNav ul.nav-primary li a:hover {
   background-color: transparent;
 }
 
-.EditsNav ul.usa-nav-primary li a:hover .step {
+.EditsNav ul.nav-primary li a:hover .step {
   background-color: #0071bc;
   border-color: #0071bc;
   color: #ffffff;
 }
 
-.EditsNav ul.usa-nav-primary li .step {
+.EditsNav ul.nav-primary li .step {
   background-color: #ffffff;
   border: 2px solid #5b616b;
   border-radius: 50%;
@@ -52,13 +52,13 @@
   padding: 4px 3px;
   width: 30px;
 }
-.EditsNav ul.usa-nav-primary li.active .step {
+.EditsNav ul.nav-primary li.active .step {
   background-color: #0071bc;
   border-color: #0071bc;
   color: #ffffff;
 }
 
-.EditsNav ul.usa-nav-primary li.complete .step {
+.EditsNav ul.nav-primary li.complete .step {
   background-image: url('../images/correct8.png');
   background-image: url('../images/correct8.svg');
   background-position: -2px -1px;
@@ -68,21 +68,21 @@
   border: 2px solid #212121;
   border-radius: 50%;
 }
-.EditsNav ul.usa-nav-primary li.complete a {
+.EditsNav ul.nav-primary li.complete a {
   color: #212121;
 }
-.EditsNav ul.usa-nav-primary li.complete a:hover {
+.EditsNav ul.nav-primary li.complete a:hover {
   color: #0071bc;
 }
 
-.EditsNav ul.usa-nav-primary li.warning-question a {
+.EditsNav ul.nav-primary li.warning-question a {
   color: #c05700;
 }
-.EditsNav ul.usa-nav-primary li.warning-question a:hover {
+.EditsNav ul.nav-primary li.warning-question a:hover {
   color: #0071bc;
 }
 
-.EditsNav ul.usa-nav-primary li.warning-question .step {
+.EditsNav ul.nav-primary li.warning-question .step {
   background-color: #dc731c;
   background-image: none;
   border-color: #dc731c;
@@ -92,14 +92,14 @@
   padding: 0 1px 0 0;
 }
 
-.EditsNav ul.usa-nav-primary li.warning-exclamation a {
+.EditsNav ul.nav-primary li.warning-exclamation a {
   color: #e31c3d;
 }
-.EditsNav ul.usa-nav-primary li.warning-exclamation a:hover {
+.EditsNav ul.nav-primary li.warning-exclamation a:hover {
   color: #0071bc;
 }
 
-.EditsNav ul.usa-nav-primary li.warning-exclamation .step {
+.EditsNav ul.nav-primary li.warning-exclamation .step {
   background-color: #e31c3d;
   background-image: none;
   border-color: #e31c3d;
@@ -109,14 +109,14 @@
   padding: 0 1px 0 0;
 }
 
-.EditsNav ul.usa-nav-primary li.error a {
+.EditsNav ul.nav-primary li.error a {
   color: #e31c3d;
 }
-.EditsNav ul.usa-nav-primary li.error a:hover {
+.EditsNav ul.nav-primary li.error a:hover {
   color: #0071bc;
 }
 
-.EditsNav ul.usa-nav-primary li.error .step {
+.EditsNav ul.nav-primary li.error .step {
   background-color: #e31c3d;
   background-image: url('../images/close-white.png');
   background-image: url('../images/close-white.svg');
@@ -126,7 +126,7 @@
   border-color: #e31c3d;
 }
 
-.EditsNav ul.usa-nav-primary li.current a {
+.EditsNav ul.nav-primary li.current a {
   border-bottom: 2px solid;
 }
 
