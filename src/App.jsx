@@ -8,6 +8,7 @@ import Loading from './common/Loading.jsx'
 //import { error } from './utils/log.js'
 import browser from 'detect-browser'
 
+import 'normalize.css'
 import './app.css'
 
 export class AppContainer extends Component {
