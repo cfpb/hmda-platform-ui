@@ -160,7 +160,23 @@ export function getFiling(id, filing) {
 }
 
 export function getLatestSubmission() {
-  return fetch({ submission: 'latest' })
+  // return fetch({ submission: 'latest' })
+
+  return new Promise(resolve => {
+    resolve({
+      fileName: 'Bank 0_400 LARS_S025 Ready.txt',
+      id: { institutionId: '0', period: '2017', sequenceNumber: 289 },
+      receipt: '0-2017-289-1540304400322',
+      status: {
+        code: 10,
+        message: 'Your submission has been accepted.',
+        description:
+          'This completes your HMDA filing process for this year. If you need to upload a new HMDA file, the previously completed filing will not be overridden until all edits have been cleared and verified, and the new file has been submitted.'
+      },
+      end: 1540304400322,
+      start: 1540303997250
+    })
+  })
 }
 
 export function getEdits() {
