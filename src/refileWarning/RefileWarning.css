@@ -15,21 +15,23 @@
   margin-bottom: 2em;
 }
 
-.RefileWarning .usa-alert-body {
+.RefileWarning .alert-body {
   display: block;
   position: relative;
 }
 
 .RefileWarning .RefileButton {
   background-color: #e31c3d;
+  color: #ffffff;
   position: absolute;
-  top: 50%;
   right: 0;
+  text-decoration: none;
+  top: 50%;
   transform: translate(0, -50%);
 }
 
 @media (max-width: 800px) {
-  .RefileWarning .usa-button.RefileButton {
+  .RefileWarning .RefileButton {
     position: relative;
     margin: 2em 0 -2em;
   }
