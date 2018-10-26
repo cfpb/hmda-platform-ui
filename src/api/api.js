@@ -168,10 +168,10 @@ export function getLatestSubmission() {
       id: { institutionId: '0', period: '2017', sequenceNumber: 289 },
       receipt: '0-2017-289-1540304400322',
       status: {
-        code: 10,
-        message: 'Your submission has been accepted.',
+        code: 5,
+        message: 'Your data has formatting errors.',
         description:
-          'This completes your HMDA filing process for this year. If you need to upload a new HMDA file, the previously completed filing will not be overridden until all edits have been cleared and verified, and the new file has been submitted.'
+          'Review these errors and update your file. Then, upload the corrected file.'
       },
       end: 1540304400322,
       start: 1540303997250
@@ -220,7 +220,153 @@ export function getSignature() {
 }
 
 export function getParseErrors() {
-  return fetch({ suffix: '/parseErrors' })
+  // return fetch({ suffix: '/parseErrors' })
+
+  return new Promise(resolve => {
+    resolve({
+      count: 20,
+      total: 1642,
+      larErrors: [
+        {
+          lineNumber: 2,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 3,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 4,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 5,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 6,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 7,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 8,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 9,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 10,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 11,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 12,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 13,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 14,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 15,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 16,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 17,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 18,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 19,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 20,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        },
+        {
+          lineNumber: 21,
+          errorMessages: [
+            'An incorrect number of data fields were reported: 1 data fields were found, when 39 data fields were expected.'
+          ]
+        }
+      ],
+      status: {
+        code: 5,
+        message: 'Your data has formatting errors.',
+        description:
+          'Review these errors and update your file. Then, upload the corrected file.'
+      },
+      transmittalSheetErrors: [
+        'An incorrect number of data fields were reported: 1 data fields were found, when 21 data fields were expected.'
+      ],
+      _links: {
+        self: '?page=1',
+        prev: '?page=1',
+        last: '?page=83',
+        next: '?page=2',
+        first: '?page=1',
+        href: '/institutions/0/filings/2017/submissions/290/parseErrors{rel}'
+      }
+    })
+  })
 }
 
 export function postUpload(body) {
