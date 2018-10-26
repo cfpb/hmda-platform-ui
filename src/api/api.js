@@ -168,10 +168,10 @@ export function getLatestSubmission() {
       id: { institutionId: '0', period: '2017', sequenceNumber: 289 },
       receipt: '0-2017-289-1540304400322',
       status: {
-        code: 5,
-        message: 'Your data has formatting errors.',
+        code: 8,
+        message: 'Your data has edits that need to be reviewed.',
         description:
-          'Review these errors and update your file. Then, upload the corrected file.'
+          'Your file has been uploaded, but the filing process may not proceed until edits are verified or the file is corrected and re-uploaded.'
       },
       end: 1540304400322,
       start: 1540303997250
