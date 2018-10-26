@@ -1,0 +1,12 @@
+.Institutions .institution .status {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+.Institutions .institution .status h4 {
+  margin: 0;
+}
+
+.Institutions .institution .status p {
+  margin: 0;
+}
