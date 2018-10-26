@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import * as STATUS from '../constants/statusCodes.js'
 
+import './ViewButton.css'
+
 const InstitutionViewButton = ({ status, institutionId, filingPeriod }) => {
   const code = status ? status.code : STATUS.CREATED
   let text
@@ -25,7 +27,7 @@ const InstitutionViewButton = ({ status, institutionId, filingPeriod }) => {
 
   return (
     <Link
-      className="status-button usa-button"
+      className="ViewButton button"
       to={`/filing/institutions/${institutionId}/${filingPeriod}`}
     >
       {text}
