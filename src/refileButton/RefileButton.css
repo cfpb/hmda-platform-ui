@@ -9,3 +9,7 @@ button.RefileButton {
   padding: 0;
   text-decoration: underline;
 }
+
+button.RefileButton:hover {
+  color: #205493;
+}
