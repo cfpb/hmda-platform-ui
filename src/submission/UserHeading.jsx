@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import './UserHeading.css'
+
 const UserHeading = props => {
   if (!props.period) return null
 

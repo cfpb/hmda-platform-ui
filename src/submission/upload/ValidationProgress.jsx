@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import ProgressText from './ProgressText.jsx'
 import * as STATUS from '../../constants/statusCodes.js'
 
+import './ValidationProgress.css'
+
 export default class ValidationProgress extends PureComponent {
   constructor(props) {
     super(props)
