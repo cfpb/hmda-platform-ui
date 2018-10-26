@@ -6,7 +6,7 @@ import './RefileButton.css'
 const RefileButton = props => {
   let refileStyle = 'RefileButton text-small'
   if (props.isLink) {
-    refileStyle = 'RefileButton '
+    refileStyle = 'RefileButton'
     if (props.isLower) {
       refileStyle = 'text-lowercase'
     }

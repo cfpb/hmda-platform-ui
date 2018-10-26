@@ -12,9 +12,11 @@ const CSVDownload = props => {
       <button
         className="CSVDownload"
         onClick={props.onDownloadClick(institutionId, period, sequenceNumber)}
+        style={props.inline ? { display: 'inline', marginTop: 0 } : null}
       >
-        {props.text || 'download the edit report.'}
+        {props.text || 'download the edit report'}
       </button>
+      {props.text ? null : '.'}
       {props.isFetching ? <Loading className="LoadingInline" /> : null}
     </React.Fragment>
   )
