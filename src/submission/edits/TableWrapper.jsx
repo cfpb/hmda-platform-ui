@@ -61,21 +61,15 @@ export const renderTablesOrSuccess = (props, edits, type) => {
     return (
       <Alert type="success">
         <p>
-          Your data did not trigger any {type} edits{verificationMsg}
+          Your data did not trigger any {type} edits
+          {verificationMsg}
         </p>
       </Alert>
     )
   }
 
   return edits.map((edit, i) => {
-    return (
-      <EditsTable
-        edit={edit}
-        type={type}
-        suppressEdits={props.suppressEdits}
-        key={i}
-      />
-    )
+    return <EditsTable edit={edit} type={type} suppressEdits={false} key={i} />
   })
 }
 

@@ -273,7 +273,29 @@ export function getEdits() {
 }
 
 export function getEdit(pathObj) {
-  return fetch({ suffix: `/edits/${pathObj.edit}` })
+  // return fetch({ suffix: `/edits/${pathObj.edit}` })
+
+  return new Promise(resolve => {
+    resolve({
+      count: 1,
+      total: 1,
+      edit: 'S010',
+      rows: [
+        {
+          row: { rowId: 'Transmittal Sheet' },
+          fields: { 'Activity Year': 2013 }
+        }
+      ],
+      _links: {
+        self: '?page=1',
+        prev: '?page=1',
+        last: '?page=1',
+        next: '?page=1',
+        first: '?page=1',
+        href: '/institutions/0/filings/2017/submissions/291/edits/S100{rel}'
+      }
+    })
+  })
 }
 
 export function getCSV(pathObj) {
