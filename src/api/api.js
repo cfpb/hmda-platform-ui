@@ -180,7 +180,96 @@ export function getLatestSubmission() {
 }
 
 export function getEdits() {
-  return fetch({ suffix: '/edits' })
+  // return fetch({ suffix: '/edits' })
+
+  return new Promise(resolve => {
+    resolve({
+      quality: {
+        verified: false,
+        edits: [
+          {
+            edit: 'Q030',
+            description:
+              'If action taken type = 1, 2, 3, 4, 5, or 6; and if the HMDA respondent is required to report MSA/MD, state, county, census tract, then MSA/MD, state, county, census tract should equal a valid combination and not NA.'
+          },
+          {
+            edit: 'Q130',
+            description:
+              'The number of loan/application records received in this transmission file per respondent does not = the total number of loan/application records reported in this respondent’s transmission or the total number of loan/application records in this submission is missing from the transmittal sheet.'
+          }
+        ]
+      },
+      macro: {
+        verified: false,
+        edits: [
+          {
+            edit: 'Q008',
+            description:
+              'If action taken type = 4, then the total number of these loans should be ≤ 30% of the total number of loan applications.'
+          },
+          {
+            edit: 'Q010',
+            description:
+              'The number of loan applications that report action taken type = 1 should be ≥ 20% of the total number of loan applications where action taken type = 1-6.'
+          },
+          {
+            edit: 'Q023',
+            description:
+              'The number of loan applications that report MSA/MD = NA should be ≤ 30% of the total number of loan applications.'
+          }
+        ]
+      },
+      status: {
+        code: 8,
+        message: 'Your data has edits that need to be reviewed.',
+        description:
+          'Your file has been uploaded, but the filing process may not proceed until edits are verified or the file is corrected and re-uploaded.'
+      },
+      validity: {
+        edits: [
+          {
+            edit: 'V125',
+            description:
+              'Tax ID number must be in NN-NNNNNNN format and not = (99-9999999 or 00-0000000 or blank).'
+          },
+          { edit: 'V550', description: 'Lien status must = 1, 2, 3, or 4.' },
+          {
+            edit: 'V555',
+            description:
+              'If loan purpose = 1 or 3, then lien status must = 1, 2, or 4.'
+          },
+          {
+            edit: 'V560',
+            description:
+              'If action taken type = 1-5, 7 or 8, then lien status must = 1, 2, or 3.'
+          }
+        ]
+      },
+      syntactical: {
+        edits: [
+          {
+            edit: 'S010',
+            description:
+              'The first record identifier in the file must = 1 (TS). The second and all subsequent record identifiers must = 2 (LAR).'
+          },
+          {
+            edit: 'S020',
+            description:
+              'Agency code must = 1, 2, 3, 5, 7, 9. The agency that submits the data must be the same as the reported agency code.'
+          },
+          {
+            edit: 'S025',
+            description:
+              'Control number must = a valid respondent identifier/agency code combination for date processed. Please note the respondent-id should not include any leading zeros or a dash.'
+          },
+          {
+            edit: 'S100',
+            description: 'Activity year must = year being processed (= 2017).'
+          }
+        ]
+      }
+    })
+  })
 }
 
 export function getEdit(pathObj) {

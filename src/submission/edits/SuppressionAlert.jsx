@@ -7,7 +7,7 @@ export const SuppressionAlert = props => {
     <Alert type="warning">
       <p>
         Sorry, we can't display tables of rows for each of your edits. To review
-        the affected rows, <CSVDownload />
+        the affected rows, <CSVDownload inline={true} />
       </p>
     </Alert>
   )
