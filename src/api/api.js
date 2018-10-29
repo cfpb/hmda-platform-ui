@@ -168,7 +168,7 @@ export function getLatestSubmission() {
       id: { institutionId: '0', period: '2017', sequenceNumber: 289 },
       receipt: '0-2017-289-1540304400322',
       status: {
-        code: 8,
+        code: 9,
         message: 'Your data has edits that need to be reviewed.',
         description:
           'Your file has been uploaded, but the filing process may not proceed until edits are verified or the file is corrected and re-uploaded.'
@@ -319,15 +319,112 @@ export function postVerify(type, verified) {
 }
 
 export function getIRS() {
-  return fetch({ suffix: '/irs' })
+  // return fetch({ suffix: '/irs' })
+
+  return new Promise(resolve => {
+    resolve({
+      msas: [
+        {
+          id: '123',
+          name: 'Some, Place',
+          totalLars: 4,
+          totalAmount: 123,
+          conv: 4,
+          FHA: 0,
+          VA: 0,
+          FSA: 0,
+          oneToFourFamily: 4,
+          MFD: 0,
+          multiFamily: 0,
+          homePurchase: 0,
+          homeImprovement: 0,
+          refinance: 4
+        },
+        {
+          id: '456',
+          name: 'Other, Place',
+          totalLars: 5,
+          totalAmount: 456,
+          conv: 5,
+          FHA: 0,
+          VA: 0,
+          FSA: 0,
+          oneToFourFamily: 5,
+          MFD: 0,
+          multiFamily: 0,
+          homePurchase: 0,
+          homeImprovement: 0,
+          refinance: 5
+        }
+      ],
+      summary: {
+        homeImprovement: 0,
+        multiFamily: 0,
+        lars: 9,
+        FSA: 0,
+        FHA: 0,
+        amount: 579,
+        oneToFourFamily: 9,
+        refinance: 9,
+        MFD: 0,
+        conv: 9,
+        homePurchase: 0,
+        VA: 0
+      },
+      count: 20,
+      total: 130,
+      _links: {
+        first: '?page=1',
+        prev: '?page=1',
+        self: '?page=1',
+        next: '?page=2',
+        last: '?page=7',
+        href: '/institutions/1/filings/2017/submissions/1/irs{rel}'
+      }
+    })
+  })
 }
 
 export function getSummary() {
-  return fetch({ suffix: '/summary' })
+  // return fetch({ suffix: '/summary' })
+
+  return new Promise(resolve => {
+    resolve({
+      respondent: {
+        name: 'Bank',
+        id: '1234567890',
+        taxId: '0987654321',
+        agency: 'cfpb',
+        contact: {
+          name: 'Your Name',
+          phone: '123-456-7890',
+          email: 'your.name@bank.com'
+        }
+      },
+      file: {
+        name: 'lar.dat',
+        year: '2016',
+        totalLars: 25
+      }
+    })
+  })
 }
 
 export function getSignature() {
-  return fetch({ suffix: '/sign' })
+  // return fetch({ suffix: '/sign' })
+
+  return new Promise(resolve => {
+    resolve({
+      timestamp: 1476809530772,
+      receipt: 'asd0f987134asdlfasdflk',
+      status: {
+        code: 10,
+        message: 'signed',
+        description:
+          'Your financial institution has certified that the data is correct. This completes the HMDA filing process for this year.'
+      }
+    })
+  })
 }
 
 export function getParseErrors() {

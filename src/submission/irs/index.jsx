@@ -7,6 +7,7 @@ import Alert from '../../common/Alert.jsx'
 import './IRSReport.css'
 
 const renderTotals = props => {
+  console.log(props)
   if (props.renderTotals)
     return (
       <tfoot>
