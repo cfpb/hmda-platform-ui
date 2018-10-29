@@ -20,6 +20,7 @@ import Loading from '../common/Loading.jsx'
 import { FAILED, PARSED_WITH_ERRORS, SIGNED } from '../constants/statusCodes.js'
 
 import './container.css'
+import './table.css'
 
 const Edits = submissionProgressHOC(EditsContainer)
 const EditsNav = submissionProgressHOC(EditsNavComponent)

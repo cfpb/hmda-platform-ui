@@ -1,13 +1,17 @@
-button.RefileButton {
-  -moz-osx-font-smoothing: unset;
-  -webkit-font-smoothing: unset;
+.RefileButton {
   background-color: transparent;
   color: #0071bc;
-  font-family: SourceSansPro;
+  font-family: SourceSansProBold;
   font-weight: normal;
   margin: 0 0 0 2em;
-  padding: 0;
   text-decoration: underline;
+}
+
+.RefileButton.link {
+  -moz-osx-font-smoothing: unset;
+  -webkit-font-smoothing: unset;
+  font-family: SourceSansPro;
+  padding: 0;
 }
 
 button.RefileButton:hover {
