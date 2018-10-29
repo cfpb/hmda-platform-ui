@@ -69,7 +69,14 @@ export const renderTablesOrSuccess = (props, edits, type) => {
   }
 
   return edits.map((edit, i) => {
-    return <EditsTable edit={edit} type={type} suppressEdits={false} key={i} />
+    return (
+      <EditsTable
+        edit={edit}
+        type={type}
+        suppressEdits={props.suppressEdits}
+        key={i}
+      />
+    )
   })
 }
 

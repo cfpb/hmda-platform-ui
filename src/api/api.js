@@ -273,9 +273,9 @@ export function getEdits() {
 }
 
 export function getEdit(pathObj) {
-  // return fetch({ suffix: `/edits/${pathObj.edit}` })
+  return fetch({ suffix: `/edits/${pathObj.edit}` })
 
-  return new Promise(resolve => {
+  /*return new Promise(resolve => {
     resolve({
       count: 1,
       total: 1,
@@ -295,7 +295,7 @@ export function getEdit(pathObj) {
         href: '/institutions/0/filings/2017/submissions/291/edits/S100{rel}'
       }
     })
-  })
+  })*/
 }
 
 export function getCSV(pathObj) {
