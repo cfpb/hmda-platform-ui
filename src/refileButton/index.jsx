@@ -4,14 +4,14 @@ import PropTypes from 'prop-types'
 import './RefileButton.css'
 
 const RefileButton = props => {
-  let refileStyle = 'RefileButton usa-button usa-text-small'
+  let refileStyle = 'RefileButton text-small'
   if (props.isLink) {
-    refileStyle = ''
+    refileStyle = 'RefileButton'
     if (props.isLower) {
       refileStyle = 'text-lowercase'
     }
     if (props.isSmall) {
-      refileStyle = `${refileStyle} usa-text-small`
+      refileStyle = `${refileStyle} text-small`
     }
   }
 

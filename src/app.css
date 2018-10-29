@@ -66,3 +66,86 @@ hr {
 .text-small {
   font-size: 1.3rem;
 }
+
+button,
+.button,
+button:visited,
+.button:visited,
+input[type='submit'],
+input[type='submit']:visited {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background-color: #0071bc;
+  border: 0;
+  border-radius: 2px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: SourceSansProBold;
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1;
+  margin: 3rem 0 0;
+  padding: 1rem 2rem;
+}
+@media screen and (min-width: 481px) {
+  button,
+  .button,
+  button:visited,
+  .button:visited,
+  input[type='submit'],
+  input[type='submit']:visited {
+    width: auto;
+  }
+}
+button:hover,
+.button:hover,
+button:visited:hover,
+.button:visited:hover,
+input[type='submit']:hover,
+input[type='submit']:visited:hover {
+  background-color: #205493;
+  color: #ffffff;
+}
+
+button:active,
+.button:active,
+button:visited:active,
+.button:visited:active,
+input[type='submit']:active,
+input[type='submit']:visited:active {
+  background-color: #112e51;
+  color: #ffffff;
+}
+
+button:disabled,
+.button:disabled,
+button:visited:disabled,
+.button:visited:disabled,
+input[type='submit']:disabled,
+input[type='submit']:visited:disabled {
+  background-color: #d6d7d9;
+  color: #ffffff;
+  pointer-events: none;
+}
+button:disabled:hover,
+.button:disabled:hover,
+button:disabled:active,
+.button:disabled:active,
+button:disabled:focus,
+.button:disabled:focus,
+button:visited:disabled:hover,
+.button:visited:disabled:hover,
+button:visited:disabled:focus,
+.button:visited:disabled:focus,
+button:visited:disabled:active,
+.button:visited:disabled:active,
+input[type='submit']:disabled:hover,
+input[type='submit']:disabled:active,
+input[type='submit']:disabled:focus,
+input[type='submit']:visited:disabled:hover,
+input[type='submit']:visited:disabled:focus,
+input[type='submit']:visited:disabled:active {
+  background-color: #d6d7d9;
+  color: #ffffff;
+}

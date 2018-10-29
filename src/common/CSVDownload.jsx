@@ -1,6 +1,8 @@
 import React from 'react'
 import Loading from './Loading.jsx'
 
+import './CSVDownload.css'
+
 const CSVDownload = props => {
   if (props.submission.id === null) return null
   const { institutionId, period, sequenceNumber } = props.submission.id
@@ -8,10 +10,13 @@ const CSVDownload = props => {
   return (
     <React.Fragment>
       <button
+        className="CSVDownload"
         onClick={props.onDownloadClick(institutionId, period, sequenceNumber)}
+        style={props.inline ? { display: 'inline', marginTop: 0 } : null}
       >
-        {props.text || 'download the edit report.'}
+        {props.text || 'download the edit report'}
       </button>
+      {props.text ? null : '.'}
       {props.isFetching ? <Loading className="LoadingInline" /> : null}
     </React.Fragment>
   )
