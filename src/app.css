@@ -105,6 +105,7 @@ button:visited:hover,
 input[type='submit']:hover,
 input[type='submit']:visited:hover {
   background-color: #205493;
+  color: #ffffff;
 }
 
 button:active,
@@ -114,6 +115,7 @@ button:visited:active,
 input[type='submit']:active,
 input[type='submit']:visited:active {
   background-color: #112e51;
+  color: #ffffff;
 }
 
 button:disabled,
@@ -123,6 +125,7 @@ button:visited:disabled,
 input[type='submit']:disabled,
 input[type='submit']:visited:disabled {
   background-color: #d6d7d9;
+  color: #ffffff;
   pointer-events: none;
 }
 button:disabled:hover,
@@ -144,4 +147,5 @@ input[type='submit']:visited:disabled:hover,
 input[type='submit']:visited:disabled:focus,
 input[type='submit']:visited:disabled:active {
   background-color: #d6d7d9;
+  color: #ffffff;
 }
