@@ -49,7 +49,7 @@ const NavButton = ({
   return [
     <Link
       key="0"
-      className={`NavButton usa-button ${className || ''}`}
+      className={`NavButton button ${className || ''}`}
       tabIndex={className === 'hidden' ? -1 : 0}
       to={`${base}/${suffix}`}
     >

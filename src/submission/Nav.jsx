@@ -137,7 +137,7 @@ export default class EditsNav extends Component {
 
       return (
         <li className={navClass} key={i}>
-          <Link className="usa-nav-link" to={`${base}/${navItem.link}`}>
+          <Link className="nav-link" to={`${base}/${navItem.link}`}>
             <div className="step">{step}</div>
             {renderedName}
           </Link>
@@ -159,7 +159,7 @@ export default class EditsNav extends Component {
     return (
       <section style={wrapperHeight}>
         <nav className={`EditsNav ${fixed}`} id="editsNav">
-          <ul className="usa-nav-primary">
+          <ul className="nav-primary">
             {Object.keys(this.navMap).map((name, i) => {
               return this.renderNavItem(name, i)
             })}

@@ -19,6 +19,8 @@ import ParseErrors from './parseErrors/container.jsx'
 import Loading from '../common/Loading.jsx'
 import { FAILED, PARSED_WITH_ERRORS, SIGNED } from '../constants/statusCodes.js'
 
+import './container.css'
+
 const Edits = submissionProgressHOC(EditsContainer)
 const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
@@ -60,7 +62,8 @@ const renderByCode = (code, page, message) => {
         Something is wrong.{' '}
         <Link to={window.HMDA_ENV.APP_SUFFIX + 'institutions'}>
           Return to institutions
-        </Link>.
+        </Link>
+        .
       </p>
     )
   }
@@ -99,14 +102,10 @@ class SubmissionContainer extends Component {
           name={institution && institution.name ? institution.name : ''}
         />
         <EditsNav />
-        <main id="main-content" className="usa-grid SubmissionContainer">
+        <main id="main-content" className="SubmissionContainer">
           {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
           {toRender.map((component, i) => {
-            return (
-              <div className="usa-width-one-whole" key={i}>
-                {component}
-              </div>
-            )
+            return <div key={i}>{component}</div>
           })}
         </main>
       </div>

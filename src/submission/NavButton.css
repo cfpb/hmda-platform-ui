@@ -1,4 +1,4 @@
-.usa-button-disabled.usa-button {
+.button-disabled.button {
   background-color: #d6d7d9;
   color: #323a45;
   pointer-events: none;
@@ -9,10 +9,14 @@
   text-transform: capitalize;
   opacity: 1;
   visibility: visible;
+  text-decoration: none;
   transition: opacity 0.3s, visibility 0.3s;
 }
-.NavButton.usa-button {
+.NavButton.button {
   margin: 0;
+}
+.NavButton.button:hover {
+  color: #ffffff;
 }
 
 .NavButton.hidden {

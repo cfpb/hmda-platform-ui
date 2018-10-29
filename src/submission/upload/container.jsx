@@ -38,4 +38,7 @@ export function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Upload)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Upload)
