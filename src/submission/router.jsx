@@ -80,9 +80,10 @@ export class SubmissionRouter extends Component {
     const code = status.code
     const types = this.props.types
 
-    const synvalExist = !!(
+    /*const synvalExist = !!(
       types.syntactical.edits.length + types.validity.edits.length
-    )
+    )*/
+    const synvalExist = false
     const qualityExist = !!types.quality.edits.length && !types.quality.verified
 
     if (code < VALIDATED_WITH_ERRORS) return 'upload'

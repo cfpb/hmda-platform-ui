@@ -12,25 +12,33 @@
 .Verifier .animated-alert {
   animation: 0.2s ease-out 0s 1 VerifierAlertAnimation;
 }
+
 .Verifier hr {
   margin-bottom: 2em;
 }
 .Verifier h2 {
   margin-top: 0;
 }
+
 .Verifier .LoadingIconWrapper {
   position: absolute;
 }
-
 .Verifier .LoadingIcon {
   left: -38px;
   top: 27px;
 }
 
-.Verifier .usa-font-lead {
+.Verifier li {
+  margin-top: 1em;
+}
+
+.Verifier input[type='checkbox'] {
+  margin-right: 1em;
+}
+.Verifier .font-lead {
   margin-top: 0.5em;
   margin-bottom: 0;
 }
-.Verifier .usa-alert-text span {
+.Verifier .alert-text span {
   text-transform: capitalize;
 }
