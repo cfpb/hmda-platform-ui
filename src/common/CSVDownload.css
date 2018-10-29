@@ -10,3 +10,7 @@ button.CSVDownload {
   padding: 0;
   text-decoration: underline;
 }
+
+button.CSVDownload:hover {
+  color: #205493;
+}
