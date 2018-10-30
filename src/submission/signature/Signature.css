@@ -1,21 +1,40 @@
 .Signature {
-  margin-bottom: 5em;
+  margin: 3em 0 5em;
 }
 
+.Signature header {
+  max-width: 77rem;
+  margin-bottom: 2em;
+}
 .Signature h2 {
-  margin-top: 0;
+  font-size: 3rem;
 }
-
-.Signature .usa-font-lead {
+.Signature .font-lead {
   color: #323a45;
   margin-top: 0.5em;
   margin-bottom: 0;
 }
 
-.Signature .usa-alert {
+.Signature .alert {
   margin-top: 1em;
 }
 
-.Signature .usa-alert p {
+.Signature .alert p {
   margin: 0.25em 0;
+}
+
+.Signature .grid {
+  align-items: stretch;
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: 1% 99%;
+  margin: 0 auto;
+}
+
+.Signature input {
+  align-self: center;
+}
+
+.Signature label {
+  max-width: 77rem;
 }

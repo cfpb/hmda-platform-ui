@@ -178,7 +178,7 @@ const IRSReport = props => {
     <section className="IRSReport">
       <header>
         <h2>Institution Register Summary</h2>
-        <p className="usa-font-lead">
+        <p className="font-lead">
           Please review your Institution Register Summary below. If you discover
           an error in your IRS, please update your file and select the
           &quot;Upload a new file&quot; button.
