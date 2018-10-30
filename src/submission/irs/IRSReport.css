@@ -1,7 +1,11 @@
+.IRSReport header {
+  max-width: 77rem;
+}
 .IRSReport h2 {
+  font-size: 3rem;
   margin-top: 0;
 }
-.IRSReport .usa-font-lead {
+.IRSReport .font-lead {
   color: #323a45;
   margin-top: 0.5em;
   margin-bottom: 0;
@@ -28,4 +32,21 @@
 }
 .IRSReport td.center {
   text-align: center;
+}
+
+.IRSReport button {
+  -moz-osx-font-smoothing: unset;
+  -webkit-font-smoothing: unset;
+  background-color: transparent;
+  color: #0071bc;
+  font-family: SourceSansPro;
+  font-size: 1.6rem;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.IRSReport button:hover {
+  color: #205493;
 }

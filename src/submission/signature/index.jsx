@@ -21,27 +21,27 @@ const Signature = props => {
       ? false
       : true
 
-  let buttonClass = 'usa-button-disabled'
+  let buttonClass = 'button-disabled'
   // if the checkbox is checked remove disabled from button
   if (props.checked) {
     buttonClass = ''
   }
   // if signed, disable button again
   if (props.status.code === SIGNED) {
-    buttonClass = 'usa-button-disabled'
+    buttonClass = 'button-disabled'
   }
 
   // if an error has occurred, disable both checkbox and button
   if (props.error) {
     isDisabled = true
-    buttonClass = 'usa-button-disabled'
+    buttonClass = 'button-disabled'
   }
 
   return (
     <section className="Signature" id="signature">
       <header>
         <h2>Signature</h2>
-        <p className="usa-font-lead">
+        <p className="font-lead">
           To complete your submission, select the checkbox to certify the
           accuracy and completeness of the data submitted. Next, select the
           &ldquo;Submit HMDA data&rdquo; button to submit your data.
@@ -50,24 +50,22 @@ const Signature = props => {
 
       {showWarning(props)}
 
-      <ul className="usa-unstyled-list">
-        <li>
-          <input
-            id="signatureAuth"
-            name="signatureAuth"
-            type="checkbox"
-            value="signature"
-            disabled={isDisabled}
-            checked={props.checked}
-            onChange={e => props.onSignatureCheck(e.target.checked)}
-          />
-          <label htmlFor="signatureAuth" className="max-width-100">
-            I am an authorized representative of my institution with knowledge
-            of the data submitted and am certifying to the accuracy and
-            completeness of the data submitted.
-          </label>
-        </li>
-      </ul>
+      <div class="grid">
+        <input
+          id="signatureAuth"
+          name="signatureAuth"
+          type="checkbox"
+          value="signature"
+          disabled={isDisabled}
+          checked={props.checked}
+          onChange={e => props.onSignatureCheck(e.target.checked)}
+        />
+        <label htmlFor="signatureAuth">
+          I am an authorized representative of my institution with knowledge of
+          the data submitted and am certifying to the accuracy and completeness
+          of the data submitted.
+        </label>
+      </div>
 
       <button
         className={buttonClass}
