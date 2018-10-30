@@ -40,11 +40,6 @@
 .Footer .grid .item:last-child {
   margin-right: 0;
 }
-.Footer .unstyled-list {
-  list-style-type: none;
-  margin: 0;
-  padding-left: 0;
-}
 
 .return-to-top {
   margin-bottom: 1em;
