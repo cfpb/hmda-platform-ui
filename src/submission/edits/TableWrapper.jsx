@@ -61,7 +61,8 @@ export const renderTablesOrSuccess = (props, edits, type) => {
     return (
       <Alert type="success">
         <p>
-          Your data did not trigger any {type} edits{verificationMsg}
+          Your data did not trigger any {type} edits
+          {verificationMsg}
         </p>
       </Alert>
     )

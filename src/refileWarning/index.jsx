@@ -16,7 +16,7 @@ export const getText = props => {
   let periodAfter = false
   let reviewAndDownload = (
     <div>
-      Please review the edits or <CSVDownload />
+      Please review the edits or <CSVDownload inline={true} />
     </div>
   )
 
