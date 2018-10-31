@@ -5,8 +5,8 @@ export function getInstitutions() {
   return new Promise(resolve => {
     resolve({
       institutions: [
-        { id: '0', name: 'bank-0 National Association' },
-        { id: '1', name: 'bank-1 Mortgage Lending' }
+        { lei: 'B90YWS6AFX2LGWOXJ1LD', name: 'Bank 0' },
+        { lei: 'BANK1LEIFORTEST12345', name: 'Bank 1' }
       ]
     })
   })
@@ -14,22 +14,22 @@ export function getInstitutions() {
 
 export function getInstitution(id) {
   // return fetch({ pathname: `/institutions/${id}` })
-  if (id === '0') {
+  if (id === 'B90YWS6AFX2LGWOXJ1LD') {
     return new Promise(resolve => {
       resolve({
-        institution: { id: '0', name: 'bank-0 National Association' },
+        institution: { lei: 'B90YWS6AFX2LGWOXJ1LD', name: 'Bank 0' },
         filings: [
           {
             filingRequired: false,
-            institutionId: '0',
+            lei: 'B90YWS6AFX2LGWOXJ1LD',
             status: { code: 2, message: 'in-progress' },
             end: 0,
             start: 1513696746715,
-            period: '2016'
+            period: '2018'
           },
           {
             filingRequired: false,
-            institutionId: '0',
+            lei: 'B90YWS6AFX2LGWOXJ1LD',
             status: { code: 3, message: 'completed' },
             end: 1514741721031,
             start: 1514741668971,
@@ -41,19 +41,22 @@ export function getInstitution(id) {
   } else {
     return new Promise(resolve => {
       resolve({
-        institution: { id: '1', name: 'bank-1 Mortgage Lending' },
+        institution: {
+          lei: 'BANK1LEIFORTEST12345',
+          name: 'Bank 1'
+        },
         filings: [
           {
             filingRequired: false,
-            institutionId: '1',
+            lei: 'BANK1LEIFORTEST12345',
             status: { code: 1, message: 'not-started' },
             end: 0,
             start: 0,
-            period: '2016'
+            period: '2018'
           },
           {
             filingRequired: false,
-            institutionId: '1',
+            lei: 'BANK1LEIFORTEST12345',
             status: { code: 3, message: 'completed' },
             end: 1515682213163,
             start: 1515682151087,
@@ -74,22 +77,26 @@ export function createSubmission(id, filing) {
 
 export function getFiling(id, filing) {
   // return fetch({ pathname: `/institutions/${id}/filings/${filing}` })
-  if (id === '0') {
+  if (id === 'B90YWS6AFX2LGWOXJ1LD') {
     return new Promise(resolve => {
       resolve({
         filing: {
           filingRequired: false,
-          institutionId: '0',
+          lei: 'B90YWS6AFX2LGWOXJ1LD',
           status: { code: 3, message: 'completed' },
           end: 1514741721031,
           start: 1514741668971,
-          period: '2017'
+          period: '2018'
         },
         submissions: [
           {
             fileName: 'Bank 0_400 LARS_S025 Ready.txt',
-            id: { institutionId: '0', period: '2017', sequenceNumber: 289 },
-            receipt: '0-2017-289-1540304400322',
+            id: {
+              lei: 'B90YWS6AFX2LGWOXJ1LD',
+              period: '2018',
+              sequenceNumber: 289
+            },
+            receipt: '0-2018-289-1540304400322',
             status: {
               code: 10,
               message: 'Your submission has been accepted.',
@@ -101,7 +108,11 @@ export function getFiling(id, filing) {
           },
           {
             fileName: 'Bank 1_400 LAR_S025 ready.txt',
-            id: { institutionId: '0', period: '2017', sequenceNumber: 288 },
+            id: {
+              lei: 'B90YWS6AFX2LGWOXJ1LD',
+              period: '2018',
+              sequenceNumber: 288
+            },
             receipt: '',
             status: {
               code: 8,
@@ -120,17 +131,21 @@ export function getFiling(id, filing) {
       resolve({
         filing: {
           filingRequired: false,
-          institutionId: '1',
+          lei: 'BANK1LEIFORTEST12345',
           status: { code: 3, message: 'completed' },
           end: 1515682213163,
           start: 1515682151087,
-          period: '2017'
+          period: '2018'
         },
         submissions: [
           {
             fileName: 'Bank 1_400 LAR_S025 ready.txt',
-            id: { institutionId: '1', period: '2017', sequenceNumber: 87 },
-            receipt: '1-2017-87-1536866772274',
+            id: {
+              lei: 'BANK1LEIFORTEST12345',
+              period: '2018',
+              sequenceNumber: 87
+            },
+            receipt: '1-2018-87-1536866772274',
             status: {
               code: 10,
               message: 'Your submission has been accepted.',
@@ -142,7 +157,11 @@ export function getFiling(id, filing) {
           },
           {
             fileName: '777366.txt',
-            id: { institutionId: '1', period: '2017', sequenceNumber: 86 },
+            id: {
+              lei: 'BANK1LEIFORTEST12345',
+              period: '2018',
+              sequenceNumber: 86
+            },
             receipt: '',
             status: {
               code: 5,
@@ -165,8 +184,8 @@ export function getLatestSubmission() {
   return new Promise(resolve => {
     resolve({
       fileName: 'Bank 0_400 LARS_S025 Ready.txt',
-      id: { institutionId: '0', period: '2017', sequenceNumber: 289 },
-      receipt: '0-2017-289-1540304400322',
+      id: { lei: 'B90YWS6AFX2LGWOXJ1LD', period: '2018', sequenceNumber: 289 },
+      receipt: '0-2018-289-1540304400322',
       status: {
         code: 9,
         message: 'Your data has edits that need to be reviewed.',
@@ -264,7 +283,7 @@ export function getEdits() {
           },
           {
             edit: 'S100',
-            description: 'Activity year must = year being processed (= 2017).'
+            description: 'Activity year must = year being processed (= 2018).'
           }
         ]
       }
@@ -292,7 +311,7 @@ export function getEdit(pathObj) {
         last: '?page=1',
         next: '?page=1',
         first: '?page=1',
-        href: '/institutions/0/filings/2017/submissions/291/edits/S100{rel}'
+        href: '/institutions/B90YWS6AFX2LGWOXJ1LD/filings/2017/submissions/291/edits/S100{rel}'
       }
     })
   })*/
@@ -379,7 +398,7 @@ export function getIRS() {
         self: '?page=1',
         next: '?page=2',
         last: '?page=7',
-        href: '/institutions/1/filings/2017/submissions/1/irs{rel}'
+        href: '/institutions/1/filings/2018/submissions/1/irs{rel}'
       }
     })
   })
@@ -391,8 +410,8 @@ export function getSummary() {
   return new Promise(resolve => {
     resolve({
       respondent: {
-        name: 'Bank',
-        id: '1234567890',
+        name: 'Bank 0',
+        lei: 'B90YWS6AFX2LGWOXJ1LD',
         taxId: '0987654321',
         agency: 'cfpb',
         contact: {
@@ -571,7 +590,8 @@ export function getParseErrors() {
         last: '?page=83',
         next: '?page=2',
         first: '?page=1',
-        href: '/institutions/0/filings/2017/submissions/290/parseErrors{rel}'
+        href:
+          '/institutions/B90YWS6AFX2LGWOXJ1LD/filings/2018/submissions/290/parseErrors{rel}'
       }
     })
   })

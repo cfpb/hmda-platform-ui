@@ -8,8 +8,8 @@ import { error } from '../utils/log.js'
 
 export default function fetchInstitution(institution, fetchFilings = true) {
   return dispatch => {
-    dispatch(requestInstitution(institution.id))
-    return getInstitution(institution.id)
+    dispatch(requestInstitution(institution.lei))
+    return getInstitution(institution.lei)
       .then(json => {
         return hasHttpError(json).then(hasError => {
           if (hasError) {
