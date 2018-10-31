@@ -8,7 +8,7 @@ import { error } from '../utils/log.js'
 export default function fetchFiling(filing) {
   return dispatch => {
     dispatch(requestFiling(filing))
-    return getFiling(filing.institutionId, filing.period)
+    return getFiling(filing.lei, filing.period)
       .then(json => {
         return hasHttpError(json).then(hasError => {
           if (hasError) {

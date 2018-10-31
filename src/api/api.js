@@ -25,7 +25,7 @@ export function getInstitution(id) {
             status: { code: 2, message: 'in-progress' },
             end: 0,
             start: 1513696746715,
-            period: '2016'
+            period: '2018'
           },
           {
             filingRequired: false,
@@ -49,7 +49,7 @@ export function getInstitution(id) {
             status: { code: 1, message: 'not-started' },
             end: 0,
             start: 0,
-            period: '2016'
+            period: '2018'
           },
           {
             filingRequired: false,
@@ -264,7 +264,7 @@ export function getEdits() {
           },
           {
             edit: 'S100',
-            description: 'Activity year must = year being processed (= 2017).'
+            description: 'Activity year must = year being processed (= 2018).'
           }
         ]
       }
@@ -379,7 +379,7 @@ export function getIRS() {
         self: '?page=1',
         next: '?page=2',
         last: '?page=7',
-        href: '/institutions/1/filings/2017/submissions/1/irs{rel}'
+        href: '/institutions/1/filings/2018/submissions/1/irs{rel}'
       }
     })
   })
@@ -571,7 +571,7 @@ export function getParseErrors() {
         last: '?page=83',
         next: '?page=2',
         first: '?page=1',
-        href: '/institutions/0/filings/2017/submissions/290/parseErrors{rel}'
+        href: '/institutions/0/filings/2018/submissions/290/parseErrors{rel}'
       }
     })
   })

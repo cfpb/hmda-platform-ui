@@ -144,7 +144,7 @@ export class SubmissionRouter extends Component {
       )
     if (
       submission.status.code === UNINITIALIZED ||
-      submission.id.institutionId !== params.institution ||
+      submission.id.lei !== params.institution ||
       !this.renderChildren ||
       !params.splat
     )

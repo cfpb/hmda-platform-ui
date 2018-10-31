@@ -21,7 +21,7 @@ export default (state = defaultFilings, action) => {
     case RECEIVE_FILING:
       return {
         ...state,
-        [action.filing.filing.institutionId]: {
+        [action.filing.filing.lei]: {
           isFetching: false,
           fetched: true,
           filing: action.filing
