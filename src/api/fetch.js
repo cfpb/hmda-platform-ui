@@ -38,17 +38,19 @@ export function fetch(options = { method: 'GET' }) {
   if (typeof options.body === 'object' && !isFormData)
     options.body = JSON.stringify(options.body)
 
-  let headers = {}
+  let headers = { Accept: 'application/json' }
 
   if (options.method === 'POST' && !isFormData) {
     headers = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
     }
   }
 
   if (options.params && options.params.format === 'csv') {
     headers = {
-      'Content-Type': 'text/csv'
+      'Content-Type': 'text/csv',
+      Accept: 'text/csv'
     }
   }
 
