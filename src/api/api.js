@@ -22,17 +22,17 @@ export function getInstitution(id) {
           {
             filingRequired: false,
             lei: 'B90YWS6AFX2LGWOXJ1LD',
-            status: { code: 2, message: 'in-progress' },
+            status: { code: 1, message: 'not-started' },
             end: 0,
-            start: 1513696746715,
+            start: 0,
             period: '2018'
           },
           {
             filingRequired: false,
             lei: 'B90YWS6AFX2LGWOXJ1LD',
-            status: { code: 3, message: 'completed' },
-            end: 1514741721031,
-            start: 1514741668971,
+            status: { code: 1, message: 'not-started' },
+            end: 0,
+            start: 0,
             period: '2017'
           }
         ]
@@ -57,9 +57,9 @@ export function getInstitution(id) {
           {
             filingRequired: false,
             lei: 'BANK1LEIFORTEST12345',
-            status: { code: 3, message: 'completed' },
-            end: 1515682213163,
-            start: 1515682151087,
+            status: { code: 1, message: 'not-started' },
+            end: 0,
+            start: 0,
             period: '2017'
           }
         ]
@@ -80,23 +80,7 @@ export function getFiling(id, filing) {
 }
 
 export function getLatestSubmission() {
-  // return fetch({ submission: 'latest' })
-
-  return new Promise(resolve => {
-    resolve({
-      fileName: 'Bank 0_400 LARS_S025 Ready.txt',
-      id: { lei: 'B90YWS6AFX2LGWOXJ1LD', period: '2018', sequenceNumber: 289 },
-      receipt: '0-2018-289-1540304400322',
-      status: {
-        code: 9,
-        message: 'Your data has edits that need to be reviewed.',
-        description:
-          'Your file has been uploaded, but the filing process may not proceed until edits are verified or the file is corrected and re-uploaded.'
-      },
-      end: 1540304400322,
-      start: 1540303997250
-    })
-  })
+  return fetch({ submission: 'latest' })
 }
 
 export function getEdits() {
