@@ -5,7 +5,8 @@ export default function(obj) {
     )
   }*/
 
-  let url = '/v2'
+  let url = '/v2/filing'
+
   if (obj.pathname) return url + obj.pathname
   if (obj.id) url += '/institutions/' + obj.id
   if (obj.filing) url += '/filings/' + obj.filing
