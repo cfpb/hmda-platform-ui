@@ -28,7 +28,7 @@ const InstitutionViewButton = ({ status, institutionId, filingPeriod }) => {
   return (
     <Link
       className="ViewButton button"
-      to={`/filing/institutions/${institutionId}/${filingPeriod}`}
+      to={`/filing/${institutionId}/${filingPeriod}`}
     >
       {text}
     </Link>
