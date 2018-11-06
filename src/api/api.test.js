@@ -132,4 +132,13 @@ describe('api', () => {
       body: { signed: '2' }
     })
   })
+
+
+  it('creates filing', () => {
+    api.createFiling('1', '2')
+    expect(mockedFetch.mock.calls[18][0]).toEqual({
+      pathname: '/institutions/1/filings/2',
+      method: 'POST'
+    })
+  })
 })

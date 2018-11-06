@@ -79,6 +79,14 @@ export function getFiling(id, filing) {
   return fetch({ pathname: `/institutions/${id}/filings/${filing}` })
 }
 
+
+export function createFiling(id, filing) {
+  return fetch({
+    pathname: `/institutions/${id}/filings/${filing}`,
+    method: 'POST'
+  })
+}
+
 export function getLatestSubmission() {
   return fetch({ submission: 'latest' })
 }
