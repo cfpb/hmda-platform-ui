@@ -30,8 +30,8 @@ metadata:
       apiVersion: ambassador/v0
       kind: Mapping
       name: tools_mapping
-      prefix: /tools/
-      rewrite: /tools/
+      prefix: /filing/
+      rewrite: /filing/
       service: {{ include "hmda-platform-ui.fullname" . }}:{{ .Values.service.port }}
 spec:
   type: {{ .Values.ambassador.service.type }}
