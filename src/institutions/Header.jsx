@@ -14,7 +14,9 @@ const InstitutionsHeader = ({ filingPeriod }) => {
       >
         <p>
           The beta {filingPeriod} HMDA Platform is available to upload, test,
-          and validate HMDA data.
+          and validate HMDA data. All test data uploaded during the beta
+          period will be removed from the system when the filing period opens on
+          January 1st, 2019.
         </p>
       </Alert>
     )

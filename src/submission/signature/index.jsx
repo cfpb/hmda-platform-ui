@@ -42,15 +42,13 @@ const Signature = props => {
       <header>
         <h2>Signature</h2>
         <p className="font-lead">
-          To complete your submission, select the checkbox to certify the
-          accuracy and completeness of the data submitted. Next, select the
-          &ldquo;Submit HMDA data&rdquo; button to submit your data.
+          To complete your test submission, select the checkbox below. Next, select the &quot;Submit HMDA test data&quot; button to practice submitting data. When the filing period opens, selecting the checkbox will certify the accuracy and completeness of the data submitted.
         </p>
       </header>
 
       {showWarning(props)}
 
-      <div class="grid">
+      <div className="grid">
         <input
           id="signatureAuth"
           name="signatureAuth"
@@ -61,9 +59,7 @@ const Signature = props => {
           onChange={e => props.onSignatureCheck(e.target.checked)}
         />
         <label htmlFor="signatureAuth">
-          I am an authorized representative of my institution with knowledge of
-          the data submitted and am certifying to the accuracy and completeness
-          of the data submitted.
+          I understand this data being submitted is solely for testing purposes and will be removed from the system when the filing period begins on January 1st, 2019.
         </label>
       </div>
 
@@ -71,7 +67,7 @@ const Signature = props => {
         className={buttonClass}
         onClick={e => props.onSignatureClick(props.checked)}
       >
-        Submit HMDA data
+        Submit HMDA test data
       </button>
     </section>
   )

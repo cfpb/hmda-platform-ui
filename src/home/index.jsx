@@ -8,13 +8,15 @@ const Home = () => {
     <main className="Home" id="main-content">
       <section className="hero">
         <div className="grid">
-          <h1>Get started filing your HMDA data</h1>
-          <p className="font-lead max-width">
-            Beginning with HMDA data collected in or after 2017, financial
-            institutions will use the HMDA Platform to upload their
-            loan/application registers (LARs), review edits, certify the
-            accuracy and completeness of the data, and submit data for the
-            filing year.
+          <h1>Get familiar with filing your HMDA data</h1>
+          <p className="usa-font-lead">
+            During this beta period, you may explore the new HMDA{' '}
+            platform. It will be used to upload your financial{' '}
+            institution&#39;s loan/application registers, review edits,{' '}
+            certify the data, and submit the data for the filing year{' '}
+            All test data uploaded and accounts created during the{' '}
+            beta period will be removed from the system when the filing{' '}
+            period for HMDA data collected in 2018 opens on January 1st, 2019.
           </p>
           <button
             className="button"
