@@ -10,6 +10,12 @@
   font-family: SourceSansProItalic;
   src: url(./fonts/sourcesanspro-italic-webfont.woff);
 }
+.floatingIcon.LoadingIconWrapper {
+  position: absolute;
+  left: 50%;
+  margin-top: 2em;
+  margin-left: -1.5em;
+}
 html {
   font-family: SourceSansPro;
   font-size: 10px;
