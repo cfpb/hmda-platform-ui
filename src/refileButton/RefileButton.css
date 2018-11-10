@@ -12,6 +12,7 @@
   -webkit-font-smoothing: unset;
   font-family: SourceSansPro;
   padding: 0;
+  background-color: transparent;
 }
 button.RefileButton:hover {
   color: #205493;

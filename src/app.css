@@ -16,6 +16,10 @@
   margin-top: 2em;
   margin-left: -1.5em;
 }
+.grid {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
 html {
   font-family: SourceSansPro;
   font-size: 10px;
@@ -93,7 +97,7 @@ input[type='submit']:visited {
   -webkit-font-smoothing: antialiased;
   background-color: #0071bc;
   border: 0;
-  border-radius: 2px;
+  border-radius: 5px;
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
