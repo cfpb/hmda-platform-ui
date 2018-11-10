@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { VALIDATING, SIGNED } from '../../constants/statusCodes.js'
 
+import './RefileText.css'
+
 export const getStatus = code => {
   let status
   let appendComplete = null

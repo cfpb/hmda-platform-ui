@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 // import { signinRedirect } from '../../utils/redirect.js'
 
+import '../Modal.css'
+
+
 export default class LoggedOutModal extends Component {
   render() {
     const self = this
