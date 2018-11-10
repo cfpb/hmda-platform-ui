@@ -30,6 +30,11 @@
   transform: translate(0, -50%);
 }
 
+.RefileWarning .RefileButton:hover {
+  background-color: #CD2025;
+  color: #ffffff;
+}
+
 @media (max-width: 800px) {
   .RefileWarning .RefileButton {
     position: relative;
