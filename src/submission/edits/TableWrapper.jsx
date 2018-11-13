@@ -91,6 +91,11 @@ const EditsTableWrapper = props => {
     <section className="EditsTableWrapper">
       {/* warn at the top of the page */}
       <RefileWarning />
+      <Alert type="warning">
+      <p>
+        Edits <b>V625-627</b>, <b>Q600</b>, <b>Q603</b>, <b>Q604</b>, and <b>Q634-640</b> are not currently implemented into the beta platform. These edits will be added when the final platform is released in 2019.
+      </p>
+    </Alert>
       {makeEntry(props, type)}
       {/* warn at the bottom of the page */}
       <RefileWarning />
