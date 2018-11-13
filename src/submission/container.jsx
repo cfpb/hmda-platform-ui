@@ -46,7 +46,8 @@ const renderByCode = (code, page, message) => {
         toRender.push(<ReadyToSign />)
       }
       toRender.push(<ReceiptContainer />)
-      toRender.push(<IRSReport />)
+      //toRender.push(<IRSReport />)
+      toRender.push(<p>The Institution Register Summary (IRS) is not generated during the beta testing period. During the 2018 filing period, the IRS will be made available in the HMDA Platform after signing and submitting your HMDA data.</p>)
       toRender.push(<Summary />)
       // and just before the signature
       if (code !== SIGNED) {

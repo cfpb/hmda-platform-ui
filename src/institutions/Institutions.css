@@ -58,3 +58,7 @@
 .Institutions p.multi-message {
   margin-top: 2.5em;
 }
+
+.floatingIcon + p.multi-message {
+  margin-top: 7em;
+}
