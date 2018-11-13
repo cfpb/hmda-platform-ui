@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "hmda-platform-ui.fullname" . }}
+  labels:
+    app: {{ include "hmda-platform-ui.name" . }}
+    chart: {{ include "hmda-platform-ui.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ include "hmda-platform-ui.name" . }}
+    release: {{ .Release.Name }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels: 
+    service: {{ include "hmda-platform-ui.fullname" . }}-ambassador
+  name: {{ include "hmda-platform-ui.fullname" . }}-ambassador
+  annotations:
+    getambassador.io/config: |
+      apiVersion: ambassador/v0
+      kind: Mapping
+      name: platform_ui_mapping
+      prefix: /filing/
+      rewrite: /filing/
+      service: {{ include "hmda-platform-ui.fullname" . }}:{{ .Values.service.port }}
+spec:
+  type: {{ .Values.ambassador.service.type }}
+  ports:
+  - name: {{ include "hmda-platform-ui.fullname" . }}-ambassador
+    port: {{ .Values.ambassador.port }}
+    targetPort: {{ .Values.service.port }}
+  selector:
+service: {{ include "hmda-platform-ui.fullname" . }}-ambassador
