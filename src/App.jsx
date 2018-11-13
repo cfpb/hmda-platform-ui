@@ -33,7 +33,7 @@ export class AppContainer extends Component {
           Skip to main content
         </a>
         <Header pathname={this.props.location.pathname} />
-        {!this.props.redirecting ? null : <ConfirmationModal />}
+        <ConfirmationModal />
         {this._renderAppContents(this.props)}
         <Footer />
       </div>

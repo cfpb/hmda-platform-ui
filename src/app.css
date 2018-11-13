@@ -10,6 +10,16 @@
   font-family: SourceSansProItalic;
   src: url(./fonts/sourcesanspro-italic-webfont.woff);
 }
+.floatingIcon.LoadingIconWrapper {
+  position: absolute;
+  left: 50%;
+  margin-top: 2em;
+  margin-left: -1.5em;
+}
+.grid {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
 html {
   font-family: SourceSansPro;
   font-size: 10px;
@@ -20,7 +30,7 @@ body {
   margin: 0 0 350px;
   padding: 0;
   font-family: SourceSansPro;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
 }
 .skipnav {
   background: transparent;
@@ -59,8 +69,12 @@ h6 {
 }
 
 hr {
-  border-bottom: none;
-  border-top: 1px solid #aeb0b5;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #d6d7d9;
+  margin: 1em 0;
+  padding: 0;
 }
 
 .font-lead {
@@ -87,7 +101,7 @@ input[type='submit']:visited {
   -webkit-font-smoothing: antialiased;
   background-color: #0071bc;
   border: 0;
-  border-radius: 2px;
+  border-radius: 5px;
   color: #ffffff;
   cursor: pointer;
   display: inline-block;

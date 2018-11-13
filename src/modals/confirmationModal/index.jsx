@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import RefileText from './RefileText.jsx'
 
+import '../Modal.css'
+
 let _focusButton = function() {
   return this.confirmButton.focus()
 }
