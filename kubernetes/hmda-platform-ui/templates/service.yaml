@@ -29,7 +29,7 @@ metadata:
     getambassador.io/config: |
       apiVersion: ambassador/v0
       kind: Mapping
-      name: tools_mapping
+      name: platform_ui_mapping
       prefix: /filing/
       rewrite: /filing/
       service: {{ include "hmda-platform-ui.fullname" . }}:{{ .Values.service.port }}
