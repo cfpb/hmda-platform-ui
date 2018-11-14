@@ -14,7 +14,7 @@ const Home = () => {
             platform. It will be used to upload your financial{' '}
             institution&#39;s loan/application registers, review edits,{' '}
             certify the data, and submit the data for the filing year.{' '}
-            All test data uploaded and accounts created during the{' '}
+            All test data uploaded during the{' '}
             beta period will be removed from the system when the filing{' '}
             period for HMDA data collected in 2018 opens on January 1st, 2019.
           </p>
