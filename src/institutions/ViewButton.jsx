@@ -15,9 +15,9 @@ const InstitutionViewButton = ({ status, institutionId, filingPeriod }) => {
     text = 'View upload progress'
   } else if (code === STATUS.PARSED_WITH_ERRORS) {
     text = 'Review formatting errors'
-  } else if (code < STATUS.VALIDATED_WITH_ERRORS) {
+  } else if (code < STATUS.SYNTACTICAL_VALIDITY_EDITS) {
     text = 'View progress'
-  } else if (code === STATUS.VALIDATED_WITH_ERRORS) {
+  } else if (code > STATUS.VALIDATING && code < STATUS.VALIDATED) {
     text = 'Review edits'
   } else if (code === STATUS.VALIDATED) {
     text = 'Review summary'

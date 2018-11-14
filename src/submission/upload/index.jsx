@@ -23,7 +23,7 @@ export default class Upload extends Component {
     const { code, pollSubmission } = this.props
     if (
       code >= STATUS.UPLOADING &&
-      code < STATUS.VALIDATED_WITH_ERRORS &&
+      code <= STATUS.VALIDATING &&
       code !== STATUS.PARSED_WITH_ERRORS
     )
       pollSubmission()

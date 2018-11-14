@@ -4,6 +4,9 @@ import { Link } from 'react-router'
 import {
   PARSED_WITH_ERRORS,
   VALIDATING,
+  SYNTACTICAL_VALIDITY_EDITS,
+  QUALITY_EDITS,
+  MACRO_EDITS,
   VALIDATED,
   SIGNED
 } from '../constants/statusCodes.js'
@@ -32,10 +35,10 @@ export default class EditsNav extends Component {
       'syntactical & validity edits': {
         isReachable: () =>
           this.props.editsFetched && this.navMap.upload.isCompleted(),
-        isErrored: () => this.props.syntacticalValidityEditsExist,
+        isErrored: () => this.props.code === SYNTACTICAL_VALIDITY_EDITS,
         isCompleted: () =>
           this.navMap['syntactical & validity edits'].isReachable() &&
-          !this.props.syntacticalValidityEditsExist,
+          this.props.code > SYNTACTICAL_VALIDITY_EDITS,
         errorClass: 'warning-exclamation',
         errorText: 'syntactical & validity edits found',
         completedText: 'no syntactical & validity edits',
@@ -44,10 +47,10 @@ export default class EditsNav extends Component {
       'quality edits': {
         isReachable: () =>
           this.navMap['syntactical & validity edits'].isCompleted(),
-        isErrored: () => !this.props.qualityVerified,
+        isErrored: () => this.props.code === QUALITY_EDITS,
         isCompleted: () =>
           this.navMap['quality edits'].isReachable() &&
-          this.props.qualityVerified,
+          this.props.code > QUALITY_EDITS,
         errorClass: 'warning-question',
         errorText: 'quality edits found',
         completedText: 'quality edits verified',
@@ -55,10 +58,10 @@ export default class EditsNav extends Component {
       },
       'macro quality edits': {
         isReachable: () => this.navMap['quality edits'].isCompleted(),
-        isErrored: () => !this.props.macroVerified,
+        isErrored: () => this.props.code === MACRO_EDITS,
         isCompleted: () =>
           this.navMap['macro quality edits'].isReachable() &&
-          this.props.macroVerified,
+          this.props.code > MACRO_EDITS,
         errorClass: 'warning-question',
         errorText: 'macro quality edits found',
         completedText: 'macro quality edits verified',
@@ -175,8 +178,8 @@ EditsNav.propTypes = {
   page: PropTypes.string.isRequired,
   base: PropTypes.string.isRequired,
   code: PropTypes.number.isRequired,
-  syntacticalValidityEditsExist: PropTypes.bool.isRequired,
-  qualityVerified: PropTypes.bool.isRequired,
-  macroVerified: PropTypes.bool.isRequired,
+  //syntacticalValidityEditsExist: PropTypes.bool.isRequired,
+  //qualityVerified: PropTypes.bool.isRequired,
+  //macroVerified: PropTypes.bool.isRequired,
   editsFetched: PropTypes.bool.isRequired
 }

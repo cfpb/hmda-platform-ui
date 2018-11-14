@@ -2,7 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import Loading from '../common/Loading.jsx'
-import { VALIDATED_WITH_ERRORS } from '../constants/statusCodes.js'
+import {
+  VALIDATING,
+  VALIDATED,
+  SYNTACTICAL_VALIDITY_EDITS,
+  QUALITY_EDITS,
+  MACRO_EDITS
+} from '../constants/statusCodes.js'
 
 import './NavButton.css'
 
@@ -10,16 +16,17 @@ const NavButton = ({
   page,
   base,
   code,
-  syntacticalValidityEditsExist,
-  qualityVerified,
-  macroVerified,
+  //syntacticalValidityEditsExist,
+  //qualityVerified,
+  //macroVerified,
   editsFetched
 }) => {
   let className
   let suffix
   let spinOn = false
-  const editFetchInProgress = code === VALIDATED_WITH_ERRORS && !editsFetched
-  const preError = code < VALIDATED_WITH_ERRORS
+  const editFetchInProgress =
+    code > VALIDATING && code < VALIDATED && !editsFetched
+  const preError = code <= VALIDATING
 
   switch (page) {
     case 'upload':
@@ -29,15 +36,15 @@ const NavButton = ({
       break
     case 'syntacticalvalidity':
       suffix = 'quality'
-      if (preError || syntacticalValidityEditsExist) className = 'hidden'
+      if (preError || code === SYNTACTICAL_VALIDITY_EDITS) className = 'hidden'
       break
     case 'quality':
       suffix = 'macro'
-      if (preError || !qualityVerified) className = 'hidden'
+      if (preError || code === QUALITY_EDITS) className = 'hidden'
       break
     case 'macro':
       suffix = 'submission'
-      if (preError || !macroVerified) className = 'hidden'
+      if (preError || code === MACRO_EDITS) className = 'hidden'
       break
     default:
       return null
@@ -63,9 +70,9 @@ NavButton.propTypes = {
   page: PropTypes.string,
   base: PropTypes.string,
   code: PropTypes.number,
-  syntacticalValidityEditsExist: PropTypes.bool,
-  qualityVerified: PropTypes.bool,
-  macroVerified: PropTypes.bool,
+  //syntacticalValidityEditsExist: PropTypes.bool,
+  //qualityVerified: PropTypes.bool,
+  //macroVerified: PropTypes.bool,
   editsFetched: PropTypes.bool
 }
 

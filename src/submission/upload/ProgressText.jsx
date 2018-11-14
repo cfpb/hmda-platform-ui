@@ -28,7 +28,7 @@ const getExtraMessage = ({ code, errorApp, errorUpload, file }) => {
       // the process is still running
       // and there are no errors
       code > STATUS.UPLOADED &&
-      code < STATUS.VALIDATED_WITH_ERRORS &&
+      code < STATUS.VALIDATING &&
       code !== STATUS.PARSED_WITH_ERRORS &&
       !errorUpload &&
       !errorApp
@@ -37,7 +37,7 @@ const getExtraMessage = ({ code, errorApp, errorUpload, file }) => {
     }
   }
 
-  if (code === STATUS.VALIDATED_WITH_ERRORS) {
+  if (code > STATUS.VALIDATING && code < STATUS.VALIDATED) {
     return 'Edits found, review required.'
   }
 

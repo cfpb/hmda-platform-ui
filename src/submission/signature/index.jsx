@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ErrorWarning from '../../common/ErrorWarning.jsx'
-import { VALIDATED_WITH_ERRORS, SIGNED } from '../../constants/statusCodes.js'
+import { VALIDATED, SIGNED } from '../../constants/statusCodes.js'
 
 import './Signature.css'
 
@@ -17,7 +17,7 @@ const showWarning = props => {
 
 const Signature = props => {
   let isDisabled =
-    props.status.code > VALIDATED_WITH_ERRORS && props.status.code !== SIGNED
+    props.status.code >= VALIDATED && props.status.code !== SIGNED
       ? false
       : true
 

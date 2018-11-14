@@ -38,7 +38,19 @@ const DropzoneContent = ({ code, errors, filename, errorFile }) => {
           post: 'has formatting errors'
         }
         break
-      case STATUS.VALIDATED_WITH_ERRORS:
+      case STATUS.SYNTACTICAL_VALIDITY_EDITS:
+        messageObj = {
+          pre: 'Upload of',
+          post: 'is ready for review'
+        }
+        break
+      case STATUS.QUALITY_EDITS:
+        messageObj = {
+          pre: 'Upload of',
+          post: 'is ready for review'
+        }
+        break
+      case STATUS.MACRO_EDITS:
         messageObj = {
           pre: 'Upload of',
           post: 'is ready for review'
