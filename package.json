@@ -43,6 +43,5 @@
   "devDependencies": {
     "redux-devtools-extension": "2.13.2"
   },
-  "homepage": "/filing",
-  "proxy": "https://hmda4.demo.cfpb.gov"
+  "homepage": "/filing"
 }
