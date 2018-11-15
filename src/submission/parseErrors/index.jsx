@@ -66,7 +66,7 @@ export const renderLarErrors = ({ larErrors, ...props }) => {
           return larErrorObj.errorMessages.map((message, i) => {
             return (
               <tr key={i}>
-                <td>{larErrorObj.lineNumber}</td>
+                <td>{larErrorObj.rowNumber}</td>
                 <td>{message}</td>
               </tr>
             )
@@ -88,9 +88,7 @@ class ParseErrors extends Component {
     const props = this.props
     if (!props.fetched) return <Loading />
 
-    const total =
-      props.pagination &&
-      props.pagination.total + props.transmittalSheetErrors.length
+    const total = props.larErrors.length + props.transmittalSheetErrors.length
     const errorText = total > 1 ? 'Rows' : 'Row'
 
     return (
