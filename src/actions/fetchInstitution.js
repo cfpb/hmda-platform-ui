@@ -17,9 +17,11 @@ export default function fetchInstitution(institution, fetchFilings = true) {
             dispatch(receiveError(json))
             throw new Error(json && `${json.status}: ${json.statusText}`)
           }
+
           dispatch(receiveInstitution(json))
+
           if (json.filings.length !== 0 && fetchFilings) {
-            return dispatch(fetchCurrentFiling(json.filings))
+            return dispatch(fetchCurrentFiling(json))
           } else {
             return dispatch(
               fetchNewFiling({
