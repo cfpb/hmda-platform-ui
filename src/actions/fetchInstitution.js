@@ -18,7 +18,7 @@ export default function fetchInstitution(institution, fetchFilings = true) {
           }
           dispatch(receiveInstitution(json))
           if (json.filings && fetchFilings) {
-            return dispatch(fetchCurrentFiling(json.filings))
+            return dispatch(fetchCurrentFiling(json))
           }
         })
       })
