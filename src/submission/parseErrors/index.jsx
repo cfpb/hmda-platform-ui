@@ -86,10 +86,10 @@ class ParseErrors extends Component {
 
   render() {
     const props = this.props
+
     if (!props.fetched) return <Loading />
 
-    const total = props.larErrors.length + props.transmittalSheetErrors.length
-    const errorText = total > 1 ? 'Rows' : 'Row'
+    const errorText = props.pagination.total > 1 ? 'Rows' : 'Row'
 
     return (
       <section
@@ -101,7 +101,7 @@ class ParseErrors extends Component {
         <header>
           {!props.pagination ? null : (
             <h2>
-              {total} {errorText} with Formatting Errors
+              {props.pagination.total} {errorText} with Formatting Errors
             </h2>
           )}
           <p className="usa-font-lead">
