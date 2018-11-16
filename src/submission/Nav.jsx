@@ -3,9 +3,13 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import {
   PARSED_WITH_ERRORS,
+  PARSED,
   VALIDATING,
+  NO_SYNTACTICAL_VALIDITY_EDITS,
   SYNTACTICAL_VALIDITY_EDITS,
+  NO_QUALITY_EDITS,
   QUALITY_EDITS,
+  NO_MACRO_EDITS,
   MACRO_EDITS,
   VALIDATED,
   SIGNED
@@ -26,7 +30,7 @@ export default class EditsNav extends Component {
       upload: {
         isReachable: () => true,
         isErrored: () => this.props.code === PARSED_WITH_ERRORS,
-        isCompleted: () => this.props.code > VALIDATING,
+        isCompleted: () => this.props.code > PARSED_WITH_ERRORS,
         errorClass: 'error',
         errorText: 'uploaded with formatting errors',
         completedText: 'uploaded',
@@ -37,8 +41,9 @@ export default class EditsNav extends Component {
           this.props.editsFetched && this.navMap.upload.isCompleted(),
         isErrored: () => this.props.code === SYNTACTICAL_VALIDITY_EDITS,
         isCompleted: () =>
-          this.navMap['syntactical & validity edits'].isReachable() &&
-          this.props.code > SYNTACTICAL_VALIDITY_EDITS,
+          (this.navMap['syntactical & validity edits'].isReachable() &&
+            this.props.code > SYNTACTICAL_VALIDITY_EDITS) ||
+          this.props.code === NO_SYNTACTICAL_VALIDITY_EDITS,
         errorClass: 'warning-exclamation',
         errorText: 'syntactical & validity edits found',
         completedText: 'no syntactical & validity edits',
@@ -49,8 +54,9 @@ export default class EditsNav extends Component {
           this.navMap['syntactical & validity edits'].isCompleted(),
         isErrored: () => this.props.code === QUALITY_EDITS,
         isCompleted: () =>
-          this.navMap['quality edits'].isReachable() &&
-          this.props.code > QUALITY_EDITS,
+          (this.navMap['quality edits'].isReachable() &&
+            this.props.code > QUALITY_EDITS) ||
+          this.props.code === NO_QUALITY_EDITS,
         errorClass: 'warning-question',
         errorText: 'quality edits found',
         completedText: 'quality edits verified',
@@ -60,8 +66,9 @@ export default class EditsNav extends Component {
         isReachable: () => this.navMap['quality edits'].isCompleted(),
         isErrored: () => this.props.code === MACRO_EDITS,
         isCompleted: () =>
-          this.navMap['macro quality edits'].isReachable() &&
-          this.props.code > MACRO_EDITS,
+          (this.navMap['macro quality edits'].isReachable() &&
+            this.props.code > MACRO_EDITS) ||
+          this.props.code === NO_MACRO_EDITS,
         errorClass: 'warning-question',
         errorText: 'macro quality edits found',
         completedText: 'macro quality edits verified',

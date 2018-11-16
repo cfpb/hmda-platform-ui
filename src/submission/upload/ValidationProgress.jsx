@@ -1,7 +1,15 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import ProgressText from './ProgressText.jsx'
-import * as STATUS from '../../constants/statusCodes.js'
+import {
+  PARSED_WITH_ERRORS,
+  VALIDATING,
+  UPLOADING
+} from '../../constants/statusCodes.js'
+/* TODO
+we may need to update this
+we'll have to see what a clean file upload does
+*/
 
 import './ValidationProgress.css'
 
@@ -39,7 +47,7 @@ export default class ValidationProgress extends PureComponent {
 
   isErrored() {
     return (
-      this.props.code === STATUS.PARSED_WITH_ERRORS ||
+      this.props.code === PARSED_WITH_ERRORS ||
       this.props.errorUpload ||
       this.props.errorApp
     )
@@ -52,7 +60,7 @@ export default class ValidationProgress extends PureComponent {
 
   getFillWidth() {
     let currWidth = this.state.fillWidth
-    if (this.isErrored() || this.props.code > STATUS.VALIDATING) {
+    if (this.isErrored() || this.props.code > VALIDATING) {
       currWidth = 100
       this.saveWidth(this.props.id, 100)
     } else if (!this.timeout) this.getNextWidth()
@@ -86,7 +94,7 @@ export default class ValidationProgress extends PureComponent {
   render() {
     const { code, errorApp, errorUpload, file, uploading } = this.props
 
-    if (code < STATUS.UPLOADING && !uploading) return null
+    if (code < UPLOADING && !uploading) return null
     return (
       <section className="ValidationProgress">
         {/* the background bar */}

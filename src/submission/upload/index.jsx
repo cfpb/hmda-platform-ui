@@ -4,7 +4,11 @@ import Alert from '../../common/Alert.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
 import DropzoneContent from './DropzoneContent.jsx'
-import * as STATUS from '../../constants/statusCodes.js'
+import {
+  UPLOADING,
+  VALIDATING,
+  PARSED_WITH_ERRORS
+} from '../../constants/statusCodes.js'
 
 import './UploadForm.css'
 
@@ -21,11 +25,20 @@ export default class Upload extends Component {
 
   componentDidMount() {
     const { code, pollSubmission } = this.props
+    /* TODO
+    // we may need to update this to something like
+    // we'll have to see what a clean file upload does
     if (
-      code >= STATUS.UPLOADING &&
-      code <= STATUS.VALIDATING &&
-      code !== STATUS.PARSED_WITH_ERRORS
+      code >= UPLOADING &&
+      code <= VALIDATED &&
+      code !== PARSED_WITH_ERRORS &&
+      code !== SYNTACTICAL_VALIDITY_EDITS &&
+      code !== QUALITY_EDITS &&
+      code !== MACRO_EDITS
     )
+      pollSubmission()
+    */
+    if (code >= UPLOADING && code <= VALIDATING && code !== PARSED_WITH_ERRORS)
       pollSubmission()
   }
 
