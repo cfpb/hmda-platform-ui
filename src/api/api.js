@@ -5,67 +5,15 @@ export function getInstitutions() {
   return new Promise(resolve => {
     resolve({
       institutions: [
-        { lei: 'B90YWS6AFX2LGWOXJ1LD', name: 'Bank 0' },
-        { lei: 'BANK1LEIFORTEST12345', name: 'Bank 1' }
+        { lei: '01KWVG908KE7RKPTNP46', name: 'Bank 0' },
+        { lei: '03D0JEWFDFUS0SEEKG89', name: 'Bank 1' }
       ]
     })
   })
 }
 
 export function getInstitution(id) {
-  // return fetch({ pathname: `/institutions/${id}` })
-  if (id === 'B90YWS6AFX2LGWOXJ1LD') {
-    return new Promise(resolve => {
-      resolve({
-        institution: { lei: 'B90YWS6AFX2LGWOXJ1LD', name: 'Bank 0' },
-        filings: [
-          {
-            filingRequired: false,
-            lei: 'B90YWS6AFX2LGWOXJ1LD',
-            status: { code: 1, message: 'not-started' },
-            end: 0,
-            start: 0,
-            period: '2018'
-          },
-          {
-            filingRequired: false,
-            lei: 'B90YWS6AFX2LGWOXJ1LD',
-            status: { code: 1, message: 'not-started' },
-            end: 0,
-            start: 0,
-            period: '2017'
-          }
-        ]
-      })
-    })
-  } else {
-    return new Promise(resolve => {
-      resolve({
-        institution: {
-          lei: 'BANK1LEIFORTEST12345',
-          name: 'Bank 1'
-        },
-        filings: [
-          {
-            filingRequired: false,
-            lei: 'BANK1LEIFORTEST12345',
-            status: { code: 1, message: 'not-started' },
-            end: 0,
-            start: 0,
-            period: '2018'
-          },
-          {
-            filingRequired: false,
-            lei: 'BANK1LEIFORTEST12345',
-            status: { code: 1, message: 'not-started' },
-            end: 0,
-            start: 0,
-            period: '2017'
-          }
-        ]
-      })
-    })
-  }
+  return fetch({ pathname: `/institutions/${id}` })
 }
 
 export function createSubmission(id, filing) {

@@ -46,7 +46,7 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
     const institution = institutions.institutions[key]
     const institutionFilings = filings[institution.id]
 
-    if (!institutionFilings) {
+    if (!institutionFilings || !institutionFilings.filing) {
       // there are no filings
       return <Institution key={i} institution={institution} />
     } else if (!institutionFilings.fetched) {

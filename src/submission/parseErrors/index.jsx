@@ -66,7 +66,7 @@ export const renderLarErrors = ({ larErrors, ...props }) => {
           return larErrorObj.errorMessages.map((message, i) => {
             return (
               <tr key={i}>
-                <td>{larErrorObj.lineNumber}</td>
+                <td>{larErrorObj.rowNumber}</td>
                 <td>{message}</td>
               </tr>
             )
@@ -86,12 +86,10 @@ class ParseErrors extends Component {
 
   render() {
     const props = this.props
+
     if (!props.fetched) return <Loading />
 
-    const total =
-      props.pagination &&
-      props.pagination.total + props.transmittalSheetErrors.length
-    const errorText = total > 1 ? 'Rows' : 'Row'
+    const errorText = props.pagination.total > 1 ? 'Rows' : 'Row'
 
     return (
       <section
@@ -103,7 +101,7 @@ class ParseErrors extends Component {
         <header>
           {!props.pagination ? null : (
             <h2>
-              {total} {errorText} with Formatting Errors
+              {props.pagination.total} {errorText} with Formatting Errors
             </h2>
           )}
           <p className="usa-font-lead">
