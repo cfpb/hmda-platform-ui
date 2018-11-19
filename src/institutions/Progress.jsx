@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import {
   PARSED_WITH_ERRORS,
   PARSED,
-  VALIDATED_WITH_ERRORS,
+  SYNTACTICAL_VALIDITY_EDITS,
+  QUALITY_EDITS,
+  MACRO_EDITS,
   VALIDATED,
   SIGNED
 } from '../constants/statusCodes.js'
@@ -18,20 +20,20 @@ const navMap = {
     completedText: 'uploaded'
   },
   'syntactical & validity edits': {
-    isErrored: code => code === VALIDATED_WITH_ERRORS,
-    isCompleted: code => code >= VALIDATED,
+    isErrored: code => code === SYNTACTICAL_VALIDITY_EDITS,
+    isCompleted: code => code > SYNTACTICAL_VALIDITY_EDITS,
     errorText: 'syntactical & validity edits',
     completedText: 'no syntactical & validity edits'
   },
   'quality edits': {
-    isErrored: code => code === VALIDATED_WITH_ERRORS,
-    isCompleted: code => code >= VALIDATED,
+    isErrored: code => code === QUALITY_EDITS,
+    isCompleted: code => code > QUALITY_EDITS,
     errorText: 'quality edits',
     completedText: 'quality edits verified'
   },
   'macro quality edits': {
-    isErrored: code => code === VALIDATED_WITH_ERRORS,
-    isCompleted: code => code >= VALIDATED,
+    isErrored: code => code === MACRO_EDITS,
+    isCompleted: code => code > MACRO_EDITS,
     errorText: 'macro quality edits',
     completedText: 'macro quality edits verified'
   },

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { ordinal } from '../utils/date.js'
 import CSVDownload from '../common/CSVContainer.jsx'
-import * as STATUS from '../constants/statusCodes.js'
+import { SIGNED, VALIDATING } from '../constants/statusCodes.js'
 
 import './SubmissionHistory.css'
 
@@ -60,14 +60,12 @@ class InstitutionPreviousSubmissions extends Component {
                   const message = submission.status.message.slice(0, -1)
 
                   const signedOn =
-                    submission.status.code === STATUS.SIGNED
-                      ? ` on ${endDate}`
-                      : null
+                    submission.status.code === SIGNED ? ` on ${endDate}` : null
 
                   // render a link if beyond VALIDATING
                   // even signed submissions could have an edit report
                   // because quality and macro are verified
-                  if (submission.status.code > STATUS.VALIDATING) {
+                  if (submission.status.code > VALIDATING) {
                     return (
                       <li key={i}>
                         Filing progress on {startDate}:{' '}

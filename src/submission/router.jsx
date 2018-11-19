@@ -12,7 +12,10 @@ import updateFilingPeriod from '../actions/updateFilingPeriod.js'
 import suppressEdits from '../actions/suppressEdits.js'
 import {
   UNINITIALIZED,
-  VALIDATED_WITH_ERRORS,
+  VALIDATING,
+  SYNTACTICAL_VALIDITY_EDITS,
+  QUALITY_EDITS,
+  VALIDATED,
   FAILED
 } from '../constants/statusCodes.js'
 
@@ -63,7 +66,9 @@ export class SubmissionRouter extends Component {
 
   editsNeeded() {
     const { submission } = this.props
-    return submission.status.code === VALIDATED_WITH_ERRORS
+    return (
+      submission.status.code > VALIDATING && submission.status.code < VALIDATED
+    )
   }
 
   replaceHistory(splat) {
@@ -79,18 +84,13 @@ export class SubmissionRouter extends Component {
     const status = this.props.submission.status
     const code = status.code
     const types = this.props.types
-
-    /*const synvalExist = !!(
-      types.syntactical.edits.length + types.validity.edits.length
-    )*/
     const synvalExist = false
-    // const qualityExist = !!types.quality.edits.length && !types.quality.verified
     const qualityExist = false
 
-    if (code < VALIDATED_WITH_ERRORS) return 'upload'
-    if (code > VALIDATED_WITH_ERRORS) return 'submission'
-    if (synvalExist) return 'syntacticalvalidity'
-    if (qualityExist) return 'quality'
+    if (code <= VALIDATING) return 'upload'
+    if (code >= VALIDATED) return 'submission'
+    if (code === SYNTACTICAL_VALIDITY_EDITS) return 'syntacticalvalidity'
+    if (code === QUALITY_EDITS) return 'quality'
     return 'macro'
   }
 
@@ -110,11 +110,11 @@ export class SubmissionRouter extends Component {
       return this.goToAppHome()
     }
 
-    if (code < VALIDATED_WITH_ERRORS)
+    if (code <= VALIDATING)
       if (splat === 'upload') return this.forceUpdate()
       else return this.replaceHistory('upload')
 
-    if (code === VALIDATED_WITH_ERRORS) {
+    if (code >= VALIDATING && code <= VALIDATED) {
       if (splat === latest) return this.forceUpdate()
       else if (
         submissionRoutes.indexOf(splat) > submissionRoutes.indexOf(latest)

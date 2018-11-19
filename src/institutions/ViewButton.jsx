@@ -1,25 +1,31 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
-import * as STATUS from '../constants/statusCodes.js'
+import {
+  CREATED,
+  PARSED_WITH_ERRORS,
+  NO_SYNTACTICAL_VALIDITY_EDITS,
+  VALIDATING,
+  VALIDATED
+} from '../constants/statusCodes.js'
 
 import './ViewButton.css'
 
 const InstitutionViewButton = ({ status, institutionId, filingPeriod }) => {
-  const code = status ? status.code : STATUS.CREATED
+  const code = status ? status.code : CREATED
   let text
 
-  if (code <= STATUS.CREATED) {
+  if (code <= CREATED) {
     text = 'Upload your file'
-  } else if (code < STATUS.PARSED_WITH_ERRORS) {
+  } else if (code < PARSED_WITH_ERRORS) {
     text = 'View upload progress'
-  } else if (code === STATUS.PARSED_WITH_ERRORS) {
+  } else if (code === PARSED_WITH_ERRORS) {
     text = 'Review formatting errors'
-  } else if (code < STATUS.VALIDATED_WITH_ERRORS) {
+  } else if (code < NO_SYNTACTICAL_VALIDITY_EDITS) {
     text = 'View progress'
-  } else if (code === STATUS.VALIDATED_WITH_ERRORS) {
+  } else if (code > VALIDATING && code < VALIDATED) {
     text = 'Review edits'
-  } else if (code === STATUS.VALIDATED) {
+  } else if (code === VALIDATED) {
     text = 'Review summary'
   } else {
     text = 'View completed filing'
