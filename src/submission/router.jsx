@@ -128,7 +128,6 @@ export class SubmissionRouter extends Component {
 
   render() {
     const { submission, error, params } = this.props
-
     if (error) {
       return (
         <div id="main-content" className="usa-grid">
@@ -136,12 +135,6 @@ export class SubmissionRouter extends Component {
         </div>
       )
     }
-    if (submission.status.code === FAILED)
-      return (
-        <div className="SubmissionContainer">
-          <p>{submission.status.message}</p>
-        </div>
-      )
     if (
       submission.status.code === UNINITIALIZED ||
       submission.id.lei !== params.institution ||

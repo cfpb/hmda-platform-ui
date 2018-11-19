@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Upload from './index.jsx'
 import handleFile from '../../actions/handleFile.js'
-import pollForProgress from '../../actions/pollForProgress.js'
+import trackProgress from '../../actions/trackProgress.js'
 
 export function mapStateToProps(state) {
   const id = state.app.institutionId
@@ -32,8 +32,8 @@ export function mapDispatchToProps(dispatch) {
       if (!acceptedFiles) return
       dispatch(handleFile(acceptedFiles[0], code, error))
     },
-    pollSubmission() {
-      dispatch(pollForProgress())
+    checkProgress() {
+      dispatch(trackProgress())
     }
   }
 }

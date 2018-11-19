@@ -11,6 +11,7 @@ import EditsContainer from './edits/container.jsx'
 import ReceiptContainer from './ReceiptContainer.jsx'
 import EditsNavComponent from './Nav.jsx'
 import NavButtonComponent from './NavButton.jsx'
+import RefileButton from '../refileButton/container.jsx'
 import submissionProgressHOC from './progressHOC.jsx'
 import IRSReport from './irs/container.jsx'
 import Signature from './signature/container.jsx'
@@ -95,7 +96,6 @@ class SubmissionContainer extends Component {
     const toRender = code
       ? renderByCode(code, page, status.message)
       : [<Loading key="0" />]
-
     return (
       <div>
         <UserHeading
@@ -104,7 +104,7 @@ class SubmissionContainer extends Component {
         />
         <EditsNav />
         <main id="main-content" className="SubmissionContainer">
-          {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
+          {this.props.error || code === FAILED ? <section><ErrorWarning error={{}} /><RefileButton/></section> : null}
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>
           })}

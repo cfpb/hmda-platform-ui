@@ -6,6 +6,7 @@ import filings from './filings.js'
 import filingPeriod from './filingPeriod.js'
 import submission from './submission.js'
 import upload from './upload.js'
+import progress from './progress.js'
 import confirmation from './confirmation.js'
 import edits from './edits.js'
 import irs from './irs.js'
@@ -25,6 +26,7 @@ export default combineReducers({
   filingPeriod,
   submission,
   upload,
+  progress,
   confirmation,
   edits,
   irs,

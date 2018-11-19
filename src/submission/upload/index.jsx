@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Alert from '../../common/Alert.jsx'
-import ValidationProgress from './ValidationProgress.jsx'
+import ValidationProgress from './ValidationProgressContainer.jsx'
 import Dropzone from 'react-dropzone'
 import DropzoneContent from './DropzoneContent.jsx'
 import * as STATUS from '../../constants/statusCodes.js'
@@ -20,13 +20,13 @@ export default class Upload extends Component {
   }
 
   componentDidMount() {
-    const { code, pollSubmission } = this.props
+    const { code, checkProgress } = this.props
     if (
       code >= STATUS.UPLOADING &&
       code < STATUS.VALIDATED_WITH_ERRORS &&
       code !== STATUS.PARSED_WITH_ERRORS
     )
-      pollSubmission()
+      checkProgress()
   }
 
   render() {
@@ -36,7 +36,6 @@ export default class Upload extends Component {
       errorFile,
       errors,
       errorUpload,
-      file,
       filename,
       id,
       uploading
@@ -80,7 +79,6 @@ export default class Upload extends Component {
           code={code}
           errorApp={errorApp}
           errorUpload={errorUpload}
-          file={file}
           id={id}
           uploading={uploading}
         />
@@ -96,7 +94,6 @@ Upload.propTypes = {
   errorFile: PropTypes.string,
   errors: PropTypes.array,
   errorUpload: PropTypes.object,
-  file: PropTypes.object,
   filename: PropTypes.string,
   id: PropTypes.string,
   uploading: PropTypes.bool,

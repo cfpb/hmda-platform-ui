@@ -5,113 +5,78 @@ import * as STATUS from '../../constants/statusCodes.js'
 
 import './ValidationProgress.css'
 
-export default class ValidationProgress extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = { fillWidth: this.getSavedWidth(props.id) }
-    this.SCALING_FACTOR = 1
-    if (props.file) {
-      this.SCALING_FACTOR = props.file.size / 1e6
-      if (this.SCALING_FACTOR < 1) this.SCALING_FACTOR = 1
-      if (this.SCALING_FACTOR > 5) this.SCALING_FACTOR = 5
-    }
+const isErrored = props => {
+  return (
+    props.code === STATUS.PARSED_WITH_ERRORS ||
+    props.errorUpload ||
+    props.errorApp
+  )
+}
+
+const getFillError = props => {
+  if (isErrored(props)) return 'error'
+  return ''
+}
+
+const getFillWidth = props => {
+  const progress = props.progress[props.target]
+  let width = 100 * progress.processed / progress.total
+  if (isErrored(props) || props.code > STATUS.VALIDATING) {
+    width = 100
   }
 
-  componentWillReceiveProps(props) {
-    if (props.file) {
-      this.SCALING_FACTOR = props.file.size / 1e6
-      if (this.SCALING_FACTOR < 1) this.SCALING_FACTOR = 1
-      if (this.SCALING_FACTOR > 5) this.SCALING_FACTOR = 5
-    }
-    if (props.id !== this.props.id) {
-      this.setState({ fillWidth: this.getSavedWidth(props.id) })
-    }
-  }
+  return width
+}
 
-  getSavedWidth(id) {
-    return id ? +localStorage.getItem(`HMDA_FILE_PROGRESS/${id}`) : 0
-  }
+const makeLabel = props => {
+  const target = props.target
+  const progress = props.progress[target]
+  const units = target === 'uploading' ? 'bytes' : 'rows'
+  let label = target
+  if (progress.processed >= progress.total) label = label.slice(0,-3) + 'ed'
 
-  saveWidth(id, width) {
-    if (this.props.errorUpload || this.props.errorApp) width = 0
-    localStorage.setItem(`HMDA_FILE_PROGRESS/${id}`, width)
-  }
+  let counter = ` ${progress.processed} / ${progress.total} ${units}`
 
-  isErrored() {
-    return (
-      this.props.code === STATUS.PARSED_WITH_ERRORS ||
-      this.props.errorUpload ||
-      this.props.errorApp
-    )
-  }
+  if (progress.total === 0) counter = ''
 
-  getFillError() {
-    if (this.isErrored()) return 'error'
-    return ''
-  }
+  return (
+    <b>
+      <span>{label}</span>
+      {counter}
+    </b>
+  )
 
-  getFillWidth() {
-    let currWidth = this.state.fillWidth
-    if (this.isErrored() || this.props.code > STATUS.VALIDATING) {
-      currWidth = 100
-      this.saveWidth(this.props.id, 100)
-    } else if (!this.timeout) this.getNextWidth()
+}
 
-    return currWidth
-  }
+const ValidationProgress = props => {
+  console.log('vp render', props)
+  const { code, target, uploading } = props
 
-  setNextWidth(currWidth) {
-    return () => {
-      this.timeout = null
-      let nextWidth = currWidth + 1
-      if (nextWidth > 100) nextWidth = 100
-      this.saveWidth(this.props.id, nextWidth)
-      this.setState({ fillWidth: nextWidth })
-    }
-  }
+  if (code < STATUS.UPLOADING && !uploading) return null
+  if (code < STATUS.PARSING && target === 'parsing') return null
+  if (code < STATUS.VALIDATING && target === 'validating') return null
 
-  getNextWidth() {
-    const currWidth = this.state.fillWidth
-    this.timeout = setTimeout(
-      this.setNextWidth(currWidth),
-      this.SCALING_FACTOR * 200 * Math.pow(2, 50 / (100 - currWidth))
-    )
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.timeout)
-    this.timeout = null
-  }
-
-  render() {
-    const { code, errorApp, errorUpload, file, uploading } = this.props
-
-    if (code < STATUS.UPLOADING && !uploading) return null
-    return (
-      <section className="ValidationProgress">
-        {/* the background bar */}
-        <div className="progressTotal" />
-        {/* the progress bar */}
-        <div
-          className={`progressFill ${this.getFillError()}`}
-          style={{ width: this.getFillWidth() + '%' }}
-        />
-        <ProgressText
-          code={code}
-          errorApp={errorApp}
-          errorUpload={errorUpload}
-          file={file}
-        />
-      </section>
-    )
-  }
+  return (
+    <section className="ValidationProgress">
+      {makeLabel(props)}
+      {/* the background bar */}
+      <div className="progressTotal" />
+      {/* the progress bar */}
+      <div
+        className={`progressFill ${getFillError(props)}`}
+        style={{ width: getFillWidth(props) + '%' }}
+      />
+    </section>
+  )
 }
 
 ValidationProgress.propTypes = {
-  code: PropTypes.number,
-  errorApp: PropTypes.object,
-  errorUpload: PropTypes.object,
-  file: PropTypes.object,
-  id: PropTypes.string,
-  uploading: PropTypes.bool
+target: PropTypes.string,
+code: PropTypes.number,
+errorApp: PropTypes.object,
+errorUpload: PropTypes.object,
+id: PropTypes.string,
+uploading: PropTypes.bool
 }
+
+export default ValidationProgress
