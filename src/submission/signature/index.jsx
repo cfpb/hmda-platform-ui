@@ -16,7 +16,10 @@ const showWarning = props => {
 }
 
 const Signature = props => {
-  let isDisabled = props.status.code === VALIDATED ? false : true
+  let isDisabled =
+    props.status.code >= VALIDATED && props.status.code !== SIGNED
+      ? false
+      : true
 
   let buttonClass = 'button-disabled'
   // if the checkbox is checked remove disabled from button

@@ -91,8 +91,8 @@ const RefileWarning = props => {
     props.code !== SYNTACTICAL_VALIDITY_EDITS
   )
     return null
-  if (props.page === 'quality' && props.code === MACRO_EDITS) return null
-  if (props.page === 'macro' && props.code === VALIDATED) return null
+  if (props.page === 'quality' && props.code === QUALITY_EDITS) return null
+  if (props.page === 'macro' && props.code === MACRO_EDITS) return null
   if (props.page === 'upload' && props.code !== PARSED_WITH_ERRORS) return null
   if (props.page === 'submission') return null
 
@@ -121,13 +121,9 @@ const RefileWarning = props => {
 }
 
 RefileWarning.propTypes = {
-  // from /containers/submissionProgressHOC
   page: PropTypes.string,
   base: PropTypes.string,
   code: PropTypes.number
-  //syntacticalValidityEditsExist: PropTypes.bool,
-  //qualityVerified: PropTypes.bool,
-  //macroVerified: PropTypes.bool
 }
 
 export default RefileWarning

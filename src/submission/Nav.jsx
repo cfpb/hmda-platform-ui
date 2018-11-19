@@ -30,7 +30,7 @@ export default class EditsNav extends Component {
       upload: {
         isReachable: () => true,
         isErrored: () => this.props.code === PARSED_WITH_ERRORS,
-        isCompleted: () => this.props.code > PARSED_WITH_ERRORS,
+        isCompleted: () => this.props.code > VALIDATING,
         errorClass: 'error',
         errorText: 'uploaded with formatting errors',
         completedText: 'uploaded',
