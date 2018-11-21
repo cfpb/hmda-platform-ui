@@ -5,6 +5,9 @@ import Header from './common/Header.jsx'
 import Footer from './common/Footer.jsx'
 import BrowserBlocker from './common/BrowserBlocker.jsx'
 import Loading from './common/Loading.jsx'
+import * as AccessToken from './api/AccessToken.js'
+import { getKeycloak } from './utils/keycloak.js'
+import isRedirecting from './actions/isRedirecting.js'
 //import { error } from './utils/log.js'
 import browser from 'detect-browser'
 
@@ -12,9 +15,32 @@ import 'normalize.css'
 import './app.css'
 
 export class AppContainer extends Component {
+  componentDidMount() {
+    const keycloak = getKeycloak()
+    keycloak.init().then(authenticated => {
+      console.log('is inited', authenticated, keycloak.authenticated)
+      if (authenticated) {
+        AccessToken.set(keycloak.token)
+        if (this.props.redirecting) this.props.dispatch(isRedirecting(false))
+        else this.forceUpdate()
+      } else {
+        if (!this._isHome(this.props)) keycloak.login()
+      }
+    })
+  }
+
+  componentDidUpdate(props) {
+    const keycloak = getKeycloak()
+    if (!keycloak.authenticated && !this._isHome(this.props)) keycloak.login()
+  }
+
   _renderAppContents(props) {
     if (this._isOldBrowser()) return <BrowserBlocker />
-    if (props.redirecting) return <Loading className="floatingIcon" />
+    if (
+      props.redirecting ||
+      (!getKeycloak().authenticated && !this._isHome(props))
+    )
+      return <Loading className="floatingIcon" />
     return props.children
   }
 
@@ -43,12 +69,8 @@ export class AppContainer extends Component {
 
 export function mapStateToProps(state) {
   const { redirecting } = state.app
-  //const { oidc, isFetching, userError } = state.app.user
 
   return {
-    //oidc,
-    //isFetching,
-    //userError,
     redirecting
   }
 }

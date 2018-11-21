@@ -14,16 +14,19 @@ import {
 } from 'react-router'
 import useScroll from 'react-router-scroll/lib/useScroll'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import Keycloak from 'keycloak-js'
 import AppContainer from './App.jsx'
 import HomeContainer from './home/container.jsx'
 import InstitutionContainer from './institutions/container.jsx'
 import SubmissionRouter from './submission/router.jsx'
-import { setDispatch } from './utils/redirect.js'
+import { setDispatch, setKeycloak } from './utils/keycloak.js'
 import { setStore } from './api/fetch.js'
 import log from './utils/log.js'
 import appReducer from './reducers'
 
 const middleware = [thunkMiddleware]
+
+setKeycloak(Keycloak(process.env.PUBLIC_URL + '/keycloak.json'))
 
 let store
 if (process.env.NODE_ENV !== 'production') {

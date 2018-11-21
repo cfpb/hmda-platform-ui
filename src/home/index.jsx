@@ -1,5 +1,5 @@
 import React from 'react'
-// import { signinRedirect, register } from '../utils/redirect.js'
+import { login, register } from '../utils/keycloak.js'
 
 import './Home.css'
 
@@ -10,19 +10,18 @@ const Home = () => {
         <div className="grid">
           <h1>Get familiar with filing your HMDA data</h1>
           <p className="usa-font-lead">
-            During this beta period, you may explore the new HMDA{' '}
-            platform. It will be used to upload your financial{' '}
-            institution&#39;s loan/application registers, review edits,{' '}
-            certify the data, and submit the data for the filing year.{' '}
-            All test data uploaded during the{' '}
-            beta period will be removed from the system when the filing{' '}
+            During this beta period, you may explore the new HMDA platform. It
+            will be used to upload your financial institution&#39;s
+            loan/application registers, review edits, certify the data, and
+            submit the data for the filing year. All test data uploaded during
+            the beta period will be removed from the system when the filing{' '}
             period for HMDA data collected in 2018 opens on January 1st, 2019.
           </p>
           <button
             className="button"
             onClick={e => {
               e.preventDefault()
-              // signinRedirect(window.HMDA_ENV.APP_SUFFIX + 'institutions')
+              login()
             }}
           >
             Log in
@@ -32,7 +31,7 @@ const Home = () => {
             className="register-link text-small"
             onClick={e => {
               e.preventDefault()
-              // register(window.HMDA_ENV.APP_SUFFIX + 'institutions')
+              register()
             }}
           >
             Create an account
