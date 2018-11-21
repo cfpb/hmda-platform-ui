@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
-// import { logout } from '../utils/redirect.js'
+import { getKeycloak, logout } from '../utils/keycloak.js'
 import BannerUSA from './BannerUSA.jsx'
 
 import './Header.css'
@@ -12,10 +12,10 @@ export const addActiveClass = (selected, current) => {
   return null
 }
 
-/*export const logOutHandler = e => {
+export const logOutHandler = e => {
   e.preventDefault()
   logout()
-}*/
+}
 
 export const makeNav = (props, page) => {
   let userHeader = (
@@ -25,10 +25,10 @@ export const makeNav = (props, page) => {
           Filing Home
         </Link>
       </li>
-      {props.user ? (
+      {getKeycloak().authenticated ? (
         <li className="user">
-          {props.user.profile.name}
-          <button className="nav-link">Logout</button>
+          {/*props.user.profile.name*/}
+          <button className="nav-link" onClick={logOutHandler}>Logout</button>
         </li>
       ) : null}
     </ul>

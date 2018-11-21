@@ -34,7 +34,7 @@ const register = () => {
 const logout = () => {
   if (!keycloak)
     return error('keycloak needs to be set on app initialization')
-  keycloak.logout()
+  keycloak.logout({redirectUri: location.origin + '/filing'})
 }
 
 export {
