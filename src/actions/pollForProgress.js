@@ -58,7 +58,7 @@ export default function pollForProgress() {
           code !== SYNTACTICAL_VALIDITY_EDITS &&
           code !== QUALITY_EDITS &&
           code !== MACRO_EDITS &&
-          code !== VALIDATED
+          code < VALIDATED
         ) {
           setTimeout(poller.bind(null, dispatch), getTimeoutDuration())
         } else if (
