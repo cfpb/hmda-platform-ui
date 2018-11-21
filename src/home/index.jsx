@@ -1,5 +1,5 @@
 import React from 'react'
-// import { signinRedirect, register } from '../utils/redirect.js'
+ import { login, register } from '../utils/keycloak.js'
 
 import './Home.css'
 
@@ -22,7 +22,7 @@ const Home = () => {
             className="button"
             onClick={e => {
               e.preventDefault()
-              // signinRedirect(window.HMDA_ENV.APP_SUFFIX + 'institutions')
+              login()
             }}
           >
             Log in
@@ -32,7 +32,7 @@ const Home = () => {
             className="register-link text-small"
             onClick={e => {
               e.preventDefault()
-              // register(window.HMDA_ENV.APP_SUFFIX + 'institutions')
+                register()
             }}
           >
             Create an account
