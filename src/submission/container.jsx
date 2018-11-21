@@ -47,8 +47,27 @@ const renderByCode = (code, page, message) => {
       }
       toRender.push(<ReceiptContainer />)
       //toRender.push(<IRSReport />)
-      toRender.push(<p>The Institution Register Summary (IRS) is not generated during the beta testing period. During the 2018 filing period, the IRS will be made available in the HMDA Platform after signing and submitting your HMDA data.</p>)
-      toRender.push(<Summary />)
+      toRender.push(
+        <React.Fragment>
+          <h2>Institution Register Summary (IRS)</h2>
+          <p className="font-lead">
+            The IRS is not generated during the beta testing period. During the
+            2018 filing period, the IRS will be made available in the HMDA
+            Platform after signing and submitting your HMDA data.
+          </p>
+        </React.Fragment>
+      )
+      //toRender.push(<Summary />)
+      toRender.push(
+        <React.Fragment>
+          <h2>Summary</h2>
+          <p>
+            The summary is not generated during the beta testing period. During
+            the 2018 filing period, the summary will be made available in the
+            HMDA Platform prior to signing and submitting your HMDA data.
+          </p>
+        </React.Fragment>
+      )
       // and just before the signature
       if (code !== SIGNED) {
         toRender.push(<ReadyToSign />)
