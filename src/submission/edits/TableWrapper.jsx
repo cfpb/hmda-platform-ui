@@ -92,10 +92,27 @@ const EditsTableWrapper = props => {
       {/* warn at the top of the page */}
       <RefileWarning />
       <Alert type="warning">
-      <p>
-        Edits <b>V625-627</b>, <b>Q600</b>, <b>Q603</b>, <b>Q604</b>, and <b>Q634-640</b> are not currently implemented into the beta platform. These edits will be added when the final platform is released in 2019.
-      </p>
-    </Alert>
+        <React.Fragment>
+          <p>
+            The initial release of the beta platform will not feature the
+            detailed edit descriptions and tables, but this feature will be
+            added soon. If you have a question about an edit received on the
+            beta platform, you can view all edit descriptions in Section 5.3 of
+            the{' '}
+            <a href="https://s3.amazonaws.com/cfpb-hmda-public/prod/help/2018-hmda-fig-2018-hmda-rule.pdf">
+              2018 Filing Instructions Guide
+            </a>
+            . Please consult your system of record to view the relevant data
+            about the loan(s) or application(s).
+          </p>
+          <p>
+            Edits <b>V625-627</b>, <b>Q600</b>, <b>Q603</b>, <b>Q604</b>, and{' '}
+            <b>Q634-640</b> are not currently implemented into the beta
+            platform. These edits will be added when the final platform is
+            released in 2019.
+          </p>
+        </React.Fragment>
+      </Alert>
       {makeEntry(props, type)}
       {/* warn at the bottom of the page */}
       <RefileWarning />
