@@ -7,6 +7,9 @@ import { error } from '../utils/log.js'
 import {
   PARSED_WITH_ERRORS,
   VALIDATING,
+  SYNTACTICAL_VALIDITY_EDITS,
+  QUALITY_EDITS,
+  MACRO_EDITS,
   VALIDATED
 } from '../constants/statusCodes.js'
 
@@ -48,16 +51,20 @@ export default function pollForProgress() {
       })
       .then(json => {
         if (!json) return
+        const { code } = json.status
         if (
           // continue polling until we reach a status that isn't processing
-          json.status.code <= VALIDATING &&
-          json.status.code !== PARSED_WITH_ERRORS
+          code !== PARSED_WITH_ERRORS &&
+          code !== SYNTACTICAL_VALIDITY_EDITS &&
+          code !== QUALITY_EDITS &&
+          code !== MACRO_EDITS &&
+          code < VALIDATED
         ) {
           setTimeout(poller.bind(null, dispatch), getTimeoutDuration())
         } else if (
           // we don't need edits if it parsed with errors
-          json.status.code > VALIDATING &&
-          json.status.code < VALIDATED
+          code > VALIDATING &&
+          code < VALIDATED
         ) {
           return dispatch(fetchEdits())
         }
