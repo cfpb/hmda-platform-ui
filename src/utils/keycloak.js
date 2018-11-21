@@ -17,31 +17,24 @@ const getKeycloak = () => {
 }
 
 const login = () => {
-  if (!keycloak)
-    return error('keycloak needs to be set on app initialization')
+  if (!keycloak) return error('keycloak needs to be set on app initialization')
   dispatch(isRedirecting(true))
-  keycloak.login({redirectUri: location.origin + '/filing/institutions'})
+  keycloak.login({ redirectUri: location.origin + '/filing/institutions' })
 }
 
 const register = () => {
-  if (!keycloak)
-    return error('keycloak needs to be set on app initialization')
+  if (!keycloak) return error('keycloak needs to be set on app initialization')
 
   dispatch(isRedirecting(true))
-  keycloak.login({redirectUri: location.origin + '/filing/institutions', action: 'register'})
+  keycloak.login({
+    redirectUri: location.origin + '/filing/institutions',
+    action: 'register'
+  })
 }
 
 const logout = () => {
-  if (!keycloak)
-    return error('keycloak needs to be set on app initialization')
-  keycloak.logout({redirectUri: location.origin + '/filing'})
+  if (!keycloak) return error('keycloak needs to be set on app initialization')
+  keycloak.logout({ redirectUri: location.origin + '/filing' })
 }
 
-export {
-  setDispatch,
-  getKeycloak,
-  setKeycloak,
-  register,
-  login,
-  logout
-}
+export { setDispatch, getKeycloak, setKeycloak, register, login, logout }

@@ -14,30 +14,33 @@ import browser from 'detect-browser'
 import 'normalize.css'
 import './app.css'
 
-
 export class AppContainer extends Component {
   componentDidMount() {
     const keycloak = getKeycloak()
     keycloak.init().then(authenticated => {
       console.log('is inited', authenticated, keycloak.authenticated)
-      if(authenticated) {
+      if (authenticated) {
         AccessToken.set(keycloak.token)
-        if(this.props.redirecting) this.props.dispatch(isRedirecting(false))
+        if (this.props.redirecting) this.props.dispatch(isRedirecting(false))
         else this.forceUpdate()
-      }else{
-        if(!this._isHome(this.props)) keycloak.login()
+      } else {
+        if (!this._isHome(this.props)) keycloak.login()
       }
     })
   }
 
- componentDidUpdate(props) {
-   const keycloak = getKeycloak()
-   if (!keycloak.authenticated && !this._isHome(this.props)) keycloak.login()
+  componentDidUpdate(props) {
+    const keycloak = getKeycloak()
+    if (!keycloak.authenticated && !this._isHome(this.props)) keycloak.login()
   }
 
   _renderAppContents(props) {
     if (this._isOldBrowser()) return <BrowserBlocker />
-    if(props.redirecting || !getKeycloak().authenticated && !this._isHome(props)) return <Loading className="floatingIcon" />
+    if (
+      props.redirecting ||
+      (!getKeycloak().authenticated && !this._isHome(props))
+    )
+      return <Loading className="floatingIcon" />
     return props.children
   }
 

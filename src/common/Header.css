@@ -119,7 +119,8 @@
   margin-left: 0;
 }
 
-.nav-primary > li > a, .nav-primary > li > button {
+.nav-primary > li > a,
+.nav-primary > li > button {
   color: #212121;
   background: inherit;
   font-family: SourceSansProBold;
@@ -130,7 +131,8 @@
   text-transform: uppercase;
 }
 
-.nav-primary > li > a:hover, .nav-primary > li > button:hover {
+.nav-primary > li > a:hover,
+.nav-primary > li > button:hover {
   color: #0071bc;
 }
 
@@ -151,4 +153,3 @@
   padding: 0;
   display: inline-block;
 }
-
