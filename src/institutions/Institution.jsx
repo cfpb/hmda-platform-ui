@@ -30,7 +30,7 @@ const Institution = ({ institution, filing, submission, submissions }) => {
 
             <InstitutionViewButton
               status={status}
-              institutionId={institution.id}
+              institution={institution}
               filingPeriod={filing.period}
             />
 

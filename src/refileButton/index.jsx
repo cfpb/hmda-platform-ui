@@ -14,6 +14,9 @@ const RefileButton = props => {
       refileStyle = `${refileStyle} text-small`
     }
   }
+  if(props.className) {
+    refileStyle = `${refileStyle} ${props.className}`
+  }
 
   return (
     <button
