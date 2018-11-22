@@ -4,6 +4,7 @@ import RefileButton from '../refileButton/container.jsx'
 import Alert from '../common/Alert.jsx'
 import CSVDownload from '../common/CSVContainer.jsx'
 import {
+  FAILED,
   PARSED_WITH_ERRORS,
   SYNTACTICAL_VALIDITY_EDITS,
   QUALITY_EDITS,
@@ -23,7 +24,14 @@ export const getText = props => {
     </div>
   )
 
-  if (props.code === SYNTACTICAL_VALIDITY_EDITS) {
+  if(props.code === FAILED) {
+    reviewAndDownload = null
+    text = (
+      <div>
+        Please select the &quot;Upload a new file&quot; button to restart the process.
+      </div>
+    )
+  } else if (props.code === SYNTACTICAL_VALIDITY_EDITS) {
     text = (
       <div>
         Then update your file and select the &quot;Upload a new file&quot;
@@ -69,7 +77,9 @@ export const getText = props => {
 export const getHeading = props => {
   let heading = null
 
-  if (props.code === SYNTACTICAL_VALIDITY_EDITS) {
+  if (props.code === FAILED) {
+    heading = 'Your submission has failed.'
+  } else if (props.code === SYNTACTICAL_VALIDITY_EDITS) {
     heading = 'Your file has syntactical and/or validity edits.'
   } else if (props.code === QUALITY_EDITS && props.page === 'quality') {
     heading = 'Your file has quality edits.'
@@ -85,23 +95,27 @@ export const getHeading = props => {
 }
 
 const RefileWarning = props => {
-  if (props.code >= VALIDATED || props.code < PARSED_WITH_ERRORS) return null
-  if (
-    props.page === 'syntacticalvalidity' &&
-    props.code !== SYNTACTICAL_VALIDITY_EDITS
-  )
-    return null
-  if (props.page === 'quality' && props.code === QUALITY_EDITS) return null
-  if (props.page === 'macro' && props.code === MACRO_EDITS) return null
-  if (props.page === 'upload' && props.code !== PARSED_WITH_ERRORS) return null
-  if (props.page === 'submission') return null
+  const { code, page } = props
+  if(code > FAILED) {
+    if (code >= VALIDATED || code < PARSED_WITH_ERRORS) return null
+    if (
+      page === 'syntacticalvalidity' &&
+      code !== SYNTACTICAL_VALIDITY_EDITS
+    )
+      return null
+    if (page === 'quality' && code === QUALITY_EDITS) return null
+    if (page === 'macro' && code === MACRO_EDITS) return null
+    if (page === 'upload' && code !== PARSED_WITH_ERRORS) return null
+    if (page === 'submission') return null
+  }
 
   let alertClass = 'error'
   let imageText
-  if (props.code !== PARSED_WITH_ERRORS) imageText = '!'
+  if (code !== PARSED_WITH_ERRORS) imageText = '!'
   if (
-    props.code !== SYNTACTICAL_VALIDITY_EDITS &&
-    props.code !== PARSED_WITH_ERRORS
+    code !== FAILED &&
+    code !== SYNTACTICAL_VALIDITY_EDITS &&
+    code !== PARSED_WITH_ERRORS
   ) {
     alertClass = 'warning'
     imageText = '?'

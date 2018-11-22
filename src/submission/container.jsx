@@ -11,6 +11,7 @@ import EditsContainer from './edits/container.jsx'
 import ReceiptContainer from './ReceiptContainer.jsx'
 import EditsNavComponent from './Nav.jsx'
 import NavButtonComponent from './NavButton.jsx'
+import RefileWarningComponent from '../refileWarning/index.jsx'
 import submissionProgressHOC from './progressHOC.jsx'
 import IRSReport from './irs/container.jsx'
 import Signature from './signature/container.jsx'
@@ -25,11 +26,13 @@ import './table.css'
 const Edits = submissionProgressHOC(EditsContainer)
 const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
+const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
 const renderByCode = (code, page, message) => {
   const toRender = []
   if (code === FAILED) {
-    toRender.push(<p>{message}</p>)
+    toRender.push(<RefileWarning/>)
+    return toRender
   } else {
     if (page === 'upload') {
       toRender.push(<UploadForm />)
@@ -124,7 +127,7 @@ class SubmissionContainer extends Component {
         />
         <EditsNav />
         <main id="main-content" className="SubmissionContainer">
-          {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
+          {this.props.error && code !== FAILED ? <ErrorWarning error={this.props.error} /> : null}
           {toRender.map((component, i) => {
             return <div key={i}>{component}</div>
           })}

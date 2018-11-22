@@ -15,8 +15,7 @@ import {
   VALIDATING,
   SYNTACTICAL_VALIDITY_EDITS,
   QUALITY_EDITS,
-  VALIDATED,
-  FAILED
+  VALIDATED
 } from '../constants/statusCodes.js'
 
 const editTypes = ['syntacticalvalidity', 'quality', 'macro']
@@ -127,21 +126,8 @@ export class SubmissionRouter extends Component {
   }
 
   render() {
-    const { submission, error, params } = this.props
+    const { submission, params } = this.props
 
-    if (error) {
-      return (
-        <div id="main-content" className="usa-grid">
-          <ErrorWarning error={this.props.error} />
-        </div>
-      )
-    }
-    if (submission.status.code === FAILED)
-      return (
-        <div className="SubmissionContainer">
-          <p>{submission.status.message}</p>
-        </div>
-      )
     if (
       submission.status.code === UNINITIALIZED ||
       submission.id.lei !== params.institution ||
@@ -154,14 +140,13 @@ export class SubmissionRouter extends Component {
 }
 
 export function mapStateToProps(state, ownProps) {
-  const { submission, error } = state.app
+  const { submission } = state.app
   const { types } = state.app.edits
 
   const { params } = ownProps
 
   return {
     submission,
-    error,
     types,
     params
   }
