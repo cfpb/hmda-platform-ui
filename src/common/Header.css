@@ -153,3 +153,7 @@
   padding: 0;
   display: inline-block;
 }
+
+.nav-primary > .user > .nav-link {
+  margin-right: 0;
+}
