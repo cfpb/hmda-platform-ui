@@ -18,7 +18,6 @@ export class AppContainer extends Component {
   componentDidMount() {
     const keycloak = getKeycloak()
     keycloak.init().then(authenticated => {
-      console.log('is inited', authenticated, keycloak.authenticated)
       if (authenticated) {
         AccessToken.set(keycloak.token)
         if (this.props.redirecting) this.props.dispatch(isRedirecting(false))

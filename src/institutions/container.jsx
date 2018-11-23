@@ -11,7 +11,8 @@ export class InstitutionContainer extends Component {
     if (!this.props.institutions.fetched && !this.props.institutions.isFetching)
       this.props.dispatch(requestInstitutions())
 
-    const leis = getKeycloak().tokenParsed.lei.split(',')
+    const leiString = getKeycloak().tokenParsed.lei
+    const leis = leiString ? leiString.split(',') : []
 
     // create the expected objects from the array, institutions = [{lei: lie}, {lei: lei}]
     let institutions = []
