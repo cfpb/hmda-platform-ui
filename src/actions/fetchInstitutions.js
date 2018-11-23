@@ -3,7 +3,7 @@ import receiveInstitutions from './receiveInstitutions.js'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
 import requestInstitutions from './requestInstitutions.js'
-import { getInstitutions } from '../api/api.js'
+//import { getInstitutions } from '../api/api.js'
 import { error } from '../utils/log.js'
 
 export default function fetchInstitutions() {
