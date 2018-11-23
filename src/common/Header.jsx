@@ -27,7 +27,7 @@ export const makeNav = (props, page) => {
       </li>
       {getKeycloak().authenticated ? (
         <li className="user">
-          {/*props.user.profile.name*/}
+          {getKeycloak().tokenParsed.name}
           <button className="nav-link" onClick={logOutHandler}>
             Logout
           </button>
