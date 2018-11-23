@@ -1,17 +1,5 @@
 import { fetch } from './fetch.js'
 
-export function getInstitutions() {
-  // return fetch({ pathname: '/institutions' })
-  return new Promise(resolve => {
-    resolve({
-      institutions: [
-        { lei: '01KWVG908KE7RKPTNP46', name: 'Bank 0' },
-        { lei: '03D0JEWFDFUS0SEEKG89', name: 'Bank 1' }
-      ]
-    })
-  })
-}
-
 export function getInstitution(id) {
   return fetch({ pathname: `/institutions/${id}` })
 }

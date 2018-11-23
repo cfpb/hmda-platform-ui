@@ -24,16 +24,20 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
   // we don't have institutions yet
   if (!institutions.fetched) return <Loading className="floatingIcon" />
 
-  // we don't have any institutions
-  // this shouldn't happen because they need to pick
-  // an institution when registering but just in case
+  // we don't have any associated institutions
+  // This is probably due to accounts from previous years
+
   if (Object.keys(institutions.institutions).length === 0)
     return (
-      <Alert type="error">
+      <Alert heading="No associated institutions" type="info">
         <p>
-          There was an error getting your list of institutions, please refresh
-          the page or try again later. If the problem persists, contact{' '}
-          <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
+          In order to access the HMDA Platform, your institution must{' '}
+          have a Legal Entity Identifier (LEI). In order to provide your{' '}
+          institution&#39;s LEI, please access <a href="https://hmdahelp.consumerfinance.gov/accounthelp/">this form</a> and enter the{' '}
+          necessary information, including your HMDA Platform account{' '}
+          email address in the &#34;Additional comments&#34; text box. We will{' '}
+          apply the update to your account, please check back 2 business{' '}
+          days after submitting your information.
         </p>
       </Alert>
     )
@@ -46,10 +50,7 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
     const institution = institutions.institutions[key]
     const institutionFilings = filings[institution.id]
 
-    if (!institutionFilings || !institutionFilings.filing) {
-      // there are no filings
-      return <Institution key={i} institution={institution} />
-    } else if (!institutionFilings.fetched) {
+    if (!institutionFilings || !institutionFilings.fetched) {
       // filings are not fetched yet
       return <Loading className="floatingIcon" key={i} />
     } else {
