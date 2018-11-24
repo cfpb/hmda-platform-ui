@@ -6,7 +6,7 @@ import Footer from './common/Footer.jsx'
 import BrowserBlocker from './common/BrowserBlocker.jsx'
 import Loading from './common/Loading.jsx'
 import * as AccessToken from './api/AccessToken.js'
-import { getKeycloak } from './utils/keycloak.js'
+import { getKeycloak, refresh } from './utils/keycloak.js'
 import isRedirecting from './actions/isRedirecting.js'
 //import { error } from './utils/log.js'
 import browser from 'detect-browser'
@@ -20,6 +20,7 @@ export class AppContainer extends Component {
     keycloak.init().then(authenticated => {
       if (authenticated) {
         AccessToken.set(keycloak.token)
+        refresh()
         if (this.props.redirecting) this.props.dispatch(isRedirecting(false))
         else this.forceUpdate()
       } else {
