@@ -1,6 +1,7 @@
 /*eslint no-restricted-globals: 0*/
 import { error } from '../utils/log.js'
 import isRedirecting from '../actions/isRedirecting.js'
+import * as AccessToken from '../api/AccessToken.js'
 let keycloak = null
 let dispatch = () => {}
 
@@ -22,6 +23,19 @@ const login = () => {
   keycloak.login({ redirectUri: location.origin + '/filing/institutions' })
 }
 
+const refresh = () => {
+  const updateKeycloak = () => {
+    setTimeout(() => {
+      keycloak.updateToken().then(success => {
+        if(!success) return keycloak.login()
+        AccessToken.set(keycloak.token)
+        updateKeycloak()
+      })
+    }, +(keycloak.tokenParsed.exp + '000') - Date.now() - 10000)
+  }
+  updateKeycloak()
+}
+
 const register = () => {
   if (!keycloak) return error('keycloak needs to be set on app initialization')
 
@@ -37,4 +51,4 @@ const logout = () => {
   keycloak.logout({ redirectUri: location.origin + '/filing' })
 }
 
-export { setDispatch, getKeycloak, setKeycloak, register, login, logout }
+export { setDispatch, getKeycloak, setKeycloak, register, login, logout, refresh }
