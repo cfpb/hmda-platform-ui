@@ -157,3 +157,7 @@
 .nav-primary > .user > .nav-link {
   margin-right: 0;
 }
+
+.nav-primary > .user {
+  margin-left: 2em;
+}
