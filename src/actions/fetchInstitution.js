@@ -1,5 +1,4 @@
 import fetchCurrentFiling from './fetchCurrentFiling.js'
-import fetchNewFiling from './fetchNewFiling.js'
 import receiveInstitution from './receiveInstitution.js'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
@@ -20,16 +19,7 @@ export default function fetchInstitution(institution, fetchFilings = true) {
 
           dispatch(receiveInstitution(json))
 
-          if (json.filings.length !== 0 && fetchFilings) {
-            return dispatch(fetchCurrentFiling(json))
-          } else {
-            return dispatch(
-              fetchNewFiling({
-                lei: institution.lei,
-                period: getState().app.filingPeriod
-              })
-            )
-          }
+          if(fetchFilings) return dispatch(fetchCurrentFiling(json))
         })
       })
       .catch(err => {
