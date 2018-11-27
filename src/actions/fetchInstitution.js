@@ -1,5 +1,4 @@
 import fetchCurrentFiling from './fetchCurrentFiling.js'
-import fetchNewFiling from './fetchNewFiling.js'
 import receiveInstitution from './receiveInstitution.js'
 import receiveError from './receiveError.js'
 import hasHttpError from './hasHttpError.js'
