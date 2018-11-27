@@ -83,12 +83,19 @@ export default class Institutions extends Component {
 
           {_whatToRender(this.props)}
 
-          {this.props.institutions.fetched ? (
-            <p className="multi-message">
-              If you are planning to file on behalf of more than one financial
-              institution, contact{' '}
-              <a href="mailto:hmdahelp@cfpb.gov">hmdahelp@cfpb.gov</a>.
-            </p>
+          {this.props.institutions.fetched &&
+           Object.keys(this.props.institutions.institutions).length !== 0 ? (
+             <Alert heading="Missing an institution?" type="info" headingType="small">
+               <p className="text-small">
+                 In order to access the HMDA Platform, each of your institutions must{' '}
+                 have a Legal Entity Identifier (LEI). In order to provide your{' '}
+                 institution&#39;s LEI, please access <a href="https://hmdahelp.consumerfinance.gov/accounthelp/">this form</a> and enter the{' '}
+                 necessary information, including your HMDA Platform account{' '}
+                 email address in the &#34;Additional comments&#34; text box. We will{' '}
+                 apply the update to your account, please check back 2 business{' '}
+                 days after submitting your information.
+               </p>
+             </Alert>
           ) : null}
         </div>
       </main>

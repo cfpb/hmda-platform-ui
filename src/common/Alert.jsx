@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 
 import './Alert.css'
 
-const Alert = ({ type = 'info', heading, imageText, children }) => {
+const Alert = ({
+  type = 'info',
+  heading,
+  headingType='normal',
+  imageText,
+  children
+}) => {
   if (!children) return null
   let alertText
   let alertClass = ''
@@ -27,12 +33,15 @@ const Alert = ({ type = 'info', heading, imageText, children }) => {
     }
   }
 
+  let headingClass = 'alert-heading'
+  if(headingType === 'small') headingClass += ' heading-small'
+
   return (
     <div className={`alert alert-${type}`}>
       {/*<div className={`AlertImage ${alertClass}`}>{alertText}</div>*/}
       <div className="alert-body">
-        {heading ? <h3 className="alert-heading">{heading}</h3> : null}
-        {React.cloneElement(children, { className: 'alert-text' })}
+        {heading ? <h3 className={headingClass}>{heading}</h3> : null}
+        {React.cloneElement(children, { className: children.props.className || 'alert-text' })}
       </div>
     </div>
   )
@@ -40,7 +49,8 @@ const Alert = ({ type = 'info', heading, imageText, children }) => {
 
 Alert.propTypes = {
   type: PropTypes.oneOf(['info', 'success', 'warning', 'error']),
-  heading: PropTypes.string
+  heading: PropTypes.string,
+  headingType: PropTypes.string
 }
 
 export default Alert
