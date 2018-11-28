@@ -2,6 +2,12 @@ import React from 'react'
 
 import './Footer.css'
 import logo from '../images/ffiec-logo.svg'
+import { getKeycloak } from '../utils/keycloak.js'
+
+export const getLink = () => {
+  if(getKeycloak().authenticated) return '/filing/institutions'
+  return '/filing/'
+}
 
 const Footer = () => {
   return (
@@ -18,7 +24,7 @@ const Footer = () => {
               <li className="footer-primary-content">
                 <a
                   className="nav-link"
-                  href="/filing"
+                  href={getLink()}
                   title="Home"
                   aria-label="Home"
                 >

@@ -103,7 +103,7 @@ class SubmissionContainer extends Component {
     const id = this.props.params.institution
 
     if (!this.props.institutions.institutions[id]) {
-      this.props.dispatch(fetchInstitution({ id: id }, false))
+      this.props.dispatch(fetchInstitution({ lei: id }, false))
     }
   }
 
