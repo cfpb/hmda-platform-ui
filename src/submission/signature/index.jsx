@@ -42,7 +42,10 @@ const Signature = props => {
       <header>
         <h2>Signature</h2>
         <p className="font-lead">
-          To complete your test submission, select the checkbox below. Next, select the &quot;Submit HMDA test data&quot; button to practice submitting data. When the filing period opens, selecting the checkbox will certify the accuracy and completeness of the data submitted.
+          To complete your test submission, select the checkbox below. Next,
+          select the &quot;Submit HMDA test data&quot; button to practice
+          submitting data. When the filing period opens, selecting the checkbox
+          will certify the accuracy and completeness of the data submitted.
         </p>
       </header>
 
@@ -59,13 +62,16 @@ const Signature = props => {
           onChange={e => props.onSignatureCheck(e.target.checked)}
         />
         <label htmlFor="signatureAuth">
-          I understand this data being submitted is solely for testing purposes and will be removed from the system when the filing period begins on January 1st, 2019.
+          I understand this data being submitted is solely for testing purposes
+          and will be removed from the system when the filing period begins on
+          January 1st, 2019.
         </label>
       </div>
 
       <button
         className={buttonClass}
         onClick={e => props.onSignatureClick(props.checked)}
+        disabled={isDisabled}
       >
         Submit HMDA test data
       </button>
