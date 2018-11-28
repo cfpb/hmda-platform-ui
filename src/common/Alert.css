@@ -57,6 +57,10 @@
   margin-bottom: 0;
 }
 
+.alert-heading.heading-small {
+  font-size: 1em;
+}
+
 .alert-text {
   font-family: SourceSansPro;
   margin-bottom: 0;
