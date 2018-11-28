@@ -15,7 +15,7 @@ import {
 
 const defaultEdits = {
   isFetching: false,
-  suppressEdits: false,
+  suppressEdits: true,
   fetched: false,
   types: {
     syntactical: { edits: [] },
