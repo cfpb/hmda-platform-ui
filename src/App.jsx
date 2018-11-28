@@ -24,7 +24,7 @@ export class AppContainer extends Component {
         if (this.props.redirecting) this.props.dispatch(isRedirecting(false))
         else this.forceUpdate()
       } else {
-        if (!this._isHome(this.props)) keycloak.login()
+        if (!this._isHome(this.props)) keycloak.login(this.props.location.pathname)
       }
     })
   }
