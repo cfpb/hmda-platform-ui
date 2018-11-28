@@ -1,5 +1,4 @@
 /*eslint no-restricted-globals: 0*/
-import { browserHistory } from 'react-router'
 import { error } from '../utils/log.js'
 import isRedirecting from '../actions/isRedirecting.js'
 import * as AccessToken from '../api/AccessToken.js'
@@ -50,7 +49,6 @@ const register = () => {
 const logout = () => {
   if (!keycloak) return error('keycloak needs to be set on app initialization')
   keycloak.logout({ redirectUri: location.origin + '/filing' })
-  browserHistory.push('/filing')
 }
 
 export { setDispatch, getKeycloak, setKeycloak, register, login, logout, refresh }
