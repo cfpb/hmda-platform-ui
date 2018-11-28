@@ -19,7 +19,7 @@ export const logOutHandler = e => {
 
 export const getLink = () => {
   if(getKeycloak().authenticated) return '/filing/institutions'
-  return '/filing'
+  return '/filing/'
 }
 
 export const makeNav = (props, page) => {

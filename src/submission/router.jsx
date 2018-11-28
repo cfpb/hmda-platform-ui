@@ -76,7 +76,7 @@ export class SubmissionRouter extends Component {
   }
 
   goToAppHome() {
-    return browserHistory.replace('/filing')
+    return browserHistory.replace('/filing/')
   }
 
   getLatestPage() {
