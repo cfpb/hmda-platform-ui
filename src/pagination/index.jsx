@@ -38,7 +38,7 @@ class Pagination extends Component {
 
     let val = parseInt(this.state.value, 10)
     const first = this._getPaginationValue(this.props, 'first')
-    const last = this._getPaginationValue(this.props, 'last')
+    const last = this._ensureLast(this.props, this._getPaginationValue(this.props, 'last'))
 
     if (isNaN(val)) return this._setFromProps()
 
@@ -46,6 +46,17 @@ class Pagination extends Component {
     if (val > last) val = last
 
     this.props.getPage(this.props.pagination, val)
+  }
+
+  //required due to backend total being off for parseErrors
+  _ensureLast(props, last) {
+    if(props.target === 'parseErrors' &&
+      props.pagination &&
+      ((props.pagination.total - 1) % 20) === 0 &&
+      props.transmittalSheetErrors.length) {
+        return last - 1
+    }
+    return last
   }
 
   _getPaginationValue(props, target = 'self') {
@@ -92,15 +103,28 @@ class Pagination extends Component {
     const props = this.props
     const page = props.pagination
     if (!page) return null
-    // we've decided that 20 is the default for pagination
-    if (page.total < 21) return null
+
     const firstPage = page._links.self === page._links.first
-    const lastPage = page._links.self === page._links.last
+    let lastPage = page._links.self === page._links.last
+    let total = page.total
+
+    if(props.target === 'parseErrors' && props.transmittalSheetErrors.length){
+      total--
+      //Backend provides too many pages for parse errors because
+      //we don't paginate over transmittalSheetErrors
+      if(total%20 === 0) {
+        const lastSplit = page._links.last.split('=')
+        lastPage = page._links.self === lastSplit[0] + '=' + (lastSplit[1] - 1)
+      }
+    }
+
+    // we've decided that 20 is the default for pagination
+    if (total < 21) return null
 
     return (
       <div className="PaginationControls">
         <button
-          className={firstPage ? 'usa-button-disabled' : ''}
+          className={firstPage ? 'button button-disabled' : ''}
           onClick={e => {
             if (!firstPage) {
               this._setScrollValues()
@@ -112,10 +136,10 @@ class Pagination extends Component {
         </button>
         <div>
           Page {this._getInput(this.props.target)} of{' '}
-          {Math.ceil(page.total / 20)}
+          {Math.ceil(total / 20)}
         </div>
         <button
-          className={lastPage ? 'usa-button-disabled' : ''}
+          className={lastPage ? 'button button-disabled' : ''}
           onClick={e => {
             if (!lastPage) {
               this._setScrollValues()
