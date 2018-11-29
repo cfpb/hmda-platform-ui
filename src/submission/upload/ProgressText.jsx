@@ -37,7 +37,11 @@ const getExtraMessage = ({ code, errorApp, errorUpload, file }) => {
     }
   }
 
-  if (code > STATUS.VALIDATING && code < STATUS.VALIDATED) {
+  if (
+    code === STATUS.SYNTACTICAL_VALIDITY_EDITS ||
+    code === STATUS.QUALITY_EDITS ||
+    code === STATUS.MACRO_EDITS
+  ) {
     return 'Edits found, review required.'
   }
 
