@@ -16,9 +16,6 @@ const NavButton = ({
   page,
   base,
   code,
-  //syntacticalValidityEditsExist,
-  //qualityVerified,
-  //macroVerified,
   editsFetched
 }) => {
   let className
@@ -31,7 +28,7 @@ const NavButton = ({
   switch (page) {
     case 'upload':
       suffix = 'syntacticalvalidity'
-      if (preError) className = 'hidden'
+      if (preError || editFetchInProgress) className = 'hidden'
       if (editFetchInProgress) spinOn = true
       break
     case 'syntacticalvalidity':
@@ -54,6 +51,7 @@ const NavButton = ({
   displayName = suffix !== 'submission' ? `${displayName} Edits` : displayName
 
   return [
+    spinOn ? <Loading key="1" className="NavSpinner" /> : null,
     <Link
       key="0"
       className={`NavButton button ${className || ''}`}
@@ -61,8 +59,7 @@ const NavButton = ({
       to={`${base}/${suffix}`}
     >
       {`Review ${displayName}`}
-    </Link>,
-    spinOn ? <Loading key="1" className="NavSpinner" /> : null
+    </Link>
   ]
 }
 
