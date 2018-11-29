@@ -47,15 +47,15 @@ const NavButton = ({ page, base, code, editsFetched }) => {
 
   return [
     spinOn ? (
-      <React.Fragment>
-        <Loading key="1" className="NavSpinner" />{' '}
+      <React.Fragment key="0">
+        <Loading className="NavSpinner" />{' '}
         <span style={{ display: 'inline-block', marginLeft: '50px' }}>
           Retrieving your edits now
         </span>
       </React.Fragment>
     ) : null,
     <Link
-      key="0"
+      key="1"
       className={`NavButton button ${className || ''}`}
       tabIndex={className === 'hidden' ? -1 : 0}
       to={`${base}/${suffix}`}
