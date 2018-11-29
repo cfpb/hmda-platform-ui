@@ -49,7 +49,7 @@ export const renderHeader = (edits, rows, type) => {
 }
 
 export const renderBody = (edits, rows, type) => {
-  return rows[0].map((row, i) => {
+  return rows.map((row, i) => {
     return (
       <tr>
         <td>{row.id}</td>
