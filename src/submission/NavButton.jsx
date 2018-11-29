@@ -12,12 +12,7 @@ import {
 
 import './NavButton.css'
 
-const NavButton = ({
-  page,
-  base,
-  code,
-  editsFetched
-}) => {
+const NavButton = ({ page, base, code, editsFetched }) => {
   let className
   let suffix
   let spinOn = false
@@ -51,7 +46,14 @@ const NavButton = ({
   displayName = suffix !== 'submission' ? `${displayName} Edits` : displayName
 
   return [
-    spinOn ? <Loading key="1" className="NavSpinner" /> : null,
+    spinOn ? (
+      <React.Fragment>
+        <Loading key="1" className="NavSpinner" />{' '}
+        <span style={{ display: 'inline-block', marginLeft: '50px' }}>
+          Retrieving your edits now
+        </span>
+      </React.Fragment>
+    ) : null,
     <Link
       key="0"
       className={`NavButton button ${className || ''}`}
