@@ -15,7 +15,7 @@ export const formatHeader = text => {
 }
 
 export const renderHeader = (edits, rows, type) => {
-  let cellCount = 0
+  /*let cellCount = 0
   const cells = []
 
   let keyCells = rows[0].row
@@ -39,15 +39,26 @@ export const renderHeader = (edits, rows, type) => {
         {formatHeader(field)}
       </th>
     )
-  })
+  })*/
 
-  return <tr>{cells}</tr>
+  return (
+    <tr>
+      <th>Row ID</th>
+    </tr>
+  )
 }
 
 export const renderBody = (edits, rows, type) => {
   return rows.map((row, i) => {
-    return <EditsTableRow row={row.row} fields={row.fields} key={i} />
+    return (
+      <tr>
+        <td>{row.id}</td>
+      </tr>
+    )
   })
+  /*return rows.map((row, i) => {
+    return <EditsTableRow row={row.row} fields={row.fields} key={i} />
+  })*/
 }
 
 export const renderTableCaption = props => {
