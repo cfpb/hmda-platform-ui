@@ -2,7 +2,7 @@ import isomorphicFetch from 'isomorphic-fetch'
 import createQueryString from './createQueryString.js'
 import makeUrl from './makeUrl.js'
 import * as AccessToken from './AccessToken.js'
-// import { signinRedirect } from '../utils/redirect.js'
+import { login } from '../utils/keycloak.js'
 import log, { error } from '../utils/log.js'
 
 //Once the store is intialized, save a reference to it here
@@ -65,7 +65,7 @@ export function fetch(options = { method: 'GET' }) {
     .then(response => {
       return new Promise(resolve => {
         log('got res', response, response.status)
-        // if (response.status === 401) signinRedirect()
+        if (response.status === 401 || response.status === 403) login()
         if (response.status > 399) return resolve(response)
         if (options.params && options.params.format === 'csv') {
           return resolve(response.text())
