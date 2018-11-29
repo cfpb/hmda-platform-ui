@@ -29,7 +29,8 @@ function mapStateToProps(state, ownProps) {
 
   fetchChecker[ownProps.target] = isFetching
   return {
-    pagination: state.app.pagination[ownProps.target]
+    pagination: state.app.pagination[ownProps.target],
+    transmittalSheetErrors: state.app.parseErrors.transmittalSheetErrors
   }
 }
 
