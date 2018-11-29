@@ -58,7 +58,7 @@ const Signature = props => {
           type="checkbox"
           value="signature"
           disabled={isDisabled}
-          checked={props.checked}
+          checked={props.checked || props.status.code === SIGNED}
           onChange={e => props.onSignatureCheck(e.target.checked)}
         />
         <label htmlFor="signatureAuth">
