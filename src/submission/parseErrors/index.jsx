@@ -105,14 +105,14 @@ class ParseErrors extends Component {
             </h2>
           )}
           <p className="usa-font-lead">
-            The uploaded file is not formatted according to the requirements specified in the
+            The uploaded file is not formatted according to the requirements specified in the{' '}
             <a
               rel="noopener noreferrer"
               target="_blank"
               href="https://s3.amazonaws.com/cfpb-hmda-public/prod/help/2018-hmda-fig-2018-hmda-rule.pdf"
             >
               Filing Instructions Guide
-            </a>
+            </a>{' '}
             for data collected in 2018 incorporating the 2018 HMDA Rule.
           </p>
         </header>
