@@ -23,7 +23,7 @@ export function createFiling(id, filing) {
 }
 
 export function getLatestSubmission() {
-  return fetch({ submission: 'latest' })
+  return fetch({ submission: 'latest', noCache: 1 })
 }
 
 export function getEdits() {
