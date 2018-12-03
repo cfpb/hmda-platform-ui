@@ -42,3 +42,8 @@
 .Verifier .alert-text span {
   text-transform: capitalize;
 }
+
+.Verifier input,
+.Verifier label {
+  cursor: pointer;
+}
