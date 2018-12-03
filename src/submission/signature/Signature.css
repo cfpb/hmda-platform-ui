@@ -32,6 +32,11 @@
   padding-left: 0;
 }
 
+.Signature input,
+.Signature label {
+  cursor: pointer;
+}
+
 .Signature input {
   align-self: center;
 }
