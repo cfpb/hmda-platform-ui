@@ -55,6 +55,11 @@ export function fetch(options = { method: 'GET' }) {
   }
 
   if (accessToken) headers.Authorization = 'Bearer ' + accessToken
+
+  if(options.noCache || options.method === 'POST') {
+    headers['Cache-Control'] = 'no-cache, no-store'
+  }
+
   var fetchOptions = {
     method: options.method || 'GET',
     body: options.body,
