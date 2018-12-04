@@ -44,10 +44,11 @@
     "redux-thunk": "2.1.0"
   },
   "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie < 11",
-    "not op_mini all"
+    "Chrome >= 60",
+    "Safari >= 10.1",
+    "Firefox >= 54",
+    "Edge >= 15",
+    "ie >= 11"
   ],
   "devDependencies": {
     "redux-devtools-extension": "2.13.2"
