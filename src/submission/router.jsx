@@ -105,7 +105,7 @@ export class SubmissionRouter extends Component {
       return this.replaceHistory(latest)
     }
 
-    if (!submissionRoutes.includes(splat)) {
+    if (submissionRoutes.indexOf(splat) === -1) {
       return this.goToAppHome()
     }
 
