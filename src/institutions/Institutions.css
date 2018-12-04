@@ -1,10 +1,15 @@
 .Institutions {
-  max-width: 800px;
+  margin-top: 3em;
+}
+
+.Institutions > * {
   margin: 0 auto;
+  max-width: 800px;
 }
 
 .Institutions .institution {
   margin-top: 2em;
+  max-width: 850px;
 }
 
 .Institutions .institution .current-status {
@@ -57,6 +62,10 @@
 
 .Institutions p.multi-message {
   margin-top: 2.5em;
+}
+
+.Institutions .alert-info {
+  margin-top: 2em;
 }
 
 .floatingIcon + p.multi-message {

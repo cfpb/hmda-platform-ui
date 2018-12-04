@@ -12,7 +12,7 @@ const Institution = ({ institution, filing, submission, submissions }) => {
   const status = submission && submission.status
 
   return (
-    <div className="usa-grid-full">
+    <section className="institution">
       {/*
         a filing should be created when an institution is created
         so this shouldn't happen but just in case ...
@@ -20,7 +20,7 @@ const Institution = ({ institution, filing, submission, submissions }) => {
         otherwise render an alert
       */}
       {filing ? (
-        <section className="institution">
+        <React.Fragment>
           <div className="current-status">
             <InstitutionNameAndId name={institution.name} id={institution.id} />
 
@@ -40,23 +40,22 @@ const Institution = ({ institution, filing, submission, submissions }) => {
             submissions={submissions}
             institutionId={institution.id}
           />
-        </section>
+        </React.Fragment>
       ) : (
         // this error is rendered here so we can
         // give the user the FI name and id
-        <section className="institution">
-          <div className="current-status">
-            <InstitutionNameAndId name={institution.name} id={institution.id} />
-            <Alert type="error" heading="Sorry, there was a problem.">
-              <p>
-                There was a problem initializing your filing. Please contact{' '}
-                <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
-              </p>
-            </Alert>
-          </div>
-        </section>
+
+        <div className="current-status">
+          <InstitutionNameAndId name={institution.name} id={institution.id} />
+          <Alert type="error" heading="Sorry, there was a problem.">
+            <p>
+              There was a problem initializing your filing. Please contact{' '}
+              <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
+            </p>
+          </Alert>
+        </div>
       )}
-    </div>
+    </section>
   )
 }
 

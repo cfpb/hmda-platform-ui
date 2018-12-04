@@ -31,12 +31,15 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
     return (
       <Alert heading="No associated institutions" type="info">
         <p>
-          In order to access the HMDA Platform, your institution must{' '}
-          have a Legal Entity Identifier (LEI). In order to provide your{' '}
-          institution&#39;s LEI, please access <a href="https://hmdahelp.consumerfinance.gov/accounthelp/">this form</a> and enter the{' '}
-          necessary information, including your HMDA Platform account{' '}
-          email address in the &#34;Additional comments&#34; text box. We will{' '}
-          apply the update to your account, please check back 2 business{' '}
+          In order to access the HMDA Platform, your institution must have a
+          Legal Entity Identifier (LEI). In order to provide your{' '}
+          institution&#39;s LEI, please access{' '}
+          <a href="https://hmdahelp.consumerfinance.gov/accounthelp/">
+            this form
+          </a>{' '}
+          and enter the necessary information, including your HMDA Platform
+          account email address in the &#34;Additional comments&#34; text box.
+          We will apply the update to your account, please check back 2 business{' '}
           days after submitting your information.
         </p>
       </Alert>
@@ -76,28 +79,34 @@ export default class Institutions extends Component {
     return (
       <main id="main-content" className="Institutions">
         {error ? <ErrorWarning error={error} /> : null}
-        <div className="grid">
-          {filingPeriod ? (
-            <InstitutionsHeader filingPeriod={filingPeriod} />
-          ) : null}
 
-          {_whatToRender(this.props)}
+        {filingPeriod ? (
+          <InstitutionsHeader filingPeriod={filingPeriod} />
+        ) : null}
 
-          {this.props.institutions.fetched &&
-           Object.keys(this.props.institutions.institutions).length !== 0 ? (
-             <Alert heading="Missing an institution?" type="info" headingType="small">
-               <p className="text-small">
-                 In order to access the HMDA Platform, each of your institutions must{' '}
-                 have a Legal Entity Identifier (LEI). In order to provide your{' '}
-                 institution&#39;s LEI, please access <a href="https://hmdahelp.consumerfinance.gov/accounthelp/">this form</a> and enter the{' '}
-                 necessary information, including your HMDA Platform account{' '}
-                 email address in the &#34;Additional comments&#34; text box. We will{' '}
-                 apply the update to your account, please check back 2 business{' '}
-                 days after submitting your information.
-               </p>
-             </Alert>
-          ) : null}
-        </div>
+        {_whatToRender(this.props)}
+
+        {this.props.institutions.fetched &&
+        Object.keys(this.props.institutions.institutions).length !== 0 ? (
+          <Alert
+            heading="Missing an institution?"
+            type="info"
+            headingType="small"
+          >
+            <p className="text-small">
+              In order to access the HMDA Platform, each of your institutions
+              must have a Legal Entity Identifier (LEI). In order to provide
+              your institution&#39;s LEI, please access{' '}
+              <a href="https://hmdahelp.consumerfinance.gov/accounthelp/">
+                this form
+              </a>{' '}
+              and enter the necessary information, including your HMDA Platform
+              account email address in the &#34;Additional comments&#34; text
+              box. We will apply the update to your account, please check back 2
+              business days after submitting your information.
+            </p>
+          </Alert>
+        ) : null}
       </main>
     )
   }
