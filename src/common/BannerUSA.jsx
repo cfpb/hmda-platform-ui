@@ -8,7 +8,7 @@ const USABanner = () => {
   return (
     <section className="banner">
       <header className="banner-header">
-        <div className="grid banner-inner">
+        <div className="banner-inner">
           <img src={favicon} alt="U.S. flag" />
           <p>An official website of the United States government</p>
         </div>

@@ -12,7 +12,7 @@ const Institution = ({ institution, filing, submission, submissions }) => {
   const status = submission && submission.status
 
   return (
-    <div className="usa-grid-full">
+    <React.Fragment>
       {/*
         a filing should be created when an institution is created
         so this shouldn't happen but just in case ...
@@ -56,7 +56,7 @@ const Institution = ({ institution, filing, submission, submissions }) => {
           </div>
         </section>
       )}
-    </div>
+    </React.Fragment>
   )
 }
 

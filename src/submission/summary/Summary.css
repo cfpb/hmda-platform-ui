@@ -18,25 +18,6 @@
   margin: 2em 0;
 }
 
-.Summary .grid {
-  align-items: stretch;
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: 50% 50%;
-  margin: 0 auto;
-}
-
-.Summary .grid .item {
-  flex: 1;
-  margin: 0 20px;
-}
-
-.Summary .grid .item:first-child {
-  margin-left: 0;
-}
-.Summary .grid .item:last-child {
-  margin-right: 0;
-}
 .Summary dt {
   font-family: SourceSansProBold;
 }

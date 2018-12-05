@@ -60,10 +60,10 @@
   border-radius: 50%;
   color: #5b616b;
   font-weight: 700;
-  height: 20px;
+  height: 30px;
   margin: 0 auto 3px;
   padding: 4px 3px;
-  width: 20px;
+  width: 30px;
 }
 .Progress .EditsNav ul.nav-primary li.active .step {
   background-color: #0071bc;

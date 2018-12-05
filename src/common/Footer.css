@@ -18,29 +18,13 @@
   margin-right: 5px;
   vertical-align: top;
 }
-.Footer .grid {
-  align-items: stretch;
-  display: flex;
-  margin: 0 auto;
-  max-width: 1040px;
-}
 
 .Footer h4 {
   margin-top: 0;
   margin-bottom: 0.5em;
 }
 
-.Footer .grid .item {
-  flex: 1;
-  margin: 0 4em;
-}
-.Footer .grid .item:first-child {
-  margin-left: 0;
-}
-.Footer .grid .item:last-child {
-  margin-right: 0;
-}
-
 .return-to-top {
+  display: inline-block;
   margin-bottom: 1em;
 }

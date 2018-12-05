@@ -94,7 +94,7 @@ class ParseErrors extends Component {
     return (
       <section
         ref={el => (this.rendered = el)}
-        className="ParseErrors usa-grid-full"
+        className="ParseErrors"
         id="parseErrors"
       >
         <RefileWarning />
@@ -105,7 +105,8 @@ class ParseErrors extends Component {
             </h2>
           )}
           <p className="usa-font-lead">
-            The uploaded file is not formatted according to the requirements specified in the{' '}
+            The uploaded file is not formatted according to the requirements
+            specified in the{' '}
             <a
               rel="noopener noreferrer"
               target="_blank"

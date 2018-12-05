@@ -126,12 +126,16 @@ class SubmissionContainer extends Component {
           name={institution && institution.name ? institution.name : ''}
         />
         <EditsNav />
-        <main id="main-content" className="SubmissionContainer">
+        <main id="main-content" className="SubmissionContainer usa-grid-full">
           {this.props.error && code !== FAILED ? (
             <ErrorWarning error={this.props.error} />
           ) : null}
           {toRender.map((component, i) => {
-            return <div key={i}>{component}</div>
+            return (
+              <div className="usa-width-one-whole" key={i}>
+                {component}
+              </div>
+            )
           })}
         </main>
       </div>

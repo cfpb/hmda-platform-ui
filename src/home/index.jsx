@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <main className="Home" id="main-content">
       <section className="hero">
-        <div className="grid">
+        <div className="usa-grid-full">
           <h1>Get familiar with filing your HMDA data</h1>
           <p className="usa-font-lead">
             During this beta period, you may explore the new HMDA platform. It
@@ -42,7 +42,7 @@ const Home = () => {
           </p>
         </div>
       </section>
-      <div className="grid">
+      <div className="usa-grid-full">
         <section className="video-container">
           <iframe
             src="https://www.youtube.com/embed/C_73Swgyc4g?rel=0"

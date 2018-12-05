@@ -51,22 +51,24 @@ const Signature = props => {
 
       {showWarning(props)}
 
-      <div className="grid">
-        <input
-          id="signatureAuth"
-          name="signatureAuth"
-          type="checkbox"
-          value="signature"
-          disabled={isDisabled}
-          checked={props.checked || props.status.code === SIGNED}
-          onChange={e => props.onSignatureCheck(e.target.checked)}
-        />
-        <label htmlFor="signatureAuth">
-          I understand this data being submitted is solely for testing purposes
-          and will be removed from the system when the filing period begins on
-          January 1st, 2019.
-        </label>
-      </div>
+      <ul className="unstyled-list">
+        <li>
+          <input
+            id="signatureAuth"
+            name="signatureAuth"
+            type="checkbox"
+            value="signature"
+            disabled={isDisabled}
+            checked={props.checked || props.status.code === SIGNED}
+            onChange={e => props.onSignatureCheck(e.target.checked)}
+          />
+          <label htmlFor="signatureAuth">
+            I understand this data being submitted is solely for testing
+            purposes and will be removed from the system when the filing period
+            begins on January 1st, 2019.
+          </label>
+        </li>
+      </ul>
 
       <button
         className={buttonClass}
