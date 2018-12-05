@@ -17,7 +17,7 @@ import './ViewButton.css'
 const InstitutionViewButton = ({ status, institution, filingPeriod }) => {
   const code = status ? status.code : CREATED
   let text
-  if(code === FAILED) {
+  if (code === FAILED) {
     return <RefileButton className="ViewButton" institution={institution} />
   } else if (code <= CREATED) {
     text = 'Upload your file'
@@ -38,7 +38,7 @@ const InstitutionViewButton = ({ status, institution, filingPeriod }) => {
   return (
     <Link
       className="ViewButton button"
-      to={`/filing/${institution.id}/${filingPeriod}`}
+      to={`/filing/2018/${institution.id}/${filingPeriod}`}
     >
       {text}
     </Link>
