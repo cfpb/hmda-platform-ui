@@ -5,21 +5,21 @@ import logo from '../images/ffiec-logo.svg'
 import { getKeycloak } from '../utils/keycloak.js'
 
 export const getLink = () => {
-  if(getKeycloak().authenticated) return '/filing/institutions'
+  if (getKeycloak().authenticated) return '/filing/institutions'
   return '/filing/'
 }
 
 const Footer = () => {
   return (
     <footer className="Footer footer footer-slim" role="contentinfo">
-      <div className="grid">
+      <div className="usa-grid-full">
         <a className="return-to-top" href="#">
           Return to top
         </a>
       </div>
       <div className="footer-primary-section">
-        <div className="grid">
-          <nav className="item footer-nav">
+        <div className="usa-grid-full">
+          <nav className="usa-width-one-half footer-nav">
             <ul className="unstyled-list">
               <li className="footer-primary-content">
                 <a
@@ -34,7 +34,7 @@ const Footer = () => {
               </li>
             </ul>
           </nav>
-          <div className="item">
+          <div className="usa-width-one-half">
             <a href="mailto:hmdahelp@cfpb.gov">Questions?</a>
           </div>
         </div>
