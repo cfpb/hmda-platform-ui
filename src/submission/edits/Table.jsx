@@ -15,8 +15,8 @@ export const formatHeader = text => {
 }
 
 export const renderHeader = (edits, rows, type) => {
-  /*let cellCount = 0
-  const cells = []
+  let cellCount = 0
+  /*const cells = []
 
   let keyCells = rows[0].row
   const fieldCells = rows[0].fields
@@ -43,7 +43,7 @@ export const renderHeader = (edits, rows, type) => {
 
   return (
     <tr>
-      <th>Row ID</th>
+      <th key={++cellCount}>Row ID</th>
     </tr>
   )
 }
@@ -51,7 +51,7 @@ export const renderHeader = (edits, rows, type) => {
 export const renderBody = (edits, rows, type) => {
   return rows.map((row, i) => {
     return (
-      <tr>
+      <tr key={i}>
         <td>{row.id}</td>
       </tr>
     )
