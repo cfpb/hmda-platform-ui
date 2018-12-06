@@ -22,5 +22,8 @@ function mapDispatchToProps(dispatch) {
   return { showConfirmModal, updateInstitution }
 }
 
-export default connect(null, mapDispatchToProps)(RefileButtonContainer)
+export default connect(
+  null,
+  mapDispatchToProps
+)(RefileButtonContainer)
 export { RefileButtonContainer, mapDispatchToProps }
