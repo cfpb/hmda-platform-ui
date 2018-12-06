@@ -24,11 +24,12 @@ export const getText = props => {
     </div>
   )
 
-  if(props.code === FAILED) {
+  if (props.code === FAILED) {
     reviewAndDownload = null
     text = (
       <div>
-        Please select the &quot;Upload a new file&quot; button to restart the process.
+        Please select the &quot;Upload a new file&quot; button to restart the
+        process.
       </div>
     )
   } else if (props.code === SYNTACTICAL_VALIDITY_EDITS) {
@@ -96,15 +97,12 @@ export const getHeading = props => {
 
 const RefileWarning = props => {
   const { code, page } = props
-  if(code > FAILED) {
+  if (code > FAILED) {
     if (code >= VALIDATED || code < PARSED_WITH_ERRORS) return null
-    if (
-      page === 'syntacticalvalidity' &&
-      code !== SYNTACTICAL_VALIDITY_EDITS
-    )
+    if (page === 'syntacticalvalidity' && code !== SYNTACTICAL_VALIDITY_EDITS)
       return null
-    if (page === 'quality' && code === QUALITY_EDITS) return null
-    if (page === 'macro' && code === MACRO_EDITS) return null
+    if (page === 'quality' && code !== QUALITY_EDITS) return null
+    if (page === 'macro' && code !== MACRO_EDITS) return null
     if (page === 'upload' && code !== PARSED_WITH_ERRORS) return null
     if (page === 'submission') return null
   }
