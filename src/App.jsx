@@ -24,7 +24,8 @@ export class AppContainer extends Component {
         if (this.props.redirecting) this.props.dispatch(isRedirecting(false))
         else this.forceUpdate()
       } else {
-        if (!this._isHome(this.props)) keycloak.login(this.props.location.pathname)
+        if (!this._isHome(this.props))
+          keycloak.login(this.props.location.pathname)
       }
     })
   }
@@ -49,7 +50,7 @@ export class AppContainer extends Component {
   }
 
   _isHome(props) {
-    return !!props.location.pathname.match(/^\/filing\/?$/)
+    return !!props.location.pathname.match(/^\/filing\/2018\/$/)
   }
 
   render() {

@@ -44,9 +44,7 @@ export function mapDispatchToProps(dispatch) {
       })
     } else {
       return dispatch(fetchNewSubmission(id, period)).then(() => {
-        browserHistory.replace(
-          `/filing/${id}/${period}/upload`
-        )
+        browserHistory.replace(`/filing/2018/${id}/${period}/upload`)
       })
     }
   }
@@ -57,4 +55,7 @@ export function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConfirmationModal)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ConfirmationModal)

@@ -16,6 +16,6 @@ RUN yarn build
 FROM nginx:1.15.1-alpine
 RUN rm -rf /etc/nginx/conf.d
 COPY nginx /etc/nginx
-COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html/filing
+COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html/filing/2018
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
