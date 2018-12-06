@@ -8,13 +8,13 @@ const RefileButton = props => {
   if (props.isLink) {
     refileStyle = 'RefileButton link'
     if (props.isLower) {
-      refileStyle = 'text-lowercase'
+      refileStyle = `${refileStyle} text-lowercase`
     }
     if (props.isSmall) {
       refileStyle = `${refileStyle} text-small`
     }
   }
-  if(props.className) {
+  if (props.className) {
     refileStyle = `${refileStyle} ${props.className}`
   }
 
