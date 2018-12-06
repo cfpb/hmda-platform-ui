@@ -30,8 +30,8 @@ metadata:
       apiVersion: ambassador/v0
       kind: Mapping
       name: platform_ui_mapping
-      prefix: /filing/
-      rewrite: /filing/
+      prefix: /filing/2018/
+      rewrite: /filing/2018/
       service: {{ include "hmda-platform-ui.fullname" . }}:{{ .Values.service.port }}
 spec:
   type: {{ .Values.ambassador.service.type }}

@@ -40,7 +40,7 @@ export class SubmissionRouter extends Component {
     dispatch(updateFilingPeriod(params.filing))
 
     const size = localStorage.getItem(`HMDA_FILE_SIZE/${params.institution}`)
-//  if (size > 5e6) dispatch(suppressEdits())
+    //  if (size > 5e6) dispatch(suppressEdits())
 
     if (unmatchedId || !status || status.code === UNINITIALIZED) {
       return dispatch(fetchSubmission()).then(json => {
@@ -72,11 +72,13 @@ export class SubmissionRouter extends Component {
 
   replaceHistory(splat) {
     const { institution, filing } = this.props.params
-    return browserHistory.replace(`/filing/${institution}/${filing}/${splat}`)
+    return browserHistory.replace(
+      `/filing/2018/${institution}/${filing}/${splat}`
+    )
   }
 
   goToAppHome() {
-    return browserHistory.replace('/filing/')
+    return browserHistory.replace('/filing/2018/')
   }
 
   getLatestPage() {

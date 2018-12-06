@@ -122,7 +122,7 @@
 .nav-primary > li > a,
 .nav-primary > li > button {
   color: #212121;
-  background: inherit;
+  background: none;
   font-family: SourceSansProBold;
   font-size: 1.3rem;
   margin: 0 1.5rem;
