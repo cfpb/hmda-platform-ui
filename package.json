@@ -1,6 +1,6 @@
 {
   "name": "hmda-platform-ui",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Frontend code for the HMDA filing system",
   "main": "index.js",
   "engines": {

@@ -44,7 +44,21 @@ body {
   transition: all 0.2s ease-in-out;
   z-index: 100;
 }
-
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
 a {
   color: #0071bc;
   text-decoration: underline;
