@@ -16,10 +16,10 @@ const showWarning = props => {
 }
 
 const Signature = props => {
-  let isDisabled =
-    props.status.code >= VALIDATED && props.status.code !== SIGNED
-      ? false
-      : true
+  let isButtonDisabled =
+    props.status.code === VALIDATED && props.checked ? false : true
+
+  let isCheckBoxDisabled = props.status.code === SIGNED ? true : false
 
   let buttonClass = 'button-disabled'
   // if the checkbox is checked remove disabled from button
@@ -33,7 +33,8 @@ const Signature = props => {
 
   // if an error has occurred, disable both checkbox and button
   if (props.error) {
-    isDisabled = true
+    isButtonDisabled = true
+    isCheckBoxDisabled = true
     buttonClass = 'button-disabled'
   }
 
@@ -58,7 +59,7 @@ const Signature = props => {
             name="signatureAuth"
             type="checkbox"
             value="signature"
-            disabled={isDisabled}
+            disabled={isCheckBoxDisabled}
             checked={props.checked || props.status.code === SIGNED}
             onChange={e => props.onSignatureCheck(e.target.checked)}
           />
@@ -73,7 +74,7 @@ const Signature = props => {
       <button
         className={buttonClass}
         onClick={e => props.onSignatureClick(props.checked)}
-        disabled={isDisabled}
+        disabled={isButtonDisabled}
       >
         Submit HMDA test data
       </button>
