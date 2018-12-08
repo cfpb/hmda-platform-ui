@@ -36,13 +36,13 @@ const renderTotals = props => {
 const renderDownloadLink = props => {
   if (props.msas.length === 0) return null
 
-  const { institutionId, period, sequenceNumber } = props.id
+  const { lei, period, sequenceNumber } = props.id
   return (
     <p>
       <button
         onClick={e => {
           e.preventDefault()
-          props.onDownloadClick(institutionId, period, sequenceNumber)
+          props.onDownloadClick(lei, period, sequenceNumber)
         }}
       >
         Download IRS report
