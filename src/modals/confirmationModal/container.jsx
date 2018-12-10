@@ -10,7 +10,7 @@ import checkFileErrors from '../../utils/checkFileErrors.js'
 import ConfirmationModal from './index.jsx'
 
 export function mapStateToProps(state) {
-  const id = state.app.institutionId
+  const id = state.app.lei
   const { showing } = state.app.confirmation
   const { filingPeriod } = state.app
   const { code } = state.app.submission.status

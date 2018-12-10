@@ -24,7 +24,7 @@ const state = {
       isFetching: false,
       fetched: false
     },
-    institutionId: 'abc',
+    lei: 'abc',
     error: null,
     submission: {
       status: {
@@ -76,7 +76,7 @@ describe('SubmissionContainer', () => {
         isFetching: false,
         fetched: false
       },
-      institutionId: 'abc',
+      lei: 'abc',
       error: null,
       submission: { status: { code: 1 } }
     })

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-import institutionId from './institutionId.js'
+import lei from './lei.js'
 import institutions from './institutions.js'
 import filings from './filings.js'
 import filingPeriod from './filingPeriod.js'
@@ -19,7 +19,7 @@ import user from './user.js'
 import redirecting from './redirecting.js'
 
 export default combineReducers({
-  institutionId,
+  lei,
   institutions,
   filings,
   filingPeriod,

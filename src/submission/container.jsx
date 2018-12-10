@@ -144,12 +144,12 @@ class SubmissionContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  const { submission, institutions, institutionId, error } = state.app
+  const { submission, institutions, lei, error } = state.app
 
   return {
     submission,
     institutions,
-    institutionId,
+    lei,
     error
   }
 }

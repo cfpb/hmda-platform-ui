@@ -16,7 +16,7 @@ describe('institutions reducer', () => {
 
   it('handles REQUEST_INSTITUTION', () => {
     expect(
-      institutions({}, { type: types.REQUEST_INSTITUTION, id: '123' })
+      institutions({}, { type: types.REQUEST_INSTITUTION, lei: '123' })
     ).toEqual({
       institutions: {
         123: {
@@ -32,7 +32,7 @@ describe('institutions reducer', () => {
         {},
         {
           type: types.RECEIVE_INSTITUTION,
-          institution: { id: '123', name: 'oi' }
+          institution: { lei: '123', name: 'oi' }
         }
       )
     ).toEqual({
@@ -40,7 +40,7 @@ describe('institutions reducer', () => {
         123: {
           isFetching: false,
           name: 'oi',
-          id: '123'
+          lei: '123'
         }
       }
     })

@@ -16,7 +16,7 @@ describe('fetchFiling', () => {
     const store = mockStore({})
 
     store
-      .dispatch(fetchFiling({ institutionId: '123', period: '2017' }))
+      .dispatch(fetchFiling({ lei: '123', period: '2017' }))
       .then(() => {
         expect(store.getActions()).toEqual([
           { type: types.REQUEST_FILING, id: '123' },
@@ -40,7 +40,7 @@ describe('fetchFiling', () => {
     )
 
     store
-      .dispatch(fetchFiling({ institutionId: '123', period: '2017' }))
+      .dispatch(fetchFiling({ lei: '123', period: '2017' }))
       .then(() => {
         expect(store.getActions()).toEqual([
           { type: types.REQUEST_FILING, id: '123' },

@@ -4,7 +4,7 @@ import handleFile from '../../actions/handleFile.js'
 import pollForProgress from '../../actions/pollForProgress.js'
 
 export function mapStateToProps(state) {
-  const id = state.app.institutionId
+  const id = state.app.lei
   const code = state.app.submission.status.code
   const filename = state.app.submission.filename
 

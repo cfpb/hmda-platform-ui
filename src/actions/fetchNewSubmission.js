@@ -8,7 +8,7 @@ import { error } from '../utils/log.js'
 export default function fetchNewSubmission() {
   return (dispatch, getState) => {
     const appState = getState().app
-    const id = appState.institutionId
+    const id = appState.lei
     const filing = appState.filingPeriod
 
     localStorage.removeItem(`HMDA_FILE_SIZE/${id}`)

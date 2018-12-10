@@ -7,7 +7,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 const mockStore = configureMockStore([thunk])
-const store = mockStore({ app: { institutionId: '123' } })
+const store = mockStore({ app: { lei: '123' } })
 
 describe('processFileErrors', () => {
   it('creates a thunk to signal processing of file errors', () => {

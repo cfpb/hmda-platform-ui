@@ -19,7 +19,7 @@ window.localStorage = {
 }
 
 const submissionDefault = {
-  id: { institutionId: '123' },
+  id: { lei: '123' },
   status: { code: STATUS.VALIDATED }
 }
 const typesDefault = {
@@ -38,7 +38,7 @@ describe('ConnectedRouter', () => {
       edits: {
         types: typesDefault
       },
-      institutionId: '123',
+      lei: '123',
       institutions: {
         institutions: {}
       }
@@ -103,7 +103,7 @@ describe('render', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { institution: 'argle', splat: 'bargle' }
     })
@@ -116,7 +116,7 @@ describe('render', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.UNINITIALIZED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { institution: 'argle', splat: 'bargle' }
     })
@@ -129,7 +129,7 @@ describe('render', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.FAILED, message: 'Failzone' },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { institution: 'elsewise', splat: 'bargle' }
     })
@@ -140,7 +140,7 @@ describe('render', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { institution: 'elsewise', splat: 'bargle' }
     })
@@ -153,7 +153,7 @@ describe('render', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { institution: 'argle', splat: 'bargle' }
     })
@@ -166,7 +166,7 @@ describe('render', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { institution: 'argle' }
     })
@@ -187,7 +187,7 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { filing: 'bargle' },
       dispatch: dispatch
@@ -207,7 +207,7 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { institution: 'argle' },
       dispatch: dispatch
@@ -225,7 +225,7 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { institution: 'argle', filing: 'bargle' },
       dispatch: dispatch
@@ -247,7 +247,7 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { institution: 'elsewise', filing: 'bargle' },
       dispatch: dispatch
@@ -272,7 +272,7 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: null,
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { institution: 'argle', filing: 'bargle' },
       dispatch: dispatch
@@ -298,7 +298,7 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.UNINITIALIZED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { institution: 'argle', filing: 'bargle' },
       dispatch: dispatch
@@ -323,7 +323,7 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.UNINITIALIZED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { institution: 'argle', filing: 'bargle' },
       dispatch: dispatch
@@ -349,7 +349,7 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED_WITH_ERRORS },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { institution: 'argle', filing: 'bargle' },
       dispatch: dispatch
@@ -394,7 +394,7 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
       params: { institution: 'argle', filing: 'bargle' }
@@ -411,7 +411,7 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
       params: { institution: 'argle', filing: 'bargle', splat: 'badsplat' }
@@ -425,7 +425,7 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.UPLOADING },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
       params: { institution: 'argle', filing: 'bargle', splat: 'upload' }
@@ -441,7 +441,7 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.UPLOADING },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
       params: { institution: 'argle', filing: 'bargle', splat: 'quality' }
@@ -457,7 +457,7 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED_WITH_ERRORS },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
       params: { institution: 'argle', filing: 'bargle', splat: 'quality' }
@@ -474,7 +474,7 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED_WITH_ERRORS },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
       params: { institution: 'argle', filing: 'bargle', splat: 'macro' }
@@ -491,7 +491,7 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED_WITH_ERRORS },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
       params: { institution: 'argle', filing: 'bargle', splat: 'upload' }
@@ -507,7 +507,7 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
       params: { institution: 'argle', filing: 'bargle', splat: 'quality' }

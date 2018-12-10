@@ -10,7 +10,7 @@ import TestUtils from 'react-dom/test-utils'
 
 const submission = {
   id: {
-    institutionId: '1',
+    lei: '1',
     period: '2017',
     sequenceNumber: 1
   }

@@ -15,7 +15,7 @@ export function setStore(s) {
 export function getFilingData() {
   const appState = store.getState().app
   return {
-    id: appState.institutionId,
+    id: appState.lei,
     filing: appState.filingPeriod,
     submission: appState.submission.id && appState.submission.id.sequenceNumber
   }

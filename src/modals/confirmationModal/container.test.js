@@ -17,7 +17,7 @@ const mockedState = {
     confirmation: {
       showing: true
     },
-    institutionId: '123',
+    lei: '123',
     filingPeriod: '2017',
     submission: {
       status: {

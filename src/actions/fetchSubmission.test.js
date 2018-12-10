@@ -33,7 +33,7 @@ describe('fetchSubmission', () => {
       Promise.resolve({
         id: {
           sequenceNumber: 1,
-          institutionId: '123',
+          lei: '123',
           period: '2017'
         }
       })

@@ -48,7 +48,7 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
   )
   return sortedInstitutions.map((key, i) => {
     const institution = institutions.institutions[key]
-    const institutionFilings = filings[institution.id]
+    const institutionFilings = filings[institution.lei]
 
     if (!institutionFilings || !institutionFilings.fetched) {
       // filings are not fetched yet

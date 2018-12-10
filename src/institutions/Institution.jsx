@@ -22,7 +22,7 @@ const Institution = ({ institution, filing, submission, submissions }) => {
       {filing ? (
         <section className="institution">
           <div className="current-status">
-            <InstitutionNameAndId name={institution.name} id={institution.id} />
+            <InstitutionNameAndId name={institution.name} lei={institution.lei} />
 
             <SubmissionNav status={status} />
 
@@ -38,15 +38,15 @@ const Institution = ({ institution, filing, submission, submissions }) => {
           </div>
           <InstitutionSubmissionHistory
             submissions={submissions}
-            institutionId={institution.id}
+            lei={institution.lei}
           />
         </section>
       ) : (
         // this error is rendered here so we can
-        // give the user the FI name and id
+        // give the user the FI name and lei
         <section className="institution">
           <div className="current-status">
-            <InstitutionNameAndId name={institution.name} id={institution.id} />
+            <InstitutionNameAndId name={institution.name} lei={institution.lei} />
             <Alert type="error" heading="Sorry, there was a problem.">
               <p>
                 There was a problem initializing your filing. Please contact{' '}

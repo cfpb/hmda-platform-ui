@@ -5,7 +5,7 @@ export default function selectNewFile(file) {
     return dispatch({
       type: types.SELECT_NEW_FILE,
       file,
-      id: getState().app.institutionId
+      id: getState().app.lei
     })
   }
 }

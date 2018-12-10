@@ -36,16 +36,16 @@ class InstitutionPreviousSubmissions extends Component {
             <button
               className="accordion-button"
               aria-expanded="false"
-              id={`submissions-button-${this.props.institutionId}`}
-              aria-controls={`submissions-${this.props.institutionId}`}
+              id={`submissions-button-${this.props.lei}`}
+              aria-controls={`submissions-${this.props.lei}`}
               onClick={event =>
-                this.handleToggleClick(this.props.institutionId)
+                this.handleToggleClick(this.props.lei)
               }
             >
               History of your progress in this filing period
             </button>
             <div
-              id={`submissions-${this.props.institutionId}`}
+              id={`submissions-${this.props.lei}`}
               className="accordion-content"
               aria-hidden="true"
             >
@@ -95,7 +95,7 @@ class InstitutionPreviousSubmissions extends Component {
 
 InstitutionPreviousSubmissions.propTypes = {
   submissions: PropTypes.array,
-  institutionId: PropTypes.string
+  lei: PropTypes.string
 }
 
 export default InstitutionPreviousSubmissions

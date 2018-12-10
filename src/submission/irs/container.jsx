@@ -52,8 +52,8 @@ export function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     // triggered by a click on "Download IRS"
-    onDownloadClick: (institutionId, filing, submissionId) => {
-      dispatch(fetchIRSCSV(institutionId, filing, submissionId))
+    onDownloadClick: (lei, filing, submissionId) => {
+      dispatch(fetchIRSCSV(lei, filing, submissionId))
     },
     dispatch
   }

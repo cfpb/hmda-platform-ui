@@ -13,9 +13,9 @@ getFiling.mockImplementation(id => Promise.resolve({ filing: 'afiling' }))
 const filings = [
   {
     period: '2016',
-    institutionId: '123'
+    lei: '123'
   },
-  { period: '2017', institutionId: '123' }
+  { period: '2017', lei: '123' }
 ]
 
 describe('fetchCurrentFiling', () => {

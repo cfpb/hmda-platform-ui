@@ -19,7 +19,7 @@ describe('InstitutionSubmissionHistory', () => {
       <Wrapper>
         <InstitutionSubmissionHistory
           submissions={submissions}
-          institutionId="123456"
+          lei="123456"
         />
       </Wrapper>
     )
