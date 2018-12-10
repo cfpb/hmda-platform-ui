@@ -32,7 +32,7 @@ export class SubmissionRouter extends Component {
     }
 
     const unmatchedId =
-      submission.id && submission.id.institutionId !== params.institution
+      submission.id && submission.id.lei !== params.institution
 
     if (unmatchedId) dispatch(refreshState())
 

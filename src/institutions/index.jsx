@@ -10,10 +10,7 @@ import Alert from '../common/Alert.jsx'
 import './Institutions.css'
 
 const _setSubmission = (submission, filingObj) => {
-  if (
-    submission.id &&
-    submission.id.institutionId === filingObj.filing.institutionId
-  ) {
+  if (submission.id && submission.id.lei === filingObj.filing.lei) {
     return submission
   }
 
