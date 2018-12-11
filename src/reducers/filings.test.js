@@ -16,7 +16,7 @@ describe('filings reducer', () => {
         {},
         {
           type: types.REQUEST_FILING,
-          id: '2'
+          lei: '2'
         }
       )
     ).toEqual({
