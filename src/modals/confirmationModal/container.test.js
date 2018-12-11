@@ -38,7 +38,7 @@ window.HMDA_ENV = { APP_SUFFIX: '/filing/', HOMEPAGE_URL: 'home' }
 describe('ConfirmationModal Container', () => {
   it('maps state to props', () => {
     expect(mapStateToProps(mockedState)).toEqual({
-      id: '123',
+      lei: '123',
       filingPeriod: '2017',
       code: 8,
       showing: true,

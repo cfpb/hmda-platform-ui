@@ -10,7 +10,7 @@ export default function fetchIRSCSV(lei, filing, submissionId) {
   return dispatch => {
     dispatch(requestIRSCSV())
     return getIRSCSV({
-      id: lei,
+      lei: lei,
       filing: filing,
       submission: submissionId
     })

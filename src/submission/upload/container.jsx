@@ -4,12 +4,12 @@ import handleFile from '../../actions/handleFile.js'
 import pollForProgress from '../../actions/pollForProgress.js'
 
 export function mapStateToProps(state) {
-  const id = state.app.lei
+  const lei = state.app.lei
   const code = state.app.submission.status.code
   const filename = state.app.submission.filename
 
   const { uploading, file, errors, errorFile, errorUpload } =
-    state.app.upload[id] || state.app.upload['__DEFAULT_UPLOAD__']
+    state.app.upload[lei] || state.app.upload['__DEFAULT_UPLOAD__']
 
   const errorApp = state.app.error
 
@@ -21,7 +21,7 @@ export function mapStateToProps(state) {
     errorUpload,
     file,
     filename,
-    id,
+    lei,
     uploading
   }
 }
