@@ -23,15 +23,15 @@ const defaultUploads = {
  * Maintain data on the current upload
  */
 export default (state = defaultUploads, action) => {
-  const upload = state[action.id]
-    ? state[action.id]
+  const upload = state[action.lei]
+    ? state[action.lei]
     : state['__DEFAULT_UPLOAD__']
 
   switch (action.type) {
     case SELECT_FILE:
       return {
         ...state,
-        [action.id]: {
+        [action.lei]: {
           ...upload,
           file: action.file,
           errors: upload.errors.length === 0 ? upload.errors : [],
@@ -42,7 +42,7 @@ export default (state = defaultUploads, action) => {
     case SELECT_NEW_FILE:
       return {
         ...state,
-        [action.id]: {
+        [action.lei]: {
           ...upload,
           newFile: action.file
         }
@@ -50,7 +50,7 @@ export default (state = defaultUploads, action) => {
     case RECEIVE_FILE_ERRORS:
       return {
         ...state,
-        [action.id]: {
+        [action.lei]: {
           errors: action.errors,
           errorFile: action.file
         }
@@ -58,7 +58,7 @@ export default (state = defaultUploads, action) => {
     case RECEIVE_UPLOAD_ERROR:
       return {
         ...state,
-        [action.id]: {
+        [action.lei]: {
           ...upload,
           errorUpload: action.error
         }
@@ -66,7 +66,7 @@ export default (state = defaultUploads, action) => {
     case REQUEST_UPLOAD:
       return {
         ...state,
-        [action.id]: {
+        [action.lei]: {
           ...upload,
           uploading: true
         }
@@ -74,7 +74,7 @@ export default (state = defaultUploads, action) => {
     case RECEIVE_UPLOAD:
       return {
         ...state,
-        [action.id]: {
+        [action.lei]: {
           ...upload,
           uploading: false
         }
@@ -82,7 +82,7 @@ export default (state = defaultUploads, action) => {
     case REFRESH_STATE:
       return {
         ...state,
-        [action.id]: state['__DEFAULT_UPLOAD__']
+        [action.lei]: state['__DEFAULT_UPLOAD__']
       }
     default:
       return state

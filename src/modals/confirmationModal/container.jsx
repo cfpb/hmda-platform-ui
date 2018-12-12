@@ -10,15 +10,15 @@ import checkFileErrors from '../../utils/checkFileErrors.js'
 import ConfirmationModal from './index.jsx'
 
 export function mapStateToProps(state) {
-  const id = state.app.institutionId
+  const lei = state.app.lei
   const { showing } = state.app.confirmation
   const { filingPeriod } = state.app
   const { code } = state.app.submission.status
   const { newFile } =
-    state.app.upload[id] || state.app.upload['__DEFAULT_UPLOAD__']
+    state.app.upload[lei] || state.app.upload['__DEFAULT_UPLOAD__']
 
   return {
-    id,
+    lei,
     filingPeriod,
     code,
     showing,
@@ -31,20 +31,20 @@ export function mapDispatchToProps(dispatch) {
     dispatch(hideConfirm())
   }
 
-  const triggerRefile = (id, period, page = '', file) => {
+  const triggerRefile = (lei, period, page = '', file) => {
     dispatch(refreshState())
     if (page === 'upload' && file) {
       const fileErrors = checkFileErrors(file)
       if (fileErrors.length)
         return dispatch(processFileErrors(fileErrors, file.name))
 
-      return dispatch(fetchNewSubmission(id, period)).then(() => {
+      return dispatch(fetchNewSubmission(lei, period)).then(() => {
         dispatch(selectFile(file))
         dispatch(fetchUpload(file))
       })
     } else {
-      return dispatch(fetchNewSubmission(id, period)).then(() => {
-        browserHistory.replace(`/filing/2018/${id}/${period}/upload`)
+      return dispatch(fetchNewSubmission(lei, period)).then(() => {
+        browserHistory.replace(`/filing/2018/${lei}/${period}/upload`)
       })
     }
   }

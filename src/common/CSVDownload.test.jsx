@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
 
 const submission = {
-  id: { institutionId: '123', period: '2017', sequenceNumber: 2 }
+  id: { lei: '123', period: '2017', sequenceNumber: 2 }
 }
 describe('CSVDownload', () => {
   const csvDownload = TestUtils.renderIntoDocument(

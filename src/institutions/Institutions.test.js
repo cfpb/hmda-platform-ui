@@ -23,7 +23,7 @@ const institutionsJSON = JSON.parse(
   fs.readFileSync('./test-resources/json/institutions.json')
 )
 const submission = {
-  id: { institutionId: '2', sequenceNumber: '2' },
+  id: { lei: '2', sequenceNumber: '2' },
   status: {
     code: 7,
     message: 'validated',

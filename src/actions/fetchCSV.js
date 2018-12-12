@@ -6,11 +6,11 @@ import { getCSV } from '../api/api.js'
 import { error } from '../utils/log.js'
 
 // downloading the csv edit reports, no reducer required
-export default function fetchCSV(institutionId, filing, submissionId) {
+export default function fetchCSV(lei, filing, submissionId) {
   return dispatch => {
     dispatch(requestCSV())
     return getCSV({
-      id: institutionId,
+      lei: lei,
       filing: filing,
       submission: submissionId
     })
@@ -22,7 +22,7 @@ export default function fetchCSV(institutionId, filing, submissionId) {
           }
           return fileSaver.saveAs(
             new Blob([csv], { type: 'text/csv;charset=utf-16' }),
-            `${institutionId}-${submissionId}-full-edit-report.csv`
+            `${lei}-${submissionId}-full-edit-report.csv`
           )
         })
       })

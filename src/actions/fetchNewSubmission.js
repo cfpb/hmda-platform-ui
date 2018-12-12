@@ -8,14 +8,14 @@ import { error } from '../utils/log.js'
 export default function fetchNewSubmission() {
   return (dispatch, getState) => {
     const appState = getState().app
-    const id = appState.institutionId
+    const lei = appState.lei
     const filing = appState.filingPeriod
 
-    localStorage.removeItem(`HMDA_FILE_SIZE/${id}`)
-    localStorage.removeItem(`HMDA_FILE_PROGRESS/${id}`)
+    localStorage.removeItem(`HMDA_FILE_SIZE/${lei}`)
+    localStorage.removeItem(`HMDA_FILE_PROGRESS/${lei}`)
 
     dispatch(requestSubmission())
-    return createSubmission(id, filing)
+    return createSubmission(lei, filing)
       .then(json => {
         return hasHttpError(json).then(hasError => {
           if (hasError) {

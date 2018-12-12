@@ -1,8 +1,8 @@
 import * as types from '../constants'
 
-export default function requestInstitution(id) {
+export default function requestInstitution(lei) {
   return {
     type: types.REQUEST_INSTITUTION,
-    id
+    lei
   }
 }

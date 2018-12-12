@@ -7,7 +7,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 const mockStore = configureMockStore([thunk])
-const store = mockStore({ app: { institutionId: '123' } })
+const store = mockStore({ app: { lei: '123' } })
 
 describe('uploadComplete', () => {
   it('creates a thunk to signal upload completion', () => {
@@ -17,7 +17,7 @@ describe('uploadComplete', () => {
   it('creates an action to signal upload completion when dispatched', () => {
     store.dispatch(receiveUpload())
     expect(store.getActions()).toEqual([
-      { type: types.RECEIVE_UPLOAD, id: '123' }
+      { type: types.RECEIVE_UPLOAD, lei: '123' }
     ])
   })
 })

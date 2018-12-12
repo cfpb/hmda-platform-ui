@@ -13,7 +13,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 const mockStore = configureMockStore([thunk])
-const store = mockStore({ app: { institutionId: '123' } })
+const store = mockStore({ app: { lei: '123' } })
 
 const setItem = jest.fn()
 window.localStorage = {
@@ -37,7 +37,7 @@ describe('handleFile', () => {
   })
 
   it('dispatches showconfirm and selectnewfile when past uploading', () => {
-    const store = mockStore({ app: { institutionId: '123' } })
+    const store = mockStore({ app: { lei: '123' } })
     const file = {}
 
     checkFileErrors.mockImplementation(id => [])
@@ -49,7 +49,7 @@ describe('handleFile', () => {
   })
 
   it('dispatches showconfirm and selectnewfile when upload error exists', () => {
-    const store = mockStore({ app: { institutionId: '123' } })
+    const store = mockStore({ app: { lei: '123' } })
     const file = {}
 
     checkFileErrors.mockImplementation(id => [])
@@ -60,7 +60,7 @@ describe('handleFile', () => {
     ])
   })
   it('dispatches selectfile and fetchUpload when before uploading', () => {
-    const store = mockStore({ app: { institutionId: '123' } })
+    const store = mockStore({ app: { lei: '123' } })
     const file = {}
 
     fetchUpload.mockImplementation(id => {

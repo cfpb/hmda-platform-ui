@@ -12,7 +12,7 @@ export default (state = defaultFilings, action) => {
     case REQUEST_FILING:
       return {
         ...state,
-        [action.id]: {
+        [action.lei]: {
           isFetching: true,
           fetched: false,
           filing: null
