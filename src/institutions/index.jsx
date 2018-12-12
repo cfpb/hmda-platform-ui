@@ -17,10 +17,17 @@ const _setSubmission = (submission, filingObj) => {
   return filingObj.submissions[0]
 }
 
+const wrapLoading = (i = 0) => {
+  return (
+    <div key={i} style={{height: '100px'}}>
+      <Loading className="floatingIcon" />
+    </div>
+  )
+}
+
 const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
   // we don't have institutions yet
-  if (!institutions.fetched) return <Loading className="floatingIcon" />
-
+  if (!institutions.fetched) return wrapLoading()
   // we don't have any associated institutions
   // This is probably due to accounts from previous years
 
@@ -52,7 +59,7 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
 
     if (!institutionFilings || !institutionFilings.fetched) {
       // filings are not fetched yet
-      return <Loading className="floatingIcon" key={i} />
+      return wrapLoading(i)
     } else {
       // we have good stuff
       const filingObj = institutionFilings.filing
