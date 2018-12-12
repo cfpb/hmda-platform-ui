@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import RefileButton from './index.jsx'
 import showConfirm from '../actions/showConfirm.js'
-import setInstitution from '../actions/setInstitution.js'
+import setLei from '../actions/setLei.js'
 
 class RefileButtonContainer extends Component {
   render() {
@@ -16,7 +16,7 @@ function mapDispatchToProps(dispatch) {
   }
 
   const updateInstitution = lei => {
-    dispatch(setInstitution(lei))
+    dispatch(setLei(lei))
   }
 
   return { showConfirmModal, updateInstitution }

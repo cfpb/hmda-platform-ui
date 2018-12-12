@@ -7,7 +7,7 @@ import Loading from '../common/Loading.jsx'
 import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchEdits from '../actions/fetchEdits.js'
 import refreshState from '../actions/refreshState.js'
-import setInstitution from '../actions/setInstitution.js'
+import setLei from '../actions/setLei.js'
 import updateFilingPeriod from '../actions/updateFilingPeriod.js'
 import suppressEdits from '../actions/suppressEdits.js'
 import {
@@ -27,19 +27,19 @@ export class SubmissionRouter extends Component {
     const { submission, params, dispatch } = this.props
     const status = submission.status
 
-    if (!params.institution || !params.filing) {
+    if (!params.lei || !params.filing) {
       return this.goToAppHome()
     }
 
     const unmatchedId =
-      submission.id && submission.id.lei !== params.institution
+      submission.id && submission.id.lei !== params.lei
 
     if (unmatchedId) dispatch(refreshState())
 
-    dispatch(setInstitution(params.institution))
+    dispatch(setLei(params.lei))
     dispatch(updateFilingPeriod(params.filing))
 
-    const size = localStorage.getItem(`HMDA_FILE_SIZE/${params.institution}`)
+    const size = localStorage.getItem(`HMDA_FILE_SIZE/${params.lei}`)
     //  if (size > 5e6) dispatch(suppressEdits())
 
     if (unmatchedId || !status || status.code === UNINITIALIZED) {
@@ -71,9 +71,9 @@ export class SubmissionRouter extends Component {
   }
 
   replaceHistory(splat) {
-    const { institution, filing } = this.props.params
+    const { lei, filing } = this.props.params
     return browserHistory.replace(
-      `/filing/2018/${institution}/${filing}/${splat}`
+      `/filing/2018/${lei}/${filing}/${splat}`
     )
   }
 
@@ -132,7 +132,7 @@ export class SubmissionRouter extends Component {
 
     if (
       submission.status.code === UNINITIALIZED ||
-      submission.id.lei !== params.institution ||
+      submission.id.lei !== params.lei ||
       !this.renderChildren ||
       !params.splat
     )

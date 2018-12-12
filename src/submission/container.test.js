@@ -41,7 +41,7 @@ describe('SubmissionContainer', () => {
     console.error = jest.fn()
     const rendered = TestUtils.renderIntoDocument(
       <SubmissionContainer
-        params={{ institution: '123' }}
+        params={{ lei: '123' }}
         dispatch={jest.fn()}
         institutions={{ institutions: { '123': {} } }}
       />
@@ -52,18 +52,18 @@ describe('SubmissionContainer', () => {
     expect(fetch.mock.calls.length).toBe(0)
   })
 
-  it('fetches institution if param does not exist in state', () => {
+  it('fetches institution if lei param does not exist in state', () => {
     const container = new SubmissionContainer({
       dispatch: jest.fn(),
       institutions: state.app.institutions,
-      params: { institution: '123' }
+      params: { lei: '123' }
     })
     container.componentDidMount()
     expect(fetch.mock.calls.length).toBe(1)
 
     const c2 = new SubmissionContainer({
       institutions: { institutions: { '123': {} } },
-      params: { institution: '123' }
+      params: { lei: '123' }
     })
     c2.componentDidMount()
     expect(fetch.mock.calls.length).toBe(1)
@@ -118,7 +118,7 @@ describe('SubmissionContainer', () => {
     console.error = jest.fn()
     const wrapped = TestUtils.renderIntoDocument(
       <Wrapper store={state}>
-        <Connected params={{ institution: '123' }} />
+        <Connected params={{ lei: '123' }} />
       </Wrapper>
     )
 
@@ -135,7 +135,7 @@ describe('SubmissionContainer', () => {
         institutions: { '123': { name: 'oi' } }
       },
       submission: state.app.submission,
-      params: { institution: '123' },
+      params: { lei: '123' },
       location: { pathname: '/upload' }
     })
 
@@ -154,7 +154,7 @@ describe('SubmissionContainer', () => {
       dispatch: jest.fn(),
       institutions: state.app.institutions,
       submission: state.app.submission,
-      params: { institution: '123' },
+      params: { lei: '123' },
       location: { pathname: '/upload' },
       error: { error: 'an err' }
     })
@@ -174,7 +174,7 @@ describe('SubmissionContainer', () => {
       dispatch: jest.fn(),
       institutions: state.app.institutions,
       submission: { ...state.app.submission, status: {} },
-      params: { institution: '123' },
+      params: { lei: '123' },
       location: { pathname: '/upload' }
     })
 

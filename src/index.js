@@ -73,11 +73,11 @@ render(
           component={InstitutionContainer}
         />
         <Route
-          path={'/filing/2018/:institution/:filing'}
+          path={'/filing/2018/:lei/:filing'}
           component={SubmissionRouter}
         />
         <Route
-          path={'/filing/2018/:institution/:filing/*'}
+          path={'/filing/2018/:lei/:filing/*'}
           component={SubmissionRouter}
         />
         <Route path={'/filing/2018/*'} component={SubmissionRouter} />

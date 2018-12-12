@@ -16,7 +16,7 @@ import './ValidationProgress.css'
 export default class ValidationProgress extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = { fillWidth: this.getSavedWidth(props.id) }
+    this.state = { fillWidth: this.getSavedWidth(props.lei) }
     this.SCALING_FACTOR = 1
     if (props.file) {
       this.SCALING_FACTOR = props.file.size / 1e6
@@ -31,18 +31,18 @@ export default class ValidationProgress extends PureComponent {
       if (this.SCALING_FACTOR < 1) this.SCALING_FACTOR = 1
       if (this.SCALING_FACTOR > 5) this.SCALING_FACTOR = 5
     }
-    if (props.id !== this.props.id) {
-      this.setState({ fillWidth: this.getSavedWidth(props.id) })
+    if (props.lei !== this.props.lei) {
+      this.setState({ fillWidth: this.getSavedWidth(props.lei) })
     }
   }
 
-  getSavedWidth(id) {
-    return id ? +localStorage.getItem(`HMDA_FILE_PROGRESS/${id}`) : 0
+  getSavedWidth(lei) {
+    return lei ? +localStorage.getItem(`HMDA_FILE_PROGRESS/${lei}`) : 0
   }
 
-  saveWidth(id, width) {
+  saveWidth(lei, width) {
     if (this.props.errorUpload || this.props.errorApp) width = 0
-    localStorage.setItem(`HMDA_FILE_PROGRESS/${id}`, width)
+    localStorage.setItem(`HMDA_FILE_PROGRESS/${lei}`, width)
   }
 
   isErrored() {
@@ -62,7 +62,7 @@ export default class ValidationProgress extends PureComponent {
     let currWidth = this.state.fillWidth
     if (this.isErrored() || this.props.code > VALIDATING) {
       currWidth = 100
-      this.saveWidth(this.props.id, 100)
+      this.saveWidth(this.props.lei, 100)
     } else if (!this.timeout) this.getNextWidth()
 
     return currWidth
@@ -73,7 +73,7 @@ export default class ValidationProgress extends PureComponent {
       this.timeout = null
       let nextWidth = currWidth + 1
       if (nextWidth > 100) nextWidth = 100
-      this.saveWidth(this.props.id, nextWidth)
+      this.saveWidth(this.props.lei, nextWidth)
       this.setState({ fillWidth: nextWidth })
     }
   }
@@ -120,6 +120,6 @@ ValidationProgress.propTypes = {
   errorApp: PropTypes.object,
   errorUpload: PropTypes.object,
   file: PropTypes.object,
-  id: PropTypes.string,
+  lei: PropTypes.string,
   uploading: PropTypes.bool
 }

@@ -13,16 +13,16 @@ class InstitutionPreviousSubmissions extends Component {
     this.handleToggleClick = this.handleToggleClick.bind(this)
   }
 
-  handleToggleClick(id) {
-    let accordionButton = document.getElementById(`submissions-button-${id}`)
+  handleToggleClick(lei) {
+    let accordionButton = document.getElementById(`submissions-button-${lei}`)
     let expanded =
       accordionButton.getAttribute('aria-expanded') === 'false' ? false : true
 
     document
-      .getElementById(`submissions-button-${id}`)
+      .getElementById(`submissions-button-${lei}`)
       .setAttribute('aria-expanded', !expanded)
     document
-      .getElementById(`submissions-${id}`)
+      .getElementById(`submissions-${lei}`)
       .setAttribute('aria-hidden', expanded)
   }
 

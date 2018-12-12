@@ -100,10 +100,10 @@ const renderByCode = (code, page, message) => {
 class SubmissionContainer extends Component {
   componentDidMount() {
     // for institution name in header
-    const id = this.props.params.institution
+    const { lei } = this.props.params
 
-    if (!this.props.institutions.institutions[id]) {
-      this.props.dispatch(fetchInstitution({ lei: id }, false))
+    if (!this.props.institutions.institutions[lei]) {
+      this.props.dispatch(fetchInstitution({ lei }, false))
     }
   }
 
@@ -113,7 +113,7 @@ class SubmissionContainer extends Component {
     const status = submission.status
     const code = status && status.code
     const page = location.pathname.split('/').slice(-1)[0]
-    const institution = institutions.institutions[params.institution]
+    const institution = institutions.institutions[params.lei]
 
     const toRender = code
       ? renderByCode(code, page, status.message)

@@ -31,20 +31,20 @@ export function mapDispatchToProps(dispatch) {
     dispatch(hideConfirm())
   }
 
-  const triggerRefile = (id, period, page = '', file) => {
+  const triggerRefile = (lei, period, page = '', file) => {
     dispatch(refreshState())
     if (page === 'upload' && file) {
       const fileErrors = checkFileErrors(file)
       if (fileErrors.length)
         return dispatch(processFileErrors(fileErrors, file.name))
 
-      return dispatch(fetchNewSubmission(id, period)).then(() => {
+      return dispatch(fetchNewSubmission(lei, period)).then(() => {
         dispatch(selectFile(file))
         dispatch(fetchUpload(file))
       })
     } else {
-      return dispatch(fetchNewSubmission(id, period)).then(() => {
-        browserHistory.replace(`/filing/2018/${id}/${period}/upload`)
+      return dispatch(fetchNewSubmission(lei, period)).then(() => {
+        browserHistory.replace(`/filing/2018/${lei}/${period}/upload`)
       })
     }
   }
