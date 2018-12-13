@@ -51,7 +51,7 @@ export default class EditsNav extends Component {
       },
       'quality edits': {
         isReachable: () =>
-          this.navMap['syntactical & validity edits'].isCompleted(),
+          this.props.editsFetched && this.navMap['syntactical & validity edits'].isCompleted(),
         isErrored: () => this.props.code === QUALITY_EDITS,
         isCompleted: () =>
           (this.navMap['quality edits'].isReachable() &&
@@ -63,7 +63,7 @@ export default class EditsNav extends Component {
         link: 'quality'
       },
       'macro quality edits': {
-        isReachable: () => this.navMap['quality edits'].isCompleted(),
+        isReachable: () => this.props.editsFetched && this.navMap['quality edits'].isCompleted(),
         isErrored: () => this.props.code === MACRO_EDITS,
         isCompleted: () =>
           (this.navMap['macro quality edits'].isReachable() &&
