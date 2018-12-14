@@ -19,7 +19,7 @@
   -moz-osx-font-smoothing: unset;
   -webkit-font-smoothing: unset;
 }
-.RefileWarning .RefileButton.link:hover {
+.RefileWarning .RefileButton.link:hover, .RefileButton.link:hover {
   background: transparent;
   color: #205493;
 }
