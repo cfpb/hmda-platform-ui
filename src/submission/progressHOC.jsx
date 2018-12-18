@@ -11,7 +11,6 @@ function mapStateToProps(state) {
     .join('/')
 
   const { code } = state.app.submission.status
-  const { types } = state.app.edits
   const editsFetched = state.app.edits.fetched
 
   return {
