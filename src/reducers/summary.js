@@ -2,8 +2,8 @@ import { REQUEST_SUMMARY, RECEIVE_SUMMARY, REFRESH_STATE } from '../constants'
 
 const defaultSummary = {
   isFetching: false,
-  respondent: {},
-  file: {}
+  submission: {},
+  ts: {}
 }
 
 export default (state = defaultSummary, action) => {
@@ -18,8 +18,8 @@ export default (state = defaultSummary, action) => {
       return {
         ...state,
         isFetching: false,
-        respondent: action.respondent,
-        file: action.file
+        submission: action.submission,
+        ts: action.ts
       }
     case REFRESH_STATE: {
       return defaultSummary

@@ -60,17 +60,9 @@ const renderByCode = (code, page, message) => {
           </p>
         </header>
       )
-      //toRender.push(<Summary />)
-      toRender.push(
-        <header>
-          <h2>Summary</h2>
-          <p className="font-lead">
-            The summary is not generated during the beta testing period. During
-            the 2018 filing period, the summary will be made available in the
-            HMDA Platform prior to signing and submitting your HMDA data.
-          </p>
-        </header>
-      )
+
+      toRender.push(<Summary />)
+
       // and just before the signature
       if (code !== SIGNED) {
         toRender.push(<ReadyToSign />)

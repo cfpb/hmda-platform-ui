@@ -6,8 +6,8 @@ import Summary from './index.jsx'
 export class SummaryContainer extends Component {
   componentDidMount() {
     if (
-      !Object.keys(this.props.respondent).length &&
-      !Object.keys(this.props.file).length
+      !Object.keys(this.props.submission).length &&
+      !Object.keys(this.props.ts).length
     ) {
       this.props.dispatch(fetchSummary())
     }
@@ -19,12 +19,12 @@ export class SummaryContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const { isFetching, respondent, file } = state.app.summary
+  const { isFetching, submission, ts } = state.app.summary
 
   return {
     isFetching,
-    respondent,
-    file
+    submission,
+    ts
   }
 }
 

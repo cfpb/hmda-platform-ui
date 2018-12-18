@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import './Summary.css'
 
 const Summary = props => {
-  if (!props.respondent || !props.file) return null
+  if (!props.submission || !props.ts) return null
 
   return (
     <section className="Summary usa-grid-full" id="summary">
@@ -20,22 +20,22 @@ const Summary = props => {
           <h3>Respondent Information</h3>
           <dl>
             <dt>Name:</dt>
-            <dd>{props.respondent.name}</dd>
-            <dt>Respondent ID:</dt>
-            <dd>{props.respondent.id}</dd>
+            <dd>{props.ts.institutionName}</dd>
+            <dt>Respondent LEI:</dt>
+            <dd>{props.ts.LEI}</dd>
             <dt>Tax ID:</dt>
-            <dd>{props.respondent.taxId}</dd>
+            <dd>{props.ts.taxId}</dd>
             <dt>Agency:</dt>
-            <dd className="text-uppercase">{props.respondent.agency}</dd>
+            <dd className="text-uppercase">{props.ts.agency}</dd>
             <dt>Contact Name:</dt>
-            <dd>{props.respondent.contact && props.respondent.contact.name}</dd>
+            <dd>{props.ts.contact && props.ts.contact.name}</dd>
             <dt>Phone:</dt>
             <dd>
-              {props.respondent.contact && props.respondent.contact.phone}
+              {props.ts.contact && props.ts.contact.phone}
             </dd>
             <dt>Email</dt>
             <dd>
-              {props.respondent.contact && props.respondent.contact.email}
+              {props.ts.contact && props.ts.contact.email}
             </dd>
           </dl>
         </section>
@@ -43,11 +43,11 @@ const Summary = props => {
           <h3>File Information</h3>
           <dl>
             <dt>File Name:</dt>
-            <dd>{props.file.name}</dd>
+            <dd>{props.submission.fileName}</dd>
             <dt>Year:</dt>
-            <dd>{props.file.year}</dd>
+            <dd>{props.ts.year}</dd>
             <dt>Total Loans/Applications:</dt>
-            <dd>{props.file.totalLARS}</dd>
+            <dd>{props.ts.totalLines}</dd>
           </dl>
         </section>
       </div>
@@ -58,8 +58,8 @@ const Summary = props => {
 }
 
 Summary.propTypes = {
-  respondent: PropTypes.object,
-  file: PropTypes.object
+  submission: PropTypes.object,
+  ts: PropTypes.object
 }
 
 export default Summary
