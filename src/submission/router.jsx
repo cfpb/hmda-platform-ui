@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import SubmissionContainer from './container.jsx'
-import ErrorWarning from '../common/ErrorWarning.jsx'
 import Loading from '../common/Loading.jsx'
 import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchEdits from '../actions/fetchEdits.js'
 import refreshState from '../actions/refreshState.js'
 import setLei from '../actions/setLei.js'
 import updateFilingPeriod from '../actions/updateFilingPeriod.js'
-import suppressEdits from '../actions/suppressEdits.js'
 import {
   UNINITIALIZED,
   VALIDATING,
@@ -38,9 +36,6 @@ export class SubmissionRouter extends Component {
 
     dispatch(setLei(params.lei))
     dispatch(updateFilingPeriod(params.filing))
-
-    const size = localStorage.getItem(`HMDA_FILE_SIZE/${params.lei}`)
-    //  if (size > 5e6) dispatch(suppressEdits())
 
     if (unmatchedId || !status || status.code === UNINITIALIZED) {
       return dispatch(fetchSubmission()).then(json => {
@@ -84,9 +79,6 @@ export class SubmissionRouter extends Component {
   getLatestPage() {
     const status = this.props.submission.status
     const code = status.code
-    const types = this.props.types
-    const synvalExist = false
-    const qualityExist = false
 
     if (code <= VALIDATING) return 'upload'
     if (code >= VALIDATED) return 'submission'

@@ -75,7 +75,6 @@ describe('Alert', function() {
       </Alert>
     </Wrapper>
   )
-  const messageHtmlNode = ReactDOM.findDOMNode(messageHtml)
 
   it('has the success class', () => {
     expect(messageHtml.props.children.props.children.type).toBe('div')
@@ -86,20 +85,6 @@ describe('Alert', function() {
     expect(alert).toBeNull()
   })
 
-  it('sets alertText from imageText override', () => {
-    const alert = Alert({ children: [], imageText: '!' })
-    expect(alert.props.children[0].props.children).toBe('!')
-  })
-
-  it('sets alertText from type info', () => {
-    const alert = Alert({ children: [], type: 'info' })
-    expect(alert.props.children[0].props.children).toBe('i')
-  })
-
-  it('sets alertText from type warning', () => {
-    const alert = Alert({ children: [], type: 'warning' })
-    expect(alert.props.children[0].props.children).toBe('!')
-  })
   it('sets alertClass when needed', () => {
     const alert = Alert({ children: [], type: 'error' })
     expect(alert.props.children[0].props.className).toBe(

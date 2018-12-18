@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import {
   PARSED_WITH_ERRORS,
-  PARSED,
   VALIDATING,
   NO_SYNTACTICAL_VALIDITY_EDITS,
   SYNTACTICAL_VALIDITY_EDITS,

@@ -84,10 +84,9 @@ export default class ModalConfirm extends Component {
             >
               Yes, replace HMDA data.
             </button>
-            <a
-              href="#"
+            <button
               tabIndex={showing ? 0 : -1}
-              className="usa-text-small"
+              className="button-link usa-text-small"
               onClick={e => {
                 e.preventDefault()
                 hideConfirmModal()
@@ -99,7 +98,7 @@ export default class ModalConfirm extends Component {
               ref={a => (this.hideLink = a)}
             >
               No, take me back.
-            </a>
+            </button>
           </div>
         </section>
       </div>

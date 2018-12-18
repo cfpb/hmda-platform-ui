@@ -13,9 +13,12 @@ const Footer = () => {
   return (
     <footer className="Footer footer footer-slim" role="contentinfo">
       <div className="usa-grid-full">
-        <a className="return-to-top" href="#">
+        <button className="return-to-top button-link" onClick={e => {
+          e.preventDefault()
+          window.scrollTo(0,0)
+        }}>
           Return to top
-        </a>
+        </button>
       </div>
       <div className="footer-primary-section">
         <div className="usa-grid-full">

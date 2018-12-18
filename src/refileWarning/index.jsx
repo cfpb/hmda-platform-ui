@@ -108,22 +108,18 @@ const RefileWarning = props => {
   }
 
   let alertClass = 'error'
-  let imageText
-  if (code !== PARSED_WITH_ERRORS) imageText = '!'
   if (
     code !== FAILED &&
     code !== SYNTACTICAL_VALIDITY_EDITS &&
     code !== PARSED_WITH_ERRORS
   ) {
     alertClass = 'warning'
-    imageText = '?'
   }
 
   return (
     <div className="RefileWarning">
       <Alert
         type={alertClass}
-        imageText={imageText}
         heading={getHeading(props)}
       >
         {getText(props)}

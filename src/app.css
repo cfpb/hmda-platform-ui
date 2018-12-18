@@ -23,6 +23,20 @@ html {
   min-height: 100%;
   position: relative;
 }
+
+.button-link {
+  font-family: inherit;
+  font-weight: inherit;
+  color: #0071bc;
+  background: none;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.button-link:hover {
+  background: none;
+  color: #205493;
+}
 *,
 *::before,
 *::after {

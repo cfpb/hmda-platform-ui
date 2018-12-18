@@ -16,6 +16,20 @@
   "rules": {
     "no-console": 0,
     "react/no-find-dom-node": 0,
+    "no-unused-vars": [
+      "warn",
+      {
+        "args": "none"
+      }
+    ],
+    "object-curly-spacing": [
+      "warn",
+      "always",
+      {
+        "objectsInObjects": false,
+        "arraysInObjects": false
+      }
+    ],
     "no-return-assign": 0,
     "curly": 0,
     "no-shadow": 0,
