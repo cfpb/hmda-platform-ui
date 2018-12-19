@@ -4,9 +4,10 @@ import { Link } from 'react-router'
 import Loading from '../common/Loading.jsx'
 import {
   VALIDATING,
-  VALIDATED,
   SYNTACTICAL_VALIDITY_EDITS,
-  MACRO_EDITS
+  NO_MACRO_EDITS,
+  MACRO_EDITS,
+  VALIDATED
 } from '../constants/statusCodes.js'
 
 import './NavButton.css'
@@ -15,9 +16,12 @@ const NavButton = ({ page, base, code, editsFetched, qualityExists, qualityVerif
   let className
   let suffix
   let spinOn = false
-  const editFetchInProgress =
-    code > VALIDATING && code < VALIDATED && !editsFetched
-  const preError = code <= VALIDATING
+  const terminalCode =
+    code === SYNTACTICAL_VALIDITY_EDITS ||
+    code === NO_MACRO_EDITS ||
+    code === MACRO_EDITS
+  const editFetchInProgress = code < VALIDATED && terminalCode && !editsFetched
+  const preError = code <= VALIDATING || (code < VALIDATED && !terminalCode)
 
   switch (page) {
     case 'upload':
