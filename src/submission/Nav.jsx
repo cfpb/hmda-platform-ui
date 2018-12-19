@@ -7,8 +7,6 @@ import {
   NO_SYNTACTICAL_VALIDITY_EDITS,
   SYNTACTICAL_VALIDITY_EDITS,
   NO_QUALITY_EDITS,
-  QUALITY_EDITS,
-  NO_MACRO_EDITS,
   MACRO_EDITS,
   VALIDATED,
   SIGNED
@@ -51,10 +49,10 @@ export default class EditsNav extends Component {
       'quality edits': {
         isReachable: () =>
           this.props.editsFetched && this.navMap['syntactical & validity edits'].isCompleted(),
-        isErrored: () => this.props.code === QUALITY_EDITS,
+        isErrored: () => this.props.qualityExists && !this.props.qualityVerified,
         isCompleted: () =>
           (this.navMap['quality edits'].isReachable() &&
-            this.props.code > QUALITY_EDITS) ||
+            this.props.qualityVerified) ||
           this.props.code === NO_QUALITY_EDITS,
         errorClass: 'warning-question',
         errorText: 'quality edits found',
@@ -65,9 +63,8 @@ export default class EditsNav extends Component {
         isReachable: () => this.props.editsFetched && this.navMap['quality edits'].isCompleted(),
         isErrored: () => this.props.code === MACRO_EDITS,
         isCompleted: () =>
-          (this.navMap['macro quality edits'].isReachable() &&
-            this.props.code > MACRO_EDITS) ||
-          this.props.code === NO_MACRO_EDITS,
+          this.navMap['macro quality edits'].isReachable() &&
+            this.props.code > MACRO_EDITS,
         errorClass: 'warning-question',
         errorText: 'macro quality edits found',
         completedText: 'macro quality edits verified',
@@ -184,8 +181,7 @@ EditsNav.propTypes = {
   page: PropTypes.string.isRequired,
   base: PropTypes.string.isRequired,
   code: PropTypes.number.isRequired,
-  //syntacticalValidityEditsExist: PropTypes.bool.isRequired,
-  //qualityVerified: PropTypes.bool.isRequired,
-  //macroVerified: PropTypes.bool.isRequired,
-  editsFetched: PropTypes.bool.isRequired
+  editsFetched: PropTypes.bool.isRequired,
+  qualityExists: PropTypes.bool.isRequired,
+  qualityVerified: PropTypes.bool.isRequired
 }

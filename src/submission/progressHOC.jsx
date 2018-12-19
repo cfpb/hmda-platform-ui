@@ -12,12 +12,16 @@ function mapStateToProps(state) {
 
   const { code } = state.app.submission.status
   const editsFetched = state.app.edits.fetched
+  const qualityExists = !!state.app.edits.types.quality.edits.length
+  const qualityVerified = state.app.edits.types.quality.verified
 
   return {
     page,
     base,
     code,
-    editsFetched
+    editsFetched,
+    qualityExists,
+    qualityVerified
   }
 }
 

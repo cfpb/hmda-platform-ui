@@ -12,7 +12,7 @@ import {
 
 import './NavButton.css'
 
-const NavButton = ({ page, base, code, editsFetched }) => {
+const NavButton = ({ page, base, code, editsFetched, qualityExists, qualityVerified }) => {
   let className
   let suffix
   let spinOn = false
@@ -32,7 +32,7 @@ const NavButton = ({ page, base, code, editsFetched }) => {
       break
     case 'quality':
       suffix = 'macro'
-      if (preError || code === QUALITY_EDITS) className = 'hidden'
+      if (preError || (qualityExists && !qualityVerified)) className = 'hidden'
       break
     case 'macro':
       suffix = 'submission'
@@ -72,7 +72,9 @@ NavButton.propTypes = {
   //syntacticalValidityEditsExist: PropTypes.bool,
   //qualityVerified: PropTypes.bool,
   //macroVerified: PropTypes.bool,
-  editsFetched: PropTypes.bool
+  editsFetched: PropTypes.bool,
+  qualityExists: PropTypes.bool,
+  qualityVerified: PropTypes.bool
 }
 
 export default NavButton

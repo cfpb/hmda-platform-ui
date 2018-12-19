@@ -12,7 +12,10 @@ import {
   UNINITIALIZED,
   VALIDATING,
   SYNTACTICAL_VALIDITY_EDITS,
+  NO_QUALITY_EDITS,
   QUALITY_EDITS,
+  NO_MACRO_EDITS,
+  MACRO_EDITS,
   VALIDATED
 } from '../constants/statusCodes.js'
 
@@ -59,9 +62,11 @@ export class SubmissionRouter extends Component {
   }
 
   editsNeeded() {
-    const { submission } = this.props
+    const { code } = this.props.submission.status
     return (
-      submission.status.code > VALIDATING && submission.status.code < VALIDATED
+      code === SYNTACTICAL_VALIDITY_EDITS ||
+      code === NO_MACRO_EDITS ||
+      code === MACRO_EDITS
     )
   }
 
@@ -79,11 +84,12 @@ export class SubmissionRouter extends Component {
   getLatestPage() {
     const status = this.props.submission.status
     const code = status.code
+    const qualityVerified = this.props.types.quality.verified
 
-    if (code <= VALIDATING) return 'upload'
+    if (code <= VALIDATING || code === NO_QUALITY_EDITS) return 'upload'
     if (code >= VALIDATED) return 'submission'
     if (code === SYNTACTICAL_VALIDITY_EDITS) return 'syntacticalvalidity'
-    if (code === QUALITY_EDITS) return 'quality'
+    if (code >= QUALITY_EDITS && !qualityVerified) return 'quality'
     return 'macro'
   }
 
