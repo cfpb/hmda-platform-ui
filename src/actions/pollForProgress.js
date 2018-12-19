@@ -6,7 +6,6 @@ import { getLatestSubmission } from '../api/api.js'
 import { error } from '../utils/log.js'
 import {
   PARSED_WITH_ERRORS,
-  VALIDATING,
   SYNTACTICAL_VALIDITY_EDITS,
   NO_MACRO_EDITS,
   MACRO_EDITS,

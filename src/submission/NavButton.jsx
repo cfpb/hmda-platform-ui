@@ -6,7 +6,6 @@ import {
   VALIDATING,
   VALIDATED,
   SYNTACTICAL_VALIDITY_EDITS,
-  QUALITY_EDITS,
   MACRO_EDITS
 } from '../constants/statusCodes.js'
 
