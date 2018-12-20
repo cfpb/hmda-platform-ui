@@ -5,23 +5,18 @@ import Loading from '../common/Loading.jsx'
 import {
   VALIDATING,
   SYNTACTICAL_VALIDITY_EDITS,
-  NO_MACRO_EDITS,
   MACRO_EDITS,
   VALIDATED
 } from '../constants/statusCodes.js'
 
 import './NavButton.css'
 
-const NavButton = ({ page, base, code, editsFetched, qualityExists, qualityVerified }) => {
+const NavButton = ({ page, base, code, editsFetched, validationComplete, qualityExists, qualityVerified }) => {
   let className
   let suffix
   let spinOn = false
-  const terminalCode =
-    code === SYNTACTICAL_VALIDITY_EDITS ||
-    code === NO_MACRO_EDITS ||
-    code === MACRO_EDITS
-  const editFetchInProgress = code < VALIDATED && terminalCode && !editsFetched
-  const preError = code <= VALIDATING || (code < VALIDATED && !terminalCode)
+  const editFetchInProgress = code < VALIDATED && validationComplete && !editsFetched
+  const preError = code <= VALIDATING || !validationComplete
 
   switch (page) {
     case 'upload':
@@ -72,10 +67,8 @@ NavButton.propTypes = {
   page: PropTypes.string,
   base: PropTypes.string,
   code: PropTypes.number,
-  //syntacticalValidityEditsExist: PropTypes.bool,
-  //qualityVerified: PropTypes.bool,
-  //macroVerified: PropTypes.bool,
   editsFetched: PropTypes.bool,
+  validationComplete: PropTypes.bool,
   qualityExists: PropTypes.bool,
   qualityVerified: PropTypes.bool
 }

@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import ProgressText from './ProgressText.jsx'
+import ProgressTextComponent from './ProgressText.jsx'
+import progressHOC from '../progressHOC.jsx'
 import {
   PARSED_WITH_ERRORS,
-  VALIDATING,
+  SYNTACTICAL_VALIDITY_EDITS,
+  NO_MACRO_EDITS,
   UPLOADING
 } from '../../constants/statusCodes.js'
 /* TODO
@@ -12,6 +14,8 @@ we'll have to see what a clean file upload does
 */
 
 import './ValidationProgress.css'
+
+const ProgressText =  progressHOC(ProgressTextComponent)
 
 export default class ValidationProgress extends PureComponent {
   constructor(props) {
@@ -60,7 +64,7 @@ export default class ValidationProgress extends PureComponent {
 
   getFillWidth() {
     let currWidth = this.state.fillWidth
-    if (this.isErrored() || this.props.code > VALIDATING) {
+    if (this.isErrored() || this.props.code === SYNTACTICAL_VALIDITY_EDITS || this.props.code >= NO_MACRO_EDITS) {
       currWidth = 100
       this.saveWidth(this.props.lei, 100)
     } else if (!this.timeout) this.getNextWidth()
@@ -105,7 +109,6 @@ export default class ValidationProgress extends PureComponent {
           style={{ width: this.getFillWidth() + '%' }}
         />
         <ProgressText
-          code={code}
           errorApp={errorApp}
           errorUpload={errorUpload}
           file={file}
