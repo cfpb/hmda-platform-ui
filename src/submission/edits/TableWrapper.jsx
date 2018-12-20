@@ -11,13 +11,17 @@ import Alert from '../../common/Alert.jsx'
 
 const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
-export const getTotalTypeCount = (edits, pagination) => {
+export const getTotalTypeCount = (type, edits, pagination) => {
   let count = 0
-  edits.forEach((edit, i) => {
-    if (pagination[edit.edit]) {
-      count += pagination[edit.edit].total
-    }
-  })
+  if (type === 'macro') {
+    count = edits.length
+  } else {
+    edits.forEach((edit, i) => {
+      if (pagination[edit.edit]) {
+        count += pagination[edit.edit].total
+      }
+    })
+  }
 
   return count
 }
@@ -32,7 +36,7 @@ export const makeEntry = (props, type) => {
     edits = props.types[type].edits
     fetched = props.types[type].fetched
   }
-  const count = getTotalTypeCount(edits, props.pagination)
+  const count = getTotalTypeCount(type, edits, props.pagination)
 
   return (
     <article className="EditsTableWrapper-Edit">
