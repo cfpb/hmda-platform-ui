@@ -6,9 +6,8 @@ import { getLatestSubmission } from '../api/api.js'
 import { error } from '../utils/log.js'
 import {
   PARSED_WITH_ERRORS,
-  VALIDATING,
   SYNTACTICAL_VALIDITY_EDITS,
-  QUALITY_EDITS,
+  NO_MACRO_EDITS,
   MACRO_EDITS,
   VALIDATED
 } from '../constants/statusCodes.js'
@@ -56,15 +55,16 @@ export default function pollForProgress() {
           // continue polling until we reach a status that isn't processing
           code !== PARSED_WITH_ERRORS &&
           code !== SYNTACTICAL_VALIDITY_EDITS &&
-          code !== QUALITY_EDITS &&
+          code !== NO_MACRO_EDITS &&
           code !== MACRO_EDITS &&
           code < VALIDATED
         ) {
           setTimeout(poller.bind(null, dispatch), getTimeoutDuration())
         } else if (
-          // we don't need edits if it parsed with errors
-          code > VALIDATING &&
-          code < VALIDATED
+          // only get edits when we've reached a terminal edit state
+          code === SYNTACTICAL_VALIDITY_EDITS ||
+          code === NO_MACRO_EDITS ||
+          code === MACRO_EDITS
         ) {
           return dispatch(fetchEdits())
         }

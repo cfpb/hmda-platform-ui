@@ -4,21 +4,19 @@ import { Link } from 'react-router'
 import Loading from '../common/Loading.jsx'
 import {
   VALIDATING,
-  VALIDATED,
   SYNTACTICAL_VALIDITY_EDITS,
-  QUALITY_EDITS,
-  MACRO_EDITS
+  MACRO_EDITS,
+  VALIDATED
 } from '../constants/statusCodes.js'
 
 import './NavButton.css'
 
-const NavButton = ({ page, base, code, editsFetched }) => {
+const NavButton = ({ page, base, code, editsFetched, validationComplete, qualityExists, qualityVerified }) => {
   let className
   let suffix
   let spinOn = false
-  const editFetchInProgress =
-    code > VALIDATING && code < VALIDATED && !editsFetched
-  const preError = code <= VALIDATING
+  const editFetchInProgress = code < VALIDATED && validationComplete && !editsFetched
+  const preError = code <= VALIDATING || !validationComplete
 
   switch (page) {
     case 'upload':
@@ -32,7 +30,7 @@ const NavButton = ({ page, base, code, editsFetched }) => {
       break
     case 'quality':
       suffix = 'macro'
-      if (preError || code === QUALITY_EDITS) className = 'hidden'
+      if (preError || (qualityExists && !qualityVerified)) className = 'hidden'
       break
     case 'macro':
       suffix = 'submission'
@@ -69,10 +67,10 @@ NavButton.propTypes = {
   page: PropTypes.string,
   base: PropTypes.string,
   code: PropTypes.number,
-  //syntacticalValidityEditsExist: PropTypes.bool,
-  //qualityVerified: PropTypes.bool,
-  //macroVerified: PropTypes.bool,
-  editsFetched: PropTypes.bool
+  editsFetched: PropTypes.bool,
+  validationComplete: PropTypes.bool,
+  qualityExists: PropTypes.bool,
+  qualityVerified: PropTypes.bool
 }
 
 export default NavButton

@@ -8,7 +8,7 @@ import {
   UPLOADING,
   PARSED_WITH_ERRORS,
   SYNTACTICAL_VALIDITY_EDITS,
-  QUALITY_EDITS,
+  NO_MACRO_EDITS,
   MACRO_EDITS,
   VALIDATED
 } from '../../constants/statusCodes.js'
@@ -33,7 +33,7 @@ export default class Upload extends Component {
       code < VALIDATED &&
       code !== PARSED_WITH_ERRORS &&
       code !== SYNTACTICAL_VALIDITY_EDITS &&
-      code !== QUALITY_EDITS &&
+      code !== NO_MACRO_EDITS &&
       code !== MACRO_EDITS
     )
       pollSubmission()
