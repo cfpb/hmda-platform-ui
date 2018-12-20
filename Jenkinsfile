@@ -18,8 +18,8 @@ volumes: [
               usernameVariable: 'DTR_USER', passwordVariable: 'DTR_PASSWORD']]) {
               withCredentials([string(credentialsId: 'internal-docker-registry', variable: 'DOCKER_REGISTRY_URL')]){
                 sh "docker build --rm -t=${env.DOCKER_HUB_USER}/hmda-platform-ui ."
-                if (env.TAG_NAME != null || gitBranch == "v2") {
-                  if (gitBranch == "v2") {
+                if (env.TAG_NAME != null || gitBranch == "master") {
+                  if (gitBranch == "master") {
                     env.DOCKER_TAG = "latest"
                   } else {
                     env.DOCKER_TAG = env.TAG_NAME
@@ -41,7 +41,7 @@ volumes: [
       }
 
     stage('Deploy') {
-      if (env.BRANCH_NAME == 'v2') {
+      if (env.BRANCH_NAME == 'master') {
         container('helm') {
           sh "helm upgrade --install --force \
           --namespace=default \
