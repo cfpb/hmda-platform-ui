@@ -7,7 +7,6 @@ import {
   FAILED,
   PARSED_WITH_ERRORS,
   SYNTACTICAL_VALIDITY_EDITS,
-  QUALITY_EDITS,
   MACRO_EDITS,
   VALIDATED
 } from '../constants/statusCodes.js'
@@ -40,7 +39,7 @@ export const getText = props => {
       </div>
     )
   } else if (
-    (props.code === QUALITY_EDITS && props.page === 'quality') ||
+    (props.qualityExists && props.page === 'quality') ||
     (props.code === MACRO_EDITS && props.page === 'macro')
   ) {
     text = (
@@ -82,7 +81,7 @@ export const getHeading = props => {
     heading = 'Your submission has failed.'
   } else if (props.code === SYNTACTICAL_VALIDITY_EDITS) {
     heading = 'Your file has syntactical and/or validity edits.'
-  } else if (props.code === QUALITY_EDITS && props.page === 'quality') {
+  } else if (props.qualityExists && props.page === 'quality') {
     heading = 'Your file has quality edits.'
   } else if (props.code === MACRO_EDITS && props.page === 'macro') {
     heading = 'Your file has macro quality edits.'
@@ -101,7 +100,11 @@ const RefileWarning = props => {
     if (code >= VALIDATED || code < PARSED_WITH_ERRORS) return null
     if (page === 'syntacticalvalidity' && code !== SYNTACTICAL_VALIDITY_EDITS)
       return null
-    if (page === 'quality' && code !== QUALITY_EDITS) return null
+    if (
+      (page === 'quality' && !props.qualityExists) ||
+      (page === 'quality' && props.qualityVerified)
+    )
+      return null
     if (page === 'macro' && code !== MACRO_EDITS) return null
     if (page === 'upload' && code !== PARSED_WITH_ERRORS) return null
     if (page === 'submission') return null
@@ -118,10 +121,7 @@ const RefileWarning = props => {
 
   return (
     <div className="RefileWarning">
-      <Alert
-        type={alertClass}
-        heading={getHeading(props)}
-      >
+      <Alert type={alertClass} heading={getHeading(props)}>
         {getText(props)}
       </Alert>
     </div>
