@@ -8,7 +8,6 @@ import submission from './submission.js'
 import upload from './upload.js'
 import confirmation from './confirmation.js'
 import edits from './edits.js'
-import irs from './irs.js'
 import signature from './signature.js'
 import summary from './summary.js'
 import parseErrors from './parseErrors.js'
@@ -27,7 +26,6 @@ export default combineReducers({
   upload,
   confirmation,
   edits,
-  irs,
   signature,
   summary,
   parseErrors,

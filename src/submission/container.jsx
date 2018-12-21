@@ -14,7 +14,7 @@ import EditsNavComponent from './Nav.jsx'
 import NavButtonComponent from './NavButton.jsx'
 import RefileWarningComponent from '../refileWarning/index.jsx'
 import submissionProgressHOC from './progressHOC.jsx'
-import IRSReport from './irs/container.jsx'
+import IRSReport from './irs/index.jsx'
 import Signature from './signature/container.jsx'
 import Summary from './summary/container.jsx'
 import ParseErrors from './parseErrors/container.jsx'
@@ -29,7 +29,7 @@ const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
 const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
-const renderByCode = (code, page, message) => {
+const renderByCode = (code, page, lei) => {
   const toRender = []
   if (code === FAILED) {
     toRender.push(<RefileWarning />)
@@ -50,18 +50,7 @@ const renderByCode = (code, page, message) => {
         toRender.push(<ReadyToSign />)
       }
       toRender.push(<ReceiptContainer />)
-      //toRender.push(<IRSReport />)
-      toRender.push(
-        <header>
-          <h2>Institution Register Summary (IRS)</h2>
-          <p className="font-lead">
-            The IRS is not generated during the beta testing period. During the
-            2018 filing period, the IRS will be made available in the HMDA
-            Platform after signing and submitting your HMDA data.
-          </p>
-        </header>
-      )
-
+      toRender.push(<IRSReport lei={lei} />)
       toRender.push(<Summary />)
 
       // and just before the signature
@@ -109,7 +98,7 @@ class SubmissionContainer extends Component {
     const institution = institutions.institutions[params.lei]
 
     const toRender = code
-      ? renderByCode(code, page, status.message)
+      ? renderByCode(code, page, this.props.lei)
       : [<Loading key="0" />]
 
     return (
