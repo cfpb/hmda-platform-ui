@@ -40,22 +40,12 @@ export function getCSV(pathObj) {
   return fetch(pathObj)
 }
 
-export function getIRSCSV(pathObj) {
-  pathObj.suffix = pathObj.suffix ? pathObj.suffix : '/irs/csv'
-  pathObj.params = { format: 'csv' }
-  return fetch(pathObj)
-}
-
 export function postVerify(type, verified) {
   return fetch({
     suffix: `/edits/${type}`,
     method: 'POST',
     body: { verified: verified }
   })
-}
-
-export function getIRS() {
-  return fetch({ suffix: '/irs' })
 }
 
 export function getSummary() {
