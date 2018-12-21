@@ -83,26 +83,6 @@ describe('api', () => {
     })
   })
 
-  it('gets irs', () => {
-    api.getIRS()
-    expect(mockedFetch.mock.calls[11][0]).toEqual({
-      suffix: '/irs'
-    })
-  })
-
-  it('gets irscsv', () => {
-    api.getIRSCSV({})
-    expect(mockedFetch.mock.calls[12][0]).toEqual({
-      params: { format: 'csv' },
-      suffix: '/irs/csv'
-    })
-    api.getIRSCSV({ suffix: 'a' })
-    expect(mockedFetch.mock.calls[13][0]).toEqual({
-      params: { format: 'csv' },
-      suffix: 'a'
-    })
-  })
-
   it('gets summary', () => {
     api.getSummary()
     expect(mockedFetch.mock.calls[14][0]).toEqual({

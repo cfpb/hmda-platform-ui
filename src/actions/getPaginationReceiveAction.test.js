@@ -21,11 +21,6 @@ describe('getPaginationReceiveAction', () => {
     expect(getPaginationReceiveAction('parseErrors', {})).toEqual(
       emptyParseErrors
     )
-    expect(getPaginationReceiveAction('irs', {})).toEqual({
-      type: types.RECEIVE_IRS,
-      msas: undefined,
-      pagination
-    })
     expect(getPaginationReceiveAction('q021', {})).toEqual({
       type: types.RECEIVE_EDIT,
       edit: undefined,

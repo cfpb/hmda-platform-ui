@@ -17,7 +17,7 @@ function mapStateToProps(state, ownProps) {
   const stateTarget = ownProps.target
   let isFetching
 
-  if (stateTarget !== 'parseErrors' && stateTarget !== 'irs') {
+  if (stateTarget !== 'parseErrors') {
     if (state.app.edits.rows[stateTarget]) {
       isFetching = state.app.edits.rows[stateTarget].isFetching
     }
