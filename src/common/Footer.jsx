@@ -1,23 +1,37 @@
 import React from 'react'
 
+import './Footer.css'
+import logo from '../images/ffiec-logo.svg'
+import { getKeycloak } from '../utils/keycloak.js'
+
+export const getLink = () => {
+  if (getKeycloak().authenticated) return '/filing/2018/institutions'
+  return '/filing/2018/'
+}
+
 const Footer = () => {
   return (
-    <footer className="Footer usa-footer usa-footer-slim" role="contentinfo">
-      <div className="usa-grid usa-footer-return-to-top">
-        <a href="#">Return to top</a>
+    <footer className="Footer footer footer-slim" role="contentinfo">
+      <div className="usa-grid-full">
+        <button className="return-to-top button-link" onClick={e => {
+          e.preventDefault()
+          window.scrollTo(0,0)
+        }}>
+          Return to top
+        </button>
       </div>
-      <div className="usa-footer-primary-section">
+      <div className="footer-primary-section">
         <div className="usa-grid-full">
-          <nav className="usa-footer-nav usa-width-one-half">
-            <ul className="usa-unstyled-list">
-              <li className="usa-footer-primary-content">
+          <nav className="usa-width-one-half footer-nav">
+            <ul className="unstyled-list">
+              <li className="footer-primary-content">
                 <a
-                  className="usa-nav-link"
-                  href={window.HMDA_ENV.HOMEPAGE_URL}
+                  className="nav-link"
+                  href={getLink()}
                   title="Home"
                   aria-label="Home"
                 >
-                  <img src="/img/ffiec-logo.svg" height="21px" alt="FFIEC" />
+                  <img src={logo} height="21px" alt="FFIEC" />
                   Home Mortgage Disclosure Act
                 </a>
               </li>

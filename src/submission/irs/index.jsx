@@ -4,6 +4,8 @@ import Pagination from '../../pagination/container.jsx'
 import Loading from '../../common/Loading.jsx'
 import Alert from '../../common/Alert.jsx'
 
+import './IRSReport.css'
+
 const renderTotals = props => {
   if (props.renderTotals)
     return (
@@ -34,18 +36,17 @@ const renderTotals = props => {
 const renderDownloadLink = props => {
   if (props.msas.length === 0) return null
 
-  const { institutionId, period, sequenceNumber } = props.id
+  const { lei, period, sequenceNumber } = props.id
   return (
     <p>
-      <a
-        href="#"
+      <button
         onClick={e => {
           e.preventDefault()
-          props.onDownloadClick(institutionId, period, sequenceNumber)
+          props.onDownloadClick(lei, period, sequenceNumber)
         }}
       >
         Download IRS report
-      </a>
+      </button>
     </p>
   )
 }
@@ -177,7 +178,7 @@ const IRSReport = props => {
     <section className="IRSReport">
       <header>
         <h2>Institution Register Summary</h2>
-        <p className="usa-font-lead">
+        <p className="font-lead">
           Please review your Institution Register Summary below. If you discover
           an error in your IRS, please update your file and select the
           &quot;Upload a new file&quot; button.

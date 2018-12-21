@@ -15,7 +15,7 @@ console.error = jest.fn()
 //ParseErrorsComponent.mockImplementation(() => null)
 //fetchParseErrors.mockImplementation(() => parseFetch())
 const submission = {
-  id: { institutionId: '123', period: '2017', sequenceNumber: 2 }
+  id: { lei: '123', period: '2017', sequenceNumber: 2 }
 }
 const defaultState = {
   app: {

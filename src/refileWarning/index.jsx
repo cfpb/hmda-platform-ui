@@ -4,9 +4,14 @@ import RefileButton from '../refileButton/container.jsx'
 import Alert from '../common/Alert.jsx'
 import CSVDownload from '../common/CSVContainer.jsx'
 import {
+  FAILED,
   PARSED_WITH_ERRORS,
-  VALIDATED_WITH_ERRORS
+  SYNTACTICAL_VALIDITY_EDITS,
+  MACRO_EDITS,
+  VALIDATED
 } from '../constants/statusCodes.js'
+
+import './RefileWarning.css'
 
 export const getText = props => {
   let text = null
@@ -14,11 +19,19 @@ export const getText = props => {
   let periodAfter = false
   let reviewAndDownload = (
     <div>
-      Please review the edits or <CSVDownload />
+      Please review the edits or <CSVDownload inline={true} />
     </div>
   )
 
-  if (props.syntacticalValidityEditsExist) {
+  if (props.code === FAILED) {
+    reviewAndDownload = null
+    text = (
+      <div>
+        Please select the &quot;Upload a new file&quot; button to restart the
+        process.
+      </div>
+    )
+  } else if (props.code === SYNTACTICAL_VALIDITY_EDITS) {
     text = (
       <div>
         Then update your file and select the &quot;Upload a new file&quot;
@@ -26,8 +39,8 @@ export const getText = props => {
       </div>
     )
   } else if (
-    (!props.qualityVerified && props.page === 'quality') ||
-    (!props.macroVerified && props.page === 'macro')
+    (props.qualityExists && props.page === 'quality') ||
+    (props.code === MACRO_EDITS && props.page === 'macro')
   ) {
     text = (
       <div style={{ display: 'inline' }}>
@@ -64,11 +77,13 @@ export const getText = props => {
 export const getHeading = props => {
   let heading = null
 
-  if (props.syntacticalValidityEditsExist) {
+  if (props.code === FAILED) {
+    heading = 'Your submission has failed.'
+  } else if (props.code === SYNTACTICAL_VALIDITY_EDITS) {
     heading = 'Your file has syntactical and/or validity edits.'
-  } else if (!props.qualityVerified && props.page === 'quality') {
+  } else if (props.qualityExists && props.page === 'quality') {
     heading = 'Your file has quality edits.'
-  } else if (!props.macroVerified && props.page === 'macro') {
+  } else if (props.code === MACRO_EDITS && props.page === 'macro') {
     heading = 'Your file has macro quality edits.'
   }
 
@@ -80,36 +95,33 @@ export const getHeading = props => {
 }
 
 const RefileWarning = props => {
-  if (props.code > VALIDATED_WITH_ERRORS || props.code < PARSED_WITH_ERRORS)
-    return null
-  if (
-    props.page === 'syntacticalvalidity' &&
-    !props.syntacticalValidityEditsExist
-  )
-    return null
-  if (props.page === 'quality' && props.qualityVerified) return null
-  if (props.page === 'macro' && props.macroVerified) return null
-  if (props.page === 'upload' && props.code !== PARSED_WITH_ERRORS) return null
-  if (props.page === 'submission') return null
+  const { code, page } = props
+  if (code > FAILED) {
+    if (code >= VALIDATED || code < PARSED_WITH_ERRORS) return null
+    if (page === 'syntacticalvalidity' && code !== SYNTACTICAL_VALIDITY_EDITS)
+      return null
+    if (
+      (page === 'quality' && !props.qualityExists) ||
+      (page === 'quality' && props.qualityVerified)
+    )
+      return null
+    if (page === 'macro' && code !== MACRO_EDITS) return null
+    if (page === 'upload' && code !== PARSED_WITH_ERRORS) return null
+    if (page === 'submission') return null
+  }
 
   let alertClass = 'error'
-  let imageText
-  if (props.code !== PARSED_WITH_ERRORS) imageText = '!'
   if (
-    !props.syntacticalValidityEditsExist &&
-    props.code !== PARSED_WITH_ERRORS
+    code !== FAILED &&
+    code !== SYNTACTICAL_VALIDITY_EDITS &&
+    code !== PARSED_WITH_ERRORS
   ) {
     alertClass = 'warning'
-    imageText = '?'
   }
 
   return (
     <div className="RefileWarning">
-      <Alert
-        type={alertClass}
-        imageText={imageText}
-        heading={getHeading(props)}
-      >
+      <Alert type={alertClass} heading={getHeading(props)}>
         {getText(props)}
       </Alert>
     </div>
@@ -117,13 +129,9 @@ const RefileWarning = props => {
 }
 
 RefileWarning.propTypes = {
-  // from /containers/submissionProgressHOC
   page: PropTypes.string,
   base: PropTypes.string,
-  code: PropTypes.number,
-  syntacticalValidityEditsExist: PropTypes.bool,
-  qualityVerified: PropTypes.bool,
-  macroVerified: PropTypes.bool
+  code: PropTypes.number
 }
 
 export default RefileWarning

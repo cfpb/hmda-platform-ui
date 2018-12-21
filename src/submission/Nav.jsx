@@ -4,9 +4,15 @@ import { Link } from 'react-router'
 import {
   PARSED_WITH_ERRORS,
   VALIDATING,
+  NO_SYNTACTICAL_VALIDITY_EDITS,
+  SYNTACTICAL_VALIDITY_EDITS,
+  NO_QUALITY_EDITS,
+  MACRO_EDITS,
   VALIDATED,
   SIGNED
 } from '../constants/statusCodes.js'
+
+import './Nav.css'
 
 export default class EditsNav extends Component {
   constructor(props) {
@@ -30,10 +36,11 @@ export default class EditsNav extends Component {
       'syntactical & validity edits': {
         isReachable: () =>
           this.props.editsFetched && this.navMap.upload.isCompleted(),
-        isErrored: () => this.props.syntacticalValidityEditsExist,
+        isErrored: () => this.props.code === SYNTACTICAL_VALIDITY_EDITS,
         isCompleted: () =>
-          this.navMap['syntactical & validity edits'].isReachable() &&
-          !this.props.syntacticalValidityEditsExist,
+          (this.navMap['syntactical & validity edits'].isReachable() &&
+            this.props.code > SYNTACTICAL_VALIDITY_EDITS) ||
+          this.props.code === NO_SYNTACTICAL_VALIDITY_EDITS,
         errorClass: 'warning-exclamation',
         errorText: 'syntactical & validity edits found',
         completedText: 'no syntactical & validity edits',
@@ -41,22 +48,23 @@ export default class EditsNav extends Component {
       },
       'quality edits': {
         isReachable: () =>
-          this.navMap['syntactical & validity edits'].isCompleted(),
-        isErrored: () => !this.props.qualityVerified,
+          this.props.editsFetched && this.navMap['syntactical & validity edits'].isCompleted(),
+        isErrored: () => this.props.qualityExists && !this.props.qualityVerified,
         isCompleted: () =>
-          this.navMap['quality edits'].isReachable() &&
-          this.props.qualityVerified,
+          (this.navMap['quality edits'].isReachable() &&
+            this.props.qualityVerified) ||
+          this.props.code === NO_QUALITY_EDITS,
         errorClass: 'warning-question',
         errorText: 'quality edits found',
         completedText: 'quality edits verified',
         link: 'quality'
       },
       'macro quality edits': {
-        isReachable: () => this.navMap['quality edits'].isCompleted(),
-        isErrored: () => !this.props.macroVerified,
+        isReachable: () => this.props.editsFetched && this.navMap['quality edits'].isCompleted(),
+        isErrored: () => this.props.code === MACRO_EDITS,
         isCompleted: () =>
           this.navMap['macro quality edits'].isReachable() &&
-          this.props.macroVerified,
+            this.props.code > MACRO_EDITS,
         errorClass: 'warning-question',
         errorText: 'macro quality edits found',
         completedText: 'macro quality edits verified',
@@ -117,11 +125,15 @@ export default class EditsNav extends Component {
       const errored = navItem.isErrored()
       const renderedName = errored
         ? navItem.errorText
-        : completed ? navItem.completedText : name
+        : completed
+          ? navItem.completedText
+          : name
 
       let navClass = errored
         ? navItem.errorClass
-        : completed ? 'complete' : 'active'
+        : completed
+          ? 'complete'
+          : 'active'
 
       if (navClass !== 'active') step = null
       if (navClass === 'warning-exclamation') step = '!'
@@ -131,10 +143,7 @@ export default class EditsNav extends Component {
 
       return (
         <li className={navClass} key={i}>
-          <Link
-            className="usa-nav-link"
-            to={`${base}/${navItem.link}`}
-          >
+          <Link className="nav-link" to={`${base}/${navItem.link}`}>
             <div className="step">{step}</div>
             {renderedName}
           </Link>
@@ -156,7 +165,7 @@ export default class EditsNav extends Component {
     return (
       <section style={wrapperHeight}>
         <nav className={`EditsNav ${fixed}`} id="editsNav">
-          <ul className="usa-nav-primary">
+          <ul className="nav-primary">
             {Object.keys(this.navMap).map((name, i) => {
               return this.renderNavItem(name, i)
             })}
@@ -172,8 +181,7 @@ EditsNav.propTypes = {
   page: PropTypes.string.isRequired,
   base: PropTypes.string.isRequired,
   code: PropTypes.number.isRequired,
-  syntacticalValidityEditsExist: PropTypes.bool.isRequired,
-  qualityVerified: PropTypes.bool.isRequired,
-  macroVerified: PropTypes.bool.isRequired,
-  editsFetched: PropTypes.bool.isRequired
+  editsFetched: PropTypes.bool.isRequired,
+  qualityExists: PropTypes.bool.isRequired,
+  qualityVerified: PropTypes.bool.isRequired
 }

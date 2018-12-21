@@ -4,8 +4,11 @@ import Pagination from '../../pagination/container.jsx'
 import Loading from '../../common/Loading.jsx'
 import EditsTableRow from './TableRow.jsx'
 
+import './Table.css'
+
 export const formatHeader = text => {
-  if (text === 'rowId') return 'Loan/Application Number'
+  if (text === 'value' || text === 'fields') return null
+  if (text === 'id') return 'Loan/Application Number'
   if (text === 'edit') return 'Edit ID'
   if (text === 'editId') return 'Edit ID'
   if (text === 'description') return 'Description'
@@ -16,25 +19,27 @@ export const renderHeader = (edits, rows, type) => {
   let cellCount = 0
   const cells = []
 
-  let keyCells = rows[0].row
-  const fieldCells = rows[0].fields
-
-  const numOfCells =
-    Object.keys(keyCells).length + Object.keys(fieldCells).length
+  let keyCells = rows[0]
+  const fieldCells = rows[0].length
+  const numOfCells = fieldCells + 1
   const cellWidth = `${100 / numOfCells}%`
 
   Object.keys(keyCells).forEach(field => {
-    cells.push(
-      <th key={++cellCount} width={cellWidth}>
-        {formatHeader(field)}
-      </th>
-    )
+    const text = formatHeader(field)
+
+    if (text) {
+      cells.push(
+        <th key={++cellCount} width={cellWidth}>
+          {text}
+        </th>
+      )
+    }
   })
 
-  Object.keys(fieldCells).forEach(field => {
+  rows[0].fields.forEach(field => {
     cells.push(
       <th key={++cellCount} width={cellWidth}>
-        {formatHeader(field)}
+        {formatHeader(field.name)}
       </th>
     )
   })
@@ -44,7 +49,7 @@ export const renderHeader = (edits, rows, type) => {
 
 export const renderBody = (edits, rows, type) => {
   return rows.map((row, i) => {
-    return <EditsTableRow row={row.row} fields={row.fields} key={i} />
+    return <EditsTableRow row={row} key={i} />
   })
 }
 

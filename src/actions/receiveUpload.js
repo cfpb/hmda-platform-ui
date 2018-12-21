@@ -4,7 +4,7 @@ export default function receiveUpload(data) {
   return (dispatch, getState) => {
     return dispatch({
       type: types.RECEIVE_UPLOAD,
-      id: getState().app.institutionId
+      lei: getState().app.lei
     })
   }
 }

@@ -1,17 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const InstitutionNameAndId = ({ name, id }) => {
+const InstitutionNameAndId = ({ name, lei }) => {
   return (
     <h3>
-      {name} - {id}
+      {name} - {lei}
     </h3>
   )
 }
 
 InstitutionNameAndId.propTypes = {
   name: PropTypes.string,
-  id: PropTypes.string
+  lei: PropTypes.string
 }
 
 export default InstitutionNameAndId

@@ -39,7 +39,7 @@ describe('make url from location object', () => {
   it('should make url from obj', () => {
     expect(
       makeUrl({
-        id: 'id',
+        lei: 'lei',
         filing: 'filing',
         submission: 'submission',
         suffix: '/suffix',

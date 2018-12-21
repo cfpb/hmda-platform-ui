@@ -1,29 +1,16 @@
 {
   "name": "hmda-platform-ui",
-  "version": "0.0.0",
+  "version": "2.7.0",
   "description": "Frontend code for the HMDA filing system",
   "main": "index.js",
   "engines": {
     "node": ">=8.x"
   },
   "scripts": {
-    "test": "jest --coverage",
-    "clearDist": "rimraf ./dist && mkdirp ./dist ./dist/js ./dist/css ./dist/fonts ./dist/img",
-    "js": "(export NODE_ENV=build; webpack --config node_modules/hmda-ui/webpack.config.js --progress) && yarn run env",
-    "js:dev": "export NODE_ENV=build && webpack --config node_modules/hmda-ui/webpack.dev.js --progress && yarn run env",
-    "renew": "(export NODE_ENV=build; webpack --config webpack.renew.js --progress) && rimraf ./dist/js/extraneous* && sed -i.bak s@##vendor##@$(basename dist/js/vendor*.js)@ ./dist/silent_renew.html && rimraf ./dist/silent_renew.html.bak",
-    "sass": "node-sass --quiet --output-style=compressed --source-map-embed=true ./src/app.scss ./dist/css/app.min.scss && cp node_modules/uswds/src/fonts/sourcesanspro-* ./dist/fonts && yarn run sass:prefix",
-    "sass:prefix": "postcss ./dist/css/app.min.scss -u autoprefixer -m -o ./dist/css/app.min.css && rimraf ./dist/css/app.min.scss",
-    "img": "cp -r ./node_modules/uswds/dist/img/* ./dist/img && cp ./src/img/* ./dist/img",
-    "env": "./env.sh",
-    "postinstall": "yarn run build && yarn run renew",
-    "watch:js": "yarn run js:dev -- --watch",
-    "watch:sass": "node-sass --watch --quiet --output-style=compressed --source-map=./dist/css/ ./src/sass/app.scss ./dist/css/app.min.css",
-    "watch:tests": "jest --watchAll",
-    "watch": "yarn run watch:js & yarn run watch:sass",
-    "build": "yarn run clearDist && yarn run sass && yarn run img && yarn run js",
-    "pretty": "yarn run prettier --config ./.prettierrc --write './{src,__tests__}/**/*.{js*,scss}'",
-    "lint": "eslint --ext .js,.jsx ./src"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
@@ -37,66 +24,34 @@
   "bugs": {
     "url": "https://github.com/cfpb/hmda-platform-ui/issues"
   },
-  "homepage": "https://github.com/cfpb/hmda-platform-ui#readme",
-  "devDependencies": {
-    "@babel/core": "7.0.0-beta.34",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.34",
-    "@babel/polyfill": "7.0.0-beta.34",
-    "@babel/preset-env": "7.0.0-beta.34",
-    "@babel/preset-react": "7.0.0-beta.34",
-    "autoprefixer": "7.1.5",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^7.2.3",
-    "babel-jest": "21.2.0",
-    "eslint": "4.1.1",
-    "eslint-config-react-app": "2.1.0",
-    "eslint-plugin-flowtype": "2.34.1",
-    "eslint-plugin-import": "2.6.0",
-    "eslint-plugin-jsx-a11y": "5.1.1",
-    "eslint-plugin-react": "7.1.0",
-    "html-minifier": "3.1.1",
-    "jest-cli": "21.3.0-beta.10",
-    "mkdirp": "0.5.1",
-    "node-sass": "4.5.3",
-    "postcss-cli": "4.1.1",
-    "prettier": "1.7.4",
-    "redux-devtools-extension": "2.13.2",
-    "redux-mock-store": "1.2.1",
-    "rimraf": "2.6.2",
-    "why-did-you-update": "0.1.0"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/lodash",
-      "<rootDir>/node_modules/react-dom",
-      "<rootDir>/node_modules/react-addons-test-utils",
-      "<rootDir>/node_modules/redux-mock-store",
-      "<rootDir>/node_modules/redux-thunk",
-      "<rootDir>/node_modules/fbjs"
-    ]
-  },
   "dependencies": {
-    "babel-polyfill": "6.26.0",
     "detect-browser": "1.7.0",
+    "eslint-plugin-prettier": "3.0.0",
     "file-saver": "1.3.3",
-    "hmda-ui": "0.0.17",
-    "isomorphic-fetch": "2.2.1",
-    "oidc-client": "1.4.1",
-    "prop-types": "15.5.10",
-    "react": "16.2.0",
-    "react-dom": "16.2.0",
+    "keycloak-js": "4.5.0",
+    "normalize.css": "8.0.0",
+    "react": "16.4.2",
+    "react-app-polyfill": "0.1.3",
+    "react-dom": "16.4.2",
     "react-dropzone": "4.2.3",
     "react-redux": "5.0.6",
     "react-router": "v3.2.0",
     "react-router-redux": "4.0.7",
     "react-router-scroll": "0.4.4",
+    "react-scripts": "2.0.5",
     "redux": "3.6.0",
     "redux-logger": "2.7.4",
-    "redux-thunk": "2.1.0",
-    "uswds": "1.4.6"
-  }
+    "redux-thunk": "2.1.0"
+  },
+  "browserslist": [
+    "Chrome >= 60",
+    "Safari >= 10.1",
+    "Firefox >= 54",
+    "Edge >= 15",
+    "ie >= 11"
+  ],
+  "devDependencies": {
+    "redux-devtools-extension": "2.13.2"
+  },
+  "homepage": "/filing/2018"
 }

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import RefileText from './RefileText.jsx'
 
+import '../Modal.css'
+
 let _focusButton = function() {
   return this.confirmButton.focus()
 }
@@ -44,7 +46,7 @@ export default class ModalConfirm extends Component {
     const {
       code,
       filingPeriod,
-      id,
+      lei,
       showing,
       newFile,
       hideConfirmModal,
@@ -54,7 +56,7 @@ export default class ModalConfirm extends Component {
     // get the page
     const page = window.location.pathname.split('/').slice(-1)[0]
 
-    if (!filingPeriod || !id || !hideConfirmModal || !triggerRefile) return null
+    if (!filingPeriod || !lei || !hideConfirmModal || !triggerRefile) return null
 
     return (
       <div
@@ -72,7 +74,7 @@ export default class ModalConfirm extends Component {
               onClick={e => {
                 e.preventDefault()
                 hideConfirmModal()
-                triggerRefile(id, filingPeriod, page, newFile)
+                triggerRefile(lei, filingPeriod, page, newFile)
               }}
               onBlur={e => {
                 e.preventDefault()
@@ -82,10 +84,9 @@ export default class ModalConfirm extends Component {
             >
               Yes, replace HMDA data.
             </button>
-            <a
-              href="#"
+            <button
               tabIndex={showing ? 0 : -1}
-              className="usa-text-small"
+              className="button-link usa-text-small"
               onClick={e => {
                 e.preventDefault()
                 hideConfirmModal()
@@ -97,7 +98,7 @@ export default class ModalConfirm extends Component {
               ref={a => (this.hideLink = a)}
             >
               No, take me back.
-            </a>
+            </button>
           </div>
         </section>
       </div>
@@ -107,7 +108,7 @@ export default class ModalConfirm extends Component {
 
 ModalConfirm.propTypes = {
   filingPeriod: PropTypes.string,
-  id: PropTypes.string,
+  lei: PropTypes.string,
   hideConfirmModal: PropTypes.func,
   triggerRefile: PropTypes.func,
   showing: PropTypes.bool,

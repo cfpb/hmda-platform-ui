@@ -9,7 +9,7 @@ import { signinRedirect } from '../utils/redirect.js'
 
 const mockStore = configureMockStore([thunk])
 const store = mockStore({
-  app: { institutionId: '1', filingPeriod: '2017', submission: { id: '123' } }
+  app: { lei: '1', filingPeriod: '2017', submission: { id: '123' } }
 })
 
 setStore(store)

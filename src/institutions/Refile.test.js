@@ -10,7 +10,7 @@ import TestUtils from 'react-dom/test-utils'
 
 const filing = {
   period: 2017,
-  institutionId: '123456'
+  lei: '123456'
 }
 describe('InstitutionRefile', () => {
   it('renders the refile button', () => {

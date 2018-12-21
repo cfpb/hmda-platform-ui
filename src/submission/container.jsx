@@ -1,3 +1,4 @@
+/*eslint no-unused-vars: 0*/
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
@@ -11,6 +12,7 @@ import EditsContainer from './edits/container.jsx'
 import ReceiptContainer from './ReceiptContainer.jsx'
 import EditsNavComponent from './Nav.jsx'
 import NavButtonComponent from './NavButton.jsx'
+import RefileWarningComponent from '../refileWarning/index.jsx'
 import submissionProgressHOC from './progressHOC.jsx'
 import IRSReport from './irs/container.jsx'
 import Signature from './signature/container.jsx'
@@ -19,14 +21,19 @@ import ParseErrors from './parseErrors/container.jsx'
 import Loading from '../common/Loading.jsx'
 import { FAILED, PARSED_WITH_ERRORS, SIGNED } from '../constants/statusCodes.js'
 
+import './container.css'
+import './table.css'
+
 const Edits = submissionProgressHOC(EditsContainer)
 const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
+const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
 const renderByCode = (code, page, message) => {
   const toRender = []
   if (code === FAILED) {
-    toRender.push(<p>{message}</p>)
+    toRender.push(<RefileWarning />)
+    return toRender
   } else {
     if (page === 'upload') {
       toRender.push(<UploadForm />)
@@ -43,8 +50,20 @@ const renderByCode = (code, page, message) => {
         toRender.push(<ReadyToSign />)
       }
       toRender.push(<ReceiptContainer />)
-      toRender.push(<IRSReport />)
+      //toRender.push(<IRSReport />)
+      toRender.push(
+        <header>
+          <h2>Institution Register Summary (IRS)</h2>
+          <p className="font-lead">
+            The IRS is not generated during the beta testing period. During the
+            2018 filing period, the IRS will be made available in the HMDA
+            Platform after signing and submitting your HMDA data.
+          </p>
+        </header>
+      )
+
       toRender.push(<Summary />)
+
       // and just before the signature
       if (code !== SIGNED) {
         toRender.push(<ReadyToSign />)
@@ -60,7 +79,8 @@ const renderByCode = (code, page, message) => {
         Something is wrong.{' '}
         <Link to={window.HMDA_ENV.APP_SUFFIX + 'institutions'}>
           Return to institutions
-        </Link>.
+        </Link>
+        .
       </p>
     )
   }
@@ -73,10 +93,10 @@ const renderByCode = (code, page, message) => {
 class SubmissionContainer extends Component {
   componentDidMount() {
     // for institution name in header
-    const id = this.props.params.institution
+    const { lei } = this.props.params
 
-    if (!this.props.institutions.institutions[id]) {
-      this.props.dispatch(fetchInstitution({ id: id }, false))
+    if (!this.props.institutions.institutions[lei]) {
+      this.props.dispatch(fetchInstitution({ lei }, false))
     }
   }
 
@@ -86,7 +106,7 @@ class SubmissionContainer extends Component {
     const status = submission.status
     const code = status && status.code
     const page = location.pathname.split('/').slice(-1)[0]
-    const institution = institutions.institutions[params.institution]
+    const institution = institutions.institutions[params.lei]
 
     const toRender = code
       ? renderByCode(code, page, status.message)
@@ -99,8 +119,10 @@ class SubmissionContainer extends Component {
           name={institution && institution.name ? institution.name : ''}
         />
         <EditsNav />
-        <main id="main-content" className="usa-grid SubmissionContainer">
-          {this.props.error ? <ErrorWarning error={this.props.error} /> : null}
+        <main id="main-content" className="SubmissionContainer usa-grid-full">
+          {this.props.error && code !== FAILED ? (
+            <ErrorWarning error={this.props.error} />
+          ) : null}
           {toRender.map((component, i) => {
             return (
               <div className="usa-width-one-whole" key={i}>
@@ -115,12 +137,12 @@ class SubmissionContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  const { submission, institutions, institutionId, error } = state.app
+  const { submission, institutions, lei, error } = state.app
 
   return {
     submission,
     institutions,
-    institutionId,
+    lei,
     error
   }
 }

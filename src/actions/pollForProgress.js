@@ -6,7 +6,10 @@ import { getLatestSubmission } from '../api/api.js'
 import { error } from '../utils/log.js'
 import {
   PARSED_WITH_ERRORS,
-  VALIDATED_WITH_ERRORS
+  SYNTACTICAL_VALIDITY_EDITS,
+  NO_MACRO_EDITS,
+  MACRO_EDITS,
+  VALIDATED
 } from '../constants/statusCodes.js'
 
 export const makeDurationGetter = () => {
@@ -47,15 +50,21 @@ export default function pollForProgress() {
       })
       .then(json => {
         if (!json) return
+        const { code } = json.status
         if (
           // continue polling until we reach a status that isn't processing
-          json.status.code < VALIDATED_WITH_ERRORS &&
-          json.status.code !== PARSED_WITH_ERRORS
+          code !== PARSED_WITH_ERRORS &&
+          code !== SYNTACTICAL_VALIDITY_EDITS &&
+          code !== NO_MACRO_EDITS &&
+          code !== MACRO_EDITS &&
+          code < VALIDATED
         ) {
           setTimeout(poller.bind(null, dispatch), getTimeoutDuration())
         } else if (
-          // we don't need edits if it parsed with errors
-          json.status.code === VALIDATED_WITH_ERRORS
+          // only get edits when we've reached a terminal edit state
+          code === SYNTACTICAL_VALIDITY_EDITS ||
+          code === NO_MACRO_EDITS ||
+          code === MACRO_EDITS
         ) {
           return dispatch(fetchEdits())
         }

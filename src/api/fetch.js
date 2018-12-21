@@ -2,7 +2,7 @@ import isomorphicFetch from 'isomorphic-fetch'
 import createQueryString from './createQueryString.js'
 import makeUrl from './makeUrl.js'
 import * as AccessToken from './AccessToken.js'
-import { signinRedirect } from '../utils/redirect.js'
+import { login } from '../utils/keycloak.js'
 import log, { error } from '../utils/log.js'
 
 //Once the store is intialized, save a reference to it here
@@ -15,7 +15,7 @@ export function setStore(s) {
 export function getFilingData() {
   const appState = store.getState().app
   return {
-    id: appState.institutionId,
+    lei: appState.lei,
     filing: appState.filingPeriod,
     submission: appState.submission.id && appState.submission.id.sequenceNumber
   }
@@ -38,21 +38,28 @@ export function fetch(options = { method: 'GET' }) {
   if (typeof options.body === 'object' && !isFormData)
     options.body = JSON.stringify(options.body)
 
-  let headers = {}
+  let headers = { Accept: 'application/json' }
 
   if (options.method === 'POST' && !isFormData) {
     headers = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
     }
   }
 
   if (options.params && options.params.format === 'csv') {
     headers = {
-      'Content-Type': 'text/csv'
+      'Content-Type': 'text/csv',
+      Accept: 'text/csv'
     }
   }
 
   if (accessToken) headers.Authorization = 'Bearer ' + accessToken
+
+  if(options.noCache || options.method === 'POST') {
+    headers['Cache-Control'] = 'no-cache, no-store'
+  }
+
   var fetchOptions = {
     method: options.method || 'GET',
     body: options.body,
@@ -63,7 +70,7 @@ export function fetch(options = { method: 'GET' }) {
     .then(response => {
       return new Promise(resolve => {
         log('got res', response, response.status)
-        if (response.status === 401) signinRedirect()
+        if (response.status === 401 || response.status === 403) login()
         if (response.status > 399) return resolve(response)
         if (options.params && options.params.format === 'csv') {
           return resolve(response.text())

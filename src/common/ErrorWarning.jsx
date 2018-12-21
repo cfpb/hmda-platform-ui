@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Alert from './Alert.jsx'
 
+import './ErrorWarning.css'
+
 export function getHeading(props) {
   if (props.headerText) return props.headerText
 

@@ -6,11 +6,11 @@ import { getIRSCSV } from '../api/api.js'
 import { error } from '../utils/log.js'
 
 // downloading the IRS csv, no reducer required
-export default function fetchIRSCSV(institutionId, filing, submissionId) {
+export default function fetchIRSCSV(lei, filing, submissionId) {
   return dispatch => {
     dispatch(requestIRSCSV())
     return getIRSCSV({
-      id: institutionId,
+      lei: lei,
       filing: filing,
       submission: submissionId
     })
@@ -22,7 +22,7 @@ export default function fetchIRSCSV(institutionId, filing, submissionId) {
           }
           return fileSaver.saveAs(
             new Blob([csv], { type: 'text/csv;charset=utf-16' }),
-            `${institutionId}-${submissionId}-irs-report.csv`
+            `${lei}-${submissionId}-irs-report.csv`
           )
         })
       })

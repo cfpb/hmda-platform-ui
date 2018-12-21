@@ -1,6 +1,8 @@
 import React from 'react'
 import Alert from './Alert.jsx'
 
+import './BrowserBlocker.css'
+
 const BrowserBlocker = () => {
   return (
     <main id="main-content" className="BrowserBlocker">

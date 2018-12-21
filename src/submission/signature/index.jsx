@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ErrorWarning from '../../common/ErrorWarning.jsx'
-import { VALIDATED_WITH_ERRORS, SIGNED } from '../../constants/statusCodes.js'
+import { VALIDATED, SIGNED } from '../../constants/statusCodes.js'
+
+import './Signature.css'
 
 const showWarning = props => {
   if (!props.error) return null
@@ -14,55 +16,57 @@ const showWarning = props => {
 }
 
 const Signature = props => {
-  let isDisabled =
-    props.status.code > VALIDATED_WITH_ERRORS && props.status.code !== SIGNED
-      ? false
-      : true
+  let isButtonDisabled =
+    props.status.code === VALIDATED && props.checked ? false : true
 
-  let buttonClass = 'usa-button-disabled'
+  let isCheckBoxDisabled = props.status.code === SIGNED ? true : false
+
+  let buttonClass = 'button-disabled'
   // if the checkbox is checked remove disabled from button
   if (props.checked) {
     buttonClass = ''
   }
   // if signed, disable button again
   if (props.status.code === SIGNED) {
-    buttonClass = 'usa-button-disabled'
+    buttonClass = 'button-disabled'
   }
 
   // if an error has occurred, disable both checkbox and button
   if (props.error) {
-    isDisabled = true
-    buttonClass = 'usa-button-disabled'
+    isButtonDisabled = true
+    isCheckBoxDisabled = true
+    buttonClass = 'button-disabled'
   }
 
   return (
     <section className="Signature" id="signature">
       <header>
         <h2>Signature</h2>
-        <p className="usa-font-lead">
-          To complete your submission, select the checkbox to certify the
-          accuracy and completeness of the data submitted. Next, select the
-          &ldquo;Submit HMDA data&rdquo; button to submit your data.
+        <p className="font-lead">
+          To complete your test submission, select the checkbox below. Next,
+          select the &quot;Submit HMDA test data&quot; button to practice
+          submitting data. When the filing period opens, selecting the checkbox
+          will certify the accuracy and completeness of the data submitted.
         </p>
       </header>
 
       {showWarning(props)}
 
-      <ul className="usa-unstyled-list">
+      <ul className="unstyled-list">
         <li>
           <input
             id="signatureAuth"
             name="signatureAuth"
             type="checkbox"
             value="signature"
-            disabled={isDisabled}
-            checked={props.checked}
+            disabled={isCheckBoxDisabled}
+            checked={props.checked || props.status.code === SIGNED}
             onChange={e => props.onSignatureCheck(e.target.checked)}
           />
-          <label htmlFor="signatureAuth" className="max-width-100">
-            I am an authorized representative of my institution with knowledge
-            of the data submitted and am certifying to the accuracy and
-            completeness of the data submitted.
+          <label htmlFor="signatureAuth">
+            I understand this data being submitted is solely for testing
+            purposes and will be removed from the system when the filing period
+            begins on January 1st, 2019.
           </label>
         </li>
       </ul>
@@ -70,8 +74,9 @@ const Signature = props => {
       <button
         className={buttonClass}
         onClick={e => props.onSignatureClick(props.checked)}
+        disabled={isButtonDisabled}
       >
-        Submit HMDA data
+        Submit HMDA test data
       </button>
     </section>
   )

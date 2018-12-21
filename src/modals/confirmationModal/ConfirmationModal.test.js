@@ -17,7 +17,7 @@ describe('Confirmation Modal', () => {
       <ModalConfirm
         code={1}
         filingPeriod="2017"
-        id="1"
+        lei="1"
         showing={false}
         hideConfirmModal={hideConfirmModal}
         triggerRefile={triggerRefile}
@@ -90,7 +90,7 @@ describe('Confirmation Modal', () => {
       <ModalConfirm
         code={1}
         filingPeriod="2017"
-        id="1"
+        lei="1"
         showing={true}
         hideConfirmModal={hideConfirmModal}
         triggerRefile={triggerRefile}
@@ -135,7 +135,7 @@ describe('Confirmation Modal', () => {
   const confirmBroken = TestUtils.renderIntoDocument(
     <Wrapper>
       <ModalConfirm
-        id="1"
+        lei="1"
         hideConfirmModal={hideConfirmModal}
         triggerRefile={triggerRefile}
       />

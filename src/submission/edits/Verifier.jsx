@@ -4,6 +4,8 @@ import Alert from '../../common/Alert.jsx'
 import Loading from '../../common/Loading.jsx'
 import { SIGNED } from '../../constants/statusCodes.js'
 
+import './Verifier.css'
+
 export const renderVerified = (verified, type) => {
   if (verified) {
     return (
@@ -39,11 +41,11 @@ class Verifier extends Component {
       <section className="Verifier">
         <hr />
         <h2>Verify {props.type} edits</h2>
-        <p className="usa-font-lead">
+        <p className="font-lead">
           In order to continue you must verify all {props.type} edits.
         </p>
         {props.isFetching ? <Loading /> : null}
-        <ul className="usa-unstyled-list">
+        <ul className="unstyled-list">
           <li>
             <input
               id={`${props.type}Verifier`}

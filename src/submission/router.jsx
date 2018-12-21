@@ -2,18 +2,21 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import SubmissionContainer from './container.jsx'
-import ErrorWarning from '../common/ErrorWarning.jsx'
 import Loading from '../common/Loading.jsx'
 import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchEdits from '../actions/fetchEdits.js'
 import refreshState from '../actions/refreshState.js'
-import setInstitution from '../actions/setInstitution.js'
+import setLei from '../actions/setLei.js'
 import updateFilingPeriod from '../actions/updateFilingPeriod.js'
-import suppressEdits from '../actions/suppressEdits.js'
 import {
   UNINITIALIZED,
-  VALIDATED_WITH_ERRORS,
-  FAILED
+  VALIDATING,
+  SYNTACTICAL_VALIDITY_EDITS,
+  NO_QUALITY_EDITS,
+  QUALITY_EDITS,
+  NO_MACRO_EDITS,
+  MACRO_EDITS,
+  VALIDATED
 } from '../constants/statusCodes.js'
 
 const editTypes = ['syntacticalvalidity', 'quality', 'macro']
@@ -25,20 +28,17 @@ export class SubmissionRouter extends Component {
     const { submission, params, dispatch } = this.props
     const status = submission.status
 
-    if (!params.institution || !params.filing) {
+    if (!params.lei || !params.filing) {
       return this.goToAppHome()
     }
 
     const unmatchedId =
-      submission.id && submission.id.institutionId !== params.institution
+      submission.id && submission.id.lei !== params.lei
 
     if (unmatchedId) dispatch(refreshState())
 
-    dispatch(setInstitution(params.institution))
+    dispatch(setLei(params.lei))
     dispatch(updateFilingPeriod(params.filing))
-
-    const size = localStorage.getItem(`HMDA_FILE_SIZE/${params.institution}`)
-    if (size > 5e6) dispatch(suppressEdits())
 
     if (unmatchedId || !status || status.code === UNINITIALIZED) {
       return dispatch(fetchSubmission()).then(json => {
@@ -62,35 +62,34 @@ export class SubmissionRouter extends Component {
   }
 
   editsNeeded() {
-    const { submission } = this.props
-    return submission.status.code === VALIDATED_WITH_ERRORS
+    const { code } = this.props.submission.status
+    return (
+      code === SYNTACTICAL_VALIDITY_EDITS ||
+      code === NO_MACRO_EDITS ||
+      code === MACRO_EDITS
+    )
   }
 
   replaceHistory(splat) {
-    const { institution, filing } = this.props.params
+    const { lei, filing } = this.props.params
     return browserHistory.replace(
-      `${window.HMDA_ENV.APP_SUFFIX}${institution}/${filing}/${splat}`
+      `/filing/2018/${lei}/${filing}/${splat}`
     )
   }
 
   goToAppHome() {
-    return browserHistory.replace(window.HMDA_ENV.APP_SUFFIX)
+    return browserHistory.replace('/filing/2018/')
   }
 
   getLatestPage() {
     const status = this.props.submission.status
     const code = status.code
-    const types = this.props.types
+    const qualityVerified = this.props.types.quality.verified
 
-    const synvalExist = !!(
-      types.syntactical.edits.length + types.validity.edits.length
-    )
-    const qualityExist = !!types.quality.edits.length && !types.quality.verified
-
-    if (code < VALIDATED_WITH_ERRORS) return 'upload'
-    if (code > VALIDATED_WITH_ERRORS) return 'submission'
-    if (synvalExist) return 'syntacticalvalidity'
-    if (qualityExist) return 'quality'
+    if (code <= VALIDATING || code === NO_QUALITY_EDITS) return 'upload'
+    if (code >= VALIDATED) return 'submission'
+    if (code === SYNTACTICAL_VALIDITY_EDITS) return 'syntacticalvalidity'
+    if (code >= QUALITY_EDITS && !qualityVerified) return 'quality'
     return 'macro'
   }
 
@@ -106,15 +105,15 @@ export class SubmissionRouter extends Component {
       return this.replaceHistory(latest)
     }
 
-    if (!submissionRoutes.includes(splat)) {
+    if (submissionRoutes.indexOf(splat) === -1) {
       return this.goToAppHome()
     }
 
-    if (code < VALIDATED_WITH_ERRORS)
+    if (code <= VALIDATING)
       if (splat === 'upload') return this.forceUpdate()
       else return this.replaceHistory('upload')
 
-    if (code === VALIDATED_WITH_ERRORS) {
+    if (code >= VALIDATING && code <= VALIDATED) {
       if (splat === latest) return this.forceUpdate()
       else if (
         submissionRoutes.indexOf(splat) > submissionRoutes.indexOf(latest)
@@ -127,24 +126,11 @@ export class SubmissionRouter extends Component {
   }
 
   render() {
-    const { submission, error, params } = this.props
+    const { submission, params } = this.props
 
-    if (error) {
-      return (
-        <div id="main-content" className="usa-grid">
-          <ErrorWarning error={this.props.error} />
-        </div>
-      )
-    }
-    if (submission.status.code === FAILED)
-      return (
-        <div className="SubmissionContainer">
-          <p>{submission.status.message}</p>
-        </div>
-      )
     if (
       submission.status.code === UNINITIALIZED ||
-      submission.id.institutionId !== params.institution ||
+      submission.id.lei !== params.lei ||
       !this.renderChildren ||
       !params.splat
     )
@@ -154,14 +140,13 @@ export class SubmissionRouter extends Component {
 }
 
 export function mapStateToProps(state, ownProps) {
-  const { submission, error } = state.app
+  const { submission } = state.app
   const { types } = state.app.edits
 
   const { params } = ownProps
 
   return {
     submission,
-    error,
     types,
     params
   }

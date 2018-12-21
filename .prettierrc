@@ -1,13 +1,4 @@
 {
   semi: false,
-  singleQuote: true,
-  overrides: [
-    {
-      files: "./src/sass/**/*.scss",
-      options: {
-        semi: true,
-        singleQuote: false
-      }
-    }
-  ]
+  singleQuote: true
 }

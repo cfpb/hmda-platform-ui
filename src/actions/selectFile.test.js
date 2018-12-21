@@ -7,7 +7,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 const mockStore = configureMockStore([thunk])
-const store = mockStore({ app: { institutionId: '123' } })
+const store = mockStore({ app: { lei: '123' } })
 
 window.localStorage = {
   setItem: jest.fn()
@@ -23,7 +23,7 @@ describe('selectFile', () => {
     const getState = jest.fn(() => {
       return {
         app: {
-          institutionId: '123'
+          lei: '123'
         }
       }
     })
@@ -35,7 +35,7 @@ describe('selectFile', () => {
     const file = { size: 42, name: 'test.txt' }
     store.dispatch(selectFile(file))
     expect(store.getActions()).toEqual([
-      { type: types.SELECT_FILE, file, id: '123' }
+      { type: types.SELECT_FILE, file, lei: '123' }
     ])
   })
 })

@@ -17,7 +17,7 @@ describe('InstitutionViewButton', () => {
           status={{
             code: STATUS.CREATED
           }}
-          institutionId="123456"
+          lei="123456"
           filingPeriod="2017"
         />
       </Wrapper>
@@ -35,7 +35,7 @@ describe('InstitutionViewButton', () => {
   it('renders correctly when status is FAILED', () => {
     const button = InstitutionViewButton({
       status: { code: -1 },
-      institutionId: 'a',
+      lei: 'a',
       filingPeriod: 'b'
     })
     expect(button.props.children).toBe('Upload your file')
@@ -44,7 +44,7 @@ describe('InstitutionViewButton', () => {
   it('renders correctly when status is UNINITIALIZED', () => {
     const button = InstitutionViewButton({
       status: { code: 0 },
-      institutionId: 'a',
+      lei: 'a',
       filingPeriod: 'b'
     })
     expect(button.props.children).toBe('Upload your file')
@@ -53,7 +53,7 @@ describe('InstitutionViewButton', () => {
   it('renders correctly when status is CREATED', () => {
     const button = InstitutionViewButton({
       status: { code: 1 },
-      institutionId: 'a',
+      lei: 'a',
       filingPeriod: 'b'
     })
     expect(button.props.children).toBe('Upload your file')
@@ -62,7 +62,7 @@ describe('InstitutionViewButton', () => {
   it('renders correctly when status is UPLOADING', () => {
     const button = InstitutionViewButton({
       status: { code: 2 },
-      institutionId: 'a',
+      lei: 'a',
       filingPeriod: 'b'
     })
     expect(button.props.children).toBe('View upload progress')
@@ -71,7 +71,7 @@ describe('InstitutionViewButton', () => {
   it('renders correctly when status is UPLOADED', () => {
     const button = InstitutionViewButton({
       status: { code: 3 },
-      institutionId: 'a',
+      lei: 'a',
       filingPeriod: 'b'
     })
     expect(button.props.children).toBe('View upload progress')
@@ -80,7 +80,7 @@ describe('InstitutionViewButton', () => {
   it('renders correctly when status is PARSING', () => {
     const button = InstitutionViewButton({
       status: { code: 4 },
-      institutionId: 'a',
+      lei: 'a',
       filingPeriod: 'b'
     })
     expect(button.props.children).toBe('View upload progress')
@@ -89,7 +89,7 @@ describe('InstitutionViewButton', () => {
   it('renders correctly when status is PARSED_WITH_ERRORS', () => {
     const button = InstitutionViewButton({
       status: { code: 5 },
-      institutionId: 'a',
+      lei: 'a',
       filingPeriod: 'b'
     })
     expect(button.props.children).toBe('Review formatting errors')
@@ -98,7 +98,7 @@ describe('InstitutionViewButton', () => {
   it('renders correctly when status is PARSED', () => {
     const button = InstitutionViewButton({
       status: { code: 6 },
-      institutionId: 'a',
+      lei: 'a',
       filingPeriod: 'b'
     })
     expect(button.props.children).toBe('View progress')
@@ -107,7 +107,7 @@ describe('InstitutionViewButton', () => {
   it('renders correctly when status is VALIDATING', () => {
     const button = InstitutionViewButton({
       status: { code: 7 },
-      institutionId: 'a',
+      lei: 'a',
       filingPeriod: 'b'
     })
     expect(button.props.children).toBe('View progress')
@@ -116,7 +116,7 @@ describe('InstitutionViewButton', () => {
   it('renders correctly when status is VALIDATED_WITH_ERRORS', () => {
     const button = InstitutionViewButton({
       status: { code: 8 },
-      institutionId: 'a',
+      lei: 'a',
       filingPeriod: 'b'
     })
     expect(button.props.children).toBe('Review edits')
@@ -125,7 +125,7 @@ describe('InstitutionViewButton', () => {
   it('renders correctly when status is VALIDATED', () => {
     const button = InstitutionViewButton({
       status: { code: 9 },
-      institutionId: 'a',
+      lei: 'a',
       filingPeriod: 'b'
     })
     expect(button.props.children).toBe('Review summary')
@@ -134,7 +134,7 @@ describe('InstitutionViewButton', () => {
   it('renders correctly when status is SIGNED', () => {
     const button = InstitutionViewButton({
       status: { code: 10 },
-      institutionId: 'a',
+      lei: 'a',
       filingPeriod: 'b'
     })
     expect(button.props.children).toBe('View completed filing')

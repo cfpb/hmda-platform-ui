@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CSVDownload from '../common/CSVContainer.jsx'
-import * as STATUS from '../constants/statusCodes.js'
+import { CREATED, SIGNED, VALIDATING } from '../constants/statusCodes.js'
+
+import './Status.css'
 
 const defaultSubmission = {
   status: {
-    code: STATUS.CREATED,
+    code: CREATED,
     message: 'No data has been uploaded yet.',
     description:
       'The filing period is open and available to accept HMDA data. Make sure your data is in a pipe-delimited text file.'
@@ -19,15 +21,15 @@ const InstitutionStatus = props => {
     <section className="status">
       <h4>{message}</h4>
       <p>{description}</p>
-      {props.filing.status.code === 3 && code !== STATUS.SIGNED ? (
-        <p className="usa-text-small">
+      {props.filing.status.code === 3 && code !== SIGNED ? (
+        <p className="text-small">
           You have previously submitted a HMDA file and are in the process of
           refiling. If you do not complete your current refiling process, your
           original submission will be accepted for the current filing period.
         </p>
       ) : null}
-      {code > STATUS.VALIDATING ? (
-        <div className="usa-text-small" style={{ lineHeight: '1.5em' }}>
+      {code > VALIDATING ? (
+        <div className="text-small" style={{ lineHeight: '1.5em' }}>
           <CSVDownload submission={submission} text="Download edit report" />
         </div>
       ) : null}

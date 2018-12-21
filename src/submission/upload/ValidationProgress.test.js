@@ -17,7 +17,7 @@ window.localStorage = {
 describe('ValidationProgress', () => {
   const progress = TestUtils.renderIntoDocument(
     <Wrapper>
-      <ValidationProgress code={9} id="argle" />
+      <ValidationProgress code={9} lei="argle" />
     </Wrapper>
   )
   const progressNode = ReactDOM.findDOMNode(progress)
@@ -41,7 +41,7 @@ describe('ValidationProgress', () => {
   it('renders a pulsing class when code is appropriate', () => {
     const progress = TestUtils.renderIntoDocument(
       <Wrapper>
-        <ValidationProgress code={7} id="argle" />
+        <ValidationProgress code={7} lei="argle" />
       </Wrapper>
     )
     expect(
@@ -52,7 +52,7 @@ describe('ValidationProgress', () => {
   it('renders an error class', () => {
     const progress = TestUtils.renderIntoDocument(
       <Wrapper>
-        <ValidationProgress code={5} id="argle" />
+        <ValidationProgress code={5} lei="argle" />
       </Wrapper>
     )
     expect(
@@ -60,7 +60,7 @@ describe('ValidationProgress', () => {
     ).toEqual(2)
   })
 
-  it('renders null with no id', () => {
+  it('renders null with no lei', () => {
     const progress = TestUtils.renderIntoDocument(
       <Wrapper>
         <ValidationProgress code={5} />
@@ -183,7 +183,7 @@ describe('ValidationProgress', () => {
   })
 
   it('updates when receiving new props', () => {
-    let progress = new ValidationProgress({ file: { size: 123 }, id: 'argle' })
+    let progress = new ValidationProgress({ file: { size: 123 }, lei: 'argle' })
     const setState = jest.fn()
     progress.setState = setState
     progress.componentWillReceiveProps({})
@@ -197,20 +197,20 @@ describe('ValidationProgress', () => {
 
     expect(setState2).not.toBeCalled()
 
-    progress = new ValidationProgress({ file: { size: 123 }, id: 'argle' })
+    progress = new ValidationProgress({ file: { size: 123 }, lei: 'argle' })
     const setState3 = jest.fn()
     progress.setState = setState3
-    progress.componentWillReceiveProps({ file: { size: 123 }, id: 'argle' })
+    progress.componentWillReceiveProps({ file: { size: 123 }, lei: 'argle' })
 
     expect(setState3).not.toBeCalled()
     expect(progress.SCALING_FACTOR).toBe(1)
 
-    progress.componentWillReceiveProps({ file: { size: 1e8 }, id: 'argle' })
+    progress.componentWillReceiveProps({ file: { size: 1e8 }, lei: 'argle' })
     expect(progress.SCALING_FACTOR).toBe(5)
   })
 
   it('calls expected functions on unmount with no error', () => {
-    let progress = new ValidationProgress({ file: { size: 123 }, id: 'argle' })
+    let progress = new ValidationProgress({ file: { size: 123 }, lei: 'argle' })
 
     delete window.clearTimeout
     const timeout = jest.fn()
@@ -225,25 +225,25 @@ describe('ValidationProgress', () => {
     progress = new ValidationProgress({
       uploadError: '34',
       file: { size: 123 },
-      id: 'argle'
+      lei: 'argle'
     })
   })
 
   it('sets the right scaling factor', () => {
     let progress = new ValidationProgress({
-      id: 'argle'
+      lei: 'argle'
     })
     expect(progress.SCALING_FACTOR).toBe(1)
 
     progress = new ValidationProgress({
       file: { size: 10 },
-      id: 'argle'
+      lei: 'argle'
     })
     expect(progress.SCALING_FACTOR).toBe(1)
 
     progress = new ValidationProgress({
       file: { size: 1e8 },
-      id: 'argle'
+      lei: 'argle'
     })
     expect(progress.SCALING_FACTOR).toBe(5)
   })

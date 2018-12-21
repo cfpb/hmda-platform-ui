@@ -27,7 +27,7 @@ describe('upload reducer', () => {
         type: types.SELECT_FILE,
         file: { name: 'afile' },
         errors: [],
-        id: '123'
+        lei: '123'
       })
     ).toEqual({
       123: { ...defaultUpload, file: { name: 'afile' } },
@@ -39,7 +39,7 @@ describe('upload reducer', () => {
     expect(
       upload(
         { ...defaultUploads, 123: 42 },
-        { type: types.REFRESH_STATE, id: '123' }
+        { type: types.REFRESH_STATE, lei: '123' }
       )
     ).toEqual({ 123: defaultUpload, __DEFAULT_UPLOAD__: defaultUpload })
   })
@@ -48,7 +48,7 @@ describe('upload reducer', () => {
     expect(
       upload(
         { 123: 42 },
-        { type: types.RECEIVE_UPLOAD_ERROR, error: 'argle', id: '123' }
+        { type: types.RECEIVE_UPLOAD_ERROR, error: 'argle', lei: '123' }
       )
     ).toEqual({ 123: { errorUpload: 'argle' } })
   })
@@ -59,7 +59,7 @@ describe('upload reducer', () => {
         { 123: 42 },
         {
           type: types.RECEIVE_FILE_ERRORS,
-          id: '123',
+          lei: '123',
           file: 'yo',
           errors: ['err']
         }
@@ -69,7 +69,7 @@ describe('upload reducer', () => {
 
   it('handles REQUEST_UPLOAD', () => {
     expect(
-      upload(defaultUploads, { type: types.REQUEST_UPLOAD, id: '123' })
+      upload(defaultUploads, { type: types.REQUEST_UPLOAD, lei: '123' })
     ).toEqual({
       ...defaultUploads,
       123: { ...defaultUpload, uploading: true }
@@ -80,7 +80,7 @@ describe('upload reducer', () => {
     expect(
       upload(defaultUploads, {
         type: types.SELECT_NEW_FILE,
-        id: '123',
+        lei: '123',
         file: { a: 2 }
       })
     ).toEqual({
@@ -91,7 +91,7 @@ describe('upload reducer', () => {
 
   it('handles RECEIVE_UPLOAD', () => {
     expect(
-      upload(defaultUploads, { type: types.RECEIVE_UPLOAD, id: '123' })
+      upload(defaultUploads, { type: types.RECEIVE_UPLOAD, lei: '123' })
     ).toEqual({
       ...defaultUploads,
       123: { ...defaultUpload, uploading: false }

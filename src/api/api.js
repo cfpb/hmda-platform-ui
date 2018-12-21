@@ -1,26 +1,29 @@
 import { fetch } from './fetch.js'
 
-export function getInstitutions() {
-  return fetch({ pathname: '/institutions' })
+export function getInstitution(lei) {
+  return fetch({ pathname: `/institutions/${lei}` })
 }
 
-export function getInstitution(id) {
-  return fetch({ pathname: `/institutions/${id}` })
-}
-
-export function createSubmission(id, filing) {
+export function createSubmission(lei, filing) {
   return fetch({
-    pathname: `/institutions/${id}/filings/${filing}/submissions`,
+    pathname: `/institutions/${lei}/filings/${filing}/submissions`,
     method: 'POST'
   })
 }
 
-export function getFiling(id, filing) {
-  return fetch({ pathname: `/institutions/${id}/filings/${filing}` })
+export function getFiling(lei, filing) {
+  return fetch({ pathname: `/institutions/${lei}/filings/${filing}` })
+}
+
+export function createFiling(lei, filing) {
+  return fetch({
+    pathname: `/institutions/${lei}/filings/${filing}`,
+    method: 'POST'
+  })
 }
 
 export function getLatestSubmission() {
-  return fetch({ submission: 'latest' })
+  return fetch({ submission: 'latest', noCache: 1 })
 }
 
 export function getEdits() {

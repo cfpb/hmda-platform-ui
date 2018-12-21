@@ -27,6 +27,8 @@ const DropzoneContent = ({ code, errors, filename, errorFile }) => {
       case STATUS.PARSING:
       case STATUS.PARSED:
       case STATUS.VALIDATING:
+      case STATUS.NO_SYNTACTICAL_VALIDITY_EDITS:
+      case STATUS.NO_QUALITY_EDITS:
         messageObj = {
           pre: 'Upload of',
           post: 'is currently in progress'
@@ -38,12 +40,25 @@ const DropzoneContent = ({ code, errors, filename, errorFile }) => {
           post: 'has formatting errors'
         }
         break
-      case STATUS.VALIDATED_WITH_ERRORS:
+      case STATUS.SYNTACTICAL_VALIDITY_EDITS:
         messageObj = {
           pre: 'Upload of',
           post: 'is ready for review'
         }
         break
+      case STATUS.QUALITY_EDITS:
+        messageObj = {
+          pre: 'Upload of',
+          post: 'is ready for review'
+        }
+        break
+      case STATUS.MACRO_EDITS:
+        messageObj = {
+          pre: 'Upload of',
+          post: 'is ready for review'
+        }
+        break
+      case STATUS.NO_MACRO_EDITS:
       case STATUS.VALIDATED:
         messageObj = {
           pre: 'Upload of',
@@ -55,6 +70,8 @@ const DropzoneContent = ({ code, errors, filename, errorFile }) => {
           pre: 'Upload of',
           post: 'is complete'
         }
+        break
+      default:
         break
     }
 

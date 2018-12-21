@@ -7,31 +7,44 @@ import InstitutionsHeader from './Header.jsx'
 import sortInstitutions from '../utils/sortInstitutions.js'
 import Alert from '../common/Alert.jsx'
 
+import './Institutions.css'
+
 const _setSubmission = (submission, filingObj) => {
-  if (
-    submission.id &&
-    submission.id.institutionId === filingObj.filing.institutionId
-  ) {
+  if (submission.id && submission.id.lei === filingObj.filing.lei) {
     return submission
   }
 
   return filingObj.submissions[0]
 }
 
+const wrapLoading = (i = 0) => {
+  return (
+    <div key={i} style={{height: '100px'}}>
+      <Loading className="floatingIcon" />
+    </div>
+  )
+}
+
 const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
   // we don't have institutions yet
-  if (!institutions.fetched) return <Loading className="floatingIcon" />
+  if (!institutions.fetched) return wrapLoading()
+  // we don't have any associated institutions
+  // This is probably due to accounts from previous years
 
-  // we don't have any institutions
-  // this shouldn't happen because they need to pick
-  // an institution when registering but just in case
   if (Object.keys(institutions.institutions).length === 0)
     return (
-      <Alert type="error">
+      <Alert heading="No associated institutions" type="info">
         <p>
-          There was an error getting your list of institutions, please refresh
-          the page or try again later. If the problem persists, contact{' '}
-          <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.
+          In order to access the HMDA Platform, your institution must have a
+          Legal Entity Identifier (LEI). In order to provide your{' '}
+          institution&#39;s LEI, please access{' '}
+          <a href="https://hmdahelp.consumerfinance.gov/accounthelp/">
+            this form
+          </a>{' '}
+          and enter the necessary information, including your HMDA Platform
+          account email address in the &#34;Additional comments&#34; text box.
+          We will apply the update to your account, please check back 2 business{' '}
+          days after submitting your information.
         </p>
       </Alert>
     )
@@ -42,14 +55,11 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
   )
   return sortedInstitutions.map((key, i) => {
     const institution = institutions.institutions[key]
-    const institutionFilings = filings[institution.id]
+    const institutionFilings = filings[institution.lei]
 
-    if (!institutionFilings) {
-      // there are no filings
-      return <Institution key={i} institution={institution} />
-    } else if (!institutionFilings.fetched) {
+    if (!institutionFilings || !institutionFilings.fetched) {
       // filings are not fetched yet
-      return <Loading className="floatingIcon" key={i} />
+      return wrapLoading(i)
     } else {
       // we have good stuff
       const filingObj = institutionFilings.filing
@@ -71,7 +81,7 @@ export default class Institutions extends Component {
     const { error, filingPeriod } = this.props
 
     return (
-      <main id="main-content" className="usa-grid Institutions">
+      <main id="main-content" className="Institutions usa-grid-full">
         {error ? <ErrorWarning error={error} /> : null}
         <div className="usa-width-one-whole">
           {filingPeriod ? (
@@ -80,12 +90,27 @@ export default class Institutions extends Component {
 
           {_whatToRender(this.props)}
 
-          {this.props.institutions.fetched ? (
-            <p className="multi-message">
-              If you are planning to file on behalf of more than one financial
-              institution, contact{' '}
-              <a href="mailto:hmdahelp@cfpb.gov">hmdahelp@cfpb.gov</a>.
-            </p>
+          {this.props.institutions.fetched &&
+          Object.keys(this.props.institutions.institutions).length !== 0 ? (
+            <Alert
+              heading="Missing an institution?"
+              type="info"
+              headingType="small"
+            >
+              <p className="text-small">
+                In order to access the HMDA Platform, each of your institutions
+                must have a Legal Entity Identifier (LEI). In order to provide
+                your institution&#39;s LEI, please access{' '}
+                <a href="https://hmdahelp.consumerfinance.gov/accounthelp/">
+                  this form
+                </a>{' '}
+                and enter the necessary information, including your HMDA
+                Platform account email address in the &#34;Additional
+                comments&#34; text box. We will apply the update to your
+                account, please check back 2 business days after submitting your
+                information.
+              </p>
+            </Alert>
           ) : null}
         </div>
       </main>

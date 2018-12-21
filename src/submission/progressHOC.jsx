@@ -1,4 +1,8 @@
 import { connect } from 'react-redux'
+import {
+  SYNTACTICAL_VALIDITY_EDITS,
+  NO_MACRO_EDITS
+} from '../constants/statusCodes.js'
 
 function mapStateToProps(state) {
   if (!state || !state.routing || !state.app) return
@@ -11,23 +15,20 @@ function mapStateToProps(state) {
     .join('/')
 
   const { code } = state.app.submission.status
-  const { types } = state.app.edits
   const editsFetched = state.app.edits.fetched
-
-  const syntacticalValidityEditsExist =
-    types.syntactical.edits.length !== 0 || types.validity.edits.length !== 0
-  const qualityVerified =
-    types.quality.verified || types.quality.edits.length === 0
-  const macroVerified = types.macro.verified || types.macro.edits.length === 0
+  const qualityExists = !!state.app.edits.types.quality.edits.length
+  const qualityVerified = state.app.edits.types.quality.verified
+  const validationComplete =
+    code === SYNTACTICAL_VALIDITY_EDITS || code >= NO_MACRO_EDITS
 
   return {
     page,
     base,
     code,
     editsFetched,
-    syntacticalValidityEditsExist,
-    qualityVerified,
-    macroVerified
+    validationComplete,
+    qualityExists,
+    qualityVerified
   }
 }
 

@@ -28,7 +28,7 @@ export default (state = defaultInstitutions, action) => {
         ...state,
         institutions: {
           ...state.institutions,
-          [action.id]: {
+          [action.lei]: {
             isFetching: true
           }
         }
@@ -39,10 +39,10 @@ export default (state = defaultInstitutions, action) => {
         ...state,
         institutions: {
           ...state.institutions,
-          [action.institution.id]: {
+          [action.institution.lei]: {
             isFetching: false,
-            name: action.institution.name,
-            id: action.institution.id
+            name: action.institution.respondent.name,
+            lei: action.institution.lei
           }
         }
       }

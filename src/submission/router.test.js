@@ -19,7 +19,7 @@ window.localStorage = {
 }
 
 const submissionDefault = {
-  id: { institutionId: '123' },
+  id: { lei: '123' },
   status: { code: STATUS.VALIDATED }
 }
 const typesDefault = {
@@ -38,7 +38,7 @@ describe('ConnectedRouter', () => {
       edits: {
         types: typesDefault
       },
-      institutionId: '123',
+      lei: '123',
       institutions: {
         institutions: {}
       }
@@ -48,7 +48,7 @@ describe('ConnectedRouter', () => {
   const container = TestUtils.renderIntoDocument(
     <ConnectedRouter
       store={store}
-      params={{ institution: '123', filing: '234', splat: 'upload' }}
+      params={{ lei: '123', filing: '234', splat: 'upload' }}
     >
       <p>hey</p>
     </ConnectedRouter>
@@ -90,7 +90,7 @@ describe('replaceHistory', () => {
     browserHistory.replace = replace
 
     const router = new SubmissionRouter({
-      params: { institution: 'argle', filing: 'bargle' }
+      params: { lei: 'argle', filing: 'bargle' }
     })
     router.replaceHistory('foofaraw')
 
@@ -103,9 +103,9 @@ describe('render', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
-      params: { institution: 'argle', splat: 'bargle' }
+      params: { lei: 'argle', splat: 'bargle' }
     })
     router.renderChildren = true
     const rendered = router.render()
@@ -116,9 +116,9 @@ describe('render', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.UNINITIALIZED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
-      params: { institution: 'argle', splat: 'bargle' }
+      params: { lei: 'argle', splat: 'bargle' }
     })
     router.renderChildren = true
     const rendered = router.render()
@@ -129,9 +129,9 @@ describe('render', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.FAILED, message: 'Failzone' },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
-      params: { institution: 'elsewise', splat: 'bargle' }
+      params: { lei: 'elsewise', splat: 'bargle' }
     })
     const rendered = router.render()
     expect(rendered.props.children.props.children).toBe('Failzone')
@@ -140,9 +140,9 @@ describe('render', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
-      params: { institution: 'elsewise', splat: 'bargle' }
+      params: { lei: 'elsewise', splat: 'bargle' }
     })
     router.renderChildren = true
     const rendered = router.render()
@@ -153,9 +153,9 @@ describe('render', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
-      params: { institution: 'argle', splat: 'bargle' }
+      params: { lei: 'argle', splat: 'bargle' }
     })
 
     const rendered = router.render()
@@ -166,9 +166,9 @@ describe('render', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
-      params: { institution: 'argle' }
+      params: { lei: 'argle' }
     })
 
     router.renderChildren = true
@@ -179,7 +179,7 @@ describe('render', () => {
 })
 
 describe('componentDidMount', () => {
-  it('routes to homepage when institution is missing', () => {
+  it('routes to homepage when lei is missing', () => {
     const dispatch = jest.fn()
     const replace = jest.fn()
     browserHistory.replace = replace
@@ -187,7 +187,7 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       params: { filing: 'bargle' },
       dispatch: dispatch
@@ -207,9 +207,9 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
-      params: { institution: 'argle' },
+      params: { lei: 'argle' },
       dispatch: dispatch
     })
 
@@ -225,9 +225,9 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
-      params: { institution: 'argle', filing: 'bargle' },
+      params: { lei: 'argle', filing: 'bargle' },
       dispatch: dispatch
     })
 
@@ -247,9 +247,9 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
-      params: { institution: 'elsewise', filing: 'bargle' },
+      params: { lei: 'elsewise', filing: 'bargle' },
       dispatch: dispatch
     })
 
@@ -272,9 +272,9 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: null,
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
-      params: { institution: 'argle', filing: 'bargle' },
+      params: { lei: 'argle', filing: 'bargle' },
       dispatch: dispatch
     })
 
@@ -298,9 +298,9 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.UNINITIALIZED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
-      params: { institution: 'argle', filing: 'bargle' },
+      params: { lei: 'argle', filing: 'bargle' },
       dispatch: dispatch
     })
 
@@ -323,9 +323,9 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.UNINITIALIZED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
-      params: { institution: 'argle', filing: 'bargle' },
+      params: { lei: 'argle', filing: 'bargle' },
       dispatch: dispatch
     })
 
@@ -349,9 +349,9 @@ describe('componentDidMount', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED_WITH_ERRORS },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
-      params: { institution: 'argle', filing: 'bargle' },
+      params: { lei: 'argle', filing: 'bargle' },
       dispatch: dispatch
     })
 
@@ -394,10 +394,10 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { institution: 'argle', filing: 'bargle' }
+      params: { lei: 'argle', filing: 'bargle' }
     })
     router.getLatestPage = latest
     router.replaceHistory = replace
@@ -411,10 +411,10 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { institution: 'argle', filing: 'bargle', splat: 'badsplat' }
+      params: { lei: 'argle', filing: 'bargle', splat: 'badsplat' }
     })
     router.route()
     expect(replace).toBeCalledWith('/filing/')
@@ -425,10 +425,10 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.UPLOADING },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { institution: 'argle', filing: 'bargle', splat: 'upload' }
+      params: { lei: 'argle', filing: 'bargle', splat: 'upload' }
     })
     router.forceUpdate = force
     router.route()
@@ -441,10 +441,10 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.UPLOADING },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { institution: 'argle', filing: 'bargle', splat: 'quality' }
+      params: { lei: 'argle', filing: 'bargle', splat: 'quality' }
     })
     router.replaceHistory = replace
     router.route()
@@ -457,10 +457,10 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED_WITH_ERRORS },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { institution: 'argle', filing: 'bargle', splat: 'quality' }
+      params: { lei: 'argle', filing: 'bargle', splat: 'quality' }
     })
     router.forceUpdate = force
     router.getLatestPage = latest
@@ -474,10 +474,10 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED_WITH_ERRORS },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { institution: 'argle', filing: 'bargle', splat: 'macro' }
+      params: { lei: 'argle', filing: 'bargle', splat: 'macro' }
     })
     router.replaceHistory = replace
     router.getLatestPage = latest
@@ -491,10 +491,10 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED_WITH_ERRORS },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { institution: 'argle', filing: 'bargle', splat: 'upload' }
+      params: { lei: 'argle', filing: 'bargle', splat: 'upload' }
     })
     router.forceUpdate = force
     router.getLatestPage = latest
@@ -507,10 +507,10 @@ describe('route', () => {
     const router = new SubmissionRouter({
       submission: {
         status: { code: STATUS.VALIDATED },
-        id: { institutionId: 'argle' }
+        id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { institution: 'argle', filing: 'bargle', splat: 'quality' }
+      params: { lei: 'argle', filing: 'bargle', splat: 'quality' }
     })
     router.forceUpdate = force
     router.route()

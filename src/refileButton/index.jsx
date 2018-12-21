@@ -1,32 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import './RefileButton.css'
+
 const RefileButton = props => {
-  let refileStyle = 'RefileButton usa-button usa-text-small'
+  let refileStyle = 'RefileButton text-small'
   if (props.isLink) {
-    refileStyle = ''
+    refileStyle = 'RefileButton link'
     if (props.isLower) {
-      refileStyle = 'text-lowercase'
+      refileStyle = `${refileStyle} text-lowercase`
     }
     if (props.isSmall) {
-      refileStyle = `${refileStyle} usa-text-small`
+      refileStyle = `${refileStyle} text-small`
     }
+  }
+  if (props.className) {
+    refileStyle = `${refileStyle} ${props.className}`
   }
 
   return (
-    <a
-      href="#"
+    <button
       className={refileStyle}
       onClick={e => {
         e.preventDefault()
         if (props.institution) {
-          props.updateInstitution(props.institution.id)
+          props.updateInstitution(props.institution.lei)
         }
         props.showConfirmModal()
       }}
     >
       Upload a new file
-    </a>
+    </button>
   )
 }
 

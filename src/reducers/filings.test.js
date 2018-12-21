@@ -16,7 +16,7 @@ describe('filings reducer', () => {
         {},
         {
           type: types.REQUEST_FILING,
-          id: '2'
+          lei: '2'
         }
       )
     ).toEqual({
@@ -33,14 +33,14 @@ describe('filings reducer', () => {
         {},
         {
           type: types.RECEIVE_FILING,
-          filing: { filing: { institutionId: '2' } }
+          filing: { filing: { lei: '2' } }
         }
       )
     ).toEqual({
       2: {
         isFetching: false,
         fetched: true,
-        filing: { filing: { institutionId: '2' } }
+        filing: { filing: { lei: '2' } }
       }
     })
   })

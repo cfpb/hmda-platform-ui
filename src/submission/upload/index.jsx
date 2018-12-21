@@ -4,7 +4,16 @@ import Alert from '../../common/Alert.jsx'
 import ValidationProgress from './ValidationProgress.jsx'
 import Dropzone from 'react-dropzone'
 import DropzoneContent from './DropzoneContent.jsx'
-import * as STATUS from '../../constants/statusCodes.js'
+import {
+  UPLOADING,
+  PARSED_WITH_ERRORS,
+  SYNTACTICAL_VALIDITY_EDITS,
+  NO_MACRO_EDITS,
+  MACRO_EDITS,
+  VALIDATED
+} from '../../constants/statusCodes.js'
+
+import './UploadForm.css'
 
 export default class Upload extends Component {
   constructor(props) {
@@ -20,9 +29,12 @@ export default class Upload extends Component {
   componentDidMount() {
     const { code, pollSubmission } = this.props
     if (
-      code >= STATUS.UPLOADING &&
-      code < STATUS.VALIDATED_WITH_ERRORS &&
-      code !== STATUS.PARSED_WITH_ERRORS
+      code >= UPLOADING &&
+      code < VALIDATED &&
+      code !== PARSED_WITH_ERRORS &&
+      code !== SYNTACTICAL_VALIDITY_EDITS &&
+      code !== NO_MACRO_EDITS &&
+      code !== MACRO_EDITS
     )
       pollSubmission()
   }
@@ -36,17 +48,12 @@ export default class Upload extends Component {
       errorUpload,
       file,
       filename,
-      id,
+      lei,
       uploading
     } = this.props
 
     return (
       <section className="UploadForm">
-        <div className="data-warning usa-text-small">
-          Institutions are strongly encouraged not to use the applicant’s or
-          borrower’s name or Social Security number in the Loan/Application
-          Number field, for privacy reasons.
-        </div>
         {/*
           something is wrong with the file
           detected by the front-end
@@ -60,6 +67,12 @@ export default class Upload extends Component {
             </ul>
           </Alert>
         ) : null}
+        <Alert type="warning">
+          <p>
+            All test data uploaded during the beta period will be removed from the system
+            when the filing period opens on January 1st, 2019.
+          </p>
+        </Alert>
         <Dropzone
           disablePreview={true}
           onDrop={this.onDrop}
@@ -79,7 +92,7 @@ export default class Upload extends Component {
           errorApp={errorApp}
           errorUpload={errorUpload}
           file={file}
-          id={id}
+          lei={lei}
           uploading={uploading}
         />
       </section>
@@ -96,7 +109,7 @@ Upload.propTypes = {
   errorUpload: PropTypes.object,
   file: PropTypes.object,
   filename: PropTypes.string,
-  id: PropTypes.string,
+  lei: PropTypes.string,
   uploading: PropTypes.bool,
   // dispatch
   handleDrop: PropTypes.func,

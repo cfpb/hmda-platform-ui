@@ -5,6 +5,8 @@ import RefileWarningComponent from '../../refileWarning/index.jsx'
 import submissionProgressHOC from '../progressHOC.jsx'
 import Pagination from '../../pagination/container.jsx'
 
+import './ParseErrors.css'
+
 const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
 export const renderTSErrors = ({ transmittalSheetErrors }) => {
@@ -64,7 +66,7 @@ export const renderLarErrors = ({ larErrors, ...props }) => {
           return larErrorObj.errorMessages.map((message, i) => {
             return (
               <tr key={i}>
-                <td>{larErrorObj.lineNumber}</td>
+                <td>{larErrorObj.rowNumber}</td>
                 <td>{message}</td>
               </tr>
             )
@@ -84,24 +86,22 @@ class ParseErrors extends Component {
 
   render() {
     const props = this.props
+
     if (!props.fetched) return <Loading />
 
-    const total =
-      props.pagination &&
-      props.pagination.total + props.transmittalSheetErrors.length
-    const errorText = total > 1 ? 'Rows' : 'Row'
+    const errorText = props.pagination.total > 1 ? 'Rows' : 'Row'
 
     return (
       <section
         ref={el => (this.rendered = el)}
-        className="ParseErrors usa-grid-full"
+        className="ParseErrors"
         id="parseErrors"
       >
         <RefileWarning />
         <header>
           {!props.pagination ? null : (
             <h2>
-              {total} {errorText} with Formatting Errors
+              {props.pagination.total} {errorText} with Formatting Errors
             </h2>
           )}
           <p className="usa-font-lead">
@@ -110,10 +110,11 @@ class ParseErrors extends Component {
             <a
               rel="noopener noreferrer"
               target="_blank"
-              href="https://www.consumerfinance.gov/data-research/hmda/static/for-filers/2017/2017-HMDA-FIG.pdf"
+              href="https://s3.amazonaws.com/cfpb-hmda-public/prod/help/2018-hmda-fig-2018-hmda-rule.pdf"
             >
-              Filing Instructions Guide for data collected in 2017
-            </a>.
+              Filing Instructions Guide
+            </a>{' '}
+            for data collected in 2018 incorporating the 2018 HMDA Rule.
           </p>
         </header>
         {renderTSErrors(props)}

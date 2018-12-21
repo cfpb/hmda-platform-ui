@@ -11,7 +11,7 @@ import TestUtils from 'react-dom/test-utils'
 const fs = require('fs')
 const irsJSON = JSON.parse(fs.readFileSync('./test-resources/json/irs.json'))
 const id = {
-  institutionId: 1,
+  lei: 1,
   period: '2017',
   sequenceNumber: 1
 }

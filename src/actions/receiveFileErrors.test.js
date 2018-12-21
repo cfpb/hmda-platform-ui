@@ -8,7 +8,7 @@ describe('receiveFileErrors', () => {
     expect(receiveFileErrors('123', ['oi'], 'afile')).toEqual({
       type: types.RECEIVE_FILE_ERRORS,
       errors: ['oi'],
-      id: '123',
+      lei: '123',
       file: 'afile'
     })
   })

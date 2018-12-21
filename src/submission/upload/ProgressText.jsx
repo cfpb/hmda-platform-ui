@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as STATUS from '../../constants/statusCodes.js'
 
-const getProgressText = ({ code, errorApp, errorUpload }) => {
+const getProgressText = ({ code, validationComplete, errorApp, errorUpload }) => {
   let progressText = 'Uploading...'
 
-  if (code >= STATUS.PARSING) progressText = 'Analyzing file format...'
+  if (code === STATUS.PARSING) progressText = 'Analyzing file format...'
   if (code === STATUS.PARSED_WITH_ERRORS)
     progressText = 'File contains formatting errors.'
-  if (code === STATUS.VALIDATING) progressText = 'Validating edits...'
-  if (code > STATUS.VALIDATING) progressText = 'Edit validation complete.'
+  if (code >= STATUS.VALIDATING && !validationComplete) progressText = 'Validating edits...'
+  if (validationComplete) progressText = 'Edit validation complete.'
 
   if (errorUpload)
     progressText = 'There was an error uploading your file. Please try again.'
@@ -20,7 +20,7 @@ const getProgressText = ({ code, errorApp, errorUpload }) => {
   return progressText
 }
 
-const getExtraMessage = ({ code, errorApp, errorUpload, file }) => {
+const getExtraMessage = ({ code, validationComplete, qualityExists, qualityVerified, errorApp, errorUpload, file }) => {
   if (file && file.size > 1e5) {
     if (code <= STATUS.UPLOADED)
       return 'Please do not close your browser until the file upload has completed.'
@@ -28,7 +28,7 @@ const getExtraMessage = ({ code, errorApp, errorUpload, file }) => {
       // the process is still running
       // and there are no errors
       code > STATUS.UPLOADED &&
-      code < STATUS.VALIDATED_WITH_ERRORS &&
+      !validationComplete &&
       code !== STATUS.PARSED_WITH_ERRORS &&
       !errorUpload &&
       !errorApp
@@ -37,18 +37,22 @@ const getExtraMessage = ({ code, errorApp, errorUpload, file }) => {
     }
   }
 
-  if (code === STATUS.VALIDATED_WITH_ERRORS) {
+  if (
+    code === STATUS.SYNTACTICAL_VALIDITY_EDITS ||
+    (qualityExists && !qualityVerified) ||
+    code === STATUS.MACRO_EDITS
+  ) {
     return 'Edits found, review required.'
   }
 
   return null
 }
 
-const getIndicatorClass = ({ code, errorApp, errorUpload }) => {
+const getIndicatorClass = ({ code, validationComplete, errorApp, errorUpload }) => {
   if (code === STATUS.PARSED_WITH_ERRORS || errorUpload || errorApp) {
     return 'error'
   }
-  if (code > STATUS.VALIDATING) {
+  if (validationComplete) {
     return 'complete'
   }
   return 'pulsing'
@@ -69,10 +73,17 @@ const ProgressText = props => {
 }
 
 ProgressText.propTypes = {
-  code: PropTypes.number,
   errorApp: PropTypes.object,
   errorUpload: PropTypes.object,
-  file: PropTypes.object
+  file: PropTypes.object,
+  //../progressHOC
+  page: PropTypes.string,
+  base: PropTypes.string,
+  code: PropTypes.number,
+  editsFetched: PropTypes.bool,
+  validationComplete: PropTypes.bool,
+  qualityExists: PropTypes.bool,
+  qualityVerified: PropTypes.bool
 }
 
 export default ProgressText
