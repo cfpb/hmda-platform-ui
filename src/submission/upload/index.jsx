@@ -67,12 +67,6 @@ export default class Upload extends Component {
             </ul>
           </Alert>
         ) : null}
-        <Alert type="warning">
-          <p>
-            All test data uploaded during the beta period will be removed from the system
-            when the filing period opens on January 1st, 2019.
-          </p>
-        </Alert>
         <Dropzone
           disablePreview={true}
           onDrop={this.onDrop}

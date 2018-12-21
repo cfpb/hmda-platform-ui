@@ -8,15 +8,14 @@ const Home = () => {
     <main className="Home" id="main-content">
       <section className="hero">
         <div className="usa-grid-full">
-          <h1>Get familiar with filing your HMDA data</h1>
-          <p className="usa-font-lead">
-            During this beta period, you may explore the new HMDA platform. It
-            will be used to upload your financial institution&#39;s
-            loan/application registers, review edits, certify the data, and
-            submit the data for the filing year. All test data uploaded during
-            the beta period will be removed from the system when the filing{' '}
-            period for HMDA data collected in 2018 opens on January 1st, 2019.
-          </p>
+          <h1>Get started filing your 2018 HMDA data</h1>
+          <p className="font-lead max-width">
+             Financial institutions use the HMDA Platform to upload their
+             loan/application registers (LARs), review edits, certify the
+             accuracy and completeness of the data, and submit data for the
+             filing year. For data collected in 2017, please visit{' '}
+             <a href="https://ffiec.cfpb.gov/filing/">the 2017 Platform</a>.
+           </p>
           <button
             className="button"
             onClick={e => {
