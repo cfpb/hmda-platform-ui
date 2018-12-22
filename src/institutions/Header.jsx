@@ -28,8 +28,7 @@ const InstitutionsHeader = ({ filingPeriod }) => {
         type="warning"
       >
         <p>
-          A beta period will begin soon for you to upload, test, and validate
-          HMDA data.
+          The Platform will begin accepting data for the 2018 filing period on January 1st.
         </p>
       </Alert>
     )
