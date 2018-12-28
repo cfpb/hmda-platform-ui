@@ -19,7 +19,7 @@ const IRSReport = props => {
           <a
             href={`https://s3.amazonaws.com/cfpb-hmda-public/prod/reports/disclosure/2018/${
               props.lei
-            }/nationwide/IRS.txt`}
+            }/nationwide/IRS.csv`}
             download={true}
           >
             download here
