@@ -57,7 +57,7 @@ const Header = props => {
               title="Home"
               aria-label="Home"
             >
-              <img src="/img/ffiec-logo.svg" height="32px" alt="FFIEC" />
+              <img src="/filing/img/ffiec-logo.svg" height="32px" alt="FFIEC" />
               HMDA Filing Platform
             </Link>
           </em>
