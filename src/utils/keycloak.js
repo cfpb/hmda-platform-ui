@@ -26,12 +26,18 @@ const login = (path = '/filing/2018/institutions') => {
 const refresh = () => {
   const updateKeycloak = () => {
     setTimeout(() => {
-      keycloak.updateToken().then(success => {
-        if (!success) return keycloak.login()
-        AccessToken.set(keycloak.token)
-        updateKeycloak()
-      })
-    }, +(keycloak.tokenParsed.exp + '000') - Date.now() - 10000)
+      keycloak
+        .updateToken(60)
+        .success(success => {
+          if (success) {
+            AccessToken.set(keycloak.token)
+          }
+          updateKeycloak()
+        })
+        .error(error => {
+          return keycloak.login()
+        })
+    }, +(keycloak.tokenParsed.exp + '000') - Date.now() - 50000)
   }
   updateKeycloak()
 }
