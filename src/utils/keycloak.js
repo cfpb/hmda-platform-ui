@@ -34,7 +34,7 @@ const refresh = () => {
           }
           updateKeycloak()
         })
-        .error(error => {
+        .error(() => {
           return keycloak.login()
         })
     }, +(keycloak.tokenParsed.exp + '000') - Date.now() - 10000)
