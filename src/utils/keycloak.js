@@ -28,8 +28,8 @@ const refresh = () => {
     setTimeout(() => {
       keycloak
         .updateToken(20)
-        .success(success => {
-          if (success) {
+        .success(refreshed => {
+          if (refreshed) {
             AccessToken.set(keycloak.token)
           }
           updateKeycloak()
