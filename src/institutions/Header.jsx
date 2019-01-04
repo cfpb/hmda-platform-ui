@@ -49,7 +49,7 @@ const InstitutionsHeader = ({ filingPeriod }) => {
     <header>
       <h2>{filingPeriod} filing period</h2>
       <p className="usa-font-lead">
-        The filing period is open. March 1st, {filingPeriod} is the deadline to
+        The filing period is open. March 1st, {+filingPeriod + 1} is the deadline to
         submit your HMDA data.
       </p>
       <p className="usa-font-lead">
