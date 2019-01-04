@@ -46,16 +46,18 @@ const InstitutionsHeader = ({ filingPeriod }) => {
     )
   }
   return (
-    <header>
-      <h2>{filingPeriod} filing period</h2>
-      <p className="usa-font-lead">
-        The filing period is open. March 1st, {filingPeriod} is the deadline to
-        submit your HMDA data.
-      </p>
-      <p className="usa-font-lead">
-        You may file HMDA data for your authorized institutions below.
-      </p>
-    </header>
+    <Alert>
+      <div>
+        <h2 style={{ margin: '0 0 0.5em 0' }}>{filingPeriod} filing period</h2>
+        <p className="font-lead">
+          The filing period is open. March 1st, {+filingPeriod + 1} is the deadline to
+          submit your HMDA data.
+        </p>
+        <p className="font-lead">
+          You may file HMDA data for your authorized institutions below.
+        </p>
+      </div>
+    </Alert>
   )
 }
 
