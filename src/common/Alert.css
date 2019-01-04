@@ -62,7 +62,7 @@
   font-size: 1em;
 }
 
-.alert-text {
+.alert-text, .alert-text > p {
   font-family: SourceSansPro;
   margin-bottom: 0;
   margin-top: 0;
