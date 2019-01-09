@@ -51,7 +51,7 @@ class InstitutionPreviousSubmissions extends Component {
             >
               <p>
                 The edit report for previous submissions that completed the
-                valiation process can be downloaded in csv format below.
+                validation process can be downloaded in csv format below.
               </p>
               <ol reversed>
                 {this.props.submissions.map((submission, i) => {
