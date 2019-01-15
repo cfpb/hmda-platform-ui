@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+/*import { connect } from 'react-redux'
 import requestInstitutions from '../actions/requestInstitutions.js'
 import fetchEachInstitution from '../actions/fetchEachInstitution.js'
 import receiveInstitutions from '../actions/receiveInstitutions.js'
 import Institutions from './index.jsx'
-import { getKeycloak } from '../utils/keycloak.js'
+import { getKeycloak } from '../utils/keycloak.js'*/
+
+import Alert from '../common/Alert.jsx'
+import './Institutions.css'
 
 export class InstitutionContainer extends Component {
-  componentDidMount() {
+  /*componentDidMount() {
     if (!this.props.institutions.fetched && !this.props.institutions.isFetching)
       this.props.dispatch(requestInstitutions())
 
@@ -22,14 +25,29 @@ export class InstitutionContainer extends Component {
     this.props.dispatch(fetchEachInstitution(institutions))
 
     this.props.dispatch(receiveInstitutions())
-  }
+  }*/
 
   render() {
-    return <Institutions {...this.props} />
+    return (
+      <main id="main-content" className="Institutions usa-grid-full">
+        <div className="usa-width-one-whole">
+          <Alert
+            heading="Sorry, the HMDA Platform is currently unavailable."
+            type="error"
+          >
+            <p>
+              We are working to resolve the issue as soon as possible. Please
+              try back again soon.
+            </p>
+          </Alert>
+        </div>
+      </main>
+    )
+    //return <Institutions {...this.props} />
   }
 }
 
-export function mapStateToProps(state) {
+/*export function mapStateToProps(state) {
   const { institutions, filings, submission, error, filingPeriod } = state.app
 
   return {
@@ -41,4 +59,6 @@ export function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(InstitutionContainer)
+export default connect(mapStateToProps)(InstitutionContainer)*/
+
+export default InstitutionContainer
