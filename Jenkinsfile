@@ -6,11 +6,27 @@ volumes: [
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
 ]) {
    node('buildDockerContainer') {
-     def repo = checkout scm
-     def gitCommit = repo.GIT_COMMIT
-     def gitBranch = repo.GIT_BRANCH
+     sh "env | sort"
 
-        stage('Build And Publish Docker Image') {
+    def repo = checkout scm
+    def gitBranch = repo.GIT_BRANCH
+    def gitCommit = repo.GIT_COMMIT
+    def shortCommit = repo.GIT_COMMIT[0..7]
+    def isDeployPR = sh(returnStdout: true, script: "git log -1").contains("[deploy pr]")
+    def gitTagged = env.TAG_NAME != null
+     
+    if (gitBranch == "master") {
+      env.DOCKER_TAG = "latest"
+    } else if (gitTagged) {
+      env.DOCKER_TAG = env.TAG_NAME
+    } else {
+      env.DOCKER_TAG = env.BRANCH_NAME
+    }
+
+    println "DOCKER_TAG: ${env.DOCKER_TAG}, TAG_NAME: ${env.TAG_NAME}, gitbranch: ${gitBranch}, commitId: ${commitId}, isDeployPR: ${isDeployPR}"
+
+
+    stage('Build And Publish Docker Image') {
       container('docker') {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub',
             usernameVariable: 'DOCKER_HUB_USER', passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
@@ -18,16 +34,16 @@ volumes: [
               usernameVariable: 'DTR_USER', passwordVariable: 'DTR_PASSWORD']]) {
               withCredentials([string(credentialsId: 'internal-docker-registry', variable: 'DOCKER_REGISTRY_URL')]){
                 sh "docker build --rm -t=${env.DOCKER_HUB_USER}/hmda-platform-ui ."
-                if (env.TAG_NAME != null || gitBranch == "master") {
-                  if (gitBranch == "master") {
-                    env.DOCKER_TAG = "latest"
-                  } else {
-                    env.DOCKER_TAG = env.TAG_NAME
-                  }
+                if (gitTagged || gitBranch == "master" || isDeployPR) {
+                  //Push to Dockerhub
                   sh """
                     docker tag ${env.DOCKER_HUB_USER}/hmda-platform-ui ${env.DOCKER_HUB_USER}/hmda-platform-ui:${env.DOCKER_TAG}
                     docker login -u ${env.DOCKER_HUB_USER} -p ${env.DOCKER_HUB_PASSWORD} 
                     docker push ${env.DOCKER_HUB_USER}/hmda-platform-ui:${env.DOCKER_TAG}
+                  """
+
+                  //Push to Internal Docker Repo
+                  sh """
                     docker tag ${env.DOCKER_HUB_USER}/hmda-platform-ui:${env.DOCKER_TAG} ${DOCKER_REGISTRY_URL}/${env.DOCKER_HUB_USER}/hmda-platform-ui:${env.DOCKER_TAG}
                     docker login ${DOCKER_REGISTRY_URL} -u ${env.DTR_USER} -p ${env.DTR_PASSWORD} 
                     docker push ${DOCKER_REGISTRY_URL}/${env.DOCKER_HUB_USER}/hmda-platform-ui:${env.DOCKER_TAG}
@@ -41,18 +57,20 @@ volumes: [
       }
 
     stage('Deploy') {
-      if (env.BRANCH_NAME == 'master') {
+      if (env.BRANCH_NAME == 'master' || isDeployPR) {
         container('helm') {
           sh "helm upgrade --install --force \
-          --namespace=default \
-          --values=kubernetes/hmda-platform-ui/values.yaml \
-          --set image.tag=latest \
-          hmda-platform-ui \
-          kubernetes/hmda-platform-ui"
+            --namespace=default \
+            --values=kubernetes/hmda-platform-ui/values.yaml \
+            --set commitId=$shortCommit \
+            --set image.pullPolicy=Always \
+            --set image.tag=${env.DOCKER_TAG} \
+            hmda-platform-ui \
+            kubernetes/hmda-platform-ui"
         }
       }
     }
 
-   }
+  }
 
 }
