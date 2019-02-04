@@ -23,7 +23,7 @@ volumes: [
       env.DOCKER_TAG = env.BRANCH_NAME
     }
 
-    println "DOCKER_TAG: ${env.DOCKER_TAG}, TAG_NAME: ${env.TAG_NAME}, gitbranch: ${gitBranch}, commitId: ${commitId}, isDeployPR: ${isDeployPR}"
+    println "DOCKER_TAG: ${env.DOCKER_TAG}, TAG_NAME: ${env.TAG_NAME}, gitbranch: ${gitBranch}, shortCommit: ${shortCommit}, isDeployPR: ${isDeployPR}"
 
 
     stage('Build And Publish Docker Image') {
