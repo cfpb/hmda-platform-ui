@@ -7,7 +7,7 @@ commitId: ''
 
 image:
   repository: hmda/hmda-platform-ui
-  tag: v2.11.0
+  tag: v2.12.0
   pullPolicy: IfNotPresent
 
 nameOverride: ''
