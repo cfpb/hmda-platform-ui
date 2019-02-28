@@ -5,9 +5,23 @@ export default function fetchCurrentFiling(institution) {
   return (dispatch, getState) => {
     const period = getState().app.filingPeriod
 
-    const filing = institution.filings.filter(filing => {
+    let filing = institution.filings.filter(filing => {
       return filing.period === period
     })[0]
+
+    if (institution.institution.lei === '54930075V56LV2823P16') {
+      filing = {
+        end: 0,
+        filingRequired: true,
+        lei: '54930075V56LV2823P16',
+        period: '2018',
+        start: 1547682918105,
+        status: {
+          code: 2,
+          message: 'in-progress'
+        }
+      }
+    }
 
     if (filing) return dispatch(fetchFiling(filing))
 
