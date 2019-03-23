@@ -2,12 +2,6 @@
   margin: 0;
   padding: 0;
 }
-@media screen and (max-width: 483px) {
-  .Header nav {
-    float: left;
-    margin: 6px 0 0 6px;
-  }
-}
 
 .Header .usa-logo a {
   color: #1f498f;
@@ -55,6 +49,10 @@
 .logo-text img {
   margin-right: 0.5em;
   vertical-align: text-bottom;
+}
+
+.logo-text span {
+  display: inline-block;
 }
 
 .header {
@@ -160,4 +158,14 @@
 
 .nav-primary > .user {
   margin-left: 2em;
+}
+
+@media screen and (max-width: 870px) {
+  .nav-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .logo-text span {
+    display: none;
+  }
 }
