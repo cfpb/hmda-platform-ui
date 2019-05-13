@@ -21,6 +21,6 @@ COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html/filing/2018
 RUN apk --no-cache add shadow && \
     usermod -l $NGINX_USER nginx && \
     groupmod -n $NGINX_USER nginx && \
-    chown -R $NGINX_USER:$NGINX_USER /etc/nginx /usr/share/nginx/html/hmda-help
+    chown -R $NGINX_USER:$NGINX_USER /etc/nginx /usr/share/nginx/html/filing/2018
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
