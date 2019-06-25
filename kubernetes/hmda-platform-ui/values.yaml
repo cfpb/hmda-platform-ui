@@ -14,13 +14,13 @@ nameOverride: ''
 fullnameOverride: ''
 
 service:
-  type: NodePort
+  type: ClusterIP
   port: 80
 
-ambassador:
-  service:
-    type: NodePort
-  port: 80
+#ambassador:
+#  service:
+#    type: NodePort
+#  port: 80
 
 ingress:
   enabled: false
