@@ -30,14 +30,11 @@ metadata:
       apiVersion: ambassador/v0
       kind: Mapping
       name: platform_ui_mapping
+      ambassador_id: ambassador-default-1
       prefix: /filing/2018/
       rewrite: /filing/2018/
       service: {{ include "hmda-platform-ui.fullname" . }}:{{ .Values.service.port }}
 spec:
-  type: {{ .Values.ambassador.service.type }}
+  clusterIP: None  
   ports:
-  - name: {{ include "hmda-platform-ui.fullname" . }}-ambassador
-    port: {{ .Values.ambassador.port }}
-    targetPort: {{ .Values.service.port }}
-  selector:
-service: {{ include "hmda-platform-ui.fullname" . }}-ambassador
+    - port: {{ .Values.service.port }}
