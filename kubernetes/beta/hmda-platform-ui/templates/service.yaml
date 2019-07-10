@@ -30,6 +30,7 @@ metadata:
       apiVersion: ambassador/v0
       kind: Mapping
       name: platform_ui_mapping
+      ambassador_id: ambassador-beta-2
       prefix: /filing/2018/
       rewrite: /filing/2018/
       service: {{ include "hmda-platform-ui.fullname" . }}:{{ .Values.service.port }}
