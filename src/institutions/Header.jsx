@@ -28,7 +28,7 @@ const InstitutionsHeader = ({ filingPeriod }) => {
         type="warning"
       >
         <p>
-          The Platform will begin accepting data for the 2018 filing period on January 1st.
+          The Platform will begin accepting data for the {filingPeriod} filing period on January 1st.
         </p>
       </Alert>
     )

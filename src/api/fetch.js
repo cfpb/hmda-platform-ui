@@ -17,7 +17,8 @@ export function getFilingData() {
   return {
     lei: appState.lei,
     filing: appState.filingPeriod,
-    submission: appState.submission.id && appState.submission.id.sequenceNumber
+    submission: appState.submission.id && appState.submission.id.sequenceNumber,
+    year: appState.year
   }
 }
 

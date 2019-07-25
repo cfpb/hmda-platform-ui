@@ -17,11 +17,12 @@ export class InstitutionContainer extends Component {
     // create the expected objects from the array, institutions = [{lei: lie}, {lei: lei}]
     let institutions = []
     leis.forEach(lei => {
-      institutions.push({ lei: lei })
+      institutions.push({ lei: lei, year: this.props.params['year'] })
     })
     this.props.dispatch(fetchEachInstitution(institutions))
 
     this.props.dispatch(receiveInstitutions())
+
   }
 
   render() {
@@ -30,14 +31,15 @@ export class InstitutionContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const { institutions, filings, submission, error, filingPeriod } = state.app
+  const { institutions, filings, submission, error, filingPeriod, year } = state.app
 
   return {
     submission,
     filingPeriod,
     institutions,
     filings,
-    error
+    error,
+    year
   }
 }
 

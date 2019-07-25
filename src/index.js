@@ -1,4 +1,4 @@
-import 'react-app-polyfill/ie11' // For IE 11 support
+//import 'react-app-polyfill/ie11' // For IE 11 support
 
 import React from 'react'
 import { render } from 'react-dom'
@@ -66,21 +66,21 @@ history.listen(location => {
 render(
   <Provider store={store}>
     <Router history={history} render={applyRouterMiddleware(useScroll())}>
-      <Route path={'/filing/2018/'} component={AppContainer}>
+      <Route path={'/filing/:year'} component={AppContainer}>
         <IndexRoute component={HomeContainer} />
         <Route
-          path={'/filing/2018/institutions'}
+          path={'/filing/:year/institutions'}
           component={InstitutionContainer}
         />
         <Route
-          path={'/filing/2018/:lei/:filing'}
+          path={'/filing/:year/:lei/:filing'}
           component={SubmissionRouter}
         />
         <Route
-          path={'/filing/2018/:lei/:filing/*'}
+          path={'/filing/:year/:lei/:filing/*'}
           component={SubmissionRouter}
         />
-        <Route path={'/filing/2018/*'} component={SubmissionRouter} />
+        <Route path={'/filing/:year/*'} component={SubmissionRouter} />
       </Route>
     </Router>
   </Provider>,

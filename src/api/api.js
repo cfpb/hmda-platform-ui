@@ -1,7 +1,7 @@
 import { fetch } from './fetch.js'
 
-export function getInstitution(lei) {
-  return fetch({ pathname: `/institutions/${lei}` })
+export function getInstitution(lei, year) {
+  return fetch({ pathname: `/filing/institutions/${lei}/year/${year}` })
 }
 
 export function createSubmission(lei, filing) {
@@ -12,7 +12,7 @@ export function createSubmission(lei, filing) {
 }
 
 export function getFiling(lei, filing) {
-  return fetch({ pathname: `/institutions/${lei}/filings/${filing}` })
+  return fetch({ pathname: `/filing/institutions/${lei}/year/${filing}` })
 }
 
 export function createFiling(lei, filing) {

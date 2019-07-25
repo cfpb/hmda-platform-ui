@@ -4,9 +4,10 @@ import './Footer.css'
 import logo from '../images/ffiec-logo.svg'
 import { getKeycloak } from '../utils/keycloak.js'
 
-export const getLink = () => {
-  if (getKeycloak().authenticated) return '/filing/2018/institutions'
-  return '/filing/2018/'
+export const getLink = props => {
+  var year = window.location.pathname.substring(8,12)
+  if (getKeycloak().authenticated) return '/filing/'+year+'/institutions'
+  return '/filing/'+year+'/'
 }
 
 const Footer = () => {

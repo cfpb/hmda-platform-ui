@@ -14,6 +14,7 @@ export function mapStateToProps(state) {
   const { showing } = state.app.confirmation
   const { filingPeriod } = state.app
   const { code } = state.app.submission.status
+  const year = state.app.year
   const { newFile } =
     state.app.upload[lei] || state.app.upload['__DEFAULT_UPLOAD__']
 
@@ -22,7 +23,8 @@ export function mapStateToProps(state) {
     filingPeriod,
     code,
     showing,
-    newFile
+    newFile,
+    year
   }
 }
 
@@ -31,7 +33,7 @@ export function mapDispatchToProps(dispatch) {
     dispatch(hideConfirm())
   }
 
-  const triggerRefile = (lei, period, page = '', file) => {
+  const triggerRefile = (lei, period, page = '', file, year) => {
     dispatch(refreshState())
     if (page === 'upload' && file) {
       const fileErrors = checkFileErrors(file)
@@ -44,7 +46,7 @@ export function mapDispatchToProps(dispatch) {
       })
     } else {
       return dispatch(fetchNewSubmission(lei, period)).then(() => {
-        browserHistory.replace(`/filing/2018/${lei}/${period}/upload`)
+        browserHistory.replace(`/filing/${year}/${lei}/${period}/upload`)
       })
     }
   }

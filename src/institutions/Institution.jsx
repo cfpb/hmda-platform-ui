@@ -8,7 +8,7 @@ import InstitutionRefile from './Refile.jsx'
 import InstitutionSubmissionHistory from './SubmissionHistory.jsx'
 import SubmissionNav from './Progress.jsx'
 
-const Institution = ({ institution, filing, submission, submissions }) => {
+const Institution = ({ institution, filing, submission, submissions, year }) => {
   const status = submission && submission.status
 
   return (
@@ -64,7 +64,8 @@ Institution.propTypes = {
   institution: PropTypes.object,
   filing: PropTypes.object,
   submission: PropTypes.object,
-  submissions: PropTypes.array
+  submissions: PropTypes.array,
+  year: PropTypes.object
 }
 
 export default Institution

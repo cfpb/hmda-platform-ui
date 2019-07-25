@@ -12,7 +12,7 @@ import {
 const createUserManager = dispatch => {
   if (!dispatch) return new UserManager()
 
-  const keycloak = window.HMDA_ENV.KEYCLOAK_URL
+  const keycloak =  window.HMDA_ENV.KEYCLOAK_URL
   const app = window.HMDA_ENV.FILING_APP_URL
 
   const manager = new UserManager({

@@ -70,6 +70,7 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
           institution={institution}
           submission={_setSubmission(submission, filingObj)}
           submissions={filingObj.submissions}
+          year={filingPeriod}
         />
       )
     }
@@ -85,7 +86,7 @@ export default class Institutions extends Component {
         {error ? <ErrorWarning error={error} /> : null}
         <div className="usa-width-one-whole">
           {filingPeriod ? (
-            <InstitutionsHeader filingPeriod={filingPeriod} />
+            <InstitutionsHeader filingPeriod={filingPeriod}/>
           ) : null}
 
           {_whatToRender(this.props)}
@@ -123,5 +124,6 @@ Institutions.propTypes = {
   error: PropTypes.object,
   filings: PropTypes.object,
   filingPeriod: PropTypes.string,
-  institutions: PropTypes.object
+  institutions: PropTypes.object,
+  year: PropTypes.object
 }

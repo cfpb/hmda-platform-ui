@@ -51,7 +51,10 @@
     "ie >= 11"
   ],
   "devDependencies": {
+    "eslint-plugin-prettier": "3.0.1",
+    "eslint-plugin-react-hooks": "^1.6.0",
+    "http-proxy-middleware": "^0.19.1",
     "redux-devtools-extension": "2.13.2"
   },
-  "homepage": "/filing/2018"
+  "homepage": "/filing"
 }

@@ -9,7 +9,7 @@ import { error } from '../utils/log.js'
 export default function fetchInstitution(institution, fetchFilings = true) {
   return (dispatch, getState) => {
     dispatch(requestInstitution(institution.lei))
-    return getInstitution(institution.lei)
+    return getInstitution(institution.lei, institution.year)
       .then(json => {
         return hasHttpError(json).then(hasError => {
           if (hasError) {

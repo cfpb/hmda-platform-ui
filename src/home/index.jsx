@@ -4,16 +4,19 @@ import { login, register } from '../utils/keycloak.js'
 import './Home.css'
 
 const Home = () => {
+  let year = window.location.pathname.substring(8,12)
   return (
     <main className="Home" id="main-content">
       <section className="hero">
         <div className="usa-grid-full">
-          <h1>Get started filing your 2018 HMDA data</h1>
+          <h1>Get started filing your {year} HMDA data</h1>
           <p className="font-lead max-width">
              Financial institutions use the HMDA Platform to upload their
              loan/application registers (LARs), review edits, certify the
              accuracy and completeness of the data, and submit data for the
-             filing year. For data collected in 2017, please visit{' '}
+             filing year. For data collected in 2018, please visit{' '}
+             <a href="https://ffiec.cfpb.gov/filing/2018">the 2018 Platform</a>,
+             For data collected in 2017, please visit{' '}
              <a href="https://ffiec.cfpb.gov/filing/">the 2017 Platform</a>.
            </p>
           <button

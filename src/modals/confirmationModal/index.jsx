@@ -50,7 +50,8 @@ export default class ModalConfirm extends Component {
       showing,
       newFile,
       hideConfirmModal,
-      triggerRefile
+      triggerRefile,
+      year
     } = this.props
 
     // get the page
@@ -74,7 +75,7 @@ export default class ModalConfirm extends Component {
               onClick={e => {
                 e.preventDefault()
                 hideConfirmModal()
-                triggerRefile(lei, filingPeriod, page, newFile)
+                triggerRefile(lei, filingPeriod, page, newFile, year)
               }}
               onBlur={e => {
                 e.preventDefault()

@@ -50,7 +50,7 @@ export class AppContainer extends Component {
   }
 
   _isHome(props) {
-    return !!props.location.pathname.match(/^\/filing\/2018\/$/)
+    return !!props.location.pathname.match(/^\/filing\/^SW[0-9]{4}\/$/)
   }
 
   render() {
