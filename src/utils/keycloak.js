@@ -17,7 +17,7 @@ const getKeycloak = () => {
   return keycloak
 }
 
-const login = (path = '/filing/2019/institutions') => {
+const login = (path = '/filing/2018/institutions') => {
   if (!keycloak) return error('keycloak needs to be set on app initialization')
   dispatch(isRedirecting(true))
   keycloak.login({ redirectUri: location.origin + path })

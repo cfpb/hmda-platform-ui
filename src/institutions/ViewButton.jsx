@@ -38,7 +38,7 @@ const InstitutionViewButton = ({ status, institution, filingPeriod }) => {
   return (
     <Link
       className="ViewButton button"
-      to={`/filing/${institution.year}/${institution.lei}/${filingPeriod}`}
+      to={`/filing/${filingPeriod}/${institution.lei}/${filingPeriod}`}
     >
       {text}
     </Link>

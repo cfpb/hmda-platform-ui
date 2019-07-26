@@ -44,7 +44,7 @@ export function mapDispatchToProps(dispatch) {
       })
     } else {
       return dispatch(fetchNewSubmission(lei, period)).then(() => {
-        browserHistory.replace(`/filing/${lei}/${period}/upload`)
+        browserHistory.replace(`/filing/${period}/${lei}/${period}/upload`)
       })
     }
   }
