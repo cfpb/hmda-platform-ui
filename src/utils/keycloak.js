@@ -17,7 +17,7 @@ const getKeycloak = () => {
   return keycloak
 }
 
-const login = (path = '/filing/2018/institutions') => {
+const login = (path = '/filing/2019/institutions') => {
   if (!keycloak) return error('keycloak needs to be set on app initialization')
   dispatch(isRedirecting(true))
   keycloak.login({ redirectUri: location.origin + path })
@@ -46,6 +46,7 @@ const register = () => {
   if (!keycloak) return error('keycloak needs to be set on app initialization')
 
   dispatch(isRedirecting(true))
+  var year = window.location.pathname.substring(8,12)
   keycloak.login({
     redirectUri: location.origin + '/filing/2018/institutions',
     action: 'register'
@@ -53,8 +54,9 @@ const register = () => {
 }
 
 const logout = () => {
+  var year = window.location.pathname.substring(8,12)
   if (!keycloak) return error('keycloak needs to be set on app initialization')
-  keycloak.logout({ redirectUri: location.origin + '/filing/2018/' })
+  keycloak.logout({ redirectUri: location.origin + '/filing/'+year+'/' })
 }
 
 export {

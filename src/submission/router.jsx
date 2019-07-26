@@ -71,14 +71,15 @@ export class SubmissionRouter extends Component {
   }
 
   replaceHistory(splat) {
-    const { lei, filing } = this.props.params
+    const { lei, filing, year } = this.props.params
     return browserHistory.replace(
-      `/filing/2018/${lei}/${filing}/${splat}`
+      `/filing/${year}/${lei}/${filing}/${splat}`
     )
   }
 
   goToAppHome() {
-    return browserHistory.replace('/filing/2018/')
+    var year = window.location.pathname.substring(8,12)
+    return browserHistory.replace('/filing/'+year+'/')
   }
 
   getLatestPage() {

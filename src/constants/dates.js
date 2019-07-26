@@ -5,5 +5,6 @@ export const ONE_WEEK_TO_FILE = { month: 1, day: 21 } // one week out, possibly 
 export const FILING_DEADLINE = { month: 2, day: 1 }
 export const FILING_PERIODS = {
   2017: { isBeta: 0 },
-  2018: { isBeta: 0 }
+  2018: { isBeta: 0 },
+  2019: { isBeta: 0 }
 }

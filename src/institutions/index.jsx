@@ -70,6 +70,7 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
           institution={institution}
           submission={_setSubmission(submission, filingObj)}
           submissions={filingObj.submissions}
+          year={filingObj.year}
         />
       )
     }
@@ -123,5 +124,6 @@ Institutions.propTypes = {
   error: PropTypes.object,
   filings: PropTypes.object,
   filingPeriod: PropTypes.string,
-  institutions: PropTypes.object
+  institutions: PropTypes.object,
+  year: PropTypes.object
 }
