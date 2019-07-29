@@ -1,7 +1,6 @@
 import { fetch } from './fetch.js'
 
 export function getInstitution(lei, year) {
-  console.log(this)
   return fetch({ pathname: `/institutions/${lei}/year/2018` })
 }
 
