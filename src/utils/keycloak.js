@@ -46,7 +46,6 @@ const register = () => {
   if (!keycloak) return error('keycloak needs to be set on app initialization')
 
   dispatch(isRedirecting(true))
-  var year = window.location.pathname.substring(8,12)
   keycloak.login({
     redirectUri: location.origin + '/filing/2018/institutions',
     action: 'register'
