@@ -26,6 +26,7 @@ const wrapLoading = (i = 0) => {
 }
 
 const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
+
   // we don't have institutions yet
   if (!institutions.fetched) return wrapLoading()
   // we don't have any associated institutions
@@ -63,6 +64,7 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
     } else {
       // we have good stuff
       const filingObj = institutionFilings.filing
+
       return (
         <Institution
           key={i}
@@ -70,7 +72,7 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
           institution={institution}
           submission={_setSubmission(submission, filingObj)}
           submissions={filingObj.submissions}
-          year={filingObj.year}
+          year={filingObj.period}
         />
       )
     }
@@ -80,7 +82,7 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
 export default class Institutions extends Component {
   render() {
     const { error, filingPeriod } = this.props
-
+    console.log(this.props)
     return (
       <main id="main-content" className="Institutions usa-grid-full">
         {error ? <ErrorWarning error={error} /> : null}

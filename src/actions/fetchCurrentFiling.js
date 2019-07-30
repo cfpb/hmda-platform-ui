@@ -3,12 +3,12 @@ import fetchNewFiling from './fetchNewFiling.js'
 
 export default function fetchCurrentFiling(institution) {
   return (dispatch, getState) => {
-    const period = getState().app.filingPeriod
+    const period = institution.institution.activityYear
 
     const filing = institution.filings.filter(filing => {
-      return filing.period === period
+      return true
     })[0]
-
+    
     if (filing) return dispatch(fetchFiling(filing))
 
     return dispatch(

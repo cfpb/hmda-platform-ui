@@ -17,8 +17,10 @@ export class InstitutionContainer extends Component {
     // create the expected objects from the array, institutions = [{lei: lie}, {lei: lei}]
     let institutions = []
     leis.forEach(lei => {
-      institutions.push({ lei: lei, year: this.props.params['year'] })
+      institutions.push({ lei: lei, year: 2018 })
+      institutions.push({ lei: lei, year: 2019 })
     })
+
     this.props.dispatch(fetchEachInstitution(institutions))
 
     this.props.dispatch(receiveInstitutions())
