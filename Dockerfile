@@ -14,7 +14,7 @@ COPY public ./public
 RUN yarn build
 
 FROM nginx:1.16-alpine
-ENV NGINX_USER=nginx
+ENV NGINX_USER=svc_nginx_hmda
 RUN rm -rf /etc/nginx/conf.d
 COPY nginx /etc/nginx
 COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html/filing/2018
@@ -23,5 +23,8 @@ RUN adduser -S $NGINX_USER nginx && \
     addgroup $NGINX_USER $NGINX_USER && \
     touch /run/nginx.pid && \
     chown -R $NGINX_USER:$NGINX_USER /etc/nginx /run/nginx.pid /var/cache/nginx/
-EXPOSE 80
+
+EXPOSE 8080
+
+USER svc_nginx_hmda
 CMD ["nginx", "-g", "daemon off;"]

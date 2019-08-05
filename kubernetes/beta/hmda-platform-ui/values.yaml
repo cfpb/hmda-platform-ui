@@ -15,12 +15,12 @@ fullnameOverride: ''
 
 service:
   type: NodePort
-  port: 80
+  port: 8080
 
 ambassador:
   service:
     type: NodePort
-  port: 80
+  port: 8080
 
 ingress:
   enabled: false
