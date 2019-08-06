@@ -22,10 +22,11 @@
 
 .Verifier .LoadingIconWrapper {
   position: absolute;
+  left: 150px;
 }
 .Verifier .LoadingIcon {
-  left: -38px;
-  top: 27px;
+  left: 0;
+  top: 14px;
 }
 
 .Verifier li {
