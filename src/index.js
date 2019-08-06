@@ -19,8 +19,8 @@ import AppContainer from './App.jsx'
 import HomeContainer from './home/container.jsx'
 import InstitutionContainer from './institutions/container.jsx'
 import SubmissionRouter from './submission/router.jsx'
-import { setDispatch, setKeycloak } from './utils/keycloak.js'
-import { setStore } from './api/fetch.js'
+import { setKeycloak } from './utils/keycloak.js'
+import { setStore } from './utils/store.js'
 import log from './utils/log.js'
 import appReducer from './reducers'
 
@@ -51,7 +51,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 setStore(store)
-setDispatch(store.dispatch)
 
 const history = syncHistoryWithStore(browserHistory, store)
 

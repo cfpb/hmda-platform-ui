@@ -48,8 +48,7 @@ const InstitutionViewButton = ({ status, institution, filingPeriod }) => {
 InstitutionViewButton.propTypes = {
   status: PropTypes.object,
   institution: PropTypes.object,
-  filingPeriod: PropTypes.string,
-  year: PropTypes.object
+  filingPeriod: PropTypes.string
 }
 
 export default InstitutionViewButton

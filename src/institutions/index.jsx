@@ -19,13 +19,13 @@ const _setSubmission = (submission, filingObj) => {
 
 const wrapLoading = (i = 0) => {
   return (
-    <div key={i} style={{height: '100px'}}>
+    <div key={i} style={{ height: '100px' }}>
       <Loading className="floatingIcon" />
     </div>
   )
 }
 
-const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
+const _whatToRender = ({ filings, institutions, submission }) => {
 
   // we don't have institutions yet
   if (!institutions.fetched) return wrapLoading()
@@ -64,7 +64,6 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
     } else {
       // we have good stuff
       const filingObj = institutionFilings.filing
-
       return (
         <Institution
           key={i}
@@ -72,7 +71,6 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
           institution={institution}
           submission={_setSubmission(submission, filingObj)}
           submissions={filingObj.submissions}
-          year={filingObj.period}
         />
       )
     }
@@ -82,7 +80,6 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
 export default class Institutions extends Component {
   render() {
     const { error, filingPeriod } = this.props
-    console.log(this.props)
     return (
       <main id="main-content" className="Institutions usa-grid-full">
         {error ? <ErrorWarning error={error} /> : null}
@@ -126,6 +123,5 @@ Institutions.propTypes = {
   error: PropTypes.object,
   filings: PropTypes.object,
   filingPeriod: PropTypes.string,
-  institutions: PropTypes.object,
-  year: PropTypes.object
+  institutions: PropTypes.object
 }

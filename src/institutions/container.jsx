@@ -3,27 +3,28 @@ import { connect } from 'react-redux'
 import requestInstitutions from '../actions/requestInstitutions.js'
 import fetchEachInstitution from '../actions/fetchEachInstitution.js'
 import receiveInstitutions from '../actions/receiveInstitutions.js'
+import updateFilingPeriod from '../actions/updateFilingPeriod.js'
 import Institutions from './index.jsx'
 import { getKeycloak } from '../utils/keycloak.js'
 
 export class InstitutionContainer extends Component {
   componentDidMount() {
-    if (!this.props.institutions.fetched && !this.props.institutions.isFetching)
-      this.props.dispatch(requestInstitutions())
-
+    const { dispatch, filingPeriod, institutions } = this.props
+    dispatch(updateFilingPeriod(filingPeriod))
+    if (!institutions.fetched && !institutions.isFetching)
+      dispatch(requestInstitutions())
     const leiString = getKeycloak().tokenParsed.lei
     const leis = leiString ? leiString.split(',') : []
 
-    // create the expected objects from the array, institutions = [{lei: lie}, {lei: lei}]
-    let institutions = []
+    // create the expected objects from the array, institutions = [{lei: lei}, {lei: lei}]
+    let instArr = []
     leis.forEach(lei => {
-      institutions.push({ lei: lei, year: 2018 })
-      institutions.push({ lei: lei, year: 2019 })
+      instArr.push({ lei: lei })
+      instArr.push({ lei: lei })
     })
 
-    this.props.dispatch(fetchEachInstitution(institutions))
-
-    this.props.dispatch(receiveInstitutions())
+    dispatch(fetchEachInstitution(instArr, filingPeriod))
+    dispatch(receiveInstitutions())
   }
 
   render() {
@@ -31,16 +32,16 @@ export class InstitutionContainer extends Component {
   }
 }
 
-export function mapStateToProps(state) {
-  const { institutions, filings, submission, error, filingPeriod, year } = state.app
+export function mapStateToProps(state, ownProps) {
+  const { institutions, filings, submission, error } = state.app
+  const { filingPeriod } = ownProps.params
 
   return {
     submission,
     filingPeriod,
     institutions,
     filings,
-    error,
-    year
+    error
   }
 }
 

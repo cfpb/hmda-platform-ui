@@ -78,7 +78,7 @@ export class SubmissionRouter extends Component {
   }
 
   goToAppHome() {
-    return browserHistory.replace(`/filing/${this.props.params.filingPeriod}`)
+    return browserHistory.replace(`/filing/${this.props.params.filingPeriod}/`)
   }
 
   getLatestPage() {
