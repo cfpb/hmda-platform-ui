@@ -28,7 +28,7 @@ export class SubmissionRouter extends Component {
     const { submission, params, dispatch } = this.props
     const status = submission.status
 
-    if (!params.lei || !params.filing) {
+    if (!params.lei) {
       return this.goToAppHome()
     }
 
@@ -38,7 +38,7 @@ export class SubmissionRouter extends Component {
     if (unmatchedId) dispatch(refreshState())
 
     dispatch(setLei(params.lei))
-    dispatch(updateFilingPeriod(params.filing))
+    dispatch(updateFilingPeriod(params.filingPeriod))
 
     if (unmatchedId || !status || status.code === UNINITIALIZED) {
       return dispatch(fetchSubmission()).then(json => {
@@ -71,15 +71,14 @@ export class SubmissionRouter extends Component {
   }
 
   replaceHistory(splat) {
-    const { lei, filing, year } = this.props.params
+    const { lei, filingPeriod } = this.props.params
     return browserHistory.replace(
-      `/filing/${year}/${lei}/${filing}/${splat}`
+      `/filing/${filingPeriod}/${lei}/${splat}`
     )
   }
 
   goToAppHome() {
-    var year = window.location.pathname.substring(8,12)
-    return browserHistory.replace('/filing/'+year+'/')
+    return browserHistory.replace(`/filing/${this.props.params.filingPeriod}`)
   }
 
   getLatestPage() {

@@ -17,17 +17,16 @@ export const logOutHandler = e => {
   logout()
 }
 
-export const getLink = (path) => {
-  let year = path.substring(8,12)
-  if (getKeycloak().authenticated) return '/filing/'+year+'/institutions'
-  return '/filing/'+year+'/'
+export const getLink = filingPeriod => {
+  if (getKeycloak().authenticated) return `/filing/${filingPeriod}/institutions`
+  return `/filing/${filingPeriod}/`
 }
 
 export const makeNav = (props, page) => {
   let userHeader = (
     <ul className="nav-primary">
       <li>
-        <Link to={getLink(props['pathname'])} className="nav-link">
+        <Link to={getLink(props.filingPeriod)} className="nav-link">
           Filing Home
         </Link>
       </li>
@@ -58,7 +57,7 @@ const Header = props => {
           <span className="logo-text">
             <Link
               className="nav-link"
-              to={getLink(props['pathname'])}
+              to={getLink(props.filingPeriod)}
               title="Home"
               aria-label="Home"
             >

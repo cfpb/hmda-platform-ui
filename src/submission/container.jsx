@@ -83,10 +83,10 @@ class SubmissionContainer extends Component {
   componentDidMount() {
     // for institution name in header
     const { lei } = this.props.params
-    const {year} = this.props.params
+    const { filingPeriod } = this.props.params
 
     if (!this.props.institutions.institutions[lei]) {
-      this.props.dispatch(fetchInstitution({ lei }, { year }, false))
+      this.props.dispatch(fetchInstitution( { lei, filingPeriod }, false))
     }
   }
 
@@ -105,7 +105,7 @@ class SubmissionContainer extends Component {
     return (
       <div>
         <UserHeading
-          period={params.filing}
+          period={params.filingPeriod}
           name={institution && institution.name ? institution.name : ''}
         />
         <EditsNav />

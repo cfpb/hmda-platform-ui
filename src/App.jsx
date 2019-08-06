@@ -50,19 +50,20 @@ export class AppContainer extends Component {
   }
 
   _isHome(props) {
-    return !!props.location.pathname.match(/^\/filing\/2018\/$/)
+    return !!props.location.pathname.match(/^\/filing\/\d{4}\/$/)
   }
 
   render() {
+    const { params, location } = this.props
     return (
       <div className="AppContainer">
         <a className="skipnav" href="#main-content">
           Skip to main content
         </a>
-        <Header pathname={this.props.location.pathname} />
+        <Header filingPeriod={params.filingPeriod} pathname={location.pathname} />
         <ConfirmationModal />
         {this._renderAppContents(this.props)}
-        <Footer />
+        <Footer filingPeriod={this.props.params.filingPeriod}/>
       </div>
     )
   }
