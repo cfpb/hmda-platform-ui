@@ -8,6 +8,7 @@ import Loading from './common/Loading.jsx'
 import * as AccessToken from './api/AccessToken.js'
 import { getKeycloak, refresh } from './utils/keycloak.js'
 import isRedirecting from './actions/isRedirecting.js'
+import updateFilingPeriod from './actions/updateFilingPeriod.js'
 //import { error } from './utils/log.js'
 import browser from 'detect-browser'
 
@@ -16,6 +17,7 @@ import './app.css'
 
 export class AppContainer extends Component {
   componentDidMount() {
+    this.props.dispatch(updateFilingPeriod(this.props.params.filingPeriod))
     const keycloak = getKeycloak()
     keycloak.init().then(authenticated => {
       if (authenticated) {

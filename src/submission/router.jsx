@@ -7,7 +7,6 @@ import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchEdits from '../actions/fetchEdits.js'
 import refreshState from '../actions/refreshState.js'
 import setLei from '../actions/setLei.js'
-import updateFilingPeriod from '../actions/updateFilingPeriod.js'
 import {
   UNINITIALIZED,
   VALIDATING,
@@ -38,7 +37,6 @@ export class SubmissionRouter extends Component {
     if (unmatchedId) dispatch(refreshState())
 
     dispatch(setLei(params.lei))
-    dispatch(updateFilingPeriod(params.filingPeriod))
 
     if (unmatchedId || !status || status.code === UNINITIALIZED) {
       return dispatch(fetchSubmission()).then(json => {

@@ -3,14 +3,12 @@ import { connect } from 'react-redux'
 import requestInstitutions from '../actions/requestInstitutions.js'
 import fetchEachInstitution from '../actions/fetchEachInstitution.js'
 import receiveInstitutions from '../actions/receiveInstitutions.js'
-import updateFilingPeriod from '../actions/updateFilingPeriod.js'
 import Institutions from './index.jsx'
 import { getKeycloak } from '../utils/keycloak.js'
 
 export class InstitutionContainer extends Component {
   componentDidMount() {
     const { dispatch, filingPeriod, institutions } = this.props
-    dispatch(updateFilingPeriod(filingPeriod))
     if (!institutions.fetched && !institutions.isFetching)
       dispatch(requestInstitutions())
     const leiString = getKeycloak().tokenParsed.lei
