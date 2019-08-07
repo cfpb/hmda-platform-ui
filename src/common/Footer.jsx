@@ -4,12 +4,12 @@ import './Footer.css'
 import logo from '../images/ffiec-logo.svg'
 import { getKeycloak } from '../utils/keycloak.js'
 
-export const getLink = () => {
-  if (getKeycloak().authenticated) return '/filing/2018/institutions'
-  return '/filing/2018/'
+export const getLink = filingPeriod => {
+  if (getKeycloak().authenticated) return `/filing/${filingPeriod}/institutions`
+  return `/filing/${filingPeriod}/`
 }
 
-const Footer = () => {
+const Footer = props => {
   return (
     <footer className="Footer footer footer-slim" role="contentinfo">
       <div className="usa-grid-full">
@@ -27,7 +27,7 @@ const Footer = () => {
               <li className="footer-primary-content">
                 <a
                   className="nav-link"
-                  href={getLink()}
+                  href={getLink(props.filingPeriod)}
                   title="Home"
                   aria-label="Home"
                 >

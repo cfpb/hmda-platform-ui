@@ -22,7 +22,7 @@ const Institution = ({ institution, filing, submission, submissions }) => {
       {filing ? (
         <section className="institution">
           <div className="current-status">
-            <InstitutionNameAndId name={institution.name} lei={institution.lei} />
+            <InstitutionNameAndId name={institution.name} lei={institution.lei} filingPeriod={filing.period} />
 
             <SubmissionNav status={status} />
 
@@ -64,7 +64,7 @@ Institution.propTypes = {
   institution: PropTypes.object,
   filing: PropTypes.object,
   submission: PropTypes.object,
-  submissions: PropTypes.array
+  submissions: PropTypes.array,
 }
 
 export default Institution

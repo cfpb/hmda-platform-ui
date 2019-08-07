@@ -1,7 +1,9 @@
 jest.unmock('./fetch')
+jest.unmock('../utils/store.js')
 jest.mock('../utils/log.js')
 jest.mock('../utils/redirect.js')
-import { fetch, setStore } from './fetch'
+import { fetch } from './fetch'
+import { setStore } from '../utils/store.js'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { error } from '../utils/log.js'
@@ -9,7 +11,7 @@ import { signinRedirect } from '../utils/redirect.js'
 
 const mockStore = configureMockStore([thunk])
 const store = mockStore({
-  app: { lei: '1', filingPeriod: '2017', submission: { id: '123' } }
+  app: { lei: '1', filingPeriod: '2017', submission: { id: '123' }}
 })
 
 setStore(store)
@@ -50,14 +52,14 @@ describe('fetch', () => {
   })
 
   it('creates a querystring when given params', done => {
-    fetch({ params: { a: 'b' } }).then(res => {
+    fetch({ params: { a: 'b' }}).then(res => {
       expect(isomorphicFetch.mock.calls[1][0]).toBe('qs')
       done()
     })
   })
 
   it('stringifies options body when needed', done => {
-    fetch({ body: {} }).then(res => {
+    fetch({ body: {}}).then(res => {
       expect(isomorphicFetch.mock.calls[2][1].body).toBe('{}')
       done()
     })
@@ -74,7 +76,7 @@ describe('fetch', () => {
   })
 
   it('sets headers on csv', done => {
-    fetch({ params: { format: 'csv' } }).then(res => {
+    fetch({ params: { format: 'csv' }}).then(res => {
       expect(isomorphicFetch.mock.calls[4][1].headers).toEqual({
         'Content-Type': 'text/csv',
         Authorization: 'Bearer token'
@@ -86,7 +88,7 @@ describe('fetch', () => {
 
   it('only sets auth with token', done => {
     mocktoken = undefined
-    fetch({ params: { format: 'csv' } }).then(res => {
+    fetch({ params: { format: 'csv' }}).then(res => {
       expect(isomorphicFetch.mock.calls[5][1].headers).toEqual({
         'Content-Type': 'text/csv'
       })

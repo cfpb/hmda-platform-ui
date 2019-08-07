@@ -19,13 +19,14 @@ const _setSubmission = (submission, filingObj) => {
 
 const wrapLoading = (i = 0) => {
   return (
-    <div key={i} style={{height: '100px'}}>
+    <div key={i} style={{ height: '100px' }}>
       <Loading className="floatingIcon" />
     </div>
   )
 }
 
-const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
+const _whatToRender = ({ filings, institutions, submission }) => {
+
   // we don't have institutions yet
   if (!institutions.fetched) return wrapLoading()
   // we don't have any associated institutions
@@ -79,7 +80,6 @@ const _whatToRender = ({ filings, filingPeriod, institutions, submission }) => {
 export default class Institutions extends Component {
   render() {
     const { error, filingPeriod } = this.props
-
     return (
       <main id="main-content" className="Institutions usa-grid-full">
         {error ? <ErrorWarning error={error} /> : null}

@@ -22,7 +22,7 @@ describe('fetchInstitution', () => {
     const store = mockStore({ filings: [] })
 
     store
-      .dispatch(fetchInstitution({ id: '0' }, false))
+      .dispatch(fetchInstitution({ id: '0' }, 2018, false))
       .then(() => {
         expect(store.getActions()).toEqual([
           { type: types.REQUEST_INSTITUTION, id: '0' },
@@ -51,7 +51,7 @@ describe('fetchInstitution', () => {
     )
 
     store
-      .dispatch(fetchInstitution({ id: '123' }))
+      .dispatch(fetchInstitution({ id: '123' }, 2018))
       .then(() => {
         expect(store.getActions()).toEqual([
           { type: types.REQUEST_INSTITUTION, id: '123' },

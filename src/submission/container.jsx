@@ -29,7 +29,7 @@ const EditsNav = submissionProgressHOC(EditsNavComponent)
 const NavButton = submissionProgressHOC(NavButtonComponent)
 const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
-const renderByCode = (code, page, lei) => {
+const renderByCode = (code, page, lei, filingPeriod) => {
   const toRender = []
   if (code === FAILED) {
     toRender.push(<RefileWarning />)
@@ -66,7 +66,7 @@ const renderByCode = (code, page, lei) => {
     toRender.push(
       <p>
         Something is wrong.{' '}
-        <Link to={window.HMDA_ENV.APP_SUFFIX + 'institutions'}>
+        <Link to={`/filing/${filingPeriod}/institutions`}>
           Return to institutions
         </Link>
         .
@@ -82,29 +82,29 @@ const renderByCode = (code, page, lei) => {
 class SubmissionContainer extends Component {
   componentDidMount() {
     // for institution name in header
-    const { lei } = this.props.params
+    const { lei, filingPeriod } = this.props.params
 
     if (!this.props.institutions.institutions[lei]) {
-      this.props.dispatch(fetchInstitution({ lei }, false))
+      this.props.dispatch(fetchInstitution( { lei }, filingPeriod, false))
     }
   }
 
   render() {
     if (!this.props.location) return null
-    const { submission, params, location, institutions } = this.props
+    const { submission, params, location, institutions, lei } = this.props
     const status = submission.status
     const code = status && status.code
     const page = location.pathname.split('/').slice(-1)[0]
-    const institution = institutions.institutions[params.lei]
+    const institution = institutions.institutions[lei]
 
     const toRender = code
-      ? renderByCode(code, page, this.props.lei)
+      ? renderByCode(code, page, lei, params.filingPeriod)
       : [<Loading key="0" />]
 
     return (
       <div>
         <UserHeading
-          period={params.filing}
+          period={params.filingPeriod}
           name={institution && institution.name ? institution.name : ''}
         />
         <EditsNav />

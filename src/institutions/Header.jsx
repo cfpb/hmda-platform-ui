@@ -16,7 +16,7 @@ const InstitutionsHeader = ({ filingPeriod }) => {
           The beta {filingPeriod} HMDA Platform is available to upload, test,
           and validate HMDA data. All test data uploaded during the beta
           period will be removed from the system when the filing period opens on
-          January 1st, 2019.
+          January 1st, {filingPeriod + 1}.
         </p>
       </Alert>
     )
@@ -28,7 +28,7 @@ const InstitutionsHeader = ({ filingPeriod }) => {
         type="warning"
       >
         <p>
-          The Platform will begin accepting data for the 2018 filing period on January 1st.
+          The Platform will begin accepting data for the {filingPeriod} filing period on January 1st.
         </p>
       </Alert>
     )

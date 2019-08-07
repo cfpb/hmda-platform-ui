@@ -50,7 +50,7 @@ export default class ModalConfirm extends Component {
       showing,
       newFile,
       hideConfirmModal,
-      triggerRefile
+      triggerRefile,
     } = this.props
 
     // get the page

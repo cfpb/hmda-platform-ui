@@ -7,7 +7,6 @@ import fetchSubmission from '../actions/fetchSubmission.js'
 import fetchEdits from '../actions/fetchEdits.js'
 import refreshState from '../actions/refreshState.js'
 import setLei from '../actions/setLei.js'
-import updateFilingPeriod from '../actions/updateFilingPeriod.js'
 import {
   UNINITIALIZED,
   VALIDATING,
@@ -28,7 +27,7 @@ export class SubmissionRouter extends Component {
     const { submission, params, dispatch } = this.props
     const status = submission.status
 
-    if (!params.lei || !params.filing) {
+    if (!params.lei) {
       return this.goToAppHome()
     }
 
@@ -38,7 +37,6 @@ export class SubmissionRouter extends Component {
     if (unmatchedId) dispatch(refreshState())
 
     dispatch(setLei(params.lei))
-    dispatch(updateFilingPeriod(params.filing))
 
     if (unmatchedId || !status || status.code === UNINITIALIZED) {
       return dispatch(fetchSubmission()).then(json => {
@@ -71,14 +69,14 @@ export class SubmissionRouter extends Component {
   }
 
   replaceHistory(splat) {
-    const { lei, filing } = this.props.params
+    const { lei, filingPeriod } = this.props.params
     return browserHistory.replace(
-      `/filing/2018/${lei}/${filing}/${splat}`
+      `/filing/${filingPeriod}/${lei}/${splat}`
     )
   }
 
   goToAppHome() {
-    return browserHistory.replace('/filing/2018/')
+    return browserHistory.replace(`/filing/${this.props.params.filingPeriod}/`)
   }
 
   getLatestPage() {

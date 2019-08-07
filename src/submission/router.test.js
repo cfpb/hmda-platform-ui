@@ -48,7 +48,7 @@ describe('ConnectedRouter', () => {
   const container = TestUtils.renderIntoDocument(
     <ConnectedRouter
       store={store}
-      params={{ lei: '123', filing: '234', splat: 'upload' }}
+      params={{ lei: '123', filingPeriod: '234', splat: 'upload' }}
     >
       <p>hey</p>
     </ConnectedRouter>
@@ -90,7 +90,7 @@ describe('replaceHistory', () => {
     browserHistory.replace = replace
 
     const router = new SubmissionRouter({
-      params: { lei: 'argle', filing: 'bargle' }
+      params: { lei: 'argle', filingPeriod: 'bargle' }
     })
     router.replaceHistory('foofaraw')
 
@@ -189,7 +189,7 @@ describe('componentDidMount', () => {
         status: { code: STATUS.VALIDATED },
         id: { lei: 'argle' }
       },
-      params: { filing: 'bargle' },
+      params: { filingPeriod: 'bargle' },
       dispatch: dispatch
     })
 
@@ -227,7 +227,7 @@ describe('componentDidMount', () => {
         status: { code: STATUS.VALIDATED },
         id: { lei: 'argle' }
       },
-      params: { lei: 'argle', filing: 'bargle' },
+      params: { lei: 'argle', filingPeriod: 'bargle' },
       dispatch: dispatch
     })
 
@@ -249,7 +249,7 @@ describe('componentDidMount', () => {
         status: { code: STATUS.VALIDATED },
         id: { lei: 'argle' }
       },
-      params: { lei: 'elsewise', filing: 'bargle' },
+      params: { lei: 'elsewise', filingPeriod: 'bargle' },
       dispatch: dispatch
     })
 
@@ -274,7 +274,7 @@ describe('componentDidMount', () => {
         status: null,
         id: { lei: 'argle' }
       },
-      params: { lei: 'argle', filing: 'bargle' },
+      params: { lei: 'argle', filingPeriod: 'bargle' },
       dispatch: dispatch
     })
 
@@ -300,7 +300,7 @@ describe('componentDidMount', () => {
         status: { code: STATUS.UNINITIALIZED },
         id: { lei: 'argle' }
       },
-      params: { lei: 'argle', filing: 'bargle' },
+      params: { lei: 'argle', filingPeriod: 'bargle' },
       dispatch: dispatch
     })
 
@@ -325,7 +325,7 @@ describe('componentDidMount', () => {
         status: { code: STATUS.UNINITIALIZED },
         id: { lei: 'argle' }
       },
-      params: { lei: 'argle', filing: 'bargle' },
+      params: { lei: 'argle', filingPeriod: 'bargle' },
       dispatch: dispatch
     })
 
@@ -351,7 +351,7 @@ describe('componentDidMount', () => {
         status: { code: STATUS.VALIDATED_WITH_ERRORS },
         id: { lei: 'argle' }
       },
-      params: { lei: 'argle', filing: 'bargle' },
+      params: { lei: 'argle', filingPeriod: 'bargle' },
       dispatch: dispatch
     })
 
@@ -397,7 +397,7 @@ describe('route', () => {
         id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { lei: 'argle', filing: 'bargle' }
+      params: { lei: 'argle', filingPeriod: 'bargle' }
     })
     router.getLatestPage = latest
     router.replaceHistory = replace
@@ -414,7 +414,7 @@ describe('route', () => {
         id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { lei: 'argle', filing: 'bargle', splat: 'badsplat' }
+      params: { lei: 'argle', filingPeriod: 'bargle', splat: 'badsplat' }
     })
     router.route()
     expect(replace).toBeCalledWith('/filing/')
@@ -428,7 +428,7 @@ describe('route', () => {
         id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { lei: 'argle', filing: 'bargle', splat: 'upload' }
+      params: { lei: 'argle', filingPeriod: 'bargle', splat: 'upload' }
     })
     router.forceUpdate = force
     router.route()
@@ -444,7 +444,7 @@ describe('route', () => {
         id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { lei: 'argle', filing: 'bargle', splat: 'quality' }
+      params: { lei: 'argle', filingPeriod: 'bargle', splat: 'quality' }
     })
     router.replaceHistory = replace
     router.route()
@@ -460,7 +460,7 @@ describe('route', () => {
         id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { lei: 'argle', filing: 'bargle', splat: 'quality' }
+      params: { lei: 'argle', filingPeriod: 'bargle', splat: 'quality' }
     })
     router.forceUpdate = force
     router.getLatestPage = latest
@@ -477,7 +477,7 @@ describe('route', () => {
         id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { lei: 'argle', filing: 'bargle', splat: 'macro' }
+      params: { lei: 'argle', filingPeriod: 'bargle', splat: 'macro' }
     })
     router.replaceHistory = replace
     router.getLatestPage = latest
@@ -494,7 +494,7 @@ describe('route', () => {
         id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { lei: 'argle', filing: 'bargle', splat: 'upload' }
+      params: { lei: 'argle', filingPeriod: 'bargle', splat: 'upload' }
     })
     router.forceUpdate = force
     router.getLatestPage = latest
@@ -510,7 +510,7 @@ describe('route', () => {
         id: { lei: 'argle' }
       },
       types: typesDefault,
-      params: { lei: 'argle', filing: 'bargle', splat: 'quality' }
+      params: { lei: 'argle', filingPeriod: 'bargle', splat: 'quality' }
     })
     router.forceUpdate = force
     router.route()

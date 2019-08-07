@@ -3,17 +3,11 @@ import createQueryString from './createQueryString.js'
 import makeUrl from './makeUrl.js'
 import * as AccessToken from './AccessToken.js'
 import { login } from '../utils/keycloak.js'
+import { getStore } from '../utils/store.js'
 import log, { error } from '../utils/log.js'
 
-//Once the store is intialized, save a reference to it here
-//This is currently done in index.js
-let store = null
-export function setStore(s) {
-  store = s
-}
-
 export function getFilingData() {
-  const appState = store.getState().app
+  const appState = getStore().getState().app
   return {
     lei: appState.lei,
     filing: appState.filingPeriod,
