@@ -11,8 +11,8 @@ export default function fetchNewSubmission() {
     const lei = appState.lei
     const filing = appState.filingPeriod
 
-    localStorage.removeItem(`HMDA_FILE_SIZE/${lei}`)
-    localStorage.removeItem(`HMDA_FILE_PROGRESS/${lei}`)
+    localStorage.removeItem(`HMDA_FILE_SIZE/${filing}/${lei}`)
+    localStorage.removeItem(`HMDA_FILE_PROGRESS/${filing}/${lei}`)
 
     dispatch(requestSubmission())
     return createSubmission(lei, filing)

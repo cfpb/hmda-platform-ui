@@ -20,7 +20,7 @@ const ProgressText =  progressHOC(ProgressTextComponent)
 export default class ValidationProgress extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = { fillWidth: this.getSavedWidth(props.lei) }
+    this.state = { fillWidth: this.getSavedWidth(props.filingPeriod, props.lei) }
     this.SCALING_FACTOR = 1
     if (props.file) {
       this.SCALING_FACTOR = props.file.size / 1e6
@@ -36,17 +36,17 @@ export default class ValidationProgress extends PureComponent {
       if (this.SCALING_FACTOR > 5) this.SCALING_FACTOR = 5
     }
     if (props.lei !== this.props.lei) {
-      this.setState({ fillWidth: this.getSavedWidth(props.lei) })
+      this.setState({ fillWidth: this.getSavedWidth(props.filingPeriod, props.lei) })
     }
   }
 
-  getSavedWidth(lei) {
-    return lei ? +localStorage.getItem(`HMDA_FILE_PROGRESS/${lei}`) : 0
+  getSavedWidth(filingPeriod, lei) {
+    return lei ? +localStorage.getItem(`HMDA_FILE_PROGRESS/${filingPeriod}/${lei}`) : 0
   }
 
-  saveWidth(lei, width) {
+  saveWidth(filingPeriod, lei, width) {
     if (this.props.errorUpload || this.props.errorApp) width = 0
-    localStorage.setItem(`HMDA_FILE_PROGRESS/${lei}`, width)
+    localStorage.setItem(`HMDA_FILE_PROGRESS/${filingPeriod}/${lei}`, width)
   }
 
   isErrored() {
@@ -66,7 +66,7 @@ export default class ValidationProgress extends PureComponent {
     let currWidth = this.state.fillWidth
     if (this.isErrored() || this.props.code === SYNTACTICAL_VALIDITY_EDITS || this.props.code >= NO_MACRO_EDITS) {
       currWidth = 100
-      this.saveWidth(this.props.lei, 100)
+      this.saveWidth(this.props.filingPeriod, this.props.lei, 100)
     } else if (!this.timeout) this.getNextWidth()
 
     return currWidth
@@ -77,7 +77,7 @@ export default class ValidationProgress extends PureComponent {
       this.timeout = null
       let nextWidth = currWidth + 1
       if (nextWidth > 100) nextWidth = 100
-      this.saveWidth(this.props.lei, nextWidth)
+      this.saveWidth(this.props.filingPeriod, this.props.lei, nextWidth)
       this.setState({ fillWidth: nextWidth })
     }
   }
@@ -123,6 +123,7 @@ ValidationProgress.propTypes = {
   errorApp: PropTypes.object,
   errorUpload: PropTypes.object,
   file: PropTypes.object,
+  filingPeriod: PropTypes.string,
   lei: PropTypes.string,
   uploading: PropTypes.bool
 }
