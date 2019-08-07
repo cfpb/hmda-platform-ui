@@ -9,6 +9,7 @@ import * as AccessToken from './api/AccessToken.js'
 import { getKeycloak, refresh } from './utils/keycloak.js'
 import isRedirecting from './actions/isRedirecting.js'
 import updateFilingPeriod from './actions/updateFilingPeriod.js'
+import { FILING_PERIODS } from './constants/dates.js'
 //import { error } from './utils/log.js'
 import browser from 'detect-browser'
 
@@ -57,6 +58,7 @@ export class AppContainer extends Component {
 
   render() {
     const { params, location } = this.props
+    const allowedFilingPeriods = Object.keys(FILING_PERIODS)
     return (
       <div className="AppContainer">
         <a className="skipnav" href="#main-content">
@@ -64,7 +66,12 @@ export class AppContainer extends Component {
         </a>
         <Header filingPeriod={params.filingPeriod} pathname={location.pathname} />
         <ConfirmationModal />
-        {this._renderAppContents(this.props)}
+        {allowedFilingPeriods.indexOf(params.filingPeriod) !== -1
+          ? this._renderAppContents(this.props)
+          : params.filingPeriod === '2017'
+            ? <p className="usa-grid-full">For data collected in 2017, please visit <a href="https://ffiec.cfpb.gov/filing/">the 2017 Platform</a>.</p>
+            : <p className="usa-grid-full">The {params.filingPeriod} filing period does not exist. If this seems wrong please contact <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.</p>
+        }
         <Footer filingPeriod={this.props.params.filingPeriod}/>
       </div>
     )
