@@ -5,6 +5,7 @@ import ErrorWarning from '../common/ErrorWarning.jsx'
 import Institution from './Institution.jsx'
 import InstitutionsHeader from './Header.jsx'
 import sortInstitutions from '../utils/sortInstitutions.js'
+import YearSelector from '../common/YearSelector.jsx'
 import Alert from '../common/Alert.jsx'
 
 import './Institutions.css'
@@ -79,7 +80,7 @@ const _whatToRender = ({ filings, institutions, submission }) => {
 
 export default class Institutions extends Component {
   render() {
-    const { error, filingPeriod } = this.props
+    const { error, filingPeriod, location } = this.props
     return (
       <main id="main-content" className="Institutions usa-grid-full">
         {error ? <ErrorWarning error={error} /> : null}
@@ -87,6 +88,8 @@ export default class Institutions extends Component {
           {filingPeriod ? (
             <InstitutionsHeader filingPeriod={filingPeriod} />
           ) : null}
+
+          <YearSelector filingPeriod={filingPeriod} pathname={location.pathname}/>
 
           {_whatToRender(this.props)}
 

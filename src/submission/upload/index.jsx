@@ -48,6 +48,7 @@ export default class Upload extends Component {
       errorUpload,
       file,
       filename,
+      filingPeriod,
       lei,
       uploading
     } = this.props
@@ -86,6 +87,7 @@ export default class Upload extends Component {
           errorApp={errorApp}
           errorUpload={errorUpload}
           file={file}
+          filingPeriod={filingPeriod}
           lei={lei}
           uploading={uploading}
         />
@@ -103,6 +105,7 @@ Upload.propTypes = {
   errorUpload: PropTypes.object,
   file: PropTypes.object,
   filename: PropTypes.string,
+  filingPeriod: PropTypes.string,
   lei: PropTypes.string,
   uploading: PropTypes.bool,
   // dispatch

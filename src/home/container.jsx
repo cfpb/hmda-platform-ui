@@ -5,7 +5,12 @@ import InstitutionsContainer from '../institutions/container.jsx'
 
 export class HomeContainer extends Component {
   render() {
-    if (this.props.user === null) return <Home filingPeriod={this.props.params.filingPeriod}/>
+    if (this.props.user === null) return (
+      <Home
+        pathname={this.props.location.pathname}
+        filingPeriod={this.props.params.filingPeriod}
+      />
+    )
     return <InstitutionsContainer />
   }
 }
