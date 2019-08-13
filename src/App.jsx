@@ -53,12 +53,14 @@ export class AppContainer extends Component {
   }
 
   _isHome(props) {
-    return !!props.location.pathname.match(/^\/filing\/\d{4}\/$/)
+    return !!props.location.pathname.match(/^\/filing\/login/)
   }
 
   render() {
     const { params, location } = this.props
     const allowedFilingPeriods = Object.keys(FILING_PERIODS)
+    if(params.filingPeriod === 'login' || typeof params.filingPeriod === 'undefined')
+      params.filingPeriod = (Object.keys(FILING_PERIODS)[Object.keys(FILING_PERIODS).length-1])
     return (
       <div className="AppContainer">
         <a className="skipnav" href="#main-content">

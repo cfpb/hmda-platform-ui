@@ -65,7 +65,7 @@ history.listen(location => {
 render(
   <Provider store={store}>
     <Router history={history} render={applyRouterMiddleware(useScroll())}>
-      <Route path={'/filing/:filingPeriod/'} component={AppContainer}>
+      <Route path={'/filing/login'} component={AppContainer}>
         <IndexRoute component={HomeContainer} />
         <Route
           path={'/filing/:filingPeriod/institutions'}
@@ -79,7 +79,7 @@ render(
           path={'/filing/:filingPeriod/:lei/*'}
           component={SubmissionRouter}
         />
-        <Route path={'/filing/:filingPeriod/*'} component={SubmissionRouter} />
+        
       </Route>
     </Router>
   </Provider>,
