@@ -1,6 +1,5 @@
 import React from 'react'
 import { login, register } from '../utils/keycloak.js'
-import YearSelector from '../common/YearSelector.jsx'
 
 import './Home.css'
 
@@ -9,8 +8,7 @@ const Home = props => {
     <main className="Home" id="main-content">
       <section className="hero">
         <div className="usa-grid-full">
-          <YearSelector {...props}/>
-          <h1>Get started filing your {props.filingPeriod} HMDA data</h1>
+          <h1>Get started filing your HMDA data</h1>
           <p className="font-lead max-width">
              Financial institutions use the HMDA Platform to upload their
              loan/application registers (LARs), review edits, certify the

@@ -19,7 +19,7 @@ export const logOutHandler = e => {
 
 export const getLink = filingPeriod => {
   if (getKeycloak().authenticated) return `/filing/${filingPeriod}/institutions`
-  return `/filing/${filingPeriod}/`
+  return `/filing/login`
 }
 
 export const makeNav = (props, page) => {

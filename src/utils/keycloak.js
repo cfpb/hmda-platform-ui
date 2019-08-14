@@ -45,14 +45,14 @@ const register = () => {
 
   getStore().dispatch(isRedirecting(true))
   keycloak.login({
-    redirectUri: location.origin + '/filing/2018/institutions',
+    redirectUri: location.origin + `/filing/${getStore().getState().app.filingPeriod}/institutions`,
     action: 'register'
   })
 }
 
 const logout = () => {
   if (!keycloak) return error('keycloak needs to be set on app initialization')
-  keycloak.logout({ redirectUri: location.origin + `/filing/${getStore().getState().app.filingPeriod}/` })
+  keycloak.logout({ redirectUri: location.origin + `/filing/login` })
 }
 
 export {

@@ -22,7 +22,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels: 
+  labels:
     service: {{ include "hmda-platform-ui.fullname" . }}-ambassador
   name: {{ include "hmda-platform-ui.fullname" . }}-ambassador
   annotations:
@@ -31,10 +31,10 @@ metadata:
       kind: Mapping
       name: platform_ui_mapping
       ambassador_id: ambassador-default-1
-      prefix: /filing/2018/
-      rewrite: /filing/2018/
+      prefix: /filing/login
+      rewrite: 
       service: {{ include "hmda-platform-ui.fullname" . }}:{{ .Values.service.port }}
 spec:
-  clusterIP: None  
+  clusterIP: None
   ports:
     - port: {{ .Values.service.port }}
