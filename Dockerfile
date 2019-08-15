@@ -17,7 +17,7 @@ FROM nginx:1.16-alpine
 ENV NGINX_USER=svc_nginx_hmda
 RUN rm -rf /etc/nginx/conf.d
 COPY nginx /etc/nginx
-COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html/filing/
+COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html/filing/build
 RUN adduser -S $NGINX_USER nginx && \
     addgroup -S $NGINX_USER && \
     addgroup $NGINX_USER $NGINX_USER && \
