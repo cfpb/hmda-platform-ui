@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import {
   Router,
+  Redirect,
   Route,
   browserHistory,
   IndexRoute,
@@ -65,6 +66,8 @@ history.listen(location => {
 render(
   <Provider store={store}>
     <Router history={history} render={applyRouterMiddleware(useScroll())}>
+      <Redirect from="/" to="/filing/2019/"/>
+      <Redirect from="/filing" to="/filing/2019/"/>
       <Route path={'/filing/:filingPeriod/'} component={AppContainer}>
         <IndexRoute component={HomeContainer} />
         <Route
