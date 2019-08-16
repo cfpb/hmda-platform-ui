@@ -31,8 +31,8 @@ metadata:
       kind: Mapping
       name: platform_ui_mapping
       ambassador_id: ambassador-beta-2
-      prefix: /filing/2018/
-      rewrite: /filing/2018/
+      prefix: /filing/
+      rewrite: ""
       service: {{ include "hmda-platform-ui.fullname" . }}:{{ .Values.service.port }}
 spec:
   type: {{ .Values.ambassador.service.type }}

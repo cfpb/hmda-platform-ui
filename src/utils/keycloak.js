@@ -42,10 +42,10 @@ const refresh = () => {
 
 const register = () => {
   if (!keycloak) return error('keycloak needs to be set on app initialization')
-
-  getStore().dispatch(isRedirecting(true))
+  const store = getStore()
+  store.dispatch(isRedirecting(true))
   keycloak.login({
-    redirectUri: location.origin + '/filing/2018/institutions',
+    redirectUri: `${location.origin}/filing/${store.getState().app.filingPeriod}/institutions`,
     action: 'register'
   })
 }
