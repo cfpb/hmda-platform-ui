@@ -27,7 +27,7 @@ metadata:
   name: {{ include "hmda-platform-ui.fullname" . }}-ambassador
   annotations:
     getambassador.io/config: |
-      apiVersion: ambassador/v0
+      apiVersion: ambassador/v1
       kind: Mapping
       name: platform_ui_mapping
       ambassador_id: ambassador-beta-2
