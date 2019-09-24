@@ -40,5 +40,3 @@ spec:
   - name: {{ include "hmda-platform-ui.fullname" . }}-ambassador
     port: {{ .Values.ambassador.port }}
     targetPort: {{ .Values.service.port }}
-  selector:
-service: {{ include "hmda-platform-ui.fullname" . }}-ambassador
