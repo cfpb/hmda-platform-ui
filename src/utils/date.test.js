@@ -139,7 +139,7 @@ describe('beforeFilingPeriod', () => {
 
 describe('isBeta', () => {
   it('checks beta status of various filing periods', () => {
-    expect(isBeta('2018')).toBe(0)
-    expect(isBeta('2017')).toBe(0)
+    expect(isBeta()).toBe(0)
+    expect(isBeta()).toBe(0)
   })
 })

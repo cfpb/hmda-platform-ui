@@ -89,6 +89,6 @@ describe('InstitutionsHeader', () => {
     ).toBe(1)
     expect(
       TestUtils.scryRenderedDOMComponentsWithTag(header, 'h3')[0].textContent
-    ).toEqual('The 2017 filing period is not yet open.')
+    ).toEqual('HMDA Filing Beta')
   })
 })
