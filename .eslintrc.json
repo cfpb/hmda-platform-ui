@@ -1,0 +1,48 @@
+{
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "plugins": [
+    "react",
+    "prettier"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "env": {
+    "node": 1,
+    "es6": 1,
+    "browser": 1,
+    "jest": 1
+  },
+  "rules": {
+    "no-return-assign": 0,
+    "curly": 0,
+    "no-shadow": 0,
+    "no-underscore-dangle": 0,
+    "space-infix-ops": 0,
+    "quotes": [
+      1,
+      "single"
+    ],
+    "no-new": 0,
+    "consistent-return": 0,
+    "new-cap": 0,
+    "no-use-before-define": 0,
+    "semi": 0,
+    "yoda": 0,
+    "camelcase": 0,
+    "no-trailing-spaces": 1,
+    "react/prop-types": 0
+  },
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": 1
+    }
+  }
+}

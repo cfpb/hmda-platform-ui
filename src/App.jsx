@@ -58,7 +58,6 @@ export class AppContainer extends Component {
 
   render() {
     const { params, location } = this.props
-    const allowedFilingPeriods = Object.keys(FILING_PERIODS)
     return (
       <div className="AppContainer">
         <a className="skipnav" href="#main-content">
@@ -66,7 +65,7 @@ export class AppContainer extends Component {
         </a>
         <Header filingPeriod={params.filingPeriod} pathname={location.pathname} />
         <ConfirmationModal />
-        {allowedFilingPeriods.indexOf(params.filingPeriod) !== -1
+        {FILING_PERIODS.indexOf(params.filingPeriod) !== -1
           ? this._renderAppContents(this.props)
           : params.filingPeriod === '2017'
             ? <p className="usa-grid-full">For data collected in 2017, please visit <a href="https://ffiec.cfpb.gov/filing/">the 2017 Platform</a>.</p>
