@@ -8,7 +8,7 @@ import './Table.css'
 
 export const formatHeader = text => {
   if (text === 'value' || text === 'fields') return null
-  if (text === 'id') return 'Loan/Application Number'
+  if (text === 'id') return 'Universal Loan Identifier (ULI)'
   if (text === 'edit') return 'Edit ID'
   if (text === 'editId') return 'Edit ID'
   if (text === 'description') return 'Description'
