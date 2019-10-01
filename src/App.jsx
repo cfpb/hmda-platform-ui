@@ -68,7 +68,7 @@ export class AppContainer extends Component {
         {FILING_PERIODS.indexOf(params.filingPeriod) !== -1
           ? this._renderAppContents(this.props)
           : params.filingPeriod === '2017'
-            ? <p className="usa-grid-full">For data collected in 2017, please visit <a href="https://ffiec.cfpb.gov/filing/">the 2017 Platform</a>.</p>
+            ? <p className="usa-grid-full">Files are no longer being accepted for the 2017 filing period. For further assistance, please contact <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.</p>
             : <p className="usa-grid-full">The {params.filingPeriod} filing period does not exist. If this seems wrong please contact <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.</p>
         }
         <Footer filingPeriod={this.props.params.filingPeriod}/>

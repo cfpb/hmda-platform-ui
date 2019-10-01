@@ -15,7 +15,7 @@ const Home = props => {
              Financial institutions use the HMDA Platform to upload their
              loan/application registers (LARs), review edits, certify the
              accuracy and completeness of the data, and submit data for the
-             filing year. For data collected in 2017, please visit <a href="https://ffiec.cfpb.gov/filing/">the 2017 Platform</a>.
+             filing year.
            </p>
           <button
             className="button"
