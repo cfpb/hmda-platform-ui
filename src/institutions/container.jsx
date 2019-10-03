@@ -14,10 +14,9 @@ export class InstitutionContainer extends Component {
     const leiString = getKeycloak().tokenParsed.lei
     const leis = leiString ? leiString.split(',') : []
 
-    // create the expected objects from the array, institutions = [{lei: lei}, {lei: lei}]
+    // create the expected objects from the array, institutions = [{lei: lei}]
     let instArr = []
     leis.forEach(lei => {
-      instArr.push({ lei: lei })
       instArr.push({ lei: lei })
     })
 
