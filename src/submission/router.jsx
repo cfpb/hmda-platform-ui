@@ -82,7 +82,7 @@ export class SubmissionRouter extends Component {
   getLatestPage() {
     const status = this.props.submission.status
     const code = status.code
-    const qualityVerified = this.props.types.quality.verified
+    const { qualityVerified } = status
 
     if (code <= VALIDATING || code === NO_QUALITY_EDITS) return 'upload'
     if (code >= VALIDATED) return 'submission'

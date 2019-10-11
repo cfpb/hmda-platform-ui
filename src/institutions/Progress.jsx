@@ -27,7 +27,7 @@ const navMap = {
   },
   'quality edits': {
     isErrored: code => code === QUALITY_EDITS,
-    isCompleted: code => code > QUALITY_EDITS,
+    isCompleted: (code, verified) => verified,
     errorText: 'quality edits',
     completedText: 'quality edits verified'
   },
@@ -45,9 +45,10 @@ const navMap = {
   }
 }
 
-const renderNavItem = (code, name, i) => {
+const renderNavItem = (status, name, i) => {
+  const { code, qualityVerified } = status
   const navItem = navMap[name]
-  const completed = navItem.isCompleted(code)
+  const completed = navItem.isCompleted(code, qualityVerified)
   const errored = navItem.isErrored(code)
 
   let renderedName = name
@@ -84,7 +85,7 @@ const Progress = ({ status = { code: 1 } }) => {
       <nav className="EditsNav" id="editsNav">
         <ul className="nav-primary">
           {Object.keys(navMap).map((name, i) => {
-            return renderNavItem(status.code, name, i)
+            return renderNavItem(status, name, i)
           })}
         </ul>
         <hr className="nav-bg" />
