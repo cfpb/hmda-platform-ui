@@ -10,7 +10,11 @@ import './ParseErrors.css'
 const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 
 export const renderTSErrors = ({ transmittalSheetErrors }) => {
+
   if (transmittalSheetErrors.length === 0) return null
+
+  let tsErrorMessages =errorResponseParser(transmittalSheetErrors)
+
   return (
     <table width="100%">
       <caption>
@@ -23,17 +27,15 @@ export const renderTSErrors = ({ transmittalSheetErrors }) => {
       <thead>
         <tr>
           <th>Row</th>
-          <th>Transmittal Sheet Errors</th>
+          <th>ULI</th>
+          <th>TS Data Field</th>
+          <th>Found Value</th>
+          <th>Valid Value</th>
         </tr>
       </thead>
       <tbody>
-        {transmittalSheetErrors.map((tsError, i) => {
-          return (
-            <tr key={i}>
-              <td>1</td>
-              <td>{tsError}</td>
-            </tr>
-          )
+        {tsErrorMessages.map((tsError) => {
+          return (tsError)
         })}
       </tbody>
     </table>
@@ -42,6 +44,9 @@ export const renderTSErrors = ({ transmittalSheetErrors }) => {
 
 export const renderLarErrors = ({ larErrors, ...props }) => {
   if (larErrors.length === 0) return null
+
+  let larErrorMessages =errorResponseParser(larErrors)
+
   const caption = (
     <caption>
       <h3>LAR Errors</h3>
@@ -58,19 +63,15 @@ export const renderLarErrors = ({ larErrors, ...props }) => {
       <thead>
         <tr>
           <th>Row</th>
-          <th>Errors</th>
+          <th>ULI</th>
+          <th>LAR Data Field</th>
+          <th>Found Value</th>
+          <th>Valid Value</th>
         </tr>
       </thead>
       <tbody>
-        {larErrors.map((larErrorObj, i) => {
-          return larErrorObj.errorMessages.map((message, i) => {
-            return (
-              <tr key={i}>
-                <td>{larErrorObj.rowNumber}</td>
-                <td>{message}</td>
-              </tr>
-            )
-          })
+      {larErrorMessages.map((larError) => {
+          return (larError)
         })}
       </tbody>
     </table>
@@ -124,6 +125,30 @@ class ParseErrors extends Component {
       </section>
     )
   }
+}
+
+function errorResponseParser(errorResponse) {
+  let tsErrorMessages =[]
+
+  errorResponse.forEach(function(errorsFound) {
+    if(errorsFound && errorsFound.errorMessages)
+    for (const [index, errorMessage] of errorsFound.errorMessages.entries()) {
+      let inputContent = errorMessage.inputValue
+
+      if (!errorMessage.inputValue) inputContent = <em>(blank)</em>
+ 
+      tsErrorMessages.push(
+        <tr key={index}>
+          <td>{errorsFound.rowNumber}</td>
+          <td>{errorsFound.estimatedULI}</td>
+          <td>{errorMessage.fieldName}</td>
+          <td>{inputContent}</td>
+          <td> {errorMessage.validValues}</td>
+         </tr>
+      );
+    }
+})
+return tsErrorMessages
 }
 
 ParseErrors.propTypes = {
