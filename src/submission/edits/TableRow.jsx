@@ -5,7 +5,6 @@ import EditsTableCell from './TableCell.jsx'
 
 const EditsTableRow = props => {
 
-  console.log("table row props ",props)
   if (!props.row) return null
 
   const cells = []
