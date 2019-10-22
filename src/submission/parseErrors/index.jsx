@@ -12,8 +12,8 @@ const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 export const renderTSErrors = ({ transmittalSheetErrors }) => {
 
   if (transmittalSheetErrors.length === 0) return null
-
-  let tsErrorMessages =errorResponseParser(transmittalSheetErrors)
+ let uliNeeded=false
+  let tsErrorMessages =errorResponseParser(transmittalSheetErrors,uliNeeded)
 
   return (
     <table width="100%">
@@ -27,7 +27,6 @@ export const renderTSErrors = ({ transmittalSheetErrors }) => {
       <thead>
         <tr>
           <th>Row</th>
-          <th>ULI</th>
           <th>TS Data Field</th>
           <th>Found Value</th>
           <th>Valid Value</th>
@@ -45,7 +44,8 @@ export const renderTSErrors = ({ transmittalSheetErrors }) => {
 export const renderLarErrors = ({ larErrors, ...props }) => {
   if (larErrors.length === 0) return null
 
-  let larErrorMessages =errorResponseParser(larErrors)
+  let uliNeeded=true
+  let larErrorMessages =errorResponseParser(larErrors,uliNeeded)
 
   const caption = (
     <caption>
@@ -127,7 +127,7 @@ class ParseErrors extends Component {
   }
 }
 
-function errorResponseParser(errorResponse) {
+function errorResponseParser(errorResponse, uliNeeded) {
   let tsErrorMessages =[]
 
   errorResponse.forEach(function(errorsFound) {
@@ -140,7 +140,7 @@ function errorResponseParser(errorResponse) {
       tsErrorMessages.push(
         <tr key={index}>
           <td>{errorsFound.rowNumber}</td>
-          <td>{errorsFound.estimatedULI}</td>
+          {uliNeeded &&<td>{errorsFound.estimatedULI}</td>}
           <td>{errorMessage.fieldName}</td>
           <td>{inputContent}</td>
           <td> {errorMessage.validValues}</td>
