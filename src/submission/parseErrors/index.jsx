@@ -128,7 +128,7 @@ class ParseErrors extends Component {
 }
 
 function errorResponseParser(errorResponse, uliNeeded) {
-  let tsErrorMessages =[]
+  let apiErrorMessages =[]
 
   errorResponse.forEach(function(errorsFound) {
     if(errorsFound && errorsFound.errorMessages)
@@ -137,7 +137,7 @@ function errorResponseParser(errorResponse, uliNeeded) {
 
       if (!errorMessage.inputValue) inputContent = <em>(blank)</em>
  
-      tsErrorMessages.push(
+      apiErrorMessages.push(
         <tr key={index}>
           <td>{errorsFound.rowNumber}</td>
           {uliNeeded &&<td>{errorsFound.estimatedULI}</td>}
@@ -148,7 +148,7 @@ function errorResponseParser(errorResponse, uliNeeded) {
       );
     }
 })
-return tsErrorMessages
+return apiErrorMessages
 }
 
 ParseErrors.propTypes = {
