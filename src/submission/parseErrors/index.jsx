@@ -12,7 +12,7 @@ const RefileWarning = submissionProgressHOC(RefileWarningComponent)
 export const renderTSErrors = ({ transmittalSheetErrors }) => {
 
   if (transmittalSheetErrors.length === 0) return null
- let uliNeeded=false
+  let uliNeeded=false
   let tsErrorMessages =errorResponseParser(transmittalSheetErrors,uliNeeded)
 
   return (
@@ -33,9 +33,7 @@ export const renderTSErrors = ({ transmittalSheetErrors }) => {
         </tr>
       </thead>
       <tbody>
-        {tsErrorMessages.map((tsError) => {
-          return (tsError)
-        })}
+        {tsErrorMessages}
       </tbody>
     </table>
   )
@@ -70,9 +68,7 @@ export const renderLarErrors = ({ larErrors, ...props }) => {
         </tr>
       </thead>
       <tbody>
-      {larErrorMessages.map((larError) => {
-          return (larError)
-        })}
+      {larErrorMessages}
       </tbody>
     </table>
   )
@@ -130,17 +126,17 @@ class ParseErrors extends Component {
 function errorResponseParser(errorResponse, uliNeeded) {
   let apiErrorMessages =[]
 
-  errorResponse.forEach(function(errorsFound) {
+  errorResponse.forEach(function(errorsFound,i) {
     if(errorsFound && errorsFound.errorMessages)
     for (const [index, errorMessage] of errorsFound.errorMessages.entries()) {
       let inputContent = errorMessage.inputValue
 
-      if (!errorMessage.inputValue) inputContent = <em>(blank)</em>
+      if (errorMessage.inputValue==='') inputContent = <em>(blank)</em>
  
       apiErrorMessages.push(
-        <tr key={index}>
+        <tr key={`${i}${index}`}>
           <td>{errorsFound.rowNumber}</td>
-          {uliNeeded &&<td>{errorsFound.estimatedULI}</td>}
+          {uliNeeded ? <td>{errorsFound.estimatedULI}</td>:null}
           <td>{errorMessage.fieldName}</td>
           <td>{inputContent}</td>
           <td> {errorMessage.validValues}</td>
