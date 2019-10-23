@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import EditsTableCell from './TableCell.jsx'
 
 const EditsTableRow = props => {
+
   if (!props.row) return null
 
   const cells = []
@@ -12,7 +13,7 @@ const EditsTableRow = props => {
   cells.push(<EditsTableCell key={++cellCount} cell={props.row.id} />)
 
   props.row.fields.forEach(field => {
-    cells.push(<EditsTableCell key={++cellCount} cell={field.value} />)
+    cells.push(<EditsTableCell key={++cellCount} cell={field.value} cellName={field.name} />)
   })
 
   return <tr>{cells}</tr>
