@@ -83,10 +83,11 @@ class ParseErrors extends Component {
 
   render() {
     const props = this.props
-
+    
     if (!props.fetched) return <Loading />
 
     const errorText = props.pagination.total > 1 ? 'Rows' : 'Row'
+    const filingPeriod=props.filingPeriod
 
     return (
       <section
@@ -107,11 +108,11 @@ class ParseErrors extends Component {
             <a
               rel="noopener noreferrer"
               target="_blank"
-              href="https://s3.amazonaws.com/cfpb-hmda-public/prod/help/2018-hmda-fig-2018-hmda-rule.pdf"
+              href={figYearSelector('2019')}
             >
               Filing Instructions Guide
             </a>{' '}
-            for data collected in 2018 incorporating the 2018 HMDA Rule.
+            for data collected in {filingPeriod} incorporating the {filingPeriod} HMDA Rule.
           </p>
         </header>
         {renderTSErrors(props)}
@@ -121,6 +122,16 @@ class ParseErrors extends Component {
       </section>
     )
   }
+}
+
+function figYearSelector(filingPeriod){
+
+  if(filingPeriod ==='2019'){
+    return 'https://s3.amazonaws.com/cfpb-hmda-public/prod/help/2019-hmda-fig.pdf'
+  }else
+{
+  return 'https://s3.amazonaws.com/cfpb-hmda-public/prod/help/2018-hmda-fig-2018-hmda-rule.pdf'
+}
 }
 
 function errorResponseParser(errorResponse, uliNeeded) {
