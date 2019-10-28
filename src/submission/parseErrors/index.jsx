@@ -128,10 +128,9 @@ function figYearSelector(filingPeriod){
 
   if(filingPeriod ==='2019'){
     return 'https://s3.amazonaws.com/cfpb-hmda-public/prod/help/2019-hmda-fig.pdf'
-  }else
-{
-  return 'https://s3.amazonaws.com/cfpb-hmda-public/prod/help/2018-hmda-fig-2018-hmda-rule.pdf'
-}
+  }else{
+    return 'https://s3.amazonaws.com/cfpb-hmda-public/prod/help/2018-hmda-fig-2018-hmda-rule.pdf'
+ }
 }
 
 function errorResponseParser(errorResponse, uliNeeded) {
