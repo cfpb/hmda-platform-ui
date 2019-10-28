@@ -108,7 +108,7 @@ class ParseErrors extends Component {
             <a
               rel="noopener noreferrer"
               target="_blank"
-              href={figYearSelector('2019')}
+              href={figYearSelector(filingPeriod)}
             >
               Filing Instructions Guide
             </a>{' '}
