@@ -108,7 +108,8 @@ class ParseErrors extends Component {
             <a
               rel="noopener noreferrer"
               target="_blank"
-              href={figYearSelector(filingPeriod)}
+              href={(filingPeriod==='2018')?'https://s3.amazonaws.com/cfpb-hmda-public/prod/help/2018-hmda-fig-2018-hmda-rule.pdf':
+              `https://s3.amazonaws.com/cfpb-hmda-public/prod/help/${filingPeriod}-hmda-fig.pdf` }
             >
               Filing Instructions Guide
             </a>{' '}
@@ -122,16 +123,6 @@ class ParseErrors extends Component {
       </section>
     )
   }
-}
-
-function figYearSelector(filingPeriod){
-
-  if(filingPeriod ==='2019'){
-    return 'https://s3.amazonaws.com/cfpb-hmda-public/prod/help/2019-hmda-fig.pdf'
-  }
-  else{
-    return 'https://s3.amazonaws.com/cfpb-hmda-public/prod/help/2018-hmda-fig-2018-hmda-rule.pdf'
- }
 }
 
 function errorResponseParser(errorResponse, uliNeeded) {
