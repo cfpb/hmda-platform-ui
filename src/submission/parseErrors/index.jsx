@@ -113,7 +113,7 @@ class ParseErrors extends Component {
             >
               Filing Instructions Guide
             </a>{' '}
-            for data collected in {filingPeriod} incorporating the {filingPeriod} HMDA Rule.
+            for data collected in {filingPeriod}{(filingPeriod==='2018')? ` incorporating the ${filingPeriod} HMDA Rule.`:'.' }
           </p>
         </header>
         {renderTSErrors(props)}
