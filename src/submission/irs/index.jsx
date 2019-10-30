@@ -30,7 +30,7 @@ const filingPeriod=props.filingPeriod
         </p>
         <p className="text-small">
           Loan amounts in the IRS are binned and disclosed in accordance
-          with the {filingPeriod} HMDA data publication policy guidance. An overview
+          with the 2018 HMDA data publication policy guidance. An overview
           of the policy guidance can be found in this <a href="https://www.consumerfinance.gov/documents/7052/HMDA_Data_Disclosure_Policy_Guidance.Executive_Summary.FINAL.12212018.pdf">executive summary</a>.
         </p>
       </header>
