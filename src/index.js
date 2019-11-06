@@ -68,6 +68,7 @@ render(
     <Router history={history} render={applyRouterMiddleware(useScroll())}>
       <Redirect from="/" to="/filing/2018/"/>
       <Redirect from="/filing" to="/filing/2018/"/>
+      <Redirect from="/filing/2019" to="/filing/2018/"/>
       <Route path={'/filing/:filingPeriod/'} component={AppContainer}>
         <IndexRoute component={HomeContainer} />
         <Route
