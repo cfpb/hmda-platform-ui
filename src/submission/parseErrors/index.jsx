@@ -83,7 +83,7 @@ class ParseErrors extends Component {
 
   render() {
     const props = this.props
-    
+
     if (!props.fetched) return <Loading />
 
     const errorText = props.pagination.total > 1 ? 'Rows' : 'Row'
@@ -129,24 +129,26 @@ function errorResponseParser(errorResponse, uliNeeded) {
   let apiErrorMessages =[]
 
   errorResponse.forEach(function(errorsFound,i) {
-    if(errorsFound && errorsFound.errorMessages)
-    for (const [index, errorMessage] of errorsFound.errorMessages.entries()) {
-      let inputContent = errorMessage.inputValue
+    if(errorsFound && errorsFound.errorMessages) {
+      errorsFound.errorMessages.forEach(function(errorMessage, index){
+        let inputContent = errorMessage.inputValue
 
-      if (errorMessage.inputValue==='') inputContent = <em>(blank)</em>
- 
-      apiErrorMessages.push(
-        <tr key={`${i}${index}`}>
-          <td>{errorsFound.rowNumber}</td>
-          {uliNeeded ? <td>{errorsFound.estimatedULI}</td>:null}
-          <td>{errorMessage.fieldName}</td>
-          <td>{inputContent}</td>
-          <td> {errorMessage.validValues}</td>
-         </tr>
-      );
+        if (errorMessage.inputValue==='') inputContent = <em>(blank)</em>
+
+        apiErrorMessages.push(
+          <tr key={`${i}${index}`}>
+            <td>{errorsFound.rowNumber}</td>
+            {uliNeeded ? <td>{errorsFound.estimatedULI}</td>:null}
+            <td>{errorMessage.fieldName}</td>
+            <td>{inputContent}</td>
+            <td> {errorMessage.validValues}</td>
+           </tr>
+        )
+      })
     }
-})
-return apiErrorMessages
+  })
+
+  return apiErrorMessages
 }
 
 ParseErrors.propTypes = {
