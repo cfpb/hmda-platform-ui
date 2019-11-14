@@ -5,7 +5,7 @@ import ErrorWarning from '../common/ErrorWarning.jsx'
 import Institution from './Institution.jsx'
 import InstitutionsHeader from './Header.jsx'
 import sortInstitutions from '../utils/sortInstitutions.js'
-import YearSelector from '../common/YearSelector.jsx'
+import FilingPeriodSelector from '../common/FilingPeriodSelector'
 import Alert from '../common/Alert.jsx'
 
 import './Institutions.css'
@@ -26,8 +26,7 @@ const wrapLoading = (i = 0) => {
   )
 }
 
-const _whatToRender = ({ filings, institutions, submission }) => {
-
+const _whatToRender = ({ filings, institutions, submission, filingPeriod }) => {
   // we don't have institutions yet
   if (!institutions.fetched) return wrapLoading()
   // we don't have any associated institutions
@@ -51,31 +50,60 @@ const _whatToRender = ({ filings, institutions, submission }) => {
       </Alert>
     )
 
+
   // sorted to keep the listing consistent
   const sortedInstitutions = Object.keys(institutions.institutions).sort(
     sortInstitutions
   )
-  return sortedInstitutions.map((key, i) => {
-    const institution = institutions.institutions[key]
-    const institutionFilings = filings[institution.lei]
 
-    if (!institutionFilings || !institutionFilings.fetched) {
-      // filings are not fetched yet
-      return wrapLoading(i)
-    } else {
-      // we have good stuff
-      const filingObj = institutionFilings.filing
-      return (
-        <Institution
-          key={i}
-          filing={filingObj.filing}
-          institution={institution}
-          submission={_setSubmission(submission, filingObj)}
-          submissions={filingObj.submissions}
-        />
-      )
-    }
-  })
+  // const showingQuarterly = filingPeriod.indexOf('Q') > -1
+  const showingQuarterly = filingPeriod < '2019'
+
+  const filteredInstitutions = sortedInstitutions
+    .map((key, i) => {
+      const institution = institutions.institutions[key]
+      const institutionFilings = filings[institution.lei]
+
+      if (!institutionFilings || !institutionFilings.fetched) {
+        // filings are not fetched yet
+        return wrapLoading(i)
+      } else {
+        // we have good stuff
+
+        if (showingQuarterly && !institution.quarterlyFiler) return null
+
+        const filingObj = institutionFilings.filing
+        return (
+          <Institution
+            key={i}
+            filing={filingObj.filing}
+            institution={institution}
+            submission={_setSubmission(submission, filingObj)}
+            submissions={filingObj.submissions}
+          />
+        )
+      }
+    })
+    .filter(x => x)
+
+  if (filteredInstitutions.length === 0)
+    return (
+      <Alert heading='No associated quarterly filing institutions' type='info'>
+        <p>
+          None of your associated institutions are registered as quarterly filers for this period.
+          Please use&nbsp;
+          <a href='https://hmdahelp.consumerfinance.gov/accounthelp/'>
+            this form
+          </a>{' '}
+          and enter the necessary information, including your HMDA Platform
+          account email address in the &#34;Additional comments&#34; text box.
+          We will apply the update to your account, please check back 2 business
+          days after submitting your information.
+        </p>
+      </Alert>
+    )
+
+  return filteredInstitutions
 }
 
 export default class Institutions extends Component {
@@ -89,32 +117,35 @@ export default class Institutions extends Component {
             <InstitutionsHeader filingPeriod={filingPeriod} />
           ) : null}
 
-          <YearSelector filingPeriod={filingPeriod} pathname={location.pathname}/>
+          <FilingPeriodSelector
+            filingPeriod={filingPeriod}
+            pathname={location.pathname}
+          />
 
           {_whatToRender(this.props)}
 
           {this.props.institutions.fetched &&
-          Object.keys(this.props.institutions.institutions).length !== 0 ? (
-            <Alert
-              heading="Missing an institution?"
-              type="info"
-              headingType="small"
-            >
-              <p className="text-small">
-                In order to access the HMDA Platform, each of your institutions
-                must have a Legal Entity Identifier (LEI). In order to provide
+            Object.keys(this.props.institutions.institutions).length !== 0 ? (
+              <Alert
+                heading="Missing an institution?"
+                type="info"
+                headingType="small"
+              >
+                <p className="text-small">
+                  In order to access the HMDA Platform, each of your institutions
+                  must have a Legal Entity Identifier (LEI). In order to provide
                 your institution&#39;s LEI, please access{' '}
-                <a href="https://hmdahelp.consumerfinance.gov/accounthelp/">
-                  this form
+                  <a href="https://hmdahelp.consumerfinance.gov/accounthelp/">
+                    this form
                 </a>{' '}
-                and enter the necessary information, including your HMDA
-                Platform account email address in the &#34;Additional
-                comments&#34; text box. We will apply the update to your
-                account, please check back 2 business days after submitting your
-                information.
+                  and enter the necessary information, including your HMDA
+                  Platform account email address in the &#34;Additional
+                  comments&#34; text box. We will apply the update to your
+                  account, please check back 2 business days after submitting your
+                  information.
               </p>
-            </Alert>
-          ) : null}
+              </Alert>
+            ) : null}
         </div>
       </main>
     )
