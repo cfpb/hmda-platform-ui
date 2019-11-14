@@ -129,28 +129,26 @@ class ParseErrors extends Component {
 function errorResponseParser(errorResponse, uliNeeded) {
   let apiErrorMessages = []
 
-  errorResponse.forEach(function(errorsFound, i) {
-    if (errorsFound && errorsFound.errorMessages)
-      errorResponse.forEach(function(errorsFound, i) {
-        if (errorsFound && errorsFound.errorMessages) {
-          errorsFound.errorMessages.forEach(function(errorMessage, index) {
-            let inputContent = errorMessage.inputValue
+  errorResponse.forEach(function (errorsFound, i) {
+    if (errorsFound && errorsFound.errorMessages) {
+      errorsFound.errorMessages.forEach(function (errorMessage, index) {
+        let inputContent = errorMessage.inputValue
 
-            if (errorMessage.inputValue === '') inputContent = <em>(blank)</em>
+        if (errorMessage.inputValue === '') inputContent = <em>(blank)</em>
 
-            apiErrorMessages.push(
-              <tr key={`${i}${index}`}>
-                <td>{errorsFound.rowNumber}</td>
-                {uliNeeded ? <td>{errorsFound.estimatedULI}</td> : null}
-                <td>{errorMessage.fieldName}</td>
-                <td>{inputContent}</td>
-                <td> {errorMessage.validValues}</td>
-              </tr>
-            )
-          })
-        }
+        apiErrorMessages.push(
+          <tr key={`${i}${index}`}>
+            <td>{errorsFound.rowNumber}</td>
+            {uliNeeded ? <td>{errorsFound.estimatedULI}</td> : null}
+            <td>{errorMessage.fieldName}</td>
+            <td>{inputContent}</td>
+            <td> {errorMessage.validValues}</td>
+          </tr>
+        )
       })
+    }
   })
+
   return apiErrorMessages
 }
 
