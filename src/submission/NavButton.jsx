@@ -5,13 +5,12 @@ import Loading from '../common/Loading.jsx'
 import {
   VALIDATING,
   SYNTACTICAL_VALIDITY_EDITS,
-  MACRO_EDITS,
   VALIDATED
 } from '../constants/statusCodes.js'
 
 import './NavButton.css'
 
-const NavButton = ({ page, base, code, editsFetched, validationComplete, qualityExists, qualityVerified }) => {
+const NavButton = ({ page, base, code, editsFetched, validationComplete, qualityExists, qualityVerified, macroExists, macroVerified }) => {
   let className
   let suffix
   let spinOn = false
@@ -34,7 +33,7 @@ const NavButton = ({ page, base, code, editsFetched, validationComplete, quality
       break
     case 'macro':
       suffix = 'submission'
-      if (preError || code === MACRO_EDITS) className = 'hidden'
+      if (preError || macroExists && !macroVerified) className = 'hidden'
       break
     default:
       return null
