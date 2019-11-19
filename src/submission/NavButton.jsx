@@ -33,7 +33,7 @@ const NavButton = ({ page, base, code, editsFetched, validationComplete, quality
       break
     case 'macro':
       suffix = 'submission'
-      if (preError || macroExists && !macroVerified) className = 'hidden'
+      if (preError || (macroExists && !macroVerified)) className = 'hidden'
       break
     default:
       return null
