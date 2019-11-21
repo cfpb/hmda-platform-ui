@@ -16,8 +16,7 @@ const showWarning = props => {
 }
 
 const Signature = props => {
-  let isButtonDisabled =
-    (props.status.code === VALIDATED || props.status.code === NO_MACRO_EDITS) && props.checked ? false : true
+  let isButtonDisabled = props.checked ? false : true
 
   let isCheckBoxDisabled = props.status.code === SIGNED ? true : false
 

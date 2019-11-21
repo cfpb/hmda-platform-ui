@@ -80,14 +80,14 @@ export class SubmissionRouter extends Component {
   }
 
   getLatestPage() {
-    const {status, qualityExists, qualityVerified } = this.props.submission
+    const {status, qualityExists, qualityVerified, macroExists, macroVerified } = this.props.submission
     const { code } = status
 
     if (code <= VALIDATING || code === NO_QUALITY_EDITS) return 'upload'
-    if (code >= VALIDATED || code === NO_MACRO_EDITS) return 'submission'
     if (code === SYNTACTICAL_VALIDITY_EDITS) return 'syntacticalvalidity'
     if (code >= QUALITY_EDITS && qualityExists && !qualityVerified) return 'quality'
-    return 'macro'
+    if (code >= NO_MACRO_EDITS && macroExists && !macroVerified) return 'macro'
+    return 'submission'
   }
 
   route() {

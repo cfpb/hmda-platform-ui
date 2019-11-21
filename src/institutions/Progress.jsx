@@ -6,7 +6,6 @@ import {
   SYNTACTICAL_VALIDITY_EDITS,
   NO_QUALITY_EDITS,
   NO_MACRO_EDITS,
-  MACRO_EDITS,
   VALIDATED,
   SIGNED
 } from '../constants/statusCodes.js'
@@ -34,7 +33,7 @@ const navMap = {
   },
   'macro quality edits': {
     isErrored: submission => submission.macroExists && !submission.macroVerified,
-    isCompleted: submission => (submission.status.code > MACRO_EDITS || submission.status.code === NO_MACRO_EDITS) && (!submission.macroExists || submission.macroVerified),
+    isCompleted: submission => submission.status.code >= NO_MACRO_EDITS && (!submission.macroExists || submission.macroVerified),
     errorText: 'macro quality edits',
     completedText: 'macro quality edits verified'
   },

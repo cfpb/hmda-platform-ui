@@ -65,7 +65,6 @@ export default class EditsNav extends Component {
         isErrored: () => this.props.macroExists && !this.props.macroVerified,
         isCompleted: () =>
           this.navMap['macro quality edits'].isReachable() &&
-          (this.props.code > MACRO_EDITS || this.props.code === NO_MACRO_EDITS) &&
           (!this.props.macroExists || this.props.macroVerified),
         errorClass: 'warning-question',
         errorText: 'macro quality edits found',
@@ -73,7 +72,7 @@ export default class EditsNav extends Component {
         link: 'macro'
       },
       submission: {
-        isReachable: () => this.props.code >= VALIDATED || this.props.code === NO_MACRO_EDITS,
+        isReachable: () => this.navMap['macro quality edits'].isCompleted(),
         isErrored: () => false,
         isCompleted: () => this.props.code === SIGNED,
         completedText: 'submitted',
