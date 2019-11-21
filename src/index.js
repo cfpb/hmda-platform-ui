@@ -66,9 +66,8 @@ history.listen(location => {
 render(
   <Provider store={store}>
     <Router history={history} render={applyRouterMiddleware(useScroll())}>
-      <Redirect from="/" to="/filing/2018/"/>
-      <Redirect from="/filing" to="/filing/2018/"/>
-      <Redirect from="/filing/2019" to="/filing/2018/"/>
+      <Redirect from="/" to="/filing/2019/"/>
+      <Redirect from="/filing" to="/filing/2019/"/>
       <Route path={'/filing/:filingPeriod/'} component={AppContainer}>
         <IndexRoute component={HomeContainer} />
         <Route
