@@ -11,7 +11,7 @@ const CSVDownload = props => {
     <React.Fragment>
       <button
         className="CSVDownload"
-        onClick={props.onDownloadClick(lei, period, sequenceNumber)}
+        onClick={props.onDownloadClick(lei, formatPeriod(period), sequenceNumber)}
         style={props.inline ? { display: 'inline', marginTop: 0 } : null}
       >
         {props.text || 'download the edit report'}
@@ -20,6 +20,15 @@ const CSVDownload = props => {
       {props.isFetching ? <Loading className="LoadingInline" /> : null}
     </React.Fragment>
   )
+}
+
+export function formatPeriod(period) {
+  if (typeof period === 'string') return period
+
+  let { quarter, year } = period
+
+  if (!quarter) return `${year}`
+  return `${year}/quarter/${quarter.toUpperCase()}`
 }
 
 export default CSVDownload
