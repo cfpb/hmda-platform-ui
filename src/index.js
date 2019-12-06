@@ -24,6 +24,8 @@ import { setKeycloak } from './utils/keycloak.js'
 import { setStore } from './utils/store.js'
 import log from './utils/log.js'
 import appReducer from './reducers'
+import { fetchEnvConfig } from './utils/configUtils'
+import { setConfig } from './actions/setConfig'
 
 const middleware = [thunkMiddleware]
 
@@ -63,28 +65,40 @@ history.listen(location => {
   localStorage.setItem('hmdaHistory', JSON.stringify(location))
 })
 
-render(
-  <Provider store={store}>
-    <Router history={history} render={applyRouterMiddleware(useScroll())}>
-      <Redirect from="/" to="/filing/2019/"/>
-      <Redirect from="/filing" to="/filing/2019/"/>
-      <Route path={'/filing/:filingPeriod/'} component={AppContainer}>
-        <IndexRoute component={HomeContainer} />
-        <Route
-          path={'/filing/:filingPeriod/institutions'}
-          component={InstitutionContainer}
-        />
-        <Route
-          path={'/filing/:filingPeriod/:lei/'}
-          component={SubmissionRouter}
-        />
-        <Route
-          path={'/filing/:filingPeriod/:lei/*'}
-          component={SubmissionRouter}
-        />
-        <Route path={'/filing/:filingPeriod/*'} component={SubmissionRouter} />
-      </Route>
-    </Router>
-  </Provider>,
-  document.getElementById('root')
-)
+fetchEnvConfig()
+  .then(config => {
+    store.dispatch(setConfig(config))
+    renderWithPeriod(config.defaultPeriod)
+  })
+  .catch(() => {
+    store.dispatch(setConfig({ filingPeriods: ['2018'] }))
+    renderWithPeriod()
+  })
+
+function renderWithPeriod(defaultPeriod = 2018){
+  render(
+    <Provider store={store}>
+      <Router history={history} render={applyRouterMiddleware(useScroll())}>
+        <Redirect from="/" to={`/filing/${defaultPeriod}/`} />
+        <Redirect from="/filing" to={`/filing/${defaultPeriod}/`} />
+        <Route path={'/filing/:filingPeriod/'} component={AppContainer}>
+          <IndexRoute component={HomeContainer} />
+          <Route
+            path={'/filing/:filingPeriod/institutions'}
+            component={InstitutionContainer}
+          />
+          <Route
+            path={'/filing/:filingPeriod/:lei/'}
+            component={SubmissionRouter}
+          />
+          <Route
+            path={'/filing/:filingPeriod/:lei/*'}
+            component={SubmissionRouter}
+          />
+          <Route path={'/filing/:filingPeriod/*'} component={SubmissionRouter} />
+        </Route>
+      </Router>
+    </Provider>,
+    document.getElementById('root')
+  )
+}

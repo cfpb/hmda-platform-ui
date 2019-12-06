@@ -9,8 +9,6 @@ import * as AccessToken from './api/AccessToken.js'
 import { getKeycloak, refresh } from './utils/keycloak.js'
 import isRedirecting from './actions/isRedirecting.js'
 import updateFilingPeriod from './actions/updateFilingPeriod.js'
-import { FILING_PERIODS } from './constants/dates.js'
-//import { error } from './utils/log.js'
 import browser from 'detect-browser'
 
 import 'normalize.css'
@@ -57,7 +55,7 @@ export class AppContainer extends Component {
   }
 
   render() {
-    const { params, location } = this.props
+    const { params, location, config } = this.props
     return (
       <div className="AppContainer">
         <a className="skipnav" href="#main-content">
@@ -65,7 +63,7 @@ export class AppContainer extends Component {
         </a>
         <Header filingPeriod={params.filingPeriod} pathname={location.pathname} />
         <ConfirmationModal />
-        {FILING_PERIODS.indexOf(params.filingPeriod) !== -1
+        {config.filingPeriods.indexOf(params.filingPeriod) !== -1
           ? this._renderAppContents(this.props)
           : params.filingPeriod === '2017'
             ? <p className="usa-grid-full">Files are no longer being accepted for the 2017 filing period. For further assistance, please contact <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.</p>
@@ -78,10 +76,11 @@ export class AppContainer extends Component {
 }
 
 export function mapStateToProps(state) {
-  const { redirecting } = state.app
+  const { redirecting, config } = state.app
 
   return {
-    redirecting
+    redirecting,
+    config
   }
 }
 
