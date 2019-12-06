@@ -65,7 +65,7 @@ export class AppContainer extends Component {
         </a>
         <Header filingPeriod={params.filingPeriod} pathname={location.pathname} />
         <ConfirmationModal />
-        {FILING_PERIODS.indexOf(params.filingPeriod) !== -1
+        {FILING_PERIODS.indexOf(params.filingPeriod.split('-')[0]) !== -1
           ? this._renderAppContents(this.props)
           : params.filingPeriod === '2017'
             ? <p className="usa-grid-full">Files are no longer being accepted for the 2017 filing period. For further assistance, please contact <a href="mailto:hmdahelp@cfpb.gov">HMDA Help</a>.</p>

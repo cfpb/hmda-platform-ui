@@ -1,5 +1,6 @@
 import React from 'react'
 import Loading from './Loading.jsx'
+import { formatPeriod } from '../api/utils'
 
 import './CSVDownload.css'
 
@@ -20,15 +21,6 @@ const CSVDownload = props => {
       {props.isFetching ? <Loading className="LoadingInline" /> : null}
     </React.Fragment>
   )
-}
-
-export function formatPeriod(period) {
-  if (typeof period === 'string') return period
-
-  let { quarter, year } = period
-
-  if (!quarter) return `${year}`
-  return `${year}/quarter/${quarter.toUpperCase()}`
 }
 
 export default CSVDownload
