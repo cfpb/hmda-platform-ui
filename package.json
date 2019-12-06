@@ -39,6 +39,7 @@
     "react-router-redux": "4.0.7",
     "react-router-scroll": "0.4.4",
     "react-scripts": "2.0.5",
+    "react-select": "^3.0.8",
     "redux": "3.6.0",
     "redux-logger": "2.7.4",
     "redux-thunk": "2.1.0"

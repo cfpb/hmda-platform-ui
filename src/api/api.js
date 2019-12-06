@@ -1,23 +1,24 @@
 import { fetch } from './fetch.js'
+import { yearQuarterToPath } from './utils.js'
 
 export function getInstitution(lei, filing) {
-  return fetch({ pathname: `/institutions/${lei}/year/${filing}` })
+  return fetch({ pathname: `/institutions/${lei}/year/${yearQuarterToPath(filing)}` })
 }
 
 export function createSubmission(lei, filing) {
   return fetch({
-    pathname: `/institutions/${lei}/filings/${filing}/submissions`,
+    pathname: `/institutions/${lei}/filings/${yearQuarterToPath(filing)}/submissions`,
     method: 'POST'
   })
 }
 
 export function getFiling(lei, filing) {
-  return fetch({ pathname: `/institutions/${lei}/filings/${filing}` })
+  return fetch({ pathname: `/institutions/${lei}/filings/${yearQuarterToPath(filing)}` })
 }
 
 export function createFiling(lei, filing) {
   return fetch({
-    pathname: `/institutions/${lei}/filings/${filing}`,
+    pathname: `/institutions/${lei}/filings/${yearQuarterToPath(filing)}`,
     method: 'POST'
   })
 }
