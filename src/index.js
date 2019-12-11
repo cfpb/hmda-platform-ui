@@ -24,7 +24,7 @@ import { setKeycloak } from './utils/keycloak.js'
 import { setStore } from './utils/store.js'
 import log from './utils/log.js'
 import appReducer from './reducers'
-import { fetchEnvConfig } from './utils/configUtils'
+import { fetchEnvConfig, getEnvConfig } from './utils/configUtils'
 import { setConfig } from './actions/setConfig'
 
 const middleware = [thunkMiddleware]
@@ -67,8 +67,9 @@ history.listen(location => {
 
 fetchEnvConfig()
   .then(config => {
-    store.dispatch(setConfig(config))
-    renderWithPeriod(config.defaultPeriod)
+    const envConfig = getEnvConfig(config, window.location.host)
+    store.dispatch(setConfig(envConfig))
+    renderWithPeriod(envConfig.defaultPeriod)
   })
   .catch(() => {
     store.dispatch(setConfig({ filingPeriods: ['2018'] }))
