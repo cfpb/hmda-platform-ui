@@ -9,6 +9,7 @@ export class HomeContainer extends Component {
       <Home
         pathname={this.props.location.pathname}
         filingPeriod={this.props.params.filingPeriod}
+        config={this.props.config}
       />
     )
     return <InstitutionsContainer />
@@ -17,7 +18,8 @@ export class HomeContainer extends Component {
 
 export function mapStateToProps(state) {
   return {
-    user: state.app.user.oidc
+    user: state.app.user.oidc,
+    config: state.app.config
   }
 }
 

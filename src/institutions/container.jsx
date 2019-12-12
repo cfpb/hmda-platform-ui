@@ -30,7 +30,7 @@ export class InstitutionContainer extends Component {
 }
 
 export function mapStateToProps(state, ownProps) {
-  const { institutions, filings, submission, error } = state.app
+  const { institutions, filings, submission, error, config } = state.app
   const { filingPeriod } = ownProps.params
 
   return {
@@ -38,7 +38,8 @@ export function mapStateToProps(state, ownProps) {
     filingPeriod,
     institutions,
     filings,
-    error
+    error,
+    config
   }
 }
 

@@ -80,7 +80,7 @@ const _whatToRender = ({ filings, institutions, submission }) => {
 
 export default class Institutions extends Component {
   render() {
-    const { error, filingPeriod, location } = this.props
+    const { error, filingPeriod, location, config } = this.props
     return (
       <main id="main-content" className="Institutions usa-grid-full">
         {error ? <ErrorWarning error={error} /> : null}
@@ -89,7 +89,7 @@ export default class Institutions extends Component {
             <InstitutionsHeader filingPeriod={filingPeriod} />
           ) : null}
 
-          <YearSelector filingPeriod={filingPeriod} pathname={location.pathname}/>
+          <YearSelector filingPeriod={filingPeriod} pathname={location.pathname} config={config} />
 
           {_whatToRender(this.props)}
 
@@ -126,5 +126,6 @@ Institutions.propTypes = {
   error: PropTypes.object,
   filings: PropTypes.object,
   filingPeriod: PropTypes.string,
-  institutions: PropTypes.object
+  institutions: PropTypes.object,
+  config: PropTypes.object
 }
